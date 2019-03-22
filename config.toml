@@ -1,0 +1,13 @@
+baseURL = "https://alcarney.me"
+languageCode = "en-us"
+title = "Blog"
+
+theme = "m10c"
+
+[params]
+author = "Alex Carney"
+description = "Software developer, amateur mathematician. I love to learn, try to animate and talk about it all to anyone who will listen"
+
+[[params.social]]
+name = "github"
+url = "https://github.com/alcarney"

@@ -1,0 +1,216 @@
+#+HUGO_BASE_DIR: ../
+#+HUGO_SECTION: ./blog/
+#+HUGO_CODE_FENCE: nil
+
+* TODO Post on Sphinx referencing
+* TODO Post on python namespace packages
+* TODO Post on python entry points.
+* TODO TIL: Python has a ~cmd~ module                  :stylo:python:til:cli:
+* DONE Introducing Stylo Doodles!                              :stylo:python:
+:PROPERTIES:
+:EXPORT_DATE: 2018-10-12
+:EXPORT_FILE_NAME: introducing-stylo-doodles
+:EXPORT_DESCRIPTION: Introducing the new community gallery for stylo
+:END:
+
+A few weeks back at [[https://2018.pyconuk.org/][PyConUK]] I gave my first [[https://youtu.be/F5jSUJVymXk?t=3480][lighting talk]]
+at a conference. During that talk I spoke publically about [[https://github.com/alcarney/stylo][stylo]] for
+the first time. Stylo is a Python library that I have been working on for just
+over a year and a half and it aims to make the creation of images easier by
+bringing together ideas from programming and mathematics.
+
+Version [[https://alcarney.github.io/stylo/changes.html][0.6.0]] was recently released which included the first feature
+that wasn't written by me! It's very exciting not only to see other people
+starting to take an interest in the project but taking the time to make a
+contribution!
+
+Now that stylo seems to be getting to the point that it might me useful to
+other people wouldn't it be great if there was a community driven example
+gallery that people could get inspired by? - Well now there is! And it's
+called [[https://alcarney.github.io/stylo-doodles][Stylo Doodles]]
+
+[[/images/stylo-doodles.png]]
+
+All the examples are written as a [[https://jupyter.org][Jupyter Notebook]] and can be submitted to the
+gallery by opening a pull request against the stylo-doodles [[https://github.com/alcarney/stylo-doodles][repository]]. A small
+python application is then run that builds the website and pushes the update to
+the live website.
+
+** Current Features
+
+The gallery website is very new but it currently has the following features
+
+- All images are displayed in a grid on the homepage with the order randomly
+  chosen each time the website is built.
+- Each image has its own page (as shown above) which displays the full
+  resolution image along with information about the author, image and the
+  version of stylo used to generate it.
+- The source code from the notebook is extracted and is also displayed
+  alongside the image.
+- You can also play around with any example *live in your browser* if you
+  follow the [[https://mybinder.org/v2/gh/alcarney/stylo-doodles/master][binder]] link in the repository's README.
+
+** Adding Your Own Example
+
+If you have an image that you would like to share there are only a couple of
+things you need to do:
+
+1. Your image *must* be stored in a variable called ~image~. The build process
+   will [[https://jupyter-notebook.readthedocs.io/en/stable/examples/Notebook/Importing%2520Notebooks.html][import your notebook]] as a Python module and look for a variable called
+   ~image~.
+
+2. You also need to provide some additional information to the build system
+   about your example in the form of a Python dictionary. This dictionary
+   *must* be called ~info~ and it must be in *very first cell of the notebook*
+
+   #+BEGIN_SRC python
+   info = {
+        "title": "Jack-O-Lantern",
+        "author": "Alex Carney",
+        "github_username": "alcarney",
+        "stylo_version": "0.6.0",
+        "dimensions": (1920, 1080)
+    }
+   #+END_SRC
+
+   The ~stylo_version~ field should be set to the value of ~stylo.__version__~
+   at the time you created your image. The ~dimensions~ is tuple of the form
+   ~(width, height)~ and will be used by the build system to determine the size
+   of the image (in pixels) when it renders the full size copy for its detail
+   page.
+
+3. Once your example is ready open a pull request adding your notebook to the
+   ~notebooks/~ folder to the repository.
+
+Be sure to check out the existing [[https://github.com/alcarney/stylo-doodles/tree/master/notebooks][examples]] to use as a guide or drop by the
+stylo [[https://gitter.im/stylo-py/Lobby][Gitter]] room if you get stuck we'll be more than happy to help!
+
+** Future Developments
+
+Stylo Doodles is far from finished aside from adding examples there are many
+more things that could be added to the website:
+
+- *User profiles:* A page for every author, which lists the examples they
+  have contributed to the gallery.
+
+- *Search*: As the number of images grow users would probably want to be able
+  to tag their images and be able to narrow down the list of images on the
+  homepage.
+
+- *Recently Added:* Since the order of the homepage is random, as the number
+  of images increases the chance of a new image being buried at the bottom will
+  also increase, it would be good to have a way of sorting the images by date
+  added.
+
+- *Descriptions:* Jupyter Notebooks support more than just code. Cells
+  containing markdown can be placed in between code cells to provide extra
+  context and explanation. It would be great if we could include these on the
+  site as well.
+
+If you are looking for a web based python project to get involved with this
+would be a great one to get started with and I would be more than happy to have
+a few contribuitors to work on this (or even stylo itself!) with me.
+
+* DONE I've Started a Blog... Again!                               :blogging:
+:PROPERTIES:
+:EXPORT_DATE: 2018-09-22
+:EXPORT_FILE_NAME: first-article
+:EXPORT_DESCRIPTION: First article with ox-hugo
+:END:
+
+Not that you would have known it, but I've had a blog since 2014.  Well 2015 if
+you're feeling generous, the first (and only) post went up in the last few
+hours of New Year's Eve. It was a look back on some of the projects I had
+worked on that year and I announced my intentions to start blogging.
+
+Fast forward nearly 4 years and here I am announcing my intentions to start
+blogging - *again*. So I guess you are wondering what happened?
+
+I got lost.
+
+My first attempt at running a blog was using [[https://jekyllrb.com][Jekyll]] and for some mystical reason
+(It's been so long I can't actually remember why), I decided that it was not the
+static site generator I was looking for. So I promptly set off on a voyage of
+discovery in search of the ultimate static site generator.
+
+Here is a list of some of the other static site generators I have played with
+over the years in no particular order:
+
+- [[http://www.metalsmith.io/][Metalsmith]]: Written in Javascript, this one appealed to me with
+  its "everything is a plugin" approach. In theory I should be able to add any
+  feature I wanted simply by finding/writing the right plugin.
+
+- [[https://jaspervdj.be/hakyll/][Hakyll]]: I was going through a Haskell phase and I thought it would
+  be a great idea to have my blog powered with it as well. *Haskell all the
+  things!*
+
+- [[http://www.sphinx-doc.org][Sphinx]]: Sphinx is an awesome tool for writing
+  documentation. A big part of that is [[http://docutils.sourceforge.net/rst.html][reStructuredText]], add in the [[https://ablog.readthedocs.io/][ABlog]]
+  extension and you should have a great setup for a blog.
+
+- [[https://blog.getpelican.com/][Pelican]] & [[https://getnikola.com/][Nikola]]: However as Sphinx is primarily built
+  for documentation projects, I found that I was fighting it more
+  than anything. That led me to take a look at Pelican and Nikola, both written
+  in Python and have support for reStructuredText and
+  [[http://jupyter.org/][Jupyter]].
+
+- [[https://vuepress.vuejs.org/][Vuepress]]: Having played around a bit with [[https://vuejs.org/][VueJS]], the
+  thought of being able to take a dynamic site written in a powerful frontend
+  framework and make a static site out of it seemed appealing. The best of both
+  worlds.
+
+- [[https://gohugo.io/][Hugo]]: Who *doesn't* want a static site generator written in Go? :)
+
+- [[https://www.gnu.org/software/emacs/][Emacs]] & [[https://orgmode.org/][org-mode]]: Yes, [[https://orgmode.org/worg/org-blog-wiki.html][you can]] use emacs
+  as a static site generator.
+
+At this point you might be wondering what was wrong with all of the above so
+that after nearly 4 years of tinkering I still had nothing to show for it?
+
+Nothing. Absolutely nothing.
+
+The problem was with me. I wanted complete control over the output, from the
+contents of ~<head>~ to the CSS styling of links. There would always
+be a point where I would start fighting against the very abstractions
+designed to make my life easier! It got to the point where I even tried writing
+my own static site generator...
+
+** A New Perspective
+
+After endless hours lost fiddling with scripts and stylesheets I stumbled
+across a quote on the internet that would snap me out of my spiral of perpetual
+procrastination.
+
+#+BEGIN_QUOTE
+    The technology you use *impresses no one*.
+
+    The experience you create with it is *everything*. -- [[https://twitter.com/ideakitchn?lang=en][Sean Gerety]]
+#+END_QUOTE
+
+I have found myself saying this again and again, so much so that I think it may
+have fundamentally altered the way I think about programming. I fell into a
+trap of getting caught up in the merits of the technology for the sake of the
+technology itself and lost sight of the experience - the blog itself.
+
+Rejuvenated I've gone back to where it all started and have started using [[https://jekyllrb.com][Jekyll]]
+again. I'm using the [[https://fongandrew.github.io/hydeout/][Hydeout]] theme as it's built in a way that allows me to make
+a few (minor!) tweaks of my own. Within a few hours I was already working on the
+draft that became this blog post, a place I never even got to in most of my
+previous attempts.
+
+It turns out that Markdown is a perfectly acceptable format for a blog. You
+don't have to engineer your blog's theme from the ground up especially when a
+prebuilt theme exists in the style you were going to build yourself anyway. It
+doesn't matter that your blog can seamlessly format a Jupyter Notebook as a
+regular blog post when you don't have any notebooks to publish in the first
+place...
+
+What matters is the content itself, that you have something interesting to say
+and you have some way of making that available to other people. Everything else
+is just an implementation detail, which if done right is invisible to the
+consumers of your content anyway.
+
+It's strange that I had learn something that is probably obvious to most people
+the hard way but I'm here now. If you are reading this then things are looking
+up but I can't quite declare victory as I'm no further forward than I was 4
+years ago, first let's see if I make it to blog post number #2...
