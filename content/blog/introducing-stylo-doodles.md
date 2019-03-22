@@ -23,7 +23,7 @@ other people wouldn't it be great if there was a community driven example
 gallery that people could get inspired by? - Well now there is! And it's
 called [Stylo Doodles](https://alcarney.github.io/stylo-doodles)
 
-{{< figure src="/images/stylo-doodles.png" >}}
+{{< figure src="/images/stylo-doodles.png" link="/images/stylo-doodles.png" >}}
 
 All the examples are written as a [Jupyter Notebook](https://jupyter.org) and can be submitted to the
 gallery by opening a pull request against the stylo-doodles [repository](https://github.com/alcarney/stylo-doodles). A small
