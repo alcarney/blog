@@ -3,6 +3,7 @@ languageCode = "en-us"
 title = "Blog"
 
 theme = "m10c"
+disqusShortname = "alcarney-me"
 
 [params]
 author = "Alex Carney"
