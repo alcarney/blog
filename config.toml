@@ -4,6 +4,7 @@ title = "Blog"
 
 theme = "m10c"
 disqusShortname = "alcarney-me"
+enableEmoji = true
 
 [params]
 author = "Alex Carney"
@@ -12,3 +13,19 @@ description = "Software developer, amateur mathematician. I love to learn, try t
 [[params.social]]
 name = "github"
 url = "https://github.com/alcarney"
+
+[[params.social]]
+name = "twitter"
+url = "https://twitter.com/alcarneyme"
+
+[[params.social]]
+name = "instagram"
+url = "https://instagram.com/alcarneyme"
+
+[[params.social]]
+name = "youtube"
+url = "https://www.youtube.com/channel/UC5GPflgRWhnCxA0BllfP5CA"
+
+[[params.social]]
+name = "pinterest"
+url = "https://www.pinterest.co.uk/alcarneyme/"
