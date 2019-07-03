@@ -1,8 +1,9 @@
 +++
 title = "Implementing Click & Drag with Vanilla JS"
 author = ["Alex Carney"]
+date = 2019-07-03T19:45:00+01:00
 tags = ["svg", "web", "js"]
-draft = true
+draft = false
 +++
 
 <figure>
@@ -12,6 +13,12 @@ draft = true
   </figcaption>
 </figure>
 <script type="text/javascript" src="/js/click-drag.js"></script>
+
+> **Disclaimer:**
+>
+> This post makes use of a number of interactive elements to help illustrate a few
+> concepts. Unfortunately these do not yet work on mobile devices - sorry mobile
+> users!
 
 I have for quite some time now wanted to play around with web development some
 more, particularly using web technologies to build user interfaces of some
@@ -147,8 +154,10 @@ circle.setAttribute("fill", "#57cc8a")
 canvas.appendChild(circle)
 {{< /highlight >}}
 
-**Note:** Of course the way in which you define the position of your interactive element
-will depend on the element you have chosen.
+> **Note:**
+>
+> Of course the way in which you define the position of your interactive element
+> will depend on the element you have chosen.
 
 
 ## Implementing the Drag {#implementing-the-drag}
@@ -162,7 +171,7 @@ canvas.addEventListener("mousemove", (event) => {
 })
 {{< /highlight >}}
 
-This function we write will be called every time the cursor moves regardless of
+The function we write will be called every time the cursor moves regardless of
 whether the user has clicked or not. This means our event handler has to be able
 to cope with two situations, the cursor moving when the user has clicked and the
 cursor moving when the user has not clicked.
@@ -177,7 +186,7 @@ let clicked = false
 
 For the moment we will ignore the details around how this variable is updated
 (it is covered in the next section), instead let's focus on being what we do
-once when the user has clicked on the circle.
+once while the cursor is moving about the page
 
 Let's get the simpler case out of the way first
 
@@ -197,10 +206,9 @@ if (!clicked) {
 
 ### Clicked {#clicked}
 
-We've finally reached the interesting part! The mouse is moving and the user has
-clicked on the circle, all we have to do now is update the position of the
-circle to match the cursor's current position. The only problem is... where
-is it?
+Now for the interesting part! The mouse is moving and the user has clicked on
+the circle, all we have to do now is update the position of the circle to match
+the cursor's current position. The only problem is... where is it?
 
 Like all mouse related events the `event` object passed into the event handler
 will contain a number of position related properties.
@@ -211,17 +219,23 @@ will contain a number of position related properties.
     target element
 -   `e.page<XY>`: Coordinates of the cursor with respect to the entire HTML page,
     including any portions of the page not currently visible
--   `e.screen<XY>`: Coordinates of the cursor with respect to the user's monitor
+-   `e.screen<XY>`: Coordinates of the cursor with respect to the user's display
 
 Reading through those descriptions you would imagine that the `e.offset<XY>`
 properties would be the best fit for our use case. However it's not quite as
-simple as that, however rather than try and tell you why it will be easier to
-show you.
+simple as that.
 
 Below you should see 2 boxes, the bigger one on the left is our canvas. The
-smaller box on the right containing the smaller circle represents the position
-of the cursor when we calculate it using the `offset<XY>` properties. Try moving
-the mouse across the canvas and keep an eye on the calculated position.
+smaller box on the right contains a smaller circle that represents the
+calculated position of the cursor based on the `offset<XY>` properties like so.
+
+{{< highlight javascript >}}
+const x = event.offsetX
+const y = event.offsetY
+{{< /highlight >}}
+
+Try moving the mouse across the canvas and keep an eye on the calculated
+position.
 
 <figure>
   <div id="offset-demo"
@@ -250,19 +264,35 @@ the mouse across the canvas and keep an eye on the calculated position.
 <script type="text/javascript" src="./js/click-drag-offset.js"></script>
 
 Notice the issue when we move across the circle? Why does the calculated
-position of the cursor suddenly jump whenever we touch the circle? The answer
-lies in the description of the `offset<XY>` property "with respect to the edge
-of the **target** element"
+position of the cursor suddenly jump whenever we touch it? The answer lies in
+the description of the `offset<XY>` property "with respect to the edge of the
+**target** element"
 
 When initially trying to implement this I incorrectly assumed that the target
 element meant the element that we attached the event listener to - the canvas. In
 fact the target element is whichever element is currently under the cursor
 
-To work around this issue we can however calculate the values we need
-ourselves. As stated above, the `client<XY>` properties give us the position of
-the cursor relative to the browser's current view of the page. We are also able
-to determine the position of the top-left corner of our canvas by making use of
-the bounding box object we used in the section about the `viewBox`.
+To work around this we can calculate the offset values we need ourselves. In
+order to do this we will make use of both the bounding box returned from the
+`canvas.getBoundingClientRect()` method as well as the `client<XY>` properties
+found on the mouse event.
+
+It turns out that the bounding box also returns the coordinates of the top left
+corner of the canvas relative to the user's current view of the document -
+exactly the same coordinate system used by the `client<XY>` properties! From
+those two pieces of information it's easy enough to recover the `offset<XY>`
+values ourselves.
+
+{{< highlight javascript >}}
+bbox = canvas.getBoundingClientRect()
+
+const x = event.clientX - bbox.left
+const y = event.clientY - bbox.top
+{{< /highlight >}}
+
+By calculating the coordinates from values based off of values independent of
+the element currently underneath the cursor we sidestep any issues that arise
+from a changing target. Try the same thing again on the canvas below.
 
 <figure>
   <div id="client-demo"
@@ -289,6 +319,14 @@ the bounding box object we used in the section about the `viewBox`.
   </figcaption>
 </figure>
 <script type="text/javascript" src="./js/click-drag-client.js"></script>
+
+> **Important:**
+>
+> Since the values `bbox.top` and `bbox.left` are defined relative to the user's
+> current view on the document these values are **not** constant. They will change
+> whenever the user alters their view of the page, this could mean actions like
+> resizing the window or scrolling. This is why we ask for an updated bounding box
+> while handling every event to ensure we compensate for these effects
 
 Once we know the position of the cursor, all that's left to do is to update the
 position of our `<circle>` element
