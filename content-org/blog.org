@@ -140,6 +140,10 @@ can apply to many kinds of interactions so in this instance I'm specifically
 referring to clicking on an SVG element moving it around on the page and then
 letting go of it again as illustrated by the demo above.
 
+#+BEGIN_EXPORT html
+<!--more-->
+#+END_EXPORT
+
 ** Setup
 
 All we need to get started is a HTML document that contains some markup which
@@ -653,6 +657,10 @@ Today I Learned that Python's standard library has a [[https://docs.python.org/3
 #+CAPTION: Interactive program using the cmd module.
 [[/images/cmd_python.gif][file:/images/cmd_python.gif]]
 
+#+BEGIN_EXPORT html
+<!--more-->
+#+END_EXPORT
+
 The [[https://docs.python.org/3/library/cmd.html][cmd]] module contains a single class called ~Cmd~ which handles all the
 details of creating an application similar to Python's REPL. All you need to do
 is to provide some command definitions and the ~Cmd~ class will handle the rest.
@@ -1025,6 +1033,10 @@ called [[https://alcarney.github.io/stylo-doodles][Stylo Doodles]]
 
 [[/images/stylo-doodles.png][file:/images/stylo-doodles.png]]
 
+#+BEGIN_EXPORT html
+<!--more-->
+#+END_EXPORT
+
 All the examples are written as a [[https://jupyter.org][Jupyter Notebook]] and can be submitted to the
 gallery by opening a pull request against the stylo-doodles [[https://github.com/alcarney/stylo-doodles][repository]]. A small
 python application is then run that builds the website and pushes the update to
@@ -1126,6 +1138,10 @@ My first attempt at running a blog was using [[https://jekyllrb.com][Jekyll]] an
 (It's been so long I can't actually remember why), I decided that it was not the
 static site generator I was looking for. So I promptly set off on a voyage of
 discovery in search of the ultimate static site generator.
+
+#+BEGIN_EXPORT html
+<!--more-->
+#+END_EXPORT
 
 Here is a list of some of the other static site generators I have played with
 over the years in no particular order:
