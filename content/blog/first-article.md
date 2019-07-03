@@ -1,6 +1,6 @@
 +++
 title = "I've Started a Blog… Again!"
-author = ["Alex"]
+author = ["Alex Carney"]
 description = "First article with ox-hugo"
 date = 2018-09-22
 tags = ["blogging"]
@@ -21,6 +21,8 @@ My first attempt at running a blog was using [Jekyll](https://jekyllrb.com) and 
 (It's been so long I can't actually remember why), I decided that it was not the
 static site generator I was looking for. So I promptly set off on a voyage of
 discovery in search of the ultimate static site generator.
+
+<!--more-->
 
 Here is a list of some of the other static site generators I have played with
 over the years in no particular order:

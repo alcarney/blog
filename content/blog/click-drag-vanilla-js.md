@@ -38,6 +38,8 @@ can apply to many kinds of interactions so in this instance I'm specifically
 referring to clicking on an SVG element moving it around on the page and then
 letting go of it again as illustrated by the demo above.
 
+<!--more-->
+
 
 ## Setup {#setup}
 
