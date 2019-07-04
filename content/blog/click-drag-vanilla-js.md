@@ -242,19 +242,20 @@ position.
 <figure>
   <div id="offset-demo"
        style="display:grid;grid-template-columns:50% auto;grid-gap:10px">
+  <h3 id="offset-title" style="margin: 0; padding: 15px; padding-top: 0">
+    Cursor Position: Offset
+  </h3>
+    <div>
+      <p style="margin:0;padding-left:20px">Target: <span id="offset-target"></span></p>
+      <p style="margin:0;padding-left:20px">Position: <span id="offset-position"></span></p>
+    </div>
     <svg width="100%"
          id="offset-demo-canvas"
          style="border: solid 2px #242930">
     </svg>
-    <div>
-      <h3 id="offset-title"
-          style="margin: 0; padding: 15px; padding-top: 0">Cursor Position: Offset</h3>
-      <p style="margin:0;padding-left:20px">Target: <span id="offset-target"></span></p>
-      <p style="margin:0;padding-left:20px">Position: <span id="offset-position"></span></p>
-      <svg width="50%"
-           id="offset-posbox"
-           style="border: solid 2px #242930;"><svg>
-    </div>
+    <svg width="50%"
+         id="offset-posbox"
+         style="border: solid 2px #242930;margin:auto"><svg>
   </div>
   <figcaption>
     <p>
@@ -299,19 +300,20 @@ from a changing target. Try the same thing again on the canvas below.
 <figure>
   <div id="client-demo"
        style="display:grid;grid-template-columns:50% auto;grid-gap:10px">
+    <h3 id="offset-title" style="margin: 0; padding: 15px; padding-top: 0">
+      Cursor Position: Client
+    </h3>
+    <div>
+      <p style="margin:0;padding-left:20px">Target: <span id="client-target"></span></p>
+      <p style="margin:0;padding-left:20px">Position: <span id="client-position"></span></p>
+    </div>
     <svg width="100%"
          id="client-demo-canvas"
          style="border: solid 2px #242930">
     </svg>
-    <div>
-      <h3 id="offset-title"
-          style="margin: 0; padding: 15px; padding-top: 0">Cursor Position: Client</h3>
-      <p style="margin:0;padding-left:20px">Target: <span id="client-target"></span></p>
-      <p style="margin:0;padding-left:20px">Position: <span id="client-position"></span></p>
       <svg width="50%"
            id="client-posbox"
-           style="border: solid 2px #242930;"><svg>
-    </div>
+           style="border: solid 2px #242930;margin:auto"><svg>
   </div>
   <figcaption>
     <p>
