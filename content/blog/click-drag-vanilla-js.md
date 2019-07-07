@@ -1,6 +1,7 @@
 +++
 title = "Implementing Click & Drag with Vanilla JS"
 author = ["Alex Carney"]
+description = "Implementing clicking and dragging of SVG elements using vanilla JavaScript"
 date = 2019-07-07T21:24:00+01:00
 tags = ["svg", "web", "js"]
 draft = false
