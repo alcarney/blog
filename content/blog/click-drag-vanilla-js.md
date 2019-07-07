@@ -187,8 +187,8 @@ let clicked = false
 {{< /highlight >}}
 
 For the moment we will ignore the details around how this variable is updated
-(it is covered in the next section), instead let's focus on being what we do
-once while the cursor is moving about the page
+(it is covered in the next section), instead let's focus on what we do while the
+cursor is moving about the page
 
 Let's get the simpler case out of the way first
 
@@ -209,7 +209,7 @@ if (!clicked) {
 ### Clicked {#clicked}
 
 Now for the interesting part! The mouse is moving and the user has clicked on
-the circle, all we have to do now is update the position of the circle to match
+the circle, all we have to do now is update its position to match
 the cursor's current position. The only problem is... where is it?
 
 Like all mouse related events the `event` object passed into the event handler
@@ -355,7 +355,7 @@ Since the mouse circle and the circle use different coordinate systems, we don't
 actually care about the exact position we have just calculated. What's more
 important is the position of the cursor relative to bounds of the canvas - a
 percentage. For example, let's say that the cursor was halfway down the canvas
-`50%` then we could calculate the corresponding coordinate value in the SVG
+(`50%`) then we could calculate the corresponding coordinate value in the SVG
 coordinate system by multiplying the total height by `50%`. In our particular
 case this would mean setting `y = 100 * 0.5 = 50`.
 
@@ -460,8 +460,8 @@ any real usage.
     at all. Currently whenever you pick up the circle its center snaps to the
     cursor's position. There may be situations where you would prefer the keep the
     object's relative position to the cursor e.g. fine adjustments, the last thing
-    you would want is for the object to jump to the cursor since the user happened
-    to click on it off center.
+    you would want is for the object to jump to the cursor just because the user
+    happened to click on it off center.
 
     A way around this would be to record the original positions of both the mouse
     cursor and the object on a click, then on each `mousemove` event calculate the
@@ -474,9 +474,9 @@ any real usage.
     the ability to click and drag on multiple objects. Adding support for this
     would require reworking at least some of the code, having the canvas object
     handle all mouse movements is probably a good idea but of course updating the
-    circle's position directly would have to change. It would probably also make
-    sense to move the click detection logic onto the canvas also, making use of
-    the `event.target` property to determine which object would need updating.
+    circle's position directly would have to change. It would probably make sense
+    to move the click detection logic onto the canvas also, making use of the
+    `event.target` property to determine which object would need updating.
 
 -   **Canvas Resizing**
 
@@ -515,7 +515,7 @@ is long enough already! - Perhaps this is why people use libraries for this kind
 of thing 🤔...
 
 I will leave you with the final version of the code that went into the demo you
-say at the start of this blog post so you can see it all in context. Hopefully
+saw at the start of this blog post so you can see it all in context. Hopefully
 you found this useful and I'll see you in the next one!
 
 {{< highlight javascript >}}
