@@ -102,6 +102,7 @@ drawGrid(canvas, viewBox, 20)
 CLOSED: [2019-07-07 Sun 21:24]
 :PROPERTIES:
 :EXPORT_FILE_NAME: click-drag-vanilla-js
+:EXPORT_DESCRIPTION: Implementing clicking and dragging of SVG elements using vanilla JavaScript
 :END:
 
 #+BEGIN_EXPORT html
