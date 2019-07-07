@@ -1,6 +1,6 @@
 +++
 title = "TIL: Python has a cmd module"
-author = ["Alex"]
+author = ["Alex Carney"]
 description = "Today I learned about Pyton's cmd module"
 date = 2019-01-05
 tags = ["stylo", "python", "til", "cli"]
@@ -10,6 +10,8 @@ draft = false
 Today I Learned that Python's standard library has a [cmd](https://docs.python.org/3/library/cmd.html) module and it is _awesome!_
 
 {{< figure src="/images/cmd_python.gif" caption="Figure 1: Interactive program using the cmd module." link="/images/cmd_python.gif" >}}
+
+<!--more-->
 
 The [cmd](https://docs.python.org/3/library/cmd.html) module contains a single class called `Cmd` which handles all the
 details of creating an application similar to Python's REPL. All you need to do

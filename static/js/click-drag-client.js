@@ -43,8 +43,8 @@ function clientDemo() {
         const x = event.clientX - bbox.left
         const y = event.clientY - bbox.top
 
-        position.innerText = "(" + x + "px, " + y + "px)"
-        target.innerText = "<" + event.target.tagName + ">"
+        position.innerText = `(${x.toFixed(0)}px, ${y.toFixed(0)}px)`
+        target.innerText = `<${event.target.tagName}>`
 
         point.setAttribute("cx", x / bbox.width)
         point.setAttribute("cy", y / bbox.height)

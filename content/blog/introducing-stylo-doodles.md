@@ -1,6 +1,6 @@
 +++
 title = "Introducing Stylo Doodles!"
-author = ["Alex"]
+author = ["Alex Carney"]
 description = "Introducing the new community gallery for stylo"
 date = 2018-10-12
 tags = ["stylo", "python"]
@@ -24,6 +24,8 @@ gallery that people could get inspired by? - Well now there is! And it's
 called [Stylo Doodles](https://alcarney.github.io/stylo-doodles)
 
 {{< figure src="/images/stylo-doodles.png" link="/images/stylo-doodles.png" >}}
+
+<!--more-->
 
 All the examples are written as a [Jupyter Notebook](https://jupyter.org) and can be submitted to the
 gallery by opening a pull request against the stylo-doodles [repository](https://github.com/alcarney/stylo-doodles). A small
