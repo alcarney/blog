@@ -99,7 +99,7 @@ drawGrid(canvas, viewBox, 20)
 #+END_SRC
 
 * DONE Implementing Click & Drag with Vanilla JS                 :svg:web:js:
-CLOSED: [2019-07-03 Wed 19:45]
+CLOSED: [2019-07-07 Sun 21:24]
 :PROPERTIES:
 :EXPORT_FILE_NAME: click-drag-vanilla-js
 :END:
