@@ -1,7 +1,7 @@
 +++
 title = "Implementing Click & Drag with Vanilla JS"
 author = ["Alex Carney"]
-date = 2019-07-03T19:45:00+01:00
+date = 2019-07-07T21:24:00+01:00
 tags = ["svg", "web", "js"]
 draft = false
 +++
