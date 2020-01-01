@@ -6,6 +6,9 @@ theme = "m10c"
 disqusShortname = "alcarney-me"
 enableEmoji = true
 
+[markup.goldmark.renderer]
+unsafe = true  # Allow raw html in posts
+
 [params]
 author = "Alex Carney"
 description = "Software developer, amateur mathematician. I love to learn, try to animate and talk about it all to anyone who will listen"
