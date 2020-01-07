@@ -8,7 +8,7 @@ draft = true
 +++
 
 Being an API for talking to various GPU and other compute devices every Vulkan
-program starts off by looking for an appropriate [physical device][vkphysicaldevice]
+program starts off by looking for an appropriate [physical device][VkPhysicalDevice]
 to use. In this post I write a little C program that simply initialises the Vulkan
 API and lists out the available devices in the system.
 
@@ -145,44 +145,120 @@ a fairly standard way with us including all the header files we need.
 {{< highlight c >}}
 #include <stdio.h>
 #include <vulkan/vulkan.h>
+
+int main() {
+    // Insert code...
+}
 {{< /highlight >}}
 
-Then
+Then we start by filling out the `VkApplicationInfo` and `VkInstanceCreateInfo` structs.
+Unsurprisingly the first is used to provide information about our application declare
+which version of the API information about our application such as the version of the
+API we wish to use. The application name and version fields are arbitrary and
+can be set to whatever you like.
 
 {{< highlight c >}}
-int main() {
+VkApplicationInfo app_info = {
+    .sType = VK_STRUCTURE_TYPE_APPLICATION_INFO,
+    .pApplicationName = "vkDevice Info",
+    .applicationVersion = VK_MAKE_VERSION(1,0,0),
+    .apiVersion = VK_API_VERSION_1_1,
+};
 
-    VkApplicationInfo app_info = {
-        .sType = VK_STRUCTURE_TYPE_APPLICATION_INFO,
-        .pApplicationName = "vkDevice Info",
-        .applicationVersion = 0x010000,
-        .pEngineName = "vkEngine",
-        .engineVersion = 0x010000,
-        .apiVersion = VK_API_VERSION_1_1,
-    };
+VkInstanceCreateInfo vk_info = {
+    .sType = VK_STRUCTURE_TYPE_INSTANCE_CREATE_INFO,
+    .pApplicationInfo = &app_info,
+};
+{{< /highlight >}}
 
-    VkInstanceCreateInfo vk_info = {
-        .sType = VK_STRUCTURE_TYPE_INSTANCE_CREATE_INFO,
-        .pApplicationInfo = &app_info,
-    };
+The `vk_info` struct is then be used to create the instance.
 
-    VkInstance vk = NULL;
-    VkResult res = vkCreateInstance(&vk_info, NULL, &vk);
+{{< highlight c >}}
+VkInstance vk = NULL;
+VkResult res = vkCreateInstance(&vk_info, NULL, &vk);
 
-    if (res != VK_SUCCESS) {
-        fprintf(stderr, "Unable to create VkInstance!\n");
-        return 0;
-    }
-
-    printf("Vulkan instance created!\n");
-
-    vkDestroyInstance(vk, NULL);
+if (res != VK_SUCCESS) {
+    fprintf(stderr, "Unable to create VkInstance!\n");
     return 0;
 }
 {{< /highlight >}}
 
+We also have to be sure to destroy the instance once we have finished with it
+
+{{< highlight c >}}
+
+// Code omitted...
+
+cleanup_instance:
+    vkDestroyInstance(vk, NULL);
+
+return 0;
+{{< /highlight >}}
+
+This is me attempting to apply [this][kernel-style] rule from the Linux kernel style
+guide to help manage resources through the lifetime of the program.
+
+## Listing Devices
+
+Now that we have an instance we can start querying the API for the physical devices that
+are in the system. The issue is however - we don't know how many devices the system has!
+To get around this we first have to call `vkEnumeratePhysicalDevices` with a `NULL`
+pointer, it will then mutate the `count` variable that we pass it to equal the number
+of available devices.
+
+Note that we skip straight to the `cleanup_instance` label we defined earlier if this
+step fails.
+
+{{< highlight c >}}
+uint32_t count = 0;
+res = vkEnumeratePhysicalDevices(vk, &count, NULL);
+if (res != VK_SUCCESS) {
+    fprintf(stderr, "Unable to enumerate physical devices\n");
+    goto cleanup_instance;
+}
+{{< /highlight >}}
+
+Next we attempt to allocate enough memory to store each of the devices in an array.
+
+{{< highlight c >}}
+VkPhysicalDevice* physical_devices = malloc(count * sizeof(VkPhysicalDevice));
+if (physical_devices == NULL) {
+    fprintf(stderr, "Unable to enumerate physical devices\n");
+    goto cleanup_instance;
+}
+{{< /highlight >}}
+
+Finally with the array allocated we can call `vkEnumeratePhysicalDevices` a second time
+to populate it. Notice how this time the error path has to jump to the `cleanup_devices`
+label so that we can be sure to `free` the newly allocated memory.
+
+{{< highlight c >}}
+res = vkEnumeratePhysicalDevices(vk, &count, physical_devices);
+if (res != VK_SUCCESS) {
+    fprintf(stderr, "Unable to enumerate physical devices\n");
+    goto cleanup_devices;
+}
+
+// Code omitted...
+
+cleanup_devices:
+    free(physical_devices);
+    physical_devices = NULL;
+
+cleanup_instance:
+    vkDestroyInstance(vk, NULL);
+{{< /highlight >}}
+
+> **Editor's Note:**
+>
+> As I was writing this post I looked up the [documentation][vkEnumeratePhysicalDevices]
+> for `vkEnumeratePhysicalDevices` and noticed that there is an different way to
+> approach this section.
+
 [autoconf]: https://www.gnu.org/software/autoconf/
 [cmake]: https://cmake.org/
+[kernel-style]: https://www.kernel.org/doc/html/v4.10/process/coding-style.html#centralized-exiting-of-functions
 [pattern-rule]: https://www.gnu.org/software/make/manual/make.html#Pattern-Rules
 [phony-target]: https://www.gnu.org/software/make/manual/make.html#Phony-Targets
-[vkphysicaldevice]: https://www.khronos.org/registry/vulkan/specs/1.1-extensions/man/html/VkPhysicalDevice.html
+[vkEnumeratePhysicalDevices]: https://www.khronos.org/registry/vulkan/specs/1.1-extensions/man/html/vkEnumeratePhysicalDevices.html
+[VkPhysicalDevice]: https://www.khronos.org/registry/vulkan/specs/1.1-extensions/man/html/VkPhysicalDevice.html
