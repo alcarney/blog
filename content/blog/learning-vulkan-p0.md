@@ -31,6 +31,7 @@ to the "drawing a triangle on screen" stage again. I imagine this will evolve
 into some kind of living document that I'll use to keep track of my progress - if I remember to update it that is!
 
 - [ ] Draw a triangle on screen
+  + [x] [Enumerating available VkPhysicalDevices]({{< relref "learning-vulkan-p1.md" >}})
 - [ ] OBJ object viewer
 - [ ] Ray Marching
 - [ ] Ray Tracing
