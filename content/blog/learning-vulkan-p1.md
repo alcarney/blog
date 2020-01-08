@@ -2,14 +2,14 @@
 title = "Learning Vulkan: Enumerating Physical Devices"
 author = ["Alex Carney"]
 description = "Enumerating Vulkan compatible physical devices"
-date = 2020-01-01T21:00:00+01:00
+date = 2020-01-08
 tags = ["c", "vulkan", "graphics"]
-draft = true
+draft = false
 +++
 
-Being an API for talking to various GPU and other compute devices every Vulkan
+Being an API for talking to GPUs and other compute devices every Vulkan
 program starts off by looking for an appropriate [physical device][VkPhysicalDevice]
-to use. In this post I write a little C program that simply initialises the Vulkan
+to use. In this post I write a little C program that initialises the Vulkan
 API and lists out the available devices in the system.
 
 {{< highlight plain >}}
@@ -24,20 +24,20 @@ Device Name:            Intel(R) HD Graphics 520 (Skylake GT2)
 
 <!--more-->
 
-> This is part of my "Learning Vulkan" series why I try to figure how to use
+> This is part of my "Learning Vulkan" series where I try to figure how to use
 > Vulkan to explore various concepts in graphics programming. As mentioned in
 > the [Overview]({{< relref "learning-vulkan-p0.md" >}}) I don't necessarily
 > know what I'm doing!
 
 ## Setup
 
-Unlike Python which has tools like `pip` and `venv` which are used to manage
-dependencies and create isolated envrionments, C projects (as far as I know)
+Unlike Python which has tools like `pip` and `venv` to manage
+dependencies and development environments, C projects (as far as I know)
 require the environment of your development machine to be "just right". This means
 details such as the host operating system and its libraries are more important
 than normal.
 
-Since this series is a learning excercise, being able to compile and run code
+Since this series is a learning exercise, being able to compile and run code
 across multiple systems is not a huge concern of mine right now. But here is a rough
 overview of what is required to build this project...
 
@@ -110,7 +110,7 @@ clean:
 Next I define the `default` target to be `vkdevice` so that I can just run `make` and
 have it build the project. Then there's a `clean` target so that it's easy to recompile
 everything from scratch. Declaring both `default` and `clean` to be
-[phony targets][phony-target] I think means we're tellling `make` not to look for
+[phony targets][phony-target] I think means we're telling `make` not to look for
 matching files on the filesystem.
 
 {{< highlight make >}}
@@ -144,6 +144,7 @@ a fairly standard way with us including all the header files we need.
 
 {{< highlight c >}}
 #include <stdio.h>
+#include <stdlib.h>
 #include <vulkan/vulkan.h>
 
 int main() {
@@ -152,10 +153,9 @@ int main() {
 {{< /highlight >}}
 
 Then we start by filling out the `VkApplicationInfo` and `VkInstanceCreateInfo` structs.
-Unsurprisingly the first is used to provide information about our application declare
-which version of the API information about our application such as the version of the
-API we wish to use. The application name and version fields are arbitrary and
-can be set to whatever you like.
+Unsurprisingly the first is used to provide information about our application such as
+the version of the API we wish to use. The application name and version fields are
+arbitrary and can be set to whatever we like.
 
 {{< highlight c >}}
 VkApplicationInfo app_info = {
@@ -203,7 +203,7 @@ guide to help manage resources through the lifetime of the program.
 Now that we have an instance we can start querying the API for the physical devices that
 are in the system. The issue is however - we don't know how many devices the system has!
 To get around this we first have to call `vkEnumeratePhysicalDevices` with a `NULL`
-pointer, it will then mutate the `count` variable that we pass it to equal the number
+pointer, it will then mutate the `count` variable that we give to be equal to the number
 of available devices.
 
 Note that we skip straight to the `cleanup_instance` label we defined earlier if this
@@ -252,13 +252,91 @@ cleanup_instance:
 > **Editor's Note:**
 >
 > As I was writing this post I looked up the [documentation][vkEnumeratePhysicalDevices]
-> for `vkEnumeratePhysicalDevices` and noticed that there is an different way to
-> approach this section.
+> for `vkEnumeratePhysicalDevices` and noticed that there is a different way to
+> approach this section. We could've instead decided on a fixed size array
+>
+> {{< highlight c >}}
+uint32_t MAX_DEVICES = 4;
+VkPhysicalDevice physical_devices[MAX_DEVICES];
+res = vkEnumeratePhysicalDevices(vk, &MAX_DEVICES, physical_devices);
+{{< /highlight >}}
+>
+> In this situation the function will return up to `MAX_DEVICES` and if there more
+> devices than can fit in the array then `res` will be set to `VK_INCOMPLETE` giving
+> us the option to try again with a larger array.
+>
+> This creates a dilemma - which approach is better? 🤔
+
+## Device Properties
+
+It turns out that a `VkPhysicalDevice` on its own is rather useless since it doesn't
+carry any information about itself. In order to find out more about what the device is
+and what features of the API it supports you need to call additional functions such as
+
+- [vkGetPhysicalDeviceProperties][vkGetPhysicalDeviceProperties]
+- [vkGetPhysicalDeviceImageFormatProperties][vkGetPhysicalDeviceImageFormatProperties]
+- [vkGetPhysicalDeviceQueueFamilyProperties][vkGetPhysicalDeviceQueueFamilyProperties]
+- and many more!!
+
+Typically as part of your program's setup you would call a number of these to gather
+information about support for features that matter to you to help decide which device
+is best suited to your use case. However for this toy program we're only going to call
+`vkGetPhysicalDeviceProperties` for each device which will give us information such as
+its name.
+
+{{< highlight c >}}
+for (uint32_t i = 0; i < count; i++) {
+    VkPhysicalDeviceProperties properties = {};
+    vkGetPhysicalDeviceProperties(physical_devices[i], &properties);
+{{< /highlight >}}
+
+Version numbers (`MAJOR.MINOR.PATCH`) in the Vulkan API are encoded into a single 32bit
+integer as defined in the [specification][vkVersionNumbers]. Thankfully the spec also
+defines a number of macros that make decoding them nice and easy for us.
+
+{{< highlight c >}}
+    uint32_t vk_major = VK_VERSION_MAJOR(properties.apiVersion);
+    uint32_t vk_minor = VK_VERSION_MINOR(properties.apiVersion);
+    uint32_t vk_patch = VK_VERSION_PATCH(properties.apiVersion);
+
+    uint32_t driver_major = VK_VERSION_MAJOR(properties.driverVersion);
+    uint32_t driver_minor = VK_VERSION_MINOR(properties.driverVersion);
+    uint32_t driver_patch = VK_VERSION_PATCH(properties.driverVersion);
+{{< /highlight >}}
+
+All that's left to do is to print out the information we have gathered.
+
+{{< highlight c>}}
+    printf("Device Name:     \t%s\n", properties.deviceName);
+    printf("  Type:          \t%s\n", vkPhysicalDeviceType_as_string(properties.deviceType));
+    printf("  Vendor ID:     \t%d\n", properties.vendorID);
+    printf("  Device ID:     \t%d\n", properties.deviceID);
+    printf("  API Version:   \tv%d.%d.%d\n", vk_major, vk_minor, vk_patch);
+    printf("  Driver Version:\tv%d.%d.%d\n", driver_major, driver_minor, driver_patch);
+}
+{{< /highlight >}}
+
+I should also note that `vkPhysicalDeviceType_as_string` is a helper function I
+defined that converts a member of the [vkPhysicalDeviceType][VkPhysicalDeviceType] enum
+into a string representation with a `switch` statement.
+
+## Conclusion
+
+And that's that! I've taken my first few baby steps with the Vulkan API and I hope that
+if you've read this far then this post was as useful to you as it was to me! If you are
+interested then you can see the full code listing [here][code] and I'll see you in the
+next one.
 
 [autoconf]: https://www.gnu.org/software/autoconf/
 [cmake]: https://cmake.org/
+[code]: https://github.com/alcarney/vk/blob/2e7daaa68d79c6467e91bbd9d5ebfcf34729f6a5/src/vkdevice.c
 [kernel-style]: https://www.kernel.org/doc/html/v4.10/process/coding-style.html#centralized-exiting-of-functions
 [pattern-rule]: https://www.gnu.org/software/make/manual/make.html#Pattern-Rules
 [phony-target]: https://www.gnu.org/software/make/manual/make.html#Phony-Targets
 [vkEnumeratePhysicalDevices]: https://www.khronos.org/registry/vulkan/specs/1.1-extensions/man/html/vkEnumeratePhysicalDevices.html
+[vkGetPhysicalDeviceImageFormatProperties]: https://www.khronos.org/registry/vulkan/specs/1.1-extensions/man/html/vkGetPhysicalDeviceImageFormatProperties.html
+[vkGetPhysicalDeviceQueueFamilyProperties]: https://www.khronos.org/registry/vulkan/specs/1.1-extensions/man/html/vkGetPhysicalDeviceQueueFamilyProperties.html
+[vkGetPhysicalDeviceProperties]: https://www.khronos.org/registry/vulkan/specs/1.1-extensions/man/html/vkGetPhysicalDeviceProperties.html
 [VkPhysicalDevice]: https://www.khronos.org/registry/vulkan/specs/1.1-extensions/man/html/VkPhysicalDevice.html
+[VkPhysicalDeviceType]: https://www.khronos.org/registry/vulkan/specs/1.1-extensions/man/html/VkPhysicalDeviceType.html
+[vkVersionNumbers]: https://www.khronos.org/registry/vulkan/specs/1.1-extensions/html/vkspec.html#extendingvulkan-coreversions-versionnumbers
