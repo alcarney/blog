@@ -74,14 +74,22 @@ figure {
     margin: auto;
 
     img {
+        border-radius: 5px;
         width: 100%;
     }
 
     figcaption {
+        color: var(--foreground-faint);
         text-align: center;
     }
 }
 
+pre {
+    padding: 1rem;
+    background: var(--background-dark);
+    border-radius: 5px;
+    border: solid 1px var(--primary);
+}
 
 body {
     display: grid;
@@ -110,4 +118,5 @@ main {
 
 @import 'sidebar';
 @import 'posts';
+@import 'footer';
 @import 'syntax';

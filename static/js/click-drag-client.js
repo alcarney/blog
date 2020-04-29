@@ -13,7 +13,7 @@ function clientDemo() {
     const height = 100
     const width = aspectRatio * height
 
-    const viewBox = {minX: 0, minY: 0, width: width, height: height}
+    const viewBox = { minX: 0, minY: 0, width: width, height: height }
     const viewBoxStr = [
         viewBox.minX, viewBox.minY, viewBox.width, viewBox.height
     ].join(" ")
@@ -24,7 +24,7 @@ function clientDemo() {
     circle.setAttribute("cx", viewBox.width / 2)
     circle.setAttribute("cy", viewBox.height / 2)
     circle.setAttribute("r", 25)
-    circle.setAttribute("fill", "#57cc8a")
+    circle.setAttribute("fill", "var(--primary)")
 
     canvas.appendChild(circle)
 
@@ -32,7 +32,7 @@ function clientDemo() {
     point.setAttribute("cx", 0)
     point.setAttribute("cy", 0)
     point.setAttribute("r", 0.05)
-    point.setAttribute("fill", "#57cc8a")
+    point.setAttribute("fill", "var(--primary)")
 
     posBox.appendChild(point)
 

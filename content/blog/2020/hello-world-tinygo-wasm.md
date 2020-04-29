@@ -222,7 +222,7 @@ of your TinyGo install, mine was located in `/usr/lib/tinygo/targets/wasm_exec.j
 More details on using the compiled WebAssembly module can be found in the TinyGo
 [documentation][tinygo-wasm].
 
-{{< figure src="/images/wasm-hello-world.png" caption=" This is probably my most convoluted 'Hello, World!' program to date!" link="/images/wasm-hello-world.png" >}}
+{{< figure src="/images/wasm-hello-world.png" caption="This is probably my most convoluted 'Hello, World!' program to date!" link="/images/wasm-hello-world.png" >}}
 
 All being well, you should be able to open your browser to the webpage we created above
 and see the message "Hello, World!" written to the console!

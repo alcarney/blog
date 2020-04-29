@@ -50,7 +50,7 @@ loading the code we write.
 
 {{< highlight html >}}
 <div id="main"></div>
-<script type="text/javascript" src="./click-drag.js"></script>
+<script type="text/javascript" src="/js/click-drag.js"></script>
 {{< /highlight >}}
 
 Then the first step is to create our SVG image element to act as our "canvas"
@@ -252,11 +252,11 @@ position.
     </div>
     <svg width="100%"
          id="offset-demo-canvas"
-         style="border: solid 2px #242930">
+         style="border: solid 2px var(--background-dark)">
     </svg>
     <svg width="50%"
          id="offset-posbox"
-         style="border: solid 2px #242930;margin:auto"><svg>
+         style="border: solid 2px var(--background-dark);margin:auto"><svg>
   </div>
   <figcaption>
     <p>
@@ -265,7 +265,7 @@ position.
     </p>
   </figcaption>
 </figure>
-<script type="text/javascript" src="./js/click-drag-offset.js"></script>
+<script type="text/javascript" src="/js/click-drag-offset.js"></script>
 
 Notice the issue when we move across the circle? Why does the calculated
 position of the cursor suddenly jump whenever we touch it? The answer lies in
@@ -310,11 +310,11 @@ changing target. Try the same thing again on the canvas below.
     </div>
     <svg width="100%"
          id="client-demo-canvas"
-         style="border: solid 2px #242930">
+         style="border: solid 2px var(--background-dark)">
     </svg>
       <svg width="50%"
            id="client-posbox"
-           style="border: solid 2px #242930;margin:auto"><svg>
+           style="border: solid 2px var(--background-dark);margin:auto"><svg>
   </div>
   <figcaption>
     <p>
@@ -323,7 +323,7 @@ changing target. Try the same thing again on the canvas below.
     </p>
   </figcaption>
 </figure>
-<script type="text/javascript" src="./js/click-drag-client.js"></script>
+<script type="text/javascript" src="/js/click-drag-client.js"></script>
 
 > **Important:**
 >

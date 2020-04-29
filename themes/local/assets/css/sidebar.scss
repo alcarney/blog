@@ -2,6 +2,7 @@
     background: var(--background-dark);
     color: var(--primary);
     min-height: 100vh;
+    grid-row: span 2;
 }
 
 .sidebar-upper-content {
@@ -11,7 +12,6 @@
 }
 
 .sidebar-lower-content {
-    height: 10em;
     position: sticky;
     top: calc(100vh - 7rem);
 }
