@@ -1,0 +1,24 @@
+<footer>
+    <div class="footer-content">
+        <div>
+            <h4>Site:</h4>
+            <ul>
+                <li>Hugo v{{ .Hugo.Version }}</li>
+                <li>Last Updated: {{ now.Format "15:04 Jan 2, 2006" }}</li>
+            </ul>
+        </div>
+        <div></div>
+        <div>
+            <h4>Credits:</h4>
+            <ul>
+                {{ range .Site.Params.credits }}
+                <li>
+                    <a target="_blank" rel="noreferrer noopener" href="{{ .url }}">
+                        {{ .name }}
+                    </a>
+                </li>
+                {{ end }}
+            </ul>
+        </div>
+    </div>
+</footer>

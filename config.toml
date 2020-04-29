@@ -2,9 +2,11 @@ baseURL = "https://alcarney.me"
 languageCode = "en-us"
 title = "Blog"
 
-theme = "m10c"
+theme = "local"
 disqusShortname = "alcarney-me"
 enableEmoji = true
+
+pygmentsUseClasses=true
 
 [markup.goldmark.renderer]
 unsafe = true  # Allow raw html in posts
@@ -29,6 +31,10 @@ url = "https://instagram.com/alcarneyme"
 name = "youtube"
 url = "https://www.youtube.com/channel/UC5GPflgRWhnCxA0BllfP5CA"
 
-[[params.social]]
-name = "pinterest"
-url = "https://www.pinterest.co.uk/alcarneyme/"
+[[params.credits]]
+name = "Nord Color Scheme"
+url = "https://github.com/arcticicestudio/nord"
+
+[[params.credits]]
+name = "Feather Icons"
+url = "https://github.com/feathericons/feather"

@@ -14,7 +14,7 @@ let bbox = canvas.getBoundingClientRect()
 const aspectRatio = bbox.width / bbox.height
 const height = 100
 const width = height * aspectRatio
-const viewBox = {minX: 0, minY: 0, width: width, height: height}
+const viewBox = { minX: 0, minY: 0, width: width, height: height }
 
 const viewBoxStr = [
   viewBox.minX, viewBox.minY, viewBox.width, viewBox.height
@@ -49,6 +49,6 @@ canvas.addEventListener("mousemove", (event) => {
 })
 
 // Click detection
-circle.addEventListener("mousedown",  (_) => { clicked = true })
+circle.addEventListener("mousedown", (_) => { clicked = true })
 circle.addEventListener("mouseup", (_) => { clicked = false })
 canvas.addEventListener("mouseleave", (_) => { clicked = false })
