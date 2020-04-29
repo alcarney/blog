@@ -61,6 +61,20 @@ a:hover {
     color: var(--nord13);
 }
 
+code {
+    padding: 0 0.2rem;
+    background: var(--background-dark);
+    border-radius: 2px;
+    border: solid 1px var(--primary);
+}
+
+blockquote {
+    padding: 1rem;
+    background: var(--background-dark);
+    border-radius: 5px;
+    border: solid 1px var(--primary);
+}
+
 h1, h2, h3, h4, h5, h6 {
     margin: 1.5rem 0;
 }
@@ -89,6 +103,12 @@ pre {
     background: var(--background-dark);
     border-radius: 5px;
     border: solid 1px var(--primary);
+    overflow: auto;
+
+    code {
+        padding: unset;
+        border: none;
+    }
 }
 
 body {
@@ -103,7 +123,7 @@ body {
 
 main {
     max-width: 60rem;
-    margin-left: 5rem;
+    margin: 0 5rem;
 }
 
 .feather {
@@ -120,3 +140,13 @@ main {
 @import 'posts';
 @import 'footer';
 @import 'syntax';
+
+@media screen and (max-width: 1200px) {
+    body {
+        grid-template-columns: auto;
+    }
+
+    main {
+        margin: 0 1rem;
+    }
+}
