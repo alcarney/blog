@@ -1,0 +1,9 @@
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+<title>{{- if .Title }}{{ .Title}} | {{- end}} {{ .Site.Title }}</title>
+
+{{ $options := (dict "targetPath" "main.css" "outputStyle" "compressed" "enableSourceMap" true )}}
+{{ $style := resources.Get "css/main.scss" | resources.ToCSS $options | resources.Fingerprint}}
+<link rel="stylesheet" href="{{ $style.Permalink }}" />

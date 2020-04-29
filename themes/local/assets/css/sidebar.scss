@@ -1,0 +1,42 @@
+.sidebar {
+    background: var(--background-dark);
+    color: var(--primary);
+    min-height: 100vh;
+}
+
+.sidebar-upper-content {
+    position: sticky;
+    top: 5rem;
+    text-align: center;
+}
+
+.sidebar-lower-content {
+    height: 10em;
+    position: sticky;
+    top: calc(100vh - 7rem);
+}
+
+.sidebar-author {
+    margin: 1rem;
+
+    display: grid;
+    grid-template-columns: auto auto;
+    align-items: center;
+
+    img {
+        width: 5em;
+        border-radius: 50%;
+        border: 2px solid var(--primary);
+        grid-row: span 2;
+    }
+
+    .social {
+        text-align: right;
+        margin: 0 2em;
+    }
+
+    a {
+        font-size: 1.2em;
+        text-decoration: none;
+    }
+}

@@ -1,0 +1,41 @@
+.post {
+    margin-top: 5rem;
+}
+
+.post-title {
+    font-size: 2em;
+}
+
+.post-link {
+    display: flex;
+    justify-content: space-between;
+
+    margin-bottom: 1.5rem;
+    border-bottom: 1px dashed var(--foreground-faint);
+}
+
+.post-meta {
+    color: var(--foreground-faint);
+    font-size: 0.8rem;
+
+    .feather {
+        width: 1.1em;
+        height: 1.1em;
+        margin-bottom: -0.1em;
+    }
+
+    .tag {
+        margin: 0.1em;
+        padding: 0.1em 0.2em;
+        border-radius: 2px;
+        background: var(--background-dark);
+    }
+}
+
+.post-summary {
+
+    .link-more {
+        display: block;
+        text-align: right;
+    }
+}
