@@ -9,7 +9,7 @@ draft = false
 
 Today I Learned that Python's standard library has a [cmd](https://docs.python.org/3/library/cmd.html) module and it is _awesome!_
 
-{{< figure src="/images/cmd_python.gif" caption="Figure 1: Interactive program using the cmd module." link="/images/cmd_python.gif" >}}
+{{< figure src="/images/cmd_python.gif" caption=" Interactive program using the cmd module." link="/images/cmd_python.gif" >}}
 
 <!--more-->
 
@@ -145,7 +145,7 @@ class StyloPrompt(cmd.Cmd):
 Now when we use the application we can create something a bit more
 interesting than a snowman in a blizzard! :smile:
 
-{{< figure src="/images/dice.png" caption="Figure 2: Number 3 on a dice" link="/images/dice.png" >}}
+{{< figure src="/images/dice.png" caption=" Number 3 on a dice" link="/images/dice.png" >}}
 
 {{< highlight nil >}}
 (Cmd) square 0 0 1.75 000000

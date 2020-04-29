@@ -1,0 +1,82 @@
+.post {
+    margin-top: 5rem;
+}
+
+.post-title {
+    font-size: 2em;
+}
+
+.post-link {
+    display: flex;
+    justify-content: space-between;
+
+    margin-bottom: 1.5rem;
+    border-bottom: 1px dashed var(--foreground-faint);
+}
+
+.post-meta {
+    color: var(--foreground-faint);
+    font-size: 0.8rem;
+
+    .feather {
+        width: 1.1em;
+        height: 1.1em;
+        margin-bottom: -0.1em;
+    }
+
+    .tag {
+        margin: 0.1em;
+        padding: 0.1em 0.2em;
+        border-radius: 2px;
+        background: var(--background-dark);
+    }
+}
+
+.post-summary {
+
+    .link-more {
+        margin: 1rem;
+        display: block;
+        text-align: right;
+    }
+}
+
+.post-content {
+    margin-top: 2rem;
+    margin-bottom: 5rem;
+}
+
+
+.post-content > h1::before {
+    content: '#';
+    color: var(--foreground-faint);
+    float: right;
+}
+
+.post-content > h2::before {
+    content: '##';
+    color: var(--foreground-faint);
+    float: right;
+}
+
+.post-content > h3::before {
+    content: '###';
+    color: var(--foreground-faint);
+    float: right;
+}
+
+.post-content > h4::before {
+    content: '####';
+    color: var(--foreground-faint);
+    float: right;
+}
+
+.post-footer {
+    margin-bottom: 7rem;
+}
+
+@media screen and (max-width: 700px) {
+    .post-link {
+        flex-direction: column;
+    }
+}
