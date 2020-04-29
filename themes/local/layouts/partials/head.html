@@ -9,14 +9,14 @@
 
 {{- if .Description }}
 <meta name="description" content="{{ .Description }}" />
-{{ -end }}
+{{- end }}
 
-{{ if not .IsHome }}
+{{- if not .IsHome }}
 <meta name="twitter:card" content="summary" />
 <meta name="twitter:title" content="{{ .Title }}" />
 <meta name="twitter:description" content="{{ .Description }}" />
 <meta name="twitter:image" content="https://github.com/alcarney.png" />
-{{ end }}
+{{- end }}
 
 <title>{{- if .Title }}{{ .Title}} | {{- end}} {{ .Site.Title }}</title>
 
