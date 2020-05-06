@@ -81,7 +81,7 @@ hello-world
 
 ### VSCode
 
-{{< figure src="/images/vscode-remote.gif" caption=" Attaching VSCode to 'tinygo' container." link="/images/vscode-remote.gif" >}}
+{{< figure src="/images/vscode-remote.gif" caption="Attaching VSCode to 'tinygo' container." link="/images/vscode-remote.gif" >}}
 
 Just because the development tools we're using are isolated in their own container
 doesn't mean we have to give up on all the features of our editor. With VSCode's
