@@ -2,7 +2,7 @@
 title = "Passing strings between TinyGo and JavaScript"
 author = ["Alex Carney"]
 description = "Figuring out how WebAssembly handles memory"
-date = 2020-04-30
+date = 2020-05-06
 draft = false
 tags = ["go", "tinygo", "wasm", "js"]
 +++
