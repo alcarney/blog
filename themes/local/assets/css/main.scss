@@ -69,10 +69,10 @@ code {
 }
 
 blockquote {
-    padding: 1rem;
+    margin: 1.5rem 0;
+    padding: 0.5rem 1rem;
     background: var(--background-dark);
     border-radius: 5px;
-    border: solid 1px var(--primary);
 }
 
 h1, h2, h3, h4, h5, h6 {
@@ -85,7 +85,7 @@ p {
 
 figure {
     max-width: 55rem;
-    margin: auto;
+    margin: 1.5rem auto;
 
     img {
         border-radius: 5px;
