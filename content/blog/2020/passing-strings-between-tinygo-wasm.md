@@ -85,7 +85,7 @@ func main() {
 > `log` function but TinyGo itself will compile this happily.
 
 Lastly all we have to do is adjust our wrapping JavaScript code to pass in the
-implementation for the `log` function to the module's envrionment. While we're at we
+implementation for the `log` function to the module's environment. While we're at we
 might as well wire up that "Run" button.
 
 ```js
@@ -112,7 +112,7 @@ That should be everything connected up, time to give it a whirl!
 
 Hmm... 🤔
 
-This result quickly prompted an exetended session of searching around for the "right"
+This result quickly prompted an extended session of searching around for the "right"
 way to pass values back and forth between my WebAssembly module and the surrounding
 JavaScript code. Unfortunately I didn't really come across anything that seemed to work
 for me.
@@ -139,7 +139,7 @@ was the case, how should the memory in that location be interpreted so that we'r
 able to extract a string from it?
 
 After some more research I discovered that TinyGo is using the [LLVM][llvm] compiler
-toolchain and that you can ask it for the [itermediate representation][llvm-ir] which it
+toolchain and that you can ask it for the [intermediate representation][llvm-ir] which it
 passes to LLVM in order to generate the WebAssembly code.
 
 ```sh
@@ -260,7 +260,7 @@ WebAssembly.instantiateStreaming(fetch("/js/wisp.wasm"), go.importObject)
 Phew, at least we're halfway there! Now that we've figured out how things actually hang
 together it's "just" a matter of doing the inverse process to pass a string from our
 JavaScript code into our WebAssembly module. As a proof of concept let's create an
-`echo` function in TinyGo that will simply log whatever text it recieves.
+`echo` function in TinyGo that will simply log whatever text it receives.
 
 ```go
 //go:export echo
@@ -354,16 +354,18 @@ function onRun(runner, module) {
 
 ## Wrapping Up
 
-We made it! That was certainly a lot more involved than I expected it to be, but if
-nothing else it's forced me to learn a bit more about some of the lower-level details
-of working with WebAssembly modules.
+That's about it, if you want to have a look at the final codebase then you can find it
+[here][wisp].
+
+This apparently simple task was certainly a lot more work than I expected it to be,
+but if nothing else it's forced me to learn a bit more about some of the lower-level
+details of working with WebAssembly modules.
 
 I don't think this is necessarily the right approach though.. ok we're able to pass a
 (simple!) string back and forth between our TinyGo code and JavaScript. But there are
 more details that still need to be considered
 
-- This solution does not handle Unicode - in fact while writing this post I discovered
-  that it doesn't even handle every ASCII character! There is however a
+- This solution does not handle Unicode. There is however a
   [TextEncoder][js-text-encoder] API available in the browser that looks like it might
   go some way towards fixing this.
 
@@ -375,7 +377,8 @@ more details that still need to be considered
   them as JSON and pass them around that way but I'm sure that would introduce
   unnecessary overhead.
 
-And with all that said isn't this a problem that the toolchain should be solving? 🤔
+And with all that said isn't this a problem that the toolchain should be solving?
+Perhaps I'm just using it wrong 🤔
 
 
 [array-buffer-slice]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/ArrayBuffer/slice
@@ -393,3 +396,4 @@ And with all that said isn't this a problem that the toolchain should be solving
 [wasm-grow]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/WebAssembly/Memory/grow
 [wasm-memory]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/WebAssembly/Memory
 [wasm-types]: https://webassembly.github.io/spec/core/syntax/types.html
+[wisp]: https://github.com/alcarney/wisp/tree/passing-strings
