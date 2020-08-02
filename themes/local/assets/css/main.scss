@@ -61,11 +61,15 @@ a:hover {
     color: var(--nord13);
 }
 
+p, h1, h2, h3, h4, h5, h6 {
+    margin: 1.5rem 0;
+}
+
 code {
     padding: 0 0.2rem;
+    font-size: 0.9rem;
     background: var(--background-dark);
     border-radius: 2px;
-    border: solid 1px var(--primary);
 }
 
 blockquote {
@@ -73,14 +77,6 @@ blockquote {
     padding: 0.5rem 1rem;
     background: var(--background-dark);
     border-radius: 5px;
-}
-
-h1, h2, h3, h4, h5, h6 {
-    margin: 1.5rem 0;
-}
-
-p {
-    margin: 1rem 0;
 }
 
 figure {
@@ -102,7 +98,6 @@ pre {
     padding: 1rem;
     background: var(--background-dark);
     border-radius: 5px;
-    border: solid 1px var(--primary);
     overflow: auto;
 
     code {
@@ -112,9 +107,6 @@ pre {
 }
 
 body {
-    display: grid;
-    grid-template-columns: 20rem auto;
-
     background: var(--background);
     color: var(--foreground);
 
@@ -122,9 +114,16 @@ body {
 }
 
 main {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;;
+}
+
+.content {
+    margin: 0 5rem 0 25rem;
     max-width: 60rem;
     min-width: 0;
-    margin: 0 5rem;
 }
 
 .feather {
@@ -143,11 +142,7 @@ main {
 @import 'syntax';
 
 @media screen and (max-width: 1200px) {
-    body {
-        grid-template-columns: auto;
-    }
-
-    main {
+    .content {
         margin: 0 1rem;
     }
 }
