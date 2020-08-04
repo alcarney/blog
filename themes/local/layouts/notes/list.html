@@ -1,0 +1,78 @@
+{{define "main"}}
+<div class="content">
+  <h1>Notes</h1>
+
+  <div class="note-search">
+    <input id="note-search" type="search" placeholder="Search... ">
+  </div>
+
+  <div id="note-results" class="note-collection">
+    {{ range $index, $element := .Paginator.Pages }}
+    <article id="{{ $element.Title | urlize }}" class="note">
+      <div>
+        <a href="{{ .Permalink }}">{{ .Title }}</a>
+        <div class="note-summary">
+          {{ .Description }}
+        </div>
+      </div>
+      <div class="post-meta">
+        {{- with .Params.tags -}}
+        <div>
+          {{ partial "icon.html" (dict "ctx" $ "name" "tag") }}
+          {{ range . -}}
+          {{- with $.Site.GetPage (printf "/%s/%s" "tags" . ) -}}
+          <a class="tag" href="{{ .Permalink }}">{{ .Title }}</a>
+          {{- end -}}
+          {{- end -}}
+        </div>
+        {{- end -}}
+      </div>
+    </article>
+    {{ end }}
+  </div>
+</div>
+<script src="https://unpkg.com/lunr/lunr.js"></script>
+<script>
+  let index
+
+  fetch("/index.json")
+    .then(res => res.json())
+    .then(notes => {
+
+      index = lunr(function () {
+        this.ref('id')
+        this.field("title")
+        this.field('content')
+        this.field('tags')
+
+        notes.forEach(function (doc) {
+          this.add(doc)
+        }, this)
+      })
+    })
+
+  const resultsList = document.getElementById("note-results")
+  const searchBox = document.getElementById("note-search")
+  searchBox.addEventListener('change', event => {
+    let search = event.target.value
+    let display = search === "" ? "flex" : "none"
+
+    for (let i = 0; i < resultsList.children.length; i++) {
+      resultsList.children[i].style.display = display;
+    }
+
+    if (search === "") {
+      return
+    }
+
+    let results = index.search(search)
+    console.log(results)
+    results.forEach(res => {
+      console.log(res.ref)
+      let note = document.getElementById(res.ref)
+      note.style.display = "flex"
+    })
+
+  })
+</script>
+{{end}}
