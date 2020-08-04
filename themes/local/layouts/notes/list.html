@@ -1,0 +1,34 @@
+{{define "main"}}
+<div class="content">
+    <h1>Notes</h1>
+
+    <div class="note-search">
+        <input type="text" placeholder="Search... ">
+    </div>
+
+    <div class="note-collection">
+        {{ range $index, $element := .Paginator.Pages }}
+        <article class="note">
+            <div>
+                <a href="{{ .Permalink }}">{{ .Title }}</a>
+                <div class="note-summary">
+                    {{ .Description }}
+                </div>
+            </div>
+            <div class="post-meta">
+                {{- with .Params.tags -}}
+                <div>
+                    {{ partial "icon.html" (dict "ctx" $ "name" "tag") }}
+                    {{ range . -}}
+                    {{- with $.Site.GetPage (printf "/%s/%s" "tags" . ) -}}
+                    <a class="tag" href="{{ .Permalink }}">{{ .Title }}</a>
+                    {{- end -}}
+                    {{- end -}}
+                </div>
+                {{- end -}}
+            </div>
+        </article>
+        {{ end }}
+    </div>
+</div>
+{{end}}
