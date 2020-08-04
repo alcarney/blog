@@ -41,7 +41,9 @@
 
       index = lunr(function () {
         this.ref('id')
+        this.field("title")
         this.field('content')
+        this.field('tags')
 
         notes.forEach(function (doc) {
           this.add(doc)
