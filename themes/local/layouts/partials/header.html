@@ -2,8 +2,17 @@
 
     <div class="sidebar-upper-content">
         <div>
-            <a href="/">
-                <h1>{{ .Site.Title }}</h1>
+            <a href="/blog">
+                <h1>
+                    {{ partial "icon.html" (dict "ctx" $ "name" "edit") }}
+                    Blog
+                </h1>
+            </a>
+            <a href="/notes">
+                <h1>
+                    {{ partial "icon.html" (dict "ctx" $ "name" "book") }}
+                    Notes
+                </h1>
             </a>
         </div>
     </div>

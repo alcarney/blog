@@ -1,6 +1,6 @@
 baseURL = "https://alcarney.me"
 languageCode = "en-us"
-title = "Blog"
+title = "Alex Carney"
 
 theme = "local"
 disqusShortname = "alcarney-me"
@@ -10,6 +10,9 @@ pygmentsUseClasses=true
 
 [markup.goldmark.renderer]
 unsafe = true  # Allow raw html in posts
+
+[outputs]
+home = ["HTML", "json"]
 
 [params]
 author = "Alex Carney"

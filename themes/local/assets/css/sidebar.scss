@@ -1,14 +1,19 @@
 .sidebar {
+    position: fixed;
+    top: 0;
+    height: 100vh;
+    width: 20rem;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+
     background: var(--background-dark);
     color: var(--primary);
-    min-height: 100vh;
-    grid-row: span 2;
 }
 
 .sidebar-upper-content {
-    position: sticky;
-    top: 5rem;
-    text-align: center;
+    align-self: center;
 }
 
 .sidebar-lower-content {
@@ -47,11 +52,14 @@
 
 @media screen and (max-width: 1200px) {
     .sidebar {
-        display: flex;
-        justify-content: space-between;
+        position: relative;
+        width: 100vw;
+
+        flex-direction: row;
         align-items: center;
-        min-height: unset;
-        grid-row: span 1;
+        height: unset;
+
+
     }
 
     .sidebar-upper-content {

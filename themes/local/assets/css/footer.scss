@@ -1,6 +1,7 @@
 footer {
     background: var(--background-dark);
     font-size: 0.8em;
+    padding-bottom: 1rem;
 
     ul {
         padding: 0;
@@ -12,7 +13,6 @@ footer {
 }
 
 .footer-content {
-    margin: 2rem;
     display: grid;
     grid-template-columns: auto auto auto;
 }
