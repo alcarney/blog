@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+<meta name="theme-color" content="#259669" />
+
+<meta name="generator" content="Hugo 0.79.1" />
+<meta name="author" content="Alex Carney" />
+<meta name="description" content="Declaring my intention to learn Vulkan once again" />
+
+<meta property="og:title" content="Learning Vulkan: Overview" />
+<meta property="og:description" content="Declaring my intention to learn Vulkan once again" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://alcarney.me/blog/2020/learning-vulkan-p0/" />
+<meta property="article:published_time" content="2020-01-01T00:00:00+00:00" />
+<meta property="article:modified_time" content="2020-12-22T13:44:42+00:00" />
+
+
+<meta property="og:see_also" content="https://alcarney.me/blog/2020/learning-vulkan-p1/" />
+
+<meta property="article:tag" content="c" />
+<meta property="article:tag" content="vulkan" />
+<meta property="article:tag" content="graphics" />
+
+<meta name="twitter:creator" content="@alcarneyme" />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Learning Vulkan: Overview"/>
+<meta name="twitter:description" content="Declaring my intention to learn Vulkan once again"/>
+
+
+<title>Learning Vulkan: Overview | Alex Carney</title>
+
+
+
+<link rel="stylesheet" href="https://alcarney.me/main.065c4df780073fda03fc10b742a2eed791b369295ced8e533244119922cc48e7.css" /></head>
+
+<body class=bg-gray-100><nav class="flex justify-between p-4 bg-white border-b">
+
+    <div>
+        <h1>Alex Carney</h1>
+    </div>
+
+    <div class="flex space-x-4 items-between">
+        <a href="/blog">Blog</a>
+        <a href="/notes">Notes</a>
+    </div>
+    
+</nav><main class="max-w-4xl m-auto mb-8">
+<style>
+    header::before {
+        position: absolute;
+        top: 19px;
+        left: -12.5px;
+        display: block;
+        content: '';
+        width: 25px;
+        height: 25px;
+        background: white;
+        transform: rotate(45deg);
+        border-left: solid 1px #e5e7eb;
+        border-bottom: solid 1px #e5e7eb;
+    }
+
+    @media(max-width: 1024px) {
+        header::before {
+            left: 19px;
+            top: -12.5px;
+            border-top: sold 1px #e5e7eb;
+            border-bottom: none;
+        }
+    }
+</style>
+<div class="flex flex-col items-baseline justify-between lg:flex-row">
+    <style>
+    aside::after {
+        position: absolute;
+        top: 8px;
+        right: -10px;
+        display: block;
+        content: '';
+        width: 8px;
+        height: 8px;
+        border-radius: 100%;
+        background: #717885;
+    }
+
+    @media(max-width: 1024px) {
+        aside::after {
+            top: unset;
+            bottom: 6px;
+            left: -18px;
+            border-top: sold 1px #e5e7eb;
+            border-bottom: none;
+        }
+    }
+</style>
+<aside class="relative flex pr-2 mt-4 ml-12 -mb-3 space-x-4 text-gray-500 lg:mr-8 lg:w-32 lg:block lg:space-x-0">
+    <span class="flex justify-between">
+        <svg class="w-6 h-6 bg-transparent stroke-current" style="fill:none">
+    <use xlink:href="/svg/feather-sprite.svg#calendar" />
+</svg>
+        Jan 1, 2020
+    </span>
+    <span class="flex justify-between">
+        <svg class="w-6 h-6 bg-transparent stroke-current" style="fill:none">
+    <use xlink:href="/svg/feather-sprite.svg#clock" />
+</svg>
+        2 min read
+    </span>
+</aside>
+    <article class="relative flex-grow p-4 mt-8 transition bg-white border shadow-lg">
+        <header class="mb-4">
+            <h1 class="text-3xl text-green-600">Learning Vulkan: Overview</h1>
+        </header>
+        <div class="m-auto prose prose-lg prose-green">
+            <p>I have always been interested in graphics and have on numerous occasions tried
+to dip my toe into the world of OpenGL and more recently Vulkan. However I have
+never been able to get past the &ldquo;Hello, World&rdquo; of these technologies - drawing a
+triangle on screen, I think mostly becuase I never really had a goal in mind
+once I got that far&hellip;</p>
+<p>But that&rsquo;s (hopefully) about to change! What better excuse than a new decade to
+jump back into this world for the 100th time and try to get to all those
+interesting ideas I see people playing with all the time!</p>
+<p>I should say that I don&rsquo;t really know what I&rsquo;m doing and will totally be making
+it up as I go along. With Python being my favourite language, programming in C
+(C++ is just too intimidating) will take some getting used to let alone all the
+concepts specific to graphics programming! However that said I&rsquo;m not a complete
+n00b as I have at least played with C on and off over the years - I&rsquo;m sure I
+already know enough to be able to shoot myself in the foot! 😁</p>
+<p>So the only thing left to do is set some goals so I don&rsquo;t get lost after getting
+to the &ldquo;drawing a triangle on screen&rdquo; stage again. I imagine this will evolve
+into some kind of living document that I&rsquo;ll use to keep track of my progress - if I
+remember to update it that is!</p>
+<ul>
+<li><input disabled="" type="checkbox"> Draw a triangle on screen
+<ul>
+<li><input checked="" disabled="" type="checkbox"> <a href="/blog/2020/learning-vulkan-p1/">Enumerating available VkPhysicalDevices</a></li>
+</ul>
+</li>
+<li><input disabled="" type="checkbox"> OBJ object viewer</li>
+<li><input disabled="" type="checkbox"> Ray Marching</li>
+<li><input disabled="" type="checkbox"> Ray Tracing</li>
+<li><input disabled="" type="checkbox"> Python integrations?</li>
+</ul>
+        </div>
+        <div class="flex items-center justify-end mt-4 space-x-4">
+    <a class="px-2 text-sm text-gray-600 bg-green-200 border border-green-600 rounded" href="https://alcarney.me/tags/c/">
+        #c
+    </a><a class="px-2 text-sm text-gray-600 bg-green-200 border border-green-600 rounded" href="https://alcarney.me/tags/vulkan/">
+        #vulkan
+    </a><a class="px-2 text-sm text-gray-600 bg-green-200 border border-green-600 rounded" href="https://alcarney.me/tags/graphics/">
+        #graphics
+    </a></div>
+        <div class="pt-4 mt-8 border-t">
+            <div id="disqus_thread"></div>
+<script type="application/javascript">
+    var disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "alcarney-me" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+        </div>
+    </article>
+</div>
+
+    </main><footer class="items-baseline p-4 text-white bg-gray-700">
+    <div class="flex justify-between">
+        <div>
+        </div>
+
+        <div class="flex justify-between space-x-4">
+            
+            <a target="_blank" rel="noreferrer noopener" href="https://github.com/alcarney">
+                <svg class="w-8 h-8 bg-transparent stroke-current" style="fill:none">
+    <use xlink:href="/svg/feather-sprite.svg#github" />
+</svg>
+            </a>
+            
+            <a target="_blank" rel="noreferrer noopener" href="https://twitter.com/alcarneyme">
+                <svg class="w-8 h-8 bg-transparent stroke-current" style="fill:none">
+    <use xlink:href="/svg/feather-sprite.svg#twitter" />
+</svg>
+            </a>
+            
+            <a target="_blank" rel="noreferrer noopener" href="https://instagram.com/alcarneyme">
+                <svg class="w-8 h-8 bg-transparent stroke-current" style="fill:none">
+    <use xlink:href="/svg/feather-sprite.svg#instagram" />
+</svg>
+            </a>
+            
+            <a target="_blank" rel="noreferrer noopener" href="https://www.youtube.com/channel/UC5GPflgRWhnCxA0BllfP5CA">
+                <svg class="w-8 h-8 bg-transparent stroke-current" style="fill:none">
+    <use xlink:href="/svg/feather-sprite.svg#youtube" />
+</svg>
+            </a>
+            
+        </div>
+
+        <div>
+            
+        </div>
+    </div>
+</footer>
+    <script>
+        const codeBlocks = document.querySelectorAll(".highlight pre")
+        Array.from(codeBlocks).forEach(el => {
+            el.style.backgroundColor = "#fdf6e3"
+        })
+    </script>
+</body>
+
+</html>

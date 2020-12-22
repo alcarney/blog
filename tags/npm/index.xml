@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>npm on Alex Carney</title>
+    <link>https://alcarney.me/tags/npm/</link>
+    <description>Recent content in npm on Alex Carney</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language><atom:link href="https://alcarney.me/tags/npm/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Installing npm packages globally without root</title>
+      <link>https://alcarney.me/notes/npm-global-user-install/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://alcarney.me/notes/npm-global-user-install/</guid>
+      <description>  Create a folder for global packages to be install into
+$ mdkir &amp;#34;${HOME}/.npm-packages&amp;#34;    Tell npm to use this folder
+$ npm config set prefix &amp;#34;${HOME}/.npm-packages&amp;#34;    Add the corresponding ${HOME}/.npm-packages/bin folder to your PATH
+  </description>
+    </item>
+    
+  </channel>
+</rss>

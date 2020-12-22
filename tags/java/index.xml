@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>java on Alex Carney</title>
+    <link>https://alcarney.me/tags/java/</link>
+    <description>Recent content in java on Alex Carney</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language><atom:link href="https://alcarney.me/tags/java/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Deserialising Abstract Classes with Jackson</title>
+      <link>https://alcarney.me/notes/deserialising-abstract-classes/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://alcarney.me/notes/deserialising-abstract-classes/</guid>
+      <description>Jackson can automatically detect the relevant abstract class to initialise when parsing some JSON if you give it a little bit of help. There are multiple methods Jackson can use to detect and indicate the class it should use but the method I have chosen is to tell it to look for a type field.
+Consider the following json snippets
+{ &amp;#34;id&amp;#34;: &amp;#34;123&amp;#34;, &amp;#34;type&amp;#34;: &amp;#34;name&amp;#34;, &amp;#34;name&amp;#34;: &amp;#34;Alex&amp;#34; } { &amp;#34;id&amp;#34;: &amp;#34;345&amp;#34;, &amp;#34;type&amp;#34;: &amp;#34;value&amp;#34;, &amp;#34;value&amp;#34;: 123.</description>
+    </item>
+    
+  </channel>
+</rss>

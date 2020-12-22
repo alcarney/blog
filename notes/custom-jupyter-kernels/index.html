@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+<meta name="theme-color" content="#259669" />
+
+<meta name="generator" content="Hugo 0.79.1" />
+<meta name="author" content="Alex Carney" />
+<meta name="description" content="&#34;Publishing&#34; multiple Python environments to use within Jupyter" />
+
+<meta property="og:title" content="Custom Jupyter Kernels" />
+<meta property="og:description" content="&#34;Publishing&#34; multiple Python environments to use within Jupyter" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://alcarney.me/notes/custom-jupyter-kernels/" />
+<meta property="article:modified_time" content="2020-12-22T13:44:42+00:00" />
+
+<meta property="article:tag" content="python" />
+<meta property="article:tag" content="jupyter" />
+
+<meta name="twitter:creator" content="@alcarneyme" />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Custom Jupyter Kernels"/>
+<meta name="twitter:description" content="&#34;Publishing&#34; multiple Python environments to use within Jupyter"/>
+
+
+<title>Custom Jupyter Kernels | Alex Carney</title>
+
+
+
+<link rel="stylesheet" href="https://alcarney.me/main.065c4df780073fda03fc10b742a2eed791b369295ced8e533244119922cc48e7.css" /></head>
+
+<body class=bg-gray-100><nav class="flex justify-between p-4 bg-white border-b">
+
+    <div>
+        <h1>Alex Carney</h1>
+    </div>
+
+    <div class="flex space-x-4 items-between">
+        <a href="/blog">Blog</a>
+        <a href="/notes">Notes</a>
+    </div>
+    
+</nav><main class="max-w-4xl m-auto mb-8">
+<article class="post content">
+    <header class="post-header">
+        <h1 class="post-title">Custom Jupyter Kernels</h1>
+    </header>
+    <div class="post-content">
+        <p>It&rsquo;s possible to create custom Python environments for use within a Jupyter
+notebook without having to run a jupyter server from each of them. The following
+steps will allow you to have a single jupyter server running and have it use a
+variety of Python environments in its notebooks</p>
+<ol>
+<li>Create a virtualenv and install any packages that you want available</li>
+<li><code>pip install ipykernel</code></li>
+<li><code>ipykernel install --user --name &lt;envname&gt; --display-name &lt;display name&gt;</code></li>
+</ol>
+<p>Then the new environment should become available in the Change kernel menu</p>
+
+        <div class="post-meta"><div>
+                <svg class="w- h- bg-transparent stroke-current" style="fill:none">
+    <use xlink:href="/svg/feather-sprite.svg#tag" />
+</svg>
+                <a class="tag" href="https://alcarney.me/tags/python/">python</a><a class="tag" href="https://alcarney.me/tags/jupyter/">jupyter</a></div></div>
+    </div>
+</article>
+
+    </main><footer class="items-baseline p-4 text-white bg-gray-700">
+    <div class="flex justify-between">
+        <div>
+        </div>
+
+        <div class="flex justify-between space-x-4">
+            
+            <a target="_blank" rel="noreferrer noopener" href="https://github.com/alcarney">
+                <svg class="w-8 h-8 bg-transparent stroke-current" style="fill:none">
+    <use xlink:href="/svg/feather-sprite.svg#github" />
+</svg>
+            </a>
+            
+            <a target="_blank" rel="noreferrer noopener" href="https://twitter.com/alcarneyme">
+                <svg class="w-8 h-8 bg-transparent stroke-current" style="fill:none">
+    <use xlink:href="/svg/feather-sprite.svg#twitter" />
+</svg>
+            </a>
+            
+            <a target="_blank" rel="noreferrer noopener" href="https://instagram.com/alcarneyme">
+                <svg class="w-8 h-8 bg-transparent stroke-current" style="fill:none">
+    <use xlink:href="/svg/feather-sprite.svg#instagram" />
+</svg>
+            </a>
+            
+            <a target="_blank" rel="noreferrer noopener" href="https://www.youtube.com/channel/UC5GPflgRWhnCxA0BllfP5CA">
+                <svg class="w-8 h-8 bg-transparent stroke-current" style="fill:none">
+    <use xlink:href="/svg/feather-sprite.svg#youtube" />
+</svg>
+            </a>
+            
+        </div>
+
+        <div>
+            
+        </div>
+    </div>
+</footer>
+    <script>
+        const codeBlocks = document.querySelectorAll(".highlight pre")
+        Array.from(codeBlocks).forEach(el => {
+            el.style.backgroundColor = "#fdf6e3"
+        })
+    </script>
+</body>
+
+</html>

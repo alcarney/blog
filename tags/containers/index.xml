@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>containers on Alex Carney</title>
+    <link>https://alcarney.me/tags/containers/</link>
+    <description>Recent content in containers on Alex Carney</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Tue, 28 Apr 2020 00:00:00 +0000</lastBuildDate><atom:link href="https://alcarney.me/tags/containers/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Saying &#39;Hello, World!&#39; with TinyGo and WebAssembly</title>
+      <link>https://alcarney.me/blog/2020/hello-world-tinygo-wasm/</link>
+      <pubDate>Tue, 28 Apr 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://alcarney.me/blog/2020/hello-world-tinygo-wasm/</guid>
+      <description>&lt;p&gt;WebAssembly is something I&amp;rsquo;ve wanted to play with for quite a while now and
+I&amp;rsquo;ve finally got around to taking a look at it. In this post I describe how I
+managed to use &lt;a href=&#34;https://tinygo.org/&#34;&gt;TinyGo&lt;/a&gt; to compile a &amp;ldquo;Hello, World!&amp;rdquo; Go program into
+WebAssembly and execute it in the browser. So that I have something to refer
+back to I also describe setting up my development environment as a container
+using &lt;a href=&#34;https://linuxcontainers.org/&#34;&gt;LXD&lt;/a&gt;.&lt;/p&gt;</description>
+    </item>
+    
+  </channel>
+</rss>

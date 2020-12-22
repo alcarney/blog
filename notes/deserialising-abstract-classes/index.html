@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+<meta name="theme-color" content="#259669" />
+
+<meta name="generator" content="Hugo 0.79.1" />
+<meta name="author" content="Alex Carney" />
+<meta name="description" content="Parsing JSON into different class instances based on the value of a given field." />
+
+<meta property="og:title" content="Deserialising Abstract Classes with Jackson" />
+<meta property="og:description" content="Parsing JSON into different class instances based on the value of a given field." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://alcarney.me/notes/deserialising-abstract-classes/" />
+<meta property="article:modified_time" content="2020-12-22T13:44:42+00:00" />
+
+<meta property="article:tag" content="java" />
+<meta property="article:tag" content="json" />
+
+<meta name="twitter:creator" content="@alcarneyme" />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Deserialising Abstract Classes with Jackson"/>
+<meta name="twitter:description" content="Parsing JSON into different class instances based on the value of a given field."/>
+
+
+<title>Deserialising Abstract Classes with Jackson | Alex Carney</title>
+
+
+
+<link rel="stylesheet" href="https://alcarney.me/main.065c4df780073fda03fc10b742a2eed791b369295ced8e533244119922cc48e7.css" /></head>
+
+<body class=bg-gray-100><nav class="flex justify-between p-4 bg-white border-b">
+
+    <div>
+        <h1>Alex Carney</h1>
+    </div>
+
+    <div class="flex space-x-4 items-between">
+        <a href="/blog">Blog</a>
+        <a href="/notes">Notes</a>
+    </div>
+    
+</nav><main class="max-w-4xl m-auto mb-8">
+<article class="post content">
+    <header class="post-header">
+        <h1 class="post-title">Deserialising Abstract Classes with Jackson</h1>
+    </header>
+    <div class="post-content">
+        <p>Jackson can automatically detect the relevant abstract class to initialise when
+parsing some JSON if you give it a little bit of help. There are multiple
+methods Jackson can use to detect and indicate the class it should use but the
+method I have chosen is to tell it to look for a <code>type</code> field.</p>
+<p>Consider the following json snippets</p>
+<pre><code class="language-nil" data-lang="nil">{
+    &#34;id&#34;: &#34;123&#34;,
+    &#34;type&#34;: &#34;name&#34;,
+    &#34;name&#34;: &#34;Alex&#34;
+}</code></pre>
+<pre><code class="language-nil" data-lang="nil">{
+    &#34;id&#34;: &#34;345&#34;,
+    &#34;type&#34;: &#34;value&#34;,
+    &#34;value&#34;: 123.4
+}</code></pre>
+<p>Which can be represented by the following classes</p>
+<div class="highlight"><pre style="color:#586e75;background-color:#eee8d5;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#859900">public</span> <span style="color:#859900">class</span> <span style="color:#cb4b16">IdName</span> <span style="color:#859900">extends</span> <span style="color:#268bd2">IdField</span> {
+    <span style="color:#859900">public</span> <span style="color:#859900">static</span> <span style="color:#859900">final</span> <span style="color:#268bd2">String</span> <span style="color:#268bd2">FIELD_TYPE</span> = <span style="color:#2aa198">&#34;name&#34;</span>;
+    <span style="color:#859900">private</span> <span style="color:#268bd2">String</span> <span style="color:#268bd2">name</span>;
+
+    <span style="color:#859900">public</span> <span style="color:#268bd2">IdName</span>() {
+        <span style="color:#859900">super</span>(<span style="color:#268bd2">FIELD_TYPE</span>);
+    }
+
+    ...
+}</code></pre></div>
+<div class="highlight"><pre style="color:#586e75;background-color:#eee8d5;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#859900">public</span> <span style="color:#859900">class</span> <span style="color:#cb4b16">IdValue</span> <span style="color:#859900">extends</span> <span style="color:#268bd2">IdField</span> {
+    <span style="color:#859900">public</span> <span style="color:#859900">static</span> <span style="color:#859900">final</span> <span style="color:#268bd2">String</span> <span style="color:#268bd2">FIELD_TYPE</span> = <span style="color:#2aa198">&#34;value&#34;</span>;
+    <span style="color:#859900">private</span> <span style="color:#859900;font-weight:bold">float</span> <span style="color:#268bd2">value</span>;
+
+    <span style="color:#859900">public</span> <span style="color:#268bd2">IdValue</span>() {
+        <span style="color:#859900">super</span>(<span style="color:#268bd2">FIELD_TYPE</span>);
+    }
+
+    ...
+}</code></pre></div>
+<p>Then to enable Jackson to determine which subclass to initialise we need to add
+some annotations to the base class definition</p>
+<div class="highlight"><pre style="color:#586e75;background-color:#eee8d5;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#268bd2">@JsonTypeInfo</span>(<span style="color:#268bd2">use</span> = <span style="color:#268bd2">JsonTypeInfo</span>.<span style="color:#268bd2">Id</span>.<span style="color:#268bd2">NAME</span>, <span style="color:#268bd2">include</span> = <span style="color:#268bd2">JsonTypeInfo</span>.<span style="color:#268bd2">As</span>.<span style="color:#268bd2">EXISTING_PROPERTY</span>, <span style="color:#268bd2">property</span> = <span style="color:#2aa198">&#34;type&#34;</span>)
+<span style="color:#268bd2">@JsonSubTypes</span>({
+        <span style="color:#268bd2">@JsonSubTypes.Type</span>(<span style="color:#268bd2">value</span> = <span style="color:#268bd2">IdName</span>.<span style="color:#268bd2">class</span>, <span style="color:#268bd2">name</span> = <span style="color:#268bd2">IdName</span>.<span style="color:#268bd2">FIELD_TYPE</span>),
+            <span style="color:#268bd2">@JsonSubTypes.Type</span>(<span style="color:#268bd2">value</span> = <span style="color:#268bd2">IdValue</span>.<span style="color:#268bd2">class</span>, <span style="color:#268bd2">name</span> = <span style="color:#268bd2">IdValue</span>.<span style="color:#268bd2">FIELD_TYPE</span>)
+})
+<span style="color:#859900">public</span> <span style="color:#859900">abstract</span> <span style="color:#859900">class</span> <span style="color:#cb4b16">IdField</span> {
+    <span style="color:#859900">private</span> <span style="color:#268bd2">String</span> <span style="color:#268bd2">id</span>;
+    <span style="color:#859900">private</span> <span style="color:#268bd2">String</span> <span style="color:#268bd2">type</span>;
+
+    <span style="color:#859900">public</span> <span style="color:#268bd2">IdField</span>(<span style="color:#268bd2">String</span> <span style="color:#268bd2">type</span>) {
+        <span style="color:#859900">this</span>.<span style="color:#268bd2">id</span> = <span style="color:#268bd2">UUID</span>.<span style="color:#268bd2">randomUUID</span>().<span style="color:#268bd2">toString</span>();
+        <span style="color:#859900">this</span>.<span style="color:#268bd2">type</span> = <span style="color:#268bd2">type</span>;
+    }
+
+    ...
+}</code></pre></div>
+<p>Then we can just parse the json as we normally would.</p>
+<div class="highlight"><pre style="color:#586e75;background-color:#eee8d5;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#268bd2">String</span> <span style="color:#268bd2">jsonStr</span> = <span style="color:#2aa198">&#34;{\&#34;id\&#34;:\&#34;123\&#34;,\&#34;name\&#34;:\&#34;Alex\&#34;}&#34;</span>;
+<span style="color:#268bd2">ObjectMapper</span> <span style="color:#268bd2">mapper</span> = <span style="color:#859900">new</span> <span style="color:#268bd2">ObjectMapper</span>();
+
+<span style="color:#268bd2">IdField</span> <span style="color:#268bd2">field</span> = <span style="color:#268bd2">mapper</span>.<span style="color:#268bd2">readValue</span>(<span style="color:#268bd2">jsonStr</span>, <span style="color:#268bd2">IdField</span>.<span style="color:#268bd2">class</span>);
+<span style="color:#268bd2">System</span>.<span style="color:#268bd2">out</span>.<span style="color:#268bd2">println</span>(<span style="color:#268bd2">field</span>.<span style="color:#268bd2">getType</span>());                        <span style="color:#93a1a1;font-style:italic">// =&gt; &#34;name&#34;
+</span><span style="color:#93a1a1;font-style:italic"></span>
+<span style="color:#268bd2">IdName</span> <span style="color:#268bd2">nameField</span> = (<span style="color:#268bd2">IdName</span>) <span style="color:#268bd2">field</span>;
+<span style="color:#268bd2">System</span>.<span style="color:#268bd2">out</span>.<span style="color:#268bd2">println</span>(<span style="color:#268bd2">nameField</span>.<span style="color:#268bd2">getName</span>());                    // =&gt; <span style="color:#2aa198">&#34;Alex&#34;</span></code></pre></div>
+
+        <div class="post-meta"><div>
+                <svg class="w- h- bg-transparent stroke-current" style="fill:none">
+    <use xlink:href="/svg/feather-sprite.svg#tag" />
+</svg>
+                <a class="tag" href="https://alcarney.me/tags/java/">java</a><a class="tag" href="https://alcarney.me/tags/json/">json</a></div></div>
+    </div>
+</article>
+
+    </main><footer class="items-baseline p-4 text-white bg-gray-700">
+    <div class="flex justify-between">
+        <div>
+        </div>
+
+        <div class="flex justify-between space-x-4">
+            
+            <a target="_blank" rel="noreferrer noopener" href="https://github.com/alcarney">
+                <svg class="w-8 h-8 bg-transparent stroke-current" style="fill:none">
+    <use xlink:href="/svg/feather-sprite.svg#github" />
+</svg>
+            </a>
+            
+            <a target="_blank" rel="noreferrer noopener" href="https://twitter.com/alcarneyme">
+                <svg class="w-8 h-8 bg-transparent stroke-current" style="fill:none">
+    <use xlink:href="/svg/feather-sprite.svg#twitter" />
+</svg>
+            </a>
+            
+            <a target="_blank" rel="noreferrer noopener" href="https://instagram.com/alcarneyme">
+                <svg class="w-8 h-8 bg-transparent stroke-current" style="fill:none">
+    <use xlink:href="/svg/feather-sprite.svg#instagram" />
+</svg>
+            </a>
+            
+            <a target="_blank" rel="noreferrer noopener" href="https://www.youtube.com/channel/UC5GPflgRWhnCxA0BllfP5CA">
+                <svg class="w-8 h-8 bg-transparent stroke-current" style="fill:none">
+    <use xlink:href="/svg/feather-sprite.svg#youtube" />
+</svg>
+            </a>
+            
+        </div>
+
+        <div>
+            
+        </div>
+    </div>
+</footer>
+    <script>
+        const codeBlocks = document.querySelectorAll(".highlight pre")
+        Array.from(codeBlocks).forEach(el => {
+            el.style.backgroundColor = "#fdf6e3"
+        })
+    </script>
+</body>
+
+</html>

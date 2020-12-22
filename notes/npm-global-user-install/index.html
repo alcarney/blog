@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+<meta name="theme-color" content="#259669" />
+
+<meta name="generator" content="Hugo 0.79.1" />
+<meta name="author" content="Alex Carney" />
+<meta name="description" content="A few tweaks to configure npm to use the user&#39;s home for package installs" />
+
+<meta property="og:title" content="Installing npm packages globally without root" />
+<meta property="og:description" content="A few tweaks to configure npm to use the user&#39;s home for package installs" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://alcarney.me/notes/npm-global-user-install/" />
+<meta property="article:modified_time" content="2020-12-22T13:44:42+00:00" />
+
+<meta property="article:tag" content="npm" />
+<meta property="article:tag" content="js" />
+
+<meta name="twitter:creator" content="@alcarneyme" />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Installing npm packages globally without root"/>
+<meta name="twitter:description" content="A few tweaks to configure npm to use the user&#39;s home for package installs"/>
+
+
+<title>Installing npm packages globally without root | Alex Carney</title>
+
+
+
+<link rel="stylesheet" href="https://alcarney.me/main.065c4df780073fda03fc10b742a2eed791b369295ced8e533244119922cc48e7.css" /></head>
+
+<body class=bg-gray-100><nav class="flex justify-between p-4 bg-white border-b">
+
+    <div>
+        <h1>Alex Carney</h1>
+    </div>
+
+    <div class="flex space-x-4 items-between">
+        <a href="/blog">Blog</a>
+        <a href="/notes">Notes</a>
+    </div>
+    
+</nav><main class="max-w-4xl m-auto mb-8">
+<article class="post content">
+    <header class="post-header">
+        <h1 class="post-title">Installing npm packages globally without root</h1>
+    </header>
+    <div class="post-content">
+        <ol>
+<li>
+<p>Create a folder for global packages to be install into</p>
+<div class="highlight"><pre style="color:#586e75;background-color:#eee8d5;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">   $ mdkir <span style="color:#2aa198">&#34;</span><span style="color:#2aa198">${</span><span style="color:#268bd2">HOME</span><span style="color:#2aa198">}</span><span style="color:#2aa198">/.npm-packages&#34;</span>
+   </code></pre></div>
+</li>
+<li>
+<p>Tell <code>npm</code> to use this folder</p>
+<div class="highlight"><pre style="color:#586e75;background-color:#eee8d5;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">   $ npm config <span style="color:#cb4b16">set</span> prefix <span style="color:#2aa198">&#34;</span><span style="color:#2aa198">${</span><span style="color:#268bd2">HOME</span><span style="color:#2aa198">}</span><span style="color:#2aa198">/.npm-packages&#34;</span>
+   </code></pre></div>
+</li>
+<li>
+<p>Add the corresponding <code>${HOME}/.npm-packages/bin</code> folder to your <code>PATH</code></p>
+</li>
+</ol>
+
+        <div class="post-meta"><div>
+                <svg class="w- h- bg-transparent stroke-current" style="fill:none">
+    <use xlink:href="/svg/feather-sprite.svg#tag" />
+</svg>
+                <a class="tag" href="https://alcarney.me/tags/npm/">npm</a><a class="tag" href="https://alcarney.me/tags/js/">js</a></div></div>
+    </div>
+</article>
+
+    </main><footer class="items-baseline p-4 text-white bg-gray-700">
+    <div class="flex justify-between">
+        <div>
+        </div>
+
+        <div class="flex justify-between space-x-4">
+            
+            <a target="_blank" rel="noreferrer noopener" href="https://github.com/alcarney">
+                <svg class="w-8 h-8 bg-transparent stroke-current" style="fill:none">
+    <use xlink:href="/svg/feather-sprite.svg#github" />
+</svg>
+            </a>
+            
+            <a target="_blank" rel="noreferrer noopener" href="https://twitter.com/alcarneyme">
+                <svg class="w-8 h-8 bg-transparent stroke-current" style="fill:none">
+    <use xlink:href="/svg/feather-sprite.svg#twitter" />
+</svg>
+            </a>
+            
+            <a target="_blank" rel="noreferrer noopener" href="https://instagram.com/alcarneyme">
+                <svg class="w-8 h-8 bg-transparent stroke-current" style="fill:none">
+    <use xlink:href="/svg/feather-sprite.svg#instagram" />
+</svg>
+            </a>
+            
+            <a target="_blank" rel="noreferrer noopener" href="https://www.youtube.com/channel/UC5GPflgRWhnCxA0BllfP5CA">
+                <svg class="w-8 h-8 bg-transparent stroke-current" style="fill:none">
+    <use xlink:href="/svg/feather-sprite.svg#youtube" />
+</svg>
+            </a>
+            
+        </div>
+
+        <div>
+            
+        </div>
+    </div>
+</footer>
+    <script>
+        const codeBlocks = document.querySelectorAll(".highlight pre")
+        Array.from(codeBlocks).forEach(el => {
+            el.style.backgroundColor = "#fdf6e3"
+        })
+    </script>
+</body>
+
+</html>

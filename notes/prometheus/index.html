@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+<meta name="theme-color" content="#259669" />
+
+<meta name="generator" content="Hugo 0.79.1" />
+<meta name="author" content="Alex Carney" />
+<meta name="description" content="Examples and tips for writing queries for kubernetes clusters." />
+
+<meta property="og:title" content="Kubernetes Focused Prometheus Queries" />
+<meta property="og:description" content="Examples and tips for writing queries for kubernetes clusters." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://alcarney.me/notes/prometheus/" />
+<meta property="article:modified_time" content="2020-12-22T13:44:42+00:00" />
+
+<meta property="article:tag" content="monitoring" />
+<meta property="article:tag" content="devops" />
+<meta property="article:tag" content="prometheus" />
+<meta property="article:tag" content="k8s" />
+
+<meta name="twitter:creator" content="@alcarneyme" />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Kubernetes Focused Prometheus Queries"/>
+<meta name="twitter:description" content="Examples and tips for writing queries for kubernetes clusters."/>
+
+
+<title>Kubernetes Focused Prometheus Queries | Alex Carney</title>
+
+
+
+<link rel="stylesheet" href="https://alcarney.me/main.065c4df780073fda03fc10b742a2eed791b369295ced8e533244119922cc48e7.css" /></head>
+
+<body class=bg-gray-100><nav class="flex justify-between p-4 bg-white border-b">
+
+    <div>
+        <h1>Alex Carney</h1>
+    </div>
+
+    <div class="flex space-x-4 items-between">
+        <a href="/blog">Blog</a>
+        <a href="/notes">Notes</a>
+    </div>
+    
+</nav><main class="max-w-4xl m-auto mb-8">
+<article class="post content">
+    <header class="post-header">
+        <h1 class="post-title">Kubernetes Focused Prometheus Queries</h1>
+    </header>
+    <div class="post-content">
+        <h2 id="queries">Queries</h2>
+<p>A collection of queries for inspecting data stored in a Prometheus server. Most
+of these queries should work in vanilla prometheus however a small number may
+contain a few &ldquo;grafana-isms&rdquo;</p>
+<p>The following variables are used as examples</p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>$interval</code></td>
+<td>A time interval e.g. <code>1m</code>. <code>5m</code>, <code>1h</code> etc.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="nodes">Nodes</h3>
+<p>Queries relating to the state of the &ldquo;physical&rdquo; hardware that is hosting the
+cluster</p>
+<p>The following metrics are used in the exmaples</p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>node_cpu_seconds_total</code></td>
+<td>CPU time broken down into <code>mode</code>s e.g. <code>idle</code>, <code>system</code>, <code>user</code></td>
+</tr>
+<tr>
+<td><code>node_load1/5/15</code></td>
+<td>1m, 5m, 15m CPU load averages.</td>
+</tr>
+</tbody>
+</table>
+<p><strong>CPU</strong></p>
+<p>CPU Utilisation, broken down by node</p>
+<pre><code>sum(rate(node_cpu_seconds_total{mode!=&quot;idle&quot;, mode!=&quot;iowait&quot;}[$interval])) by (instance)
+</code></pre><p>CPU load times, broken down by node normalised by number of cores</p>
+<pre><code>sum(node_load1) by (instance) / count(node_cpu_seconds_total{mode=&quot;system&quot;}) by (instance) * 100
+</code></pre><h3 id="kubernetes">Kubernetes</h3>
+<p>A collection of queries specific to kubernetes instances</p>
+<p><strong>Pods</strong></p>
+<p>Useful for alerts, this query returns which pods are not ready</p>
+<pre><code>sum(kube_pod_container_status_ready) by (pod) &lt; 1
+</code></pre><p>This returns the number of times a pod has restarted</p>
+<pre><code>kube_pod_container_status_restarts_total
+</code></pre><p>Useful for alerts, this query will return the pods that are waiting
+and the reason for the delay</p>
+<pre><code>sum(kube_pod_container_status_waiting_reason) by (pod, reason) &gt; 0
+</code></pre><p><strong>Services</strong></p>
+<p>A collection of queries for metrics useful for monitoring services</p>
+<p>The following metrics will be used as examples</p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>service_requests</code></td>
+<td>A counter that counts the number of requests received</td>
+</tr>
+<tr>
+<td><code>service_requests_latency</code></td>
+<td>A histogram that records the response times for a request</td>
+</tr>
+<tr>
+<td><code>service_info</code></td>
+<td>A counter that encodes information about the service in the metric labels</td>
+</tr>
+</tbody>
+</table>
+<p>The number of requests received (usually per second)</p>
+<pre><code>sum(rate(service_requests[$interval]))
+</code></pre><p>The number of internal server errors (5xx responses), again usually per second</p>
+<pre><code>sum(rate(service_requests{code=~&quot;5.*&quot;}[$interval]))
+</code></pre><p>The number of user errors (4xx responses), per second</p>
+<pre><code>sum(rate(service_requests{code=~&quot;4.*&quot;}[$interval]))
+</code></pre><p>Each of the by can be broken down by service (assuming the existence of a
+<code>service</code> label in the scraped data) as follows</p>
+<pre><code>sum(rate(fdm_requests[$interval])) by (service)
+</code></pre><p>Request latencies are recorded as a histogram and so we can only collect
+aggregate values. As far as I can tell the usual way to do this is to generate
+the following datapoints</p>
+<ul>
+<li>95th/99th percentile</li>
+<li>50th percentile / median</li>
+<li>average response time</li>
+</ul>
+<p>The Xth percentile tells us the upper bound on the amount of time X% requests
+are processed in. E.g. if the 95th percentile is 500ms, then 95% of requests are
+handled in 500ms or less.</p>
+<p>Using these metrics we can get a feel for the distribution of the request times:</p>
+<ul>
+<li>If the median coincides with the mean then we can infer that the response
+times are normally distributed</li>
+<li>If the mean &lt; median then the distribution is skewed towards zero i.e. the
+majority of requests are being processed quicker</li>
+<li>If the mean &gt; median then the distribution is skewed high, i.e. the majority
+of requests take a longer time to be processed.</li>
+</ul>
+<p>To generate the Xth percentile</p>
+<pre><code>histogram_quantile(0.X, sum(rate(service_requests_latency_bucket[$interval])) by (le))
+</code></pre><p><strong>NOTE:</strong> This will only work if the bucket label is called <code>le</code></p>
+<p>To get the average</p>
+<pre><code>sum(rate(service_requests_latency_sum[$interval])) / sum(rate(service_requests_latency_count[$interval]))
+</code></pre><p>To get a count of the number of services</p>
+<pre><code>count(sum(service_info) by (service))
+</code></pre><p>Assuming the existence of a <code>service</code> label</p>
+
+        <div class="post-meta"><div>
+                <svg class="w- h- bg-transparent stroke-current" style="fill:none">
+    <use xlink:href="/svg/feather-sprite.svg#tag" />
+</svg>
+                <a class="tag" href="https://alcarney.me/tags/monitoring/">monitoring</a><a class="tag" href="https://alcarney.me/tags/devops/">devops</a><a class="tag" href="https://alcarney.me/tags/prometheus/">prometheus</a><a class="tag" href="https://alcarney.me/tags/k8s/">k8s</a></div></div>
+    </div>
+</article>
+
+    </main><footer class="items-baseline p-4 text-white bg-gray-700">
+    <div class="flex justify-between">
+        <div>
+        </div>
+
+        <div class="flex justify-between space-x-4">
+            
+            <a target="_blank" rel="noreferrer noopener" href="https://github.com/alcarney">
+                <svg class="w-8 h-8 bg-transparent stroke-current" style="fill:none">
+    <use xlink:href="/svg/feather-sprite.svg#github" />
+</svg>
+            </a>
+            
+            <a target="_blank" rel="noreferrer noopener" href="https://twitter.com/alcarneyme">
+                <svg class="w-8 h-8 bg-transparent stroke-current" style="fill:none">
+    <use xlink:href="/svg/feather-sprite.svg#twitter" />
+</svg>
+            </a>
+            
+            <a target="_blank" rel="noreferrer noopener" href="https://instagram.com/alcarneyme">
+                <svg class="w-8 h-8 bg-transparent stroke-current" style="fill:none">
+    <use xlink:href="/svg/feather-sprite.svg#instagram" />
+</svg>
+            </a>
+            
+            <a target="_blank" rel="noreferrer noopener" href="https://www.youtube.com/channel/UC5GPflgRWhnCxA0BllfP5CA">
+                <svg class="w-8 h-8 bg-transparent stroke-current" style="fill:none">
+    <use xlink:href="/svg/feather-sprite.svg#youtube" />
+</svg>
+            </a>
+            
+        </div>
+
+        <div>
+            
+        </div>
+    </div>
+</footer>
+    <script>
+        const codeBlocks = document.querySelectorAll(".highlight pre")
+        Array.from(codeBlocks).forEach(el => {
+            el.style.backgroundColor = "#fdf6e3"
+        })
+    </script>
+</body>
+
+</html>

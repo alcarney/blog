@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+<meta name="theme-color" content="#259669" />
+
+<meta name="generator" content="Hugo 0.79.1" />
+<meta name="author" content="Alex Carney" />
+<meta name="description" content="Differences that may trip up those who are used to Python 3.x" />
+
+<meta property="og:title" content="Python 2.x Gotchas" />
+<meta property="og:description" content="Differences that may trip up those who are used to Python 3.x" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://alcarney.me/notes/python-2-gotchas/" />
+<meta property="article:modified_time" content="2020-12-22T13:44:42+00:00" />
+
+<meta property="article:tag" content="python" />
+
+<meta name="twitter:creator" content="@alcarneyme" />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Python 2.x Gotchas"/>
+<meta name="twitter:description" content="Differences that may trip up those who are used to Python 3.x"/>
+
+
+<title>Python 2.x Gotchas | Alex Carney</title>
+
+
+
+<link rel="stylesheet" href="https://alcarney.me/main.065c4df780073fda03fc10b742a2eed791b369295ced8e533244119922cc48e7.css" /></head>
+
+<body class=bg-gray-100><nav class="flex justify-between p-4 bg-white border-b">
+
+    <div>
+        <h1>Alex Carney</h1>
+    </div>
+
+    <div class="flex space-x-4 items-between">
+        <a href="/blog">Blog</a>
+        <a href="/notes">Notes</a>
+    </div>
+    
+</nav><main class="max-w-4xl m-auto mb-8">
+<article class="post content">
+    <header class="post-header">
+        <h1 class="post-title">Python 2.x Gotchas</h1>
+    </header>
+    <div class="post-content">
+        <p>While at the time of writing (May 2019) the death of Python 2 is just around the
+corner since I&rsquo;m working in an enterprise environment I&rsquo;m sure I will be dealing
+with Python 2.x code for some time to come. To that end here are some gotchas to
+keep in mind.</p>
+<h2 id="missing-features">Missing Features</h2>
+<p>In the 10+ years since Python 3&rsquo;s release it&rsquo;s not surprising that it has
+accumlated a large list of features that simply don&rsquo;t exist in Python 2.x</p>
+<h3 id="no-enum-module">No enum module</h3>
+<p>The <code>enum</code> module was added in Python 3.4. In order to make use of this module
+in versions of Python older than this we can install the <a href="https://pypi.org/project/enum34/">enum34</a> package from
+PyPi.</p>
+<div class="highlight"><pre style="color:#586e75;background-color:#eee8d5;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">$ pip install enum34</code></pre></div>
+<p>Code that uses the standard <code>enum</code> module should now work as is.</p>
+<p><strong>Note:</strong> It would seem that this package is not actively maintained with the most
+recent change being in 2016 at the time of writing.</p>
+<h3 id="no-pathlib-module">No pathlib module</h3>
+<p>The <code>pathlib</code> module was added in Python 3.4. In order to make use of this
+module in older versions of Python we can install the <a href="https://pypi.org/project/pathlib2/">pathlib2</a> package on PyPi</p>
+<div class="highlight"><pre style="color:#586e75;background-color:#eee8d5;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">$ pip install pathlib2</code></pre></div>
+<p>Then code written for the standard <code>pathlib</code> module should work as expected.</p>
+<h3 id="no-filenotfounderrors">No FileNotFoundErrors</h3>
+<p>Not sure when these were added. If you simply want to be able to throw one it&rsquo;s
+easy enough to backport one yourself</p>
+<div class="highlight"><pre style="color:#586e75;background-color:#eee8d5;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#859900">class</span> <span style="color:#cb4b16">FileNotFoundError</span>(<span style="color:#268bd2">OSError</span>):
+    <span style="color:#859900">pass</span></code></pre></div>
+<h2 id="moved-changed-features">Moved / Changed Features</h2>
+<p>There are a number of features that did exist in Python 2.x but were
+renamed/moved or tweaked in someway in Python 3.x so that they are not directly
+compatible with older interpreters anymore</p>
+<h3 id="configparser-is-configparser">configparser is ConfigParser</h3>
+<p>Before Python 3 the <code>configparser</code> module was called <code>ConfigParser</code>, I&rsquo;m
+struggling to see if there are any functional differences between the two
+versions but there is a actively maintained <a href="https://pypi.org/project/configparser/">configparser</a> package available which
+has apparently backported a number of changes to older versions of Python</p>
+<div class="highlight"><pre style="color:#586e75;background-color:#eee8d5;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">$ pip install configparser</code></pre></div>
+<p>In theory code using the standard <code>configparser</code> module will &ldquo;just work&rdquo;.</p>
+<h2 id="best-practice">Best Practice</h2>
+<p>Here is a miscellaneous collection things to do when writing code that will run
+under Python 2.x that should hopefully minimise the amount of surprises!</p>
+<h3 id="use-new-style-classes">Use new style classes</h3>
+<p>In Python 2.x new style classes are an explicit opt-in</p>
+<div class="highlight"><pre style="color:#586e75;background-color:#eee8d5;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#859900">class</span> <span style="color:#cb4b16">MyClass</span>(<span style="color:#cb4b16">object</span>):
+    ...</code></pre></div>
+<h3 id="define-both-eq-and-ne">Define both <code>__eq__</code> and <code>__ne__</code></h3>
+<p>When creating a class that you wish to define equality for you need to ensure
+that you define both the <code>__eq__</code> and <code>__ne__</code> special methods for your class to
+have the behavior you would expect it to.</p>
+<p>In Python 2.x the default implementation of <code>__ne__</code> is something like the
+following.</p>
+<div class="highlight"><pre style="color:#586e75;background-color:#eee8d5;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#859900">def</span> <span style="color:#268bd2">__ne__</span>(<span style="color:#268bd2">self</span>, <span style="color:#268bd2">other</span>):
+    <span style="color:#859900">return</span> <span style="color:#859900">not</span> (<span style="color:#268bd2">self</span> <span style="color:#859900">is</span> <span style="color:#268bd2">other</span>)</code></pre></div>
+<p>For your class to behave as expected you will need to define it as follows</p>
+<div class="highlight"><pre style="color:#586e75;background-color:#eee8d5;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#859900">class</span> <span style="color:#cb4b16">MyClass</span>(<span style="color:#cb4b16">object</span>):
+    ...
+
+    <span style="color:#859900">def</span> <span style="color:#268bd2">__eq__</span>(<span style="color:#268bd2">self</span>, <span style="color:#268bd2">other</span>):
+        ...
+
+    <span style="color:#859900">def</span> <span style="color:#268bd2">__ne__</span>(<span style="color:#268bd2">self</span>, <span style="color:#268bd2">other</span>):
+        <span style="color:#859900">return</span> <span style="color:#859900">not</span> <span style="color:#268bd2">self</span>.<span style="color:#268bd2">__eq__</span>(<span style="color:#268bd2">other</span>)</code></pre></div>
+<h3 id="str-str">str != str</h3>
+<p>In Python 3 the string related datatypes were overhauled to include built-in
+support for unicode character encodings. This means that the <code>str</code> type in
+Python 2.x is <strong>not</strong> equivalent to the <code>str</code> type in Python 3.x</p>
+<p>So if you want to check that some value is an instance of the type <code>str</code> the
+best way is to make use the <code>six</code> compatibility package</p>
+<div class="highlight"><pre style="color:#586e75;background-color:#eee8d5;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">$ pip install six</code></pre></div>
+<p>And to use the following code</p>
+<div class="highlight"><pre style="color:#586e75;background-color:#eee8d5;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#dc322f;font-weight:bold">import</span> <span style="color:#268bd2">six</span>
+
+<span style="color:#859900">if</span> <span style="color:#cb4b16">isinstance</span>(<span style="color:#268bd2">value</span>, <span style="color:#268bd2">six</span>.<span style="color:#268bd2">string_types</span>):
+    ...</code></pre></div>
+
+        <div class="post-meta"><div>
+                <svg class="w- h- bg-transparent stroke-current" style="fill:none">
+    <use xlink:href="/svg/feather-sprite.svg#tag" />
+</svg>
+                <a class="tag" href="https://alcarney.me/tags/python/">python</a></div></div>
+    </div>
+</article>
+
+    </main><footer class="items-baseline p-4 text-white bg-gray-700">
+    <div class="flex justify-between">
+        <div>
+        </div>
+
+        <div class="flex justify-between space-x-4">
+            
+            <a target="_blank" rel="noreferrer noopener" href="https://github.com/alcarney">
+                <svg class="w-8 h-8 bg-transparent stroke-current" style="fill:none">
+    <use xlink:href="/svg/feather-sprite.svg#github" />
+</svg>
+            </a>
+            
+            <a target="_blank" rel="noreferrer noopener" href="https://twitter.com/alcarneyme">
+                <svg class="w-8 h-8 bg-transparent stroke-current" style="fill:none">
+    <use xlink:href="/svg/feather-sprite.svg#twitter" />
+</svg>
+            </a>
+            
+            <a target="_blank" rel="noreferrer noopener" href="https://instagram.com/alcarneyme">
+                <svg class="w-8 h-8 bg-transparent stroke-current" style="fill:none">
+    <use xlink:href="/svg/feather-sprite.svg#instagram" />
+</svg>
+            </a>
+            
+            <a target="_blank" rel="noreferrer noopener" href="https://www.youtube.com/channel/UC5GPflgRWhnCxA0BllfP5CA">
+                <svg class="w-8 h-8 bg-transparent stroke-current" style="fill:none">
+    <use xlink:href="/svg/feather-sprite.svg#youtube" />
+</svg>
+            </a>
+            
+        </div>
+
+        <div>
+            
+        </div>
+    </div>
+</footer>
+    <script>
+        const codeBlocks = document.querySelectorAll(".highlight pre")
+        Array.from(codeBlocks).forEach(el => {
+            el.style.backgroundColor = "#fdf6e3"
+        })
+    </script>
+</body>
+
+</html>

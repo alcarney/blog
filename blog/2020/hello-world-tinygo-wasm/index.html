@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+<meta name="theme-color" content="#259669" />
+
+<meta name="generator" content="Hugo 0.79.1" />
+<meta name="author" content="Alex Carney" />
+<meta name="description" content="Using TinyGo to implement &#39;Hello, World!&#39; in WebAssembly" />
+
+<meta property="og:title" content="Saying &#39;Hello, World!&#39; with TinyGo and WebAssembly" />
+<meta property="og:description" content="Using TinyGo to implement &#39;Hello, World!&#39; in WebAssembly" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://alcarney.me/blog/2020/hello-world-tinygo-wasm/" />
+<meta property="article:published_time" content="2020-04-28T00:00:00+00:00" />
+<meta property="article:modified_time" content="2020-12-22T13:44:42+00:00" />
+
+<meta property="article:tag" content="go" />
+<meta property="article:tag" content="tinygo" />
+<meta property="article:tag" content="wasm" />
+<meta property="article:tag" content="lxd" />
+<meta property="article:tag" content="containers" />
+
+<meta name="twitter:creator" content="@alcarneyme" />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Saying &#39;Hello, World!&#39; with TinyGo and WebAssembly"/>
+<meta name="twitter:description" content="Using TinyGo to implement &#39;Hello, World!&#39; in WebAssembly"/>
+
+
+<title>Saying &#39;Hello, World!&#39; with TinyGo and WebAssembly | Alex Carney</title>
+
+
+
+<link rel="stylesheet" href="https://alcarney.me/main.065c4df780073fda03fc10b742a2eed791b369295ced8e533244119922cc48e7.css" /></head>
+
+<body class=bg-gray-100><nav class="flex justify-between p-4 bg-white border-b">
+
+    <div>
+        <h1>Alex Carney</h1>
+    </div>
+
+    <div class="flex space-x-4 items-between">
+        <a href="/blog">Blog</a>
+        <a href="/notes">Notes</a>
+    </div>
+    
+</nav><main class="max-w-4xl m-auto mb-8">
+<style>
+    header::before {
+        position: absolute;
+        top: 19px;
+        left: -12.5px;
+        display: block;
+        content: '';
+        width: 25px;
+        height: 25px;
+        background: white;
+        transform: rotate(45deg);
+        border-left: solid 1px #e5e7eb;
+        border-bottom: solid 1px #e5e7eb;
+    }
+
+    @media(max-width: 1024px) {
+        header::before {
+            left: 19px;
+            top: -12.5px;
+            border-top: sold 1px #e5e7eb;
+            border-bottom: none;
+        }
+    }
+</style>
+<div class="flex flex-col items-baseline justify-between lg:flex-row">
+    <style>
+    aside::after {
+        position: absolute;
+        top: 8px;
+        right: -10px;
+        display: block;
+        content: '';
+        width: 8px;
+        height: 8px;
+        border-radius: 100%;
+        background: #717885;
+    }
+
+    @media(max-width: 1024px) {
+        aside::after {
+            top: unset;
+            bottom: 6px;
+            left: -18px;
+            border-top: sold 1px #e5e7eb;
+            border-bottom: none;
+        }
+    }
+</style>
+<aside class="relative flex pr-2 mt-4 ml-12 -mb-3 space-x-4 text-gray-500 lg:mr-8 lg:w-32 lg:block lg:space-x-0">
+    <span class="flex justify-between">
+        <svg class="w-6 h-6 bg-transparent stroke-current" style="fill:none">
+    <use xlink:href="/svg/feather-sprite.svg#calendar" />
+</svg>
+        Apr 28, 2020
+    </span>
+    <span class="flex justify-between">
+        <svg class="w-6 h-6 bg-transparent stroke-current" style="fill:none">
+    <use xlink:href="/svg/feather-sprite.svg#clock" />
+</svg>
+        6 min read
+    </span>
+</aside>
+    <article class="relative flex-grow p-4 mt-8 transition bg-white border shadow-lg">
+        <header class="mb-4">
+            <h1 class="text-3xl text-green-600">Saying &#39;Hello, World!&#39; with TinyGo and WebAssembly</h1>
+        </header>
+        <div class="m-auto prose prose-lg prose-green">
+            <p>WebAssembly is something I&rsquo;ve wanted to play with for quite a while now and
+I&rsquo;ve finally got around to taking a look at it. In this post I describe how I
+managed to use <a href="https://tinygo.org/">TinyGo</a> to compile a &ldquo;Hello, World!&rdquo; Go program into
+WebAssembly and execute it in the browser. So that I have something to refer
+back to I also describe setting up my development environment as a container
+using <a href="https://linuxcontainers.org/">LXD</a>.</p>
+<h2 id="setting-up">Setting Up</h2>
+<blockquote>
+<p><strong>Note:</strong></p>
+<p>What I describe here is definitely <em>not</em> a requirement in order to use TinyGo,
+but me wanting to play with yet more technologies so feel free to
+<a href="https://alcarney.me/blog/2020/hello-world-tinygo-wasm/#tinygo">skip</a> this section
+if you want! 🙂</p>
+<p>If you&rsquo;re looking for details on getting started with TinyGo I suggest taking a
+look at their <a href="https://tinygo.org/getting-started/">documentation</a></p>
+</blockquote>
+<p>The recent release of Ubuntu 20.04 (and my desire to have a computer that works
+properly! 😂) has convinced me to switch away from using Arch Linux as my distro of
+choice. That said I have been spoiled by how easy it is to grab the latest version
+of some programming language and start playing with it&hellip;</p>
+<p>Turns out I can have the best of both worlds! Thanks to <a href="https://linuxcontainers.org/">LXD</a> and the
+interface it provides around the native container technology built into Linux I was
+able to spin up an Arch Linux container with all the tools I needed to edit and run
+my code.</p>
+<h3 id="spinning-up-arch-linux">Spinning up Arch Linux</h3>
+<p>Following <a href="https://ubuntu.com/blog/lxd-in-4-easy-steps">this</a> article it was easy enough to pull down and
+launch an Arch Linux image from the community <a href="https://uk.images.linuxcontainers.org/">repository</a></p>
+<div class="highlight"><pre style="color:#586e75;background-color:#eee8d5;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">$ snap install lxd
+$ lxd init                                 <span style="color:#93a1a1;font-style:italic"># ... and picking all the defaults</span>
+$ lxd launch image:archlinux/amd64 tinygo  <span style="color:#93a1a1;font-style:italic"># &#39;tinygo&#39; is the name I&#39;ve given my container</span>
+</code></pre></div><p>Once the container has started it&rsquo;s easy enough to open a bash shell and start
+installing what we need</p>
+<div class="highlight"><pre style="color:#586e75;background-color:#eee8d5;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">$ lxc <span style="color:#cb4b16">exec</span> tinygo -- /bin/bash
+[root@tinygo] $ pacman -S tinygo llvm lld
+</code></pre></div><h3 id="users-and-project-data">Users and Project Data</h3>
+<p>Even in an unprivileged container (which is what I think LXD uses by default?) its
+probably not the best idea to run programs as root so we should create a normal user
+account and set a password</p>
+<div class="highlight"><pre style="color:#586e75;background-color:#eee8d5;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">[root@tinygo] $ useradd -m alex
+[root@tinygo] $ passwd alex
+</code></pre></div><p>Then its time to share the project folder with the container so that the tools inside
+are able to work with it.</p>
+<div class="highlight"><pre style="color:#586e75;background-color:#eee8d5;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">$ mkdir hello-world
+$ lxc config device add tinygo workdir disk <span style="color:#268bd2">source</span>=/host/path/to/hello-world/ <span style="color:#268bd2">path</span>=/home/alex/hello-world/
+
+[root@tinygo] $ ls /home/alex
+hello-world
+</code></pre></div><h3 id="vscode">VSCode</h3>
+<figure><a href="/images/vscode-remote.gif">
+    <img src="/images/vscode-remote.gif"
+         alt="Attaching VSCode to &amp;lsquo;tinygo&amp;rsquo; container."/> </a><figcaption>
+            <p>Attaching VSCode to &lsquo;tinygo&rsquo; container.</p>
+        </figcaption>
+</figure>
+
+<p>Just because the development tools we&rsquo;re using are isolated in their own container
+doesn&rsquo;t mean we have to give up on all the features of our editor. With VSCode&rsquo;s
+<a href="https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.vscode-remote-extensionpack">Remote Development Extensions</a> we can connect to a remote
+environment where VSCode will install its server component along with any other
+extensions we require - all of which will remain isolated in the container.</p>
+<p>The remote capabilities of VSCode come in a few flavours and while VSCode has an
+extension dedicated to containers it appears that it&rsquo;s hard wired to work with Docker
+which isn&rsquo;t much use in this case&hellip; but since each LXC container is assigned a local
+IP address I decided to try the SSH method.</p>
+<p>This means we need to enable ssh access from within the container itself.</p>
+<div class="highlight"><pre style="color:#586e75;background-color:#eee8d5;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">[root@tinygo] $ pacman -S openssh
+[root@tinygo] $ systemctl <span style="color:#cb4b16">enable</span> --now sshd.service
+</code></pre></div><p>Then for all the Go related tooling in VSCode to function I also had to install the main
+Go implementation.</p>
+<div class="highlight"><pre style="color:#586e75;background-color:#eee8d5;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">[root@tinygo] $ pacman -S go
+</code></pre></div><p>Finally we can discover the IP address of the container using the <code>lxc list</code> command and
+try to connect VSCode to the container logging in as the <code>alex</code> user we created earlier.</p>
+<div class="highlight"><pre style="color:#586e75;background-color:#eee8d5;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">$ lxc list
++--------+---------+---------------------+-----------------------------------------------+-----------+-----------+
+|  NAME  |  STATE  |        IPV4         |                     IPV6                      |   TYPE    | SNAPSHOTS |
++--------+---------+---------------------+-----------------------------------------------+-----------+-----------+
+| tinygo | RUNNING | 10.68.193.81 (eth0) | fd42:56e0:e39c:b4c1:216:3eff:feaa:3b91 (eth0) | CONTAINER | <span style="color:#2aa198;font-weight:bold">0</span>         |
++--------+---------+---------------------+-----------------------------------------------+-----------+-----------+
+</code></pre></div><h3 id="access-denied">Access Denied!!</h3>
+<p>Once I started to create the files necessary for the project I very quickly realised that
+the project folder we passed into the container was mounted as read-only! It turns
+out there is some extra wizardry required to give the <code>alex@tinygo</code> user permission to
+write files back to the host&hellip;</p>
+<p>I really don&rsquo;t quite understand the details of how users and permissions work with these
+containers but from what I can gather LXD needs to reuse the ID of my user account on the
+host as the ID of the user within the container?..</p>
+<p>Anyway according to <a href="https://tribaal.io/nicer-mounting-home-in-lxd.html">this post</a> the incantations needed are</p>
+<div class="highlight"><pre style="color:#586e75;background-color:#eee8d5;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh"><span style="color:#cb4b16">echo</span> <span style="color:#2aa198">&#34;root:</span><span style="color:#268bd2">$UID</span><span style="color:#2aa198">:1&#34;</span> | sudo tee -a /etc/subuid /etc/subgid
+</code></pre></div><p>which is a one time setup allowing my user ID on the host to be reused. Then on a
+per-container basis we also need to tell LXD to reuse my ID within a given container</p>
+<div class="highlight"><pre style="color:#586e75;background-color:#eee8d5;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">$ lxc config <span style="color:#cb4b16">set</span> tinygo raw.idmap <span style="color:#2aa198">&#34;both </span><span style="color:#268bd2">$UID</span><span style="color:#2aa198"> 1000&#34;</span>
+</code></pre></div><p>Phew! I think, finally, we&rsquo;re in a position to crack on with the program itself. Was all
+of that necessary?.. probably not. Was it interesting? I certainly think so! Is it worth
+the effort? Well, I guess only time will tell&hellip;</p>
+<h2 id="tinygo">TinyGo</h2>
+<p>With the setup out of the way time to write our &ldquo;Hello, World!&rdquo; program in Go</p>
+<div class="highlight"><pre style="color:#586e75;background-color:#eee8d5;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#dc322f;font-weight:bold">package</span> <span style="color:#268bd2">main</span>
+
+<span style="color:#93a1a1;font-style:italic">//go:export main
+</span><span style="color:#93a1a1;font-style:italic"></span><span style="color:#859900">func</span> <span style="color:#268bd2">main</span>() {
+    <span style="color:#cb4b16">println</span>(<span style="color:#2aa198">&#34;Hello, World!&#34;</span>)
+}
+</code></pre></div><p>Notice the <code>//go:export main</code> comment. Using comments like these is how we tell TinyGo
+which functions we want to be callable from the JavaScript code that will wrap our
+WebAssembly module. This is then compiled with the following TinyGo command.</p>
+<div class="highlight"><pre style="color:#586e75;background-color:#eee8d5;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">$ mkdir public/
+$ tinygo build -o public/hello.wasm -target wasm main.go
+</code></pre></div><blockquote>
+<p><strong>Why TinyGo?</strong></p>
+<p>While the standard Go compiler <a href="https://github.com/golang/go/wiki/WebAssembly">has support</a> for WebAssembly the binaries it
+produces are typically <a href="https://github.com/golang/go/wiki/WebAssembly#reducing-the-size-of-wasm-files">quite large</a>.</p>
+<p>Whereas <a href="https://tinygo.org/">TinyGo</a> is an alternate compiler for the Go language that
+specifically targets constrained environments such as embedded devices and
+microcontrollers. This means the binaries it produces are typically much smaller - at
+the expense of <a href="https://tinygo.org/lang-support/">missing</a> some features of the language.</p>
+</blockquote>
+<h2 id="webassembly">WebAssembly</h2>
+<p>With our WebAssembly binary ready to go it&rsquo;s time to load it into the browser and
+execute it.</p>
+<div class="highlight"><pre style="color:#586e75;background-color:#eee8d5;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-html" data-lang="html"><span style="color:#93a1a1;font-style:italic">&lt;!DOCTYPE html&gt;</span>
+&lt;<span style="color:#268bd2;font-weight:bold">html</span> <span style="color:#268bd2">lang</span>=<span style="color:#2aa198">&#34;en&#34;</span>&gt;
+&lt;<span style="color:#268bd2;font-weight:bold">head</span>&gt;
+    &lt;<span style="color:#268bd2;font-weight:bold">meta</span> <span style="color:#268bd2">charset</span>=<span style="color:#2aa198">&#34;UTF-8&#34;</span>&gt;
+    &lt;<span style="color:#268bd2;font-weight:bold">meta</span> <span style="color:#268bd2">name</span>=<span style="color:#2aa198">&#34;viewport&#34;</span> <span style="color:#268bd2">content</span>=<span style="color:#2aa198">&#34;width=device-width, initial-scale=1.0&#34;</span>&gt;
+    &lt;<span style="color:#268bd2;font-weight:bold">title</span>&gt;WASM Test&lt;/<span style="color:#268bd2;font-weight:bold">title</span>&gt;
+&lt;/<span style="color:#268bd2;font-weight:bold">head</span>&gt;
+&lt;<span style="color:#268bd2;font-weight:bold">body</span>&gt;
+    &lt;<span style="color:#268bd2;font-weight:bold">script</span> <span style="color:#268bd2">src</span>=<span style="color:#2aa198">&#34;wasm_exec.js&#34;</span>&gt;&lt;/<span style="color:#268bd2;font-weight:bold">script</span>&gt;
+    &lt;<span style="color:#268bd2;font-weight:bold">script</span>&gt;
+        <span style="color:#859900">const</span> <span style="color:#268bd2">go</span> = <span style="color:#859900">new</span> <span style="color:#268bd2">Go</span>()
+
+        <span style="color:#268bd2">WebAssembly</span>.<span style="color:#268bd2">instantiateStreaming</span>(<span style="color:#268bd2">fetch</span>(<span style="color:#2aa198">&#34;hello.wasm&#34;</span>), <span style="color:#268bd2">go</span>.<span style="color:#268bd2">importObject</span>)
+            .<span style="color:#268bd2">then</span>(<span style="color:#268bd2">module</span> =&gt; {
+                <span style="color:#859900">let</span> <span style="color:#268bd2">wasm</span> = <span style="color:#268bd2">module</span>.<span style="color:#268bd2">instance</span>
+                <span style="color:#268bd2">go</span>.<span style="color:#268bd2">run</span>(<span style="color:#268bd2">wasm</span>)
+            })
+    &lt;/<span style="color:#268bd2;font-weight:bold">script</span>&gt;
+&lt;/<span style="color:#268bd2;font-weight:bold">body</span>&gt;
+&lt;/<span style="color:#268bd2;font-weight:bold">html</span>&gt;
+</code></pre></div><p>There&rsquo;s not too much to go into here - I&rsquo;m surprised at how straightforward this was! 😀
+The <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/WebAssembly/instantiateStreaming">WebAssembly.instantiateStreaming</a> function is provided by the
+browser to fetch a wasm executable over the network and compile it. It also takes an
+object that describes details such as how much memory to allocate to the module and
+which JavaScript functions should be passed into it.</p>
+<p>Thankfully in our case most of these details are handled by the <code>Go()</code> object provided
+by the <code>wasm_exec.js</code> file from the TinyGo project. All we have to do is make sure that
+this file is also accessible by the browser. The file itself should be included as part
+of your TinyGo install, mine was located in <code>/usr/lib/tinygo/targets/wasm_exec.js</code></p>
+<p>More details on using the compiled WebAssembly module can be found in the TinyGo
+<a href="https://tinygo.org/webassembly/webassembly/">documentation</a>.</p>
+<figure><a href="/images/wasm-hello-world.png">
+    <img src="/images/wasm-hello-world.png"
+         alt="This is probably my most convoluted &amp;lsquo;Hello, World!&amp;rsquo; program to date!"/> </a><figcaption>
+            <p>This is probably my most convoluted &lsquo;Hello, World!&rsquo; program to date!</p>
+        </figcaption>
+</figure>
+
+<p>All being well, you should be able to open your browser to the webpage we created above
+and see the message &ldquo;Hello, World!&rdquo; written to the console!</p>
+        </div>
+        <div class="flex items-center justify-end mt-4 space-x-4">
+    <a class="px-2 text-sm text-gray-600 bg-green-200 border border-green-600 rounded" href="https://alcarney.me/tags/go/">
+        #go
+    </a><a class="px-2 text-sm text-gray-600 bg-green-200 border border-green-600 rounded" href="https://alcarney.me/tags/tinygo/">
+        #tinygo
+    </a><a class="px-2 text-sm text-gray-600 bg-green-200 border border-green-600 rounded" href="https://alcarney.me/tags/wasm/">
+        #wasm
+    </a><a class="px-2 text-sm text-gray-600 bg-green-200 border border-green-600 rounded" href="https://alcarney.me/tags/lxd/">
+        #lxd
+    </a><a class="px-2 text-sm text-gray-600 bg-green-200 border border-green-600 rounded" href="https://alcarney.me/tags/containers/">
+        #containers
+    </a></div>
+        <div class="pt-4 mt-8 border-t">
+            <div id="disqus_thread"></div>
+<script type="application/javascript">
+    var disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "alcarney-me" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+        </div>
+    </article>
+</div>
+
+    </main><footer class="items-baseline p-4 text-white bg-gray-700">
+    <div class="flex justify-between">
+        <div>
+        </div>
+
+        <div class="flex justify-between space-x-4">
+            
+            <a target="_blank" rel="noreferrer noopener" href="https://github.com/alcarney">
+                <svg class="w-8 h-8 bg-transparent stroke-current" style="fill:none">
+    <use xlink:href="/svg/feather-sprite.svg#github" />
+</svg>
+            </a>
+            
+            <a target="_blank" rel="noreferrer noopener" href="https://twitter.com/alcarneyme">
+                <svg class="w-8 h-8 bg-transparent stroke-current" style="fill:none">
+    <use xlink:href="/svg/feather-sprite.svg#twitter" />
+</svg>
+            </a>
+            
+            <a target="_blank" rel="noreferrer noopener" href="https://instagram.com/alcarneyme">
+                <svg class="w-8 h-8 bg-transparent stroke-current" style="fill:none">
+    <use xlink:href="/svg/feather-sprite.svg#instagram" />
+</svg>
+            </a>
+            
+            <a target="_blank" rel="noreferrer noopener" href="https://www.youtube.com/channel/UC5GPflgRWhnCxA0BllfP5CA">
+                <svg class="w-8 h-8 bg-transparent stroke-current" style="fill:none">
+    <use xlink:href="/svg/feather-sprite.svg#youtube" />
+</svg>
+            </a>
+            
+        </div>
+
+        <div>
+            
+        </div>
+    </div>
+</footer>
+    <script>
+        const codeBlocks = document.querySelectorAll(".highlight pre")
+        Array.from(codeBlocks).forEach(el => {
+            el.style.backgroundColor = "#fdf6e3"
+        })
+    </script>
+</body>
+
+</html>

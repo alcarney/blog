@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Learning Vulkan on Alex Carney</title>
+    <link>https://alcarney.me/series/learning-vulkan/</link>
+    <description>Recent content in Learning Vulkan on Alex Carney</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Wed, 08 Jan 2020 00:00:00 +0000</lastBuildDate><atom:link href="https://alcarney.me/series/learning-vulkan/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Learning Vulkan: Enumerating Physical Devices</title>
+      <link>https://alcarney.me/blog/2020/learning-vulkan-p1/</link>
+      <pubDate>Wed, 08 Jan 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://alcarney.me/blog/2020/learning-vulkan-p1/</guid>
+      <description>&lt;p&gt;Being an API for talking to GPUs and other compute devices every Vulkan
+program starts off by looking for an appropriate &lt;a href=&#34;https://www.khronos.org/registry/vulkan/specs/1.1-extensions/man/html/VkPhysicalDevice.html&#34;&gt;physical device&lt;/a&gt;
+to use. In this post I write a little C program that initialises the Vulkan
+API and lists out the available devices in the system.&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#586e75;background-color:#eee8d5;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-plain&#34; data-lang=&#34;plain&#34;&gt;$ vkdevice
+Device Name:            Intel(R) HD Graphics 520 (Skylake GT2)
+  Type:                 Integrated GPU
+  Vendor ID:            32902
+  Device ID:            6422
+  API Version:          v1.1.102
+  Driver Version:       v19.3.1&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;</description>
+    </item>
+    
+    <item>
+      <title>Learning Vulkan: Overview</title>
+      <link>https://alcarney.me/blog/2020/learning-vulkan-p0/</link>
+      <pubDate>Wed, 01 Jan 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://alcarney.me/blog/2020/learning-vulkan-p0/</guid>
+      <description>&lt;p&gt;I have always been interested in graphics and have on numerous occasions tried
+to dip my toe into the world of OpenGL and more recently Vulkan. However I have
+never been able to get past the &amp;ldquo;Hello, World&amp;rdquo; of these technologies - drawing a
+triangle on screen, I think mostly becuase I never really had a goal in mind
+once I got that far&amp;hellip;&lt;/p&gt;
+&lt;p&gt;But that&amp;rsquo;s (hopefully) about to change! What better excuse than a new decade to
+jump back into this world for the 100th time and try to get to all those
+interesting ideas I see people playing with all the time!&lt;/p&gt;</description>
+    </item>
+    
+  </channel>
+</rss>

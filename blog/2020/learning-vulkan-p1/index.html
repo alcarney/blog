@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+<meta name="theme-color" content="#259669" />
+
+<meta name="generator" content="Hugo 0.79.1" />
+<meta name="author" content="Alex Carney" />
+<meta name="description" content="Enumerating Vulkan compatible physical devices" />
+
+<meta property="og:title" content="Learning Vulkan: Enumerating Physical Devices" />
+<meta property="og:description" content="Enumerating Vulkan compatible physical devices" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://alcarney.me/blog/2020/learning-vulkan-p1/" />
+<meta property="article:published_time" content="2020-01-08T00:00:00+00:00" />
+<meta property="article:modified_time" content="2020-12-22T13:44:42+00:00" />
+
+
+<meta property="og:see_also" content="https://alcarney.me/blog/2020/learning-vulkan-p0/" />
+
+<meta property="article:tag" content="c" />
+<meta property="article:tag" content="vulkan" />
+<meta property="article:tag" content="graphics" />
+
+<meta name="twitter:creator" content="@alcarneyme" />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Learning Vulkan: Enumerating Physical Devices"/>
+<meta name="twitter:description" content="Enumerating Vulkan compatible physical devices"/>
+
+
+<title>Learning Vulkan: Enumerating Physical Devices | Alex Carney</title>
+
+
+
+<link rel="stylesheet" href="https://alcarney.me/main.065c4df780073fda03fc10b742a2eed791b369295ced8e533244119922cc48e7.css" /></head>
+
+<body class=bg-gray-100><nav class="flex justify-between p-4 bg-white border-b">
+
+    <div>
+        <h1>Alex Carney</h1>
+    </div>
+
+    <div class="flex space-x-4 items-between">
+        <a href="/blog">Blog</a>
+        <a href="/notes">Notes</a>
+    </div>
+    
+</nav><main class="max-w-4xl m-auto mb-8">
+<style>
+    header::before {
+        position: absolute;
+        top: 19px;
+        left: -12.5px;
+        display: block;
+        content: '';
+        width: 25px;
+        height: 25px;
+        background: white;
+        transform: rotate(45deg);
+        border-left: solid 1px #e5e7eb;
+        border-bottom: solid 1px #e5e7eb;
+    }
+
+    @media(max-width: 1024px) {
+        header::before {
+            left: 19px;
+            top: -12.5px;
+            border-top: sold 1px #e5e7eb;
+            border-bottom: none;
+        }
+    }
+</style>
+<div class="flex flex-col items-baseline justify-between lg:flex-row">
+    <style>
+    aside::after {
+        position: absolute;
+        top: 8px;
+        right: -10px;
+        display: block;
+        content: '';
+        width: 8px;
+        height: 8px;
+        border-radius: 100%;
+        background: #717885;
+    }
+
+    @media(max-width: 1024px) {
+        aside::after {
+            top: unset;
+            bottom: 6px;
+            left: -18px;
+            border-top: sold 1px #e5e7eb;
+            border-bottom: none;
+        }
+    }
+</style>
+<aside class="relative flex pr-2 mt-4 ml-12 -mb-3 space-x-4 text-gray-500 lg:mr-8 lg:w-32 lg:block lg:space-x-0">
+    <span class="flex justify-between">
+        <svg class="w-6 h-6 bg-transparent stroke-current" style="fill:none">
+    <use xlink:href="/svg/feather-sprite.svg#calendar" />
+</svg>
+        Jan 8, 2020
+    </span>
+    <span class="flex justify-between">
+        <svg class="w-6 h-6 bg-transparent stroke-current" style="fill:none">
+    <use xlink:href="/svg/feather-sprite.svg#clock" />
+</svg>
+        8 min read
+    </span>
+</aside>
+    <article class="relative flex-grow p-4 mt-8 transition bg-white border shadow-lg">
+        <header class="mb-4">
+            <h1 class="text-3xl text-green-600">Learning Vulkan: Enumerating Physical Devices</h1>
+        </header>
+        <div class="m-auto prose prose-lg prose-green">
+            <p>Being an API for talking to GPUs and other compute devices every Vulkan
+program starts off by looking for an appropriate <a href="https://www.khronos.org/registry/vulkan/specs/1.1-extensions/man/html/VkPhysicalDevice.html">physical device</a>
+to use. In this post I write a little C program that initialises the Vulkan
+API and lists out the available devices in the system.</p>
+<div class="highlight"><pre style="color:#586e75;background-color:#eee8d5;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-plain" data-lang="plain">$ vkdevice
+Device Name:            Intel(R) HD Graphics 520 (Skylake GT2)
+  Type:                 Integrated GPU
+  Vendor ID:            32902
+  Device ID:            6422
+  API Version:          v1.1.102
+  Driver Version:       v19.3.1</code></pre></div>
+<blockquote>
+<p>This is part of my &ldquo;Learning Vulkan&rdquo; series where I try to figure how to use
+Vulkan to explore various concepts in graphics programming. As mentioned in
+the <a href="/blog/2020/learning-vulkan-p0/">Overview</a> I don&rsquo;t necessarily
+know what I&rsquo;m doing!</p>
+</blockquote>
+<h2 id="setup">Setup</h2>
+<p>Unlike Python which has tools like <code>pip</code> and <code>venv</code> to manage
+dependencies and development environments, C projects (as far as I know)
+require the environment of your development machine to be &ldquo;just right&rdquo;. This means
+details such as the host operating system and its libraries are more important
+than normal.</p>
+<p>Since this series is a learning exercise, being able to compile and run code
+across multiple systems is not a huge concern of mine right now. But here is a rough
+overview of what is required to build this project&hellip;</p>
+<p>I&rsquo;m running Arch Linux with <code>gcc</code> and <code>make</code> installed along with the following
+Vulkan related packages</p>
+<div class="highlight"><pre style="color:#586e75;background-color:#eee8d5;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">$ pacman -Q | grep vulkan
+vulkan-extra-layers 1.1.130+10614+a70d5d17e-1
+vulkan-headers 1:1.1.130-1
+vulkan-html-docs 1:1.1.130-1
+vulkan-icd-loader 1.1.130-1
+vulkan-intel 19.3.1-1
+vulkan-man-pages 1:1.0.38-1
+vulkan-trace 1.1.130+10614+a70d5d17e-1
+vulkan-validation-layers 1.1.130-1</code></pre></div>
+<p>I&rsquo;m not sure however which of these are essential for the code contained in this
+post.</p>
+<h3 id="project-structure">Project Structure</h3>
+<p>I&rsquo;m intending over the course of this series to build up a repository of Vulkan
+examples/utilities and since the API  has a reputation of being verbose I&rsquo;ll be looking
+to reuse as much code as I can! So with that in mind I have opted for the following
+project structure</p>
+<div class="highlight"><pre style="color:#586e75;background-color:#eee8d5;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">$ tree -a --dirsfirst
+.
+├── bin
+│   └── vkdevice
+├── src
+│   ├── vkdevice.c
+│   └── vkdevice.o
+├── .gitignore
+└── Makefile</code></pre></div>
+<p>Nothing ground breaking, a <code>src/</code> folder to hold the source and intermediate build files,
+<code>bin/</code> to hold all the compiled programs and a plain <code>Makefile</code> to orchestrate the whole
+thing.</p>
+<h3 id="the-makefile">The Makefile</h3>
+<p>I know that there are tools such as <a href="https://cmake.org/">CMake</a> and <a href="https://www.gnu.org/software/autoconf/">Autoconf</a> that are
+probably preferable to a plain Makefile since they can be used to abstract over some
+differences between platforms. However since I&rsquo;m not familiar with them and want to
+focus on learning Vulkan I&rsquo;m opting for a simpler approach to start out with.</p>
+<div class="highlight"><pre style="color:#586e75;background-color:#eee8d5;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-make" data-lang="make"><span style="color:#268bd2">CC</span> = gcc
+<span style="color:#268bd2">CFLAGS</span> = -Wall -Wextra
+<span style="color:#268bd2">LDFLAGS</span> = -lvulkan
+</code></pre></div>
+<p>Here I&rsquo;m declaring that I&rsquo;m using the <code>gcc</code> compiler, the <code>CFLAGS</code> variable contains any
+flags that should passed to compile steps (at the moment this just enables some compiler
+warnings). Finally <code>LDFLAGS</code> contains any flags related to linking, <code>-lvulkan</code> tells the
+linker to link our program against the Vulkan SDK.</p>
+<div class="highlight"><pre style="color:#586e75;background-color:#eee8d5;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-make" data-lang="make"><span style="color:#268bd2">.PHONY</span>: <span style="color:#268bd2">default</span> <span style="color:#268bd2">clean</span>
+<span style="color:#268bd2">default</span>: <span style="color:#268bd2">vkdevice</span>
+<span style="color:#268bd2">clean</span>:
+    rm src/*.o bin/*
+</code></pre></div>
+<p>Next I define the <code>default</code> target to be <code>vkdevice</code> so that I can just run <code>make</code> and
+have it build the project. Then there&rsquo;s a <code>clean</code> target so that it&rsquo;s easy to recompile
+everything from scratch. Declaring both <code>default</code> and <code>clean</code> to be
+<a href="https://www.gnu.org/software/make/manual/make.html#Phony-Targets">phony targets</a> I think means we&rsquo;re telling <code>make</code> not to look for
+matching files on the filesystem.</p>
+<div class="highlight"><pre style="color:#586e75;background-color:#eee8d5;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-make" data-lang="make"><span style="color:#268bd2">%.o</span>: %.<span style="color:#268bd2">c</span>
+    <span style="color:#859900">$(</span>CC<span style="color:#859900">)</span> -c <span style="color:#859900">$(</span>CFLAGS<span style="color:#859900">)</span> $&lt; <span style="color:#268bd2">$@</span>
+
+<span style="color:#268bd2">VKDEVICE</span> = src/vkdevice.o
+<span style="color:#268bd2">vkdevice</span>:
+    <span style="color:#859900">$(</span>CC<span style="color:#859900">)</span> <span style="color:#859900">$(</span>LDFLAGS<span style="color:#859900">)</span> <span style="color:#859900">$(</span>VKDEVICE<span style="color:#859900">)</span> -o bin/vkdevice
+</code></pre></div>
+<p>Last but not least we get to the main part of the <code>Makefile</code>. First there is a generic
+<a href="https://www.gnu.org/software/make/manual/make.html#Pattern-Rules">pattern rule</a> that instructs <code>make</code> on how to convert any <code>.c</code> file into
+an <code>.o</code> file making use of any of the compiler flags defined earlier. This allows the
+<code>Makefile</code> to be extended to compile each program we write by declaring a target that
+links the relevant object files (as defined by <code>VKDEVICE</code>) into an executable.</p>
+<p>Then we can compile the project by calling <code>make</code> from the same directory as the
+<code>Makefile</code></p>
+<div class="highlight"><pre style="color:#586e75;background-color:#eee8d5;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">$ make
+gcc -c -Wall -Wextra src/vkdevice.c -o src/vkdevice.o
+gcc -lvulkan src/vkdevice.o -o bin/vkdevice</code></pre></div>
+<h2 id="creating-an-instance">Creating an instance</h2>
+<p>With all the housekeeping out of the way, time to dive into the code which starts in
+a fairly standard way with us including all the header files we need.</p>
+<div class="highlight"><pre style="color:#586e75;background-color:#eee8d5;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#93a1a1;font-style:italic">#include</span> <span style="color:#93a1a1;font-style:italic">&lt;stdio.h&gt;</span><span style="color:#93a1a1;font-style:italic">
+</span><span style="color:#93a1a1;font-style:italic">#include</span> <span style="color:#93a1a1;font-style:italic">&lt;stdlib.h&gt;</span><span style="color:#93a1a1;font-style:italic">
+</span><span style="color:#93a1a1;font-style:italic">#include</span> <span style="color:#93a1a1;font-style:italic">&lt;vulkan/vulkan.h&gt;</span><span style="color:#93a1a1;font-style:italic">
+</span><span style="color:#93a1a1;font-style:italic"></span>
+<span style="color:#859900;font-weight:bold">int</span> <span style="color:#268bd2">main</span>() {
+    <span style="color:#93a1a1;font-style:italic">// Insert code...
+</span><span style="color:#93a1a1;font-style:italic"></span>}</code></pre></div>
+<p>Then we start by filling out the <code>VkApplicationInfo</code> and <code>VkInstanceCreateInfo</code> structs.
+Unsurprisingly the first is used to provide information about our application such as
+the version of the API we wish to use. The application name and version fields are
+arbitrary and can be set to whatever we like.</p>
+<div class="highlight"><pre style="color:#586e75;background-color:#eee8d5;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#268bd2">VkApplicationInfo</span> <span style="color:#268bd2">app_info</span> = {
+    .<span style="color:#268bd2">sType</span> = <span style="color:#268bd2">VK_STRUCTURE_TYPE_APPLICATION_INFO</span>,
+    .<span style="color:#268bd2">pApplicationName</span> = <span style="color:#2aa198">&#34;vkDevice Info&#34;</span>,
+    .<span style="color:#268bd2">applicationVersion</span> = <span style="color:#268bd2">VK_MAKE_VERSION</span>(<span style="color:#2aa198;font-weight:bold">1</span>,<span style="color:#2aa198;font-weight:bold">0</span>,<span style="color:#2aa198;font-weight:bold">0</span>),
+    .<span style="color:#268bd2">apiVersion</span> = <span style="color:#268bd2">VK_API_VERSION_1_1</span>,
+};
+
+<span style="color:#268bd2">VkInstanceCreateInfo</span> <span style="color:#268bd2">vk_info</span> = {
+    .<span style="color:#268bd2">sType</span> = <span style="color:#268bd2">VK_STRUCTURE_TYPE_INSTANCE_CREATE_INFO</span>,
+    .<span style="color:#268bd2">pApplicationInfo</span> = &amp;<span style="color:#268bd2">app_info</span>,
+};</code></pre></div>
+<p>The <code>vk_info</code> struct is then be used to create the instance.</p>
+<div class="highlight"><pre style="color:#586e75;background-color:#eee8d5;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#268bd2">VkInstance</span> <span style="color:#268bd2">vk</span> = <span style="color:#cb4b16">NULL</span>;
+<span style="color:#268bd2">VkResult</span> <span style="color:#268bd2">res</span> = <span style="color:#268bd2">vkCreateInstance</span>(&amp;<span style="color:#268bd2">vk_info</span>, <span style="color:#cb4b16">NULL</span>, &amp;<span style="color:#268bd2">vk</span>);
+
+<span style="color:#859900">if</span> (<span style="color:#268bd2">res</span> != <span style="color:#268bd2">VK_SUCCESS</span>) {
+    <span style="color:#268bd2">fprintf</span>(<span style="color:#268bd2">stderr</span>, <span style="color:#2aa198">&#34;Unable to create VkInstance!</span><span style="color:#2aa198">\n</span><span style="color:#2aa198">&#34;</span>);
+    <span style="color:#859900">return</span> <span style="color:#2aa198;font-weight:bold">0</span>;
+}</code></pre></div>
+<p>We also have to be sure to destroy the instance once we have finished with it</p>
+<div class="highlight"><pre style="color:#586e75;background-color:#eee8d5;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#93a1a1;font-style:italic">// Code omitted...
+</span><span style="color:#93a1a1;font-style:italic"></span>
+<span style="color:#268bd2">cleanup_instance</span>:
+    <span style="color:#268bd2">vkDestroyInstance</span>(<span style="color:#268bd2">vk</span>, <span style="color:#cb4b16">NULL</span>);
+
+<span style="color:#859900">return</span> <span style="color:#2aa198;font-weight:bold">0</span>;</code></pre></div>
+<p>This is me attempting to apply <a href="https://www.kernel.org/doc/html/v4.10/process/coding-style.html#centralized-exiting-of-functions">this</a> rule from the Linux kernel style
+guide to help manage resources through the lifetime of the program.</p>
+<h2 id="listing-devices">Listing Devices</h2>
+<p>Now that we have an instance we can start querying the API for the physical devices that
+are in the system. The issue is however - we don&rsquo;t know how many devices the system has!
+To get around this we first have to call <code>vkEnumeratePhysicalDevices</code> with a <code>NULL</code>
+pointer, it will then mutate the <code>count</code> variable that we give to be equal to the number
+of available devices.</p>
+<p>Note that we skip straight to the <code>cleanup_instance</code> label we defined earlier if this
+step fails.</p>
+<div class="highlight"><pre style="color:#586e75;background-color:#eee8d5;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#268bd2">uint32_t</span> <span style="color:#268bd2">count</span> = <span style="color:#2aa198;font-weight:bold">0</span>;
+<span style="color:#268bd2">res</span> = <span style="color:#268bd2">vkEnumeratePhysicalDevices</span>(<span style="color:#268bd2">vk</span>, &amp;<span style="color:#268bd2">count</span>, <span style="color:#cb4b16">NULL</span>);
+<span style="color:#859900">if</span> (<span style="color:#268bd2">res</span> != <span style="color:#268bd2">VK_SUCCESS</span>) {
+    <span style="color:#268bd2">fprintf</span>(<span style="color:#268bd2">stderr</span>, <span style="color:#2aa198">&#34;Unable to enumerate physical devices</span><span style="color:#2aa198">\n</span><span style="color:#2aa198">&#34;</span>);
+    <span style="color:#859900">goto</span> <span style="color:#268bd2">cleanup_instance</span>;
+}</code></pre></div>
+<p>Next we attempt to allocate enough memory to store each of the devices in an array.</p>
+<div class="highlight"><pre style="color:#586e75;background-color:#eee8d5;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#268bd2">VkPhysicalDevice</span>* <span style="color:#268bd2">physical_devices</span> = <span style="color:#268bd2">malloc</span>(<span style="color:#268bd2">count</span> * <span style="color:#859900">sizeof</span>(<span style="color:#268bd2">VkPhysicalDevice</span>));
+<span style="color:#859900">if</span> (<span style="color:#268bd2">physical_devices</span> == <span style="color:#cb4b16">NULL</span>) {
+    <span style="color:#268bd2">fprintf</span>(<span style="color:#268bd2">stderr</span>, <span style="color:#2aa198">&#34;Unable to enumerate physical devices</span><span style="color:#2aa198">\n</span><span style="color:#2aa198">&#34;</span>);
+    <span style="color:#859900">goto</span> <span style="color:#268bd2">cleanup_instance</span>;
+}</code></pre></div>
+<p>Finally with the array allocated we can call <code>vkEnumeratePhysicalDevices</code> a second time
+to populate it. Notice how this time the error path has to jump to the <code>cleanup_devices</code>
+label so that we can be sure to <code>free</code> the newly allocated memory.</p>
+<div class="highlight"><pre style="color:#586e75;background-color:#eee8d5;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#268bd2">res</span> = <span style="color:#268bd2">vkEnumeratePhysicalDevices</span>(<span style="color:#268bd2">vk</span>, &amp;<span style="color:#268bd2">count</span>, <span style="color:#268bd2">physical_devices</span>);
+<span style="color:#859900">if</span> (<span style="color:#268bd2">res</span> != <span style="color:#268bd2">VK_SUCCESS</span>) {
+    <span style="color:#268bd2">fprintf</span>(<span style="color:#268bd2">stderr</span>, <span style="color:#2aa198">&#34;Unable to enumerate physical devices</span><span style="color:#2aa198">\n</span><span style="color:#2aa198">&#34;</span>);
+    <span style="color:#859900">goto</span> <span style="color:#268bd2">cleanup_devices</span>;
+}
+
+<span style="color:#93a1a1;font-style:italic">// Code omitted...
+</span><span style="color:#93a1a1;font-style:italic"></span>
+<span style="color:#268bd2">cleanup_devices</span>:
+    <span style="color:#268bd2">free</span>(<span style="color:#268bd2">physical_devices</span>);
+    <span style="color:#268bd2">physical_devices</span> = <span style="color:#cb4b16">NULL</span>;
+
+<span style="color:#268bd2">cleanup_instance</span>:
+    <span style="color:#268bd2">vkDestroyInstance</span>(<span style="color:#268bd2">vk</span>, <span style="color:#cb4b16">NULL</span>);</code></pre></div>
+<blockquote>
+<p><strong>Editor&rsquo;s Note:</strong></p>
+<p>As I was writing this post I looked up the <a href="https://www.khronos.org/registry/vulkan/specs/1.1-extensions/man/html/vkEnumeratePhysicalDevices.html">documentation</a>
+for <code>vkEnumeratePhysicalDevices</code> and noticed that there is a different way to
+approach this section. We could&rsquo;ve instead decided on a fixed size array</p>
+<div class="highlight"><pre style="color:#586e75;background-color:#eee8d5;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#268bd2">uint32_t</span> <span style="color:#268bd2">MAX_DEVICES</span> = <span style="color:#2aa198;font-weight:bold">4</span>;
+<span style="color:#268bd2">VkPhysicalDevice</span> <span style="color:#268bd2">physical_devices</span>[<span style="color:#268bd2">MAX_DEVICES</span>];
+<span style="color:#268bd2">res</span> = <span style="color:#268bd2">vkEnumeratePhysicalDevices</span>(<span style="color:#268bd2">vk</span>, &amp;<span style="color:#268bd2">MAX_DEVICES</span>, <span style="color:#268bd2">physical_devices</span>);</code></pre></div>
+<p>In this situation the function will return up to <code>MAX_DEVICES</code> and if there more
+devices than can fit in the array then <code>res</code> will be set to <code>VK_INCOMPLETE</code> giving
+us the option to try again with a larger array.</p>
+<p>This creates a dilemma - which approach is better? 🤔</p>
+</blockquote>
+<h2 id="device-properties">Device Properties</h2>
+<p>It turns out that a <code>VkPhysicalDevice</code> on its own is rather useless since it doesn&rsquo;t
+carry any information about itself. In order to find out more about what the device is
+and what features of the API it supports you need to call additional functions such as</p>
+<ul>
+<li><a href="https://www.khronos.org/registry/vulkan/specs/1.1-extensions/man/html/vkGetPhysicalDeviceProperties.html">vkGetPhysicalDeviceProperties</a></li>
+<li><a href="https://www.khronos.org/registry/vulkan/specs/1.1-extensions/man/html/vkGetPhysicalDeviceImageFormatProperties.html">vkGetPhysicalDeviceImageFormatProperties</a></li>
+<li><a href="https://www.khronos.org/registry/vulkan/specs/1.1-extensions/man/html/vkGetPhysicalDeviceQueueFamilyProperties.html">vkGetPhysicalDeviceQueueFamilyProperties</a></li>
+<li>and many more!!</li>
+</ul>
+<p>Typically as part of your program&rsquo;s setup you would call a number of these to gather
+information about support for features that matter to you to help decide which device
+is best suited to your use case. However for this toy program we&rsquo;re only going to call
+<code>vkGetPhysicalDeviceProperties</code> for each device which will give us information such as
+its name.</p>
+<div class="highlight"><pre style="color:#586e75;background-color:#eee8d5;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#859900">for</span> (<span style="color:#268bd2">uint32_t</span> <span style="color:#268bd2">i</span> = <span style="color:#2aa198;font-weight:bold">0</span>; <span style="color:#268bd2">i</span> &lt; <span style="color:#268bd2">count</span>; <span style="color:#268bd2">i</span>++) {
+    <span style="color:#268bd2">VkPhysicalDeviceProperties</span> <span style="color:#268bd2">properties</span> = {};
+    <span style="color:#268bd2">vkGetPhysicalDeviceProperties</span>(<span style="color:#268bd2">physical_devices</span>[<span style="color:#268bd2">i</span>], &amp;<span style="color:#268bd2">properties</span>);</code></pre></div>
+<p>Version numbers (<code>MAJOR.MINOR.PATCH</code>) in the Vulkan API are encoded into a single 32bit
+integer as defined in the <a href="https://www.khronos.org/registry/vulkan/specs/1.1-extensions/html/vkspec.html#extendingvulkan-coreversions-versionnumbers">specification</a>. Thankfully the spec also
+defines a number of macros that make decoding them nice and easy for us.</p>
+<div class="highlight"><pre style="color:#586e75;background-color:#eee8d5;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c">    <span style="color:#268bd2">uint32_t</span> <span style="color:#268bd2">vk_major</span> = <span style="color:#268bd2">VK_VERSION_MAJOR</span>(<span style="color:#268bd2">properties</span>.<span style="color:#268bd2">apiVersion</span>);
+    <span style="color:#268bd2">uint32_t</span> <span style="color:#268bd2">vk_minor</span> = <span style="color:#268bd2">VK_VERSION_MINOR</span>(<span style="color:#268bd2">properties</span>.<span style="color:#268bd2">apiVersion</span>);
+    <span style="color:#268bd2">uint32_t</span> <span style="color:#268bd2">vk_patch</span> = <span style="color:#268bd2">VK_VERSION_PATCH</span>(<span style="color:#268bd2">properties</span>.<span style="color:#268bd2">apiVersion</span>);
+
+    <span style="color:#268bd2">uint32_t</span> <span style="color:#268bd2">driver_major</span> = <span style="color:#268bd2">VK_VERSION_MAJOR</span>(<span style="color:#268bd2">properties</span>.<span style="color:#268bd2">driverVersion</span>);
+    <span style="color:#268bd2">uint32_t</span> <span style="color:#268bd2">driver_minor</span> = <span style="color:#268bd2">VK_VERSION_MINOR</span>(<span style="color:#268bd2">properties</span>.<span style="color:#268bd2">driverVersion</span>);
+    <span style="color:#268bd2">uint32_t</span> <span style="color:#268bd2">driver_patch</span> = <span style="color:#268bd2">VK_VERSION_PATCH</span>(<span style="color:#268bd2">properties</span>.<span style="color:#268bd2">driverVersion</span>);</code></pre></div>
+<p>All that&rsquo;s left to do is to print out the information we have gathered.</p>
+<div class="highlight"><pre style="color:#586e75;background-color:#eee8d5;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c">    <span style="color:#268bd2">printf</span>(<span style="color:#2aa198">&#34;Device Name:     </span><span style="color:#2aa198">\t</span><span style="color:#2aa198">%s</span><span style="color:#2aa198">\n</span><span style="color:#2aa198">&#34;</span>, <span style="color:#268bd2">properties</span>.<span style="color:#268bd2">deviceName</span>);
+    <span style="color:#268bd2">printf</span>(<span style="color:#2aa198">&#34;  Type:          </span><span style="color:#2aa198">\t</span><span style="color:#2aa198">%s</span><span style="color:#2aa198">\n</span><span style="color:#2aa198">&#34;</span>, <span style="color:#268bd2">vkPhysicalDeviceType_as_string</span>(<span style="color:#268bd2">properties</span>.<span style="color:#268bd2">deviceType</span>));
+    <span style="color:#268bd2">printf</span>(<span style="color:#2aa198">&#34;  Vendor ID:     </span><span style="color:#2aa198">\t</span><span style="color:#2aa198">%d</span><span style="color:#2aa198">\n</span><span style="color:#2aa198">&#34;</span>, <span style="color:#268bd2">properties</span>.<span style="color:#268bd2">vendorID</span>);
+    <span style="color:#268bd2">printf</span>(<span style="color:#2aa198">&#34;  Device ID:     </span><span style="color:#2aa198">\t</span><span style="color:#2aa198">%d</span><span style="color:#2aa198">\n</span><span style="color:#2aa198">&#34;</span>, <span style="color:#268bd2">properties</span>.<span style="color:#268bd2">deviceID</span>);
+    <span style="color:#268bd2">printf</span>(<span style="color:#2aa198">&#34;  API Version:   </span><span style="color:#2aa198">\t</span><span style="color:#2aa198">v%d.%d.%d</span><span style="color:#2aa198">\n</span><span style="color:#2aa198">&#34;</span>, <span style="color:#268bd2">vk_major</span>, <span style="color:#268bd2">vk_minor</span>, <span style="color:#268bd2">vk_patch</span>);
+    <span style="color:#268bd2">printf</span>(<span style="color:#2aa198">&#34;  Driver Version:</span><span style="color:#2aa198">\t</span><span style="color:#2aa198">v%d.%d.%d</span><span style="color:#2aa198">\n</span><span style="color:#2aa198">&#34;</span>, <span style="color:#268bd2">driver_major</span>, <span style="color:#268bd2">driver_minor</span>, <span style="color:#268bd2">driver_patch</span>);
+}</code></pre></div>
+<p>I should also note that <code>vkPhysicalDeviceType_as_string</code> is a helper function I
+defined that converts a member of the <a href="https://www.khronos.org/registry/vulkan/specs/1.1-extensions/man/html/VkPhysicalDeviceType.html">vkPhysicalDeviceType</a> enum
+into a string representation with a <code>switch</code> statement.</p>
+<h2 id="conclusion">Conclusion</h2>
+<p>And that&rsquo;s that! I&rsquo;ve taken my first few baby steps with the Vulkan API and I hope that
+if you&rsquo;ve read this far then this post was as useful to you as it was to me! If you are
+interested then you can see the full code listing <a href="https://github.com/alcarney/vk/blob/2e7daaa68d79c6467e91bbd9d5ebfcf34729f6a5/src/vkdevice.c">here</a> and I&rsquo;ll see you in the
+next one.</p>
+        </div>
+        <div class="flex items-center justify-end mt-4 space-x-4">
+    <a class="px-2 text-sm text-gray-600 bg-green-200 border border-green-600 rounded" href="https://alcarney.me/tags/c/">
+        #c
+    </a><a class="px-2 text-sm text-gray-600 bg-green-200 border border-green-600 rounded" href="https://alcarney.me/tags/vulkan/">
+        #vulkan
+    </a><a class="px-2 text-sm text-gray-600 bg-green-200 border border-green-600 rounded" href="https://alcarney.me/tags/graphics/">
+        #graphics
+    </a></div>
+        <div class="pt-4 mt-8 border-t">
+            <div id="disqus_thread"></div>
+<script type="application/javascript">
+    var disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "alcarney-me" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+        </div>
+    </article>
+</div>
+
+    </main><footer class="items-baseline p-4 text-white bg-gray-700">
+    <div class="flex justify-between">
+        <div>
+        </div>
+
+        <div class="flex justify-between space-x-4">
+            
+            <a target="_blank" rel="noreferrer noopener" href="https://github.com/alcarney">
+                <svg class="w-8 h-8 bg-transparent stroke-current" style="fill:none">
+    <use xlink:href="/svg/feather-sprite.svg#github" />
+</svg>
+            </a>
+            
+            <a target="_blank" rel="noreferrer noopener" href="https://twitter.com/alcarneyme">
+                <svg class="w-8 h-8 bg-transparent stroke-current" style="fill:none">
+    <use xlink:href="/svg/feather-sprite.svg#twitter" />
+</svg>
+            </a>
+            
+            <a target="_blank" rel="noreferrer noopener" href="https://instagram.com/alcarneyme">
+                <svg class="w-8 h-8 bg-transparent stroke-current" style="fill:none">
+    <use xlink:href="/svg/feather-sprite.svg#instagram" />
+</svg>
+            </a>
+            
+            <a target="_blank" rel="noreferrer noopener" href="https://www.youtube.com/channel/UC5GPflgRWhnCxA0BllfP5CA">
+                <svg class="w-8 h-8 bg-transparent stroke-current" style="fill:none">
+    <use xlink:href="/svg/feather-sprite.svg#youtube" />
+</svg>
+            </a>
+            
+        </div>
+
+        <div>
+            
+        </div>
+    </div>
+</footer>
+    <script>
+        const codeBlocks = document.querySelectorAll(".highlight pre")
+        Array.from(codeBlocks).forEach(el => {
+            el.style.backgroundColor = "#fdf6e3"
+        })
+    </script>
+</body>
+
+</html>

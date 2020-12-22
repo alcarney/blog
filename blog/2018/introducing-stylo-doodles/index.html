@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+<meta name="theme-color" content="#259669" />
+
+<meta name="generator" content="Hugo 0.79.1" />
+<meta name="author" content="Alex Carney" />
+<meta name="description" content="Introducing the new community gallery for stylo" />
+
+<meta property="og:title" content="Introducing Stylo Doodles!" />
+<meta property="og:description" content="Introducing the new community gallery for stylo" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://alcarney.me/blog/2018/introducing-stylo-doodles/" />
+<meta property="article:published_time" content="2018-10-12T00:00:00+00:00" />
+<meta property="article:modified_time" content="2020-12-22T13:44:42+00:00" />
+
+<meta property="article:tag" content="stylo" />
+<meta property="article:tag" content="python" />
+
+<meta name="twitter:creator" content="@alcarneyme" />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Introducing Stylo Doodles!"/>
+<meta name="twitter:description" content="Introducing the new community gallery for stylo"/>
+
+
+<title>Introducing Stylo Doodles! | Alex Carney</title>
+
+
+
+<link rel="stylesheet" href="https://alcarney.me/main.065c4df780073fda03fc10b742a2eed791b369295ced8e533244119922cc48e7.css" /></head>
+
+<body class=bg-gray-100><nav class="flex justify-between p-4 bg-white border-b">
+
+    <div>
+        <h1>Alex Carney</h1>
+    </div>
+
+    <div class="flex space-x-4 items-between">
+        <a href="/blog">Blog</a>
+        <a href="/notes">Notes</a>
+    </div>
+    
+</nav><main class="max-w-4xl m-auto mb-8">
+<style>
+    header::before {
+        position: absolute;
+        top: 19px;
+        left: -12.5px;
+        display: block;
+        content: '';
+        width: 25px;
+        height: 25px;
+        background: white;
+        transform: rotate(45deg);
+        border-left: solid 1px #e5e7eb;
+        border-bottom: solid 1px #e5e7eb;
+    }
+
+    @media(max-width: 1024px) {
+        header::before {
+            left: 19px;
+            top: -12.5px;
+            border-top: sold 1px #e5e7eb;
+            border-bottom: none;
+        }
+    }
+</style>
+<div class="flex flex-col items-baseline justify-between lg:flex-row">
+    <style>
+    aside::after {
+        position: absolute;
+        top: 8px;
+        right: -10px;
+        display: block;
+        content: '';
+        width: 8px;
+        height: 8px;
+        border-radius: 100%;
+        background: #717885;
+    }
+
+    @media(max-width: 1024px) {
+        aside::after {
+            top: unset;
+            bottom: 6px;
+            left: -18px;
+            border-top: sold 1px #e5e7eb;
+            border-bottom: none;
+        }
+    }
+</style>
+<aside class="relative flex pr-2 mt-4 ml-12 -mb-3 space-x-4 text-gray-500 lg:mr-8 lg:w-32 lg:block lg:space-x-0">
+    <span class="flex justify-between">
+        <svg class="w-6 h-6 bg-transparent stroke-current" style="fill:none">
+    <use xlink:href="/svg/feather-sprite.svg#calendar" />
+</svg>
+        Oct 12, 2018
+    </span>
+    <span class="flex justify-between">
+        <svg class="w-6 h-6 bg-transparent stroke-current" style="fill:none">
+    <use xlink:href="/svg/feather-sprite.svg#clock" />
+</svg>
+        4 min read
+    </span>
+</aside>
+    <article class="relative flex-grow p-4 mt-8 transition bg-white border shadow-lg">
+        <header class="mb-4">
+            <h1 class="text-3xl text-green-600">Introducing Stylo Doodles!</h1>
+        </header>
+        <div class="m-auto prose prose-lg prose-green">
+            <p>A few weeks back at <a href="https://2018.pyconuk.org/">PyConUK</a> I gave my first <a href="https://youtu.be/F5jSUJVymXk?t=3480">lighting talk</a>
+at a conference. During that talk I spoke publically about <a href="https://github.com/alcarney/stylo">stylo</a> for
+the first time. Stylo is a Python library that I have been working on for just
+over a year and a half and it aims to make the creation of images easier by
+bringing together ideas from programming and mathematics.</p>
+<p>Version <a href="https://alcarney.github.io/stylo/changes.html">0.6.0</a> was recently released which included the first feature
+that wasn&rsquo;t written by me! It&rsquo;s very exciting not only to see other people
+starting to take an interest in the project but taking the time to make a
+contribution!</p>
+<p>Now that stylo seems to be getting to the point that it might me useful to
+other people wouldn&rsquo;t it be great if there was a community driven example
+gallery that people could get inspired by? - Well now there is! And it&rsquo;s
+called <a href="https://alcarney.github.io/stylo-doodles">Stylo Doodles</a></p>
+<figure><a href="/images/stylo-doodles.png">
+    <img src="/images/stylo-doodles.png"/> </a>
+</figure>
+
+<p>All the examples are written as a <a href="https://jupyter.org">Jupyter Notebook</a> and can be submitted to the
+gallery by opening a pull request against the stylo-doodles <a href="https://github.com/alcarney/stylo-doodles">repository</a>. A small
+python application is then run that builds the website and pushes the update to
+the live website.</p>
+<h2 id="current-features">Current Features</h2>
+<p>The gallery website is very new but it currently has the following features</p>
+<ul>
+<li>All images are displayed in a grid on the homepage with the order randomly
+chosen each time the website is built.</li>
+<li>Each image has its own page (as shown above) which displays the full
+resolution image along with information about the author, image and the
+version of stylo used to generate it.</li>
+<li>The source code from the notebook is extracted and is also displayed
+alongside the image.</li>
+<li>You can also play around with any example <strong>live in your browser</strong> if you
+follow the <a href="https://mybinder.org/v2/gh/alcarney/stylo-doodles/master">binder</a> link in the repository&rsquo;s README.</li>
+</ul>
+<h2 id="adding-your-own-example">Adding Your Own Example</h2>
+<p>If you have an image that you would like to share there are only a couple of
+things you need to do:</p>
+<ol>
+<li>
+<p>Your image <strong>must</strong> be stored in a variable called <code>image</code>. The build process
+will <a href="https://jupyter-notebook.readthedocs.io/en/stable/examples/Notebook/Importing%2520Notebooks.html">import your notebook</a> as a Python module and look for a variable called
+<code>image</code>.</p>
+</li>
+<li>
+<p>You also need to provide some additional information to the build system
+about your example in the form of a Python dictionary. This dictionary
+<strong>must</strong> be called <code>info</code> and it must be in <strong>very first cell of the notebook</strong></p>
+<div class="highlight"><pre style="color:#586e75;background-color:#eee8d5;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">    <span style="color:#268bd2">info</span> = {
+         <span style="color:#2aa198">&#34;title&#34;</span>: <span style="color:#2aa198">&#34;Jack-O-Lantern&#34;</span>,
+         <span style="color:#2aa198">&#34;author&#34;</span>: <span style="color:#2aa198">&#34;Alex Carney&#34;</span>,
+         <span style="color:#2aa198">&#34;github_username&#34;</span>: <span style="color:#2aa198">&#34;alcarney&#34;</span>,
+         <span style="color:#2aa198">&#34;stylo_version&#34;</span>: <span style="color:#2aa198">&#34;0.6.0&#34;</span>,
+         <span style="color:#2aa198">&#34;dimensions&#34;</span>: (<span style="color:#2aa198;font-weight:bold">1920</span>, <span style="color:#2aa198;font-weight:bold">1080</span>)
+     }
+    </code></pre></div>
+<p>The <code>stylo_version</code> field should be set to the value of <code>stylo.__version__</code>
+at the time you created your image. The <code>dimensions</code> is tuple of the form
+<code>(width, height)</code> and will be used by the build system to determine the size
+of the image (in pixels) when it renders the full size copy for its detail
+page.</p>
+</li>
+<li>
+<p>Once your example is ready open a pull request adding your notebook to the
+<code>notebooks/</code> folder to the repository.</p>
+</li>
+</ol>
+<p>Be sure to check out the existing <a href="https://github.com/alcarney/stylo-doodles/tree/master/notebooks">examples</a> to use as a guide or drop by the
+stylo <a href="https://gitter.im/stylo-py/Lobby">Gitter</a> room if you get stuck we&rsquo;ll be more than happy to help!</p>
+<h2 id="future-developments">Future Developments</h2>
+<p>Stylo Doodles is far from finished aside from adding examples there are many
+more things that could be added to the website:</p>
+<ul>
+<li>
+<p><strong>User profiles:</strong> A page for every author, which lists the examples they
+have contributed to the gallery.</p>
+</li>
+<li>
+<p><strong>Search</strong>: As the number of images grow users would probably want to be able
+to tag their images and be able to narrow down the list of images on the
+homepage.</p>
+</li>
+<li>
+<p><strong>Recently Added:</strong> Since the order of the homepage is random, as the number
+of images increases the chance of a new image being buried at the bottom will
+also increase, it would be good to have a way of sorting the images by date
+added.</p>
+</li>
+<li>
+<p><strong>Descriptions:</strong> Jupyter Notebooks support more than just code. Cells
+containing markdown can be placed in between code cells to provide extra
+context and explanation. It would be great if we could include these on the
+site as well.</p>
+</li>
+</ul>
+<p>If you are looking for a web based python project to get involved with this
+would be a great one to get started with and I would be more than happy to have
+a few contribuitors to work on this (or even stylo itself!) with me.</p>
+        </div>
+        <div class="flex items-center justify-end mt-4 space-x-4">
+    <a class="px-2 text-sm text-gray-600 bg-green-200 border border-green-600 rounded" href="https://alcarney.me/tags/stylo/">
+        #stylo
+    </a><a class="px-2 text-sm text-gray-600 bg-green-200 border border-green-600 rounded" href="https://alcarney.me/tags/python/">
+        #python
+    </a></div>
+        <div class="pt-4 mt-8 border-t">
+            <div id="disqus_thread"></div>
+<script type="application/javascript">
+    var disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "alcarney-me" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+        </div>
+    </article>
+</div>
+
+    </main><footer class="items-baseline p-4 text-white bg-gray-700">
+    <div class="flex justify-between">
+        <div>
+        </div>
+
+        <div class="flex justify-between space-x-4">
+            
+            <a target="_blank" rel="noreferrer noopener" href="https://github.com/alcarney">
+                <svg class="w-8 h-8 bg-transparent stroke-current" style="fill:none">
+    <use xlink:href="/svg/feather-sprite.svg#github" />
+</svg>
+            </a>
+            
+            <a target="_blank" rel="noreferrer noopener" href="https://twitter.com/alcarneyme">
+                <svg class="w-8 h-8 bg-transparent stroke-current" style="fill:none">
+    <use xlink:href="/svg/feather-sprite.svg#twitter" />
+</svg>
+            </a>
+            
+            <a target="_blank" rel="noreferrer noopener" href="https://instagram.com/alcarneyme">
+                <svg class="w-8 h-8 bg-transparent stroke-current" style="fill:none">
+    <use xlink:href="/svg/feather-sprite.svg#instagram" />
+</svg>
+            </a>
+            
+            <a target="_blank" rel="noreferrer noopener" href="https://www.youtube.com/channel/UC5GPflgRWhnCxA0BllfP5CA">
+                <svg class="w-8 h-8 bg-transparent stroke-current" style="fill:none">
+    <use xlink:href="/svg/feather-sprite.svg#youtube" />
+</svg>
+            </a>
+            
+        </div>
+
+        <div>
+            
+        </div>
+    </div>
+</footer>
+    <script>
+        const codeBlocks = document.querySelectorAll(".highlight pre")
+        Array.from(codeBlocks).forEach(el => {
+            el.style.backgroundColor = "#fdf6e3"
+        })
+    </script>
+</body>
+
+</html>

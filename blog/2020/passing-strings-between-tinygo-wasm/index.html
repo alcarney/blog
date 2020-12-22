@@ -1,0 +1,502 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+<meta name="theme-color" content="#259669" />
+
+<meta name="generator" content="Hugo 0.79.1" />
+<meta name="author" content="Alex Carney" />
+<meta name="description" content="Figuring out how WebAssembly handles memory and how to use it to pass data between it and JavaScript." />
+
+<meta property="og:title" content="Passing strings between TinyGo and JavaScript" />
+<meta property="og:description" content="Figuring out how WebAssembly handles memory and how to use it to pass data between it and JavaScript." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://alcarney.me/blog/2020/passing-strings-between-tinygo-wasm/" />
+<meta property="article:published_time" content="2020-05-06T00:00:00+00:00" />
+<meta property="article:modified_time" content="2020-12-22T13:44:42+00:00" />
+
+<meta property="article:tag" content="go" />
+<meta property="article:tag" content="tinygo" />
+<meta property="article:tag" content="wasm" />
+<meta property="article:tag" content="js" />
+
+<meta name="twitter:creator" content="@alcarneyme" />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Passing strings between TinyGo and JavaScript"/>
+<meta name="twitter:description" content="Figuring out how WebAssembly handles memory and how to use it to pass data between it and JavaScript."/>
+
+
+<title>Passing strings between TinyGo and JavaScript | Alex Carney</title>
+
+
+
+<link rel="stylesheet" href="https://alcarney.me/main.065c4df780073fda03fc10b742a2eed791b369295ced8e533244119922cc48e7.css" /></head>
+
+<body class=bg-gray-100><nav class="flex justify-between p-4 bg-white border-b">
+
+    <div>
+        <h1>Alex Carney</h1>
+    </div>
+
+    <div class="flex space-x-4 items-between">
+        <a href="/blog">Blog</a>
+        <a href="/notes">Notes</a>
+    </div>
+    
+</nav><main class="max-w-4xl m-auto mb-8">
+<style>
+    header::before {
+        position: absolute;
+        top: 19px;
+        left: -12.5px;
+        display: block;
+        content: '';
+        width: 25px;
+        height: 25px;
+        background: white;
+        transform: rotate(45deg);
+        border-left: solid 1px #e5e7eb;
+        border-bottom: solid 1px #e5e7eb;
+    }
+
+    @media(max-width: 1024px) {
+        header::before {
+            left: 19px;
+            top: -12.5px;
+            border-top: sold 1px #e5e7eb;
+            border-bottom: none;
+        }
+    }
+</style>
+<div class="flex flex-col items-baseline justify-between lg:flex-row">
+    <style>
+    aside::after {
+        position: absolute;
+        top: 8px;
+        right: -10px;
+        display: block;
+        content: '';
+        width: 8px;
+        height: 8px;
+        border-radius: 100%;
+        background: #717885;
+    }
+
+    @media(max-width: 1024px) {
+        aside::after {
+            top: unset;
+            bottom: 6px;
+            left: -18px;
+            border-top: sold 1px #e5e7eb;
+            border-bottom: none;
+        }
+    }
+</style>
+<aside class="relative flex pr-2 mt-4 ml-12 -mb-3 space-x-4 text-gray-500 lg:mr-8 lg:w-32 lg:block lg:space-x-0">
+    <span class="flex justify-between">
+        <svg class="w-6 h-6 bg-transparent stroke-current" style="fill:none">
+    <use xlink:href="/svg/feather-sprite.svg#calendar" />
+</svg>
+        May 6, 2020
+    </span>
+    <span class="flex justify-between">
+        <svg class="w-6 h-6 bg-transparent stroke-current" style="fill:none">
+    <use xlink:href="/svg/feather-sprite.svg#clock" />
+</svg>
+        10 min read
+    </span>
+</aside>
+    <article class="relative flex-grow p-4 mt-8 transition bg-white border shadow-lg">
+        <header class="mb-4">
+            <h1 class="text-3xl text-green-600">Passing strings between TinyGo and JavaScript</h1>
+        </header>
+        <div class="m-auto prose prose-lg prose-green">
+            <p>After getting a <a href="https://alcarney.me/blog/2020/hello-world-tinygo-wasm/">&ldquo;Hello, World!&quot;</a> WebAssembly
+application working I thought it would be fun to try and implement a toy programming
+language in the browser. However before I could even start thinking about parsers,
+abstract syntax trees and the like I had to be able to pass strings between my
+WebAssembly module and the surrounding JavaScript.</p>
+<p>Turns out that is much trickier than I expected.</p>
+<blockquote>
+<p><strong>Disclaimer:</strong></p>
+<p>I definitely don&rsquo;t know what I&rsquo;m doing, if there&rsquo;s a better way of doing this I&rsquo;d love
+to know about it! 🙂</p>
+</blockquote>
+<h2 id="the-interface">The Interface</h2>
+<figure><a href="/images/wasm-input-output.png">
+    <img src="/images/wasm-input-output.png"
+         alt="The Interface to our &amp;lsquo;interpreter&amp;rsquo;"/> </a><figcaption>
+            <p>The Interface to our &lsquo;interpreter&rsquo;</p>
+        </figcaption>
+</figure>
+
+<p>Our WebAssembly module needs a way to interact with the user in order both collect input
+and show the output. So to start with I updated the webpage from the previous post to
+include a number of <code>textarea</code> elements and a &ldquo;Run&rdquo; button.</p>
+<div class="highlight"><pre style="color:#586e75;background-color:#eee8d5;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-html" data-lang="html">&lt;<span style="color:#268bd2;font-weight:bold">div</span>&gt;
+    &lt;<span style="color:#268bd2;font-weight:bold">h3</span>&gt;Input&lt;/<span style="color:#268bd2;font-weight:bold">h3</span>&gt;
+    &lt;<span style="color:#268bd2;font-weight:bold">textarea</span> <span style="color:#268bd2">id</span>=<span style="color:#2aa198">&#34;input&#34;</span>&gt;&lt;/<span style="color:#268bd2;font-weight:bold">textarea</span>&gt;
+&lt;/<span style="color:#268bd2;font-weight:bold">div</span>&gt;
+&lt;<span style="color:#268bd2;font-weight:bold">div</span>&gt;
+    &lt;<span style="color:#268bd2;font-weight:bold">button</span> <span style="color:#268bd2">disabled</span> <span style="color:#268bd2">id</span>=<span style="color:#2aa198">&#34;run-button&#34;</span>&gt;Run&lt;/<span style="color:#268bd2;font-weight:bold">button</span>&gt;
+&lt;/<span style="color:#268bd2;font-weight:bold">div</span>&gt;
+&lt;<span style="color:#268bd2;font-weight:bold">div</span>&gt;
+    &lt;<span style="color:#268bd2;font-weight:bold">h3</span>&gt;Output&lt;/<span style="color:#268bd2;font-weight:bold">h3</span>&gt;
+    &lt;<span style="color:#268bd2;font-weight:bold">textarea</span> <span style="color:#268bd2">disabled</span> <span style="color:#268bd2">id</span>=<span style="color:#2aa198">&#34;output&#34;</span>&gt;&lt;/<span style="color:#268bd2;font-weight:bold">textarea</span>&gt;
+&lt;/<span style="color:#268bd2;font-weight:bold">div</span>&gt;
+&lt;<span style="color:#268bd2;font-weight:bold">div</span> <span style="color:#268bd2">class</span>=<span style="color:#2aa198">&#34;log-area&#34;</span>&gt;
+    &lt;<span style="color:#268bd2;font-weight:bold">textarea</span> <span style="color:#268bd2">disabled</span> <span style="color:#268bd2">id</span>=<span style="color:#2aa198">&#34;log&#34;</span>&gt;&lt;/<span style="color:#268bd2;font-weight:bold">textarea</span>&gt;
+&lt;/<span style="color:#268bd2;font-weight:bold">div</span>&gt;
+</code></pre></div><p>Now we could just use the <code>println</code> function to do the equivalent of a <code>console.log</code>
+from our TinyGo code but it could be useful to have a log on screen to provide feedback
+to the user.</p>
+<h2 id="passing-strings-from-tinygo-to-javascript">Passing strings from TinyGo to JavaScript</h2>
+<p>To achieve this we first need a JavaScript function which takes some text and appends it
+to the &ldquo;log&rdquo; <code>textarea</code> element on screen.</p>
+<div class="highlight"><pre style="color:#586e75;background-color:#eee8d5;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#859900">const</span> <span style="color:#268bd2">log</span> = <span style="color:#cb4b16">document</span>.<span style="color:#268bd2">getElementById</span>(<span style="color:#2aa198">&#39;log&#39;</span>)
+
+<span style="color:#859900">function</span> <span style="color:#268bd2">logText</span>(<span style="color:#268bd2">text</span>) {
+    <span style="color:#268bd2">log</span>.<span style="color:#268bd2">value</span> += <span style="color:#268bd2">text</span> + <span style="color:#2aa198">&#39;\n&#39;</span>
+}
+</code></pre></div><p>Next we need some way to reference such a function from our go code. If we define a
+function but not implement it TinyGo will recognise it as an external function whose
+implementation should be provided by the surrounding JavaScript.</p>
+<div class="highlight"><pre style="color:#586e75;background-color:#eee8d5;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#dc322f;font-weight:bold">package</span> <span style="color:#268bd2">main</span>
+
+<span style="color:#859900">func</span> <span style="color:#268bd2">log</span>(<span style="color:#268bd2">message</span> <span style="color:#859900;font-weight:bold">string</span>)
+
+<span style="color:#859900">func</span> <span style="color:#268bd2">main</span>() {
+    <span style="color:#268bd2">log</span>(<span style="color:#2aa198">&#34;Hello, World!&#34;</span>)
+}
+</code></pre></div><blockquote>
+<p><strong>Note:</strong></p>
+<p>The Go tools inside of VSCode will complain about the missing implementation for the
+<code>log</code> function but TinyGo itself will compile this happily.</p>
+</blockquote>
+<p>Lastly all we have to do is adjust our wrapping JavaScript code to pass in the
+implementation for the <code>log</code> function to the module&rsquo;s environment. While we&rsquo;re at we
+might as well wire up that &ldquo;Run&rdquo; button.</p>
+<div class="highlight"><pre style="color:#586e75;background-color:#eee8d5;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js">...
+
+<span style="color:#859900">function</span> <span style="color:#268bd2">onRun</span>(<span style="color:#268bd2">runner</span>, <span style="color:#268bd2">wasm</span>) {
+    <span style="color:#859900">return</span> (<span style="color:#268bd2">event</span>) =&gt; <span style="color:#268bd2">runner</span>.<span style="color:#268bd2">run</span>(<span style="color:#268bd2">wasm</span>)
+}
+
+<span style="color:#268bd2">go</span>.<span style="color:#268bd2">importObject</span>[<span style="color:#2aa198">&#34;main.go.log&#34;</span>] = <span style="color:#268bd2">logText</span>
+
+<span style="color:#268bd2">WebAssembly</span>.<span style="color:#268bd2">instantiateStreaming</span>(<span style="color:#268bd2">fetch</span>(<span style="color:#2aa198">&#34;/js/wisp.wasm&#34;</span>), <span style="color:#268bd2">go</span>.<span style="color:#268bd2">importObject</span>)
+    .<span style="color:#268bd2">then</span>(<span style="color:#268bd2">module</span> =&gt; {
+        <span style="color:#859900">let</span> <span style="color:#268bd2">wasm</span> = <span style="color:#268bd2">module</span>.<span style="color:#268bd2">instance</span>
+
+        <span style="color:#268bd2">runButton</span>.<span style="color:#268bd2">disabled</span> = <span style="color:#859900;font-weight:bold">false</span>
+        <span style="color:#268bd2">runButton</span>.<span style="color:#268bd2">addEventListener</span>(<span style="color:#2aa198">&#39;click&#39;</span>, <span style="color:#268bd2">onRun</span>(<span style="color:#268bd2">go</span>, <span style="color:#268bd2">wasm</span>))
+    })
+</code></pre></div><p>That should be everything connected up, time to give it a whirl!</p>
+<figure><a href="/images/wasm-addr.png">
+    <img src="/images/wasm-addr.png"
+         alt="Not exactly what I had in mind&amp;hellip;"/> </a><figcaption>
+            <p>Not exactly what I had in mind&hellip;</p>
+        </figcaption>
+</figure>
+
+<p>Hmm&hellip; 🤔</p>
+<p>This result quickly prompted an extended session of searching around for the &ldquo;right&rdquo;
+way to pass values back and forth between my WebAssembly module and the surrounding
+JavaScript code. Unfortunately I didn&rsquo;t really come across anything that seemed to work
+for me.</p>
+<p>I did find that Go has a <a href="https://golang.org/pkg/syscall/js/">syscall/js</a> module which seems to handle
+exactly this kind of thing along with a <a href="https://www.aaron-powell.com/posts/2019-02-06-golang-wasm-3-interacting-with-js-from-go/">tutorial series</a> that makes
+use of it. The problem is that it seems to fly in the face of the
+<a href="https://tinygo.org/webassembly/webassembly/">examples</a> (which I did manage to reproduce) on the TinyGo
+website where it appears the compiler is handling most of these details.</p>
+<p>Unable to find an example to copy I decided it was time for a peek behind the curtain&hellip;</p>
+<h3 id="digging-deeper">Digging Deeper</h3>
+<p>On my travels I did manage to find out some more information about WebAssembly itself</p>
+<ul>
+<li>WebAssembly only has basic integer and float <a href="https://webassembly.github.io/spec/core/syntax/types.html">types</a></li>
+<li>A module has its own <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/WebAssembly/Memory">memory</a> and is represented by an <code>ArrayBuffer</code> in
+JavaScript code.</li>
+</ul>
+<p>Before long I had a hunch that the random number that was being displayed in the
+<code>textarea</code> element was in fact the memory address of the string to be logged. If that
+was the case, how should the memory in that location be interpreted so that we&rsquo;re
+able to extract a string from it?</p>
+<p>After some more research I discovered that TinyGo is using the <a href="https://llvm.org/">LLVM</a> compiler
+toolchain and that you can ask it for the <a href="https://llvm.org/docs/LangRef.html#abstract">intermediate representation</a> which it
+passes to LLVM in order to generate the WebAssembly code.</p>
+<div class="highlight"><pre style="color:#586e75;background-color:#eee8d5;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">$ tinygo build -no-debug -target wasm -printir -o public/js/wisp.wasm main.go &gt; debug.txt
+</code></pre></div><p>Now, there is a <em>lot</em> going on (20,000+ lines) in this file as it includes not just our
+simple program but the Go runtime required to execute it. Thankfully with <code>Ctrl-F</code> to
+the rescue, it&rsquo;s easy enough to track down where our &ldquo;Hello, World!&rdquo; string is defined</p>
+<div class="highlight"><pre style="color:#586e75;background-color:#eee8d5;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-llvm" data-lang="llvm">...
+<span style="color:#268bd2">@&#34;main.go.main$string&#34;</span> = <span style="color:#859900">internal</span> <span style="color:#859900">unnamed_addr</span> <span style="color:#859900">constant</span> [<span style="color:#2aa198;font-weight:bold">13</span> <span style="color:#859900">x</span> <span style="color:#859900">i8</span>] <span style="color:#859900">c</span><span style="color:#2aa198">&#34;Hello, World!&#34;</span>
+...
+</code></pre></div><p>I don&rsquo;t know the first thing when it comes to LLVM&rsquo;s IR representation of code but after
+looking into how it thinks about <a href="https://llvm.org/docs/LangRef.html#array-type">arrays</a> we see that <code>[13 x i8]</code> indicates
+that our string is represented by an array of 13, 8-bit integers.</p>
+<p>Awesome, we now know how to interpret the values we see in the WebAssembly module&rsquo;s
+<code>ArrayBuffer</code>, but how will we know how many values to look for?</p>
+<p>Let&rsquo;s try and find our <code>log</code> function&hellip;</p>
+<div class="highlight"><pre style="color:#586e75;background-color:#eee8d5;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-llvm" data-lang="llvm"><span style="color:#859900">declare</span> <span style="color:#859900;font-weight:bold">void</span> <span style="color:#268bd2">@main.go.log</span>(<span style="color:#859900">i8</span>*, <span style="color:#859900">i32</span>, <span style="color:#859900">i8</span>*, <span style="color:#859900">i8</span>*)
+</code></pre></div><p>Ah, just like the <code>log</code> function in our go code it has no implementation since this is
+to be provided by the JavaScript wrapper. However instead of a single argument it now
+takes 4! Interesting&hellip; let&rsquo;s track down our main function and see how it is used.</p>
+<div class="highlight"><pre style="color:#586e75;background-color:#eee8d5;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-llvm" data-lang="llvm"><span style="color:#859900">define</span> dso_local <span style="color:#859900;font-weight:bold">void</span> <span style="color:#268bd2">@main.go.main</span>(<span style="color:#859900">i8</span>* <span style="color:#268bd2">%context</span>, <span style="color:#859900">i8</span>* <span style="color:#268bd2">%parentHandle</span>) <span style="color:#859900">unnamed_addr</span> {
+<span style="color:#268bd2">entry:</span>
+  <span style="color:#859900">call</span> <span style="color:#859900;font-weight:bold">void</span> <span style="color:#268bd2">@main.go.log</span>(<span style="color:#859900">i8</span>* <span style="color:#859900">getelementptr</span> <span style="color:#859900">inbounds</span> ([<span style="color:#2aa198;font-weight:bold">13</span> <span style="color:#859900">x</span> <span style="color:#859900">i8</span>], [<span style="color:#2aa198;font-weight:bold">13</span> <span style="color:#859900">x</span> <span style="color:#859900">i8</span>]* <span style="color:#268bd2">@&#34;main.go.main$string&#34;</span>, <span style="color:#859900">i32</span> <span style="color:#2aa198;font-weight:bold">0</span>, <span style="color:#859900">i32</span> <span style="color:#2aa198;font-weight:bold">0</span>), <span style="color:#859900">i32</span> <span style="color:#2aa198;font-weight:bold">13</span>, <span style="color:#859900">i8</span>* <span style="color:#859900">undef</span>, <span style="color:#859900">i8</span>* <span style="color:#859900">undef</span>)
+  <span style="color:#859900">ret</span> <span style="color:#859900;font-weight:bold">void</span>
+}
+</code></pre></div><p>Wow. Umm, there&rsquo;s a lot going on here&hellip; what if we try &ldquo;squinting&rdquo; at this code a bit</p>
+<div class="highlight"><pre style="color:#586e75;background-color:#eee8d5;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-llvm" data-lang="llvm"><span style="color:#859900">define</span> <span style="color:#859900;font-weight:bold">void</span> <span style="color:#268bd2">@main.go.main</span>(...) {
+  <span style="color:#859900">call</span> <span style="color:#268bd2">@main.go.log</span>(<span style="color:#859900">i8</span>* <span style="color:#859900">getelementptr</span> (... <span style="color:#268bd2">@&#34;main.go.main$string&#34;</span>,...), <span style="color:#859900">i32</span> <span style="color:#2aa198;font-weight:bold">13</span>, ...)
+  <span style="color:#859900">ret</span> <span style="color:#859900;font-weight:bold">void</span>
+}
+</code></pre></div><p>Ok, so it looks like there&rsquo;s a call being made to our log function and
+<a href="https://llvm.org/docs/LangRef.html#i-getelementptr">getelementptr</a> appears to be returning the memory address of our
+&ldquo;Hello, World!&rdquo; string and look! The <code>i32 13</code> argument appears to be passing in its
+length! I have no idea what the other arguments are supposed to represent so let&rsquo;s just
+ignore those for now! 😃</p>
+<p>Instead why don&rsquo;t we tweak our <code>logText</code> implementation of this function to take a
+second argument and see what happens</p>
+<div class="highlight"><pre style="color:#586e75;background-color:#eee8d5;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#859900">function</span> <span style="color:#268bd2">logText</span>(<span style="color:#268bd2">addr</span>, <span style="color:#268bd2">length</span>) {
+    <span style="color:#268bd2">log</span>.<span style="color:#268bd2">value</span> += <span style="color:#268bd2">addr</span> + <span style="color:#2aa198">&#34; &#34;</span> + <span style="color:#268bd2">length</span> + <span style="color:#2aa198">&#39;\n&#39;</span>
+}
+</code></pre></div><figure><a href="/images/wasm-addr-length.png">
+    <img src="/images/wasm-addr-length.png"
+         alt="That looks promising!"/> </a><figcaption>
+            <p>That looks promising!</p>
+        </figcaption>
+</figure>
+
+<h3 id="extracting-the-string">Extracting the String</h3>
+<p>Assuming our assumptions are correct we should now have all the information we need in
+order to extract the string from the WebAssembly module&rsquo;s memory. <code>ArrayBuffer</code> objects
+in JavaScript don&rsquo;t seem to be the most intuitive to work with but I was eventually able
+to come up with this.</p>
+<div class="highlight"><pre style="color:#586e75;background-color:#eee8d5;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#859900">function</span> <span style="color:#268bd2">logText</span>(<span style="color:#268bd2">addr</span>, <span style="color:#268bd2">length</span>) {
+    <span style="color:#859900">let</span> <span style="color:#268bd2">memory</span> = <span style="color:#268bd2">wasm</span>.<span style="color:#268bd2">exports</span>.<span style="color:#268bd2">memory</span>
+    <span style="color:#859900">let</span> <span style="color:#268bd2">bytes</span> = <span style="color:#268bd2">memory</span>.<span style="color:#268bd2">buffer</span>.<span style="color:#268bd2">slice</span>(<span style="color:#268bd2">addr</span>, <span style="color:#268bd2">addr</span> + <span style="color:#268bd2">length</span>)
+    <span style="color:#859900">let</span> <span style="color:#268bd2">text</span> = <span style="color:#cb4b16">String</span>.<span style="color:#268bd2">fromCharCode</span>.<span style="color:#268bd2">apply</span>(<span style="color:#859900;font-weight:bold">null</span>, <span style="color:#859900">new</span> <span style="color:#268bd2">Int8Array</span>(<span style="color:#268bd2">bytes</span>))
+
+    <span style="color:#268bd2">log</span>.<span style="color:#268bd2">value</span> += <span style="color:#268bd2">text</span> + <span style="color:#2aa198">&#39;\n&#39;</span>
+}
+</code></pre></div><p>After getting the reference to the <code>memory</code> object we use the <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/ArrayBuffer/slice">slice</a>
+method to obtain a copy of only the bytes that represent our string. Unfortunately bytes
+on their own are meaningless unless you know how to interpret them. To enable this there
+is a whole collection of <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/TypedArray">views</a> that can be wrapped around a given
+array of bytes to attach meaning to them. From our explorations above we know that we
+should use an <code>Int8Array</code>.</p>
+<p>From there we map the <code>String.fromCharCode</code> function over the array of ints to convert
+them to a string. Finally, we should be able to see our &ldquo;Hello, World!&rdquo; string output to
+the log area</p>
+<figure><a href="/images/wasm-log-hello.png">
+    <img src="/images/wasm-log-hello.png"
+         alt="Success!"/> </a><figcaption>
+            <p>Success!</p>
+        </figcaption>
+</figure>
+
+<p>This did require a slight tweak to the way we load the module so that we have a global
+<code>wasm</code> reference that our <code>logText</code> function is able to use to access the module
+instance directly.</p>
+<div class="highlight"><pre style="color:#586e75;background-color:#eee8d5;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#859900">let</span> <span style="color:#268bd2">wasm</span>
+
+...
+
+<span style="color:#268bd2">WebAssembly</span>.<span style="color:#268bd2">instantiateStreaming</span>(<span style="color:#268bd2">fetch</span>(<span style="color:#2aa198">&#34;/js/wisp.wasm&#34;</span>), <span style="color:#268bd2">go</span>.<span style="color:#268bd2">importObject</span>)
+    .<span style="color:#268bd2">then</span>(<span style="color:#268bd2">module</span> =&gt; {
+        <span style="color:#268bd2">wasm</span> = <span style="color:#268bd2">module</span>.<span style="color:#268bd2">instance</span>
+
+        <span style="color:#268bd2">runButton</span>.<span style="color:#268bd2">disabled</span> = <span style="color:#859900;font-weight:bold">false</span>
+        <span style="color:#268bd2">runButton</span>.<span style="color:#268bd2">addEventListener</span>(<span style="color:#2aa198">&#39;click&#39;</span>, <span style="color:#268bd2">onRun</span>(<span style="color:#268bd2">go</span>, <span style="color:#268bd2">wasm</span>))
+    })
+</code></pre></div><h2 id="passing-strings-from-javascript-to-tinygo">Passing strings from JavaScript to TinyGo</h2>
+<p>Phew, at least we&rsquo;re halfway there! Now that we&rsquo;ve figured out how things actually hang
+together it&rsquo;s &ldquo;just&rdquo; a matter of doing the inverse process to pass a string from our
+JavaScript code into our WebAssembly module. As a proof of concept let&rsquo;s create an
+<code>echo</code> function in TinyGo that will simply log whatever text it receives.</p>
+<div class="highlight"><pre style="color:#586e75;background-color:#eee8d5;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#93a1a1;font-style:italic">//go:export echo
+</span><span style="color:#93a1a1;font-style:italic"></span><span style="color:#859900">func</span> <span style="color:#268bd2">echo</span>(<span style="color:#268bd2">message</span> <span style="color:#859900;font-weight:bold">string</span>) {
+    <span style="color:#268bd2">log</span>(<span style="color:#268bd2">message</span>)
+}
+</code></pre></div><p>In order to actually pass a string to this function, we need to insert the string into
+the memory of the WebAssembly module before calling <code>echo</code> with its address and length.</p>
+<h3 id="manipulating-memory">Manipulating Memory</h3>
+<p>The problem is, where exactly in the module&rsquo;s memory should we place the string? We
+can&rsquo;t shove it anywhere as we could corrupt memory required for some other part of the
+program. It is possible to <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/WebAssembly/Memory/grow">grow</a> the memory assigned to a module instance
+which technically would be free for us to use(?) But it doesn&rsquo;t exactly <em>feel</em> right,
+having two competing codebases manipulate the same memory layout seems to be asking
+for trouble&hellip;</p>
+<p>Thankfully I came across <a href="https://github.com/tinygo-org/tinygo/issues/411#issuecomment-503066868">this comment</a> on an issue in the TinyGo project
+which provides a way we can work around this.</p>
+<div class="highlight"><pre style="color:#586e75;background-color:#eee8d5;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#859900">var</span> <span style="color:#268bd2">buf</span> [<span style="color:#2aa198;font-weight:bold">1024</span>]<span style="color:#859900;font-weight:bold">byte</span>
+
+<span style="color:#93a1a1;font-style:italic">//go:export getBuffer
+</span><span style="color:#93a1a1;font-style:italic"></span><span style="color:#859900">func</span> <span style="color:#268bd2">getBuffer</span>() *<span style="color:#859900;font-weight:bold">byte</span> {
+    <span style="color:#859900">return</span> &amp;<span style="color:#268bd2">buf</span>[<span style="color:#2aa198;font-weight:bold">0</span>]
+}
+</code></pre></div><p>If we declare an array of bytes in the module, the TinyGo compiler will allocate space
+and manage it for us. Then by exporting the <code>getBuffer</code> function we provide a way for
+our wrapping JavaScript to ask for the address to the region of memory we have reserved
+for it. This region of memory should then be safe for us to write to from JavaScript
+<strong>provided our go code only reads from this array</strong></p>
+<p>Now with some reserved memory to use we can write a function that takes a string and
+inserts it into the module&rsquo;s memory.</p>
+<div class="highlight"><pre style="color:#586e75;background-color:#eee8d5;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#859900">function</span> <span style="color:#268bd2">insertText</span>(<span style="color:#268bd2">text</span>, <span style="color:#268bd2">module</span>) {
+
+    <span style="color:#93a1a1;font-style:italic">// Get the address of the writable memory.
+</span><span style="color:#93a1a1;font-style:italic"></span>    <span style="color:#859900">let</span> <span style="color:#268bd2">addr</span> = <span style="color:#268bd2">module</span>.<span style="color:#268bd2">exports</span>.<span style="color:#268bd2">getBuffer</span>()
+    <span style="color:#859900">let</span> <span style="color:#268bd2">buffer</span> = <span style="color:#268bd2">module</span>.<span style="color:#268bd2">exports</span>.<span style="color:#268bd2">memory</span>.<span style="color:#268bd2">buffer</span>
+
+    <span style="color:#859900">let</span> <span style="color:#268bd2">mem</span> = <span style="color:#859900">new</span> <span style="color:#268bd2">Int8Array</span>(<span style="color:#268bd2">buffer</span>)
+    <span style="color:#859900">let</span> <span style="color:#268bd2">view</span> = <span style="color:#268bd2">mem</span>.<span style="color:#268bd2">subarray</span>(<span style="color:#268bd2">addr</span>, <span style="color:#268bd2">addr</span> + <span style="color:#268bd2">text</span>.<span style="color:#268bd2">length</span>)
+
+    <span style="color:#859900">for</span> (<span style="color:#859900">let</span> <span style="color:#268bd2">i</span> = <span style="color:#2aa198;font-weight:bold">0</span>; <span style="color:#268bd2">i</span> &lt; <span style="color:#268bd2">text</span>.<span style="color:#268bd2">length</span>; <span style="color:#268bd2">i</span>++) {
+        <span style="color:#268bd2">view</span>[<span style="color:#268bd2">i</span>] = <span style="color:#268bd2">text</span>.<span style="color:#268bd2">charCodeAt</span>(<span style="color:#268bd2">i</span>)
+    }
+
+    <span style="color:#93a1a1;font-style:italic">// Return the address we started at.
+</span><span style="color:#93a1a1;font-style:italic"></span>    <span style="color:#859900">return</span> <span style="color:#268bd2">addr</span>
+}
+</code></pre></div><p>As with the earlier case, we need to create an <code>Int8Array</code> in order to attach meaning to
+the bytes and so that the numbers representing the characters in the string are encoded
+correctly. Also note that we&rsquo;re using the <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/TypedArray/subarray">subarray</a> method this
+time so that we&rsquo;re modifying the original array and not a copy.</p>
+<h3 id="calling-the-echo-function">Calling the Echo Function</h3>
+<p>With a way for us to insert the string we want into the module&rsquo;s memory we should now
+be in a position to call the <code>echo</code> function passing the starting address and length
+of the string we want it to echo. However instead of hardcoding the string this time why
+don&rsquo;t we take it from the input <code>textarea</code> we have on the page.</p>
+<div class="highlight"><pre style="color:#586e75;background-color:#eee8d5;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#859900">const</span> <span style="color:#268bd2">input</span> = <span style="color:#cb4b16">document</span>.<span style="color:#268bd2">getElementById</span>(<span style="color:#2aa198">&#39;input&#39;</span>)
+
+<span style="color:#859900">function</span> <span style="color:#268bd2">onRun</span>(<span style="color:#268bd2">runner</span>, <span style="color:#268bd2">module</span>) {
+    <span style="color:#859900">return</span> (<span style="color:#268bd2">event</span>) =&gt; {
+        <span style="color:#93a1a1;font-style:italic">// First, we need to run the module in order to define everything.
+</span><span style="color:#93a1a1;font-style:italic"></span>        <span style="color:#268bd2">runner</span>.<span style="color:#268bd2">run</span>(<span style="color:#268bd2">module</span>)
+
+        <span style="color:#859900">let</span> <span style="color:#268bd2">inputText</span> = <span style="color:#268bd2">input</span>.<span style="color:#268bd2">value</span>
+        <span style="color:#859900">let</span> <span style="color:#268bd2">addr</span> = <span style="color:#268bd2">insertText</span>(<span style="color:#268bd2">inputText</span>, <span style="color:#268bd2">module</span>)
+
+        <span style="color:#93a1a1;font-style:italic">// Now just pass the memory location to the relevant function.
+</span><span style="color:#93a1a1;font-style:italic"></span>        <span style="color:#268bd2">module</span>.<span style="color:#268bd2">exports</span>.<span style="color:#268bd2">echo</span>(<span style="color:#268bd2">addr</span>, <span style="color:#268bd2">inputText</span>.<span style="color:#268bd2">length</span>)
+    }
+}
+</code></pre></div><figure><a href="/images/wasm-echo.gif">
+    <img src="/images/wasm-echo.gif"/> </a>
+</figure>
+
+<h2 id="wrapping-up">Wrapping Up</h2>
+<p>That&rsquo;s about it, if you want to have a look at the final codebase then you can find it
+<a href="https://github.com/alcarney/wisp/tree/passing-strings">here</a>.</p>
+<p>This apparently simple task was certainly a lot more work than I expected it to be,
+but if nothing else it&rsquo;s forced me to learn a bit more about some of the lower-level
+details of working with WebAssembly modules.</p>
+<p>I don&rsquo;t think this is necessarily the right approach though.. ok we&rsquo;re able to pass a
+(simple!) string back and forth between our TinyGo code and JavaScript. But there are
+more details that still need to be considered</p>
+<ul>
+<li>
+<p>This solution does not handle Unicode. There is however a
+<a href="https://developer.mozilla.org/en-US/docs/Web/API/TextEncoder">TextEncoder</a> API available in the browser that looks like it might
+go some way towards fixing this.</p>
+</li>
+<li>
+<p>I thought the fixed buffer size in the go module would be an issue - how would you
+handle inputs larger than 1024 bytes? However after a quick test with about 5K of text
+it seemed to not matter? 🤷 Though I&rsquo;m sure there&rsquo;s ways to break it.</p>
+</li>
+<li>
+<p>Finally, what about more complex data structures? Sure we&rsquo;d probably be able to encode
+them as JSON and pass them around that way but I&rsquo;m sure that would introduce
+unnecessary overhead.</p>
+</li>
+</ul>
+<p>And with all that said isn&rsquo;t this a problem that the toolchain should be solving?
+Perhaps I&rsquo;m just using it wrong 🤔</p>
+        </div>
+        <div class="flex items-center justify-end mt-4 space-x-4">
+    <a class="px-2 text-sm text-gray-600 bg-green-200 border border-green-600 rounded" href="https://alcarney.me/tags/go/">
+        #go
+    </a><a class="px-2 text-sm text-gray-600 bg-green-200 border border-green-600 rounded" href="https://alcarney.me/tags/tinygo/">
+        #tinygo
+    </a><a class="px-2 text-sm text-gray-600 bg-green-200 border border-green-600 rounded" href="https://alcarney.me/tags/wasm/">
+        #wasm
+    </a><a class="px-2 text-sm text-gray-600 bg-green-200 border border-green-600 rounded" href="https://alcarney.me/tags/js/">
+        #js
+    </a></div>
+        <div class="pt-4 mt-8 border-t">
+            <div id="disqus_thread"></div>
+<script type="application/javascript">
+    var disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "alcarney-me" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+        </div>
+    </article>
+</div>
+
+    </main><footer class="items-baseline p-4 text-white bg-gray-700">
+    <div class="flex justify-between">
+        <div>
+        </div>
+
+        <div class="flex justify-between space-x-4">
+            
+            <a target="_blank" rel="noreferrer noopener" href="https://github.com/alcarney">
+                <svg class="w-8 h-8 bg-transparent stroke-current" style="fill:none">
+    <use xlink:href="/svg/feather-sprite.svg#github" />
+</svg>
+            </a>
+            
+            <a target="_blank" rel="noreferrer noopener" href="https://twitter.com/alcarneyme">
+                <svg class="w-8 h-8 bg-transparent stroke-current" style="fill:none">
+    <use xlink:href="/svg/feather-sprite.svg#twitter" />
+</svg>
+            </a>
+            
+            <a target="_blank" rel="noreferrer noopener" href="https://instagram.com/alcarneyme">
+                <svg class="w-8 h-8 bg-transparent stroke-current" style="fill:none">
+    <use xlink:href="/svg/feather-sprite.svg#instagram" />
+</svg>
+            </a>
+            
+            <a target="_blank" rel="noreferrer noopener" href="https://www.youtube.com/channel/UC5GPflgRWhnCxA0BllfP5CA">
+                <svg class="w-8 h-8 bg-transparent stroke-current" style="fill:none">
+    <use xlink:href="/svg/feather-sprite.svg#youtube" />
+</svg>
+            </a>
+            
+        </div>
+
+        <div>
+            
+        </div>
+    </div>
+</footer>
+    <script>
+        const codeBlocks = document.querySelectorAll(".highlight pre")
+        Array.from(codeBlocks).forEach(el => {
+            el.style.backgroundColor = "#fdf6e3"
+        })
+    </script>
+</body>
+
+</html>

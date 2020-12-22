@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>prometheus on Alex Carney</title>
+    <link>https://alcarney.me/tags/prometheus/</link>
+    <description>Recent content in prometheus on Alex Carney</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language><atom:link href="https://alcarney.me/tags/prometheus/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Kubernetes Focused Prometheus Queries</title>
+      <link>https://alcarney.me/notes/prometheus/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://alcarney.me/notes/prometheus/</guid>
+      <description>Queries A collection of queries for inspecting data stored in a Prometheus server. Most of these queries should work in vanilla prometheus however a small number may contain a few &amp;ldquo;grafana-isms&amp;rdquo;
+The following variables are used as examples
+   Name Description     $interval A time interval e.g. 1m. 5m, 1h etc.    Nodes Queries relating to the state of the &amp;ldquo;physical&amp;rdquo; hardware that is hosting the cluster</description>
+    </item>
+    
+  </channel>
+</rss>

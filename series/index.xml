@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Series on Alex Carney</title>
+    <link>https://alcarney.me/series/</link>
+    <description>Recent content in Series on Alex Carney</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Wed, 08 Jan 2020 00:00:00 +0000</lastBuildDate><atom:link href="https://alcarney.me/series/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Learning Vulkan</title>
+      <link>https://alcarney.me/series/learning-vulkan/</link>
+      <pubDate>Wed, 08 Jan 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://alcarney.me/series/learning-vulkan/</guid>
+      <description></description>
+    </item>
+    
+  </channel>
+</rss>
