@@ -1,7 +1,10 @@
 +++
 title = "Passing strings between TinyGo and JavaScript"
 author = ["Alex Carney"]
-description = "Figuring out how WebAssembly handles memory"
+description = """\
+Figuring out how WebAssembly handles memory and how to use it to pass data between it and \
+JavaScript.\
+"""
 date = 2020-05-06
 draft = false
 tags = ["go", "tinygo", "wasm", "js"]
@@ -158,7 +161,7 @@ the rescue, it's easy enough to track down where our "Hello, World!" string is d
 
 I don't know the first thing when it comes to LLVM's IR representation of code but after
 looking into how it thinks about [arrays][llvm-array] we see that `[13 x i8]` indicates
-that our string is represented by an array of 13, 8-byte integers.
+that our string is represented by an array of 13, 8-bit integers.
 
 Awesome, we now know how to interpret the values we see in the WebAssembly module's
 `ArrayBuffer`, but how will we know how many values to look for?

@@ -1,0 +1,33 @@
+<style>
+    aside::after {
+        position: absolute;
+        top: 8px;
+        right: -10px;
+        display: block;
+        content: '';
+        width: 8px;
+        height: 8px;
+        border-radius: 100%;
+        background: #717885;
+    }
+
+    @media(max-width: 1024px) {
+        aside::after {
+            top: unset;
+            bottom: 6px;
+            left: -18px;
+            border-top: sold 1px #e5e7eb;
+            border-bottom: none;
+        }
+    }
+</style>
+<aside class="relative flex pr-2 mt-4 ml-12 -mb-3 space-x-4 text-gray-500 lg:mr-8 lg:w-32 lg:block lg:space-x-0">
+    <span class="flex justify-between">
+        {{ partial "icon.html" (dict "ctx" $ "name" "calendar" "size" "6") }}
+        {{ .PublishDate.Format "Jan 2, 2006" }}
+    </span>
+    <span class="flex justify-between">
+        {{ partial "icon.html" (dict "ctx" $ "name" "clock" "size" "6")}}
+        {{ .ReadingTime }} min read
+    </span>
+</aside>

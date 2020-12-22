@@ -1,9 +1,12 @@
+[context.production]
+command = "./build.sh"
+
 [context.production.environment]
-HUGO_VERSION = "0.68.3"
+HUGO_VERSION = "0.79.0"
 HUGO_ENV = "production"
 
 [context.deploy-preview]
-command = "hugo --gc -b $DEPLOY_PRIME_URL"
+command = "./build.sh"
 
 [context.deploy-preview.environment]
-HUGO_VERSION = "0.68.3"
+HUGO_VERSION = "0.79.0"

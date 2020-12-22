@@ -1,10 +1,11 @@
 +++
-title = "Learning Vulkan: Overview"
 author = ["Alex Carney"]
-description = "Declaring my intensions to learn Vulkan once again"
-date = 2020-01-01T20:00:00+01:00
-tags = ["c", "vulkan", "graphics"]
+date = 2020-01-01
+description = "Declaring my intention to learn Vulkan once again"
 draft = false
+series = ["Learning Vulkan"]
+tags = ["c", "vulkan", "graphics"]
+title = "Learning Vulkan: Overview"
 +++
 
 I have always been interested in graphics and have on numerous occasions tried
