@@ -2,7 +2,7 @@
 <style>
     header::before {
         position: absolute;
-        top: 16px;
+        top: 19px;
         left: -12.5px;
         display: block;
         content: '';
@@ -13,27 +13,26 @@
         border-left: solid 1px #e5e7eb;
         border-bottom: solid 1px #e5e7eb;
     }
+
+    @media(max-width: 1024px) {
+        header::before {
+            left: 19px;
+            top: -12.5px;
+            border-top: sold 1px #e5e7eb;
+            border-bottom: none;
+        }
+    }
 </style>
-<div class="flex items-baseline justify-between">
+<div class="flex flex-col items-baseline justify-between lg:flex-row">
     {{ partial "postmeta.html" . }}
-    <article class="relative flex-grow p-4 mt-8 transition bg-white border">
-        <header class="mb-4 ml-6">
+    <article class="relative flex-grow p-4 mt-8 transition bg-white border shadow-lg">
+        <header class="mb-4 ml-6 ">
             <h1 class="text-3xl text-green-600">{{ .Title }}</h1>
         </header>
         <div class="m-auto prose prose-lg prose-green">
             {{ .Content }}
         </div>
-        {{- with .Params.tags -}}
-        <div class="flex items-center justify-end mt-4 space-x-4">
-            {{ range . -}}
-            {{- with $.Site.GetPage (printf "/%s/%s" "tags" . ) -}}
-            <a class="px-2 text-sm text-gray-600 bg-green-200 border border-green-600 rounded" href="{{ .Permalink }}">
-                #{{ .Title }}
-            </a>
-            {{- end -}}
-            {{- end -}}
-        </div>
-        {{- end -}}
+        {{ partial "taglist.html" . }}
         <div class="pt-4 mt-8 border-t">
             {{ template "_internal/disqus.html" . }}
         </div>

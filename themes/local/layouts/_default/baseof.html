@@ -13,6 +13,13 @@
     </main>
 
     {{- partial "footer.html" . -}}
+    <!--  Hack to adjust the background color of code blocks  -->
+    <script>
+        const codeBlocks = document.querySelectorAll(".highlight pre")
+        Array.from(codeBlocks).forEach(el => {
+            el.style.backgroundColor = "#fdf6e3"
+        })
+    </script>
 </body>
 
 </html>

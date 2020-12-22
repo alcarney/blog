@@ -13,17 +13,27 @@
         border-left: solid 1px #e5e7eb;
         border-bottom: solid 1px #e5e7eb;
     }
+
+    @media(max-width: 1024px) {
+        header::before {
+            left: 19px;
+            top: -12.5px;
+            border-top: sold 1px #e5e7eb;
+            border-bottom: none;
+        }
+    }
 </style>
 <div>
     {{ range $index, $element := .Paginator.Pages }}
-    <div class="flex items-baseline justify-between">
+    <div class="flex flex-col justify-between lg:items-baseline lg:flex-row">
         {{ partial "postmeta.html" . }}
         <article class="relative flex-grow p-4 mt-8 transition bg-white border hover:shadow-lg">
-            <header class="mb-4 ml-6">
+            <header class="mb-4">
                 <a href="{{ .Permalink }}" class="text-2xl text-green-600 text-shadow">{{ .Title }}</a>
             </header>
             <div class="m-auto prose prose-lg prose-green">
                 {{ .Summary }}
+                {{ partial "taglist.html" . }}
                 {{ if .Truncated }}
                 <a class="" href="{{ .RelPermalink }}">More...</a>
                 {{ end }}
