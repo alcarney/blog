@@ -1,0 +1,51 @@
+name: Blog
+
+on:
+  pull_request:
+    branches:
+    - release
+  push:
+    branches:
+    - release
+
+jobs:
+  blog:
+    name: Blog
+    runs-on: ubuntu-20.04
+    steps:
+    - uses: 'actions/checkout@v2'
+      with:
+        persist-credentials: false
+
+    - uses: 'actions/setup-node@v1'
+      with:
+        node-version: 12.x
+
+    - run: |
+        set -e
+
+        cd themes/local
+        npm i
+        npm run build
+
+      name: Generate CSS
+
+    - run: |
+        set - e
+        hugo
+      name: Build Blog
+
+      - name: 'Upload Aritfact'
+      uses: 'actions/upload-artifact@v1.0.0'
+      with:
+        name: 'blog'
+        path: 'public'
+
+    - name: 'Publish Docs'
+      uses: JamesIves/github-pages-deploy-action@releases/v3
+      with:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        BRANCH: gh-pages
+        FOLDER: public
+        CLEAN: true
+      if: success() && startsWith(github.ref, 'refs/heads/release')
