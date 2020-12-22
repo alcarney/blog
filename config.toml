@@ -1,6 +1,7 @@
 baseURL = "https://alcarney.me"
 languageCode = "en-us"
 title = "Alex Carney"
+enableGitInfo = true
 
 theme = "local"
 disqusShortname = "alcarney-me"
@@ -18,6 +19,10 @@ home = ["HTML", "json"]
 [params]
 author = "Alex Carney"
 description = "Software developer, amateur mathematician. I love to learn, try to animate and talk about it all to anyone who will listen"
+
+[taxonomies]
+series = "series"
+tag = "tags"
 
 [[params.social]]
 name = "github"
