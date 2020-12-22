@@ -4,7 +4,7 @@
 
 <meta name="theme-color" content="#a3be8c" />
 
-<meta name="generator" content="Hugo {{ .Hugo.Version }}" />
+{{ hugo.Generator }}
 <meta name="author" content="{{ .Site.Params.author }}" />
 
 {{- if .Description }}
@@ -20,6 +20,6 @@
 
 <title>{{- if .Title }}{{ .Title}} | {{- end}} {{ .Site.Title }}</title>
 
-{{ $options := (dict "targetPath" "main.css" "outputStyle" "compressed" "enableSourceMap" true )}}
-{{ $style := resources.Get "css/main.scss" | resources.ToCSS $options | resources.Fingerprint}}
+{{ $options := (dict "targetPath" "main.css" "outputStyle" "compressed")}}
+{{ $style := resources.Get "css/styles.css" | resources.ToCSS $options | resources.Fingerprint}}
 <link rel="stylesheet" href="{{ $style.Permalink }}" />

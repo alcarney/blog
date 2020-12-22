@@ -1,24 +1,35 @@
 {{define "main"}}
-<div class="content">
-    <h1>Blog</h1>
+<style>
+    header::before {
+        position: absolute;
+        top: 16px;
+        left: -12.5px;
+        display: block;
+        content: '';
+        width: 25px;
+        height: 25px;
+        background: white;
+        transform: rotate(45deg);
+        border-left: solid 1px #e5e7eb;
+        border-bottom: solid 1px #e5e7eb;
+    }
+</style>
+<div>
     {{ range $index, $element := .Paginator.Pages }}
-    <article class="post">
-        <header class="post-link">
-            <a href="{{ .Permalink }}">{{ .Title }}</a>
-            <div class="post-meta">
-                {{ partial "icon.html" (dict "ctx" $ "name" "clock") }}
-                {{ .ReadingTime }} min read -
-                {{ partial "icon.html" (dict "ctx" $ "name" "calendar") }}
-                {{ .PublishDate.Format "Jan 2, 2006" }}
+    <div class="flex items-baseline justify-between">
+        {{ partial "postmeta.html" . }}
+        <article class="relative flex-grow p-4 mt-8 transition bg-white border hover:shadow-lg">
+            <header class="mb-4 ml-6">
+                <a href="{{ .Permalink }}" class="text-2xl text-green-600 text-shadow">{{ .Title }}</a>
+            </header>
+            <div class="m-auto prose prose-lg prose-green">
+                {{ .Summary }}
+                {{ if .Truncated }}
+                <a class="" href="{{ .RelPermalink }}">More...</a>
+                {{ end }}
             </div>
-        </header>
-        <div class="post-summary">
-            {{ .Summary }}
-            {{ if .Truncated }}
-            <a class="link-more" href="{{ .RelPermalink }}">More...</a>
-            {{ end }}
-        </div>
-    </article>
+        </article>
+    </div>
     {{ end }}
 </div>
 {{end}}

@@ -1,0 +1,23 @@
+<style>
+    aside::after {
+        position: absolute;
+        top: 8px;
+        right: -10px;
+        display: block;
+        content: '';
+        width: 8px;
+        height: 8px;
+        border-radius: 100%;
+        background: #717885;
+    }
+</style>
+<aside class="relative w-32 pr-2 mr-8 text-gray-500">
+    <span class="flex justify-between">
+        {{ partial "icon.html" (dict "ctx" $ "name" "calendar" "size" "6") }}
+        {{ .PublishDate.Format "Jan 2, 2006" }}
+    </span>
+    <span class="flex justify-between">
+        {{ partial "icon.html" (dict "ctx" $ "name" "clock" "size" "6")}}
+        {{ .ReadingTime }} min read
+    </span>
+</aside>
