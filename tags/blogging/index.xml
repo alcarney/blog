@@ -2,17 +2,17 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>blogging on Alex Carney</title>
-    <link>https://alcarney.me/tags/blogging/</link>
+    <link>https://www.alcarney.me/tags/blogging/</link>
     <description>Recent content in blogging on Alex Carney</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Sat, 22 Sep 2018 00:00:00 +0000</lastBuildDate><atom:link href="https://alcarney.me/tags/blogging/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sat, 22 Sep 2018 00:00:00 +0000</lastBuildDate><atom:link href="https://www.alcarney.me/tags/blogging/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>I&#39;ve Started a Blog… Again!</title>
-      <link>https://alcarney.me/blog/2018/first-article/</link>
+      <link>https://www.alcarney.me/blog/2018/first-article/</link>
       <pubDate>Sat, 22 Sep 2018 00:00:00 +0000</pubDate>
       
-      <guid>https://alcarney.me/blog/2018/first-article/</guid>
+      <guid>https://www.alcarney.me/blog/2018/first-article/</guid>
       <description>&lt;p&gt;Not that you would have known it, but I&amp;rsquo;ve had a blog since 2014.  Well 2015 if
 you&amp;rsquo;re feeling generous, the first (and only) post went up in the last few
 hours of New Year&amp;rsquo;s Eve. It was a look back on some of the projects I had

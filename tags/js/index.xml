@@ -2,18 +2,18 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>js on Alex Carney</title>
-    <link>https://alcarney.me/tags/js/</link>
+    <link>https://www.alcarney.me/tags/js/</link>
     <description>Recent content in js on Alex Carney</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Wed, 06 May 2020 00:00:00 +0000</lastBuildDate><atom:link href="https://alcarney.me/tags/js/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Wed, 06 May 2020 00:00:00 +0000</lastBuildDate><atom:link href="https://www.alcarney.me/tags/js/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Passing strings between TinyGo and JavaScript</title>
-      <link>https://alcarney.me/blog/2020/passing-strings-between-tinygo-wasm/</link>
+      <link>https://www.alcarney.me/blog/2020/passing-strings-between-tinygo-wasm/</link>
       <pubDate>Wed, 06 May 2020 00:00:00 +0000</pubDate>
       
-      <guid>https://alcarney.me/blog/2020/passing-strings-between-tinygo-wasm/</guid>
-      <description>&lt;p&gt;After getting a &lt;a href=&#34;https://alcarney.me/blog/2020/hello-world-tinygo-wasm/&#34;&gt;&amp;ldquo;Hello, World!&amp;quot;&lt;/a&gt; WebAssembly
+      <guid>https://www.alcarney.me/blog/2020/passing-strings-between-tinygo-wasm/</guid>
+      <description>&lt;p&gt;After getting a &lt;a href=&#34;https://www.alcarney.me/blog/2020/hello-world-tinygo-wasm/&#34;&gt;&amp;ldquo;Hello, World!&amp;quot;&lt;/a&gt; WebAssembly
 application working I thought it would be fun to try and implement a toy programming
 language in the browser. However before I could even start thinking about parsers,
 abstract syntax trees and the like I had to be able to pass strings between my
@@ -23,17 +23,17 @@ WebAssembly module and the surrounding JavaScript.&lt;/p&gt;
     
     <item>
       <title>Implementing Click &amp; Drag with Vanilla JS</title>
-      <link>https://alcarney.me/blog/2019/click-drag-vanilla-js/</link>
+      <link>https://www.alcarney.me/blog/2019/click-drag-vanilla-js/</link>
       <pubDate>Sun, 07 Jul 2019 21:24:00 +0100</pubDate>
       
-      <guid>https://alcarney.me/blog/2019/click-drag-vanilla-js/</guid>
+      <guid>https://www.alcarney.me/blog/2019/click-drag-vanilla-js/</guid>
       <description>&lt;figure&gt;
   &lt;div id=&#34;main&#34;&gt;&lt;/div&gt;
   &lt;figcaption&gt;
     &lt;p&gt;Try clicking and dragging on this circle.&lt;/p&gt;
   &lt;/figcaption&gt;
 &lt;/figure&gt;
-&lt;script type=&#34;text/javascript&#34; src=&#34;https://alcarney.me/js/click-drag.js&#34;&gt;&lt;/script&gt;
+&lt;script type=&#34;text/javascript&#34; src=&#34;https://www.alcarney.me/js/click-drag.js&#34;&gt;&lt;/script&gt;
 &lt;blockquote&gt;
 &lt;p&gt;&lt;strong&gt;Disclaimer:&lt;/strong&gt;&lt;/p&gt;
 &lt;p&gt;This post makes use of a number of interactive elements to help illustrate a few
@@ -59,10 +59,10 @@ illustrated by the demo above.&lt;/p&gt;</description>
     
     <item>
       <title>Installing npm packages globally without root</title>
-      <link>https://alcarney.me/notes/npm-global-user-install/</link>
+      <link>https://www.alcarney.me/notes/npm-global-user-install/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://alcarney.me/notes/npm-global-user-install/</guid>
+      <guid>https://www.alcarney.me/notes/npm-global-user-install/</guid>
       <description>  Create a folder for global packages to be install into
 $ mdkir &amp;#34;${HOME}/.npm-packages&amp;#34;    Tell npm to use this folder
 $ npm config set prefix &amp;#34;${HOME}/.npm-packages&amp;#34;    Add the corresponding ${HOME}/.npm-packages/bin folder to your PATH

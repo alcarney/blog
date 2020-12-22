@@ -2,20 +2,20 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>stylo on Alex Carney</title>
-    <link>https://alcarney.me/tags/stylo/</link>
+    <link>https://www.alcarney.me/tags/stylo/</link>
     <description>Recent content in stylo on Alex Carney</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Sat, 05 Jan 2019 00:00:00 +0000</lastBuildDate><atom:link href="https://alcarney.me/tags/stylo/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sat, 05 Jan 2019 00:00:00 +0000</lastBuildDate><atom:link href="https://www.alcarney.me/tags/stylo/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>TIL: Python has a cmd module</title>
-      <link>https://alcarney.me/blog/2019/til-python-cmd/</link>
+      <link>https://www.alcarney.me/blog/2019/til-python-cmd/</link>
       <pubDate>Sat, 05 Jan 2019 00:00:00 +0000</pubDate>
       
-      <guid>https://alcarney.me/blog/2019/til-python-cmd/</guid>
+      <guid>https://www.alcarney.me/blog/2019/til-python-cmd/</guid>
       <description>&lt;p&gt;Today I Learned that Python&amp;rsquo;s standard library has a &lt;a href=&#34;https://docs.python.org/3/library/cmd.html&#34;&gt;cmd&lt;/a&gt; module and it is &lt;em&gt;awesome!&lt;/em&gt;&lt;/p&gt;
-&lt;figure&gt;&lt;a href=&#34;https://alcarney.me/images/cmd_python.gif&#34;&gt;
-    &lt;img src=&#34;https://alcarney.me/images/cmd_python.gif&#34;
+&lt;figure&gt;&lt;a href=&#34;https://www.alcarney.me/images/cmd_python.gif&#34;&gt;
+    &lt;img src=&#34;https://www.alcarney.me/images/cmd_python.gif&#34;
          alt=&#34;Interactive program using the cmd module.&#34;/&gt; &lt;/a&gt;&lt;figcaption&gt;
             &lt;p&gt;Interactive program using the cmd module.&lt;/p&gt;
         &lt;/figcaption&gt;
@@ -24,10 +24,10 @@
     
     <item>
       <title>Introducing Stylo Doodles!</title>
-      <link>https://alcarney.me/blog/2018/introducing-stylo-doodles/</link>
+      <link>https://www.alcarney.me/blog/2018/introducing-stylo-doodles/</link>
       <pubDate>Fri, 12 Oct 2018 00:00:00 +0000</pubDate>
       
-      <guid>https://alcarney.me/blog/2018/introducing-stylo-doodles/</guid>
+      <guid>https://www.alcarney.me/blog/2018/introducing-stylo-doodles/</guid>
       <description>&lt;p&gt;A few weeks back at &lt;a href=&#34;https://2018.pyconuk.org/&#34;&gt;PyConUK&lt;/a&gt; I gave my first &lt;a href=&#34;https://youtu.be/F5jSUJVymXk?t=3480&#34;&gt;lighting talk&lt;/a&gt;
 at a conference. During that talk I spoke publically about &lt;a href=&#34;https://github.com/alcarney/stylo&#34;&gt;stylo&lt;/a&gt; for
 the first time. Stylo is a Python library that I have been working on for just
@@ -41,8 +41,8 @@ contribution!&lt;/p&gt;
 other people wouldn&amp;rsquo;t it be great if there was a community driven example
 gallery that people could get inspired by? - Well now there is! And it&amp;rsquo;s
 called &lt;a href=&#34;https://alcarney.github.io/stylo-doodles&#34;&gt;Stylo Doodles&lt;/a&gt;&lt;/p&gt;
-&lt;figure&gt;&lt;a href=&#34;https://alcarney.me/images/stylo-doodles.png&#34;&gt;
-    &lt;img src=&#34;https://alcarney.me/images/stylo-doodles.png&#34;/&gt; &lt;/a&gt;
+&lt;figure&gt;&lt;a href=&#34;https://www.alcarney.me/images/stylo-doodles.png&#34;&gt;
+    &lt;img src=&#34;https://www.alcarney.me/images/stylo-doodles.png&#34;/&gt; &lt;/a&gt;
 &lt;/figure&gt;</description>
     </item>
     

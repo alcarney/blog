@@ -2,20 +2,20 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>cli on Alex Carney</title>
-    <link>https://alcarney.me/tags/cli/</link>
+    <link>https://www.alcarney.me/tags/cli/</link>
     <description>Recent content in cli on Alex Carney</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Sat, 05 Jan 2019 00:00:00 +0000</lastBuildDate><atom:link href="https://alcarney.me/tags/cli/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sat, 05 Jan 2019 00:00:00 +0000</lastBuildDate><atom:link href="https://www.alcarney.me/tags/cli/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>TIL: Python has a cmd module</title>
-      <link>https://alcarney.me/blog/2019/til-python-cmd/</link>
+      <link>https://www.alcarney.me/blog/2019/til-python-cmd/</link>
       <pubDate>Sat, 05 Jan 2019 00:00:00 +0000</pubDate>
       
-      <guid>https://alcarney.me/blog/2019/til-python-cmd/</guid>
+      <guid>https://www.alcarney.me/blog/2019/til-python-cmd/</guid>
       <description>&lt;p&gt;Today I Learned that Python&amp;rsquo;s standard library has a &lt;a href=&#34;https://docs.python.org/3/library/cmd.html&#34;&gt;cmd&lt;/a&gt; module and it is &lt;em&gt;awesome!&lt;/em&gt;&lt;/p&gt;
-&lt;figure&gt;&lt;a href=&#34;https://alcarney.me/images/cmd_python.gif&#34;&gt;
-    &lt;img src=&#34;https://alcarney.me/images/cmd_python.gif&#34;
+&lt;figure&gt;&lt;a href=&#34;https://www.alcarney.me/images/cmd_python.gif&#34;&gt;
+    &lt;img src=&#34;https://www.alcarney.me/images/cmd_python.gif&#34;
          alt=&#34;Interactive program using the cmd module.&#34;/&gt; &lt;/a&gt;&lt;figcaption&gt;
             &lt;p&gt;Interactive program using the cmd module.&lt;/p&gt;
         &lt;/figcaption&gt;

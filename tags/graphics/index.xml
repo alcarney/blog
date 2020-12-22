@@ -2,17 +2,17 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>graphics on Alex Carney</title>
-    <link>https://alcarney.me/tags/graphics/</link>
+    <link>https://www.alcarney.me/tags/graphics/</link>
     <description>Recent content in graphics on Alex Carney</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Wed, 08 Jan 2020 00:00:00 +0000</lastBuildDate><atom:link href="https://alcarney.me/tags/graphics/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Wed, 08 Jan 2020 00:00:00 +0000</lastBuildDate><atom:link href="https://www.alcarney.me/tags/graphics/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Learning Vulkan: Enumerating Physical Devices</title>
-      <link>https://alcarney.me/blog/2020/learning-vulkan-p1/</link>
+      <link>https://www.alcarney.me/blog/2020/learning-vulkan-p1/</link>
       <pubDate>Wed, 08 Jan 2020 00:00:00 +0000</pubDate>
       
-      <guid>https://alcarney.me/blog/2020/learning-vulkan-p1/</guid>
+      <guid>https://www.alcarney.me/blog/2020/learning-vulkan-p1/</guid>
       <description>&lt;p&gt;Being an API for talking to GPUs and other compute devices every Vulkan
 program starts off by looking for an appropriate &lt;a href=&#34;https://www.khronos.org/registry/vulkan/specs/1.1-extensions/man/html/VkPhysicalDevice.html&#34;&gt;physical device&lt;/a&gt;
 to use. In this post I write a little C program that initialises the Vulkan
@@ -28,10 +28,10 @@ Device Name:            Intel(R) HD Graphics 520 (Skylake GT2)
     
     <item>
       <title>Learning Vulkan: Overview</title>
-      <link>https://alcarney.me/blog/2020/learning-vulkan-p0/</link>
+      <link>https://www.alcarney.me/blog/2020/learning-vulkan-p0/</link>
       <pubDate>Wed, 01 Jan 2020 00:00:00 +0000</pubDate>
       
-      <guid>https://alcarney.me/blog/2020/learning-vulkan-p0/</guid>
+      <guid>https://www.alcarney.me/blog/2020/learning-vulkan-p0/</guid>
       <description>&lt;p&gt;I have always been interested in graphics and have on numerous occasions tried
 to dip my toe into the world of OpenGL and more recently Vulkan. However I have
 never been able to get past the &amp;ldquo;Hello, World&amp;rdquo; of these technologies - drawing a
