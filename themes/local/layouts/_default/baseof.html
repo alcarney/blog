@@ -5,13 +5,21 @@
     {{- partial "head.html" . -}}
 </head>
 
-<body>
+<body class=bg-gray-100>
     {{- partial "header.html" . -}}
 
-    <main>
+    <main class="max-w-4xl m-auto mb-8">
         {{- block "main" . }}{{- end }}
-        {{- partial "footer.html" . -}}
     </main>
+
+    {{- partial "footer.html" . -}}
+    <!--  Hack to adjust the background color of code blocks  -->
+    <script>
+        const codeBlocks = document.querySelectorAll(".highlight pre")
+        Array.from(codeBlocks).forEach(el => {
+            el.style.backgroundColor = "#fdf6e3"
+        })
+    </script>
 </body>
 
 </html>

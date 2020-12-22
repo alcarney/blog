@@ -9,6 +9,23 @@
             "command": "hugo server --buildDrafts",
             "group": "build",
             "problemMatcher": []
+        },
+        {
+            "type": "npm",
+            "label": "Dev Styles",
+            "script": "dev",
+            "options": {
+                "cwd": "${workspaceRoot}/themes/local"
+            },
+            "presentation": {
+                "echo": true,
+                "reveal": "silent",
+                "focus": false,
+                "panel": "shared",
+                "showReuseMessage": true,
+                "clear": false
+            },
+            "problemMatcher": []
         }
     ]
 }

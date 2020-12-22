@@ -1,10 +1,11 @@
 +++
-title = "Learning Vulkan: Enumerating Physical Devices"
 author = ["Alex Carney"]
-description = "Enumerating Vulkan compatible physical devices"
 date = 2020-01-08
-tags = ["c", "vulkan", "graphics"]
+description = "Enumerating Vulkan compatible physical devices"
 draft = false
+series = ["Learning Vulkan"]
+tags = ["c", "vulkan", "graphics"]
+title = "Learning Vulkan: Enumerating Physical Devices"
 +++
 
 Being an API for talking to GPUs and other compute devices every Vulkan

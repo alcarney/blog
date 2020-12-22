@@ -1,33 +1,13 @@
-<aside class="sidebar">
+<nav class="flex justify-between p-4 bg-white border-b">
 
-    <div class="sidebar-upper-content">
-        <div>
-            <a href="/blog">
-                <h1>
-                    {{ partial "icon.html" (dict "ctx" $ "name" "edit") }}
-                    Blog
-                </h1>
-            </a>
-            <a href="/notes">
-                <h1>
-                    {{ partial "icon.html" (dict "ctx" $ "name" "book") }}
-                    Notes
-                </h1>
-            </a>
-        </div>
+    <div>
+        <h1>Alex Carney</h1>
     </div>
 
-    <div class="sidebar-lower-content">
-        <div class="sidebar-author">
-            <img src="/avatar.jpg" />
-            <h2>{{ .Site.Params.author }}</h2>
-            <div class="social">
-                {{ range .Site.Params.social }}
-                <a target="_blank" rel="noreferrer noopener" href="{{ .url }}">
-                    {{ partial "icon.html" . }}
-                </a>
-                {{ end }}
-            </div>
-        </div>
+    <div class="flex space-x-4 items-between">
+        <a href="/blog">Blog</a>
+        <a href="/notes">Notes</a>
     </div>
-</aside>
+    <!--
+    -->
+</nav>
