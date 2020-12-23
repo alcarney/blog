@@ -27,139 +27,193 @@
 
 
 
-<link rel="stylesheet" href="https://www.alcarney.me/main.f5d6c6398a0ac2e997c3d01724b4310d8a7220380995027ef451c4487e8e80f3.css" /></head>
+<link rel="stylesheet" href="https://www.alcarney.me/main.017e21fc45f795d249c55ddfc19f0eecfabd8a7dadb38df2418b3ec659853621.css" /></head>
 
-<body class=bg-gray-100><nav class="flex justify-between p-4 bg-white border-b">
+<body class=bg-gray-100>
+    <div class="flex items-baseline justify-between p-4 bg-white border-b">
 
-    <div>
-        <h1>Alex Carney</h1>
+        <div>
+            <h1>Alex Carney</h1>
+        </div>
+
+        <div class="flex justify-center flex-grow">
+<input class="max-w-lg px-2 py-1 m-auto border-2 rounded-md  w-72 lg:w-full focus:border-green-600" id="note-search"
+  type="search" placeholder="Search... ">
+
+        </div>
+
+        <nav class="flex space-x-4 items-between">
+            <a href="/blog">Blog</a>
+            <a href="/notes">Notes</a>
+        </nav>
     </div>
 
-    <div class="flex space-x-4 items-between">
-        <a href="/blog">Blog</a>
-        <a href="/notes">Notes</a>
-    </div>
+    <main class="max-w-4xl m-auto mb-8">
+<div class="mt-8">
+  <div id="note-results" class="grid grid-cols-1 gap-2 p-2 md:grid-cols-2">
     
-</nav><main class="max-w-4xl m-auto mb-8">
-<div class="content">
-  <h1>Notes</h1>
-
-  <div class="note-search">
-    <input id="note-search" type="search" placeholder="Search... ">
-  </div>
-
-  <div id="note-results" class="note-collection">
-    
-    <article id="cloning-git-repos-with-submodules" class="note">
-      <div>
-        <a href="https://www.alcarney.me/notes/git-clone-submodules/">Cloning Git Repos with Submodules</a>
-        <div class="note-summary">
+    <article id="cloning-git-repos-with-submodules"
+      class="flex flex-col justify-between p-2 bg-white border shadow-sm hover:shadow-lg">
+      <a class="" href="https://www.alcarney.me/notes/git-clone-submodules/">
+        <h2 class="text-xl text-green-600">
+          Cloning Git Repos with Submodules
+        </h2>
+        <div class="mt-4">
           Working with git repositories that include submodules.
         </div>
+      </a>
+
+      <div class="post-meta">
+        <div class="flex items-center justify-end mt-4 space-x-4">
+    <a class="px-2 text-sm text-gray-600 bg-green-200 border border-green-600 rounded" href="https://www.alcarney.me/tags/git/">
+        #git
+    </a></div>
       </div>
-      <div class="post-meta"><div>
-          <svg class=" bg-transparent stroke-current" style="fill:none">
-    <use xlink:href="/svg/feather-sprite.svg#tag" />
-</svg>
-          <a class="tag" href="https://www.alcarney.me/tags/git/">git</a></div></div>
     </article>
     
-    <article id="custom-jupyter-kernels" class="note">
-      <div>
-        <a href="https://www.alcarney.me/notes/custom-jupyter-kernels/">Custom Jupyter Kernels</a>
-        <div class="note-summary">
+    <article id="custom-jupyter-kernels"
+      class="flex flex-col justify-between p-2 bg-white border shadow-sm hover:shadow-lg">
+      <a class="" href="https://www.alcarney.me/notes/custom-jupyter-kernels/">
+        <h2 class="text-xl text-green-600">
+          Custom Jupyter Kernels
+        </h2>
+        <div class="mt-4">
           &#34;Publishing&#34; multiple Python environments to use within Jupyter
         </div>
+      </a>
+
+      <div class="post-meta">
+        <div class="flex items-center justify-end mt-4 space-x-4">
+    <a class="px-2 text-sm text-gray-600 bg-green-200 border border-green-600 rounded" href="https://www.alcarney.me/tags/python/">
+        #python
+    </a><a class="px-2 text-sm text-gray-600 bg-green-200 border border-green-600 rounded" href="https://www.alcarney.me/tags/jupyter/">
+        #jupyter
+    </a></div>
       </div>
-      <div class="post-meta"><div>
-          <svg class=" bg-transparent stroke-current" style="fill:none">
-    <use xlink:href="/svg/feather-sprite.svg#tag" />
-</svg>
-          <a class="tag" href="https://www.alcarney.me/tags/python/">python</a><a class="tag" href="https://www.alcarney.me/tags/jupyter/">jupyter</a></div></div>
     </article>
     
-    <article id="deserialising-abstract-classes-with-jackson" class="note">
-      <div>
-        <a href="https://www.alcarney.me/notes/deserialising-abstract-classes/">Deserialising Abstract Classes with Jackson</a>
-        <div class="note-summary">
+    <article id="deserialising-abstract-classes-with-jackson"
+      class="flex flex-col justify-between p-2 bg-white border shadow-sm hover:shadow-lg">
+      <a class="" href="https://www.alcarney.me/notes/deserialising-abstract-classes/">
+        <h2 class="text-xl text-green-600">
+          Deserialising Abstract Classes with Jackson
+        </h2>
+        <div class="mt-4">
           Parsing JSON into different class instances based on the value of a given field.
         </div>
+      </a>
+
+      <div class="post-meta">
+        <div class="flex items-center justify-end mt-4 space-x-4">
+    <a class="px-2 text-sm text-gray-600 bg-green-200 border border-green-600 rounded" href="https://www.alcarney.me/tags/java/">
+        #java
+    </a><a class="px-2 text-sm text-gray-600 bg-green-200 border border-green-600 rounded" href="https://www.alcarney.me/tags/json/">
+        #json
+    </a></div>
       </div>
-      <div class="post-meta"><div>
-          <svg class=" bg-transparent stroke-current" style="fill:none">
-    <use xlink:href="/svg/feather-sprite.svg#tag" />
-</svg>
-          <a class="tag" href="https://www.alcarney.me/tags/java/">java</a><a class="tag" href="https://www.alcarney.me/tags/json/">json</a></div></div>
     </article>
     
-    <article id="enabling-touchpad-gestures-on-linux" class="note">
-      <div>
-        <a href="https://www.alcarney.me/notes/touchpad-gestures-linux/">Enabling Touchpad Gestures on Linux</a>
-        <div class="note-summary">
+    <article id="enabling-touchpad-gestures-on-linux"
+      class="flex flex-col justify-between p-2 bg-white border shadow-sm hover:shadow-lg">
+      <a class="" href="https://www.alcarney.me/notes/touchpad-gestures-linux/">
+        <h2 class="text-xl text-green-600">
+          Enabling Touchpad Gestures on Linux
+        </h2>
+        <div class="mt-4">
           Enabling multi-finger touchpad gestures on linux.
         </div>
+      </a>
+
+      <div class="post-meta">
+        <div class="flex items-center justify-end mt-4 space-x-4">
+    <a class="px-2 text-sm text-gray-600 bg-green-200 border border-green-600 rounded" href="https://www.alcarney.me/tags/linux/">
+        #linux
+    </a></div>
       </div>
-      <div class="post-meta"><div>
-          <svg class=" bg-transparent stroke-current" style="fill:none">
-    <use xlink:href="/svg/feather-sprite.svg#tag" />
-</svg>
-          <a class="tag" href="https://www.alcarney.me/tags/linux/">linux</a></div></div>
     </article>
     
-    <article id="installing-npm-packages-globally-without-root" class="note">
-      <div>
-        <a href="https://www.alcarney.me/notes/npm-global-user-install/">Installing npm packages globally without root</a>
-        <div class="note-summary">
+    <article id="installing-npm-packages-globally-without-root"
+      class="flex flex-col justify-between p-2 bg-white border shadow-sm hover:shadow-lg">
+      <a class="" href="https://www.alcarney.me/notes/npm-global-user-install/">
+        <h2 class="text-xl text-green-600">
+          Installing npm packages globally without root
+        </h2>
+        <div class="mt-4">
           A few tweaks to configure npm to use the user&#39;s home for package installs
         </div>
+      </a>
+
+      <div class="post-meta">
+        <div class="flex items-center justify-end mt-4 space-x-4">
+    <a class="px-2 text-sm text-gray-600 bg-green-200 border border-green-600 rounded" href="https://www.alcarney.me/tags/npm/">
+        #npm
+    </a><a class="px-2 text-sm text-gray-600 bg-green-200 border border-green-600 rounded" href="https://www.alcarney.me/tags/js/">
+        #js
+    </a></div>
       </div>
-      <div class="post-meta"><div>
-          <svg class=" bg-transparent stroke-current" style="fill:none">
-    <use xlink:href="/svg/feather-sprite.svg#tag" />
-</svg>
-          <a class="tag" href="https://www.alcarney.me/tags/npm/">npm</a><a class="tag" href="https://www.alcarney.me/tags/js/">js</a></div></div>
     </article>
     
-    <article id="kubernetes-focused-prometheus-queries" class="note">
-      <div>
-        <a href="https://www.alcarney.me/notes/prometheus/">Kubernetes Focused Prometheus Queries</a>
-        <div class="note-summary">
+    <article id="kubernetes-focused-prometheus-queries"
+      class="flex flex-col justify-between p-2 bg-white border shadow-sm hover:shadow-lg">
+      <a class="" href="https://www.alcarney.me/notes/prometheus/">
+        <h2 class="text-xl text-green-600">
+          Kubernetes Focused Prometheus Queries
+        </h2>
+        <div class="mt-4">
           Examples and tips for writing queries for kubernetes clusters.
         </div>
+      </a>
+
+      <div class="post-meta">
+        <div class="flex items-center justify-end mt-4 space-x-4">
+    <a class="px-2 text-sm text-gray-600 bg-green-200 border border-green-600 rounded" href="https://www.alcarney.me/tags/monitoring/">
+        #monitoring
+    </a><a class="px-2 text-sm text-gray-600 bg-green-200 border border-green-600 rounded" href="https://www.alcarney.me/tags/devops/">
+        #devops
+    </a><a class="px-2 text-sm text-gray-600 bg-green-200 border border-green-600 rounded" href="https://www.alcarney.me/tags/prometheus/">
+        #prometheus
+    </a><a class="px-2 text-sm text-gray-600 bg-green-200 border border-green-600 rounded" href="https://www.alcarney.me/tags/k8s/">
+        #k8s
+    </a></div>
       </div>
-      <div class="post-meta"><div>
-          <svg class=" bg-transparent stroke-current" style="fill:none">
-    <use xlink:href="/svg/feather-sprite.svg#tag" />
-</svg>
-          <a class="tag" href="https://www.alcarney.me/tags/monitoring/">monitoring</a><a class="tag" href="https://www.alcarney.me/tags/devops/">devops</a><a class="tag" href="https://www.alcarney.me/tags/prometheus/">prometheus</a><a class="tag" href="https://www.alcarney.me/tags/k8s/">k8s</a></div></div>
     </article>
     
-    <article id="python-2.x-gotchas" class="note">
-      <div>
-        <a href="https://www.alcarney.me/notes/python-2-gotchas/">Python 2.x Gotchas</a>
-        <div class="note-summary">
-          Differences that may trip up those who are used to Python 3.x
+    <article id="python-2.x-gotchas"
+      class="flex flex-col justify-between p-2 bg-white border shadow-sm hover:shadow-lg">
+      <a class="" href="https://www.alcarney.me/notes/python-2-gotchas/">
+        <h2 class="text-xl text-green-600">
+          Python 2.x Gotchas
+        </h2>
+        <div class="mt-4">
+          Differences that trip me up as I&#39;m used to Python 3.x
         </div>
+      </a>
+
+      <div class="post-meta">
+        <div class="flex items-center justify-end mt-4 space-x-4">
+    <a class="px-2 text-sm text-gray-600 bg-green-200 border border-green-600 rounded" href="https://www.alcarney.me/tags/python/">
+        #python
+    </a></div>
       </div>
-      <div class="post-meta"><div>
-          <svg class=" bg-transparent stroke-current" style="fill:none">
-    <use xlink:href="/svg/feather-sprite.svg#tag" />
-</svg>
-          <a class="tag" href="https://www.alcarney.me/tags/python/">python</a></div></div>
     </article>
     
-    <article id="python-3.x-gotchas" class="note">
-      <div>
-        <a href="https://www.alcarney.me/notes/python-3-gotchas/">Python 3.x Gotchas</a>
-        <div class="note-summary">
-          As the legacy of Python 3.x grows you might forget how new some features are
+    <article id="python-3.x-gotchas"
+      class="flex flex-col justify-between p-2 bg-white border shadow-sm hover:shadow-lg">
+      <a class="" href="https://www.alcarney.me/notes/python-3-gotchas/">
+        <h2 class="text-xl text-green-600">
+          Python 3.x Gotchas
+        </h2>
+        <div class="mt-4">
+          As the legacy of Python 3.x grows I forget how new some features are
         </div>
+      </a>
+
+      <div class="post-meta">
+        <div class="flex items-center justify-end mt-4 space-x-4">
+    <a class="px-2 text-sm text-gray-600 bg-green-200 border border-green-600 rounded" href="https://www.alcarney.me/tags/python/">
+        #python
+    </a></div>
       </div>
-      <div class="post-meta"><div>
-          <svg class=" bg-transparent stroke-current" style="fill:none">
-    <use xlink:href="/svg/feather-sprite.svg#tag" />
-</svg>
-          <a class="tag" href="https://www.alcarney.me/tags/python/">python</a></div></div>
     </article>
     
   </div>
@@ -186,8 +240,8 @@
 
   const resultsList = document.getElementById("note-results")
   const searchBox = document.getElementById("note-search")
-  searchBox.addEventListener('change', event => {
-    let search = event.target.value
+  searchBox.addEventListener('input', event => {
+    let search = `*${event.target.value}*`
     let display = search === "" ? "flex" : "none"
 
     for (let i = 0; i < resultsList.children.length; i++) {

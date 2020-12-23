@@ -14,7 +14,7 @@
 <meta property="og:description" content="Software developer, amateur mathematician. I love to learn, try to animate and talk about it all to anyone who will listen" />
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://www.alcarney.me/tags/python/" />
-<meta property="og:updated_time" content="2020-12-23T12:43:40+00:00" />
+<meta property="og:updated_time" content="2020-12-23T16:53:09+00:00" />
 
 
 <meta name="twitter:creator" content="@alcarneyme" />
@@ -27,20 +27,25 @@
 
 
 
-<link rel="stylesheet" href="https://www.alcarney.me/main.f5d6c6398a0ac2e997c3d01724b4310d8a7220380995027ef451c4487e8e80f3.css" /></head>
+<link rel="stylesheet" href="https://www.alcarney.me/main.017e21fc45f795d249c55ddfc19f0eecfabd8a7dadb38df2418b3ec659853621.css" /></head>
 
-<body class=bg-gray-100><nav class="flex justify-between p-4 bg-white border-b">
+<body class=bg-gray-100>
+    <div class="flex items-baseline justify-between p-4 bg-white border-b">
 
-    <div>
-        <h1>Alex Carney</h1>
+        <div>
+            <h1>Alex Carney</h1>
+        </div>
+
+        <div class="flex justify-center flex-grow">
+        </div>
+
+        <nav class="flex space-x-4 items-between">
+            <a href="/blog">Blog</a>
+            <a href="/notes">Notes</a>
+        </nav>
     </div>
 
-    <div class="flex space-x-4 items-between">
-        <a href="/blog">Blog</a>
-        <a href="/notes">Notes</a>
-    </div>
-    
-</nav><main class="max-w-4xl m-auto mb-8">
+    <main class="max-w-4xl m-auto mb-8">
 <style>
     header::before {
         position: absolute;
@@ -106,10 +111,12 @@
     </span>
 </aside>
         <article class="relative flex-grow p-4 mt-8 transition bg-white border hover:shadow-lg">
-            <header class="mb-4">
-                <a href="https://www.alcarney.me/blog/2019/til-python-cmd/" class="text-2xl text-green-600 text-shadow">TIL: Python has a cmd module</a>
-            </header>
             <div class="m-auto prose prose-lg prose-green">
+                <header class="mb-4">
+                    <a href="https://www.alcarney.me/blog/2019/til-python-cmd/">
+                        <h1>TIL: Python has a cmd module</h1>
+                    </a>
+                </header>
                 <p>Today I Learned that Python&rsquo;s standard library has a <a href="https://docs.python.org/3/library/cmd.html">cmd</a> module and it is <em>awesome!</em></p>
 <figure><a href="/images/cmd_python.gif">
     <img src="/images/cmd_python.gif"
@@ -173,10 +180,12 @@
     </span>
 </aside>
         <article class="relative flex-grow p-4 mt-8 transition bg-white border hover:shadow-lg">
-            <header class="mb-4">
-                <a href="https://www.alcarney.me/blog/2018/introducing-stylo-doodles/" class="text-2xl text-green-600 text-shadow">Introducing Stylo Doodles!</a>
-            </header>
             <div class="m-auto prose prose-lg prose-green">
+                <header class="mb-4">
+                    <a href="https://www.alcarney.me/blog/2018/introducing-stylo-doodles/">
+                        <h1>Introducing Stylo Doodles!</h1>
+                    </a>
+                </header>
                 <p>A few weeks back at <a href="https://2018.pyconuk.org/">PyConUK</a> I gave my first <a href="https://youtu.be/F5jSUJVymXk?t=3480">lighting talk</a>
 at a conference. During that talk I spoke publically about <a href="https://github.com/alcarney/stylo">stylo</a> for
 the first time. Stylo is a Python library that I have been working on for just
@@ -245,10 +254,12 @@ called <a href="https://alcarney.github.io/stylo-doodles">Stylo Doodles</a></p>
     </span>
 </aside>
         <article class="relative flex-grow p-4 mt-8 transition bg-white border hover:shadow-lg">
-            <header class="mb-4">
-                <a href="https://www.alcarney.me/notes/custom-jupyter-kernels/" class="text-2xl text-green-600 text-shadow">Custom Jupyter Kernels</a>
-            </header>
             <div class="m-auto prose prose-lg prose-green">
+                <header class="mb-4">
+                    <a href="https://www.alcarney.me/notes/custom-jupyter-kernels/">
+                        <h1>Custom Jupyter Kernels</h1>
+                    </a>
+                </header>
                 It&rsquo;s possible to create custom Python environments for use within a Jupyter notebook without having to run a jupyter server from each of them. The following steps will allow you to have a single jupyter server running and have it use a variety of Python environments in its notebooks
  Create a virtualenv and install any packages that you want available pip install ipykernel ipykernel install --user --name &lt;envname&gt; --display-name &lt;display name&gt;  Then the new environment should become available in the Change kernel menu
                 <div class="flex items-center justify-end mt-4 space-x-4">
@@ -301,10 +312,12 @@ called <a href="https://alcarney.github.io/stylo-doodles">Stylo Doodles</a></p>
     </span>
 </aside>
         <article class="relative flex-grow p-4 mt-8 transition bg-white border hover:shadow-lg">
-            <header class="mb-4">
-                <a href="https://www.alcarney.me/notes/python-2-gotchas/" class="text-2xl text-green-600 text-shadow">Python 2.x Gotchas</a>
-            </header>
             <div class="m-auto prose prose-lg prose-green">
+                <header class="mb-4">
+                    <a href="https://www.alcarney.me/notes/python-2-gotchas/">
+                        <h1>Python 2.x Gotchas</h1>
+                    </a>
+                </header>
                 While at the time of writing (May 2019) the death of Python 2 is just around the corner since I&rsquo;m working in an enterprise environment I&rsquo;m sure I will be dealing with Python 2.x code for some time to come. To that end here are some gotchas to keep in mind.
 Missing Features In the 10+ years since Python 3&rsquo;s release it&rsquo;s not surprising that it has accumlated a large list of features that simply don&rsquo;t exist in Python 2.
                 <div class="flex items-center justify-end mt-4 space-x-4">
@@ -357,10 +370,12 @@ Missing Features In the 10+ years since Python 3&rsquo;s release it&rsquo;s not 
     </span>
 </aside>
         <article class="relative flex-grow p-4 mt-8 transition bg-white border hover:shadow-lg">
-            <header class="mb-4">
-                <a href="https://www.alcarney.me/notes/python-3-gotchas/" class="text-2xl text-green-600 text-shadow">Python 3.x Gotchas</a>
-            </header>
             <div class="m-auto prose prose-lg prose-green">
+                <header class="mb-4">
+                    <a href="https://www.alcarney.me/notes/python-3-gotchas/">
+                        <h1>Python 3.x Gotchas</h1>
+                    </a>
+                </header>
                 Beware pathlib on 3.5 While pathlib exists in Python 3.5, it&rsquo;s not fully integrated yet. Passing a pathlib.Path object to the built-in open method will result in a surprising error
 TypeError: invalid file: PosixPath(&#39;path/to/file.txt&#39;) In this situation it&rsquo;s better to call the path&rsquo;s open() method instead.
                 <div class="flex items-center justify-end mt-4 space-x-4">

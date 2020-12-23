@@ -14,7 +14,7 @@
 <meta property="og:description" content="Software developer, amateur mathematician. I love to learn, try to animate and talk about it all to anyone who will listen" />
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://www.alcarney.me/" />
-<meta property="og:updated_time" content="2020-12-23T12:43:40+00:00" />
+<meta property="og:updated_time" content="2020-12-23T16:53:09+00:00" />
 
 
 <meta name="twitter:creator" content="@alcarneyme" />
@@ -27,20 +27,25 @@
 
 
 
-<link rel="stylesheet" href="https://www.alcarney.me/main.f5d6c6398a0ac2e997c3d01724b4310d8a7220380995027ef451c4487e8e80f3.css" /></head>
+<link rel="stylesheet" href="https://www.alcarney.me/main.017e21fc45f795d249c55ddfc19f0eecfabd8a7dadb38df2418b3ec659853621.css" /></head>
 
-<body class=bg-gray-100><nav class="flex justify-between p-4 bg-white border-b">
+<body class=bg-gray-100>
+    <div class="flex items-baseline justify-between p-4 bg-white border-b">
 
-    <div>
-        <h1>Alex Carney</h1>
+        <div>
+            <h1>Alex Carney</h1>
+        </div>
+
+        <div class="flex justify-center flex-grow">
+        </div>
+
+        <nav class="flex space-x-4 items-between">
+            <a href="/blog">Blog</a>
+            <a href="/notes">Notes</a>
+        </nav>
     </div>
 
-    <div class="flex space-x-4 items-between">
-        <a href="/blog">Blog</a>
-        <a href="/notes">Notes</a>
-    </div>
-    
-</nav><main class="max-w-4xl m-auto mb-8">
+    <main class="max-w-4xl m-auto mb-8">
 <style>
     header::before {
         position: absolute;
@@ -106,10 +111,12 @@
     </span>
 </aside>
         <article class="relative flex-grow p-4 mt-8 transition bg-white border hover:shadow-lg">
-            <header class="mb-4">
-                <a href="https://www.alcarney.me/blog/2020/passing-strings-between-tinygo-wasm/" class="text-2xl text-green-600 text-shadow">Passing strings between TinyGo and JavaScript</a>
-            </header>
             <div class="m-auto prose prose-lg prose-green">
+                <header class="mb-4">
+                    <a href="https://www.alcarney.me/blog/2020/passing-strings-between-tinygo-wasm/">
+                        <h1>Passing strings between TinyGo and JavaScript</h1>
+                    </a>
+                </header>
                 <p>After getting a <a href="https://www.alcarney.me/blog/2020/hello-world-tinygo-wasm/">&ldquo;Hello, World!&quot;</a> WebAssembly
 application working I thought it would be fun to try and implement a toy programming
 language in the browser. However before I could even start thinking about parsers,
@@ -172,10 +179,12 @@ WebAssembly module and the surrounding JavaScript.</p>
     </span>
 </aside>
         <article class="relative flex-grow p-4 mt-8 transition bg-white border hover:shadow-lg">
-            <header class="mb-4">
-                <a href="https://www.alcarney.me/blog/2020/hello-world-tinygo-wasm/" class="text-2xl text-green-600 text-shadow">Saying &#39;Hello, World!&#39; with TinyGo and WebAssembly</a>
-            </header>
             <div class="m-auto prose prose-lg prose-green">
+                <header class="mb-4">
+                    <a href="https://www.alcarney.me/blog/2020/hello-world-tinygo-wasm/">
+                        <h1>Saying &#39;Hello, World!&#39; with TinyGo and WebAssembly</h1>
+                    </a>
+                </header>
                 <p>WebAssembly is something I&rsquo;ve wanted to play with for quite a while now and
 I&rsquo;ve finally got around to taking a look at it. In this post I describe how I
 managed to use <a href="https://tinygo.org/">TinyGo</a> to compile a &ldquo;Hello, World!&rdquo; Go program into
@@ -240,10 +249,12 @@ using <a href="https://linuxcontainers.org/">LXD</a>.</p>
     </span>
 </aside>
         <article class="relative flex-grow p-4 mt-8 transition bg-white border hover:shadow-lg">
-            <header class="mb-4">
-                <a href="https://www.alcarney.me/blog/2020/learning-vulkan-p1/" class="text-2xl text-green-600 text-shadow">Learning Vulkan: Enumerating Physical Devices</a>
-            </header>
             <div class="m-auto prose prose-lg prose-green">
+                <header class="mb-4">
+                    <a href="https://www.alcarney.me/blog/2020/learning-vulkan-p1/">
+                        <h1>Learning Vulkan: Enumerating Physical Devices</h1>
+                    </a>
+                </header>
                 <p>Being an API for talking to GPUs and other compute devices every Vulkan
 program starts off by looking for an appropriate <a href="https://www.khronos.org/registry/vulkan/specs/1.1-extensions/man/html/VkPhysicalDevice.html">physical device</a>
 to use. In this post I write a little C program that initialises the Vulkan
@@ -309,10 +320,12 @@ Device Name:            Intel(R) HD Graphics 520 (Skylake GT2)
     </span>
 </aside>
         <article class="relative flex-grow p-4 mt-8 transition bg-white border hover:shadow-lg">
-            <header class="mb-4">
-                <a href="https://www.alcarney.me/blog/2020/learning-vulkan-p0/" class="text-2xl text-green-600 text-shadow">Learning Vulkan: Overview</a>
-            </header>
             <div class="m-auto prose prose-lg prose-green">
+                <header class="mb-4">
+                    <a href="https://www.alcarney.me/blog/2020/learning-vulkan-p0/">
+                        <h1>Learning Vulkan: Overview</h1>
+                    </a>
+                </header>
                 <p>I have always been interested in graphics and have on numerous occasions tried
 to dip my toe into the world of OpenGL and more recently Vulkan. However I have
 never been able to get past the &ldquo;Hello, World&rdquo; of these technologies - drawing a
@@ -375,10 +388,12 @@ interesting ideas I see people playing with all the time!</p>
     </span>
 </aside>
         <article class="relative flex-grow p-4 mt-8 transition bg-white border hover:shadow-lg">
-            <header class="mb-4">
-                <a href="https://www.alcarney.me/blog/2019/click-drag-vanilla-js/" class="text-2xl text-green-600 text-shadow">Implementing Click &amp; Drag with Vanilla JS</a>
-            </header>
             <div class="m-auto prose prose-lg prose-green">
+                <header class="mb-4">
+                    <a href="https://www.alcarney.me/blog/2019/click-drag-vanilla-js/">
+                        <h1>Implementing Click &amp; Drag with Vanilla JS</h1>
+                    </a>
+                </header>
                 <figure>
   <div id="main"></div>
   <figcaption>
@@ -461,10 +476,12 @@ illustrated by the demo above.</p>
     </span>
 </aside>
         <article class="relative flex-grow p-4 mt-8 transition bg-white border hover:shadow-lg">
-            <header class="mb-4">
-                <a href="https://www.alcarney.me/blog/2019/til-python-cmd/" class="text-2xl text-green-600 text-shadow">TIL: Python has a cmd module</a>
-            </header>
             <div class="m-auto prose prose-lg prose-green">
+                <header class="mb-4">
+                    <a href="https://www.alcarney.me/blog/2019/til-python-cmd/">
+                        <h1>TIL: Python has a cmd module</h1>
+                    </a>
+                </header>
                 <p>Today I Learned that Python&rsquo;s standard library has a <a href="https://docs.python.org/3/library/cmd.html">cmd</a> module and it is <em>awesome!</em></p>
 <figure><a href="/images/cmd_python.gif">
     <img src="/images/cmd_python.gif"
@@ -528,10 +545,12 @@ illustrated by the demo above.</p>
     </span>
 </aside>
         <article class="relative flex-grow p-4 mt-8 transition bg-white border hover:shadow-lg">
-            <header class="mb-4">
-                <a href="https://www.alcarney.me/blog/2018/introducing-stylo-doodles/" class="text-2xl text-green-600 text-shadow">Introducing Stylo Doodles!</a>
-            </header>
             <div class="m-auto prose prose-lg prose-green">
+                <header class="mb-4">
+                    <a href="https://www.alcarney.me/blog/2018/introducing-stylo-doodles/">
+                        <h1>Introducing Stylo Doodles!</h1>
+                    </a>
+                </header>
                 <p>A few weeks back at <a href="https://2018.pyconuk.org/">PyConUK</a> I gave my first <a href="https://youtu.be/F5jSUJVymXk?t=3480">lighting talk</a>
 at a conference. During that talk I spoke publically about <a href="https://github.com/alcarney/stylo">stylo</a> for
 the first time. Stylo is a Python library that I have been working on for just
@@ -600,10 +619,12 @@ called <a href="https://alcarney.github.io/stylo-doodles">Stylo Doodles</a></p>
     </span>
 </aside>
         <article class="relative flex-grow p-4 mt-8 transition bg-white border hover:shadow-lg">
-            <header class="mb-4">
-                <a href="https://www.alcarney.me/blog/2018/first-article/" class="text-2xl text-green-600 text-shadow">I&#39;ve Started a Blog… Again!</a>
-            </header>
             <div class="m-auto prose prose-lg prose-green">
+                <header class="mb-4">
+                    <a href="https://www.alcarney.me/blog/2018/first-article/">
+                        <h1>I&#39;ve Started a Blog… Again!</h1>
+                    </a>
+                </header>
                 <p>Not that you would have known it, but I&rsquo;ve had a blog since 2014.  Well 2015 if
 you&rsquo;re feeling generous, the first (and only) post went up in the last few
 hours of New Year&rsquo;s Eve. It was a look back on some of the projects I had
@@ -665,10 +686,12 @@ discovery in search of the ultimate static site generator.</p>
     </span>
 </aside>
         <article class="relative flex-grow p-4 mt-8 transition bg-white border hover:shadow-lg">
-            <header class="mb-4">
-                <a href="https://www.alcarney.me/notes/git-clone-submodules/" class="text-2xl text-green-600 text-shadow">Cloning Git Repos with Submodules</a>
-            </header>
             <div class="m-auto prose prose-lg prose-green">
+                <header class="mb-4">
+                    <a href="https://www.alcarney.me/notes/git-clone-submodules/">
+                        <h1>Cloning Git Repos with Submodules</h1>
+                    </a>
+                </header>
                 To clone a repo that contains submodules we can run the following command
 $ git clone --recurse-submodules &lt;repo-url&gt; Or if you&rsquo;ve already cloned a repo only to later discover that it contained submodules
 $ git submodule update --init --recursive 
@@ -720,10 +743,12 @@ $ git submodule update --init --recursive
     </span>
 </aside>
         <article class="relative flex-grow p-4 mt-8 transition bg-white border hover:shadow-lg">
-            <header class="mb-4">
-                <a href="https://www.alcarney.me/notes/custom-jupyter-kernels/" class="text-2xl text-green-600 text-shadow">Custom Jupyter Kernels</a>
-            </header>
             <div class="m-auto prose prose-lg prose-green">
+                <header class="mb-4">
+                    <a href="https://www.alcarney.me/notes/custom-jupyter-kernels/">
+                        <h1>Custom Jupyter Kernels</h1>
+                    </a>
+                </header>
                 It&rsquo;s possible to create custom Python environments for use within a Jupyter notebook without having to run a jupyter server from each of them. The following steps will allow you to have a single jupyter server running and have it use a variety of Python environments in its notebooks
  Create a virtualenv and install any packages that you want available pip install ipykernel ipykernel install --user --name &lt;envname&gt; --display-name &lt;display name&gt;  Then the new environment should become available in the Change kernel menu
                 <div class="flex items-center justify-end mt-4 space-x-4">
