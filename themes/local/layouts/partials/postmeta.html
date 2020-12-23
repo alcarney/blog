@@ -23,11 +23,11 @@
 </style>
 <aside class="relative flex pr-2 mt-4 ml-12 -mb-3 space-x-4 text-gray-500 lg:mr-8 lg:w-32 lg:block lg:space-x-0">
     <span class="flex justify-between">
-        {{ partial "icon.html" (dict "ctx" $ "name" "calendar" "size" "6") }}
+        {{ partial "icon.html" (dict "ctx" $ "name" "calendar" "styles" "w-6 h-6") }}
         {{ .PublishDate.Format "Jan 2, 2006" }}
     </span>
     <span class="flex justify-between">
-        {{ partial "icon.html" (dict "ctx" $ "name" "clock" "size" "6")}}
+        {{ partial "icon.html" (dict "ctx" $ "name" "clock" "styles" "w-6 h-6")}}
         {{ .ReadingTime }} min read
     </span>
 </aside>
