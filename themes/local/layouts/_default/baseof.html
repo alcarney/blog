@@ -6,7 +6,21 @@
 </head>
 
 <body class=bg-gray-100>
-    {{- partial "header.html" . -}}
+    <div class="flex items-baseline justify-between p-4 bg-white border-b">
+
+        <div>
+            <h1>Alex Carney</h1>
+        </div>
+
+        <div class="flex justify-center flex-grow">
+            {{- block "headerbar" . }}{{- end }}
+        </div>
+
+        <nav class="flex space-x-4 items-between">
+            <a href="/blog">Blog</a>
+            <a href="/notes">Notes</a>
+        </nav>
+    </div>
 
     <main class="max-w-4xl m-auto mb-8">
         {{- block "main" . }}{{- end }}
