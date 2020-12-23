@@ -1,31 +1,25 @@
+{{define "headerbar"}}
+<input class="max-w-lg px-2 py-1 m-auto border-2 rounded-md  w-72 lg:w-full focus:border-green-600" id="note-search"
+  type="search" placeholder="Search... ">
+{{end}}
+
 {{define "main"}}
-<div class="content">
-  <h1>Notes</h1>
-
-  <div class="note-search">
-    <input id="note-search" type="search" placeholder="Search... ">
-  </div>
-
-  <div id="note-results" class="note-collection">
+<div class="mt-8">
+  <div id="note-results" class="grid grid-cols-1 gap-2 p-2 md:grid-cols-2">
     {{ range $index, $element := .Paginator.Pages }}
-    <article id="{{ $element.Title | urlize }}" class="note">
-      <div>
-        <a href="{{ .Permalink }}">{{ .Title }}</a>
-        <div class="note-summary">
+    <article id="{{ $element.Title | urlize }}"
+      class="flex flex-col justify-between p-2 bg-white border shadow-sm hover:shadow-lg">
+      <a class="" href="{{ .Permalink }}">
+        <h2 class="text-xl text-green-600">
+          {{ .Title }}
+        </h2>
+        <div class="mt-4">
           {{ .Description }}
         </div>
-      </div>
+      </a>
+
       <div class="post-meta">
-        {{- with .Params.tags -}}
-        <div>
-          {{ partial "icon.html" (dict "ctx" $ "name" "tag") }}
-          {{ range . -}}
-          {{- with $.Site.GetPage (printf "/%s/%s" "tags" . ) -}}
-          <a class="tag" href="{{ .Permalink }}">{{ .Title }}</a>
-          {{- end -}}
-          {{- end -}}
-        </div>
-        {{- end -}}
+        {{ partial "taglist" . }}
       </div>
     </article>
     {{ end }}
@@ -53,8 +47,8 @@
 
   const resultsList = document.getElementById("note-results")
   const searchBox = document.getElementById("note-search")
-  searchBox.addEventListener('change', event => {
-    let search = event.target.value
+  searchBox.addEventListener('input', event => {
+    let search = `*${event.target.value}*`
     let display = search === "" ? "flex" : "none"
 
     for (let i = 0; i < resultsList.children.length; i++) {

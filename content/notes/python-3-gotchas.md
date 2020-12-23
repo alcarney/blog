@@ -1,7 +1,7 @@
 +++
-title = "Python 3.x Gotchas"
+description = "As the legacy of Python 3.x grows I forget how new some features are"
 tags = ["python"]
-description = "As the legacy of Python 3.x grows you might forget how new some features are"
+title = "Python 3.x Gotchas"
 +++
 
 ## Beware pathlib on 3.5
