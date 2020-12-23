@@ -28,10 +28,12 @@
     <div class="flex flex-col justify-between lg:items-baseline lg:flex-row">
         {{ partial "postmeta.html" . }}
         <article class="relative flex-grow p-4 mt-8 transition bg-white border hover:shadow-lg">
-            <header class="mb-4">
-                <a href="{{ .Permalink }}" class="text-2xl text-green-600 text-shadow">{{ .Title }}</a>
-            </header>
             <div class="m-auto prose prose-lg prose-green">
+                <header class="mb-4">
+                    <a href="{{ .Permalink }}">
+                        <h1>{{ .Title }}</h1>
+                    </a>
+                </header>
                 {{ .Summary }}
                 {{ partial "taglist.html" . }}
                 {{ if .Truncated }}

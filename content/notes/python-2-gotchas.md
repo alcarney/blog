@@ -1,7 +1,7 @@
 +++
-title = "Python 2.x Gotchas"
+description = "Differences that trip me up as I'm used to Python 3.x"
 tags = ["python"]
-description = "Differences that may trip up those who are used to Python 3.x"
+title = "Python 2.x Gotchas"
 +++
 
 While at the time of writing (May 2019) the death of Python 2 is just around the
