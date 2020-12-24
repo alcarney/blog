@@ -1,9 +1,13 @@
-+++
-title = "Custom Jupyter Kernels"
-description = "\"Publishing\" multiple Python environments to use within Jupyter"
-tags = ["python", "jupyter"]
-links = ["https://ipython.readthedocs.io/en/stable/install/kernel%5Finstall.html#kernels-for-different-environments"]
-+++
+---
+description: "\"Publishing\" multiple Python environments to use within Jupyter"
+tags:
+- python
+- jupyter
+title: Custom Jupyter Kernels
+links:
+- url:  https://ipython.readthedocs.io/en/stable/install/kernel%5Finstall.html#kernels-for-different-environments
+  name: "IPython: Kernels for different environments"
+---
 
 It's possible to create custom Python environments for use within a Jupyter
 notebook without having to run a jupyter server from each of them. The following
