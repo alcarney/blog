@@ -6,7 +6,7 @@
         {
             "label": "Preview Site",
             "type": "shell",
-            "command": "hugo server --buildDrafts",
+            "command": "hugo server --buildDrafts --buildFuture",
             "group": "build",
             "problemMatcher": []
         },
