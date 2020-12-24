@@ -1,18 +1,24 @@
-+++
-title = "Cloning Git Repos with Submodules"
-description = "Working with git repositories that include submodules."
-tags = ["git"]
-links = ["https://stackoverflow.com/questions/3796927/how-to-git-clone-including-submodules"]
-+++
+---
+description: Collections of tips and tricks I've gathered on working with Git
+tags:
+- git
+links:
+- url: https://stackoverflow.com/questions/3796927/how-to-git-clone-including-submodules
+  name: Cloning Git Submodules
+title: Notes on Git
+---
+
+## Submodules
 
 To clone a repo that contains submodules we can run the following command
 
-{{< highlight sh >}}
+```sh
 $ git clone --recurse-submodules <repo-url>
-{{< /highlight >}}
+```
 
-Or if you've already cloned a repo only to later discover that it contained submodules
+Or if you've already cloned a repo only to later discover that it contained
+submodules
 
-{{< highlight sh >}}
+```sh
 $ git submodule update --init --recursive
-{{< /highlight >}}
+```
