@@ -161,6 +161,15 @@
     </item>
     
     <item>
+      <title>emacs</title>
+      <link>https://www.alcarney.me/tags/emacs/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://www.alcarney.me/tags/emacs/</guid>
+      <description></description>
+    </item>
+    
+    <item>
       <title>git</title>
       <link>https://www.alcarney.me/tags/git/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
@@ -211,6 +220,15 @@
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
       <guid>https://www.alcarney.me/tags/linux/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>make</title>
+      <link>https://www.alcarney.me/tags/make/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://www.alcarney.me/tags/make/</guid>
       <description></description>
     </item>
     

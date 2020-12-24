@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>make on Alex Carney</title>
+    <link>https://www.alcarney.me/tags/make/</link>
+    <description>Recent content in make on Alex Carney</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language><atom:link href="https://www.alcarney.me/tags/make/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Writing Makefiles</title>
+      <link>https://www.alcarney.me/notes/writing-makefiles/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://www.alcarney.me/notes/writing-makefiles/</guid>
+      <description>Pattern Rules A pattern rule can be used to define a generic recipe for turning a file of type X into a file a type Y for example, compiling program.c into program.o. A pattern rule can be defined as follows
+%.o: %.c $(CC) -c $(CFLAGS) $&amp;lt; -o $@  %.o/%.c Will match files of the form *.o and *.c respectively $&amp;lt; can be used to reference all the dependencies of the target, in this case the *.</description>
+    </item>
+    
+  </channel>
+</rss>

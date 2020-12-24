@@ -7,17 +7,6 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language><atom:link href="https://www.alcarney.me/notes/index.xml" rel="self" type="application/rss+xml" />
     <item>
-      <title>Cloning Git Repos with Submodules</title>
-      <link>https://www.alcarney.me/notes/git-clone-submodules/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      
-      <guid>https://www.alcarney.me/notes/git-clone-submodules/</guid>
-      <description>To clone a repo that contains submodules we can run the following command
-$ git clone --recurse-submodules &amp;lt;repo-url&amp;gt; Or if you&amp;rsquo;ve already cloned a repo only to later discover that it contained submodules
-$ git submodule update --init --recursive </description>
-    </item>
-    
-    <item>
       <title>Custom Jupyter Kernels</title>
       <link>https://www.alcarney.me/notes/custom-jupyter-kernels/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
@@ -36,6 +25,17 @@ $ git submodule update --init --recursive </description>
       <description>Jackson can automatically detect the relevant abstract class to initialise when parsing some JSON if you give it a little bit of help. There are multiple methods Jackson can use to detect and indicate the class it should use but the method I have chosen is to tell it to look for a type field.
 Consider the following json snippets
 { &amp;#34;id&amp;#34;: &amp;#34;123&amp;#34;, &amp;#34;type&amp;#34;: &amp;#34;name&amp;#34;, &amp;#34;name&amp;#34;: &amp;#34;Alex&amp;#34; } { &amp;#34;id&amp;#34;: &amp;#34;345&amp;#34;, &amp;#34;type&amp;#34;: &amp;#34;value&amp;#34;, &amp;#34;value&amp;#34;: 123.</description>
+    </item>
+    
+    <item>
+      <title>Emacs Sub Processes</title>
+      <link>https://www.alcarney.me/notes/emacs-subprocesses/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://www.alcarney.me/notes/emacs-subprocesses/</guid>
+      <description>Something that&amp;rsquo;s quite useful in Emacs is the ability to start a running process in the background. This can be done with the start-processfunction.
+Examples We can set the directory to run in by wrapping the call to start-process in a let expression that sets the default-directory variable.
+(let ((default-directory &amp;#34;~/Projects/blog&amp;#34;)) (start-process &amp;#34;hugo&amp;#34; &amp;#34;hugo[blog]&amp;#34; &amp;#34;hugo&amp;#34; &amp;#34;server&amp;#34; &amp;#34;--buildDrafts&amp;#34; &amp;#34;--buildFuture&amp;#34;)) There&amp;rsquo;s a lot of mentions of hugo here let&amp;rsquo;s break this down a bit</description>
     </item>
     
     <item>
@@ -74,6 +74,17 @@ The following variables are used as examples
     </item>
     
     <item>
+      <title>Notes on Git</title>
+      <link>https://www.alcarney.me/notes/git-clone-submodules/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://www.alcarney.me/notes/git-clone-submodules/</guid>
+      <description>Submodules To clone a repo that contains submodules we can run the following command
+$ git clone --recurse-submodules &amp;lt;repo-url&amp;gt; Or if you&amp;rsquo;ve already cloned a repo only to later discover that it contained submodules
+$ git submodule update --init --recursive </description>
+    </item>
+    
+    <item>
       <title>Python 2.x Gotchas</title>
       <link>https://www.alcarney.me/notes/python-2-gotchas/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
@@ -91,6 +102,16 @@ Missing Features In the 10+ years since Python 3&amp;rsquo;s release it&amp;rsqu
       <guid>https://www.alcarney.me/notes/python-3-gotchas/</guid>
       <description>Beware pathlib on 3.5 While pathlib exists in Python 3.5, it&amp;rsquo;s not fully integrated yet. Passing a pathlib.Path object to the built-in open method will result in a surprising error
 TypeError: invalid file: PosixPath(&amp;#39;path/to/file.txt&amp;#39;) In this situation it&amp;rsquo;s better to call the path&amp;rsquo;s open() method instead.</description>
+    </item>
+    
+    <item>
+      <title>Writing Makefiles</title>
+      <link>https://www.alcarney.me/notes/writing-makefiles/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://www.alcarney.me/notes/writing-makefiles/</guid>
+      <description>Pattern Rules A pattern rule can be used to define a generic recipe for turning a file of type X into a file a type Y for example, compiling program.c into program.o. A pattern rule can be defined as follows
+%.o: %.c $(CC) -c $(CFLAGS) $&amp;lt; -o $@  %.o/%.c Will match files of the form *.o and *.c respectively $&amp;lt; can be used to reference all the dependencies of the target, in this case the *.</description>
     </item>
     
   </channel>

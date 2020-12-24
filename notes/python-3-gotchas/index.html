@@ -15,7 +15,7 @@
 <meta property="og:description" content="As the legacy of Python 3.x grows I forget how new some features are" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://www.alcarney.me/notes/python-3-gotchas/" />
-<meta property="article:modified_time" content="2020-12-23T16:53:09+00:00" />
+<meta property="article:modified_time" content="2020-12-24T22:36:27+00:00" />
 
 <meta property="article:tag" content="python" />
 
@@ -29,7 +29,7 @@
 
 
 
-<link rel="stylesheet" href="https://www.alcarney.me/main.017e21fc45f795d249c55ddfc19f0eecfabd8a7dadb38df2418b3ec659853621.css" /></head>
+<link rel="stylesheet" href="https://www.alcarney.me/main.c8d08ae4c6205992f89c7b49cdea15ec27733aad23bb3f91c2eb7e04ab13e9c2.css" /></head>
 
 <body class=bg-gray-100>
     <div class="flex items-baseline justify-between p-4 bg-white border-b">
@@ -48,20 +48,22 @@
     </div>
 
     <main class="max-w-4xl m-auto mb-8">
-<article class="p-4 mx-2 mt-8 bg-white border shadow-lg">
-    <div class="m-auto prose prose-lg prose-green">
-        <h1>Python 3.x Gotchas</h1>
-        <h2 id="beware-pathlib-on-35">Beware pathlib on 3.5</h2>
+<article class="mx-2 mt-8 bg-white border shadow-lg">
+  <div class="relative z-10 rounded bg-white p-4 m-auto prose prose-lg prose-green">
+    <h1>Python 3.x Gotchas</h1>
+    <h2 id="beware-pathlib-on-35">Beware pathlib on 3.5</h2>
 <p>While <code>pathlib</code> exists in Python 3.5, it&rsquo;s not fully integrated yet. Passing a
 <code>pathlib.Path</code> object to the built-in <code>open</code> method will result in a surprising error</p>
 <div class="highlight"><pre style="color:#586e75;background-color:#eee8d5;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#268bd2">TypeError</span>: <span style="color:#268bd2">invalid</span> <span style="color:#cb4b16">file</span>: <span style="color:#268bd2">PosixPath</span>(<span style="color:#2aa198">&#39;path/to/file.txt&#39;</span>)</code></pre></div>
 <p>In this situation it&rsquo;s better to call the path&rsquo;s <code>open()</code> method instead.</p>
 
-    </div>
+  </div>
+  <div class="p-4">
     <div class="flex items-center justify-end mt-4 space-x-4">
     <a class="px-2 text-sm text-gray-600 bg-green-200 border border-green-600 rounded" href="https://www.alcarney.me/tags/python/">
         #python
     </a></div>
+  </div>
 </article>
 
     </main><footer class="items-baseline p-4 text-white bg-gray-700">

@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+<meta name="theme-color" content="#259669" />
+
+<meta name="generator" content="Hugo 0.79.1" />
+<meta name="author" content="Alex Carney" />
+<meta name="description" content="A collection of notes on writing Makefiles" />
+
+<meta property="og:title" content="Writing Makefiles" />
+<meta property="og:description" content="A collection of notes on writing Makefiles" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://www.alcarney.me/notes/writing-makefiles/" />
+<meta property="article:modified_time" content="2020-12-24T22:36:27+00:00" />
+
+<meta property="article:tag" content="c" />
+<meta property="article:tag" content="make" />
+
+<meta name="twitter:creator" content="@alcarneyme" />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Writing Makefiles"/>
+<meta name="twitter:description" content="A collection of notes on writing Makefiles"/>
+
+
+<title>Writing Makefiles | Alex Carney</title>
+
+
+
+<link rel="stylesheet" href="https://www.alcarney.me/main.c8d08ae4c6205992f89c7b49cdea15ec27733aad23bb3f91c2eb7e04ab13e9c2.css" /></head>
+
+<body class=bg-gray-100>
+    <div class="flex items-baseline justify-between p-4 bg-white border-b">
+
+        <div>
+            <h1>Alex Carney</h1>
+        </div>
+
+        <div class="flex justify-center flex-grow">
+        </div>
+
+        <nav class="flex space-x-4 items-between">
+            <a href="/blog">Blog</a>
+            <a href="/notes">Notes</a>
+        </nav>
+    </div>
+
+    <main class="max-w-4xl m-auto mb-8">
+<article class="mx-2 mt-8 bg-white border shadow-lg">
+  <div class="relative z-10 rounded bg-white p-4 m-auto prose prose-lg prose-green">
+    <h1>Writing Makefiles</h1>
+    <h2 id="pattern-rules">Pattern Rules</h2>
+<p>A pattern rule can be used to define a generic recipe for turning a file of type
+X into a file a type Y for example, compiling <code>program.c</code> into <code>program.o</code>. A
+pattern rule can be defined as follows</p>
+<div class="highlight"><pre style="color:#586e75;background-color:#eee8d5;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-makefile" data-lang="makefile"><span style="color:#268bd2">%.o</span>: %.<span style="color:#268bd2">c</span>
+	<span style="color:#859900">$(</span>CC<span style="color:#859900">)</span> -c <span style="color:#859900">$(</span>CFLAGS<span style="color:#859900">)</span> $&lt; -o <span style="color:#268bd2">$@</span>
+</code></pre></div><ul>
+<li><code>%.o</code>/<code>%.c</code> Will match files of the form <code>*.o</code> and <code>*.c</code> respectively</li>
+<li><code>$&lt;</code> can be used to reference all the dependencies of the target, in this case
+the <code>*.c</code> file.</li>
+<li><code>$@</code> can be used to reference the target itself, in this case the <code>$@</code> file</li>
+</ul>
+<h2 id="example">Example</h2>
+<div class="highlight"><pre style="color:#586e75;background-color:#eee8d5;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-makefile" data-lang="makefile"><span style="color:#268bd2">.POSIX</span>:
+
+<span style="color:#268bd2">CC</span> = gcc
+<span style="color:#268bd2">CFLAGS</span> = -Wall <span style="color:#859900">$(</span>shell pkg-config --cflags xcb-image<span style="color:#859900">)</span>
+<span style="color:#268bd2">LDLIBS</span> = <span style="color:#859900">$(</span>shell pkg-config --libs xcb-image<span style="color:#859900">)</span>
+
+<span style="color:#268bd2">default</span>: <span style="color:#268bd2">main</span>
+
+<span style="color:#268bd2">debug</span>: <span style="color:#268bd2">CFLAGS</span> += -<span style="color:#268bd2">g</span>
+<span style="color:#268bd2">debug</span>: <span style="color:#268bd2">main</span>
+
+<span style="color:#268bd2">main</span>: <span style="color:#268bd2">main</span>.<span style="color:#268bd2">o</span>
+	<span style="color:#859900">$(</span>CC<span style="color:#859900">)</span> $&lt; -o <span style="color:#268bd2">$@</span> <span style="color:#859900">$(</span>LDLIBS<span style="color:#859900">)</span>
+
+<span style="color:#268bd2">%.o</span>: %.<span style="color:#268bd2">c</span>
+	<span style="color:#859900">$(</span>CC<span style="color:#859900">)</span> -c <span style="color:#859900">$(</span>CFLAGS<span style="color:#859900">)</span> $&lt; -o <span style="color:#268bd2">$@</span>
+</code></pre></div>
+      <h2>Links</h2>
+      <ul>
+        <li><a href="https://www.gnu.org/software/make/manual/html_node/Automatic-Variables.html#Automatic-Variables">Automatic Variables</a></li>
+        <li><a href="https://www.gnu.org/software/make/manual/html_node/Pattern-Rules.html#Pattern-Rules2%22,">Pattern Rules</a></li>
+        <li><a href="https://nullprogram.com/blog/2017/08/20/">Writing Portable Makefiles</a></li>
+      </ul>
+  </div>
+  <div class="p-4">
+    <div class="flex items-center justify-end mt-4 space-x-4">
+    <a class="px-2 text-sm text-gray-600 bg-green-200 border border-green-600 rounded" href="https://www.alcarney.me/tags/c/">
+        #c
+    </a><a class="px-2 text-sm text-gray-600 bg-green-200 border border-green-600 rounded" href="https://www.alcarney.me/tags/make/">
+        #make
+    </a></div>
+  </div>
+</article>
+
+    </main><footer class="items-baseline p-4 text-white bg-gray-700">
+    <div class="flex justify-between">
+        <div>
+        </div>
+
+        <div class="flex justify-between space-x-4">
+            
+            <a target="_blank" rel="noreferrer noopener" href="https://github.com/alcarney">
+                <svg class="w-8 h-8 bg-transparent stroke-current" style="fill:none">
+    <use xlink:href="/svg/feather-sprite.svg#github" />
+</svg>
+            </a>
+            
+            <a target="_blank" rel="noreferrer noopener" href="https://twitter.com/alcarneyme">
+                <svg class="w-8 h-8 bg-transparent stroke-current" style="fill:none">
+    <use xlink:href="/svg/feather-sprite.svg#twitter" />
+</svg>
+            </a>
+            
+            <a target="_blank" rel="noreferrer noopener" href="https://instagram.com/alcarneyme">
+                <svg class="w-8 h-8 bg-transparent stroke-current" style="fill:none">
+    <use xlink:href="/svg/feather-sprite.svg#instagram" />
+</svg>
+            </a>
+            
+            <a target="_blank" rel="noreferrer noopener" href="https://www.youtube.com/channel/UC5GPflgRWhnCxA0BllfP5CA">
+                <svg class="w-8 h-8 bg-transparent stroke-current" style="fill:none">
+    <use xlink:href="/svg/feather-sprite.svg#youtube" />
+</svg>
+            </a>
+            
+        </div>
+
+        <div>
+            
+        </div>
+    </div>
+</footer>
+    <script>
+        const codeBlocks = document.querySelectorAll(".highlight pre")
+        Array.from(codeBlocks).forEach(el => {
+            el.style.backgroundColor = "#fdf6e3"
+        })
+    </script>
+</body>
+
+</html>

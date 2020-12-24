@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+<meta name="theme-color" content="#259669" />
+
+<meta name="generator" content="Hugo 0.79.1" />
+<meta name="author" content="Alex Carney" />
+<meta name="description" content="Running sub processes from within Emacs" />
+
+<meta property="og:title" content="Emacs Sub Processes" />
+<meta property="og:description" content="Running sub processes from within Emacs" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://www.alcarney.me/notes/emacs-subprocesses/" />
+<meta property="og:image" content="https://www.alcarney.me/images/emacs-process-list.png" />
+<meta property="article:modified_time" content="2020-12-24T22:36:27+00:00" />
+
+<meta property="article:tag" content="emacs" />
+
+<meta name="twitter:creator" content="@alcarneyme" />
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://www.alcarney.me/images/emacs-process-list.png"/>
+
+<meta name="twitter:title" content="Emacs Sub Processes"/>
+<meta name="twitter:description" content="Running sub processes from within Emacs"/>
+
+
+<title>Emacs Sub Processes | Alex Carney</title>
+
+
+
+<link rel="stylesheet" href="https://www.alcarney.me/main.c8d08ae4c6205992f89c7b49cdea15ec27733aad23bb3f91c2eb7e04ab13e9c2.css" /></head>
+
+<body class=bg-gray-100>
+    <div class="flex items-baseline justify-between p-4 bg-white border-b">
+
+        <div>
+            <h1>Alex Carney</h1>
+        </div>
+
+        <div class="flex justify-center flex-grow">
+        </div>
+
+        <nav class="flex space-x-4 items-between">
+            <a href="/blog">Blog</a>
+            <a href="/notes">Notes</a>
+        </nav>
+    </div>
+
+    <main class="max-w-4xl m-auto mb-8">
+<article class="mx-2 mt-8 bg-white border shadow-lg">
+  <img class="object-cover -mb-16" src="https://www.alcarney.me/images/emacs-process-list.png" alt="Emacs Sub Processes">
+  <div class="relative z-10 rounded bg-white p-4 m-auto prose prose-lg prose-green">
+    <h1>Emacs Sub Processes</h1>
+    <p>Something that&rsquo;s quite useful in Emacs is the ability to start a running process
+in the background. This can be done with the <code>start-process</code>function.</p>
+<h2 id="examples">Examples</h2>
+<p>We can set the directory to run in by wrapping the call to <code>start-process</code> in a
+<code>let</code> expression that sets the <code>default-directory</code> variable.</p>
+<div class="highlight"><pre style="color:#586e75;background-color:#eee8d5;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-elisp" data-lang="elisp">(<span style="color:#cb4b16">let</span> ((<span style="color:#268bd2">default-directory</span> <span style="color:#2aa198">&#34;~/Projects/blog&#34;</span>))
+  (<span style="color:#268bd2">start-process</span> <span style="color:#2aa198">&#34;hugo&#34;</span> <span style="color:#2aa198">&#34;hugo[blog]&#34;</span> <span style="color:#2aa198">&#34;hugo&#34;</span> <span style="color:#2aa198">&#34;server&#34;</span> <span style="color:#2aa198">&#34;--buildDrafts&#34;</span> <span style="color:#2aa198">&#34;--buildFuture&#34;</span>))
+</code></pre></div><p>There&rsquo;s a lot of mentions of hugo here let&rsquo;s break this down a bit</p>
+<ul>
+<li>The first gives a name to the process, this will show up in places like the
+<code>process-menu</code></li>
+<li>The second names the buffer that will be used to display the output from the
+process</li>
+<li>The third is the <code>hugo</code> command itself, followed by any additional arguments
+to pass to it.</li>
+</ul>
+
+  </div>
+  <div class="p-4">
+    <div class="flex items-center justify-end mt-4 space-x-4">
+    <a class="px-2 text-sm text-gray-600 bg-green-200 border border-green-600 rounded" href="https://www.alcarney.me/tags/emacs/">
+        #emacs
+    </a></div>
+  </div>
+</article>
+
+    </main><footer class="items-baseline p-4 text-white bg-gray-700">
+    <div class="flex justify-between">
+        <div>
+        </div>
+
+        <div class="flex justify-between space-x-4">
+            
+            <a target="_blank" rel="noreferrer noopener" href="https://github.com/alcarney">
+                <svg class="w-8 h-8 bg-transparent stroke-current" style="fill:none">
+    <use xlink:href="/svg/feather-sprite.svg#github" />
+</svg>
+            </a>
+            
+            <a target="_blank" rel="noreferrer noopener" href="https://twitter.com/alcarneyme">
+                <svg class="w-8 h-8 bg-transparent stroke-current" style="fill:none">
+    <use xlink:href="/svg/feather-sprite.svg#twitter" />
+</svg>
+            </a>
+            
+            <a target="_blank" rel="noreferrer noopener" href="https://instagram.com/alcarneyme">
+                <svg class="w-8 h-8 bg-transparent stroke-current" style="fill:none">
+    <use xlink:href="/svg/feather-sprite.svg#instagram" />
+</svg>
+            </a>
+            
+            <a target="_blank" rel="noreferrer noopener" href="https://www.youtube.com/channel/UC5GPflgRWhnCxA0BllfP5CA">
+                <svg class="w-8 h-8 bg-transparent stroke-current" style="fill:none">
+    <use xlink:href="/svg/feather-sprite.svg#youtube" />
+</svg>
+            </a>
+            
+        </div>
+
+        <div>
+            
+        </div>
+    </div>
+</footer>
+    <script>
+        const codeBlocks = document.querySelectorAll(".highlight pre")
+        Array.from(codeBlocks).forEach(el => {
+            el.style.backgroundColor = "#fdf6e3"
+        })
+    </script>
+</body>
+
+</html>
