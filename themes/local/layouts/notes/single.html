@@ -1,18 +1,24 @@
 {{define "main"}}
-<article class="p-4 mx-2 mt-8 bg-white border shadow-lg">
-    <div class="m-auto prose prose-lg prose-green">
-        <h1>{{ .Title }}</h1>
-        {{ .Content }}
+<article class="mx-2 mt-8 bg-white border shadow-lg">
 
-        {{- if .Params.links }}
-        <h2>Links</h2>
-        <ul>
+  {{- if .Params.images }}{{ range first 1 .Params.images }}
+  <img class="object-cover -mb-16" src="{{ . | absURL }}" alt="{{ $.Title }}">
+  {{- end}}{{end}}
+  <div class="relative z-10 rounded bg-white p-4 m-auto prose prose-lg prose-green">
+    <h1>{{ .Title }}</h1>
+    {{ .Content }}
+
+    {{- if .Params.links }}
+      <h2>Links</h2>
+      <ul>
         {{- range .Params.links }}
         <li><a href="{{ .url }}">{{ .name }}</a></li>
         {{- end }}
-        </ul>
-        {{- end }}
-    </div>
+      </ul>
+      {{- end }}
+  </div>
+  <div class="p-4">
     {{ partial "taglist.html" . }}
+  </div>
 </article>
 {{end}}

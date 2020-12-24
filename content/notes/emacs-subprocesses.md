@@ -1,17 +1,17 @@
-+++
-description = "Running sub processes from within Emacs "
-images = ["/images/emacs-process-list.png"]
-tags = ["emacs"]
-title = "Emacs Sub Processes"
-+++
+---
+description: Running sub processes from within Emacs
+images:
+- /images/emacs-process-list.png
+tags:
+- emacs
+title: Emacs Sub Processes
+---
 
 Something that's quite useful in Emacs is the ability to start a running process
-in the background. This can be done with the `start-process` function.
+in the background. This can be done with the `start-process`function.
 
 
 ## Examples
-
-### Running `hugo server` in the background
 
 We can set the directory to run in by wrapping the call to `start-process` in a
 `let` expression that sets the `default-directory` variable.
