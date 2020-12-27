@@ -11,7 +11,6 @@
   {{ $last := int (index $linums 1) }}
 
   {{ $lines := first (sub $last $first) (after $first $allLines) }}
-  {{ $first }} - {{ $last }}
   {{ .Scratch.Set "range" (delimit $lines "\n") }}
 {{- else }}
   {{ .Scratch.Set "range" $file }}
