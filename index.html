@@ -14,7 +14,7 @@
 <meta property="og:description" content="Software developer, amateur mathematician. I love to learn, try to animate and talk about it all to anyone who will listen" />
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://www.alcarney.me/" />
-<meta property="og:updated_time" content="2020-12-24T22:36:27+00:00" />
+<meta property="og:updated_time" content="2020-12-27T17:40:40+00:00" />
 
 
 <meta name="twitter:creator" content="@alcarneyme" />
@@ -27,7 +27,7 @@
 
 
 
-<link rel="stylesheet" href="https://www.alcarney.me/main.c8d08ae4c6205992f89c7b49cdea15ec27733aad23bb3f91c2eb7e04ab13e9c2.css" /></head>
+<link rel="stylesheet" href="https://www.alcarney.me/main.50936bd3c615c137119b98720aa8e99e24fb8326570b3b8d8ae96d9c4e3f2995.css" /></head>
 
 <body class=bg-gray-100>
     <div class="flex items-baseline justify-between p-4 bg-white border-b">
@@ -71,6 +71,69 @@
     }
 </style>
 <div>
+    
+    <div class="flex flex-col justify-between lg:items-baseline lg:flex-row">
+        <style>
+    aside::after {
+        position: absolute;
+        top: 8px;
+        right: -10px;
+        display: block;
+        content: '';
+        width: 8px;
+        height: 8px;
+        border-radius: 100%;
+        background: #717885;
+    }
+
+    @media(max-width: 1024px) {
+        aside::after {
+            top: unset;
+            bottom: 6px;
+            left: -18px;
+            border-top: sold 1px #e5e7eb;
+            border-bottom: none;
+        }
+    }
+</style>
+<aside class="relative flex pr-2 mt-4 ml-12 -mb-3 space-x-4 text-gray-500 lg:mr-8 lg:w-32 lg:block lg:space-x-0">
+    <span class="flex justify-between">
+        <svg class="w-6 h-6 bg-transparent stroke-current" style="fill:none">
+    <use xlink:href="/svg/feather-sprite.svg#calendar" />
+</svg>
+        Dec 27, 2020
+    </span>
+    <span class="flex justify-between">
+        <svg class="w-6 h-6 bg-transparent stroke-current" style="fill:none">
+    <use xlink:href="/svg/feather-sprite.svg#clock" />
+</svg>
+        4 min read
+    </span>
+</aside>
+        <article class="relative flex-grow p-4 mt-8 transition bg-white border hover:shadow-lg">
+            <div class="m-auto prose prose-lg prose-green">
+                <header class="mb-4">
+                    <a href="https://www.alcarney.me/blog/2020/simple-ast-eval/">
+                        <h1>Evaluating a Simple Abstract Syntax Tree</h1>
+                    </a>
+                </header>
+                <p>Programming languages and their implementation is a topic I&rsquo;ve been interested
+in for a long time and I thought it would be worth trying to get a bit more
+hands on and play with some of the ideas in this space. Choosing a topic
+somewhat at random I&rsquo;ve chosen to take a look at implementing an Abstract Syntax
+Tree (AST).</p>
+                <div class="flex items-center justify-end mt-4 space-x-4">
+    <a class="px-2 text-sm text-gray-600 bg-green-200 border border-green-600 rounded" href="https://www.alcarney.me/tags/c/">
+        #c
+    </a><a class="px-2 text-sm text-gray-600 bg-green-200 border border-green-600 rounded" href="https://www.alcarney.me/tags/programming-languages/">
+        #programming-languages
+    </a></div>
+                
+                <a class="" href="/blog/2020/simple-ast-eval/">More...</a>
+                
+            </div>
+        </article>
+    </div>
     
     <div class="flex flex-col justify-between lg:items-baseline lg:flex-row">
         <style>
@@ -705,67 +768,6 @@ discovery in search of the ultimate static site generator.</p>
         </article>
     </div>
     
-    <div class="flex flex-col justify-between lg:items-baseline lg:flex-row">
-        <style>
-    aside::after {
-        position: absolute;
-        top: 8px;
-        right: -10px;
-        display: block;
-        content: '';
-        width: 8px;
-        height: 8px;
-        border-radius: 100%;
-        background: #717885;
-    }
-
-    @media(max-width: 1024px) {
-        aside::after {
-            top: unset;
-            bottom: 6px;
-            left: -18px;
-            border-top: sold 1px #e5e7eb;
-            border-bottom: none;
-        }
-    }
-</style>
-<aside class="relative flex pr-2 mt-4 ml-12 -mb-3 space-x-4 text-gray-500 lg:mr-8 lg:w-32 lg:block lg:space-x-0">
-    <span class="flex justify-between">
-        <svg class="w-6 h-6 bg-transparent stroke-current" style="fill:none">
-    <use xlink:href="/svg/feather-sprite.svg#calendar" />
-</svg>
-        Jan 1, 0001
-    </span>
-    <span class="flex justify-between">
-        <svg class="w-6 h-6 bg-transparent stroke-current" style="fill:none">
-    <use xlink:href="/svg/feather-sprite.svg#clock" />
-</svg>
-        2 min read
-    </span>
-</aside>
-        <article class="relative flex-grow p-4 mt-8 transition bg-white border hover:shadow-lg">
-            <div class="m-auto prose prose-lg prose-green">
-                <header class="mb-4">
-                    <a href="https://www.alcarney.me/notes/deserialising-abstract-classes/">
-                        <h1>Deserialising Abstract Classes with Jackson</h1>
-                    </a>
-                </header>
-                Jackson can automatically detect the relevant abstract class to initialise when parsing some JSON if you give it a little bit of help. There are multiple methods Jackson can use to detect and indicate the class it should use but the method I have chosen is to tell it to look for a type field.
-Consider the following json snippets
-{ &#34;id&#34;: &#34;123&#34;, &#34;type&#34;: &#34;name&#34;, &#34;name&#34;: &#34;Alex&#34; } { &#34;id&#34;: &#34;345&#34;, &#34;type&#34;: &#34;value&#34;, &#34;value&#34;: 123.
-                <div class="flex items-center justify-end mt-4 space-x-4">
-    <a class="px-2 text-sm text-gray-600 bg-green-200 border border-green-600 rounded" href="https://www.alcarney.me/tags/java/">
-        #java
-    </a><a class="px-2 text-sm text-gray-600 bg-green-200 border border-green-600 rounded" href="https://www.alcarney.me/tags/json/">
-        #json
-    </a></div>
-                
-                <a class="" href="/notes/deserialising-abstract-classes/">More...</a>
-                
-            </div>
-        </article>
-    </div>
-    
 </div>
 
     </main><footer class="items-baseline p-4 text-white bg-gray-700">
@@ -812,6 +814,9 @@ Consider the following json snippets
             el.style.backgroundColor = "#fdf6e3"
         })
     </script>
+
+    <script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
+    <script>mermaid.initialize({startOnLoad:true});</script>
 </body>
 
 </html>

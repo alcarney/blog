@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>programming-languages on Alex Carney</title>
+    <link>https://www.alcarney.me/tags/programming-languages/</link>
+    <description>Recent content in programming-languages on Alex Carney</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Sun, 27 Dec 2020 00:00:00 +0000</lastBuildDate><atom:link href="https://www.alcarney.me/tags/programming-languages/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Evaluating a Simple Abstract Syntax Tree</title>
+      <link>https://www.alcarney.me/blog/2020/simple-ast-eval/</link>
+      <pubDate>Sun, 27 Dec 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://www.alcarney.me/blog/2020/simple-ast-eval/</guid>
+      <description>&lt;p&gt;Programming languages and their implementation is a topic I&amp;rsquo;ve been interested
+in for a long time and I thought it would be worth trying to get a bit more
+hands on and play with some of the ideas in this space. Choosing a topic
+somewhat at random I&amp;rsquo;ve chosen to take a look at implementing an Abstract Syntax
+Tree (AST).&lt;/p&gt;</description>
+    </item>
+    
+  </channel>
+</rss>

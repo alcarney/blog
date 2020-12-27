@@ -1,0 +1,430 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+<meta name="theme-color" content="#259669" />
+
+<meta name="generator" content="Hugo 0.79.1" />
+<meta name="author" content="Alex Carney" />
+<meta name="description" content="Playing around with constructing and evaluating Abstract Syntax Trees
+" />
+
+<meta property="og:title" content="Evaluating a Simple Abstract Syntax Tree" />
+<meta property="og:description" content="Playing around with constructing and evaluating Abstract Syntax Trees
+" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://www.alcarney.me/blog/2020/simple-ast-eval/" />
+<meta property="article:published_time" content="2020-12-27T00:00:00+00:00" />
+<meta property="article:modified_time" content="2020-12-27T17:40:40+00:00" />
+
+<meta property="article:tag" content="c" />
+<meta property="article:tag" content="programming-languages" />
+
+<meta name="twitter:creator" content="@alcarneyme" />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Evaluating a Simple Abstract Syntax Tree"/>
+<meta name="twitter:description" content="Playing around with constructing and evaluating Abstract Syntax Trees
+"/>
+
+
+<title>Evaluating a Simple Abstract Syntax Tree | Alex Carney</title>
+
+
+
+<link rel="stylesheet" href="https://www.alcarney.me/main.50936bd3c615c137119b98720aa8e99e24fb8326570b3b8d8ae96d9c4e3f2995.css" /></head>
+
+<body class=bg-gray-100>
+    <div class="flex items-baseline justify-between p-4 bg-white border-b">
+
+        <div>
+            <h1>Alex Carney</h1>
+        </div>
+
+        <div class="flex justify-center flex-grow">
+        </div>
+
+        <nav class="flex space-x-4 items-between">
+            <a href="/blog">Blog</a>
+            <a href="/notes">Notes</a>
+        </nav>
+    </div>
+
+    <main class="max-w-4xl m-auto mb-8">
+<style>
+    header::before {
+        position: absolute;
+        top: 19px;
+        left: -12.5px;
+        display: block;
+        content: '';
+        width: 25px;
+        height: 25px;
+        background: white;
+        transform: rotate(45deg);
+        border-left: solid 1px #e5e7eb;
+        border-bottom: solid 1px #e5e7eb;
+    }
+
+    @media(max-width: 1024px) {
+        header::before {
+            left: 19px;
+            top: -12.5px;
+            border-top: sold 1px #e5e7eb;
+            border-bottom: none;
+        }
+    }
+</style>
+<div class="flex flex-col justify-between mx-2 lg:items-baseline lg:flex-row">
+    <style>
+    aside::after {
+        position: absolute;
+        top: 8px;
+        right: -10px;
+        display: block;
+        content: '';
+        width: 8px;
+        height: 8px;
+        border-radius: 100%;
+        background: #717885;
+    }
+
+    @media(max-width: 1024px) {
+        aside::after {
+            top: unset;
+            bottom: 6px;
+            left: -18px;
+            border-top: sold 1px #e5e7eb;
+            border-bottom: none;
+        }
+    }
+</style>
+<aside class="relative flex pr-2 mt-4 ml-12 -mb-3 space-x-4 text-gray-500 lg:mr-8 lg:w-32 lg:block lg:space-x-0">
+    <span class="flex justify-between">
+        <svg class="w-6 h-6 bg-transparent stroke-current" style="fill:none">
+    <use xlink:href="/svg/feather-sprite.svg#calendar" />
+</svg>
+        Dec 27, 2020
+    </span>
+    <span class="flex justify-between">
+        <svg class="w-6 h-6 bg-transparent stroke-current" style="fill:none">
+    <use xlink:href="/svg/feather-sprite.svg#clock" />
+</svg>
+        4 min read
+    </span>
+</aside>
+    <article class="relative flex-grow p-4 mt-8 transition bg-white border shadow-lg">
+        <div class="m-auto prose prose-lg prose-green">
+            <header>
+                <h1>Evaluating a Simple Abstract Syntax Tree</h1>
+            </header>
+            <p>Programming languages and their implementation is a topic I&rsquo;ve been interested
+in for a long time and I thought it would be worth trying to get a bit more
+hands on and play with some of the ideas in this space. Choosing a topic
+somewhat at random I&rsquo;ve chosen to take a look at implementing an Abstract Syntax
+Tree (AST).</p>
+<h2 id="what-is-an-abstract-syntax-tree">What is an Abstract Syntax Tree?</h2>
+<p>An <a href="https://en.wikipedia.org/wiki/Abstract_syntax_tree">Abstract Syntax Tree</a> is a way to represent a program&rsquo;s source
+code within an interpreter/compiler. Consider an expression like <code>1 + 2</code>, it
+could be represented by the following tree.</p>
+<div class="mermaid">
+  
+graph TD
+   + --- 1
+   + --- 2
+
+</div>
+
+<p>One of the nice things about ASTs is that they remove some of the ambiguity that
+can exist in plain text. Consider the expression <code>1 + 2 * 3</code>, there are two ways
+to interpret it and depending on which you choose you will get a different
+result - either <code>(1 + 2) * 3 = 9</code> or <code>1 + (2 * 3) = 7</code>. This choice gets encoded
+into the structure of tree itself</p>
+<div class="mermaid">
+  
+graph TD
+   subgraph "1 + (2 * 3)"
+   p2[+] --- u1[1]
+   p2[+] --- m2[x]
+   m2[*] --- u2[2]
+   m2[*] --- u3[3]
+   end
+   subgraph "(1 + 2) * 3"
+   m1[*] --- p1[+]
+   m1[*] --- v3[3]
+   p1[+] --- v1[1]
+   p1[+] --- v2[2]
+   end
+
+</div>
+
+<p>Encoding a program in this way allows the interpreter/compiler to focus on the
+semantic meaning of the program without having to worry about the finer details
+of how that program happens to be written down.</p>
+<h2 id="representing-an-ast">Representing an AST</h2>
+<p>For no particular reason other I fancied trying it, I decided to use C to
+represent my AST where each node is represented by the following struct.</p>
+
+
+
+
+
+
+  
+  
+  
+
+  
+  
+
+
+  
+  <div class="highlight"><pre style="color:#586e75;background-color:#eee8d5;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#859900">typedef</span> <span style="color:#859900">struct</span> <span style="color:#268bd2">_ast</span> {
+    <span style="color:#93a1a1;font-style:italic">/* The type of node this represents e.g.
+</span><span style="color:#93a1a1;font-style:italic">       a literal, an operator etc. */</span>
+    <span style="color:#268bd2">AstNodeType</span> <span style="color:#268bd2">type</span>;
+
+    <span style="color:#93a1a1;font-style:italic">/* In the case of a literal value, this field
+</span><span style="color:#93a1a1;font-style:italic">       holds the actual value */</span>
+    <span style="color:#859900;font-weight:bold">float</span> <span style="color:#268bd2">value</span>;
+
+    <span style="color:#93a1a1;font-style:italic">/* In the case of an operator, this pointer
+</span><span style="color:#93a1a1;font-style:italic">       refers to the left child node */</span>
+    <span style="color:#859900">struct</span> <span style="color:#268bd2">_ast</span> *<span style="color:#268bd2">left</span>;
+
+    <span style="color:#93a1a1;font-style:italic">/* In the case of an operator, this pointer
+</span><span style="color:#93a1a1;font-style:italic">       refers to the right child node */</span>
+    <span style="color:#859900">struct</span> <span style="color:#268bd2">_ast</span> *<span style="color:#268bd2">right</span>;
+} <span style="color:#268bd2">AstNode</span>;</code></pre></div>
+
+<p>Although the <code>typedef</code> will let us refer to this struct using the name <code>AstNode</code>
+from here on out, this name does not exist within the body of the struct
+definition itself. In order to have the struct hold pointers to other instances
+of the same type it&rsquo;s necessary to also name the struct definition <code>_ast</code></p>
+<p>In order to express the example trees above we only need to specify a few node
+types</p>
+
+
+
+
+
+
+  
+  
+  
+
+  
+  
+
+
+  
+  <div class="highlight"><pre style="color:#586e75;background-color:#eee8d5;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#859900">typedef</span> <span style="color:#859900">enum</span> {
+    <span style="color:#268bd2">AST_LITERAL</span>,
+    <span style="color:#268bd2">AST_PLUS</span>,
+    <span style="color:#268bd2">AST_MULTIPLY</span>,
+} <span style="color:#268bd2">AstNodeType</span>;</code></pre></div>
+
+<p>With our AST node representation defined, it&rsquo;s easy enough to construct a tree
+for the two examples we outlined earlier</p>
+
+
+
+
+
+
+  
+  
+  
+
+  
+  
+
+
+  
+  <div class="highlight"><pre style="color:#586e75;background-color:#eee8d5;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c">    <span style="color:#268bd2">AstNode</span> <span style="color:#268bd2">one</span> = { .<span style="color:#268bd2">type</span> = <span style="color:#268bd2">AST_LITERAL</span>, .<span style="color:#268bd2">value</span> = <span style="color:#2aa198;font-weight:bold">1.0f</span> };
+    <span style="color:#268bd2">AstNode</span> <span style="color:#268bd2">two</span> = { .<span style="color:#268bd2">type</span> = <span style="color:#268bd2">AST_LITERAL</span>, .<span style="color:#268bd2">value</span> = <span style="color:#2aa198;font-weight:bold">2.0f</span> };
+    <span style="color:#268bd2">AstNode</span> <span style="color:#268bd2">three</span> = { .<span style="color:#268bd2">type</span> = <span style="color:#268bd2">AST_LITERAL</span>, .<span style="color:#268bd2">value</span> = <span style="color:#2aa198;font-weight:bold">3.0f</span> };
+
+    <span style="color:#268bd2">AstNode</span> <span style="color:#268bd2">plus1</span> = { .<span style="color:#268bd2">type</span> = <span style="color:#268bd2">AST_PLUS</span>, .<span style="color:#268bd2">left</span> = &amp;<span style="color:#268bd2">one</span>, .<span style="color:#268bd2">right</span> = &amp;<span style="color:#268bd2">two</span>};
+    <span style="color:#268bd2">AstNode</span> <span style="color:#268bd2">example1</span> = { .<span style="color:#268bd2">type</span> = <span style="color:#268bd2">AST_MULTIPLY</span>, .<span style="color:#268bd2">left</span> = &amp;<span style="color:#268bd2">plus1</span>, .<span style="color:#268bd2">right</span> = &amp;<span style="color:#268bd2">three</span>};
+
+    <span style="color:#268bd2">AstNode</span> <span style="color:#268bd2">mul1</span> = { .<span style="color:#268bd2">type</span> = <span style="color:#268bd2">AST_MULTIPLY</span>, .<span style="color:#268bd2">left</span> = &amp;<span style="color:#268bd2">two</span>, .<span style="color:#268bd2">right</span> = &amp;<span style="color:#268bd2">three</span>};
+    <span style="color:#268bd2">AstNode</span> <span style="color:#268bd2">example2</span> = { .<span style="color:#268bd2">type</span> = <span style="color:#268bd2">AST_PLUS</span>, .<span style="color:#268bd2">left</span> = &amp;<span style="color:#268bd2">one</span>, .<span style="color:#268bd2">right</span> = &amp;<span style="color:#268bd2">mul1</span>};</code></pre></div>
+
+<h2 id="evaluating-the-ast">Evaluating the AST</h2>
+<p>To evaluate an instance of the AST we have defined we can take a simple approach</p>
+<ul>
+<li>
+<p>If the node we are evaluating is an <code>AST_LITERAL</code> then all we have to do is
+return the value stored in that node</p>
+
+
+
+
+
+
+  
+  
+  
+
+  
+  
+
+
+  
+  <div class="highlight"><pre style="color:#586e75;background-color:#eee8d5;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#859900;font-weight:bold">float</span>
+<span style="color:#268bd2">ast_evaluate</span>(<span style="color:#268bd2">AstNode</span> *<span style="color:#268bd2">ast</span>)
+{
+    <span style="color:#859900">switch</span>(<span style="color:#268bd2">ast</span>-&gt;<span style="color:#268bd2">type</span>) {
+    <span style="color:#859900">case</span> <span style="color:#268bd2">AST_LITERAL</span>:
+        <span style="color:#859900">return</span> <span style="color:#268bd2">ast</span>-&gt;<span style="color:#268bd2">value</span>;
+</code></pre></div>
+
+</li>
+<li>
+<p>In the case of <code>AST_PLUS</code>, we recursively call <code>ast_evaluate</code> on
+both the left and right branches of the tree and then add the resulting values
+together</p>
+
+
+
+
+
+
+  
+  
+  
+
+  
+  
+
+
+  
+  <div class="highlight"><pre style="color:#586e75;background-color:#eee8d5;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c">    <span style="color:#859900">case</span> <span style="color:#268bd2">AST_PLUS</span>: {
+        <span style="color:#859900;font-weight:bold">float</span> <span style="color:#268bd2">a</span> = <span style="color:#268bd2">ast_evaluate</span>(<span style="color:#268bd2">ast</span>-&gt;<span style="color:#268bd2">left</span>);
+        <span style="color:#859900;font-weight:bold">float</span> <span style="color:#268bd2">b</span> = <span style="color:#268bd2">ast_evaluate</span>(<span style="color:#268bd2">ast</span>-&gt;<span style="color:#268bd2">right</span>);
+
+        <span style="color:#859900">return</span> <span style="color:#268bd2">a</span> + <span style="color:#268bd2">b</span>;
+    }</code></pre></div>
+
+</li>
+<li>
+<p>Simiarly for <code>AST_MULTIPLY</code>, but returing <code>a * b</code> in this case.</p>
+
+
+
+
+
+
+  
+  
+  
+
+  
+  
+
+
+  
+  <div class="highlight"><pre style="color:#586e75;background-color:#eee8d5;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c">    <span style="color:#859900">case</span> <span style="color:#268bd2">AST_MULTIPLY</span>: {
+        <span style="color:#859900;font-weight:bold">float</span> <span style="color:#268bd2">a</span> = <span style="color:#268bd2">ast_evaluate</span>(<span style="color:#268bd2">ast</span>-&gt;<span style="color:#268bd2">left</span>);
+        <span style="color:#859900;font-weight:bold">float</span> <span style="color:#268bd2">b</span> = <span style="color:#268bd2">ast_evaluate</span>(<span style="color:#268bd2">ast</span>-&gt;<span style="color:#268bd2">right</span>);
+
+        <span style="color:#859900">return</span> <span style="color:#268bd2">a</span> * <span style="color:#268bd2">b</span>;
+    }
+    }
+}
+</code></pre></div>
+
+</li>
+</ul>
+<p>Calling this function on each of our example trees and printing the result we
+see that we indeed compute the values we would expect in each case</p>
+<pre><code>Example 1: 9.00
+Example 1: 7.00
+</code></pre><p>And there you have it, a calculator that only knows how to add and multiply
+floats! 😃 If you want to see the entire source file you can find it
+<a href="/listings/simple-ast.c">here</a>.</p>
+        </div>
+        <div class="flex items-center justify-end mt-4 space-x-4">
+    <a class="px-2 text-sm text-gray-600 bg-green-200 border border-green-600 rounded" href="https://www.alcarney.me/tags/c/">
+        #c
+    </a><a class="px-2 text-sm text-gray-600 bg-green-200 border border-green-600 rounded" href="https://www.alcarney.me/tags/programming-languages/">
+        #programming-languages
+    </a></div>
+        <div class="pt-4 mt-8 border-t">
+            <div id="disqus_thread"></div>
+<script type="application/javascript">
+    var disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "alcarney-me" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+        </div>
+    </article>
+</div>
+
+    </main><footer class="items-baseline p-4 text-white bg-gray-700">
+    <div class="flex justify-between">
+        <div>
+        </div>
+
+        <div class="flex justify-between space-x-4">
+            
+            <a target="_blank" rel="noreferrer noopener" href="https://github.com/alcarney">
+                <svg class="w-8 h-8 bg-transparent stroke-current" style="fill:none">
+    <use xlink:href="/svg/feather-sprite.svg#github" />
+</svg>
+            </a>
+            
+            <a target="_blank" rel="noreferrer noopener" href="https://twitter.com/alcarneyme">
+                <svg class="w-8 h-8 bg-transparent stroke-current" style="fill:none">
+    <use xlink:href="/svg/feather-sprite.svg#twitter" />
+</svg>
+            </a>
+            
+            <a target="_blank" rel="noreferrer noopener" href="https://instagram.com/alcarneyme">
+                <svg class="w-8 h-8 bg-transparent stroke-current" style="fill:none">
+    <use xlink:href="/svg/feather-sprite.svg#instagram" />
+</svg>
+            </a>
+            
+            <a target="_blank" rel="noreferrer noopener" href="https://www.youtube.com/channel/UC5GPflgRWhnCxA0BllfP5CA">
+                <svg class="w-8 h-8 bg-transparent stroke-current" style="fill:none">
+    <use xlink:href="/svg/feather-sprite.svg#youtube" />
+</svg>
+            </a>
+            
+        </div>
+
+        <div>
+            
+        </div>
+    </div>
+</footer>
+    <script>
+        const codeBlocks = document.querySelectorAll(".highlight pre")
+        Array.from(codeBlocks).forEach(el => {
+            el.style.backgroundColor = "#fdf6e3"
+        })
+    </script>
+
+    <script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
+    <script>mermaid.initialize({startOnLoad:true});</script>
+</body>
+
+</html>

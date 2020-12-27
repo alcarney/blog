@@ -4,262 +4,272 @@
   
   <url>
     <loc>https://www.alcarney.me/</loc>
-    <lastmod>2020-12-24T22:36:27+00:00</lastmod>
+    <lastmod>2020-12-27T17:40:40+00:00</lastmod>
   </url>
   
   <url>
     <loc>https://www.alcarney.me/blog/</loc>
-    <lastmod>2020-12-24T22:36:27+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://www.alcarney.me/tags/go/</loc>
-    <lastmod>2020-12-24T22:36:27+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://www.alcarney.me/tags/js/</loc>
-    <lastmod>2020-12-24T22:36:27+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://www.alcarney.me/blog/2020/passing-strings-between-tinygo-wasm/</loc>
-    <lastmod>2020-12-24T22:36:27+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://www.alcarney.me/tags/</loc>
-    <lastmod>2020-12-24T22:36:27+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://www.alcarney.me/tags/tinygo/</loc>
-    <lastmod>2020-12-24T22:36:27+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://www.alcarney.me/tags/wasm/</loc>
-    <lastmod>2020-12-24T22:36:27+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://www.alcarney.me/tags/containers/</loc>
-    <lastmod>2020-12-24T22:36:27+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://www.alcarney.me/tags/lxd/</loc>
-    <lastmod>2020-12-24T22:36:27+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://www.alcarney.me/blog/2020/hello-world-tinygo-wasm/</loc>
-    <lastmod>2020-12-24T22:36:27+00:00</lastmod>
+    <lastmod>2020-12-27T17:40:40+00:00</lastmod>
   </url>
   
   <url>
     <loc>https://www.alcarney.me/tags/c/</loc>
-    <lastmod>2020-12-24T22:36:27+00:00</lastmod>
+    <lastmod>2020-12-27T17:40:40+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://www.alcarney.me/blog/2020/simple-ast-eval/</loc>
+    <lastmod>2020-12-27T17:40:40+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://www.alcarney.me/tags/programming-languages/</loc>
+    <lastmod>2020-12-27T17:40:40+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://www.alcarney.me/tags/</loc>
+    <lastmod>2020-12-27T17:40:40+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://www.alcarney.me/tags/go/</loc>
+    <lastmod>2020-12-27T17:40:40+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://www.alcarney.me/tags/js/</loc>
+    <lastmod>2020-12-27T17:40:40+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://www.alcarney.me/blog/2020/passing-strings-between-tinygo-wasm/</loc>
+    <lastmod>2020-12-27T17:40:40+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://www.alcarney.me/tags/tinygo/</loc>
+    <lastmod>2020-12-27T17:40:40+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://www.alcarney.me/tags/wasm/</loc>
+    <lastmod>2020-12-27T17:40:40+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://www.alcarney.me/tags/containers/</loc>
+    <lastmod>2020-12-27T17:40:40+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://www.alcarney.me/tags/lxd/</loc>
+    <lastmod>2020-12-27T17:40:40+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://www.alcarney.me/blog/2020/hello-world-tinygo-wasm/</loc>
+    <lastmod>2020-12-27T17:40:40+00:00</lastmod>
   </url>
   
   <url>
     <loc>https://www.alcarney.me/tags/graphics/</loc>
-    <lastmod>2020-12-24T22:36:27+00:00</lastmod>
+    <lastmod>2020-12-27T17:40:40+00:00</lastmod>
   </url>
   
   <url>
     <loc>https://www.alcarney.me/series/learning-vulkan/</loc>
-    <lastmod>2020-12-24T22:36:27+00:00</lastmod>
+    <lastmod>2020-12-27T17:40:40+00:00</lastmod>
   </url>
   
   <url>
     <loc>https://www.alcarney.me/blog/2020/learning-vulkan-p1/</loc>
-    <lastmod>2020-12-24T22:36:27+00:00</lastmod>
+    <lastmod>2020-12-27T17:40:40+00:00</lastmod>
   </url>
   
   <url>
     <loc>https://www.alcarney.me/series/</loc>
-    <lastmod>2020-12-24T22:36:27+00:00</lastmod>
+    <lastmod>2020-12-27T17:40:40+00:00</lastmod>
   </url>
   
   <url>
     <loc>https://www.alcarney.me/tags/vulkan/</loc>
-    <lastmod>2020-12-24T22:36:27+00:00</lastmod>
+    <lastmod>2020-12-27T17:40:40+00:00</lastmod>
   </url>
   
   <url>
     <loc>https://www.alcarney.me/blog/2020/learning-vulkan-p0/</loc>
-    <lastmod>2020-12-24T22:36:27+00:00</lastmod>
+    <lastmod>2020-12-27T17:40:40+00:00</lastmod>
   </url>
   
   <url>
     <loc>https://www.alcarney.me/blog/2019/click-drag-vanilla-js/</loc>
-    <lastmod>2020-12-24T22:36:27+00:00</lastmod>
+    <lastmod>2020-12-27T17:40:40+00:00</lastmod>
   </url>
   
   <url>
     <loc>https://www.alcarney.me/tags/svg/</loc>
-    <lastmod>2020-12-24T22:36:27+00:00</lastmod>
+    <lastmod>2020-12-27T17:40:40+00:00</lastmod>
   </url>
   
   <url>
     <loc>https://www.alcarney.me/tags/web/</loc>
-    <lastmod>2020-12-24T22:36:27+00:00</lastmod>
+    <lastmod>2020-12-27T17:40:40+00:00</lastmod>
   </url>
   
   <url>
     <loc>https://www.alcarney.me/tags/cli/</loc>
-    <lastmod>2020-12-24T22:36:27+00:00</lastmod>
+    <lastmod>2020-12-27T17:40:40+00:00</lastmod>
   </url>
   
   <url>
     <loc>https://www.alcarney.me/tags/python/</loc>
-    <lastmod>2020-12-24T22:36:27+00:00</lastmod>
+    <lastmod>2020-12-27T17:40:40+00:00</lastmod>
   </url>
   
   <url>
     <loc>https://www.alcarney.me/tags/stylo/</loc>
-    <lastmod>2020-12-24T22:36:27+00:00</lastmod>
+    <lastmod>2020-12-27T17:40:40+00:00</lastmod>
   </url>
   
   <url>
     <loc>https://www.alcarney.me/tags/til/</loc>
-    <lastmod>2020-12-24T22:36:27+00:00</lastmod>
+    <lastmod>2020-12-27T17:40:40+00:00</lastmod>
   </url>
   
   <url>
     <loc>https://www.alcarney.me/blog/2019/til-python-cmd/</loc>
-    <lastmod>2020-12-24T22:36:27+00:00</lastmod>
+    <lastmod>2020-12-27T17:40:40+00:00</lastmod>
   </url>
   
   <url>
     <loc>https://www.alcarney.me/blog/2018/introducing-stylo-doodles/</loc>
-    <lastmod>2020-12-24T22:36:27+00:00</lastmod>
+    <lastmod>2020-12-27T17:40:40+00:00</lastmod>
   </url>
   
   <url>
     <loc>https://www.alcarney.me/tags/blogging/</loc>
-    <lastmod>2020-12-24T22:36:27+00:00</lastmod>
+    <lastmod>2020-12-27T17:40:40+00:00</lastmod>
   </url>
   
   <url>
     <loc>https://www.alcarney.me/blog/2018/first-article/</loc>
-    <lastmod>2020-12-24T22:36:27+00:00</lastmod>
+    <lastmod>2020-12-27T17:40:40+00:00</lastmod>
   </url>
   
   <url>
     <loc>https://www.alcarney.me/notes/custom-jupyter-kernels/</loc>
-    <lastmod>2020-12-24T22:36:27+00:00</lastmod>
+    <lastmod>2020-12-27T17:40:40+00:00</lastmod>
   </url>
   
   <url>
     <loc>https://www.alcarney.me/notes/deserialising-abstract-classes/</loc>
-    <lastmod>2020-12-24T22:36:27+00:00</lastmod>
+    <lastmod>2020-12-27T17:40:40+00:00</lastmod>
   </url>
   
   <url>
     <loc>https://www.alcarney.me/tags/devops/</loc>
-    <lastmod>2020-12-24T22:36:27+00:00</lastmod>
+    <lastmod>2020-12-27T17:40:40+00:00</lastmod>
   </url>
   
   <url>
     <loc>https://www.alcarney.me/tags/emacs/</loc>
-    <lastmod>2020-12-24T22:36:27+00:00</lastmod>
+    <lastmod>2020-12-27T17:40:40+00:00</lastmod>
   </url>
   
   <url>
     <loc>https://www.alcarney.me/notes/emacs-subprocesses/</loc>
-    <lastmod>2020-12-24T22:36:27+00:00</lastmod>
+    <lastmod>2020-12-27T17:40:40+00:00</lastmod>
   </url>
   
   <url>
     <loc>https://www.alcarney.me/notes/touchpad-gestures-linux/</loc>
-    <lastmod>2020-12-24T22:36:27+00:00</lastmod>
+    <lastmod>2020-12-27T17:40:40+00:00</lastmod>
   </url>
   
   <url>
     <loc>https://www.alcarney.me/tags/git/</loc>
-    <lastmod>2020-12-24T22:36:27+00:00</lastmod>
+    <lastmod>2020-12-27T17:40:40+00:00</lastmod>
   </url>
   
   <url>
     <loc>https://www.alcarney.me/notes/npm-global-user-install/</loc>
-    <lastmod>2020-12-24T22:36:27+00:00</lastmod>
+    <lastmod>2020-12-27T17:40:40+00:00</lastmod>
   </url>
   
   <url>
     <loc>https://www.alcarney.me/tags/java/</loc>
-    <lastmod>2020-12-24T22:36:27+00:00</lastmod>
+    <lastmod>2020-12-27T17:40:40+00:00</lastmod>
   </url>
   
   <url>
     <loc>https://www.alcarney.me/tags/json/</loc>
-    <lastmod>2020-12-24T22:36:27+00:00</lastmod>
+    <lastmod>2020-12-27T17:40:40+00:00</lastmod>
   </url>
   
   <url>
     <loc>https://www.alcarney.me/tags/jupyter/</loc>
-    <lastmod>2020-12-24T22:36:27+00:00</lastmod>
+    <lastmod>2020-12-27T17:40:40+00:00</lastmod>
   </url>
   
   <url>
     <loc>https://www.alcarney.me/tags/k8s/</loc>
-    <lastmod>2020-12-24T22:36:27+00:00</lastmod>
+    <lastmod>2020-12-27T17:40:40+00:00</lastmod>
   </url>
   
   <url>
     <loc>https://www.alcarney.me/notes/prometheus/</loc>
-    <lastmod>2020-12-24T22:36:27+00:00</lastmod>
+    <lastmod>2020-12-27T17:40:40+00:00</lastmod>
   </url>
   
   <url>
     <loc>https://www.alcarney.me/tags/linux/</loc>
-    <lastmod>2020-12-24T22:36:27+00:00</lastmod>
+    <lastmod>2020-12-27T17:40:40+00:00</lastmod>
   </url>
   
   <url>
     <loc>https://www.alcarney.me/tags/make/</loc>
-    <lastmod>2020-12-24T22:36:27+00:00</lastmod>
+    <lastmod>2020-12-27T17:40:40+00:00</lastmod>
   </url>
   
   <url>
     <loc>https://www.alcarney.me/tags/monitoring/</loc>
-    <lastmod>2020-12-24T22:36:27+00:00</lastmod>
+    <lastmod>2020-12-27T17:40:40+00:00</lastmod>
   </url>
   
   <url>
     <loc>https://www.alcarney.me/notes/</loc>
-    <lastmod>2020-12-24T22:36:27+00:00</lastmod>
+    <lastmod>2020-12-27T17:40:40+00:00</lastmod>
   </url>
   
   <url>
     <loc>https://www.alcarney.me/notes/git-clone-submodules/</loc>
-    <lastmod>2020-12-24T22:36:27+00:00</lastmod>
+    <lastmod>2020-12-27T17:40:40+00:00</lastmod>
   </url>
   
   <url>
     <loc>https://www.alcarney.me/tags/npm/</loc>
-    <lastmod>2020-12-24T22:36:27+00:00</lastmod>
+    <lastmod>2020-12-27T17:40:40+00:00</lastmod>
   </url>
   
   <url>
     <loc>https://www.alcarney.me/tags/prometheus/</loc>
-    <lastmod>2020-12-24T22:36:27+00:00</lastmod>
+    <lastmod>2020-12-27T17:40:40+00:00</lastmod>
   </url>
   
   <url>
     <loc>https://www.alcarney.me/notes/python-2-gotchas/</loc>
-    <lastmod>2020-12-24T22:36:27+00:00</lastmod>
+    <lastmod>2020-12-27T17:40:40+00:00</lastmod>
   </url>
   
   <url>
     <loc>https://www.alcarney.me/notes/python-3-gotchas/</loc>
-    <lastmod>2020-12-24T22:36:27+00:00</lastmod>
+    <lastmod>2020-12-27T17:40:40+00:00</lastmod>
   </url>
   
   <url>
     <loc>https://www.alcarney.me/notes/writing-makefiles/</loc>
-    <lastmod>2020-12-24T22:36:27+00:00</lastmod>
+    <lastmod>2020-12-27T17:40:40+00:00</lastmod>
   </url>
   
 </urlset>
