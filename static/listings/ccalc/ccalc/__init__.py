@@ -61,7 +61,7 @@ class Literal(AstNode):
             message = "Type '{}' is not a valid literal"
             raise TypeError(message.format(type(value)))
 
-        super().__init__(type=AstNode.LITERAL, value=value)
+        super().__init__(type=AstNode.LITERAL, value=float(value))
 
 
 class Plus(AstNode):
