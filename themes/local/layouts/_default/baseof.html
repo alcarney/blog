@@ -29,14 +29,32 @@
     {{- partial "footer.html" . -}}
     <!--  Hack to adjust the background color of code blocks  -->
     <script>
-        const codeBlocks = document.querySelectorAll(".highlight pre")
-        Array.from(codeBlocks).forEach(el => {
-            el.style.backgroundColor = "#fdf6e3"
-        })
+      const codeBlocks = document.querySelectorAll(".highlight pre")
+      Array.from(codeBlocks).forEach(el => {
+          el.style.backgroundColor = "#fdf6e3"
+      })
+
+      function copyText(text) {
+          const textArea = document.createElement("textarea")
+          textArea.value = text
+
+          textArea.style.top = 0
+          textArea.style.left = 0
+          textArea.style.position = 'fixed'
+
+          document.body.append(textArea)
+          textArea.focus()
+          textArea.select()
+
+          document.execCommand('copy')
+          document.body.removeChild(textArea)
+      }
     </script>
 
     <script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
     <script>mermaid.initialize({startOnLoad:true});</script>
+
+
 </body>
 
 </html>
