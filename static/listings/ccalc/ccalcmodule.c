@@ -218,7 +218,15 @@ method_eval_ast(PyObject *self, PyObject *args)
     return PyFloat_FromDouble(result);
 }
 
-static PyMethodDef FputsMethods[] = {
+static PyObject*
+method_hello_world(PyObject *self, PyObject *args)
+{
+    printf("Hello, World!\n");
+    Py_RETURN_NONE;
+}
+
+static PyMethodDef ccalc_methods[] = {
+    {"hello_world", method_hello_world, METH_VARARGS, "Print 'Hello, World!'."},
     {"eval_ast", method_eval_ast, METH_VARARGS, "Evaluate the given ast."},
     {NULL, NULL, 0, NULL}
 };
@@ -228,7 +236,7 @@ static struct PyModuleDef ccalcmodule = {
     "_ccalc",
     "Simple calculator implemented in C",
     -1,
-    FputsMethods
+    ccalc_methods
 };
 
 PyMODINIT_FUNC
