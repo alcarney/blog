@@ -1,4 +1,3 @@
-import enum
 import _ccalc
 
 eval_ast = _ccalc.eval_ast

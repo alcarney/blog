@@ -57,7 +57,7 @@ Encoding a program in this way allows the interpreter/compiler to focus on the
 semantic meaning of the program without having to worry about the finer details
 of how that program happens to be written down.
 
-## Representing an AST
+## Representing an AST {#ast-repr}
 
 For no particular reason other I fancied trying it, I decided to use C to
 represent my AST where each node is represented by the following struct.
