@@ -1,0 +1,21 @@
+<style>
+  .cli-command::before {
+      content: "$ ";
+  }
+</style>
+
+<pre class="whitespace-normal max-h-64 overflow-y-hidden relative">
+  <button class="absolute top-0 right-0 mx-2 my-1"
+          title="Copy Command"
+          onclick="copyText('{{ .Get "command" }}')">
+    {{ partial "icon.html" (dict "name" "clipboard" "styles" "w-6 h-6") }}
+  </button>
+  <details>
+    <summary class="cli-command">
+      <code>{{.Get "command" }}</code>
+    </summary>
+    <div class="overflow-y-auto max-h-48 mt-2">
+      <code class="whitespace-pre ">{{ .Inner }}</code>
+    </div>
+  </details>
+</pre>
