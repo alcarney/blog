@@ -149,9 +149,9 @@ Plus<Literal<1.0>, Multiply<Literal<2.0>, Literal<3.0>>
 
 ## Setting up the C Extension {#ext-setup}
 
-Using [this tutorial][real-python-c-ext] on Real Python as a guide I was able to
-get a C Extension up and running surprisingly easily. Be sure to check out the
-article for details but in short I ended up creating the following directory
+Using [this tutorial][real-python-c-ext] from Real Python as a guide I was able
+to get a C Extension up and running surprisingly easily. Be sure to check out
+the article for details but in short I ended up creating the following directory
 structure
 
 ```
@@ -163,7 +163,7 @@ structure
 ```
 
 Where the `__init__.py` file contains the Python code we wrote in the previous
-section. In `ccalcmodule.c` is the boilerplate needed to define a Python
+section and `ccalcmodule.c` contains the boilerplate needed to define a Python
 module
 
 ```c
@@ -216,7 +216,7 @@ static PyMethodDef ccalc_methods[] = {
 - `METH_VARARGS` tells Python the kinds of arguments our function should be
   called with. Check out the [documentation][python-c-ext-args] for more
   details.
-- The final parameter being the docstring
+- The final parameter sets the docstring for the function
 
 Finally we need the the actual method definition itself.
 
@@ -241,7 +241,7 @@ information about the extension itself
 {{< include file="ccalc/setup.py">}}
 
 With the packaging defined a `python setup.py install` was all that was needed
-to build and install the extension into the virtual environment.
+to build and install the extension into my virtual environment.
 
 {{< command command="python setup.py install">}}
 running install
@@ -296,12 +296,199 @@ Processing dependencies for ccalc==1.0.0
 Finished processing dependencies for ccalc==1.0.0
 {{< /command >}}
 
+With the C code sorted and building, we can import it in Python code and call
+functions from it just as we would with any other module.
+
+``` python
+>>> import _ccalc
+>>> _ccalc.hello_world()
+Hello, World!
+```
 
 ## Converting Between Python and C {#conversions}
+
+Now for the fun part! It's time to write a method for our extension module
+`method_eval_ast` that takes a Python representation of the AST and convert it
+into our C representation before executing it and passing the result back up to
+Python.
+
+``` c
+
+static PyObject*
+method_eval_ast(PyObject *self, PyObject *args)
+{
+    ...
+}
+
+// Be sure to expose the new method with the module
+static PyMethodDef ccalc_methods[] = {
+    {"eval_ast", method_eval_ast, METH_VARARGS, "Evaluate the given ast."},
+    ...
+}
+```
+
+This can be broken down into a three step process
+
+- [Parsing Function Arguments]({{< relref "#function-args">}})
+- [Constructing the C AST]({{< relref "#c-ast" >}})
+- [Returning the Result]({{< relref "#return" >}})
+
+### Parsing Function Arguments {#function-args}
+
+When writing a `METH_VARARGS` style function, it gets called with 2 parameters
+`self` and `args`. `self` in this case is a reference to our `_ccalc` module and
+`args` is a reference to a tuple containing the arguments that were passed to
+our function.
+
+As the contents of this tuple can be arbitrary it's up to our code to correctly
+interpret the values that have been given to it. Thankfully Python provides a
+handy function `PyArg_ParseTuple`that can take care of this for us.
+
+``` c
+PyObject *obj = NULL;
+
+if (!PyArg_ParseTuple(args, "O", &obj)) {
+    return NULL;
+}
+```
+
+This function takes a [format string][python-c-ext-fmt-str] that specifies the
+number and type of arguments we expect to be given. In this case `"O"` says that
+we want to take a single object - our AST. We also need to pass the correct
+number of pointers into this function so that it is "return" the parsed values
+to us.
+
+In the case of invalid arguments being given, this function will set the global
+error indicator for us with the correct error message. All that's left for us to
+do is to return `NULL` which indicates to the code calling us that there was an
+error. See the [documentation][python-c-ext-err] for more details on error
+handling.
+
+### Constructing the C AST {#c-ast}
+
+With a reference to the Python object that (hopefully!) represents a valid AST
+it's time to do the conversion into our C representation. To do this we'll write
+a function dedicated to handling the conversion and call it from
+`method_eval_ast`
+
+``` c
+AstNode *ast = AstTree_FromPyObject(obj);
+if (ast == NULL) {
+    return NULL;
+};
+```
+
+The first stumbling block is that now we could be given an AST of arbitrary
+complexity we have to dynamically allocate enough memory to store it! Which
+means we need a way of determining how many nodes there are in a given tree.
+
+**Allocating Memory**
+
+After much head scratching I eventually realized that even though we're now
+writing C code, we're still within the Python intereter! Why not just ask the
+tree itself how big it is by calling `len()` on it?
+
+Well, first of all we need to implement `__len__` on the tree itself, but that's
+simple enough
+
+``` python
+class AstNode:
+    ...
+
+    def __len__(self):
+        left = 0 if self.left is None else len(self.left)
+        right = 0 if self.right is None else len(self.right)
+        return 1 + left + right
+```
+
+Then we just need to figure out the equivalent of `len(obj)` in the Python's C
+API
+
+``` c
+static AstNode*
+AstTree_FromPyObject(PyObject *obj)
+{
+    Py_ssize_t num_nodes = PyObject_Length(obj);
+    if (num_nodes == -1) {
+        return NULL;
+    }
+
+    // ...
+}
+```
+
+With the prerequisties taken care of we can ask for the memory to store our AST.
+
+``` c
+AstNode *ast = malloc(num_nodes * sizeof(AstNode));
+if (ast == NULL) {
+    return NULL;
+}
+```
+
+Something important to note here, up until now we've been calling into the
+Python C API which has been taking care of reporting any errors it
+encounters. However, as this is now our code and it's our responsibility to
+report any errors we counter.
+
+If we were to leave the code as is and this call to `malloc` fails, Python would
+know that an error had occured but not be able to tell the user what was wrong.
+
+``` python
+>>> import ccalc
+>>> import _ccalc
+>>> _ccalc.eval_ast(ccalc.Literal(2))
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+SystemError: <built-in function eval_ast> returned NULL without setting an error
+```
+
+Instead we also need to call `PyErr_SetString` to raise the appropriate
+exception that describes our error.
+
+``` c
+AstNode *ast = malloc(num_nodes * sizeof(AstNode));
+if (ast == NULL) {
+   PyErr_SetString(PyExc_MemoryError, "Unable to allocate memory for the AST.");
+   return NULL;
+}
+```
+
+With the information set, Python is able to report a much better error
+message to the user
+
+``` python
+>>> import ccalc
+>>> import _ccalc
+>>> _ccalc.eval_ast(ccalc.Literal(2))
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+MemoryError: Unable to allocate memory for the AST.
+```
+
+
+**Doing the Conversion**
+
+With the memory to hold the tree allocated it's time to do the actual
+conversion. To handle this we'll write another function `AstNode_FromPyObject`
+that we can recursively call whenever we need to descend down a branch. This
+function will take a reference `obj` to the node we're currently converting,
+another reference `ast` to the array we allocated for our tree
+
+Before we can
+
+**Traversing the Tree**
+
+ This was the definitely the trickiest part of this
+process for me as it took some thought on how to map each node we visit
+
+### Returning the Result {#return}
 
 ## Next Steps
 
 [arg-spec]: https://docs.python.org/3/c-api/arg.html#c.PyArg_ParseTuple
 [python-c-ext]: https://docs.python.org/3/extending/extending.html
 [python-c-ext-args]: https://docs.python.org/3/extending/extending.html#the-module-s-method-table-and-initialization-function
+[python-c-ext-err]: https://docs.python.org/3/c-api/exceptions.html
+[python-c-ext-fmt-str]: https://docs.python.org/3/c-api/arg.html#parsing-arguments
 [real-python-c-ext]: https://realpython.com/build-python-c-extension-module/
