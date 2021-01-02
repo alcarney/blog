@@ -82,8 +82,6 @@ AstNode_FromPyObject(PyObject* obj, AstNode *ast, Py_ssize_t *index)
 {
     PyObject* type = PyObject_GetAttrString(obj, "type");
     if (type == NULL) {
-        // TODO: Raise Exception?
-        printf("Unable to get field 'type'\n");
         return 0;
     }
 
@@ -98,8 +96,6 @@ AstNode_FromPyObject(PyObject* obj, AstNode *ast, Py_ssize_t *index)
 
         PyObject* value = PyObject_GetAttrString(obj, "value");
         if (value == NULL) {
-            // TODO: Raise Exception?
-            printf("Unable to get field 'value'\n");
             return 0;
         }
 
@@ -133,15 +129,11 @@ AstNode_FromPyObject(PyObject* obj, AstNode *ast, Py_ssize_t *index)
 
     PyObject *left = PyObject_GetAttrString(obj, "left");
     if (left == NULL) {
-        // TODO: Raise Exception
-        printf("Unable to get field 'left'\n");
         return 0;
     }
 
     PyObject *right = PyObject_GetAttrString(obj, "right");
     if (right == NULL) {
-        // TODO: Raise Exception
-        printf("Unable to get field 'right'\n");
         return 0;
     }
 
@@ -150,7 +142,6 @@ AstNode_FromPyObject(PyObject* obj, AstNode *ast, Py_ssize_t *index)
     node->left = &ast[*index];
 
     if (!AstNode_FromPyObject(left, ast, index)) {
-        // TODO: Raise Exception, conditionally
         return 0;
     }
 
@@ -158,7 +149,6 @@ AstNode_FromPyObject(PyObject* obj, AstNode *ast, Py_ssize_t *index)
     node->right = &ast[*index];
 
     if (!AstNode_FromPyObject(right, ast, index)) {
-        // TODO: Raise exception, conditionally
         return 0;
     }
 
@@ -168,28 +158,20 @@ AstNode_FromPyObject(PyObject* obj, AstNode *ast, Py_ssize_t *index)
 static AstNode*
 AstTree_FromPyObject(PyObject* obj)
 {
-    // TODO: Better checks to ensure we've been given a valid AST?
-
     // Allocate enough memory to store the resulting AST.
     Py_ssize_t num_nodes = PyObject_Length(obj);
     if (num_nodes == -1) {
-        // TODO: Raise Exception
-        printf("Unable to get number of nodes.\n");
         return NULL;
     }
 
-
     AstNode *ast = malloc(num_nodes * sizeof(AstNode));
     if (ast == NULL) {
-        // TODO: Raise Exception
-        printf("Unable to allocate memory for AST.\n");
+        PyErr_SetString(PyExc_MemoryError, "Unable to allocate memory for the AST.") ;
         return NULL;
     }
 
     Py_ssize_t index = 0;
     if (!AstNode_FromPyObject(obj, ast, &index)) {
-        // TODO: Raise Exception
-        printf("Unable to convert PyAst into CAst\n");
         free(ast);
         return NULL;
     }
@@ -203,13 +185,11 @@ method_eval_ast(PyObject *self, PyObject *args)
     PyObject *obj = NULL;
 
     if (!PyArg_ParseTuple(args, "O", &obj)) {
-        printf("Unable to parse function arguments\n");
         return NULL;
     }
 
     AstNode *ast = AstTree_FromPyObject(obj);
     if (ast == NULL) {
-        printf("Unable to construct AST\n");
         return NULL;
     };
 
