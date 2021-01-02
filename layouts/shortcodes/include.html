@@ -1,5 +1,5 @@
 {{/* Load the file to be included from the `static/listings` folder */}}
-{{ $file := printf "static/listings/%s" (.Get "file") }}
+{{ $file := printf "content/code/%s" (.Get "file") }}
 {{ $file := $file | readFile }}
 
 {{/* Support picking a subset of the lines */}}

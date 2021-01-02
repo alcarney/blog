@@ -1,0 +1,85 @@
+{{ define "main" }}
+
+<h2 class="text-2xl text-green-600 mt-8">
+  <span id="folder-base">{{ .File.Dir }}</span><span class="text-gray-800" id="current-folder"></span>
+</h2>
+
+<div class="bg-white border shadow-lg mt-8">
+    <div id="folders">
+        {{ .Scratch.Set "nested" false }}
+        {{ partial "dirlist.html" . }}
+    </div>
+    <div id="readme" class="mt-4 prose prose-lg p-4">
+        <h3 class="">README</h3>
+        {{ .Content }}
+    </div>
+</div>
+
+
+<script>
+
+ const folders = document.getElementById('folders')
+
+ const baseDir = document.getElementById("folder-base").textContent
+ const currentDir = document.getElementById("current-folder")
+
+ function chDir(dir) {
+     if (dir === '') {
+         readme.style.display = 'block'
+     } else {
+         readme.style.display = 'none'
+     }
+
+
+     if (dir.startsWith(baseDir)) {
+         dir = dir.replace(baseDir, '')
+     }
+     const id = `${baseDir}${dir}`
+
+     const children = folders.children
+     for (let i = 0; i < children.length; i++) {
+         const node = children[i]
+
+         if (node.id === id) {
+             node.style.display = 'block'
+         } else {
+             node.style.display = 'none'
+         }
+
+     }
+
+     if (dir.length > 0 && !dir.includes('.')) {
+         dir = dir + '/'
+     }
+
+     window.location.hash = `#${dir}`
+
+     if (dir.startsWith('/')) {
+         dir = dir.replace('/', '')
+     }
+
+     currentDir.textContent = dir //dir.length > 0 && !dir.includes('.') ? dir + '/' : dir
+
+ }
+
+ function onUrlChange(hash) {
+     if (hash) {
+         let dir = hash.replace(/#/, '')
+                       .replace(/\/$/, '')
+         chDir(dir)
+     } else {
+         chDir('')
+     }
+ }
+
+ window.addEventListener('hashchange', () => {
+     onUrlChange(window.location.hash)
+ })
+
+
+ onUrlChange(window.location.hash)
+
+</script>
+
+
+{{ end }}
