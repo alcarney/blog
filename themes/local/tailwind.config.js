@@ -35,6 +35,9 @@ module.exports = {
               margin: 0,
               paddingLeft: '0',
               boxShadow: 'none'
+            },
+            'td:first-child': {
+              userSelect: 'none' ,
             }
           }
         },
