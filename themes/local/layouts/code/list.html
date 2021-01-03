@@ -1,0 +1,22 @@
+{{ define "main" }}
+<div class="mt-8 grid grid-cols-1 gap-2 p-2 md:grid-cols-2" >
+    {{- range .Paginator.Pages }}
+    <article class="flex flex-col justify-between p-2 bg-white border shadow-sm hover:shadow-lg">
+        <a href="{{ .Permalink }}">
+            <h2 class="text-xl text-green-600 flex gap-2 items-center">
+                {{ partial "icon.html" (dict "name" "folder" "styles" "w-6 h-6") }}
+                {{ .Title | urlize }}
+            </h2>
+
+            <div class="prose pt-4">
+                <p>{{ .Description | markdownify }}</p>
+            </div>
+
+            <div>
+                {{ partial "taglist.html" . }}
+            </div>
+        </a>
+    </article>
+    {{- end }}
+</div>
+{{ end }}

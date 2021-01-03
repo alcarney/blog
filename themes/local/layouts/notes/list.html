@@ -10,10 +10,16 @@
     <article id="{{ $element.Title | urlize }}"
       class="flex flex-col justify-between p-2 bg-white border shadow-sm hover:shadow-lg">
       <a class="" href="{{ .Permalink }}">
-        <h2 class="text-xl text-green-600">
-          {{ .Title }}
+        <h2 class="text-xl text-green-600 flex gap-2 items-center">
+          <span class="flex-shrink-0">
+            {{ partial "icon.html" (dict "name" "bookmark" "styles" "w-6 h-6") }}
+          </span>
+          <span title="{{ .Title }}"
+                class="whitespace-nowrap overflow-ellipsis overflow-hidden">
+            {{ .Title }}
+          </span>
         </h2>
-        <div class="mt-4">
+        <div class="prose mt-4">
           {{ .Description }}
         </div>
       </a>
