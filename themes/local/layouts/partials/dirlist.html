@@ -14,7 +14,7 @@
   {{- end }}
   {{- range where (where (readDir (printf "content/%s" .File.Dir)) ".Name" "ne" "index.md") ".IsDir" "eq" false }}
   <div class="flex items-center pl-1 py-2 hover:bg-green-50" onclick="chDir('{{ $.File.Dir }}/{{ .Name }}')">
-    <span>{{ partial "icon.html" (dict "name" "file" "styles" "w-6 h-6") }}</span>
+    <span>{{ partial "icon.html" (dict "name" "file-text" "styles" "w-6 h-6") }}</span>
     <span class="ml-2">{{ .Name }}</span>
   </div>
   {{- end }}

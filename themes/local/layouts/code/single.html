@@ -1,7 +1,7 @@
 {{ define "main" }}
 
-<h2 class="text-2xl text-green-600 mt-8">
-  <span id="folder-base">{{ .File.Dir }}</span><span class="text-gray-800" id="current-folder"></span>
+<h2 class="text-2xl text-green-600 mt-8 whitespace-normal">
+    <span id="folder-base">{{ .File.Dir }}</span><span class="text-gray-800" id="current-folder"></span>
 </h2>
 
 <div class="bg-white border shadow-lg mt-8">
@@ -9,9 +9,20 @@
         {{ .Scratch.Set "nested" false }}
         {{ partial "dirlist.html" . }}
     </div>
-    <div id="readme" class="mt-4 prose prose-lg p-4">
-        <h3 class="">README</h3>
+    <div id="readme" class="mt-4 prose prose-lg prose-green p-4 max-w-none">
+        <h2>README</h2>
         {{ .Content }}
+        <h3>References</h3>
+        <ul>
+            {{- range .Site.Pages }}
+            {{- if in .Params.code $.File.Dir }}
+            <li>
+                <a href="{{ .Permalink }}">{{ .Name }}</a>
+                <p>{{ .Description }}</p>
+            </li>
+            {{- end }}
+            {{- end}}
+        </ul>
     </div>
 </div>
 
@@ -23,7 +34,7 @@
  const baseDir = document.getElementById("folder-base").textContent
  const currentDir = document.getElementById("current-folder")
 
- function chDir(dir) {
+ function chDir(dir, preserveUrl) {
      if (dir === '') {
          readme.style.display = 'block'
      } else {
@@ -52,23 +63,30 @@
          dir = dir + '/'
      }
 
-     window.location.hash = `#${dir}`
 
-     if (dir.startsWith('/')) {
-         dir = dir.replace('/', '')
+     if (!preserveUrl) {
+         if(dir.length > 0) {
+             window.location.hash = `#${dir}`
+         } else {
+             window.location.hash = ''
+         }
+
+         if (dir.startsWith('/')) {
+             dir = dir.replace('/', '')
+         }
      }
 
-     currentDir.textContent = dir //dir.length > 0 && !dir.includes('.') ? dir + '/' : dir
+     currentDir.textContent = dir
 
  }
 
- function onUrlChange(hash) {
+ function onUrlChange(hash, preserveUrl) {
      if (hash) {
          let dir = hash.replace(/#/, '')
                        .replace(/\/$/, '')
-         chDir(dir)
+         chDir(dir, preserveUrl)
      } else {
-         chDir('')
+         chDir('', preserveUrl)
      }
  }
 
@@ -77,7 +95,7 @@
  })
 
 
- onUrlChange(window.location.hash)
+ onUrlChange(window.location.hash, true)
 
 </script>
 
