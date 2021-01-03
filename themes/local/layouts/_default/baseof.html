@@ -5,8 +5,8 @@
     {{- partial "head.html" . -}}
 </head>
 
-<body class=bg-gray-100>
-    <div class="flex items-baseline justify-between p-4 bg-white border-b">
+<body class="bg-gray-100 flex flex-col justify-between min-h-screen items-center">
+    <div class="flex items-baseline justify-between w-full p-4 bg-white border-b">
 
         <div>
             <h1>Alex Carney</h1>
@@ -18,11 +18,12 @@
 
         <nav class="flex space-x-4 items-between">
             <a href="/blog">Blog</a>
+            <a href="/code">Code</a>
             <a href="/notes">Notes</a>
         </nav>
     </div>
 
-    <main class="max-w-4xl m-auto mb-8">
+    <main class="max-w-4xl w-full flex-grow mb-8">
         {{- block "main" . }}{{- end }}
     </main>
 
