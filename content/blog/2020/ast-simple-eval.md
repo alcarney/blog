@@ -1,6 +1,8 @@
 ---
 author:
 - Alex Carney
+code:
+- code/simple-ast/
 date: 2020-12-27
 description: |
    Playing around with constructing and evaluating Abstract Syntax Trees
@@ -108,6 +110,6 @@ Example 1: 7.00
 
 And there you have it, a calculator that only knows how to add and multiply
 floats! 😃 If you want to see the entire source file you can find it
-[here](/listings/simple-ast.c).
+[here]({{< ref "/code/simple-ast/_index.md" >}}).
 
 [ast-wiki]: https://en.wikipedia.org/wiki/Abstract_syntax_tree

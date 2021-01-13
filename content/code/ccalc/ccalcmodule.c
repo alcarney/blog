@@ -14,7 +14,7 @@ typedef struct _ast {
 
     /* In the case of a literal value, this field
        holds the actual value */
-    float value;
+    double value;
 
     /* In the case of an operator, this pointer
        refers to the left child node */
@@ -51,7 +51,7 @@ ast_print(AstNode *ast, int level)
     }
 }
 
-float
+double
 ast_evaluate(AstNode *ast)
 {
     switch(ast->type) {
@@ -59,15 +59,15 @@ ast_evaluate(AstNode *ast)
         return ast->value;
 
     case AST_PLUS: {
-        float a = ast_evaluate(ast->left);
-        float b = ast_evaluate(ast->right);
+        double a = ast_evaluate(ast->left);
+        double b = ast_evaluate(ast->right);
 
         return a + b;
     }
 
     case AST_MULTIPLY: {
-        float a = ast_evaluate(ast->left);
-        float b = ast_evaluate(ast->right);
+        double a = ast_evaluate(ast->left);
+        double b = ast_evaluate(ast->right);
 
         return a * b;
     }
@@ -103,7 +103,7 @@ AstNode_FromPyObject(PyObject* obj, AstNode *ast, Py_ssize_t *index)
         Py_DECREF(value);
 
         node->type = AST_LITERAL;
-        node->value = (float)v;
+        node->value = v;
         node->left = NULL;
         node->right = NULL;
 
@@ -193,7 +193,7 @@ method_eval_ast(PyObject *self, PyObject *args)
         return NULL;
     };
 
-    double result = (double) ast_evaluate(ast);
+    double result = ast_evaluate(ast);
     free(ast);
     return PyFloat_FromDouble(result);
 }
