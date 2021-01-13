@@ -31,6 +31,14 @@ module.exports = {
             'pre code::after': {
               display: 'none',
             },
+            'td > pre': {
+              margin: 0,
+              paddingLeft: '0',
+              boxShadow: 'none'
+            },
+            'td:first-child': {
+              userSelect: 'none' ,
+            }
           }
         },
         lg: {
