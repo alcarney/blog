@@ -14,7 +14,7 @@
 <meta property="og:description" content="Software developer, amateur mathematician. I love to learn, try to animate and talk about it all to anyone who will listen" />
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://www.alcarney.me/tags/go/" />
-<meta property="og:updated_time" content="2020-12-27T17:53:01+00:00" />
+<meta property="og:updated_time" content="2021-01-13T11:28:07+00:00" />
 
 
 <meta name="twitter:creator" content="@alcarneyme" />
@@ -27,10 +27,10 @@
 
 
 
-<link rel="stylesheet" href="https://www.alcarney.me/main.50936bd3c615c137119b98720aa8e99e24fb8326570b3b8d8ae96d9c4e3f2995.css" /></head>
+<link rel="stylesheet" href="https://www.alcarney.me/main.f0fcfa33b6ee0d4eb9f5f5d87692f86fb025cfdb3907f9545b6b316fa12a3587.css" /></head>
 
-<body class=bg-gray-100>
-    <div class="flex items-baseline justify-between p-4 bg-white border-b">
+<body class="bg-gray-100 flex flex-col justify-between min-h-screen items-center">
+    <div class="flex items-baseline justify-between w-full p-4 bg-white border-b">
 
         <div>
             <h1>Alex Carney</h1>
@@ -41,11 +41,12 @@
 
         <nav class="flex space-x-4 items-between">
             <a href="/blog">Blog</a>
+            <a href="/code">Code</a>
             <a href="/notes">Notes</a>
         </nav>
     </div>
 
-    <main class="max-w-4xl m-auto mb-8">
+    <main class="max-w-4xl w-full flex-grow mb-8">
 <style>
     header::before {
         position: absolute;
@@ -96,20 +97,21 @@
         }
     }
 </style>
-<aside class="relative flex pr-2 mt-4 ml-12 -mb-3 space-x-4 text-gray-500 lg:mr-8 lg:w-32 lg:block lg:space-x-0">
+<aside class="relative flex pr-2 mt-4 ml-12 -mb-3 space-x-4 text-gray-500 lg:mr-8 lg:ml-0 lg:block lg:space-x-0">
     <span class="flex justify-between">
         <svg class="w-6 h-6 bg-transparent stroke-current" style="fill:none">
     <use xlink:href="/svg/feather-sprite.svg#calendar" />
 </svg>
-        May 6, 2020
+        <span class="ml-2">May 6, 2020</span>
     </span>
     <span class="flex justify-between">
         <svg class="w-6 h-6 bg-transparent stroke-current" style="fill:none">
     <use xlink:href="/svg/feather-sprite.svg#clock" />
 </svg>
-        10 min read
+        <span class="ml-2">10 min read</span>
     </span>
 </aside>
+
         <article class="relative flex-grow p-4 mt-8 transition bg-white border hover:shadow-lg">
             <div class="m-auto prose prose-lg prose-green">
                 <header class="mb-4">
@@ -164,20 +166,21 @@ WebAssembly module and the surrounding JavaScript.</p>
         }
     }
 </style>
-<aside class="relative flex pr-2 mt-4 ml-12 -mb-3 space-x-4 text-gray-500 lg:mr-8 lg:w-32 lg:block lg:space-x-0">
+<aside class="relative flex pr-2 mt-4 ml-12 -mb-3 space-x-4 text-gray-500 lg:mr-8 lg:ml-0 lg:block lg:space-x-0">
     <span class="flex justify-between">
         <svg class="w-6 h-6 bg-transparent stroke-current" style="fill:none">
     <use xlink:href="/svg/feather-sprite.svg#calendar" />
 </svg>
-        Apr 28, 2020
+        <span class="ml-2">Apr 28, 2020</span>
     </span>
     <span class="flex justify-between">
         <svg class="w-6 h-6 bg-transparent stroke-current" style="fill:none">
     <use xlink:href="/svg/feather-sprite.svg#clock" />
 </svg>
-        6 min read
+        <span class="ml-2">6 min read</span>
     </span>
 </aside>
+
         <article class="relative flex-grow p-4 mt-8 transition bg-white border hover:shadow-lg">
             <div class="m-auto prose prose-lg prose-green">
                 <header class="mb-4">
@@ -212,10 +215,9 @@ using <a href="https://linuxcontainers.org/">LXD</a>.</p>
     
 </div>
 
-    </main><footer class="items-baseline p-4 text-white bg-gray-700">
+    </main><footer class="items-baseline p-4 text-white bg-gray-700 w-full">
     <div class="flex justify-between">
-        <div>
-        </div>
+        <div></div>
 
         <div class="flex justify-between space-x-4">
             
@@ -245,20 +247,37 @@ using <a href="https://linuxcontainers.org/">LXD</a>.</p>
             
         </div>
 
-        <div>
-            
-        </div>
+        <div></div>
     </div>
 </footer>
+
     <script>
-        const codeBlocks = document.querySelectorAll(".highlight pre")
-        Array.from(codeBlocks).forEach(el => {
-            el.style.backgroundColor = "#fdf6e3"
-        })
+      const codeBlocks = document.querySelectorAll(".highlight pre")
+      Array.from(codeBlocks).forEach(el => {
+          el.style.backgroundColor = "#fdf6e3"
+      })
+
+      function copyText(text) {
+          const textArea = document.createElement("textarea")
+          textArea.value = text
+
+          textArea.style.top = 0
+          textArea.style.left = 0
+          textArea.style.position = 'fixed'
+
+          document.body.append(textArea)
+          textArea.focus()
+          textArea.select()
+
+          document.execCommand('copy')
+          document.body.removeChild(textArea)
+      }
     </script>
 
     <script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
     <script>mermaid.initialize({startOnLoad:true});</script>
+
+
 </body>
 
 </html>

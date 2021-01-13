@@ -6,7 +6,25 @@
     <description>Recent content in python on Alex Carney</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Sat, 05 Jan 2019 00:00:00 +0000</lastBuildDate><atom:link href="https://www.alcarney.me/tags/python/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Wed, 13 Jan 2021 00:00:00 +0000</lastBuildDate><atom:link href="https://www.alcarney.me/tags/python/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Creating a CPython Extension</title>
+      <link>https://www.alcarney.me/blog/2021/ast-python-frontend/</link>
+      <pubDate>Wed, 13 Jan 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://www.alcarney.me/blog/2021/ast-python-frontend/</guid>
+      <description>&lt;p&gt;&lt;a href=&#34;https://www.alcarney.me/blog/2020/ast-simple-eval/&#34;&gt;Previously&lt;/a&gt;, as part of my exploration
+into how programming languages are implemented, I wrote a very simple AST
+evaluator that knew how to add and multiply floats together. Since constructing
+these ASTs by hand is quite painful I thought it would be fun to come up with a
+frontend to my &amp;ldquo;programming language&amp;rdquo; which could do it for me.&lt;/p&gt;
+&lt;p&gt;Now your typical frontend would be some kind of parser built into the
+compiler/interpreter. However, while I&amp;rsquo;m definitely interested in parsing I
+don&amp;rsquo;t quite feel like tackling that just yet. Instead I&amp;rsquo;m going to have Python
+be the frontend and embed my toy language into it via a &lt;a href=&#34;https://docs.python.org/3/extending/extending.html&#34;&gt;CPython
+Extension&lt;/a&gt;&lt;/p&gt;</description>
+    </item>
+    
     <item>
       <title>TIL: Python has a cmd module</title>
       <link>https://www.alcarney.me/blog/2019/til-python-cmd/</link>
@@ -44,6 +62,17 @@ called &lt;a href=&#34;https://alcarney.github.io/stylo-doodles&#34;&gt;Stylo Do
 &lt;figure&gt;&lt;a href=&#34;https://www.alcarney.me/images/stylo-doodles.png&#34;&gt;
     &lt;img src=&#34;https://www.alcarney.me/images/stylo-doodles.png&#34;/&gt; &lt;/a&gt;
 &lt;/figure&gt;</description>
+    </item>
+    
+    <item>
+      <title>ccalc</title>
+      <link>https://www.alcarney.me/code/ccalc/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://www.alcarney.me/code/ccalc/</guid>
+      <description>A CPython extension that embeds the simple-ast program into Python.
+&amp;gt;&amp;gt;&amp;gt; import ccalc &amp;gt;&amp;gt;&amp;gt; expression = (ccalc.Literal(1) + 2) * 3 &amp;gt;&amp;gt;&amp;gt; expression Multiply&amp;lt;Plus&amp;lt;Literal&amp;lt;1.0&amp;gt;, Literal&amp;lt;2.0&amp;gt;&amp;gt;, Literal&amp;lt;3.0&amp;gt;&amp;gt; &amp;gt;&amp;gt;&amp;gt; ccalc.eval_ast(expression) 9.0 Building It&amp;rsquo;s probably worth creating a virtual environment to work in
+ .cli-command::before { content: &#34;$ &#34;; }    python -m venv .env   Assuming you have a C compiler available, building the extension is as easy as running the following command</description>
     </item>
     
     <item>

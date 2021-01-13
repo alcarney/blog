@@ -14,7 +14,7 @@
 <meta property="og:description" content="Software developer, amateur mathematician. I love to learn, try to animate and talk about it all to anyone who will listen" />
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://www.alcarney.me/" />
-<meta property="og:updated_time" content="2020-12-27T17:53:01+00:00" />
+<meta property="og:updated_time" content="2021-01-13T11:28:07+00:00" />
 
 
 <meta name="twitter:creator" content="@alcarneyme" />
@@ -27,10 +27,10 @@
 
 
 
-<link rel="stylesheet" href="https://www.alcarney.me/main.50936bd3c615c137119b98720aa8e99e24fb8326570b3b8d8ae96d9c4e3f2995.css" /></head>
+<link rel="stylesheet" href="https://www.alcarney.me/main.f0fcfa33b6ee0d4eb9f5f5d87692f86fb025cfdb3907f9545b6b316fa12a3587.css" /></head>
 
-<body class=bg-gray-100>
-    <div class="flex items-baseline justify-between p-4 bg-white border-b">
+<body class="bg-gray-100 flex flex-col justify-between min-h-screen items-center">
+    <div class="flex items-baseline justify-between w-full p-4 bg-white border-b">
 
         <div>
             <h1>Alex Carney</h1>
@@ -41,11 +41,12 @@
 
         <nav class="flex space-x-4 items-between">
             <a href="/blog">Blog</a>
+            <a href="/code">Code</a>
             <a href="/notes">Notes</a>
         </nav>
     </div>
 
-    <main class="max-w-4xl m-auto mb-8">
+    <main class="max-w-4xl w-full flex-grow mb-8">
 <style>
     header::before {
         position: absolute;
@@ -96,20 +97,142 @@
         }
     }
 </style>
-<aside class="relative flex pr-2 mt-4 ml-12 -mb-3 space-x-4 text-gray-500 lg:mr-8 lg:w-32 lg:block lg:space-x-0">
+<aside class="relative flex pr-2 mt-4 ml-12 -mb-3 space-x-4 text-gray-500 lg:mr-8 lg:ml-0 lg:block lg:space-x-0">
     <span class="flex justify-between">
         <svg class="w-6 h-6 bg-transparent stroke-current" style="fill:none">
     <use xlink:href="/svg/feather-sprite.svg#calendar" />
 </svg>
-        Jan 1, 0001
+        <span class="ml-2">Jan 1, 0001</span>
     </span>
     <span class="flex justify-between">
         <svg class="w-6 h-6 bg-transparent stroke-current" style="fill:none">
     <use xlink:href="/svg/feather-sprite.svg#clock" />
 </svg>
-        2 min read
+        <span class="ml-2">1 min read</span>
     </span>
 </aside>
+
+        <article class="relative flex-grow p-4 mt-8 transition bg-white border hover:shadow-lg">
+            <div class="m-auto prose prose-lg prose-green">
+                <header class="mb-4">
+                    <a href="https://www.alcarney.me/code/ccalc/">
+                        <h1>ccalc</h1>
+                    </a>
+                </header>
+                A CPython extension that embeds the simple-ast program into Python.
+&gt;&gt;&gt; import ccalc &gt;&gt;&gt; expression = (ccalc.Literal(1) + 2) * 3 &gt;&gt;&gt; expression Multiply&lt;Plus&lt;Literal&lt;1.0&gt;, Literal&lt;2.0&gt;&gt;, Literal&lt;3.0&gt;&gt; &gt;&gt;&gt; ccalc.eval_ast(expression) 9.0 Building It&rsquo;s probably worth creating a virtual environment to work in
+ .cli-command::before { content: "$ "; }    python -m venv .env   Assuming you have a C compiler available, building the extension is as easy as running the following command
+                <div class="flex items-center justify-end mt-4 space-x-4">
+    <a class="px-2 text-sm text-gray-600 bg-green-200 border border-green-600 rounded" href="https://www.alcarney.me/tags/c/">
+        #c
+    </a><a class="px-2 text-sm text-gray-600 bg-green-200 border border-green-600 rounded" href="https://www.alcarney.me/tags/python/">
+        #python
+    </a></div>
+                
+                <a class="" href="/code/ccalc/">More...</a>
+                
+            </div>
+        </article>
+    </div>
+    
+    <div class="flex flex-col justify-between lg:items-baseline lg:flex-row">
+        <style>
+    aside::after {
+        position: absolute;
+        top: 8px;
+        right: -10px;
+        display: block;
+        content: '';
+        width: 8px;
+        height: 8px;
+        border-radius: 100%;
+        background: #717885;
+    }
+
+    @media(max-width: 1024px) {
+        aside::after {
+            top: unset;
+            bottom: 6px;
+            left: -18px;
+            border-top: sold 1px #e5e7eb;
+            border-bottom: none;
+        }
+    }
+</style>
+<aside class="relative flex pr-2 mt-4 ml-12 -mb-3 space-x-4 text-gray-500 lg:mr-8 lg:ml-0 lg:block lg:space-x-0">
+    <span class="flex justify-between">
+        <svg class="w-6 h-6 bg-transparent stroke-current" style="fill:none">
+    <use xlink:href="/svg/feather-sprite.svg#calendar" />
+</svg>
+        <span class="ml-2">Jan 1, 0001</span>
+    </span>
+    <span class="flex justify-between">
+        <svg class="w-6 h-6 bg-transparent stroke-current" style="fill:none">
+    <use xlink:href="/svg/feather-sprite.svg#clock" />
+</svg>
+        <span class="ml-2">1 min read</span>
+    </span>
+</aside>
+
+        <article class="relative flex-grow p-4 mt-8 transition bg-white border hover:shadow-lg">
+            <div class="m-auto prose prose-lg prose-green">
+                <header class="mb-4">
+                    <a href="https://www.alcarney.me/notes/custom-jupyter-kernels/">
+                        <h1>Custom Jupyter Kernels</h1>
+                    </a>
+                </header>
+                It&rsquo;s possible to create custom Python environments for use within a Jupyter notebook without having to run a jupyter server from each of them. The following steps will allow you to have a single jupyter server running and have it use a variety of Python environments in its notebooks
+ Create a virtualenv and install any packages that you want available pip install ipykernel ipykernel install --user --name &lt;envname&gt; --display-name &lt;display name&gt;  Then the new environment should become available in the Change kernel menu
+                <div class="flex items-center justify-end mt-4 space-x-4">
+    <a class="px-2 text-sm text-gray-600 bg-green-200 border border-green-600 rounded" href="https://www.alcarney.me/tags/python/">
+        #python
+    </a><a class="px-2 text-sm text-gray-600 bg-green-200 border border-green-600 rounded" href="https://www.alcarney.me/tags/jupyter/">
+        #jupyter
+    </a></div>
+                
+            </div>
+        </article>
+    </div>
+    
+    <div class="flex flex-col justify-between lg:items-baseline lg:flex-row">
+        <style>
+    aside::after {
+        position: absolute;
+        top: 8px;
+        right: -10px;
+        display: block;
+        content: '';
+        width: 8px;
+        height: 8px;
+        border-radius: 100%;
+        background: #717885;
+    }
+
+    @media(max-width: 1024px) {
+        aside::after {
+            top: unset;
+            bottom: 6px;
+            left: -18px;
+            border-top: sold 1px #e5e7eb;
+            border-bottom: none;
+        }
+    }
+</style>
+<aside class="relative flex pr-2 mt-4 ml-12 -mb-3 space-x-4 text-gray-500 lg:mr-8 lg:ml-0 lg:block lg:space-x-0">
+    <span class="flex justify-between">
+        <svg class="w-6 h-6 bg-transparent stroke-current" style="fill:none">
+    <use xlink:href="/svg/feather-sprite.svg#calendar" />
+</svg>
+        <span class="ml-2">Jan 1, 0001</span>
+    </span>
+    <span class="flex justify-between">
+        <svg class="w-6 h-6 bg-transparent stroke-current" style="fill:none">
+    <use xlink:href="/svg/feather-sprite.svg#clock" />
+</svg>
+        <span class="ml-2">2 min read</span>
+    </span>
+</aside>
+
         <article class="relative flex-grow p-4 mt-8 transition bg-white border hover:shadow-lg">
             <div class="m-auto prose prose-lg prose-green">
                 <header class="mb-4">
@@ -157,20 +280,21 @@ Consider the following json snippets
         }
     }
 </style>
-<aside class="relative flex pr-2 mt-4 ml-12 -mb-3 space-x-4 text-gray-500 lg:mr-8 lg:w-32 lg:block lg:space-x-0">
+<aside class="relative flex pr-2 mt-4 ml-12 -mb-3 space-x-4 text-gray-500 lg:mr-8 lg:ml-0 lg:block lg:space-x-0">
     <span class="flex justify-between">
         <svg class="w-6 h-6 bg-transparent stroke-current" style="fill:none">
     <use xlink:href="/svg/feather-sprite.svg#calendar" />
 </svg>
-        Jan 1, 0001
+        <span class="ml-2">Jan 1, 0001</span>
     </span>
     <span class="flex justify-between">
         <svg class="w-6 h-6 bg-transparent stroke-current" style="fill:none">
     <use xlink:href="/svg/feather-sprite.svg#clock" />
 </svg>
-        1 min read
+        <span class="ml-2">1 min read</span>
     </span>
 </aside>
+
         <article class="relative flex-grow p-4 mt-8 transition bg-white border hover:shadow-lg">
             <div class="m-auto prose prose-lg prose-green">
                 <header class="mb-4">
@@ -216,20 +340,21 @@ Examples We can set the directory to run in by wrapping the call to start-proces
         }
     }
 </style>
-<aside class="relative flex pr-2 mt-4 ml-12 -mb-3 space-x-4 text-gray-500 lg:mr-8 lg:w-32 lg:block lg:space-x-0">
+<aside class="relative flex pr-2 mt-4 ml-12 -mb-3 space-x-4 text-gray-500 lg:mr-8 lg:ml-0 lg:block lg:space-x-0">
     <span class="flex justify-between">
         <svg class="w-6 h-6 bg-transparent stroke-current" style="fill:none">
     <use xlink:href="/svg/feather-sprite.svg#calendar" />
 </svg>
-        Jan 1, 0001
+        <span class="ml-2">Jan 1, 0001</span>
     </span>
     <span class="flex justify-between">
         <svg class="w-6 h-6 bg-transparent stroke-current" style="fill:none">
     <use xlink:href="/svg/feather-sprite.svg#clock" />
 </svg>
-        1 min read
+        <span class="ml-2">1 min read</span>
     </span>
 </aside>
+
         <article class="relative flex-grow p-4 mt-8 transition bg-white border hover:shadow-lg">
             <div class="m-auto prose prose-lg prose-green">
                 <header class="mb-4">
@@ -276,20 +401,21 @@ gesture swipe up xdotool key ctrl+F9 gesture swipe down xdotool key alt+space ge
         }
     }
 </style>
-<aside class="relative flex pr-2 mt-4 ml-12 -mb-3 space-x-4 text-gray-500 lg:mr-8 lg:w-32 lg:block lg:space-x-0">
+<aside class="relative flex pr-2 mt-4 ml-12 -mb-3 space-x-4 text-gray-500 lg:mr-8 lg:ml-0 lg:block lg:space-x-0">
     <span class="flex justify-between">
         <svg class="w-6 h-6 bg-transparent stroke-current" style="fill:none">
     <use xlink:href="/svg/feather-sprite.svg#calendar" />
 </svg>
-        Jan 1, 0001
+        <span class="ml-2">Jan 1, 0001</span>
     </span>
     <span class="flex justify-between">
         <svg class="w-6 h-6 bg-transparent stroke-current" style="fill:none">
     <use xlink:href="/svg/feather-sprite.svg#clock" />
 </svg>
-        1 min read
+        <span class="ml-2">1 min read</span>
     </span>
 </aside>
+
         <article class="relative flex-grow p-4 mt-8 transition bg-white border hover:shadow-lg">
             <div class="m-auto prose prose-lg prose-green">
                 <header class="mb-4">
@@ -336,20 +462,21 @@ $ npm config set prefix &#34;${HOME}/.npm-packages&#34;    Add the corresponding
         }
     }
 </style>
-<aside class="relative flex pr-2 mt-4 ml-12 -mb-3 space-x-4 text-gray-500 lg:mr-8 lg:w-32 lg:block lg:space-x-0">
+<aside class="relative flex pr-2 mt-4 ml-12 -mb-3 space-x-4 text-gray-500 lg:mr-8 lg:ml-0 lg:block lg:space-x-0">
     <span class="flex justify-between">
         <svg class="w-6 h-6 bg-transparent stroke-current" style="fill:none">
     <use xlink:href="/svg/feather-sprite.svg#calendar" />
 </svg>
-        Jan 1, 0001
+        <span class="ml-2">Jan 1, 0001</span>
     </span>
     <span class="flex justify-between">
         <svg class="w-6 h-6 bg-transparent stroke-current" style="fill:none">
     <use xlink:href="/svg/feather-sprite.svg#clock" />
 </svg>
-        3 min read
+        <span class="ml-2">3 min read</span>
     </span>
 </aside>
+
         <article class="relative flex-grow p-4 mt-8 transition bg-white border hover:shadow-lg">
             <div class="m-auto prose prose-lg prose-green">
                 <header class="mb-4">
@@ -401,20 +528,21 @@ The following variables are used as examples
         }
     }
 </style>
-<aside class="relative flex pr-2 mt-4 ml-12 -mb-3 space-x-4 text-gray-500 lg:mr-8 lg:w-32 lg:block lg:space-x-0">
+<aside class="relative flex pr-2 mt-4 ml-12 -mb-3 space-x-4 text-gray-500 lg:mr-8 lg:ml-0 lg:block lg:space-x-0">
     <span class="flex justify-between">
         <svg class="w-6 h-6 bg-transparent stroke-current" style="fill:none">
     <use xlink:href="/svg/feather-sprite.svg#calendar" />
 </svg>
-        Jan 1, 0001
+        <span class="ml-2">Jan 1, 0001</span>
     </span>
     <span class="flex justify-between">
         <svg class="w-6 h-6 bg-transparent stroke-current" style="fill:none">
     <use xlink:href="/svg/feather-sprite.svg#clock" />
 </svg>
-        1 min read
+        <span class="ml-2">1 min read</span>
     </span>
 </aside>
+
         <article class="relative flex-grow p-4 mt-8 transition bg-white border hover:shadow-lg">
             <div class="m-auto prose prose-lg prose-green">
                 <header class="mb-4">
@@ -458,20 +586,21 @@ $ git submodule update --init --recursive
         }
     }
 </style>
-<aside class="relative flex pr-2 mt-4 ml-12 -mb-3 space-x-4 text-gray-500 lg:mr-8 lg:w-32 lg:block lg:space-x-0">
+<aside class="relative flex pr-2 mt-4 ml-12 -mb-3 space-x-4 text-gray-500 lg:mr-8 lg:ml-0 lg:block lg:space-x-0">
     <span class="flex justify-between">
         <svg class="w-6 h-6 bg-transparent stroke-current" style="fill:none">
     <use xlink:href="/svg/feather-sprite.svg#calendar" />
 </svg>
-        Jan 1, 0001
+        <span class="ml-2">Jan 1, 0001</span>
     </span>
     <span class="flex justify-between">
         <svg class="w-6 h-6 bg-transparent stroke-current" style="fill:none">
     <use xlink:href="/svg/feather-sprite.svg#clock" />
 </svg>
-        3 min read
+        <span class="ml-2">3 min read</span>
     </span>
 </aside>
+
         <article class="relative flex-grow p-4 mt-8 transition bg-white border hover:shadow-lg">
             <div class="m-auto prose prose-lg prose-green">
                 <header class="mb-4">
@@ -516,20 +645,21 @@ Missing Features In the 10+ years since Python 3&rsquo;s release it&rsquo;s not 
         }
     }
 </style>
-<aside class="relative flex pr-2 mt-4 ml-12 -mb-3 space-x-4 text-gray-500 lg:mr-8 lg:w-32 lg:block lg:space-x-0">
+<aside class="relative flex pr-2 mt-4 ml-12 -mb-3 space-x-4 text-gray-500 lg:mr-8 lg:ml-0 lg:block lg:space-x-0">
     <span class="flex justify-between">
         <svg class="w-6 h-6 bg-transparent stroke-current" style="fill:none">
     <use xlink:href="/svg/feather-sprite.svg#calendar" />
 </svg>
-        Jan 1, 0001
+        <span class="ml-2">Jan 1, 0001</span>
     </span>
     <span class="flex justify-between">
         <svg class="w-6 h-6 bg-transparent stroke-current" style="fill:none">
     <use xlink:href="/svg/feather-sprite.svg#clock" />
 </svg>
-        1 min read
+        <span class="ml-2">1 min read</span>
     </span>
 </aside>
+
         <article class="relative flex-grow p-4 mt-8 transition bg-white border hover:shadow-lg">
             <div class="m-auto prose prose-lg prose-green">
                 <header class="mb-4">
@@ -548,72 +678,11 @@ TypeError: invalid file: PosixPath(&#39;path/to/file.txt&#39;) In this situation
         </article>
     </div>
     
-    <div class="flex flex-col justify-between lg:items-baseline lg:flex-row">
-        <style>
-    aside::after {
-        position: absolute;
-        top: 8px;
-        right: -10px;
-        display: block;
-        content: '';
-        width: 8px;
-        height: 8px;
-        border-radius: 100%;
-        background: #717885;
-    }
-
-    @media(max-width: 1024px) {
-        aside::after {
-            top: unset;
-            bottom: 6px;
-            left: -18px;
-            border-top: sold 1px #e5e7eb;
-            border-bottom: none;
-        }
-    }
-</style>
-<aside class="relative flex pr-2 mt-4 ml-12 -mb-3 space-x-4 text-gray-500 lg:mr-8 lg:w-32 lg:block lg:space-x-0">
-    <span class="flex justify-between">
-        <svg class="w-6 h-6 bg-transparent stroke-current" style="fill:none">
-    <use xlink:href="/svg/feather-sprite.svg#calendar" />
-</svg>
-        Jan 1, 0001
-    </span>
-    <span class="flex justify-between">
-        <svg class="w-6 h-6 bg-transparent stroke-current" style="fill:none">
-    <use xlink:href="/svg/feather-sprite.svg#clock" />
-</svg>
-        1 min read
-    </span>
-</aside>
-        <article class="relative flex-grow p-4 mt-8 transition bg-white border hover:shadow-lg">
-            <div class="m-auto prose prose-lg prose-green">
-                <header class="mb-4">
-                    <a href="https://www.alcarney.me/notes/writing-makefiles/">
-                        <h1>Writing Makefiles</h1>
-                    </a>
-                </header>
-                Pattern Rules A pattern rule can be used to define a generic recipe for turning a file of type X into a file a type Y for example, compiling program.c into program.o. A pattern rule can be defined as follows
-%.o: %.c $(CC) -c $(CFLAGS) $&lt; -o $@  %.o/%.c Will match files of the form *.o and *.c respectively $&lt; can be used to reference all the dependencies of the target, in this case the *.
-                <div class="flex items-center justify-end mt-4 space-x-4">
-    <a class="px-2 text-sm text-gray-600 bg-green-200 border border-green-600 rounded" href="https://www.alcarney.me/tags/c/">
-        #c
-    </a><a class="px-2 text-sm text-gray-600 bg-green-200 border border-green-600 rounded" href="https://www.alcarney.me/tags/make/">
-        #make
-    </a></div>
-                
-                <a class="" href="/notes/writing-makefiles/">More...</a>
-                
-            </div>
-        </article>
-    </div>
-    
 </div>
 
-    </main><footer class="items-baseline p-4 text-white bg-gray-700">
+    </main><footer class="items-baseline p-4 text-white bg-gray-700 w-full">
     <div class="flex justify-between">
-        <div>
-        </div>
+        <div></div>
 
         <div class="flex justify-between space-x-4">
             
@@ -643,20 +712,37 @@ TypeError: invalid file: PosixPath(&#39;path/to/file.txt&#39;) In this situation
             
         </div>
 
-        <div>
-            
-        </div>
+        <div></div>
     </div>
 </footer>
+
     <script>
-        const codeBlocks = document.querySelectorAll(".highlight pre")
-        Array.from(codeBlocks).forEach(el => {
-            el.style.backgroundColor = "#fdf6e3"
-        })
+      const codeBlocks = document.querySelectorAll(".highlight pre")
+      Array.from(codeBlocks).forEach(el => {
+          el.style.backgroundColor = "#fdf6e3"
+      })
+
+      function copyText(text) {
+          const textArea = document.createElement("textarea")
+          textArea.value = text
+
+          textArea.style.top = 0
+          textArea.style.left = 0
+          textArea.style.position = 'fixed'
+
+          document.body.append(textArea)
+          textArea.focus()
+          textArea.select()
+
+          document.execCommand('copy')
+          document.body.removeChild(textArea)
+      }
     </script>
 
     <script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
     <script>mermaid.initialize({startOnLoad:true});</script>
+
+
 </body>
 
 </html>

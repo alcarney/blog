@@ -14,7 +14,7 @@
 <meta property="og:description" content="Software developer, amateur mathematician. I love to learn, try to animate and talk about it all to anyone who will listen" />
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://www.alcarney.me/tags/c/" />
-<meta property="og:updated_time" content="2020-12-27T17:53:01+00:00" />
+<meta property="og:updated_time" content="2021-01-13T11:28:07+00:00" />
 
 
 <meta name="twitter:creator" content="@alcarneyme" />
@@ -27,10 +27,10 @@
 
 
 
-<link rel="stylesheet" href="https://www.alcarney.me/main.50936bd3c615c137119b98720aa8e99e24fb8326570b3b8d8ae96d9c4e3f2995.css" /></head>
+<link rel="stylesheet" href="https://www.alcarney.me/main.f0fcfa33b6ee0d4eb9f5f5d87692f86fb025cfdb3907f9545b6b316fa12a3587.css" /></head>
 
-<body class=bg-gray-100>
-    <div class="flex items-baseline justify-between p-4 bg-white border-b">
+<body class="bg-gray-100 flex flex-col justify-between min-h-screen items-center">
+    <div class="flex items-baseline justify-between w-full p-4 bg-white border-b">
 
         <div>
             <h1>Alex Carney</h1>
@@ -41,11 +41,12 @@
 
         <nav class="flex space-x-4 items-between">
             <a href="/blog">Blog</a>
+            <a href="/code">Code</a>
             <a href="/notes">Notes</a>
         </nav>
     </div>
 
-    <main class="max-w-4xl m-auto mb-8">
+    <main class="max-w-4xl w-full flex-grow mb-8">
 <style>
     header::before {
         position: absolute;
@@ -96,40 +97,48 @@
         }
     }
 </style>
-<aside class="relative flex pr-2 mt-4 ml-12 -mb-3 space-x-4 text-gray-500 lg:mr-8 lg:w-32 lg:block lg:space-x-0">
+<aside class="relative flex pr-2 mt-4 ml-12 -mb-3 space-x-4 text-gray-500 lg:mr-8 lg:ml-0 lg:block lg:space-x-0">
     <span class="flex justify-between">
         <svg class="w-6 h-6 bg-transparent stroke-current" style="fill:none">
     <use xlink:href="/svg/feather-sprite.svg#calendar" />
 </svg>
-        Dec 27, 2020
+        <span class="ml-2">Jan 13, 2021</span>
     </span>
     <span class="flex justify-between">
         <svg class="w-6 h-6 bg-transparent stroke-current" style="fill:none">
     <use xlink:href="/svg/feather-sprite.svg#clock" />
 </svg>
-        4 min read
+        <span class="ml-2">16 min read</span>
     </span>
 </aside>
+
         <article class="relative flex-grow p-4 mt-8 transition bg-white border hover:shadow-lg">
             <div class="m-auto prose prose-lg prose-green">
                 <header class="mb-4">
-                    <a href="https://www.alcarney.me/blog/2020/simple-ast-eval/">
-                        <h1>Evaluating a Simple Abstract Syntax Tree</h1>
+                    <a href="https://www.alcarney.me/blog/2021/ast-python-frontend/">
+                        <h1>Creating a CPython Extension</h1>
                     </a>
                 </header>
-                <p>Programming languages and their implementation is a topic I&rsquo;ve been interested
-in for a long time and I thought it would be worth trying to get a bit more
-hands on and play with some of the ideas in this space. Choosing a topic
-somewhat at random I&rsquo;ve chosen to take a look at implementing an Abstract Syntax
-Tree (AST).</p>
+                <p><a href="/blog/2020/ast-simple-eval/">Previously</a>, as part of my exploration
+into how programming languages are implemented, I wrote a very simple AST
+evaluator that knew how to add and multiply floats together. Since constructing
+these ASTs by hand is quite painful I thought it would be fun to come up with a
+frontend to my &ldquo;programming language&rdquo; which could do it for me.</p>
+<p>Now your typical frontend would be some kind of parser built into the
+compiler/interpreter. However, while I&rsquo;m definitely interested in parsing I
+don&rsquo;t quite feel like tackling that just yet. Instead I&rsquo;m going to have Python
+be the frontend and embed my toy language into it via a <a href="https://docs.python.org/3/extending/extending.html">CPython
+Extension</a></p>
                 <div class="flex items-center justify-end mt-4 space-x-4">
     <a class="px-2 text-sm text-gray-600 bg-green-200 border border-green-600 rounded" href="https://www.alcarney.me/tags/c/">
         #c
+    </a><a class="px-2 text-sm text-gray-600 bg-green-200 border border-green-600 rounded" href="https://www.alcarney.me/tags/python/">
+        #python
     </a><a class="px-2 text-sm text-gray-600 bg-green-200 border border-green-600 rounded" href="https://www.alcarney.me/tags/programming-languages/">
         #programming-languages
     </a></div>
                 
-                <a class="" href="/blog/2020/simple-ast-eval/">More...</a>
+                <a class="" href="/blog/2021/ast-python-frontend/">More...</a>
                 
             </div>
         </article>
@@ -159,20 +168,85 @@ Tree (AST).</p>
         }
     }
 </style>
-<aside class="relative flex pr-2 mt-4 ml-12 -mb-3 space-x-4 text-gray-500 lg:mr-8 lg:w-32 lg:block lg:space-x-0">
+<aside class="relative flex pr-2 mt-4 ml-12 -mb-3 space-x-4 text-gray-500 lg:mr-8 lg:ml-0 lg:block lg:space-x-0">
     <span class="flex justify-between">
         <svg class="w-6 h-6 bg-transparent stroke-current" style="fill:none">
     <use xlink:href="/svg/feather-sprite.svg#calendar" />
 </svg>
-        Jan 8, 2020
+        <span class="ml-2">Dec 27, 2020</span>
     </span>
     <span class="flex justify-between">
         <svg class="w-6 h-6 bg-transparent stroke-current" style="fill:none">
     <use xlink:href="/svg/feather-sprite.svg#clock" />
 </svg>
-        8 min read
+        <span class="ml-2">4 min read</span>
     </span>
 </aside>
+
+        <article class="relative flex-grow p-4 mt-8 transition bg-white border hover:shadow-lg">
+            <div class="m-auto prose prose-lg prose-green">
+                <header class="mb-4">
+                    <a href="https://www.alcarney.me/blog/2020/ast-simple-eval/">
+                        <h1>Evaluating a Simple Abstract Syntax Tree</h1>
+                    </a>
+                </header>
+                <p>Programming languages and their implementation is a topic I&rsquo;ve been interested
+in for a long time and I thought it would be worth trying to get a bit more
+hands on and play with some of the ideas in this space. Choosing a topic
+somewhat at random I&rsquo;ve chosen to take a look at implementing an Abstract Syntax
+Tree (AST).</p>
+                <div class="flex items-center justify-end mt-4 space-x-4">
+    <a class="px-2 text-sm text-gray-600 bg-green-200 border border-green-600 rounded" href="https://www.alcarney.me/tags/c/">
+        #c
+    </a><a class="px-2 text-sm text-gray-600 bg-green-200 border border-green-600 rounded" href="https://www.alcarney.me/tags/programming-languages/">
+        #programming-languages
+    </a></div>
+                
+                <a class="" href="/blog/2020/ast-simple-eval/">More...</a>
+                
+            </div>
+        </article>
+    </div>
+    
+    <div class="flex flex-col justify-between lg:items-baseline lg:flex-row">
+        <style>
+    aside::after {
+        position: absolute;
+        top: 8px;
+        right: -10px;
+        display: block;
+        content: '';
+        width: 8px;
+        height: 8px;
+        border-radius: 100%;
+        background: #717885;
+    }
+
+    @media(max-width: 1024px) {
+        aside::after {
+            top: unset;
+            bottom: 6px;
+            left: -18px;
+            border-top: sold 1px #e5e7eb;
+            border-bottom: none;
+        }
+    }
+</style>
+<aside class="relative flex pr-2 mt-4 ml-12 -mb-3 space-x-4 text-gray-500 lg:mr-8 lg:ml-0 lg:block lg:space-x-0">
+    <span class="flex justify-between">
+        <svg class="w-6 h-6 bg-transparent stroke-current" style="fill:none">
+    <use xlink:href="/svg/feather-sprite.svg#calendar" />
+</svg>
+        <span class="ml-2">Jan 8, 2020</span>
+    </span>
+    <span class="flex justify-between">
+        <svg class="w-6 h-6 bg-transparent stroke-current" style="fill:none">
+    <use xlink:href="/svg/feather-sprite.svg#clock" />
+</svg>
+        <span class="ml-2">8 min read</span>
+    </span>
+</aside>
+
         <article class="relative flex-grow p-4 mt-8 transition bg-white border hover:shadow-lg">
             <div class="m-auto prose prose-lg prose-green">
                 <header class="mb-4">
@@ -230,20 +304,21 @@ Device Name:            Intel(R) HD Graphics 520 (Skylake GT2)
         }
     }
 </style>
-<aside class="relative flex pr-2 mt-4 ml-12 -mb-3 space-x-4 text-gray-500 lg:mr-8 lg:w-32 lg:block lg:space-x-0">
+<aside class="relative flex pr-2 mt-4 ml-12 -mb-3 space-x-4 text-gray-500 lg:mr-8 lg:ml-0 lg:block lg:space-x-0">
     <span class="flex justify-between">
         <svg class="w-6 h-6 bg-transparent stroke-current" style="fill:none">
     <use xlink:href="/svg/feather-sprite.svg#calendar" />
 </svg>
-        Jan 1, 2020
+        <span class="ml-2">Jan 1, 2020</span>
     </span>
     <span class="flex justify-between">
         <svg class="w-6 h-6 bg-transparent stroke-current" style="fill:none">
     <use xlink:href="/svg/feather-sprite.svg#clock" />
 </svg>
-        2 min read
+        <span class="ml-2">2 min read</span>
     </span>
 </aside>
+
         <article class="relative flex-grow p-4 mt-8 transition bg-white border hover:shadow-lg">
             <div class="m-auto prose prose-lg prose-green">
                 <header class="mb-4">
@@ -298,20 +373,142 @@ interesting ideas I see people playing with all the time!</p>
         }
     }
 </style>
-<aside class="relative flex pr-2 mt-4 ml-12 -mb-3 space-x-4 text-gray-500 lg:mr-8 lg:w-32 lg:block lg:space-x-0">
+<aside class="relative flex pr-2 mt-4 ml-12 -mb-3 space-x-4 text-gray-500 lg:mr-8 lg:ml-0 lg:block lg:space-x-0">
     <span class="flex justify-between">
         <svg class="w-6 h-6 bg-transparent stroke-current" style="fill:none">
     <use xlink:href="/svg/feather-sprite.svg#calendar" />
 </svg>
-        Jan 1, 0001
+        <span class="ml-2">Jan 1, 0001</span>
     </span>
     <span class="flex justify-between">
         <svg class="w-6 h-6 bg-transparent stroke-current" style="fill:none">
     <use xlink:href="/svg/feather-sprite.svg#clock" />
 </svg>
-        1 min read
+        <span class="ml-2">1 min read</span>
     </span>
 </aside>
+
+        <article class="relative flex-grow p-4 mt-8 transition bg-white border hover:shadow-lg">
+            <div class="m-auto prose prose-lg prose-green">
+                <header class="mb-4">
+                    <a href="https://www.alcarney.me/code/ccalc/">
+                        <h1>ccalc</h1>
+                    </a>
+                </header>
+                A CPython extension that embeds the simple-ast program into Python.
+&gt;&gt;&gt; import ccalc &gt;&gt;&gt; expression = (ccalc.Literal(1) + 2) * 3 &gt;&gt;&gt; expression Multiply&lt;Plus&lt;Literal&lt;1.0&gt;, Literal&lt;2.0&gt;&gt;, Literal&lt;3.0&gt;&gt; &gt;&gt;&gt; ccalc.eval_ast(expression) 9.0 Building It&rsquo;s probably worth creating a virtual environment to work in
+ .cli-command::before { content: "$ "; }    python -m venv .env   Assuming you have a C compiler available, building the extension is as easy as running the following command
+                <div class="flex items-center justify-end mt-4 space-x-4">
+    <a class="px-2 text-sm text-gray-600 bg-green-200 border border-green-600 rounded" href="https://www.alcarney.me/tags/c/">
+        #c
+    </a><a class="px-2 text-sm text-gray-600 bg-green-200 border border-green-600 rounded" href="https://www.alcarney.me/tags/python/">
+        #python
+    </a></div>
+                
+                <a class="" href="/code/ccalc/">More...</a>
+                
+            </div>
+        </article>
+    </div>
+    
+    <div class="flex flex-col justify-between lg:items-baseline lg:flex-row">
+        <style>
+    aside::after {
+        position: absolute;
+        top: 8px;
+        right: -10px;
+        display: block;
+        content: '';
+        width: 8px;
+        height: 8px;
+        border-radius: 100%;
+        background: #717885;
+    }
+
+    @media(max-width: 1024px) {
+        aside::after {
+            top: unset;
+            bottom: 6px;
+            left: -18px;
+            border-top: sold 1px #e5e7eb;
+            border-bottom: none;
+        }
+    }
+</style>
+<aside class="relative flex pr-2 mt-4 ml-12 -mb-3 space-x-4 text-gray-500 lg:mr-8 lg:ml-0 lg:block lg:space-x-0">
+    <span class="flex justify-between">
+        <svg class="w-6 h-6 bg-transparent stroke-current" style="fill:none">
+    <use xlink:href="/svg/feather-sprite.svg#calendar" />
+</svg>
+        <span class="ml-2">Jan 1, 0001</span>
+    </span>
+    <span class="flex justify-between">
+        <svg class="w-6 h-6 bg-transparent stroke-current" style="fill:none">
+    <use xlink:href="/svg/feather-sprite.svg#clock" />
+</svg>
+        <span class="ml-2">1 min read</span>
+    </span>
+</aside>
+
+        <article class="relative flex-grow p-4 mt-8 transition bg-white border hover:shadow-lg">
+            <div class="m-auto prose prose-lg prose-green">
+                <header class="mb-4">
+                    <a href="https://www.alcarney.me/code/simple-ast/">
+                        <h1>Simple AST</h1>
+                    </a>
+                </header>
+                A simple C program that can construct and evaluate a simple Abstract Syntax Tree (AST). The AST represents a toy &ldquo;programming language&rdquo; that only knows how to add and multiply floating point numbers together.
+$ ./simple-ast * + 1.00 2.00 3.00 Example 1: 9.00 + 1.00 * 2.00 3.00 Example 2: 7.00 Building Having no real dependencies beyond the standard library this program can be compiled with just a C compiler
+                <div class="flex items-center justify-end mt-4 space-x-4">
+    <a class="px-2 text-sm text-gray-600 bg-green-200 border border-green-600 rounded" href="https://www.alcarney.me/tags/c/">
+        #c
+    </a></div>
+                
+                <a class="" href="/code/simple-ast/">More...</a>
+                
+            </div>
+        </article>
+    </div>
+    
+    <div class="flex flex-col justify-between lg:items-baseline lg:flex-row">
+        <style>
+    aside::after {
+        position: absolute;
+        top: 8px;
+        right: -10px;
+        display: block;
+        content: '';
+        width: 8px;
+        height: 8px;
+        border-radius: 100%;
+        background: #717885;
+    }
+
+    @media(max-width: 1024px) {
+        aside::after {
+            top: unset;
+            bottom: 6px;
+            left: -18px;
+            border-top: sold 1px #e5e7eb;
+            border-bottom: none;
+        }
+    }
+</style>
+<aside class="relative flex pr-2 mt-4 ml-12 -mb-3 space-x-4 text-gray-500 lg:mr-8 lg:ml-0 lg:block lg:space-x-0">
+    <span class="flex justify-between">
+        <svg class="w-6 h-6 bg-transparent stroke-current" style="fill:none">
+    <use xlink:href="/svg/feather-sprite.svg#calendar" />
+</svg>
+        <span class="ml-2">Jan 1, 0001</span>
+    </span>
+    <span class="flex justify-between">
+        <svg class="w-6 h-6 bg-transparent stroke-current" style="fill:none">
+    <use xlink:href="/svg/feather-sprite.svg#clock" />
+</svg>
+        <span class="ml-2">1 min read</span>
+    </span>
+</aside>
+
         <article class="relative flex-grow p-4 mt-8 transition bg-white border hover:shadow-lg">
             <div class="m-auto prose prose-lg prose-green">
                 <header class="mb-4">
@@ -336,10 +533,9 @@ interesting ideas I see people playing with all the time!</p>
     
 </div>
 
-    </main><footer class="items-baseline p-4 text-white bg-gray-700">
+    </main><footer class="items-baseline p-4 text-white bg-gray-700 w-full">
     <div class="flex justify-between">
-        <div>
-        </div>
+        <div></div>
 
         <div class="flex justify-between space-x-4">
             
@@ -369,20 +565,37 @@ interesting ideas I see people playing with all the time!</p>
             
         </div>
 
-        <div>
-            
-        </div>
+        <div></div>
     </div>
 </footer>
+
     <script>
-        const codeBlocks = document.querySelectorAll(".highlight pre")
-        Array.from(codeBlocks).forEach(el => {
-            el.style.backgroundColor = "#fdf6e3"
-        })
+      const codeBlocks = document.querySelectorAll(".highlight pre")
+      Array.from(codeBlocks).forEach(el => {
+          el.style.backgroundColor = "#fdf6e3"
+      })
+
+      function copyText(text) {
+          const textArea = document.createElement("textarea")
+          textArea.value = text
+
+          textArea.style.top = 0
+          textArea.style.left = 0
+          textArea.style.position = 'fixed'
+
+          document.body.append(textArea)
+          textArea.focus()
+          textArea.select()
+
+          document.execCommand('copy')
+          document.body.removeChild(textArea)
+      }
     </script>
 
     <script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
     <script>mermaid.initialize({startOnLoad:true});</script>
+
+
 </body>
 
 </html>

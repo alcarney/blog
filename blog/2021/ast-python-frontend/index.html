@@ -1,0 +1,820 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+<meta name="theme-color" content="#259669" />
+
+<meta name="generator" content="Hugo 0.79.1" />
+<meta name="author" content="Alex Carney" />
+<meta name="description" content="Creating a Python frontend to my simple AST evaluator" />
+
+<meta property="og:title" content="Creating a CPython Extension" />
+<meta property="og:description" content="Creating a Python frontend to my simple AST evaluator" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://www.alcarney.me/blog/2021/ast-python-frontend/" />
+<meta property="article:published_time" content="2021-01-13T00:00:00+00:00" />
+<meta property="article:modified_time" content="2021-01-13T11:28:07+00:00" />
+
+<meta property="article:tag" content="c" />
+<meta property="article:tag" content="python" />
+<meta property="article:tag" content="programming-languages" />
+
+<meta name="twitter:creator" content="@alcarneyme" />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Creating a CPython Extension"/>
+<meta name="twitter:description" content="Creating a Python frontend to my simple AST evaluator"/>
+
+
+<title>Creating a CPython Extension | Alex Carney</title>
+
+
+
+<link rel="stylesheet" href="https://www.alcarney.me/main.f0fcfa33b6ee0d4eb9f5f5d87692f86fb025cfdb3907f9545b6b316fa12a3587.css" /></head>
+
+<body class="bg-gray-100 flex flex-col justify-between min-h-screen items-center">
+    <div class="flex items-baseline justify-between w-full p-4 bg-white border-b">
+
+        <div>
+            <h1>Alex Carney</h1>
+        </div>
+
+        <div class="flex justify-center flex-grow">
+        </div>
+
+        <nav class="flex space-x-4 items-between">
+            <a href="/blog">Blog</a>
+            <a href="/code">Code</a>
+            <a href="/notes">Notes</a>
+        </nav>
+    </div>
+
+    <main class="max-w-4xl w-full flex-grow mb-8">
+<style>
+    header::before {
+        position: absolute;
+        top: 16px;
+        left: -12.5px;
+        display: block;
+        content: '';
+        width: 25px;
+        height: 25px;
+        background: white;
+        transform: rotate(45deg);
+        border-left: solid 1px #e5e7eb;
+        border-bottom: solid 1px #e5e7eb;
+    }
+
+    @media(max-width: 1024px) {
+        header::before {
+            left: 19px;
+            top: -12.5px;
+            border-top: sold 1px #e5e7eb;
+            border-bottom: none;
+        }
+    }
+</style>
+<div class="flex flex-col justify-between mx-2 lg:items-baseline lg:flex-row">
+    <style>
+    aside::after {
+        position: absolute;
+        top: 8px;
+        right: -10px;
+        display: block;
+        content: '';
+        width: 8px;
+        height: 8px;
+        border-radius: 100%;
+        background: #717885;
+    }
+
+    @media(max-width: 1024px) {
+        aside::after {
+            top: unset;
+            bottom: 6px;
+            left: -18px;
+            border-top: sold 1px #e5e7eb;
+            border-bottom: none;
+        }
+    }
+</style>
+<aside class="relative flex pr-2 mt-4 ml-12 -mb-3 space-x-4 text-gray-500 lg:mr-8 lg:ml-0 lg:block lg:space-x-0">
+    <span class="flex justify-between">
+        <svg class="w-6 h-6 bg-transparent stroke-current" style="fill:none">
+    <use xlink:href="/svg/feather-sprite.svg#calendar" />
+</svg>
+        <span class="ml-2">Jan 13, 2021</span>
+    </span>
+    <span class="flex justify-between">
+        <svg class="w-6 h-6 bg-transparent stroke-current" style="fill:none">
+    <use xlink:href="/svg/feather-sprite.svg#clock" />
+</svg>
+        <span class="ml-2">16 min read</span>
+    </span>
+</aside>
+
+    <article class="relative flex-grow p-4 mt-8 transition bg-white border shadow-lg">
+        <div class="m-auto prose prose-lg prose-green">
+            <header>
+                <h1>Creating a CPython Extension</h1>
+            </header>
+            <p><a href="/blog/2020/ast-simple-eval/">Previously</a>, as part of my exploration
+into how programming languages are implemented, I wrote a very simple AST
+evaluator that knew how to add and multiply floats together. Since constructing
+these ASTs by hand is quite painful I thought it would be fun to come up with a
+frontend to my &ldquo;programming language&rdquo; which could do it for me.</p>
+<p>Now your typical frontend would be some kind of parser built into the
+compiler/interpreter. However, while I&rsquo;m definitely interested in parsing I
+don&rsquo;t quite feel like tackling that just yet. Instead I&rsquo;m going to have Python
+be the frontend and embed my toy language into it via a <a href="https://docs.python.org/3/extending/extending.html">CPython
+Extension</a></p>
+<h2 id="overview">Overview</h2>
+<p>Before diving into the detail I think it would be worth keeping in mind what we
+want the end result to be. By the end of this post, we want to have a CPython
+extension that allows us to write normal-ish Python code to construct a
+representation of some expression</p>
+<div class="highlight"><pre style="color:#586e75;background-color:#eee8d5;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">&gt;&gt;&gt; <span style="color:#dc322f;font-weight:bold">import</span> <span style="color:#268bd2">ccalc</span>
+&gt;&gt;&gt; <span style="color:#268bd2">expression</span> = (<span style="color:#268bd2">ccalc</span>.<span style="color:#268bd2">Literal</span>(<span style="color:#2aa198;font-weight:bold">1</span>) + <span style="color:#2aa198;font-weight:bold">2</span>) * <span style="color:#2aa198;font-weight:bold">3</span>
+&gt;&gt;&gt; <span style="color:#268bd2">expression</span>
+<span style="color:#268bd2">Multiply</span>&lt;<span style="color:#268bd2">Plus</span>&lt;<span style="color:#268bd2">Literal</span>&lt;<span style="color:#2aa198;font-weight:bold">1.0</span>&gt;, <span style="color:#268bd2">Literal</span>&lt;<span style="color:#2aa198;font-weight:bold">2.0</span>&gt;&gt;, <span style="color:#268bd2">Literal</span>&lt;<span style="color:#2aa198;font-weight:bold">3.0</span>&gt;&gt;
+</code></pre></div><p>and then be able to pass this expression to the AST evaluator we wrote in the
+previous post and have it compute the result</p>
+<div class="highlight"><pre style="color:#586e75;background-color:#eee8d5;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">&gt;&gt;&gt; <span style="color:#268bd2">ccalc</span>.<span style="color:#268bd2">eval_ast</span>(<span style="color:#268bd2">expression</span>)
+<span style="color:#2aa198;font-weight:bold">9.0</span>
+</code></pre></div><p>If you&rsquo;d rather skip all the exposition you can find the final codebase <a href="https://www.alcarney.me/code/ccalc/">here</a></p>
+<p>We can break the implementation down into 3 main steps</p>
+<ul>
+<li>
+<p><a href="#ast-repr">Constructing an AST Representation</a></p>
+<p>We need an equivalent Python representation to the <code>AstNode</code> structure,
+allowing the user to express the expression they want computed.</p>
+</li>
+<li>
+<p><a href="#ext-setup">Setting up the C Extension</a></p>
+<p>Before we can get to the fun part, there&rsquo;s some setup required to get a
+CPython extension up and running.</p>
+</li>
+<li>
+<p><a href="#conversions">Converting Between Python and C</a></p>
+<p>Finally we need to write the code that converts the Python representation into
+the C representation, passing it off to the evaluator before converting the
+result back into Python.</p>
+</li>
+</ul>
+<h2 id="ast-repr">Constructing an AST Representation</h2>
+<p>To represent the AST in Python code we can create a class that captures the same
+information as our <a href="/blog/2020/ast-simple-eval/#ast-repr">AstNode</a>
+struct from the C code</p>
+<div class="highlight"><pre style="color:#586e75;background-color:#eee8d5;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#859900">class</span> <span style="color:#cb4b16">AstNode</span>:
+
+    <span style="color:#268bd2">LITERAL</span> = <span style="color:#2aa198;font-weight:bold">0</span>
+    <span style="color:#268bd2">PLUS</span> = <span style="color:#2aa198;font-weight:bold">1</span>
+    <span style="color:#268bd2">MULTIPLY</span> = <span style="color:#2aa198;font-weight:bold">2</span>
+
+    <span style="color:#859900">def</span> <span style="color:#268bd2">__init__</span>(<span style="color:#268bd2">self</span>, <span style="color:#cb4b16">type</span>=<span style="color:#268bd2">None</span>, <span style="color:#268bd2">value</span>=<span style="color:#268bd2">None</span>, <span style="color:#268bd2">left</span>=<span style="color:#268bd2">None</span>, <span style="color:#268bd2">right</span>=<span style="color:#268bd2">None</span>):
+        <span style="color:#268bd2">self</span>.<span style="color:#268bd2">type</span> = <span style="color:#cb4b16">type</span>
+        <span style="color:#268bd2">self</span>.<span style="color:#268bd2">value</span> = <span style="color:#268bd2">value</span>
+        <span style="color:#268bd2">self</span>.<span style="color:#268bd2">left</span> = <span style="color:#268bd2">left</span>
+        <span style="color:#268bd2">self</span>.<span style="color:#268bd2">right</span> = <span style="color:#268bd2">right</span>
+</code></pre></div><p>From there it&rsquo;s simple enough to create some subclasses that help us fill out
+the correct fields.</p>
+<div class="highlight"><pre style="color:#586e75;background-color:#eee8d5;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#859900">class</span> <span style="color:#cb4b16">Literal</span>(<span style="color:#268bd2">AstNode</span>):
+    <span style="color:#859900">def</span> <span style="color:#268bd2">__init__</span>(<span style="color:#268bd2">self</span>, <span style="color:#268bd2">value</span>):
+        <span style="color:#cb4b16">super</span>().<span style="color:#268bd2">__init__</span>(<span style="color:#cb4b16">type</span>=<span style="color:#268bd2">AstNode</span>.<span style="color:#268bd2">LITERAL</span>, <span style="color:#268bd2">value</span>=<span style="color:#cb4b16">float</span>(<span style="color:#268bd2">value</span>))
+
+<span style="color:#859900">class</span> <span style="color:#cb4b16">Plus</span>(<span style="color:#268bd2">AstNode</span>):
+    <span style="color:#859900">def</span> <span style="color:#268bd2">__init__</span>(<span style="color:#268bd2">self</span>, <span style="color:#268bd2">left</span>, <span style="color:#268bd2">right</span>):
+        <span style="color:#cb4b16">super</span>().<span style="color:#268bd2">__init__</span>(<span style="color:#cb4b16">type</span>=<span style="color:#268bd2">AstNode</span>.<span style="color:#268bd2">PLUS</span>, <span style="color:#268bd2">left</span>=<span style="color:#268bd2">left</span>, <span style="color:#268bd2">right</span>=<span style="color:#268bd2">right</span>)
+
+<span style="color:#859900">class</span> <span style="color:#cb4b16">Multiply</span>(<span style="color:#268bd2">AstNode</span>):
+    <span style="color:#859900">def</span> <span style="color:#268bd2">__init__</span>(<span style="color:#268bd2">self</span>, <span style="color:#268bd2">left</span>, <span style="color:#268bd2">right</span>):
+        <span style="color:#cb4b16">super</span>().<span style="color:#268bd2">__init__</span>(<span style="color:#cb4b16">type</span>=<span style="color:#268bd2">AstNode</span>.<span style="color:#268bd2">MULTIPLY</span>, <span style="color:#268bd2">left</span>=<span style="color:#268bd2">left</span>, <span style="color:#268bd2">right</span>=<span style="color:#268bd2">right</span>)
+</code></pre></div><p>Technically that&rsquo;s all we need but we haven&rsquo;t really gained anything in terms of
+usability, constructing an AST from the classes we have defined so far would be
+just as painful as it was in C.</p>
+<p>Thankfully though, we don&rsquo;t have to stop here, by taking advantage of being able
+to define implementations for arithmetic operations on our custom types we can
+introduce a much nicer method of constructing expressions.</p>
+<div class="highlight"><pre style="color:#586e75;background-color:#eee8d5;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#859900">class</span> <span style="color:#cb4b16">AstNode</span>:
+    ...
+
+    <span style="color:#859900">def</span> <span style="color:#268bd2">__init__</span>(<span style="color:#268bd2">self</span>, <span style="color:#cb4b16">type</span>=<span style="color:#268bd2">None</span>, <span style="color:#268bd2">value</span>=<span style="color:#268bd2">None</span>, <span style="color:#268bd2">left</span>=<span style="color:#268bd2">None</span>, <span style="color:#268bd2">right</span>=<span style="color:#268bd2">None</span>):
+
+        <span style="color:#93a1a1;font-style:italic"># Automatically convert python numbers to Literal(x) AST nodes</span>
+        <span style="color:#859900">if</span> <span style="color:#268bd2">left</span> <span style="color:#859900">is</span> <span style="color:#859900">not</span> <span style="color:#268bd2">None</span> <span style="color:#859900">and</span> <span style="color:#859900">not</span> <span style="color:#cb4b16">isinstance</span>(<span style="color:#268bd2">left</span>, <span style="color:#268bd2">AstNode</span>):
+            <span style="color:#268bd2">left</span> = <span style="color:#268bd2">Literal</span>(<span style="color:#268bd2">left</span>)
+
+        <span style="color:#859900">if</span> <span style="color:#268bd2">right</span> <span style="color:#859900">is</span> <span style="color:#859900">not</span> <span style="color:#268bd2">None</span> <span style="color:#859900">and</span> <span style="color:#859900">not</span> <span style="color:#cb4b16">isinstance</span>(<span style="color:#268bd2">right</span>, <span style="color:#268bd2">AstNode</span>):
+            <span style="color:#268bd2">right</span> = <span style="color:#268bd2">Literal</span>(<span style="color:#268bd2">right</span>)
+
+        ...
+
+    <span style="color:#859900">def</span> <span style="color:#268bd2">__add__</span>(<span style="color:#268bd2">self</span>, <span style="color:#268bd2">other</span>):
+        <span style="color:#859900">return</span> <span style="color:#268bd2">Plus</span>(<span style="color:#268bd2">self</span>, <span style="color:#268bd2">other</span>)
+
+    <span style="color:#859900">def</span> <span style="color:#268bd2">__radd__</span>(<span style="color:#268bd2">self</span>, <span style="color:#268bd2">other</span>):
+        <span style="color:#859900">return</span> <span style="color:#268bd2">Plus</span>(<span style="color:#268bd2">other</span>, <span style="color:#268bd2">self</span>)
+
+    <span style="color:#859900">def</span> <span style="color:#268bd2">__mul__</span>(<span style="color:#268bd2">self</span>, <span style="color:#268bd2">other</span>):
+        <span style="color:#859900">return</span> <span style="color:#268bd2">Multiply</span>(<span style="color:#268bd2">self</span>, <span style="color:#268bd2">other</span>)
+
+    <span style="color:#859900">def</span> <span style="color:#268bd2">__rmul__</span>(<span style="color:#268bd2">other</span>, <span style="color:#268bd2">self</span>):
+        <span style="color:#859900">return</span> <span style="color:#268bd2">Multiply</span>(<span style="color:#268bd2">other</span>, <span style="color:#268bd2">self</span>)
+</code></pre></div><p>Now if we wanted to construct an expression we can do so with fairly
+straightforward Python code.</p>
+<div class="highlight"><pre style="color:#586e75;background-color:#eee8d5;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">&gt;&gt;&gt; <span style="color:#dc322f;font-weight:bold">import</span> <span style="color:#268bd2">ccalc</span>
+
+&gt;&gt;&gt; (<span style="color:#268bd2">ccalc</span>.<span style="color:#268bd2">Literal</span>(<span style="color:#2aa198;font-weight:bold">1</span>) + <span style="color:#2aa198;font-weight:bold">2</span>) * <span style="color:#2aa198;font-weight:bold">3</span>
+<span style="color:#268bd2">Multiply</span>&lt;<span style="color:#268bd2">Plus</span>&lt;<span style="color:#268bd2">Literal</span>&lt;<span style="color:#2aa198;font-weight:bold">1.0</span>&gt;, <span style="color:#268bd2">Literal</span>&lt;<span style="color:#2aa198;font-weight:bold">2.0</span>&gt;&gt;, <span style="color:#268bd2">Literal</span>&lt;<span style="color:#2aa198;font-weight:bold">3.0</span>&gt;&gt;
+
+&gt;&gt;&gt; <span style="color:#268bd2">ccalc</span>.<span style="color:#268bd2">Literal</span>(<span style="color:#2aa198;font-weight:bold">1</span>) + (<span style="color:#2aa198;font-weight:bold">2</span> * <span style="color:#2aa198;font-weight:bold">3</span>)
+<span style="color:#268bd2">Plus</span>&lt;<span style="color:#268bd2">Literal</span>&lt;<span style="color:#2aa198;font-weight:bold">1.0</span>&gt;, <span style="color:#268bd2">Literal</span>&lt;<span style="color:#2aa198;font-weight:bold">6.0</span>&gt;&gt;
+</code></pre></div><p>However, as shown with the second example above we need to be careful when
+choosing the number to wrap in our <code>ccalc.Literal</code> class if we want to &ldquo;catch&rdquo;
+the expression and construct our AST rather than have Python compute the value
+directly</p>
+<div class="highlight"><pre style="color:#586e75;background-color:#eee8d5;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">&gt;&gt;&gt; <span style="color:#2aa198;font-weight:bold">1</span> + (<span style="color:#268bd2">ccalc</span>.<span style="color:#268bd2">Literal</span>(<span style="color:#2aa198;font-weight:bold">2</span>) * <span style="color:#2aa198;font-weight:bold">3</span>)
+<span style="color:#268bd2">Plus</span>&lt;<span style="color:#268bd2">Literal</span>&lt;<span style="color:#2aa198;font-weight:bold">1.0</span>&gt;, <span style="color:#268bd2">Multiply</span>&lt;<span style="color:#268bd2">Literal</span>&lt;<span style="color:#2aa198;font-weight:bold">2.0</span>&gt;, <span style="color:#268bd2">Literal</span>&lt;<span style="color:#2aa198;font-weight:bold">3.0</span>&gt;&gt;
+</code></pre></div><h2 id="ext-setup">Setting up the C Extension</h2>
+<p>Using <a href="https://realpython.com/build-python-c-extension-module/">this tutorial</a> from Real Python as a guide I was able
+to get a C Extension up and running surprisingly easily. Be sure to check out
+the article for details but in short I ended up creating the following directory
+structure</p>
+<pre><code>.
+├── ccalc
+│   └── __init__.py
+├── ccalcmodule.c
+└── setup.py
+</code></pre><p>Where the <code>__init__.py</code> file contains the Python code we wrote in the previous
+section and <code>ccalcmodule.c</code> contains the boilerplate needed to define a Python
+module</p>
+<div class="highlight"><pre style="color:#586e75;background-color:#eee8d5;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#93a1a1;font-style:italic">#define PY_SSIZE_T_CLEAN
+</span><span style="color:#93a1a1;font-style:italic">#include</span> <span style="color:#93a1a1;font-style:italic">&lt;Python.h&gt;</span><span style="color:#93a1a1;font-style:italic">
+</span><span style="color:#93a1a1;font-style:italic"></span>
+<span style="color:#859900">static</span> <span style="color:#859900">struct</span> <span style="color:#268bd2">PyModuleDef</span> <span style="color:#268bd2">ccalcmodule</span> = {
+    <span style="color:#268bd2">PyModuleDef_HEAD_INIT</span>,
+    <span style="color:#2aa198">&#34;_ccalc&#34;</span>,
+    <span style="color:#2aa198">&#34;Simple calculator implemented in C&#34;</span>,
+    -<span style="color:#2aa198;font-weight:bold">1</span>,
+    <span style="color:#268bd2">ccalc_methods</span>
+};
+
+<span style="color:#268bd2">PyMODINIT_FUNC</span>
+<span style="color:#268bd2">PyInit__ccalc</span>()
+{
+    <span style="color:#859900">return</span> <span style="color:#268bd2">PyModule_Create</span>(&amp;<span style="color:#268bd2">ccalcmodule</span>);
+}
+</code></pre></div><p>The <code>PyModuleDef</code> struct as the name implies, defines some basic information
+about the module</p>
+<ul>
+<li>It&rsquo;s name <code>_ccalc</code>, specifies what our module is called when we <code>import</code>
+it in regular Python code</li>
+<li>The next argument is the module&rsquo;s docstring</li>
+<li><code>-1</code> is something to do with sub-interpreters? 🤷‍♂</li>
+<li><code>ccalc_methods</code> is an array of structs delcaring all the functions this module
+exposes to the interpreter.️</li>
+</ul>
+<p>Something that caught me out is that the <code>PyInit_&lt;module name&gt;</code> function <em>must</em>
+match the name we gave the module in <code>PyModuleDef</code>,  since the module name is
+<code>_ccalc</code> I needed an additional <code>_</code> character in the name so that the module can
+be registered correctly.</p>
+<p>The methods declared in the <code>ccalc_methods</code> array follow a similar pattern</p>
+<div class="highlight"><pre style="color:#586e75;background-color:#eee8d5;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#859900">static</span> <span style="color:#268bd2">PyMethodDef</span> <span style="color:#268bd2">ccalc_methods</span>[] = {
+    {<span style="color:#2aa198">&#34;hello_world&#34;</span>, <span style="color:#268bd2">method_hello_world</span>, <span style="color:#268bd2">METH_VARARGS</span>, <span style="color:#2aa198">&#34;Print &#39;Hello, World!&#39;.&#34;</span>},
+    {<span style="color:#cb4b16">NULL</span>, <span style="color:#cb4b16">NULL</span>, <span style="color:#2aa198;font-weight:bold">0</span>, <span style="color:#cb4b16">NULL</span>} <span style="color:#93a1a1;font-style:italic">// I think this is required so that Python knows when
+</span><span style="color:#93a1a1;font-style:italic"></span>                          <span style="color:#93a1a1;font-style:italic">// it&#39;s reached the end of the array
+</span><span style="color:#93a1a1;font-style:italic"></span>};
+</code></pre></div><ul>
+<li><code>hello_world</code> is the name we want regular Python code to use when calling this
+method</li>
+<li><code>method_hello_world</code> is the name of the function in our C code</li>
+<li><code>METH_VARARGS</code> tells Python the kinds of arguments our function should be
+called with. Check out the <a href="https://docs.python.org/3/extending/extending.html#the-module-s-method-table-and-initialization-function">documentation</a> for more
+details.</li>
+<li>The final parameter sets the docstring for the function</li>
+</ul>
+<p>Finally we need the the actual method definition itself.</p>
+<div class="highlight"><pre style="color:#586e75;background-color:#eee8d5;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#859900">static</span> <span style="color:#268bd2">PyObject</span>*
+<span style="color:#268bd2">method_hello_world</span>(<span style="color:#268bd2">PyObject</span> *<span style="color:#268bd2">self</span>, <span style="color:#268bd2">PyObject</span> *<span style="color:#268bd2">args</span>)
+{
+    <span style="color:#268bd2">printf</span>(<span style="color:#2aa198">&#34;Hello, World!</span><span style="color:#2aa198">\n</span><span style="color:#2aa198">&#34;</span>);
+    <span style="color:#268bd2">Py_RETURN_NONE</span>;
+}
+</code></pre></div><h3 id="building-the-extension">Building the Extension</h3>
+<p>To my surprise, this was the easiest step of them all. Rather than worrying
+about writing a <code>Makefile</code> or providing the right flags to link against my
+version of Python, it turns out that <code>setuptools</code> takes care of all those
+details.</p>
+<p>All I had to do was write a standard <code>setup.py</code> file, just with some additional
+information about the extension itself</p>
+
+
+
+
+
+  
+
+
+  
+  <div class="highlight"><pre style="color:#586e75;background-color:#eee8d5;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-py" data-lang="py"><span style="color:#dc322f;font-weight:bold">from</span> <span style="color:#268bd2">setuptools</span> <span style="color:#dc322f;font-weight:bold">import</span> <span style="color:#268bd2">setup</span>, <span style="color:#268bd2">Extension</span>
+
+<span style="color:#268bd2">ccalcmod</span> = <span style="color:#268bd2">Extension</span>(
+    <span style="color:#2aa198">&#34;_ccalc&#34;</span>, <span style="color:#268bd2">sources</span>=[<span style="color:#2aa198">&#39;ccalcmodule.c&#39;</span>], <span style="color:#268bd2">language</span>=<span style="color:#2aa198">&#39;c&#39;</span>
+)
+
+<span style="color:#268bd2">setup</span>(
+    <span style="color:#268bd2">name</span>=<span style="color:#2aa198">&#34;ccalc&#34;</span>,
+    <span style="color:#268bd2">version</span>=<span style="color:#2aa198">&#34;1.0.0&#34;</span>,
+    <span style="color:#268bd2">description</span>=<span style="color:#2aa198">&#34;A simple calculator implemented in C&#34;</span>,
+    <span style="color:#268bd2">packages</span> = [<span style="color:#2aa198">&#39;ccalc&#39;</span>],
+    <span style="color:#268bd2">ext_modules</span>=[<span style="color:#268bd2">ccalcmod</span>]
+)
+</code></pre></div>
+
+<p>With the packaging defined a <code>python setup.py install</code> was all that was needed
+to build and install the extension into my virtual environment.</p>
+<style>
+  .cli-command::before {
+      content: "\28.env\29  $ ";
+  }
+</style>
+
+<pre class="whitespace-normal max-h-64 overflow-y-hidden relative">
+  <button class="absolute top-0 right-0 mx-2 my-1"
+          title="Copy Command"
+          onclick="copyText('python setup.py install')">
+    <svg class="w-6 h-6 bg-transparent stroke-current" style="fill:none">
+    <use xlink:href="/svg/feather-sprite.svg#clipboard" />
+</svg>
+  </button>
+  <details>
+    <summary class="cli-command">
+      <code>python setup.py install</code>
+    </summary>
+    <div class="overflow-y-auto max-h-48 mt-2">
+      <code class="whitespace-pre ">
+running install
+running bdist_egg
+running egg_info
+creating ccalc.egg-info
+writing ccalc.egg-info/PKG-INFO
+writing dependency_links to ccalc.egg-info/dependency_links.txt
+writing top-level names to ccalc.egg-info/top_level.txt
+writing manifest file 'ccalc.egg-info/SOURCES.txt'
+reading manifest file 'ccalc.egg-info/SOURCES.txt'
+writing manifest file 'ccalc.egg-info/SOURCES.txt'
+installing library code to build/bdist.linux-x86_64/egg
+running install_lib
+running build_py
+creating build
+creating build/lib.linux-x86_64-3.8
+creating build/lib.linux-x86_64-3.8/ccalc
+copying ccalc/__init__.py -> build/lib.linux-x86_64-3.8/ccalc
+running build_ext
+building '_ccalc' extension
+creating build/temp.linux-x86_64-3.8
+x86_64-linux-gnu-gcc -pthread -Wno-unused-result -Wsign-compare -DNDEBUG -g -fwrapv -O2 -Wall -g -fstack-protector-strong -Wformat -Werror=format-security -g -fwrapv -O2 -g -fstack-protector-strong -Wformat -Werror=format-security -Wdate-time -D_FORTIFY_SOURCE=2 -fPIC -I/home/alex/Projects/scratch/.env/include -I/usr/include/python3.8 -c ccalcmodule.c -o build/temp.linux-x86_64-3.8/ccalcmodule.o
+x86_64-linux-gnu-gcc -pthread -shared -Wl,-O1 -Wl,-Bsymbolic-functions -Wl,-Bsymbolic-functions -Wl,-z,relro -g -fwrapv -O2 -Wl,-Bsymbolic-functions -Wl,-z,relro -g -fwrapv -O2 -g -fstack-protector-strong -Wformat -Werror=format-security -Wdate-time -D_FORTIFY_SOURCE=2 build/temp.linux-x86_64-3.8/ccalcmodule.o -o build/lib.linux-x86_64-3.8/_ccalc.cpython-38-x86_64-linux-gnu.so
+creating build/bdist.linux-x86_64
+creating build/bdist.linux-x86_64/egg
+creating build/bdist.linux-x86_64/egg/ccalc
+copying build/lib.linux-x86_64-3.8/ccalc/__init__.py -> build/bdist.linux-x86_64/egg/ccalc
+copying build/lib.linux-x86_64-3.8/_ccalc.cpython-38-x86_64-linux-gnu.so -> build/bdist.linux-x86_64/egg
+byte-compiling build/bdist.linux-x86_64/egg/ccalc/__init__.py to __init__.cpython-38.pyc
+creating stub loader for _ccalc.cpython-38-x86_64-linux-gnu.so
+byte-compiling build/bdist.linux-x86_64/egg/_ccalc.py to _ccalc.cpython-38.pyc
+creating build/bdist.linux-x86_64/egg/EGG-INFO
+copying ccalc.egg-info/PKG-INFO -> build/bdist.linux-x86_64/egg/EGG-INFO
+copying ccalc.egg-info/SOURCES.txt -> build/bdist.linux-x86_64/egg/EGG-INFO
+copying ccalc.egg-info/dependency_links.txt -> build/bdist.linux-x86_64/egg/EGG-INFO
+copying ccalc.egg-info/top_level.txt -> build/bdist.linux-x86_64/egg/EGG-INFO
+writing build/bdist.linux-x86_64/egg/EGG-INFO/native_libs.txt
+zip_safe flag not set; analyzing archive contents...
+__pycache__._ccalc.cpython-38: module references __file__
+creating dist
+creating 'dist/ccalc-1.0.0-py3.8-linux-x86_64.egg' and adding 'build/bdist.linux-x86_64/egg' to it
+removing 'build/bdist.linux-x86_64/egg' (and everything under it)
+Processing ccalc-1.0.0-py3.8-linux-x86_64.egg
+removing '/home/alex/Projects/scratch/.env/lib/python3.8/site-packages/ccalc-1.0.0-py3.8-linux-x86_64.egg' (and everything under it)
+creating /home/alex/Projects/scratch/.env/lib/python3.8/site-packages/ccalc-1.0.0-py3.8-linux-x86_64.egg
+Extracting ccalc-1.0.0-py3.8-linux-x86_64.egg to /home/alex/Projects/scratch/.env/lib/python3.8/site-packages
+ccalc 1.0.0 is already the active version in easy-install.pth
+
+Installed /home/alex/Projects/scratch/.env/lib/python3.8/site-packages/ccalc-1.0.0-py3.8-linux-x86_64.egg
+Processing dependencies for ccalc==1.0.0
+Finished processing dependencies for ccalc==1.0.0
+</code>
+    </div>
+  </details>
+</pre>
+
+<p>With the C code sorted and building, we can import it in Python code and call
+functions from it just as we would with any other module.</p>
+<div class="highlight"><pre style="color:#586e75;background-color:#eee8d5;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">&gt;&gt;&gt; <span style="color:#dc322f;font-weight:bold">import</span> <span style="color:#268bd2">_ccalc</span>
+&gt;&gt;&gt; <span style="color:#268bd2">_ccalc</span>.<span style="color:#268bd2">hello_world</span>()
+<span style="color:#268bd2">Hello</span>, <span style="color:#268bd2">World</span>!
+</code></pre></div><h2 id="conversions">Converting Between Python and C</h2>
+<p>Now for the fun part! It&rsquo;s time to write a method for our extension module
+<code>method_eval_ast</code> that takes a Python representation of the AST and converts it
+into our C representation before executing it and passing the result back up to
+Python.</p>
+<div class="highlight"><pre style="color:#586e75;background-color:#eee8d5;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#859900">static</span> <span style="color:#268bd2">PyObject</span>*
+<span style="color:#268bd2">method_eval_ast</span>(<span style="color:#268bd2">PyObject</span> *<span style="color:#268bd2">self</span>, <span style="color:#268bd2">PyObject</span> *<span style="color:#268bd2">args</span>)
+{
+    ...
+}
+
+<span style="color:#93a1a1;font-style:italic">// Be sure to expose the new method to the module
+</span><span style="color:#93a1a1;font-style:italic"></span><span style="color:#859900">static</span> <span style="color:#268bd2">PyMethodDef</span> <span style="color:#268bd2">ccalc_methods</span>[] = {
+    {<span style="color:#2aa198">&#34;eval_ast&#34;</span>, <span style="color:#268bd2">method_eval_ast</span>, <span style="color:#268bd2">METH_VARARGS</span>, <span style="color:#2aa198">&#34;Evaluate the given ast.&#34;</span>},
+    ...
+}
+</code></pre></div><p>This can be broken down into a three step process</p>
+<ul>
+<li><a href="#function-args">Parsing Function Arguments</a></li>
+<li><a href="#c-ast">Constructing the C AST</a></li>
+<li><a href="#return">Returning the Result</a></li>
+</ul>
+<h3 id="function-args">Parsing Function Arguments</h3>
+<p>When writing a <code>METH_VARARGS</code> style function, it gets called with 2 parameters
+<code>self</code> and <code>args</code>. <code>self</code> in this case is a reference to our <code>_ccalc</code> module and
+<code>args</code> is a reference to a tuple containing the arguments that were passed to
+our function.</p>
+<p>As the contents of this tuple can be arbitrary it&rsquo;s up to our code to correctly
+interpret the values that have been given to it. Thankfully Python provides a
+handy function <code>PyArg_ParseTuple</code>that can take care of this for us.</p>
+<div class="highlight"><pre style="color:#586e75;background-color:#eee8d5;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#268bd2">PyObject</span> *<span style="color:#268bd2">obj</span> = <span style="color:#cb4b16">NULL</span>;
+
+<span style="color:#859900">if</span> (!<span style="color:#268bd2">PyArg_ParseTuple</span>(<span style="color:#268bd2">args</span>, <span style="color:#2aa198">&#34;O&#34;</span>, &amp;<span style="color:#268bd2">obj</span>)) {
+    <span style="color:#859900">return</span> <span style="color:#cb4b16">NULL</span>;
+}
+</code></pre></div><p>This function takes a <a href="https://docs.python.org/3/c-api/arg.html#parsing-arguments">format string</a> that specifies the
+number and type of arguments we expect to be given. In this case <code>&quot;O&quot;</code> says that
+we want to take a single object - our AST. We also need to pass the correct
+number of pointers into this function so that it can &ldquo;return&rdquo; the parsed values
+to us.</p>
+<p>In the case of invalid arguments being given, this function will set the global
+error indicator for us with the correct error message. So all that would be left
+for us to do is to return <code>NULL</code> which indicates to the code calling us that
+there was an error. See the <a href="https://docs.python.org/3/c-api/exceptions.html">documentation</a> for more details
+on error handling.</p>
+<h3 id="c-ast">Constructing the C AST</h3>
+<p>With a reference to the Python object that (hopefully!) represents a valid AST
+it&rsquo;s time to do the conversion into our C representation. To do this we&rsquo;ll write
+a function dedicated to handling the conversion and call it from
+<code>method_eval_ast</code></p>
+<div class="highlight"><pre style="color:#586e75;background-color:#eee8d5;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#268bd2">AstNode</span> *<span style="color:#268bd2">ast</span> = <span style="color:#268bd2">AstTree_FromPyObject</span>(<span style="color:#268bd2">obj</span>);
+<span style="color:#859900">if</span> (<span style="color:#268bd2">ast</span> == <span style="color:#cb4b16">NULL</span>) {
+    <span style="color:#859900">return</span> <span style="color:#cb4b16">NULL</span>;
+};
+</code></pre></div><p>The first step is to dynamically allocate enough memory to store the C
+representation. Easy enough to do, assuming that you know the size of the
+tree&hellip;</p>
+<p><strong>Allocating Memory</strong></p>
+<p>It took me a while to realise it, but even though we&rsquo;re writing C code we are
+still within the Python interpreter. This means we still have access to all the standard
+Python functions - we just need to look up their C equivalents. Why not just ask the
+tree itself how big it is by calling <code>len()</code> on it?</p>
+<p>After a quick trip to the documentation I discover that <code>len</code> is spelt
+<code>PyObject_Length</code> in the C API, add some of the required book keeping and we
+should be able to allocate enough space</p>
+<div class="highlight"><pre style="color:#586e75;background-color:#eee8d5;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#859900">static</span> <span style="color:#268bd2">AstNode</span>*
+<span style="color:#268bd2">AstTree_FromPyObject</span>(<span style="color:#268bd2">PyObject</span> *<span style="color:#268bd2">obj</span>)
+{
+    <span style="color:#268bd2">Py_ssize_t</span> <span style="color:#268bd2">num_nodes</span> = <span style="color:#268bd2">PyObject_Length</span>(<span style="color:#268bd2">obj</span>);
+    <span style="color:#859900">if</span> (<span style="color:#268bd2">num_nodes</span> == -<span style="color:#2aa198;font-weight:bold">1</span>) {
+        <span style="color:#859900">return</span> <span style="color:#cb4b16">NULL</span>;
+    }
+
+    <span style="color:#268bd2">AstNode</span> *<span style="color:#268bd2">ast</span> = <span style="color:#268bd2">malloc</span>(<span style="color:#268bd2">num_nodes</span> * <span style="color:#859900">sizeof</span>(<span style="color:#268bd2">AstNode</span>));
+    <span style="color:#859900">if</span> (<span style="color:#268bd2">ast</span> == <span style="color:#cb4b16">NULL</span>) {
+        <span style="color:#859900">return</span> <span style="color:#cb4b16">NULL</span>;
+    }
+
+    <span style="color:#93a1a1;font-style:italic">// ...
+</span><span style="color:#93a1a1;font-style:italic"></span>}
+</code></pre></div><p>Something important to note here, up until now we&rsquo;ve been calling into the
+Python C API which has been taking care of reporting any errors it encounters.
+However, the call to <code>malloc</code> is now our code and it&rsquo;s our responsibility to
+correctly report any errors we counter.</p>
+<p>If we were to leave the code as is and this call to <code>malloc</code> fails, Python would
+know that an error had occured but not be able to tell the user what was wrong.</p>
+<div class="highlight"><pre style="color:#586e75;background-color:#eee8d5;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">&gt;&gt;&gt; <span style="color:#dc322f;font-weight:bold">import</span> <span style="color:#268bd2">ccalc</span>
+&gt;&gt;&gt; <span style="color:#dc322f;font-weight:bold">import</span> <span style="color:#268bd2">_ccalc</span>
+&gt;&gt;&gt; <span style="color:#268bd2">_ccalc</span>.<span style="color:#268bd2">eval_ast</span>(<span style="color:#268bd2">ccalc</span>.<span style="color:#268bd2">Literal</span>(<span style="color:#2aa198;font-weight:bold">2</span>))
+<span style="color:#268bd2">Traceback</span> (<span style="color:#268bd2">most</span> <span style="color:#268bd2">recent</span> <span style="color:#268bd2">call</span> <span style="color:#268bd2">last</span>):
+  <span style="color:#268bd2">File</span> <span style="color:#2aa198">&#34;&lt;stdin&gt;&#34;</span>, <span style="color:#268bd2">line</span> <span style="color:#2aa198;font-weight:bold">1</span>, <span style="color:#859900">in</span> &lt;<span style="color:#268bd2">module</span>&gt;
+<span style="color:#268bd2">SystemError</span>: &lt;<span style="color:#268bd2">built</span>-<span style="color:#859900">in</span> <span style="color:#268bd2">function</span> <span style="color:#268bd2">eval_ast</span>&gt; <span style="color:#268bd2">returned</span> <span style="color:#268bd2">NULL</span> <span style="color:#268bd2">without</span> <span style="color:#268bd2">setting</span> <span style="color:#268bd2">an</span> <span style="color:#268bd2">error</span>
+</code></pre></div><p>Instead we also need to call <code>PyErr_SetString</code> to raise the appropriate
+exception that describes our error.</p>
+<div class="highlight"><pre style="color:#586e75;background-color:#eee8d5;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#268bd2">AstNode</span> *<span style="color:#268bd2">ast</span> = <span style="color:#268bd2">malloc</span>(<span style="color:#268bd2">num_nodes</span> * <span style="color:#859900">sizeof</span>(<span style="color:#268bd2">AstNode</span>));
+<span style="color:#859900">if</span> (<span style="color:#268bd2">ast</span> == <span style="color:#cb4b16">NULL</span>) {
+   <span style="color:#268bd2">PyErr_SetString</span>(<span style="color:#268bd2">PyExc_MemoryError</span>, <span style="color:#2aa198">&#34;Unable to allocate memory for the AST.&#34;</span>);
+   <span style="color:#859900">return</span> <span style="color:#cb4b16">NULL</span>;
+}
+</code></pre></div><p>With the information set, Python is able to report a much better error
+message to the user</p>
+<div class="highlight"><pre style="color:#586e75;background-color:#eee8d5;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">&gt;&gt;&gt; <span style="color:#dc322f;font-weight:bold">import</span> <span style="color:#268bd2">ccalc</span>
+&gt;&gt;&gt; <span style="color:#dc322f;font-weight:bold">import</span> <span style="color:#268bd2">_ccalc</span>
+&gt;&gt;&gt; <span style="color:#268bd2">_ccalc</span>.<span style="color:#268bd2">eval_ast</span>(<span style="color:#268bd2">ccalc</span>.<span style="color:#268bd2">Literal</span>(<span style="color:#2aa198;font-weight:bold">2</span>))
+<span style="color:#268bd2">Traceback</span> (<span style="color:#268bd2">most</span> <span style="color:#268bd2">recent</span> <span style="color:#268bd2">call</span> <span style="color:#268bd2">last</span>):
+  <span style="color:#268bd2">File</span> <span style="color:#2aa198">&#34;&lt;stdin&gt;&#34;</span>, <span style="color:#268bd2">line</span> <span style="color:#2aa198;font-weight:bold">1</span>, <span style="color:#859900">in</span> &lt;<span style="color:#268bd2">module</span>&gt;
+<span style="color:#268bd2">MemoryError</span>: <span style="color:#268bd2">Unable</span> <span style="color:#268bd2">to</span> <span style="color:#268bd2">allocate</span> <span style="color:#268bd2">memory</span> <span style="color:#859900">for</span> <span style="color:#268bd2">the</span> <span style="color:#268bd2">AST</span>.
+</code></pre></div><p>Finally let&rsquo;s not forget to jump back to the Python code and implement <code>__len__</code>
+on our <code>AstNode</code> class.</p>
+<div class="highlight"><pre style="color:#586e75;background-color:#eee8d5;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#859900">class</span> <span style="color:#cb4b16">AstNode</span>:
+    ...
+
+    <span style="color:#859900">def</span> <span style="color:#268bd2">__len__</span>(<span style="color:#268bd2">self</span>):
+        <span style="color:#268bd2">left</span> = <span style="color:#2aa198;font-weight:bold">0</span> <span style="color:#859900">if</span> <span style="color:#268bd2">self</span>.<span style="color:#268bd2">left</span> <span style="color:#859900">is</span> <span style="color:#268bd2">None</span> <span style="color:#859900">else</span> <span style="color:#cb4b16">len</span>(<span style="color:#268bd2">self</span>.<span style="color:#268bd2">left</span>)
+        <span style="color:#268bd2">right</span> = <span style="color:#2aa198;font-weight:bold">0</span> <span style="color:#859900">if</span> <span style="color:#268bd2">self</span>.<span style="color:#268bd2">right</span> <span style="color:#859900">is</span> <span style="color:#268bd2">None</span> <span style="color:#859900">else</span> <span style="color:#cb4b16">len</span>(<span style="color:#268bd2">self</span>.<span style="color:#268bd2">right</span>)
+        <span style="color:#859900">return</span> <span style="color:#2aa198;font-weight:bold">1</span> + <span style="color:#268bd2">left</span> + <span style="color:#268bd2">right</span>
+</code></pre></div><p><strong>Inspecting Nodes</strong></p>
+<p>With the memory to hold the tree allocated it&rsquo;s time to start on the actual
+conversion. To handle this we&rsquo;ll write another function <code>AstNode_FromPyObject</code>
+that we can recursively call whenever we need to descend down a branch. This
+function will take a reference <code>obj</code> to the Python representation of the node
+we&rsquo;re currently converting, another reference <code>ast</code> to the memory we allocated
+and finally an <code>index</code> into the array that we should write the node to.</p>
+<div class="highlight"><pre style="color:#586e75;background-color:#eee8d5;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#859900">static</span> <span style="color:#859900;font-weight:bold">int</span>
+<span style="color:#268bd2">AstNode_FromPyObject</span>(<span style="color:#268bd2">PyObject</span> *<span style="color:#268bd2">obj</span>, <span style="color:#268bd2">AstNode</span> *<span style="color:#268bd2">ast</span>, <span style="color:#268bd2">Py_ssize_t</span> <span style="color:#268bd2">index</span>)
+{
+    <span style="color:#268bd2">AstNode</span> *<span style="color:#268bd2">node</span> = &amp;<span style="color:#268bd2">ast</span>[<span style="color:#268bd2">index</span>];
+    <span style="color:#93a1a1;font-style:italic">// ...
+</span><span style="color:#93a1a1;font-style:italic"></span>}
+</code></pre></div><p>The first step in the process is to determine the type of node we are
+converting, which we can do by inspecting the value of the <code>type</code> field.</p>
+<div class="highlight"><pre style="color:#586e75;background-color:#eee8d5;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#268bd2">PyObject</span> *<span style="color:#268bd2">type</span> = <span style="color:#268bd2">PyObject_GetAttrString</span>(<span style="color:#268bd2">obj</span>, <span style="color:#2aa198">&#34;type&#34;</span>);
+<span style="color:#859900">if</span> (<span style="color:#268bd2">type</span> == <span style="color:#cb4b16">NULL</span>) {
+    <span style="color:#859900">return</span> <span style="color:#2aa198;font-weight:bold">0</span>;
+}
+
+<span style="color:#859900;font-weight:bold">long</span> <span style="color:#268bd2">node_type</span> = <span style="color:#268bd2">PyLong_AsLong</span>(<span style="color:#268bd2">type</span>);
+<span style="color:#268bd2">Py_DECREF</span>(<span style="color:#268bd2">type</span>);
+</code></pre></div><p>The call to <code>PyObject_GetAttrString</code> is equivalent to <code>obj.type</code> in Python and
+returns a <strong>new reference</strong> to a generic Python object. In order to get an
+actual number we need to use <code>PyLong_AsLong</code> to convert it.</p>
+<p>In theory <code>type</code> could be a reference to anything, so there&rsquo;s always the chance
+that <code>PyLong_AsLong</code> could fail in which case it would return <code>-1</code>. As stated in
+the <a href="https://docs.python.org/3/c-api/long.html?highlight=aslong#c.PyLong_AsLong">documentation</a> we should really be performing extra
+checks here to determine if the value is actually <code>-1</code> or if there was an error
+but I&rsquo;ve decided to omit those for now.</p>
+<p>Something else to note is that <code>type</code> was a <strong>new reference</strong> and since Python
+uses <a href="https://en.wikipedia.org/wiki/Reference_counting">Reference Counting</a> internally it&rsquo;s our responsibility
+to decrement the count (using <code>Py_DECREF</code>) when we are finished with it - at
+least that&rsquo;s what I think should be done based on what I found in the
+documentation on <a href="https://docs.python.org/3/extending/extending.html#ownership-rules">ownership</a>.</p>
+<p><strong>Converting the Node</strong></p>
+<p>Now that we have an integer <code>node_type</code> that corresponds with one of the
+<code>AstNodeType</code> enum entries we can use a <code>switch</code> statement and start writing the
+conversion code for each type in turn.</p>
+<div class="highlight"><pre style="color:#586e75;background-color:#eee8d5;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#859900">switch</span>(<span style="color:#268bd2">node_type</span>) {
+<span style="color:#859900">case</span> <span style="color:#268bd2">AST_LITERAL</span>: {
+
+    <span style="color:#268bd2">PyObject</span> *<span style="color:#268bd2">value</span> = <span style="color:#268bd2">PyObject_GetAttrString</span>(<span style="color:#268bd2">obj</span>, <span style="color:#2aa198">&#34;value&#34;</span>);
+    <span style="color:#859900">if</span> (<span style="color:#268bd2">value</span> == <span style="color:#cb4b16">NULL</span>) {
+        <span style="color:#859900">return</span> <span style="color:#2aa198;font-weight:bold">0</span>;
+    }
+
+    <span style="color:#859900;font-weight:bold">double</span> <span style="color:#268bd2">v</span> = <span style="color:#268bd2">PyFloat_AsDouble</span>(<span style="color:#268bd2">value</span>);
+    <span style="color:#268bd2">Py_DECREF</span>(<span style="color:#268bd2">value</span>);
+
+    <span style="color:#93a1a1;font-style:italic">// ...
+</span><span style="color:#93a1a1;font-style:italic"></span>}
+}
+</code></pre></div><p>Considering the <code>Literal</code> node types first, we can follow a very similar process
+to the previous section to extract the <code>value</code> field from the node giving us
+enough information to fill out our first <code>AstNode</code> instance!</p>
+<div class="highlight"><pre style="color:#586e75;background-color:#eee8d5;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#268bd2">node</span>-&gt;<span style="color:#268bd2">type</span> = <span style="color:#268bd2">AST_LITERAL</span>;
+<span style="color:#268bd2">node</span>-&gt;<span style="color:#268bd2">value</span> = <span style="color:#268bd2">v</span>;
+<span style="color:#268bd2">node</span>-&gt;<span style="color:#268bd2">left</span> = <span style="color:#cb4b16">NULL</span>;
+<span style="color:#268bd2">node</span>-&gt; <span style="color:#268bd2">right</span> = <span style="color:#cb4b16">NULL</span>;
+
+<span style="color:#859900">return</span> <span style="color:#2aa198;font-weight:bold">1</span>;
+</code></pre></div><p>As this node type has no children there&rsquo;s no further work to do and we can
+return successfully. However, in the case of <code>AST_PLUS</code> and <code>AST_MULTIPLY</code>
+things aren&rsquo;t as straightforward&hellip;</p>
+<p><strong>Traversing the Tree</strong></p>
+<p>Handling the other node types starts off easy enough, since  they are almost
+identical we can handle their differences in the <code>switch</code> statement and then use
+the remainder of the function to handle recursing down both the <code>left</code> and
+<code>right</code> branches.</p>
+<div class="highlight"><pre style="color:#586e75;background-color:#eee8d5;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#859900">case</span> <span style="color:#268bd2">AST_PLUS</span>: {
+    <span style="color:#268bd2">node</span>-&gt;<span style="color:#268bd2">type</span> = <span style="color:#268bd2">AST_PLUS</span>;
+    <span style="color:#859900">break</span>;
+}
+<span style="color:#859900">case</span> <span style="color:#268bd2">AST_MULTIPLY</span>: {
+    <span style="color:#268bd2">node</span>-&gt;<span style="color:#268bd2">type</span> = <span style="color:#268bd2">AST_MULTIPLY</span>;
+    <span style="color:#859900">break</span>;
+}
+</code></pre></div><p>We can then get references to the child nodes in the same way we&rsquo;ve been
+referencing all the other fields so far</p>
+<div class="highlight"><pre style="color:#586e75;background-color:#eee8d5;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#268bd2">PyObject</span> *<span style="color:#268bd2">left</span> = <span style="color:#268bd2">PyObject_GetAttrString</span>(<span style="color:#268bd2">obj</span>, <span style="color:#2aa198">&#34;left&#34;</span>);
+<span style="color:#859900">if</span> (<span style="color:#268bd2">left</span> == <span style="color:#cb4b16">NULL</span>) {
+    <span style="color:#859900">return</span> <span style="color:#2aa198;font-weight:bold">0</span>;
+}
+
+<span style="color:#268bd2">PyObject</span> *<span style="color:#268bd2">right</span> = <span style="color:#268bd2">PyObject_GetAttrString</span>(<span style="color:#268bd2">obj</span>, <span style="color:#2aa198">&#34;right&#34;</span>);
+<span style="color:#859900">if</span> (<span style="color:#268bd2">right</span> == <span style="color:#cb4b16">NULL</span>) {
+    <span style="color:#859900">return</span> <span style="color:#2aa198;font-weight:bold">0</span>;
+}
+</code></pre></div><p>Then &ldquo;all&rdquo; that is left to do is set the <code>left</code> and <code>right</code> pointers on the
+<code>AstNode</code> struct and call <code>AstNode_FromPyObject</code> on each branch - remembering to
+adjust the <code>index</code> value accordingly.</p>
+<div class="highlight"><pre style="color:#586e75;background-color:#eee8d5;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#268bd2">node</span>-&gt;<span style="color:#268bd2">left</span> = &amp;<span style="color:#268bd2">ast</span>[<span style="color:#268bd2">index</span> + <span style="color:#2aa198;font-weight:bold">1</span>];
+<span style="color:#268bd2">node</span>-&gt;<span style="color:#268bd2">right</span> = &amp;<span style="color:#268bd2">ast</span>[<span style="color:#268bd2">index</span> + <span style="color:#2aa198;font-weight:bold">2</span>];
+
+<span style="color:#859900">if</span> (!<span style="color:#268bd2">AstNode_FromPyObject</span>(<span style="color:#268bd2">left</span>, <span style="color:#268bd2">ast</span>, <span style="color:#268bd2">index</span> + <span style="color:#2aa198;font-weight:bold">1</span>)) {
+    <span style="color:#859900">return</span> <span style="color:#2aa198;font-weight:bold">0</span>;
+}
+
+<span style="color:#859900">if</span> (!<span style="color:#268bd2">AstNode_FromPyObject</span>(<span style="color:#268bd2">right</span>, <span style="color:#268bd2">ast</span>, <span style="color:#268bd2">index</span> + <span style="color:#2aa198;font-weight:bold">2</span>)) {
+    <span style="color:#859900">return</span> <span style="color:#2aa198;font-weight:bold">0</span>;
+}
+
+<span style="color:#859900">return</span> <span style="color:#2aa198;font-weight:bold">1</span>;
+</code></pre></div><p>At least&hellip; that&rsquo;s what I wanted to do initially, unfortunately this solution
+wouldn&rsquo;t work in practice,. If <code>left</code> is a reference to anything other than an
+<code>AST_LITERAL</code> then it&rsquo;s children would be overwritten when we start processing
+nodes on the <code>right</code> branch!</p>
+<p>This had me scratching my head for quite a while, trying to come up with a way
+to compute the correct offset for the <code>right</code> branch - without success.</p>
+<p>Instead, since this is C I ended up changing the <code>index</code> argument from an actual
+<code>Py_ssize_t</code> to a pointer to one. This allows recursive calls to increment the
+index as needed and by the time execution returns to the top level function, the
+value referenced by the pointer is automatically the correct value.</p>
+<div class="highlight"><pre style="color:#586e75;background-color:#eee8d5;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c">(*<span style="color:#268bd2">index</span>)++;
+<span style="color:#268bd2">node</span>-&gt;<span style="color:#268bd2">left</span> = &amp;<span style="color:#268bd2">ast</span>[*<span style="color:#268bd2">index</span>];
+<span style="color:#859900">if</span> (!<span style="color:#268bd2">AstNode_FromPyObject</span>(<span style="color:#268bd2">left</span>, <span style="color:#268bd2">ast</span>, <span style="color:#268bd2">index</span>)) {
+    <span style="color:#859900">return</span> <span style="color:#2aa198;font-weight:bold">0</span>;
+}
+
+(*<span style="color:#268bd2">index</span>)++;
+<span style="color:#268bd2">node</span>-&gt;<span style="color:#268bd2">right</span> = &amp;<span style="color:#268bd2">ast</span>[*<span style="color:#268bd2">index</span>];
+<span style="color:#859900">if</span> (!<span style="color:#268bd2">AstNode_FromPyObject</span>(<span style="color:#268bd2">right</span>, <span style="color:#268bd2">ast</span>, <span style="color:#268bd2">index</span>)) {
+    <span style="color:#859900">return</span> <span style="color:#2aa198;font-weight:bold">0</span>;
+}
+
+<span style="color:#859900">return</span> <span style="color:#2aa198;font-weight:bold">1</span>;
+</code></pre></div><p>I have no idea if this is a terrible idea for real world scenarios, but it seems
+to work well enough for this at least.</p>
+<p>To complete the conversion code, all that remains is to make the initial call to
+<code>AstNode_FromPyObject</code> from our main <code>AstTree_FromPyObject</code>  function</p>
+<div class="highlight"><pre style="color:#586e75;background-color:#eee8d5;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#268bd2">Py_ssize_t</span> <span style="color:#268bd2">index</span> = <span style="color:#2aa198;font-weight:bold">0</span>;
+<span style="color:#859900">if</span> (!<span style="color:#268bd2">AstTree_FromPyObject</span>(<span style="color:#268bd2">obj</span>, <span style="color:#268bd2">ast</span>, &amp;<span style="color:#268bd2">index</span>)) {
+    <span style="color:#268bd2">free</span>(<span style="color:#268bd2">ast</span>);
+    <span style="color:#859900">return</span> <span style="color:#cb4b16">NULL</span>;
+}
+
+<span style="color:#859900">return</span> <span style="color:#268bd2">ast</span>;
+</code></pre></div><h3 id="return">Returning the Result</h3>
+<p>Phew! That was a lot of work but we&rsquo;re almost there. We just need to add a few
+more lines to <code>method_eval_ast</code> that takes the newly constructed AST and
+evaluates it, before converting the result into a Python float and returning it.</p>
+<div class="highlight"><pre style="color:#586e75;background-color:#eee8d5;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#859900;font-weight:bold">double</span> <span style="color:#268bd2">result</span> = <span style="color:#268bd2">ast_evaluate</span>(<span style="color:#268bd2">ast</span>);
+<span style="color:#268bd2">free</span>(<span style="color:#268bd2">ast</span>);
+<span style="color:#859900">return</span> <span style="color:#268bd2">PyFloat_FromDouble</span>(<span style="color:#268bd2">result</span>);
+</code></pre></div><p>That&rsquo;s the C Extension finished, the only thing we could do is import the
+<code>_ccalc</code> module from <code>ccalc</code> and expose the methods we want to present a unified
+interface to users of the module.</p>
+<div class="highlight"><pre style="color:#586e75;background-color:#eee8d5;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#93a1a1;font-style:italic"># In ccalc/__init__.py</span>
+<span style="color:#dc322f;font-weight:bold">import</span> <span style="color:#268bd2">_ccalc</span>
+
+<span style="color:#268bd2">eval_ast</span> = <span style="color:#268bd2">_ccalc</span>.<span style="color:#268bd2">eval_ast</span>
+</code></pre></div><p>And that way we can now make the example code from the start of this post
+actually work!</p>
+<div class="highlight"><pre style="color:#586e75;background-color:#eee8d5;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">&gt;&gt;&gt; <span style="color:#dc322f;font-weight:bold">import</span> <span style="color:#268bd2">ccalc</span>
+&gt;&gt;&gt; <span style="color:#268bd2">expression</span> = (<span style="color:#268bd2">ccalc</span>.<span style="color:#268bd2">Literal</span>(<span style="color:#2aa198;font-weight:bold">1</span>) + <span style="color:#2aa198;font-weight:bold">2</span>) * <span style="color:#2aa198;font-weight:bold">3</span>
+&gt;&gt;&gt; <span style="color:#268bd2">expression</span>
+<span style="color:#268bd2">Multiply</span>&lt;<span style="color:#268bd2">Plus</span>&lt;<span style="color:#268bd2">Literal</span>&lt;<span style="color:#2aa198;font-weight:bold">1.0</span>&gt;, <span style="color:#268bd2">Literal</span>&lt;<span style="color:#2aa198;font-weight:bold">2.0</span>&gt;&gt;, <span style="color:#268bd2">Literal</span>&lt;<span style="color:#2aa198;font-weight:bold">3.0</span>&gt;&gt;
+
+&gt;&gt;&gt; <span style="color:#268bd2">ccalc</span>.<span style="color:#268bd2">eval_ast</span>(<span style="color:#268bd2">expression</span>)
+<span style="color:#2aa198;font-weight:bold">9.0</span>
+</code></pre></div><h2 id="final-thoughts">Final Thoughts</h2>
+<p>There was a lot of code flying around in this post, if you want to see the final
+result in its entirety you can find it <a href="https://www.alcarney.me/code/ccalc/">here</a></p>
+<h3 id="best-practice">Best Practice?</h3>
+<p>This was my first CPython extension so I might be missing out on some best
+practices, for example a question I had was around my use of <code>malloc</code> and
+<code>free</code>. While writing this section I found the documentation on <a href="https://docs.python.org/3/c-api/memory.html">memory
+management</a> and it appears that the recommendation is to
+use the <code>PyMem_*</code> family of functions, even for allocations that are not
+<code>PyObjects</code>. However it looks like there is a learning curve to these as some
+functions require holding the <a href="https://docs.python.org/3/glossary.html#term-global-interpreter-lock"><code>GIL</code></a> and some don&rsquo;t.</p>
+<p>Hmm&hellip; speaking of the GIL, should this extension be acquiring it at any point?
+🤔</p>
+<h3 id="another-approach">Another approach</h3>
+<p>Another note worth mentioning is that it looks like it&rsquo;s possible to <a href="https://docs.python.org/3/extending/newtypes_tutorial.html">define
+custom types</a> directly in C. This means it should be
+possible to extend the <code>AstNode</code> C struct to be an object than can be
+manipulated directly from Python code - bypassing the need for all the
+conversion code we had to write.</p>
+<p>However, I decided against this approach mainly because the &ldquo;convert between the
+representations&rdquo; approach means we get to evolve the Python and C
+representations semi independently. Assuming that the Python representation
+exposes the correct fields then any method of generating the AST from Python is
+perfectly valid.</p>
+<p>Anyway, I think this post has gone on long enough I hope you found it useful and
+I&rsquo;ll see you in the next one!</p>
+        </div>
+        <div class="flex items-center justify-end mt-4 space-x-4">
+    <a class="px-2 text-sm text-gray-600 bg-green-200 border border-green-600 rounded" href="https://www.alcarney.me/tags/c/">
+        #c
+    </a><a class="px-2 text-sm text-gray-600 bg-green-200 border border-green-600 rounded" href="https://www.alcarney.me/tags/python/">
+        #python
+    </a><a class="px-2 text-sm text-gray-600 bg-green-200 border border-green-600 rounded" href="https://www.alcarney.me/tags/programming-languages/">
+        #programming-languages
+    </a></div>
+        <div class="pt-4 mt-8 border-t">
+            <div id="disqus_thread"></div>
+<script type="application/javascript">
+    var disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "alcarney-me" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+        </div>
+    </article>
+</div>
+
+    </main><footer class="items-baseline p-4 text-white bg-gray-700 w-full">
+    <div class="flex justify-between">
+        <div></div>
+
+        <div class="flex justify-between space-x-4">
+            
+            <a target="_blank" rel="noreferrer noopener" href="https://github.com/alcarney">
+                <svg class="w-8 h-8 bg-transparent stroke-current" style="fill:none">
+    <use xlink:href="/svg/feather-sprite.svg#github" />
+</svg>
+            </a>
+            
+            <a target="_blank" rel="noreferrer noopener" href="https://twitter.com/alcarneyme">
+                <svg class="w-8 h-8 bg-transparent stroke-current" style="fill:none">
+    <use xlink:href="/svg/feather-sprite.svg#twitter" />
+</svg>
+            </a>
+            
+            <a target="_blank" rel="noreferrer noopener" href="https://instagram.com/alcarneyme">
+                <svg class="w-8 h-8 bg-transparent stroke-current" style="fill:none">
+    <use xlink:href="/svg/feather-sprite.svg#instagram" />
+</svg>
+            </a>
+            
+            <a target="_blank" rel="noreferrer noopener" href="https://www.youtube.com/channel/UC5GPflgRWhnCxA0BllfP5CA">
+                <svg class="w-8 h-8 bg-transparent stroke-current" style="fill:none">
+    <use xlink:href="/svg/feather-sprite.svg#youtube" />
+</svg>
+            </a>
+            
+        </div>
+
+        <div></div>
+    </div>
+</footer>
+
+    <script>
+      const codeBlocks = document.querySelectorAll(".highlight pre")
+      Array.from(codeBlocks).forEach(el => {
+          el.style.backgroundColor = "#fdf6e3"
+      })
+
+      function copyText(text) {
+          const textArea = document.createElement("textarea")
+          textArea.value = text
+
+          textArea.style.top = 0
+          textArea.style.left = 0
+          textArea.style.position = 'fixed'
+
+          document.body.append(textArea)
+          textArea.focus()
+          textArea.select()
+
+          document.execCommand('copy')
+          document.body.removeChild(textArea)
+      }
+    </script>
+
+    <script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
+    <script>mermaid.initialize({startOnLoad:true});</script>
+
+
+</body>
+
+</html>

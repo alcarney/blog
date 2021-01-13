@@ -89,7 +89,10 @@ main()
     float result1 = ast_evaluate(&example1);
     float result2 = ast_evaluate(&example2);
 
+    ast_print(&example1, 0);
     printf("Example 1: %.2f\n", result1);
+
+    ast_print(&example2, 0);
     printf("Example 2: %.2f\n", result2);
 
     return 0;

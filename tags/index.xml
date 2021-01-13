@@ -6,11 +6,11 @@
     <description>Recent content in Tags on Alex Carney</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Sun, 27 Dec 2020 00:00:00 +0000</lastBuildDate><atom:link href="https://www.alcarney.me/tags/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Wed, 13 Jan 2021 00:00:00 +0000</lastBuildDate><atom:link href="https://www.alcarney.me/tags/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>c</title>
       <link>https://www.alcarney.me/tags/c/</link>
-      <pubDate>Sun, 27 Dec 2020 00:00:00 +0000</pubDate>
+      <pubDate>Wed, 13 Jan 2021 00:00:00 +0000</pubDate>
       
       <guid>https://www.alcarney.me/tags/c/</guid>
       <description></description>
@@ -19,9 +19,18 @@
     <item>
       <title>programming-languages</title>
       <link>https://www.alcarney.me/tags/programming-languages/</link>
-      <pubDate>Sun, 27 Dec 2020 00:00:00 +0000</pubDate>
+      <pubDate>Wed, 13 Jan 2021 00:00:00 +0000</pubDate>
       
       <guid>https://www.alcarney.me/tags/programming-languages/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>python</title>
+      <link>https://www.alcarney.me/tags/python/</link>
+      <pubDate>Wed, 13 Jan 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://www.alcarney.me/tags/python/</guid>
       <description></description>
     </item>
     
@@ -121,15 +130,6 @@
       <pubDate>Sat, 05 Jan 2019 00:00:00 +0000</pubDate>
       
       <guid>https://www.alcarney.me/tags/cli/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>python</title>
-      <link>https://www.alcarney.me/tags/python/</link>
-      <pubDate>Sat, 05 Jan 2019 00:00:00 +0000</pubDate>
-      
-      <guid>https://www.alcarney.me/tags/python/</guid>
       <description></description>
     </item>
     

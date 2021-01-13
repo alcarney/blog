@@ -6,13 +6,31 @@
     <description>Recent content in c on Alex Carney</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Sun, 27 Dec 2020 00:00:00 +0000</lastBuildDate><atom:link href="https://www.alcarney.me/tags/c/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Wed, 13 Jan 2021 00:00:00 +0000</lastBuildDate><atom:link href="https://www.alcarney.me/tags/c/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Creating a CPython Extension</title>
+      <link>https://www.alcarney.me/blog/2021/ast-python-frontend/</link>
+      <pubDate>Wed, 13 Jan 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://www.alcarney.me/blog/2021/ast-python-frontend/</guid>
+      <description>&lt;p&gt;&lt;a href=&#34;https://www.alcarney.me/blog/2020/ast-simple-eval/&#34;&gt;Previously&lt;/a&gt;, as part of my exploration
+into how programming languages are implemented, I wrote a very simple AST
+evaluator that knew how to add and multiply floats together. Since constructing
+these ASTs by hand is quite painful I thought it would be fun to come up with a
+frontend to my &amp;ldquo;programming language&amp;rdquo; which could do it for me.&lt;/p&gt;
+&lt;p&gt;Now your typical frontend would be some kind of parser built into the
+compiler/interpreter. However, while I&amp;rsquo;m definitely interested in parsing I
+don&amp;rsquo;t quite feel like tackling that just yet. Instead I&amp;rsquo;m going to have Python
+be the frontend and embed my toy language into it via a &lt;a href=&#34;https://docs.python.org/3/extending/extending.html&#34;&gt;CPython
+Extension&lt;/a&gt;&lt;/p&gt;</description>
+    </item>
+    
     <item>
       <title>Evaluating a Simple Abstract Syntax Tree</title>
-      <link>https://www.alcarney.me/blog/2020/simple-ast-eval/</link>
+      <link>https://www.alcarney.me/blog/2020/ast-simple-eval/</link>
       <pubDate>Sun, 27 Dec 2020 00:00:00 +0000</pubDate>
       
-      <guid>https://www.alcarney.me/blog/2020/simple-ast-eval/</guid>
+      <guid>https://www.alcarney.me/blog/2020/ast-simple-eval/</guid>
       <description>&lt;p&gt;Programming languages and their implementation is a topic I&amp;rsquo;ve been interested
 in for a long time and I thought it would be worth trying to get a bit more
 hands on and play with some of the ideas in this space. Choosing a topic
@@ -53,6 +71,27 @@ once I got that far&amp;hellip;&lt;/p&gt;
 &lt;p&gt;But that&amp;rsquo;s (hopefully) about to change! What better excuse than a new decade to
 jump back into this world for the 100th time and try to get to all those
 interesting ideas I see people playing with all the time!&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>ccalc</title>
+      <link>https://www.alcarney.me/code/ccalc/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://www.alcarney.me/code/ccalc/</guid>
+      <description>A CPython extension that embeds the simple-ast program into Python.
+&amp;gt;&amp;gt;&amp;gt; import ccalc &amp;gt;&amp;gt;&amp;gt; expression = (ccalc.Literal(1) + 2) * 3 &amp;gt;&amp;gt;&amp;gt; expression Multiply&amp;lt;Plus&amp;lt;Literal&amp;lt;1.0&amp;gt;, Literal&amp;lt;2.0&amp;gt;&amp;gt;, Literal&amp;lt;3.0&amp;gt;&amp;gt; &amp;gt;&amp;gt;&amp;gt; ccalc.eval_ast(expression) 9.0 Building It&amp;rsquo;s probably worth creating a virtual environment to work in
+ .cli-command::before { content: &#34;$ &#34;; }    python -m venv .env   Assuming you have a C compiler available, building the extension is as easy as running the following command</description>
+    </item>
+    
+    <item>
+      <title>Simple AST</title>
+      <link>https://www.alcarney.me/code/simple-ast/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://www.alcarney.me/code/simple-ast/</guid>
+      <description>A simple C program that can construct and evaluate a simple Abstract Syntax Tree (AST). The AST represents a toy &amp;ldquo;programming language&amp;rdquo; that only knows how to add and multiply floating point numbers together.
+$ ./simple-ast * + 1.00 2.00 3.00 Example 1: 9.00 + 1.00 * 2.00 3.00 Example 2: 7.00 Building Having no real dependencies beyond the standard library this program can be compiled with just a C compiler</description>
     </item>
     
     <item>
