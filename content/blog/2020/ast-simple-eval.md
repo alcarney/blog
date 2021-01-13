@@ -1,6 +1,8 @@
 ---
 author:
 - Alex Carney
+code:
+- code/simple-ast/
 date: 2020-12-27
 description: |
    Playing around with constructing and evaluating Abstract Syntax Trees
@@ -57,12 +59,12 @@ Encoding a program in this way allows the interpreter/compiler to focus on the
 semantic meaning of the program without having to worry about the finer details
 of how that program happens to be written down.
 
-## Representing an AST
+## Representing an AST {#ast-repr}
 
 For no particular reason other I fancied trying it, I decided to use C to
 represent my AST where each node is represented by the following struct.
 
-{{< include file="simple-ast.c" lines="9-25" >}}
+{{< include file="simple-ast/simple-ast.c" lines="9-25" >}}
 
 Although the `typedef` will let us refer to this struct using the name `AstNode`
 from here on out, this name does not exist within the body of the struct
@@ -72,12 +74,12 @@ of the same type it's necessary to also name the struct definition `_ast`
 In order to express the example trees above we only need to specify a few node
 types
 
-{{< include file="simple-ast.c" lines="3-7" >}}
+{{< include file="simple-ast/simple-ast.c" lines="3-7" >}}
 
 With our AST node representation defined, it's easy enough to construct a tree
 for the two examples we outlined earlier
 
-{{< include file="simple-ast.c" lines="79-87" >}}
+{{< include file="simple-ast/simple-ast.c" lines="79-87" >}}
 
 ## Evaluating the AST
 
@@ -86,17 +88,17 @@ To evaluate an instance of the AST we have defined we can take a simple approach
 - If the node we are evaluating is an `AST_LITERAL` then all we have to do is
   return the value stored in that node
 
-  {{< include file="simple-ast.c" lines="53-59" >}}
+  {{< include file="simple-ast/simple-ast.c" lines="53-59" >}}
 
 - In the case of `AST_PLUS`, we recursively call `ast_evaluate` on
   both the left and right branches of the tree and then add the resulting values
   together
 
-  {{< include file="simple-ast.c" lines="60-65" >}}
+  {{< include file="simple-ast/simple-ast.c" lines="60-65" >}}
 
 - Simiarly for `AST_MULTIPLY`, but returing `a * b` in this case.
 
-  {{< include file="simple-ast.c" lines="67-75" >}}
+  {{< include file="simple-ast/simple-ast.c" lines="67-75" >}}
 
 Calling this function on each of our example trees and printing the result we
 see that we indeed compute the values we would expect in each case
@@ -108,6 +110,6 @@ Example 1: 7.00
 
 And there you have it, a calculator that only knows how to add and multiply
 floats! 😃 If you want to see the entire source file you can find it
-[here](/listings/simple-ast.c).
+[here]({{< ref "/code/simple-ast/_index.md" >}}).
 
 [ast-wiki]: https://en.wikipedia.org/wiki/Abstract_syntax_tree
