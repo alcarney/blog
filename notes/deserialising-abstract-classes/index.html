@@ -1,196 +1,259 @@
+
 <!DOCTYPE html>
-<html lang="en">
 
-<head><meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Deserialising Abstract Classes with Jackson &#8212; Blog  documentation</title>
 
-<meta name="theme-color" content="#259669" />
+    
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
+    
+    
+    
+    <link rel="stylesheet" type="text/css" href="../../_static/togglebutton.css" />
+    
+    
+    <link rel="stylesheet" type="text/css" href="../../_static/css/styles.css" />
+    
 
-<meta name="generator" content="Hugo 0.79.1" />
-<meta name="author" content="Alex Carney" />
-<meta name="description" content="Parsing JSON into different class instances based on the value of a given field." />
+    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/togglebutton.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <link rel="shortcut icon" href="../../_static/favicon.ico"/>
+    <link rel="index" title="Index" href="../../genindex/" />
+    <link rel="search" title="Search" href="../../search/" />
+    <link rel="next" title="Emacs Sub Processes" href="../emacs-subprocesses/" />
+    <link rel="prev" title="Custom Directives" href="../custom_directives/" /> 
+  </head><body class="flex flex-col justify-between min-h-screen overflow-x-hidden bg-gray-100 ">
+    <div class="flex flex-grow">
+        <input id="menu-state" type="checkbox" class="hidden" />
+        <aside class="flex justify-between flex-shrink-0 transition-all duration-500 bg-white border-r -ml-80 lg:ml-0">
+            <div class="flex flex-col justify-between h-full border-r w-80">
+                <div class="sticky top-0 flex flex-col h-screen"> 
+                    
+                    <div id="profile-card" class="full-profile">
+    <img class="" src="https://github.com/alcarney.png"/>
+    <h2 class=""><a href="/">Alex Carney</a></h2>
+</div>
+                    
+                    <div id="searchbox" style="display: none" role="search" class="px-4 py-4">
+    <form class="flex justify-between px-2 py-1 bg-gray-100 border-2 rounded search focus-within:border-green-600" action="../../search/" method="get">
+        <label class="mr-2 text-gray-500" for="sbox">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="feather feather-search">
+                <circle cx="11" cy="11" r="6" />
+                <path d="m21 21-4.35-4.35" />
+            </svg>
+        </label>
+        <input id="sbox" class="flex-grow bg-gray-100 focus:outline-none" type="search" name="q" placeholder="Search..." aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" />
+    </form>
+</div>
+<script>$('#searchbox').show(0);</script>
+                    
+                    
+    
+<nav class="flex flex-col text-center">
+    <a class="text-green-600 py-1 border-t text-lg hover:bg-gray-50" href="/blog">Blog</a>
+    <a class="text-green-600 py-1 border-t text-lg hover:bg-gray-50" href="/code">Code</a>
+    <a class="text-green-600 py-1 border-t text-lg hover:bg-gray-50" href="/notes">Notes</a>
+</nav>
+                    
+                    <div class="flex-shrink overflow-auto"><nav id="localtoc" class="p-4 border-t">
+    <ul>
+<li><a class="reference internal" href="#">Deserialising Abstract Classes with Jackson</a></li>
+</ul>
 
-<meta property="og:title" content="Deserialising Abstract Classes with Jackson" />
-<meta property="og:description" content="Parsing JSON into different class instances based on the value of a given field." />
-<meta property="og:type" content="article" />
-<meta property="og:url" content="https://www.alcarney.me/notes/deserialising-abstract-classes/" />
-<meta property="article:modified_time" content="2021-08-13T23:42:52+01:00" />
+</nav>
+                    </div>
+                    
+                    <footer class="w-full p-4 mt-auto text-white bg-gray-700">
+                        <div class="flex justify-between">
+    <div></div>
 
-<meta property="article:tag" content="java" />
-<meta property="article:tag" content="json" />
+    <div class="flex justify-between space-x-4">
+        <a target="_blank" rel="noreferrer noopener" href="https://github.com/alcarney">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="w-8 h-8">
+                <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path>
+            </svg>
+        </a>
 
-<meta name="twitter:creator" content="@alcarneyme" />
-<meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="Deserialising Abstract Classes with Jackson"/>
-<meta name="twitter:description" content="Parsing JSON into different class instances based on the value of a given field."/>
+        <a target="_blank" rel="noreferrer noopener" href="https://twitter.com/alcarneyme">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="w-8 h-8">
+                <path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"></path>
+            </svg>
+        </a>
 
+        <a target="_blank" rel="noreferrer noopener" href="https://instagram.com/alcarneyme">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="w-8 h-8">
+                <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
+                <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
+                <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
+            </svg>
+        </a>
 
-<title>Deserialising Abstract Classes with Jackson | Alex Carney</title>
-
-
-
-<link rel="stylesheet" href="https://www.alcarney.me/main.f0fcfa33b6ee0d4eb9f5f5d87692f86fb025cfdb3907f9545b6b316fa12a3587.css" /></head>
-
-<body class="bg-gray-100 flex flex-col justify-between min-h-screen items-center">
-    <div class="flex items-baseline justify-between w-full p-4 bg-white border-b">
-
-        <div>
-            <h1>Alex Carney</h1>
-        </div>
-
-        <div class="flex justify-center flex-grow">
-        </div>
-
-        <nav class="flex space-x-4 items-between">
-            <a href="/blog">Blog</a>
-            <a href="/code">Code</a>
-            <a href="/notes">Notes</a>
-        </nav>
+        <a target="_blank" rel="noreferrer noopener" href="https://www.youtube.com/channel/UC5GPflgRWhnCxA0BllfP5CA">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="w-8 h-8">
+                <path d="M22.54 6.42a2.78 2.78 0 0 0-1.94-2C18.88 4 12 4 12 4s-6.88 0-8.6.46a2.78 2.78 0 0 0-1.94 2A29 29 0 0 0 1 11.75a29 29 0 0 0 .46 5.33A2.78 2.78 0 0 0 3.4 19c1.72.46 8.6.46 8.6.46s6.88 0 8.6-.46a2.78 2.78 0 0 0 1.94-2 29 29 0 0 0 .46-5.25 29 29 0 0 0-.46-5.33z"></path>
+                <polygon points="9.75 15.02 15.5 11.75 9.75 8.48 9.75 15.02"></polygon>
+            </svg>
+        </a>
     </div>
 
-    <main class="max-w-4xl w-full flex-grow mb-8">
-<article class="mx-2 mt-8 bg-white border shadow-lg">
-  <div class="relative z-10 rounded bg-white p-4 m-auto prose prose-lg prose-green">
-    <h1>Deserialising Abstract Classes with Jackson</h1>
-    <p>Jackson can automatically detect the relevant abstract class to initialise when
+    <div></div>
+</div>
+                    </footer>
+                </div>
+            </div>     
+        </aside>
+        
+        <main class="w-full mx-auto lg:pr-0">
+            <div class="sticky top-0 z-50 mt-0 transition-all duration-300 bg-white border-b shadow-md lg:shadow-none lg:relative lg:-mt-16">
+                <label class="flex h-16 text-gray-600 transition" for="menu-state">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="w-8 h-8 my-auto" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="feather feather-arrow-right"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                </label>
+            </div> 
+
+            <div id="content" class="mx-2 my-8">
+                <div class="max-w-3xl mx-auto">
+                    
+
+<article class="p-4 prose-sm prose bg-white border prose-md prose-green max-w-none">
+    <div class="section" id="deserialising-abstract-classes-with-jackson">
+<h1>Deserialising Abstract Classes with Jackson<a class="headerlink" href="#deserialising-abstract-classes-with-jackson" title="Permalink to this headline">¶</a></h1>
+<p>Jackson can automatically detect the relevant abstract class to initialise when
 parsing some JSON if you give it a little bit of help. There are multiple
 methods Jackson can use to detect and indicate the class it should use but the
-method I have chosen is to tell it to look for a <code>type</code> field.</p>
+method I have chosen is to tell it to look for a <code class="docutils literal notranslate"><span class="pre">type</span></code> field.</p>
 <p>Consider the following json snippets</p>
-<pre><code class="language-nil" data-lang="nil">{
-    &#34;id&#34;: &#34;123&#34;,
-    &#34;type&#34;: &#34;name&#34;,
-    &#34;name&#34;: &#34;Alex&#34;
-}</code></pre>
-<pre><code class="language-nil" data-lang="nil">{
-    &#34;id&#34;: &#34;345&#34;,
-    &#34;type&#34;: &#34;value&#34;,
-    &#34;value&#34;: 123.4
-}</code></pre>
+<div class="flex flex-col lg:flex-row justify-around docutils container">
+<div class="w-full lg:w-1/2 lg:mr-2 highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+   <span class="nt">&quot;id&quot;</span><span class="p">:</span> <span class="s2">&quot;123&quot;</span><span class="p">,</span>
+   <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;name&quot;</span><span class="p">,</span>
+   <span class="nt">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;Alex&quot;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<div class="w-full lg:w-1/2 lg:ml-2 highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+   <span class="nt">&quot;id&quot;</span><span class="p">:</span> <span class="s2">&quot;345&quot;</span><span class="p">,</span>
+   <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;value&quot;</span><span class="p">,</span>
+   <span class="nt">&quot;value&quot;</span><span class="p">:</span> <span class="mf">123.4</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
 <p>Which can be represented by the following classes</p>
-<div class="highlight"><pre style="color:#586e75;background-color:#eee8d5;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#859900">public</span> <span style="color:#859900">class</span> <span style="color:#cb4b16">IdName</span> <span style="color:#859900">extends</span> <span style="color:#268bd2">IdField</span> {
-    <span style="color:#859900">public</span> <span style="color:#859900">static</span> <span style="color:#859900">final</span> <span style="color:#268bd2">String</span> <span style="color:#268bd2">FIELD_TYPE</span> = <span style="color:#2aa198">&#34;name&#34;</span>;
-    <span style="color:#859900">private</span> <span style="color:#268bd2">String</span> <span style="color:#268bd2">name</span>;
+<div class="flex flex-col lg:flex-row justify-around docutils container">
+<div class="w-full lg:w-1/2 lg:mr-2 highlight-java notranslate"><div class="highlight"><pre><span></span><span class="kd">public</span> <span class="kd">class</span> <span class="nc">IdName</span> <span class="kd">extends</span> <span class="n">IdField</span> <span class="p">{</span>
+   <span class="kd">public</span> <span class="kd">static</span> <span class="kd">final</span> <span class="n">String</span> <span class="n">FIELD_TYPE</span> <span class="o">=</span> <span class="s">&quot;name&quot;</span><span class="p">;</span>
+   <span class="kd">private</span> <span class="n">String</span> <span class="n">name</span><span class="p">;</span>
 
-    <span style="color:#859900">public</span> <span style="color:#268bd2">IdName</span>() {
-        <span style="color:#859900">super</span>(<span style="color:#268bd2">FIELD_TYPE</span>);
-    }
+   <span class="kd">public</span> <span class="nf">IdName</span><span class="p">()</span> <span class="p">{</span>
+      <span class="kd">super</span><span class="p">(</span><span class="n">FIELD_TYPE</span><span class="p">);</span>
+   <span class="p">}</span>
 
-    ...
-}</code></pre></div>
-<div class="highlight"><pre style="color:#586e75;background-color:#eee8d5;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#859900">public</span> <span style="color:#859900">class</span> <span style="color:#cb4b16">IdValue</span> <span style="color:#859900">extends</span> <span style="color:#268bd2">IdField</span> {
-    <span style="color:#859900">public</span> <span style="color:#859900">static</span> <span style="color:#859900">final</span> <span style="color:#268bd2">String</span> <span style="color:#268bd2">FIELD_TYPE</span> = <span style="color:#2aa198">&#34;value&#34;</span>;
-    <span style="color:#859900">private</span> <span style="color:#859900;font-weight:bold">float</span> <span style="color:#268bd2">value</span>;
+   <span class="p">...</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<div class="w-full lg:w-1/2 lg:ml-2 highlight-java notranslate"><div class="highlight"><pre><span></span><span class="kd">public</span> <span class="kd">class</span> <span class="nc">IdValue</span> <span class="kd">extends</span> <span class="n">IdField</span> <span class="p">{</span>
+   <span class="kd">public</span> <span class="kd">static</span> <span class="kd">final</span> <span class="n">String</span> <span class="n">FIELD_TYPE</span> <span class="o">=</span> <span class="s">&quot;value&quot;</span><span class="p">;</span>
+   <span class="kd">private</span> <span class="kt">float</span> <span class="n">value</span><span class="p">;</span>
 
-    <span style="color:#859900">public</span> <span style="color:#268bd2">IdValue</span>() {
-        <span style="color:#859900">super</span>(<span style="color:#268bd2">FIELD_TYPE</span>);
-    }
+   <span class="kd">public</span> <span class="nf">IdValue</span><span class="p">()</span> <span class="p">{</span>
+      <span class="kd">super</span><span class="p">(</span><span class="n">FIELD_TYPE</span><span class="p">);</span>
+   <span class="p">}</span>
 
-    ...
-}</code></pre></div>
-<p>Then to enable Jackson to determine which subclass to initialise we need to add
-some annotations to the base class definition</p>
-<div class="highlight"><pre style="color:#586e75;background-color:#eee8d5;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#268bd2">@JsonTypeInfo</span>(<span style="color:#268bd2">use</span> = <span style="color:#268bd2">JsonTypeInfo</span>.<span style="color:#268bd2">Id</span>.<span style="color:#268bd2">NAME</span>, <span style="color:#268bd2">include</span> = <span style="color:#268bd2">JsonTypeInfo</span>.<span style="color:#268bd2">As</span>.<span style="color:#268bd2">EXISTING_PROPERTY</span>, <span style="color:#268bd2">property</span> = <span style="color:#2aa198">&#34;type&#34;</span>)
-<span style="color:#268bd2">@JsonSubTypes</span>({
-        <span style="color:#268bd2">@JsonSubTypes.Type</span>(<span style="color:#268bd2">value</span> = <span style="color:#268bd2">IdName</span>.<span style="color:#268bd2">class</span>, <span style="color:#268bd2">name</span> = <span style="color:#268bd2">IdName</span>.<span style="color:#268bd2">FIELD_TYPE</span>),
-            <span style="color:#268bd2">@JsonSubTypes.Type</span>(<span style="color:#268bd2">value</span> = <span style="color:#268bd2">IdValue</span>.<span style="color:#268bd2">class</span>, <span style="color:#268bd2">name</span> = <span style="color:#268bd2">IdValue</span>.<span style="color:#268bd2">FIELD_TYPE</span>)
-})
-<span style="color:#859900">public</span> <span style="color:#859900">abstract</span> <span style="color:#859900">class</span> <span style="color:#cb4b16">IdField</span> {
-    <span style="color:#859900">private</span> <span style="color:#268bd2">String</span> <span style="color:#268bd2">id</span>;
-    <span style="color:#859900">private</span> <span style="color:#268bd2">String</span> <span style="color:#268bd2">type</span>;
+   <span class="p">...</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<p>We can then add a few annotations to the base abstract class telling Jackson to
+check the value of the <code class="docutils literal notranslate"><span class="pre">type</span></code> field and have it pick the correct concrete class
+automatically.</p>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="nd">@JsonTypeInfo</span><span class="p">(</span><span class="n">use</span> <span class="o">=</span> <span class="n">JsonTypeInfo</span><span class="p">.</span><span class="na">Id</span><span class="p">.</span><span class="na">NAME</span><span class="p">,</span> <span class="n">include</span> <span class="o">=</span> <span class="n">JsonTypeInfo</span><span class="p">.</span><span class="na">As</span><span class="p">.</span><span class="na">EXISTING_PROPERTY</span><span class="p">,</span> <span class="n">property</span> <span class="o">=</span> <span class="s">&quot;type&quot;</span><span class="p">)</span>
+<span class="nd">@JsonSubTypes</span><span class="p">({</span>
+      <span class="nd">@JsonSubTypes.Type</span><span class="p">(</span><span class="n">value</span> <span class="o">=</span> <span class="n">IdName</span><span class="p">.</span><span class="na">class</span><span class="p">,</span> <span class="n">name</span> <span class="o">=</span> <span class="n">IdName</span><span class="p">.</span><span class="na">FIELD_TYPE</span><span class="p">),</span>
+            <span class="nd">@JsonSubTypes.Type</span><span class="p">(</span><span class="n">value</span> <span class="o">=</span> <span class="n">IdValue</span><span class="p">.</span><span class="na">class</span><span class="p">,</span> <span class="n">name</span> <span class="o">=</span> <span class="n">IdValue</span><span class="p">.</span><span class="na">FIELD_TYPE</span><span class="p">)</span>
+<span class="p">})</span>
+<span class="kd">public</span> <span class="kd">abstract</span> <span class="kd">class</span> <span class="nc">IdField</span> <span class="p">{</span>
+   <span class="kd">private</span> <span class="n">String</span> <span class="n">id</span><span class="p">;</span>
+   <span class="kd">private</span> <span class="n">String</span> <span class="n">type</span><span class="p">;</span>
 
-    <span style="color:#859900">public</span> <span style="color:#268bd2">IdField</span>(<span style="color:#268bd2">String</span> <span style="color:#268bd2">type</span>) {
-        <span style="color:#859900">this</span>.<span style="color:#268bd2">id</span> = <span style="color:#268bd2">UUID</span>.<span style="color:#268bd2">randomUUID</span>().<span style="color:#268bd2">toString</span>();
-        <span style="color:#859900">this</span>.<span style="color:#268bd2">type</span> = <span style="color:#268bd2">type</span>;
-    }
+   <span class="kd">public</span> <span class="nf">IdField</span><span class="p">(</span><span class="n">String</span> <span class="n">type</span><span class="p">)</span> <span class="p">{</span>
+      <span class="k">this</span><span class="p">.</span><span class="na">id</span> <span class="o">=</span> <span class="n">UUID</span><span class="p">.</span><span class="na">randomUUID</span><span class="p">().</span><span class="na">toString</span><span class="p">();</span>
+      <span class="k">this</span><span class="p">.</span><span class="na">type</span> <span class="o">=</span> <span class="n">type</span><span class="p">;</span>
+   <span class="p">}</span>
 
-    ...
-}</code></pre></div>
+   <span class="p">...</span>
+<span class="p">}</span>
+</pre></div>
+</div>
 <p>Then we can just parse the json as we normally would.</p>
-<div class="highlight"><pre style="color:#586e75;background-color:#eee8d5;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#268bd2">String</span> <span style="color:#268bd2">jsonStr</span> = <span style="color:#2aa198">&#34;{\&#34;id\&#34;:\&#34;123\&#34;,\&#34;name\&#34;:\&#34;Alex\&#34;}&#34;</span>;
-<span style="color:#268bd2">ObjectMapper</span> <span style="color:#268bd2">mapper</span> = <span style="color:#859900">new</span> <span style="color:#268bd2">ObjectMapper</span>();
+<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="n">String</span> <span class="n">jsonStr</span> <span class="o">=</span> <span class="s">&quot;{\&quot;id\&quot;:\&quot;123\&quot;,\&quot;name\&quot;:\&quot;Alex\&quot;}&quot;</span><span class="p">;</span>
+<span class="n">ObjectMapper</span> <span class="n">mapper</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ObjectMapper</span><span class="p">();</span>
 
-<span style="color:#268bd2">IdField</span> <span style="color:#268bd2">field</span> = <span style="color:#268bd2">mapper</span>.<span style="color:#268bd2">readValue</span>(<span style="color:#268bd2">jsonStr</span>, <span style="color:#268bd2">IdField</span>.<span style="color:#268bd2">class</span>);
-<span style="color:#268bd2">System</span>.<span style="color:#268bd2">out</span>.<span style="color:#268bd2">println</span>(<span style="color:#268bd2">field</span>.<span style="color:#268bd2">getType</span>());                        <span style="color:#93a1a1;font-style:italic">// =&gt; &#34;name&#34;
-</span><span style="color:#93a1a1;font-style:italic"></span>
-<span style="color:#268bd2">IdName</span> <span style="color:#268bd2">nameField</span> = (<span style="color:#268bd2">IdName</span>) <span style="color:#268bd2">field</span>;
-<span style="color:#268bd2">System</span>.<span style="color:#268bd2">out</span>.<span style="color:#268bd2">println</span>(<span style="color:#268bd2">nameField</span>.<span style="color:#268bd2">getName</span>());                    // =&gt; <span style="color:#2aa198">&#34;Alex&#34;</span></code></pre></div>
+<span class="n">IdField</span> <span class="n">field</span> <span class="o">=</span> <span class="n">mapper</span><span class="p">.</span><span class="na">readValue</span><span class="p">(</span><span class="n">jsonStr</span><span class="p">,</span> <span class="n">IdField</span><span class="p">.</span><span class="na">class</span><span class="p">);</span>
+<span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="n">field</span><span class="p">.</span><span class="na">getType</span><span class="p">());</span>                        <span class="c1">// =&gt; &quot;name&quot;</span>
 
-  </div>
-  <div class="p-4">
-    <div class="flex items-center justify-end mt-4 space-x-4">
-    <a class="px-2 text-sm text-gray-600 bg-green-200 border border-green-600 rounded" href="https://www.alcarney.me/tags/java/">
-        #java
-    </a><a class="px-2 text-sm text-gray-600 bg-green-200 border border-green-600 rounded" href="https://www.alcarney.me/tags/json/">
-        #json
-    </a></div>
-  </div>
+<span class="n">IdName</span> <span class="n">nameField</span> <span class="o">=</span> <span class="p">(</span><span class="n">IdName</span><span class="p">)</span> <span class="n">field</span><span class="p">;</span>
+<span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="n">nameField</span><span class="p">.</span><span class="na">getName</span><span class="p">());</span>                    <span class="c1">// =&gt; &quot;Alex&quot;</span>
+</pre></div>
+</div>
+</div>
+
 </article>
 
-    </main><footer class="items-baseline p-4 text-white bg-gray-700 w-full">
-    <div class="flex justify-between">
-        <div></div>
 
-        <div class="flex justify-between space-x-4">
+<nav class="mt-8">
+    <ul class="flex flex-row justify-between">
+        
+        
+        <li  class="w-1/2 p-4 mr-2 bg-white border hover:shadow-lg" >
             
-            <a target="_blank" rel="noreferrer noopener" href="https://github.com/alcarney">
-                <svg class="w-8 h-8 bg-transparent stroke-current" style="fill:none">
-    <use xlink:href="/svg/feather-sprite.svg#github" />
-</svg>
+            <a class="flex items-center justify-between h-full" href="../custom_directives/">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="flex-shrink-0 w-8 h-8" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg>
+                <p class="ml-4 text-green-600">Custom Directives</p>
             </a>
             
-            <a target="_blank" rel="noreferrer noopener" href="https://twitter.com/alcarneyme">
-                <svg class="w-8 h-8 bg-transparent stroke-current" style="fill:none">
-    <use xlink:href="/svg/feather-sprite.svg#twitter" />
-</svg>
+        </li>
+        
+        <li class="w-1/2 p-4 ml-2 bg-white border hover:shadow-lg">
+            <a class="flex items-center justify-between h-full" href="../emacs-subprocesses/">
+                <p class="text-green-600">Emacs Sub Processes</p>
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="flex-shrink-0 w-8 h-8 ml-4" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg>
             </a>
-            
-            <a target="_blank" rel="noreferrer noopener" href="https://instagram.com/alcarneyme">
-                <svg class="w-8 h-8 bg-transparent stroke-current" style="fill:none">
-    <use xlink:href="/svg/feather-sprite.svg#instagram" />
-</svg>
-            </a>
-            
-            <a target="_blank" rel="noreferrer noopener" href="https://www.youtube.com/channel/UC5GPflgRWhnCxA0BllfP5CA">
-                <svg class="w-8 h-8 bg-transparent stroke-current" style="fill:none">
-    <use xlink:href="/svg/feather-sprite.svg#youtube" />
-</svg>
-            </a>
-            
-        </div>
+        </li>
+        
+    </ul>
 
-        <div></div>
+</nav>
+
+
+
+                </div>
+            </div>
+
+            <footer class="p-2 mt-8 mb-2 text-sm text-gray-600 border-t">
+                <div class="flex flex-col justify-between max-w-3xl mx-auto lg:flex-row">
+                    <span>
+                        <a class="text-green-600" href="../../_sources/notes/deserialising-abstract-classes.rst.txt" rel="nofollow">
+                            Page Source
+                        </a>
+                    </span>
+                    <span>Built with <a class="text-green-600" href="https://www.sphinx-doc.org/en/master/">Sphinx</a> v4.2.0</span>
+                    <span>&#169; Copyright 2021, Alex Carney.</span>
+                </div>
+            </footer>
+        </main>
+        
     </div>
-</footer>
-
-    <script>
-      const codeBlocks = document.querySelectorAll(".highlight pre")
-      Array.from(codeBlocks).forEach(el => {
-          el.style.backgroundColor = "#fdf6e3"
-      })
-
-      function copyText(text) {
-          const textArea = document.createElement("textarea")
-          textArea.value = text
-
-          textArea.style.top = 0
-          textArea.style.left = 0
-          textArea.style.position = 'fixed'
-
-          document.body.append(textArea)
-          textArea.focus()
-          textArea.select()
-
-          document.execCommand('copy')
-          document.body.removeChild(textArea)
-      }
-    </script>
-
-    <script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
-    <script>mermaid.initialize({startOnLoad:true});</script>
+<script src="/_static/js/theme.js"></script>
 
 
-</body>
-
+  </body>
 </html>

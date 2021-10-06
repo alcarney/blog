@@ -1,0 +1,314 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Click Drag &#8212; Blog  documentation</title>
+
+    
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
+    
+    
+    
+    <link rel="stylesheet" type="text/css" href="../../_static/togglebutton.css" />
+    
+    
+    <link rel="stylesheet" type="text/css" href="../../_static/css/styles.css" />
+    
+
+    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/togglebutton.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <link rel="shortcut icon" href="../../_static/favicon.ico"/>
+    <link rel="index" title="Index" href="../../genindex/" />
+    <link rel="search" title="Search" href="../../search/" />
+    <link rel="next" title="Simple AST" href="../simple-ast/" />
+    <link rel="prev" title="CCalc" href="../ccalc/" /> 
+  </head><body class="flex flex-col justify-between min-h-screen overflow-x-hidden bg-gray-100 ">
+    <div class="flex flex-grow">
+        <input id="menu-state" type="checkbox" class="hidden" />
+        <aside class="flex justify-between flex-shrink-0 transition-all duration-500 bg-white border-r -ml-80 lg:ml-0">
+            <div class="flex flex-col justify-between h-full border-r w-80">
+                <div class="sticky top-0 flex flex-col h-screen"> 
+                    
+                    <div id="profile-card" class="full-profile">
+    <img class="" src="https://github.com/alcarney.png"/>
+    <h2 class=""><a href="/">Alex Carney</a></h2>
+</div>
+                    
+                    <div id="searchbox" style="display: none" role="search" class="px-4 py-4">
+    <form class="flex justify-between px-2 py-1 bg-gray-100 border-2 rounded search focus-within:border-green-600" action="../../search/" method="get">
+        <label class="mr-2 text-gray-500" for="sbox">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="feather feather-search">
+                <circle cx="11" cy="11" r="6" />
+                <path d="m21 21-4.35-4.35" />
+            </svg>
+        </label>
+        <input id="sbox" class="flex-grow bg-gray-100 focus:outline-none" type="search" name="q" placeholder="Search..." aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" />
+    </form>
+</div>
+<script>$('#searchbox').show(0);</script>
+                    
+                    
+    
+<nav class="flex flex-col text-center">
+    <a class="text-green-600 py-1 border-t text-lg hover:bg-gray-50" href="/blog">Blog</a>
+    <a class="text-green-600 py-1 border-t text-lg hover:bg-gray-50" href="/code">Code</a>
+    <a class="text-green-600 py-1 border-t text-lg hover:bg-gray-50" href="/notes">Notes</a>
+</nav>
+                    
+                    <div class="flex-shrink overflow-auto"><nav id="localtoc" class="p-4 border-t">
+    <ul>
+<li><a class="reference internal" href="#">Click Drag</a><ul>
+<li><a class="reference internal" href="#readme">README</a></li>
+</ul>
+</li>
+</ul>
+
+</nav>
+                    </div>
+                    
+                    <footer class="w-full p-4 mt-auto text-white bg-gray-700">
+                        <div class="flex justify-between">
+    <div></div>
+
+    <div class="flex justify-between space-x-4">
+        <a target="_blank" rel="noreferrer noopener" href="https://github.com/alcarney">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="w-8 h-8">
+                <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path>
+            </svg>
+        </a>
+
+        <a target="_blank" rel="noreferrer noopener" href="https://twitter.com/alcarneyme">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="w-8 h-8">
+                <path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"></path>
+            </svg>
+        </a>
+
+        <a target="_blank" rel="noreferrer noopener" href="https://instagram.com/alcarneyme">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="w-8 h-8">
+                <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
+                <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
+                <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
+            </svg>
+        </a>
+
+        <a target="_blank" rel="noreferrer noopener" href="https://www.youtube.com/channel/UC5GPflgRWhnCxA0BllfP5CA">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="w-8 h-8">
+                <path d="M22.54 6.42a2.78 2.78 0 0 0-1.94-2C18.88 4 12 4 12 4s-6.88 0-8.6.46a2.78 2.78 0 0 0-1.94 2A29 29 0 0 0 1 11.75a29 29 0 0 0 .46 5.33A2.78 2.78 0 0 0 3.4 19c1.72.46 8.6.46 8.6.46s6.88 0 8.6-.46a2.78 2.78 0 0 0 1.94-2 29 29 0 0 0 .46-5.25 29 29 0 0 0-.46-5.33z"></path>
+                <polygon points="9.75 15.02 15.5 11.75 9.75 8.48 9.75 15.02"></polygon>
+            </svg>
+        </a>
+    </div>
+
+    <div></div>
+</div>
+                    </footer>
+                </div>
+            </div>     
+        </aside>
+        
+        <main class="w-full mx-auto lg:pr-0">
+            <div class="sticky top-0 z-50 mt-0 transition-all duration-300 bg-white border-b shadow-md lg:shadow-none lg:relative lg:-mt-16">
+                <label class="flex h-16 text-gray-600 transition" for="menu-state">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="w-8 h-8 my-auto" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="feather feather-arrow-right"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                </label>
+            </div> 
+
+            <div id="content" class="mx-2 my-8">
+                <div class="max-w-3xl mx-auto">
+                    
+
+<article class="p-4 prose-sm prose bg-white border prose-md prose-green max-w-none">
+    <div class="section" id="click-drag">
+<h1>Click Drag<a class="headerlink" href="#click-drag" title="Permalink to this headline">¶</a></h1>
+<div class="my-4 border border-t-0">
+    
+
+    <div data-parent="" class=" border-t">
+        <label for="click-drag.js">
+            <div style="padding-left: 4px;" class="flex items-center px-2 py-1 space-x-2 hover:bg-gray-50">
+                
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" ><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+                    <path d="M14 2v6h6M16 13H8M16 17H8M10 9H8"/>
+                </svg>
+                
+                
+                <span>click-drag.js</span>
+            </div>
+        </label>
+        
+        
+        <input class="hidden" data-type="file" data-id="click-drag.js" type="checkbox" id="click-drag.js" />
+        <div class="overflow-y-auto transition-all max-h-0">
+            <div class="highlight"><pre style="margin: 0"><span></span><span class="c1">// Setup</span>
+<span class="kd">const</span> <span class="nx">svgns</span> <span class="o">=</span> <span class="s2">&quot;http://www.w3.org/2000/svg&quot;</span>
+<span class="kd">const</span> <span class="nx">main</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="s2">&quot;main&quot;</span><span class="p">)</span>
+
+<span class="kd">const</span> <span class="nx">canvas</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">createElementNS</span><span class="p">(</span><span class="nx">svgns</span><span class="p">,</span> <span class="s2">&quot;svg&quot;</span><span class="p">)</span>
+<span class="nx">canvas</span><span class="p">.</span><span class="nx">setAttribute</span><span class="p">(</span><span class="s2">&quot;width&quot;</span><span class="p">,</span> <span class="s2">&quot;100%&quot;</span><span class="p">)</span>
+<span class="nx">canvas</span><span class="p">.</span><span class="nx">setAttribute</span><span class="p">(</span><span class="s2">&quot;height&quot;</span><span class="p">,</span> <span class="s2">&quot;100%&quot;</span><span class="p">)</span>
+<span class="nx">canvas</span><span class="p">.</span><span class="nx">style</span><span class="p">.</span><span class="nx">border</span> <span class="o">=</span> <span class="s2">&quot;solid 2px #242930&quot;</span>
+
+<span class="nx">main</span><span class="p">.</span><span class="nx">appendChild</span><span class="p">(</span><span class="nx">canvas</span><span class="p">)</span>
+
+<span class="c1">// Viewbox</span>
+<span class="kd">let</span> <span class="nx">bbox</span> <span class="o">=</span> <span class="nx">canvas</span><span class="p">.</span><span class="nx">getBoundingClientRect</span><span class="p">()</span>
+<span class="kd">const</span> <span class="nx">aspectRatio</span> <span class="o">=</span> <span class="nx">bbox</span><span class="p">.</span><span class="nx">width</span> <span class="o">/</span> <span class="nx">bbox</span><span class="p">.</span><span class="nx">height</span>
+<span class="kd">const</span> <span class="nx">height</span> <span class="o">=</span> <span class="mf">100</span>
+<span class="kd">const</span> <span class="nx">width</span> <span class="o">=</span> <span class="nx">height</span> <span class="o">*</span> <span class="nx">aspectRatio</span>
+<span class="kd">const</span> <span class="nx">viewBox</span> <span class="o">=</span> <span class="p">{</span> <span class="nx">minX</span><span class="o">:</span> <span class="mf">0</span><span class="p">,</span> <span class="nx">minY</span><span class="o">:</span> <span class="mf">0</span><span class="p">,</span> <span class="nx">width</span><span class="o">:</span> <span class="nx">width</span><span class="p">,</span> <span class="nx">height</span><span class="o">:</span> <span class="nx">height</span> <span class="p">}</span>
+
+<span class="kd">const</span> <span class="nx">viewBoxStr</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="nx">viewBox</span><span class="p">.</span><span class="nx">minX</span><span class="p">,</span> <span class="nx">viewBox</span><span class="p">.</span><span class="nx">minY</span><span class="p">,</span> <span class="nx">viewBox</span><span class="p">.</span><span class="nx">width</span><span class="p">,</span> <span class="nx">viewBox</span><span class="p">.</span><span class="nx">height</span>
+<span class="p">].</span><span class="nx">join</span><span class="p">(</span><span class="s2">&quot; &quot;</span><span class="p">)</span>
+
+<span class="nx">canvas</span><span class="p">.</span><span class="nx">setAttribute</span><span class="p">(</span><span class="s2">&quot;viewBox&quot;</span><span class="p">,</span> <span class="nx">viewBoxStr</span><span class="p">)</span>
+
+<span class="c1">// Something to click on</span>
+<span class="kd">const</span> <span class="nx">circle</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">createElementNS</span><span class="p">(</span><span class="nx">svgns</span><span class="p">,</span> <span class="s2">&quot;circle&quot;</span><span class="p">)</span>
+<span class="nx">circle</span><span class="p">.</span><span class="nx">setAttribute</span><span class="p">(</span><span class="s2">&quot;cx&quot;</span><span class="p">,</span> <span class="nx">viewBox</span><span class="p">.</span><span class="nx">width</span> <span class="o">/</span> <span class="mf">2</span><span class="p">)</span>
+<span class="nx">circle</span><span class="p">.</span><span class="nx">setAttribute</span><span class="p">(</span><span class="s2">&quot;cy&quot;</span><span class="p">,</span> <span class="nx">viewBox</span><span class="p">.</span><span class="nx">height</span> <span class="o">/</span> <span class="mf">2</span><span class="p">)</span>
+<span class="nx">circle</span><span class="p">.</span><span class="nx">setAttribute</span><span class="p">(</span><span class="s2">&quot;r&quot;</span><span class="p">,</span> <span class="mf">15</span><span class="p">)</span>
+<span class="nx">circle</span><span class="p">.</span><span class="nx">setAttribute</span><span class="p">(</span><span class="s2">&quot;fill&quot;</span><span class="p">,</span> <span class="s2">&quot;#57cc8a&quot;</span><span class="p">)</span>
+
+<span class="nx">canvas</span><span class="p">.</span><span class="nx">appendChild</span><span class="p">(</span><span class="nx">circle</span><span class="p">)</span>
+
+<span class="c1">// Implementing the drag</span>
+<span class="kd">let</span> <span class="nx">clicked</span> <span class="o">=</span> <span class="kc">false</span>
+<span class="nx">canvas</span><span class="p">.</span><span class="nx">addEventListener</span><span class="p">(</span><span class="s2">&quot;mousemove&quot;</span><span class="p">,</span> <span class="p">(</span><span class="nx">event</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">{</span>
+
+    <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nx">clicked</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">return</span>
+    <span class="p">}</span>
+
+    <span class="nx">bbox</span> <span class="o">=</span> <span class="nx">canvas</span><span class="p">.</span><span class="nx">getBoundingClientRect</span><span class="p">()</span>
+
+    <span class="kd">const</span> <span class="nx">x</span> <span class="o">=</span> <span class="p">(</span><span class="nx">event</span><span class="p">.</span><span class="nx">clientX</span> <span class="o">-</span> <span class="nx">bbox</span><span class="p">.</span><span class="nx">left</span><span class="p">)</span> <span class="o">/</span> <span class="nx">bbox</span><span class="p">.</span><span class="nx">width</span>
+    <span class="kd">const</span> <span class="nx">y</span> <span class="o">=</span> <span class="p">(</span><span class="nx">event</span><span class="p">.</span><span class="nx">clientY</span> <span class="o">-</span> <span class="nx">bbox</span><span class="p">.</span><span class="nx">top</span><span class="p">)</span> <span class="o">/</span> <span class="nx">bbox</span><span class="p">.</span><span class="nx">height</span>
+
+    <span class="nx">circle</span><span class="p">.</span><span class="nx">setAttribute</span><span class="p">(</span><span class="s2">&quot;cx&quot;</span><span class="p">,</span> <span class="nx">x</span> <span class="o">*</span> <span class="nx">viewBox</span><span class="p">.</span><span class="nx">width</span><span class="p">)</span>
+    <span class="nx">circle</span><span class="p">.</span><span class="nx">setAttribute</span><span class="p">(</span><span class="s2">&quot;cy&quot;</span><span class="p">,</span> <span class="nx">y</span> <span class="o">*</span> <span class="nx">viewBox</span><span class="p">.</span><span class="nx">height</span><span class="p">)</span>
+<span class="p">})</span>
+
+<span class="c1">// Click detection</span>
+<span class="nx">circle</span><span class="p">.</span><span class="nx">addEventListener</span><span class="p">(</span><span class="s2">&quot;mousedown&quot;</span><span class="p">,</span> <span class="p">(</span><span class="nx">_</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">{</span> <span class="nx">clicked</span> <span class="o">=</span> <span class="kc">true</span> <span class="p">})</span>
+<span class="nx">circle</span><span class="p">.</span><span class="nx">addEventListener</span><span class="p">(</span><span class="s2">&quot;mouseup&quot;</span><span class="p">,</span> <span class="p">(</span><span class="nx">_</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">{</span> <span class="nx">clicked</span> <span class="o">=</span> <span class="kc">false</span> <span class="p">})</span>
+<span class="nx">canvas</span><span class="p">.</span><span class="nx">addEventListener</span><span class="p">(</span><span class="s2">&quot;mouseleave&quot;</span><span class="p">,</span> <span class="p">(</span><span class="nx">_</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">{</span> <span class="nx">clicked</span> <span class="o">=</span> <span class="kc">false</span> <span class="p">})</span>
+</pre></div>
+
+        </div>
+    </div>
+        
+
+    
+
+    <div data-parent="" class=" border-t">
+        <label for="README.rst">
+            <div style="padding-left: 4px;" class="flex items-center px-2 py-1 space-x-2 hover:bg-gray-50">
+                
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" ><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+                    <path d="M14 2v6h6M16 13H8M16 17H8M10 9H8"/>
+                </svg>
+                
+                
+                <span>README.rst</span>
+            </div>
+        </label>
+        
+        
+        <input class="hidden" data-type="file" data-id="README.rst" type="checkbox" id="README.rst" />
+        <div class="overflow-y-auto transition-all max-h-0">
+            <div class="highlight"><pre style="margin: 0"><span></span>Click and drag of an SVG element implemented with vanilla JavaScript
+</pre></div>
+
+        </div>
+    </div>
+        
+
+    
+</div> 
+<style>
+    
+
+    input[data-id='click-drag.js']:checked + div {
+        max-height: 350px;
+    }
+
+    input[data-id='']:checked ~ div[data-parent='click-drag.js'] {
+        max-height: 382px;
+    }
+    
+    
+
+    input[data-id='README.rst']:checked + div {
+        max-height: 350px;
+    }
+
+    input[data-id='']:checked ~ div[data-parent='README.rst'] {
+        max-height: 382px;
+    }
+    
+    
+</style><div class="section" id="readme">
+<h2>README<a class="headerlink" href="#readme" title="Permalink to this headline">¶</a></h2>
+<p>Click and drag of an SVG element implemented with vanilla JavaScript</p>
+</div>
+</div>
+
+</article>
+
+
+<nav class="mt-8">
+    <ul class="flex flex-row justify-between">
+        
+        
+        <li  class="w-1/2 p-4 mr-2 bg-white border hover:shadow-lg" >
+            
+            <a class="flex items-center justify-between h-full" href="../ccalc/">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="flex-shrink-0 w-8 h-8" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg>
+                <p class="ml-4 text-green-600">CCalc</p>
+            </a>
+            
+        </li>
+        
+        <li class="w-1/2 p-4 ml-2 bg-white border hover:shadow-lg">
+            <a class="flex items-center justify-between h-full" href="../simple-ast/">
+                <p class="text-green-600">Simple AST</p>
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="flex-shrink-0 w-8 h-8 ml-4" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg>
+            </a>
+        </li>
+        
+    </ul>
+
+</nav>
+
+
+
+                </div>
+            </div>
+
+            <footer class="p-2 mt-8 mb-2 text-sm text-gray-600 border-t">
+                <div class="flex flex-col justify-between max-w-3xl mx-auto lg:flex-row">
+                    <span>
+                        <a class="text-green-600" href="../../_sources/code/click-drag.rst.txt" rel="nofollow">
+                            Page Source
+                        </a>
+                    </span>
+                    <span>Built with <a class="text-green-600" href="https://www.sphinx-doc.org/en/master/">Sphinx</a> v4.2.0</span>
+                    <span>&#169; Copyright 2021, Alex Carney.</span>
+                </div>
+            </footer>
+        </main>
+        
+    </div>
+<script src="/_static/js/theme.js"></script>
+
+
+  </body>
+</html>

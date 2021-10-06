@@ -1,254 +1,217 @@
+
 <!DOCTYPE html>
-<html lang="en">
 
-<head><meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Learning Vulkan: Overview &#8212; Blog  documentation</title>
 
-<meta name="theme-color" content="#259669" />
+    
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css" />
+    
+    
+    
+    <link rel="stylesheet" type="text/css" href="../../../_static/togglebutton.css" />
+    
+    
+    <link rel="stylesheet" type="text/css" href="../../../_static/css/styles.css" />
+    
 
-<meta name="generator" content="Hugo 0.79.1" />
-<meta name="author" content="Alex Carney" />
-<meta name="description" content="Declaring my intention to learn Vulkan once again" />
+    <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
+    <script src="../../../_static/jquery.js"></script>
+    <script src="../../../_static/underscore.js"></script>
+    <script src="../../../_static/doctools.js"></script>
+    <script src="../../../_static/togglebutton.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <link rel="shortcut icon" href="../../../_static/favicon.ico"/>
+    <link rel="index" title="Index" href="../../../genindex/" />
+    <link rel="search" title="Search" href="../../../search/" /> 
+  </head><body class="flex flex-col justify-between min-h-screen overflow-x-hidden bg-gray-100 ">
+    <div class="flex flex-grow">
+        <input id="menu-state" type="checkbox" class="hidden" />
+        <aside class="flex justify-between flex-shrink-0 transition-all duration-500 bg-white border-r -ml-80 lg:ml-0">
+            <div class="flex flex-col justify-between h-full border-r w-80">
+                <div class="sticky top-0 flex flex-col h-screen"> 
+                    
+                    <div id="profile-card" class="full-profile">
+    <img class="" src="https://github.com/alcarney.png"/>
+    <h2 class=""><a href="/">Alex Carney</a></h2>
+</div>
+                    
+                    <div id="searchbox" style="display: none" role="search" class="px-4 py-4">
+    <form class="flex justify-between px-2 py-1 bg-gray-100 border-2 rounded search focus-within:border-green-600" action="../../../search/" method="get">
+        <label class="mr-2 text-gray-500" for="sbox">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="feather feather-search">
+                <circle cx="11" cy="11" r="6" />
+                <path d="m21 21-4.35-4.35" />
+            </svg>
+        </label>
+        <input id="sbox" class="flex-grow bg-gray-100 focus:outline-none" type="search" name="q" placeholder="Search..." aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" />
+    </form>
+</div>
+<script>$('#searchbox').show(0);</script>
+                    
+                    
+    
+<nav class="flex flex-col text-center">
+    <a class="text-green-600 py-1 border-t text-lg hover:bg-gray-50" href="/blog">Blog</a>
+    <a class="text-green-600 py-1 border-t text-lg hover:bg-gray-50" href="/code">Code</a>
+    <a class="text-green-600 py-1 border-t text-lg hover:bg-gray-50" href="/notes">Notes</a>
+</nav>
+                    
+                    <div class="flex-shrink overflow-auto">
 
-<meta property="og:title" content="Learning Vulkan: Overview" />
-<meta property="og:description" content="Declaring my intention to learn Vulkan once again" />
-<meta property="og:type" content="article" />
-<meta property="og:url" content="https://www.alcarney.me/blog/2020/learning-vulkan-p0/" />
-<meta property="article:published_time" content="2020-01-01T00:00:00+00:00" />
-<meta property="article:modified_time" content="2021-08-13T23:42:52+01:00" />
+<div class="grid justify-between p-4 text-gray-500 border-t" style="grid-template-columns: 24px auto">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+</svg>
+    <span class="ml-2 text-right">Jan 01, 2020</span>
+    
 
+    <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z" />
+</svg>
+    <ul class="text-right">
+        
+        <li class="mb-1">
+            <a href="../../tag/c/" class="px-2 my-1 text-green-600 border border-green-600 rounded bg-green-50">
+                #c
+            </a>
+        </li>
+        
+        <li class="mb-1">
+            <a href="../../tag/vulkan/" class="px-2 my-1 text-green-600 border border-green-600 rounded bg-green-50">
+                #vulkan
+            </a>
+        </li>
+        
+        <li class="mb-1">
+            <a href="../../tag/graphics/" class="px-2 my-1 text-green-600 border border-green-600 rounded bg-green-50">
+                #graphics
+            </a>
+        </li>
+        
+    </ul>
+</div>
+<nav id="localtoc" class="p-4 border-t">
+    <ul>
+<li><a class="reference internal" href="#">Learning Vulkan: Overview</a></li>
+</ul>
 
-<meta property="og:see_also" content="https://www.alcarney.me/blog/2020/learning-vulkan-p1/" />
+</nav>
+                    </div>
+                    
+                    <footer class="w-full p-4 mt-auto text-white bg-gray-700">
+                        <div class="flex justify-between">
+    <div></div>
 
-<meta property="article:tag" content="c" />
-<meta property="article:tag" content="vulkan" />
-<meta property="article:tag" content="graphics" />
+    <div class="flex justify-between space-x-4">
+        <a target="_blank" rel="noreferrer noopener" href="https://github.com/alcarney">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="w-8 h-8">
+                <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path>
+            </svg>
+        </a>
 
-<meta name="twitter:creator" content="@alcarneyme" />
-<meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="Learning Vulkan: Overview"/>
-<meta name="twitter:description" content="Declaring my intention to learn Vulkan once again"/>
+        <a target="_blank" rel="noreferrer noopener" href="https://twitter.com/alcarneyme">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="w-8 h-8">
+                <path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"></path>
+            </svg>
+        </a>
 
+        <a target="_blank" rel="noreferrer noopener" href="https://instagram.com/alcarneyme">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="w-8 h-8">
+                <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
+                <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
+                <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
+            </svg>
+        </a>
 
-<title>Learning Vulkan: Overview | Alex Carney</title>
-
-
-
-<link rel="stylesheet" href="https://www.alcarney.me/main.f0fcfa33b6ee0d4eb9f5f5d87692f86fb025cfdb3907f9545b6b316fa12a3587.css" /></head>
-
-<body class="bg-gray-100 flex flex-col justify-between min-h-screen items-center">
-    <div class="flex items-baseline justify-between w-full p-4 bg-white border-b">
-
-        <div>
-            <h1>Alex Carney</h1>
-        </div>
-
-        <div class="flex justify-center flex-grow">
-        </div>
-
-        <nav class="flex space-x-4 items-between">
-            <a href="/blog">Blog</a>
-            <a href="/code">Code</a>
-            <a href="/notes">Notes</a>
-        </nav>
+        <a target="_blank" rel="noreferrer noopener" href="https://www.youtube.com/channel/UC5GPflgRWhnCxA0BllfP5CA">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="w-8 h-8">
+                <path d="M22.54 6.42a2.78 2.78 0 0 0-1.94-2C18.88 4 12 4 12 4s-6.88 0-8.6.46a2.78 2.78 0 0 0-1.94 2A29 29 0 0 0 1 11.75a29 29 0 0 0 .46 5.33A2.78 2.78 0 0 0 3.4 19c1.72.46 8.6.46 8.6.46s6.88 0 8.6-.46a2.78 2.78 0 0 0 1.94-2 29 29 0 0 0 .46-5.25 29 29 0 0 0-.46-5.33z"></path>
+                <polygon points="9.75 15.02 15.5 11.75 9.75 8.48 9.75 15.02"></polygon>
+            </svg>
+        </a>
     </div>
 
-    <main class="max-w-4xl w-full flex-grow mb-8">
-<style>
-    header::before {
-        position: absolute;
-        top: 16px;
-        left: -12.5px;
-        display: block;
-        content: '';
-        width: 25px;
-        height: 25px;
-        background: white;
-        transform: rotate(45deg);
-        border-left: solid 1px #e5e7eb;
-        border-bottom: solid 1px #e5e7eb;
-    }
+    <div></div>
+</div>
+                    </footer>
+                </div>
+            </div>     
+        </aside>
+        
+        <main class="w-full mx-auto lg:pr-0">
+            <div class="sticky top-0 z-50 mt-0 transition-all duration-300 bg-white border-b shadow-md lg:shadow-none lg:relative lg:-mt-16">
+                <label class="flex h-16 text-gray-600 transition" for="menu-state">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="w-8 h-8 my-auto" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="feather feather-arrow-right"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                </label>
+            </div> 
 
-    @media(max-width: 1024px) {
-        header::before {
-            left: 19px;
-            top: -12.5px;
-            border-top: sold 1px #e5e7eb;
-            border-bottom: none;
-        }
-    }
-</style>
-<div class="flex flex-col justify-between mx-2 lg:items-baseline lg:flex-row">
-    <style>
-    aside::after {
-        position: absolute;
-        top: 8px;
-        right: -10px;
-        display: block;
-        content: '';
-        width: 8px;
-        height: 8px;
-        border-radius: 100%;
-        background: #717885;
-    }
+            <div id="content" class="mx-2 my-8">
+                <div class="max-w-3xl mx-auto">
+                    
 
-    @media(max-width: 1024px) {
-        aside::after {
-            top: unset;
-            bottom: 6px;
-            left: -18px;
-            border-top: sold 1px #e5e7eb;
-            border-bottom: none;
-        }
-    }
-</style>
-<aside class="relative flex pr-2 mt-4 ml-12 -mb-3 space-x-4 text-gray-500 lg:mr-8 lg:ml-0 lg:block lg:space-x-0">
-    <span class="flex justify-between">
-        <svg class="w-6 h-6 bg-transparent stroke-current" style="fill:none">
-    <use xlink:href="/svg/feather-sprite.svg#calendar" />
-</svg>
-        <span class="ml-2">Jan 1, 2020</span>
-    </span>
-    <span class="flex justify-between">
-        <svg class="w-6 h-6 bg-transparent stroke-current" style="fill:none">
-    <use xlink:href="/svg/feather-sprite.svg#clock" />
-</svg>
-        <span class="ml-2">2 min read</span>
-    </span>
-</aside>
-
-    <article class="relative flex-grow p-4 mt-8 transition bg-white border shadow-lg">
-        <div class="m-auto prose prose-lg prose-green">
-            <header>
-                <h1>Learning Vulkan: Overview</h1>
-            </header>
-            <p>I have always been interested in graphics and have on numerous occasions tried
+<article class="p-4 prose-sm prose bg-white border prose-md prose-green max-w-none">
+    <div class="section" id="learning-vulkan-overview">
+<h1>Learning Vulkan: Overview<a class="headerlink" href="#learning-vulkan-overview" title="Permalink to this headline">¶</a></h1>
+<p>I have always been interested in graphics and have on numerous occasions tried
 to dip my toe into the world of OpenGL and more recently Vulkan. However I have
-never been able to get past the &ldquo;Hello, World&rdquo; of these technologies - drawing a
+never been able to get past the “Hello, World” of these technologies - drawing a
 triangle on screen, I think mostly becuase I never really had a goal in mind
-once I got that far&hellip;</p>
-<p>But that&rsquo;s (hopefully) about to change! What better excuse than a new decade to
+once I got that far…</p>
+<p>But that’s (hopefully) about to change! What better excuse than a new decade to
 jump back into this world for the 100th time and try to get to all those
 interesting ideas I see people playing with all the time!</p>
-<p>I should say that I don&rsquo;t really know what I&rsquo;m doing and will totally be making
+<p>I should say that I don’t really know what I’m doing and will totally be making
 it up as I go along. With Python being my favourite language, programming in C
 (C++ is just too intimidating) will take some getting used to let alone all the
-concepts specific to graphics programming! However that said I&rsquo;m not a complete
-n00b as I have at least played with C on and off over the years - I&rsquo;m sure I
+concepts specific to graphics programming! However that said I’m not a complete
+n00b as I have at least played with C on and off over the years - I’m sure I
 already know enough to be able to shoot myself in the foot! 😁</p>
-<p>So the only thing left to do is set some goals so I don&rsquo;t get lost after getting
-to the &ldquo;drawing a triangle on screen&rdquo; stage again. I imagine this will evolve
-into some kind of living document that I&rsquo;ll use to keep track of my progress - if I
+<p>So the only thing left to do is set some goals so I don’t get lost after getting
+to the “drawing a triangle on screen” stage again. I imagine this will evolve
+into some kind of living document that I’ll use to keep track of my progress - if I
 remember to update it that is!</p>
+<ul class="simple">
+<li><p>[ ] Draw a triangle on screen</p>
 <ul>
-<li><input disabled="" type="checkbox"> Draw a triangle on screen
-<ul>
-<li><input checked="" disabled="" type="checkbox"> <a href="/blog/2020/learning-vulkan-p1/">Enumerating available VkPhysicalDevices</a></li>
+<li><p>[x] <a class="reference internal" href="../learning-vulkan-p1/"><span class="doc">Enumerating available VkPhysicalDevices</span></a></p></li>
 </ul>
 </li>
-<li><input disabled="" type="checkbox"> OBJ object viewer</li>
-<li><input disabled="" type="checkbox"> Ray Marching</li>
-<li><input disabled="" type="checkbox"> Ray Tracing</li>
-<li><input disabled="" type="checkbox"> Python integrations?</li>
+<li><p>[ ] OBJ object viewer</p></li>
+<li><p>[ ] Ray Marching</p></li>
+<li><p>[ ] Ray Tracing</p></li>
+<li><p>[ ] Python integrations?</p></li>
 </ul>
-        </div>
-        <div class="flex items-center justify-end mt-4 space-x-4">
-    <a class="px-2 text-sm text-gray-600 bg-green-200 border border-green-600 rounded" href="https://www.alcarney.me/tags/c/">
-        #c
-    </a><a class="px-2 text-sm text-gray-600 bg-green-200 border border-green-600 rounded" href="https://www.alcarney.me/tags/vulkan/">
-        #vulkan
-    </a><a class="px-2 text-sm text-gray-600 bg-green-200 border border-green-600 rounded" href="https://www.alcarney.me/tags/graphics/">
-        #graphics
-    </a></div>
-        <div class="pt-4 mt-8 border-t">
-            <div id="disqus_thread"></div>
-<script type="application/javascript">
-    var disqus_config = function () {
-    
-    
-    
-    };
-    (function() {
-        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
-            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
-            return;
-        }
-        var d = document, s = d.createElement('script'); s.async = true;
-        s.src = '//' + "alcarney-me" + '.disqus.com/embed.js';
-        s.setAttribute('data-timestamp', +new Date());
-        (d.head || d.body).appendChild(s);
-    })();
-</script>
-<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
-<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
-        </div>
-    </article>
 </div>
 
-    </main><footer class="items-baseline p-4 text-white bg-gray-700 w-full">
-    <div class="flex justify-between">
-        <div></div>
+</article>
 
-        <div class="flex justify-between space-x-4">
-            
-            <a target="_blank" rel="noreferrer noopener" href="https://github.com/alcarney">
-                <svg class="w-8 h-8 bg-transparent stroke-current" style="fill:none">
-    <use xlink:href="/svg/feather-sprite.svg#github" />
-</svg>
-            </a>
-            
-            <a target="_blank" rel="noreferrer noopener" href="https://twitter.com/alcarneyme">
-                <svg class="w-8 h-8 bg-transparent stroke-current" style="fill:none">
-    <use xlink:href="/svg/feather-sprite.svg#twitter" />
-</svg>
-            </a>
-            
-            <a target="_blank" rel="noreferrer noopener" href="https://instagram.com/alcarneyme">
-                <svg class="w-8 h-8 bg-transparent stroke-current" style="fill:none">
-    <use xlink:href="/svg/feather-sprite.svg#instagram" />
-</svg>
-            </a>
-            
-            <a target="_blank" rel="noreferrer noopener" href="https://www.youtube.com/channel/UC5GPflgRWhnCxA0BllfP5CA">
-                <svg class="w-8 h-8 bg-transparent stroke-current" style="fill:none">
-    <use xlink:href="/svg/feather-sprite.svg#youtube" />
-</svg>
-            </a>
-            
-        </div>
 
-        <div></div>
+
+
+                </div>
+            </div>
+
+            <footer class="p-2 mt-8 mb-2 text-sm text-gray-600 border-t">
+                <div class="flex flex-col justify-between max-w-3xl mx-auto lg:flex-row">
+                    <span>
+                        <a class="text-green-600" href="../../../_sources/blog/2020/learning-vulkan-p0.rst.txt" rel="nofollow">
+                            Page Source
+                        </a>
+                    </span>
+                    <span>Built with <a class="text-green-600" href="https://www.sphinx-doc.org/en/master/">Sphinx</a> v4.2.0</span>
+                    <span>&#169; Copyright 2021, Alex Carney.</span>
+                </div>
+            </footer>
+        </main>
+        
     </div>
-</footer>
-
-    <script>
-      const codeBlocks = document.querySelectorAll(".highlight pre")
-      Array.from(codeBlocks).forEach(el => {
-          el.style.backgroundColor = "#fdf6e3"
-      })
-
-      function copyText(text) {
-          const textArea = document.createElement("textarea")
-          textArea.value = text
-
-          textArea.style.top = 0
-          textArea.style.left = 0
-          textArea.style.position = 'fixed'
-
-          document.body.append(textArea)
-          textArea.focus()
-          textArea.select()
-
-          document.execCommand('copy')
-          document.body.removeChild(textArea)
-      }
-    </script>
-
-    <script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
-    <script>mermaid.initialize({startOnLoad:true});</script>
+<script src="/_static/js/theme.js"></script>
 
 
-</body>
-
+  </body>
 </html>

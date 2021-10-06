@@ -1,305 +1,256 @@
+
 <!DOCTYPE html>
-<html lang="en">
 
-<head><meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>I’ve Started a Blog… Again! &#8212; Blog  documentation</title>
 
-<meta name="theme-color" content="#259669" />
+    
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css" />
+    
+    
+    
+    <link rel="stylesheet" type="text/css" href="../../../_static/togglebutton.css" />
+    
+    
+    <link rel="stylesheet" type="text/css" href="../../../_static/css/styles.css" />
+    
 
-<meta name="generator" content="Hugo 0.79.1" />
-<meta name="author" content="Alex Carney" />
-<meta name="description" content="First article with ox-hugo" />
+    <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
+    <script src="../../../_static/jquery.js"></script>
+    <script src="../../../_static/underscore.js"></script>
+    <script src="../../../_static/doctools.js"></script>
+    <script src="../../../_static/togglebutton.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <link rel="shortcut icon" href="../../../_static/favicon.ico"/>
+    <link rel="index" title="Index" href="../../../genindex/" />
+    <link rel="search" title="Search" href="../../../search/" /> 
+  </head><body class="flex flex-col justify-between min-h-screen overflow-x-hidden bg-gray-100 ">
+    <div class="flex flex-grow">
+        <input id="menu-state" type="checkbox" class="hidden" />
+        <aside class="flex justify-between flex-shrink-0 transition-all duration-500 bg-white border-r -ml-80 lg:ml-0">
+            <div class="flex flex-col justify-between h-full border-r w-80">
+                <div class="sticky top-0 flex flex-col h-screen"> 
+                    
+                    <div id="profile-card" class="full-profile">
+    <img class="" src="https://github.com/alcarney.png"/>
+    <h2 class=""><a href="/">Alex Carney</a></h2>
+</div>
+                    
+                    <div id="searchbox" style="display: none" role="search" class="px-4 py-4">
+    <form class="flex justify-between px-2 py-1 bg-gray-100 border-2 rounded search focus-within:border-green-600" action="../../../search/" method="get">
+        <label class="mr-2 text-gray-500" for="sbox">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="feather feather-search">
+                <circle cx="11" cy="11" r="6" />
+                <path d="m21 21-4.35-4.35" />
+            </svg>
+        </label>
+        <input id="sbox" class="flex-grow bg-gray-100 focus:outline-none" type="search" name="q" placeholder="Search..." aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" />
+    </form>
+</div>
+<script>$('#searchbox').show(0);</script>
+                    
+                    
+    
+<nav class="flex flex-col text-center">
+    <a class="text-green-600 py-1 border-t text-lg hover:bg-gray-50" href="/blog">Blog</a>
+    <a class="text-green-600 py-1 border-t text-lg hover:bg-gray-50" href="/code">Code</a>
+    <a class="text-green-600 py-1 border-t text-lg hover:bg-gray-50" href="/notes">Notes</a>
+</nav>
+                    
+                    <div class="flex-shrink overflow-auto">
 
-<meta property="og:title" content="I&#39;ve Started a Blog… Again!" />
-<meta property="og:description" content="First article with ox-hugo" />
-<meta property="og:type" content="article" />
-<meta property="og:url" content="https://www.alcarney.me/blog/2018/first-article/" />
-<meta property="article:published_time" content="2018-09-22T00:00:00+00:00" />
-<meta property="article:modified_time" content="2021-08-13T23:42:52+01:00" />
+<div class="grid justify-between p-4 text-gray-500 border-t" style="grid-template-columns: 24px auto">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+</svg>
+    <span class="ml-2 text-right">Sep 22, 2018</span>
+    
 
-<meta property="article:tag" content="blogging" />
+    <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z" />
+</svg>
+    <ul class="text-right">
+        
+        <li class="mb-1">
+            <a href="../../tag/blogging/" class="px-2 my-1 text-green-600 border border-green-600 rounded bg-green-50">
+                #blogging
+            </a>
+        </li>
+        
+    </ul>
+</div>
+<nav id="localtoc" class="p-4 border-t">
+    <ul>
+<li><a class="reference internal" href="#">I’ve Started a Blog… Again!</a><ul>
+<li><a class="reference internal" href="#a-new-perspective">A New Perspective</a></li>
+</ul>
+</li>
+</ul>
 
-<meta name="twitter:creator" content="@alcarneyme" />
-<meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="I&#39;ve Started a Blog… Again!"/>
-<meta name="twitter:description" content="First article with ox-hugo"/>
+</nav>
+                    </div>
+                    
+                    <footer class="w-full p-4 mt-auto text-white bg-gray-700">
+                        <div class="flex justify-between">
+    <div></div>
 
+    <div class="flex justify-between space-x-4">
+        <a target="_blank" rel="noreferrer noopener" href="https://github.com/alcarney">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="w-8 h-8">
+                <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path>
+            </svg>
+        </a>
 
-<title>I&#39;ve Started a Blog… Again! | Alex Carney</title>
+        <a target="_blank" rel="noreferrer noopener" href="https://twitter.com/alcarneyme">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="w-8 h-8">
+                <path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"></path>
+            </svg>
+        </a>
 
+        <a target="_blank" rel="noreferrer noopener" href="https://instagram.com/alcarneyme">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="w-8 h-8">
+                <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
+                <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
+                <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
+            </svg>
+        </a>
 
-
-<link rel="stylesheet" href="https://www.alcarney.me/main.f0fcfa33b6ee0d4eb9f5f5d87692f86fb025cfdb3907f9545b6b316fa12a3587.css" /></head>
-
-<body class="bg-gray-100 flex flex-col justify-between min-h-screen items-center">
-    <div class="flex items-baseline justify-between w-full p-4 bg-white border-b">
-
-        <div>
-            <h1>Alex Carney</h1>
-        </div>
-
-        <div class="flex justify-center flex-grow">
-        </div>
-
-        <nav class="flex space-x-4 items-between">
-            <a href="/blog">Blog</a>
-            <a href="/code">Code</a>
-            <a href="/notes">Notes</a>
-        </nav>
+        <a target="_blank" rel="noreferrer noopener" href="https://www.youtube.com/channel/UC5GPflgRWhnCxA0BllfP5CA">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="w-8 h-8">
+                <path d="M22.54 6.42a2.78 2.78 0 0 0-1.94-2C18.88 4 12 4 12 4s-6.88 0-8.6.46a2.78 2.78 0 0 0-1.94 2A29 29 0 0 0 1 11.75a29 29 0 0 0 .46 5.33A2.78 2.78 0 0 0 3.4 19c1.72.46 8.6.46 8.6.46s6.88 0 8.6-.46a2.78 2.78 0 0 0 1.94-2 29 29 0 0 0 .46-5.25 29 29 0 0 0-.46-5.33z"></path>
+                <polygon points="9.75 15.02 15.5 11.75 9.75 8.48 9.75 15.02"></polygon>
+            </svg>
+        </a>
     </div>
 
-    <main class="max-w-4xl w-full flex-grow mb-8">
-<style>
-    header::before {
-        position: absolute;
-        top: 16px;
-        left: -12.5px;
-        display: block;
-        content: '';
-        width: 25px;
-        height: 25px;
-        background: white;
-        transform: rotate(45deg);
-        border-left: solid 1px #e5e7eb;
-        border-bottom: solid 1px #e5e7eb;
-    }
+    <div></div>
+</div>
+                    </footer>
+                </div>
+            </div>     
+        </aside>
+        
+        <main class="w-full mx-auto lg:pr-0">
+            <div class="sticky top-0 z-50 mt-0 transition-all duration-300 bg-white border-b shadow-md lg:shadow-none lg:relative lg:-mt-16">
+                <label class="flex h-16 text-gray-600 transition" for="menu-state">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="w-8 h-8 my-auto" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="feather feather-arrow-right"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                </label>
+            </div> 
 
-    @media(max-width: 1024px) {
-        header::before {
-            left: 19px;
-            top: -12.5px;
-            border-top: sold 1px #e5e7eb;
-            border-bottom: none;
-        }
-    }
-</style>
-<div class="flex flex-col justify-between mx-2 lg:items-baseline lg:flex-row">
-    <style>
-    aside::after {
-        position: absolute;
-        top: 8px;
-        right: -10px;
-        display: block;
-        content: '';
-        width: 8px;
-        height: 8px;
-        border-radius: 100%;
-        background: #717885;
-    }
+            <div id="content" class="mx-2 my-8">
+                <div class="max-w-3xl mx-auto">
+                    
 
-    @media(max-width: 1024px) {
-        aside::after {
-            top: unset;
-            bottom: 6px;
-            left: -18px;
-            border-top: sold 1px #e5e7eb;
-            border-bottom: none;
-        }
-    }
-</style>
-<aside class="relative flex pr-2 mt-4 ml-12 -mb-3 space-x-4 text-gray-500 lg:mr-8 lg:ml-0 lg:block lg:space-x-0">
-    <span class="flex justify-between">
-        <svg class="w-6 h-6 bg-transparent stroke-current" style="fill:none">
-    <use xlink:href="/svg/feather-sprite.svg#calendar" />
-</svg>
-        <span class="ml-2">Sep 22, 2018</span>
-    </span>
-    <span class="flex justify-between">
-        <svg class="w-6 h-6 bg-transparent stroke-current" style="fill:none">
-    <use xlink:href="/svg/feather-sprite.svg#clock" />
-</svg>
-        <span class="ml-2">4 min read</span>
-    </span>
-</aside>
-
-    <article class="relative flex-grow p-4 mt-8 transition bg-white border shadow-lg">
-        <div class="m-auto prose prose-lg prose-green">
-            <header>
-                <h1>I&#39;ve Started a Blog… Again!</h1>
-            </header>
-            <p>Not that you would have known it, but I&rsquo;ve had a blog since 2014.  Well 2015 if
-you&rsquo;re feeling generous, the first (and only) post went up in the last few
-hours of New Year&rsquo;s Eve. It was a look back on some of the projects I had
+<article class="p-4 prose-sm prose bg-white border prose-md prose-green max-w-none">
+    <div class="section" id="i-ve-started-a-blog-again">
+<h1>I’ve Started a Blog… Again!<a class="headerlink" href="#i-ve-started-a-blog-again" title="Permalink to this headline">¶</a></h1>
+<p>Not that you would have known it, but I’ve had a blog since 2014.  Well 2015 if
+you’re feeling generous, the first (and only) post went up in the last few
+hours of New Year’s Eve. It was a look back on some of the projects I had
 worked on that year and I announced my intentions to start blogging.</p>
 <p>Fast forward nearly 4 years and here I am announcing my intentions to start
 blogging - <strong>again</strong>. So I guess you are wondering what happened?</p>
 <p>I got lost.</p>
-<p>My first attempt at running a blog was using <a href="https://jekyllrb.com">Jekyll</a> and for some mystical reason
-(It&rsquo;s been so long I can&rsquo;t actually remember why), I decided that it was not the
+<p>My first attempt at running a blog was using <a class="reference external" href="https://jekyllrb.com">Jekyll</a> and for some mystical reason
+(It’s been so long I can’t actually remember why), I decided that it was not the
 static site generator I was looking for. So I promptly set off on a voyage of
 discovery in search of the ultimate static site generator.</p>
 <p>Here is a list of some of the other static site generators I have played with
 over the years in no particular order:</p>
-<ul>
-<li>
-<p><a href="http://www.metalsmith.io/">Metalsmith</a>: Written in Javascript, this one appealed to me with
-its &ldquo;everything is a plugin&rdquo; approach. In theory I should be able to add any
-feature I wanted simply by finding/writing the right plugin.</p>
-</li>
-<li>
-<p><a href="https://jaspervdj.be/hakyll/">Hakyll</a>: I was going through a Haskell phase and I thought it would
+<ul class="simple">
+<li><p><a class="reference external" href="http://www.metalsmith.io/">Metalsmith</a>: Written in Javascript, this one appealed to me with
+its “everything is a plugin” approach. In theory I should be able to add any
+feature I wanted simply by finding/writing the right plugin.</p></li>
+<li><p><a class="reference external" href="https://jaspervdj.be/hakyll/">Hakyll</a>: I was going through a Haskell phase and I thought it would
 be a great idea to have my blog powered with it as well. <strong>Haskell all the
-things!</strong></p>
-</li>
-<li>
-<p><a href="http://www.sphinx-doc.org">Sphinx</a>: Sphinx is an awesome tool for writing
-documentation. A big part of that is <a href="http://docutils.sourceforge.net/rst.html">reStructuredText</a>, add in the <a href="https://ablog.readthedocs.io/">ABlog</a>
-extension and you should have a great setup for a blog.</p>
-</li>
-<li>
-<p><a href="https://blog.getpelican.com/">Pelican</a> &amp; <a href="https://getnikola.com/">Nikola</a>: However as Sphinx is primarily built
+things!</strong></p></li>
+<li><p><a class="reference external" href="http://www.sphinx-doc.org">Sphinx</a>: Sphinx is an awesome tool for writing
+documentation. A big part of that is <a class="reference external" href="http://docutils.sourceforge.net/rst.html">reStructuredText</a>, add in the <a class="reference external" href="https://ablog.readthedocs.io/">ABlog</a>
+extension and you should have a great setup for a blog.</p></li>
+<li><p><a class="reference external" href="https://blog.getpelican.com/">Pelican</a> &amp; <a class="reference external" href="https://getnikola.com/">Nikola</a>: However as Sphinx is primarily built
 for documentation projects, I found that I was fighting it more
 than anything. That led me to take a look at Pelican and Nikola, both written
 in Python and have support for reStructuredText and
-<a href="http://jupyter.org/">Jupyter</a>.</p>
-</li>
-<li>
-<p><a href="https://vuepress.vuejs.org/">Vuepress</a>: Having played around a bit with <a href="https://vuejs.org/">VueJS</a>, the
+<a class="reference external" href="http://jupyter.org/">Jupyter</a>.</p></li>
+<li><p><a class="reference external" href="https://vuepress.vuejs.org/">Vuepress</a>: Having played around a bit with <a class="reference external" href="https://vuejs.org/">VueJS</a>, the
 thought of being able to take a dynamic site written in a powerful frontend
 framework and make a static site out of it seemed appealing. The best of both
-worlds.</p>
-</li>
-<li>
-<p><a href="https://gohugo.io/">Hugo</a>: Who <strong>doesn&rsquo;t</strong> want a static site generator written in Go? :)</p>
-</li>
-<li>
-<p><a href="https://www.gnu.org/software/emacs/">Emacs</a> &amp; <a href="https://orgmode.org/">org-mode</a>: Yes, <a href="https://orgmode.org/worg/org-blog-wiki.html">you can</a> use emacs
-as a static site generator.</p>
-</li>
+worlds.</p></li>
+<li><p><a class="reference external" href="https://gohugo.io/">Hugo</a>: Who <strong>doesn’t</strong> want a static site generator written in Go? :)</p></li>
+<li><p><a class="reference external" href="https://www.gnu.org/software/emacs/">Emacs</a> &amp; <a class="reference external" href="https://orgmode.org/">org-mode</a>: Yes, <a class="reference external" href="https://orgmode.org/worg/org-blog-wiki.html">you can</a> use emacs
+as a static site generator.</p></li>
 </ul>
 <p>At this point you might be wondering what was wrong with all of the above so
 that after nearly 4 years of tinkering I still had nothing to show for it?</p>
 <p>Nothing. Absolutely nothing.</p>
 <p>The problem was with me. I wanted complete control over the output, from the
-contents of <code>&lt;head&gt;</code> to the CSS styling of links. There would always
+contents of <code class="docutils literal notranslate"><span class="pre">&lt;head&gt;</span></code> to the CSS styling of links. There would always
 be a point where I would start fighting against the very abstractions
 designed to make my life easier! It got to the point where I even tried writing
-my own static site generator&hellip;</p>
-<h2 id="a-new-perspective">A New Perspective</h2>
+my own static site generator…</p>
+<div class="section" id="a-new-perspective">
+<h2>A New Perspective<a class="headerlink" href="#a-new-perspective" title="Permalink to this headline">¶</a></h2>
 <p>After endless hours lost fiddling with scripts and stylesheets I stumbled
 across a quote on the internet that would snap me out of my spiral of perpetual
 procrastination.</p>
-<blockquote>
-<p>The technology you use <strong>impresses no one</strong>.</p>
-<p>The experience you create with it is <strong>everything</strong>. &ndash; <a href="https://twitter.com/ideakitchn?lang=en">Sean Gerety</a></p>
-</blockquote>
+<blockquote class="pull-quote">
+<div><p>The technology you use <strong>impresses no one</strong>.</p>
+<p>The experience you create with it is <strong>everything</strong>. – <a class="reference external" href="https://twitter.com/ideakitchn?lang=en">Sean Gerety</a></p>
+</div></blockquote>
 <p>I have found myself saying this again and again, so much so that I think it may
 have fundamentally altered the way I think about programming. I fell into a
 trap of getting caught up in the merits of the technology for the sake of the
 technology itself and lost sight of the experience - the blog itself.</p>
-<p>Rejuvenated I&rsquo;ve gone back to where it all started and have started using <a href="https://jekyllrb.com">Jekyll</a>
-again. I&rsquo;m using the <a href="https://fongandrew.github.io/hydeout/">Hydeout</a> theme as it&rsquo;s built in a way that allows me to make
+<p>Rejuvenated I’ve gone back to where it all started and have started using <a class="reference external" href="https://jekyllrb.com">Jekyll</a>
+again. I’m using the <a class="reference external" href="https://fongandrew.github.io/hydeout/">Hydeout</a> theme as it’s built in a way that allows me to make
 a few (minor!) tweaks of my own. Within a few hours I was already working on the
 draft that became this blog post, a place I never even got to in most of my
 previous attempts.</p>
 <p>It turns out that Markdown is a perfectly acceptable format for a blog. You
-don&rsquo;t have to engineer your blog&rsquo;s theme from the ground up especially when a
+don’t have to engineer your blog’s theme from the ground up especially when a
 prebuilt theme exists in the style you were going to build yourself anyway. It
-doesn&rsquo;t matter that your blog can seamlessly format a Jupyter Notebook as a
-regular blog post when you don&rsquo;t have any notebooks to publish in the first
-place&hellip;</p>
+doesn’t matter that your blog can seamlessly format a Jupyter Notebook as a
+regular blog post when you don’t have any notebooks to publish in the first
+place…</p>
 <p>What matters is the content itself, that you have something interesting to say
 and you have some way of making that available to other people. Everything else
 is just an implementation detail, which if done right is invisible to the
 consumers of your content anyway.</p>
-<p>It&rsquo;s strange that I had learn something that is probably obvious to most people
-the hard way but I&rsquo;m here now. If you are reading this then things are looking
-up but I can&rsquo;t quite declare victory as I&rsquo;m no further forward than I was 4
-years ago, first let&rsquo;s see if I make it to blog post number #2&hellip;</p>
-        </div>
-        <div class="flex items-center justify-end mt-4 space-x-4">
-    <a class="px-2 text-sm text-gray-600 bg-green-200 border border-green-600 rounded" href="https://www.alcarney.me/tags/blogging/">
-        #blogging
-    </a></div>
-        <div class="pt-4 mt-8 border-t">
-            <div id="disqus_thread"></div>
-<script type="application/javascript">
-    var disqus_config = function () {
-    
-    
-    
-    };
-    (function() {
-        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
-            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
-            return;
-        }
-        var d = document, s = d.createElement('script'); s.async = true;
-        s.src = '//' + "alcarney-me" + '.disqus.com/embed.js';
-        s.setAttribute('data-timestamp', +new Date());
-        (d.head || d.body).appendChild(s);
-    })();
-</script>
-<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
-<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
-        </div>
-    </article>
+<p>It’s strange that I had learn something that is probably obvious to most people
+the hard way but I’m here now. If you are reading this then things are looking
+up but I can’t quite declare victory as I’m no further forward than I was 4
+years ago, first let’s see if I make it to blog post number #2…</p>
+</div>
 </div>
 
-    </main><footer class="items-baseline p-4 text-white bg-gray-700 w-full">
-    <div class="flex justify-between">
-        <div></div>
+</article>
 
-        <div class="flex justify-between space-x-4">
-            
-            <a target="_blank" rel="noreferrer noopener" href="https://github.com/alcarney">
-                <svg class="w-8 h-8 bg-transparent stroke-current" style="fill:none">
-    <use xlink:href="/svg/feather-sprite.svg#github" />
-</svg>
-            </a>
-            
-            <a target="_blank" rel="noreferrer noopener" href="https://twitter.com/alcarneyme">
-                <svg class="w-8 h-8 bg-transparent stroke-current" style="fill:none">
-    <use xlink:href="/svg/feather-sprite.svg#twitter" />
-</svg>
-            </a>
-            
-            <a target="_blank" rel="noreferrer noopener" href="https://instagram.com/alcarneyme">
-                <svg class="w-8 h-8 bg-transparent stroke-current" style="fill:none">
-    <use xlink:href="/svg/feather-sprite.svg#instagram" />
-</svg>
-            </a>
-            
-            <a target="_blank" rel="noreferrer noopener" href="https://www.youtube.com/channel/UC5GPflgRWhnCxA0BllfP5CA">
-                <svg class="w-8 h-8 bg-transparent stroke-current" style="fill:none">
-    <use xlink:href="/svg/feather-sprite.svg#youtube" />
-</svg>
-            </a>
-            
-        </div>
 
-        <div></div>
+
+
+                </div>
+            </div>
+
+            <footer class="p-2 mt-8 mb-2 text-sm text-gray-600 border-t">
+                <div class="flex flex-col justify-between max-w-3xl mx-auto lg:flex-row">
+                    <span>
+                        <a class="text-green-600" href="../../../_sources/blog/2018/first-article.rst.txt" rel="nofollow">
+                            Page Source
+                        </a>
+                    </span>
+                    <span>Built with <a class="text-green-600" href="https://www.sphinx-doc.org/en/master/">Sphinx</a> v4.2.0</span>
+                    <span>&#169; Copyright 2021, Alex Carney.</span>
+                </div>
+            </footer>
+        </main>
+        
     </div>
-</footer>
-
-    <script>
-      const codeBlocks = document.querySelectorAll(".highlight pre")
-      Array.from(codeBlocks).forEach(el => {
-          el.style.backgroundColor = "#fdf6e3"
-      })
-
-      function copyText(text) {
-          const textArea = document.createElement("textarea")
-          textArea.value = text
-
-          textArea.style.top = 0
-          textArea.style.left = 0
-          textArea.style.position = 'fixed'
-
-          document.body.append(textArea)
-          textArea.focus()
-          textArea.select()
-
-          document.execCommand('copy')
-          document.body.removeChild(textArea)
-      }
-    </script>
-
-    <script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
-    <script>mermaid.initialize({startOnLoad:true});</script>
+<script src="/_static/js/theme.js"></script>
 
 
-</body>
-
+  </body>
 </html>

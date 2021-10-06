@@ -1,296 +1,359 @@
+
 <!DOCTYPE html>
-<html lang="en">
 
-<head><meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Implementing Click &amp; Drag with Vanilla JS &#8212; Blog  documentation</title>
 
-<meta name="theme-color" content="#259669" />
+    
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css" />
+    
+    
+    
+    <link rel="stylesheet" type="text/css" href="../../../_static/togglebutton.css" />
+    
+    
+    <link rel="stylesheet" type="text/css" href="../../../_static/css/styles.css" />
+    
 
-<meta name="generator" content="Hugo 0.79.1" />
-<meta name="author" content="Alex Carney" />
-<meta name="description" content="Implementing clicking and dragging of SVG elements using vanilla JavaScript" />
+    <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
+    <script src="../../../_static/jquery.js"></script>
+    <script src="../../../_static/underscore.js"></script>
+    <script src="../../../_static/doctools.js"></script>
+    <script src="../../../_static/togglebutton.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <link rel="shortcut icon" href="../../../_static/favicon.ico"/>
+    <link rel="index" title="Index" href="../../../genindex/" />
+    <link rel="search" title="Search" href="../../../search/" /> 
+  </head><body class="flex flex-col justify-between min-h-screen overflow-x-hidden bg-gray-100 ">
+    <div class="flex flex-grow">
+        <input id="menu-state" type="checkbox" class="hidden" />
+        <aside class="flex justify-between flex-shrink-0 transition-all duration-500 bg-white border-r -ml-80 lg:ml-0">
+            <div class="flex flex-col justify-between h-full border-r w-80">
+                <div class="sticky top-0 flex flex-col h-screen"> 
+                    
+                    <div id="profile-card" class="full-profile">
+    <img class="" src="https://github.com/alcarney.png"/>
+    <h2 class=""><a href="/">Alex Carney</a></h2>
+</div>
+                    
+                    <div id="searchbox" style="display: none" role="search" class="px-4 py-4">
+    <form class="flex justify-between px-2 py-1 bg-gray-100 border-2 rounded search focus-within:border-green-600" action="../../../search/" method="get">
+        <label class="mr-2 text-gray-500" for="sbox">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="feather feather-search">
+                <circle cx="11" cy="11" r="6" />
+                <path d="m21 21-4.35-4.35" />
+            </svg>
+        </label>
+        <input id="sbox" class="flex-grow bg-gray-100 focus:outline-none" type="search" name="q" placeholder="Search..." aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" />
+    </form>
+</div>
+<script>$('#searchbox').show(0);</script>
+                    
+                    
+    
+<nav class="flex flex-col text-center">
+    <a class="text-green-600 py-1 border-t text-lg hover:bg-gray-50" href="/blog">Blog</a>
+    <a class="text-green-600 py-1 border-t text-lg hover:bg-gray-50" href="/code">Code</a>
+    <a class="text-green-600 py-1 border-t text-lg hover:bg-gray-50" href="/notes">Notes</a>
+</nav>
+                    
+                    <div class="flex-shrink overflow-auto">
 
-<meta property="og:title" content="Implementing Click &amp; Drag with Vanilla JS" />
-<meta property="og:description" content="Implementing clicking and dragging of SVG elements using vanilla JavaScript" />
-<meta property="og:type" content="article" />
-<meta property="og:url" content="https://www.alcarney.me/blog/2019/click-drag-vanilla-js/" />
-<meta property="article:published_time" content="2019-07-07T21:24:00+01:00" />
-<meta property="article:modified_time" content="2021-08-13T23:42:52+01:00" />
+<div class="grid justify-between p-4 text-gray-500 border-t" style="grid-template-columns: 24px auto">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+</svg>
+    <span class="ml-2 text-right">Jul 07, 2019</span>
+    
 
-<meta property="article:tag" content="svg" />
-<meta property="article:tag" content="web" />
-<meta property="article:tag" content="js" />
+    <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z" />
+</svg>
+    <ul class="text-right">
+        
+        <li class="mb-1">
+            <a href="../../tag/svg/" class="px-2 my-1 text-green-600 border border-green-600 rounded bg-green-50">
+                #svg
+            </a>
+        </li>
+        
+        <li class="mb-1">
+            <a href="../../tag/web/" class="px-2 my-1 text-green-600 border border-green-600 rounded bg-green-50">
+                #web
+            </a>
+        </li>
+        
+        <li class="mb-1">
+            <a href="../../tag/js/" class="px-2 my-1 text-green-600 border border-green-600 rounded bg-green-50">
+                #js
+            </a>
+        </li>
+        
+    </ul>
+</div>
+<nav id="localtoc" class="p-4 border-t">
+    <ul>
+<li><a class="reference internal" href="#">Implementing Click &amp; Drag with Vanilla JS</a><ul>
+<li><a class="reference internal" href="#setup">Setup</a></li>
+<li><a class="reference internal" href="#the-view-box">The View Box</a></li>
+<li><a class="reference internal" href="#something-to-click-on">Something to Click on</a></li>
+<li><a class="reference internal" href="#implementing-the-drag">Implementing the Drag</a><ul>
+<li><a class="reference internal" href="#not-clicked">Not Clicked</a></li>
+<li><a class="reference internal" href="#clicked">Clicked</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#click-detection">Click Detection</a></li>
+<li><a class="reference internal" href="#conclusion">Conclusion</a></li>
+</ul>
+</li>
+</ul>
 
-<meta name="twitter:creator" content="@alcarneyme" />
-<meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="Implementing Click &amp; Drag with Vanilla JS"/>
-<meta name="twitter:description" content="Implementing clicking and dragging of SVG elements using vanilla JavaScript"/>
+</nav>
+                    </div>
+                    
+                    <footer class="w-full p-4 mt-auto text-white bg-gray-700">
+                        <div class="flex justify-between">
+    <div></div>
 
+    <div class="flex justify-between space-x-4">
+        <a target="_blank" rel="noreferrer noopener" href="https://github.com/alcarney">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="w-8 h-8">
+                <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path>
+            </svg>
+        </a>
 
-<title>Implementing Click &amp; Drag with Vanilla JS | Alex Carney</title>
+        <a target="_blank" rel="noreferrer noopener" href="https://twitter.com/alcarneyme">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="w-8 h-8">
+                <path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"></path>
+            </svg>
+        </a>
 
+        <a target="_blank" rel="noreferrer noopener" href="https://instagram.com/alcarneyme">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="w-8 h-8">
+                <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
+                <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
+                <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
+            </svg>
+        </a>
 
-
-<link rel="stylesheet" href="https://www.alcarney.me/main.f0fcfa33b6ee0d4eb9f5f5d87692f86fb025cfdb3907f9545b6b316fa12a3587.css" /></head>
-
-<body class="bg-gray-100 flex flex-col justify-between min-h-screen items-center">
-    <div class="flex items-baseline justify-between w-full p-4 bg-white border-b">
-
-        <div>
-            <h1>Alex Carney</h1>
-        </div>
-
-        <div class="flex justify-center flex-grow">
-        </div>
-
-        <nav class="flex space-x-4 items-between">
-            <a href="/blog">Blog</a>
-            <a href="/code">Code</a>
-            <a href="/notes">Notes</a>
-        </nav>
+        <a target="_blank" rel="noreferrer noopener" href="https://www.youtube.com/channel/UC5GPflgRWhnCxA0BllfP5CA">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="w-8 h-8">
+                <path d="M22.54 6.42a2.78 2.78 0 0 0-1.94-2C18.88 4 12 4 12 4s-6.88 0-8.6.46a2.78 2.78 0 0 0-1.94 2A29 29 0 0 0 1 11.75a29 29 0 0 0 .46 5.33A2.78 2.78 0 0 0 3.4 19c1.72.46 8.6.46 8.6.46s6.88 0 8.6-.46a2.78 2.78 0 0 0 1.94-2 29 29 0 0 0 .46-5.25 29 29 0 0 0-.46-5.33z"></path>
+                <polygon points="9.75 15.02 15.5 11.75 9.75 8.48 9.75 15.02"></polygon>
+            </svg>
+        </a>
     </div>
 
-    <main class="max-w-4xl w-full flex-grow mb-8">
-<style>
-    header::before {
-        position: absolute;
-        top: 16px;
-        left: -12.5px;
-        display: block;
-        content: '';
-        width: 25px;
-        height: 25px;
-        background: white;
-        transform: rotate(45deg);
-        border-left: solid 1px #e5e7eb;
-        border-bottom: solid 1px #e5e7eb;
-    }
+    <div></div>
+</div>
+                    </footer>
+                </div>
+            </div>     
+        </aside>
+        
+        <main class="w-full mx-auto lg:pr-0">
+            <div class="sticky top-0 z-50 mt-0 transition-all duration-300 bg-white border-b shadow-md lg:shadow-none lg:relative lg:-mt-16">
+                <label class="flex h-16 text-gray-600 transition" for="menu-state">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="w-8 h-8 my-auto" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="feather feather-arrow-right"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                </label>
+            </div> 
 
-    @media(max-width: 1024px) {
-        header::before {
-            left: 19px;
-            top: -12.5px;
-            border-top: sold 1px #e5e7eb;
-            border-bottom: none;
-        }
-    }
-</style>
-<div class="flex flex-col justify-between mx-2 lg:items-baseline lg:flex-row">
-    <style>
-    aside::after {
-        position: absolute;
-        top: 8px;
-        right: -10px;
-        display: block;
-        content: '';
-        width: 8px;
-        height: 8px;
-        border-radius: 100%;
-        background: #717885;
-    }
+            <div id="content" class="mx-2 my-8">
+                <div class="max-w-3xl mx-auto">
+                    
 
-    @media(max-width: 1024px) {
-        aside::after {
-            top: unset;
-            bottom: 6px;
-            left: -18px;
-            border-top: sold 1px #e5e7eb;
-            border-bottom: none;
-        }
-    }
-</style>
-<aside class="relative flex pr-2 mt-4 ml-12 -mb-3 space-x-4 text-gray-500 lg:mr-8 lg:ml-0 lg:block lg:space-x-0">
-    <span class="flex justify-between">
-        <svg class="w-6 h-6 bg-transparent stroke-current" style="fill:none">
-    <use xlink:href="/svg/feather-sprite.svg#calendar" />
-</svg>
-        <span class="ml-2">Jul 7, 2019</span>
-    </span>
-    <span class="flex justify-between">
-        <svg class="w-6 h-6 bg-transparent stroke-current" style="fill:none">
-    <use xlink:href="/svg/feather-sprite.svg#clock" />
-</svg>
-        <span class="ml-2">15 min read</span>
-    </span>
-</aside>
-
-    <article class="relative flex-grow p-4 mt-8 transition bg-white border shadow-lg">
-        <div class="m-auto prose prose-lg prose-green">
-            <header>
-                <h1>Implementing Click &amp; Drag with Vanilla JS</h1>
-            </header>
-            <figure>
+<article class="p-4 prose-sm prose bg-white border prose-md prose-green max-w-none">
+    <div class="section" id="implementing-click-drag-with-vanilla-js">
+<h1>Implementing Click &amp; Drag with Vanilla JS<a class="headerlink" href="#implementing-click-drag-with-vanilla-js" title="Permalink to this headline">¶</a></h1>
+<figure>
   <div id="main"></div>
   <figcaption>
     <p>Try clicking and dragging on this circle.</p>
   </figcaption>
 </figure>
-<script type="text/javascript" src="/js/click-drag.js"></script>
-<blockquote>
-<p><strong>Disclaimer:</strong></p>
+<script type="text/javascript" src="/_static/js/click-drag.js"></script><div class="admonition-disclaimer admonition">
+<p class="admonition-title">Disclaimer</p>
 <p>This post makes use of a number of interactive elements to help illustrate a few
 concepts. Unfortunately these do not yet work on mobile devices - sorry mobile
 users!</p>
-</blockquote>
+</div>
 <p>I have for quite some time now wanted to play around with web development some
 more, particularly using web technologies to build user interfaces of some
-kind. However there is just <strong>so much</strong> out there it&rsquo;s been impossible for me to
-really get anywhere past a &ldquo;Hello, World!&rdquo; tutorial before I find myself trying
+kind. However there is just <strong>so much</strong> out there it’s been impossible for me to
+really get anywhere past a “Hello, World!” tutorial before I find myself trying
 out the next new shiny.</p>
-<p>So I&rsquo;ve decided to abandon everything and try a bottom up approach where I see
+<p>So I’ve decided to abandon everything and try a bottom up approach where I see
 how far I can push the core web technologies - HTML, CSS and
 JavaScript. Hopefully then by the time I start using one of the gazillion
 libraries out there I will have a better understanding of why I
 needed it in the first place.</p>
 <p>In this post I will be looking at implementing clicking and dragging
 functionality using only vanilla JavaScript. Clicking and dragging as a concept
-can apply to many kinds of interactions so in this instance I&rsquo;m specifically
+can apply to many kinds of interactions so in this instance I’m specifically
 referring to clicking on an SVG element moving it around on the page as
 illustrated by the demo above.</p>
-<h2 id="setup">Setup</h2>
+<div class="section" id="setup">
+<h2>Setup<a class="headerlink" href="#setup" title="Permalink to this headline">¶</a></h2>
 <p>All we need to get started is a HTML document that contains some markup which
 provides someplace we can reference and attach our image element to, as well as
 loading the code we write.</p>
-<div class="highlight"><pre style="color:#586e75;background-color:#eee8d5;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-html" data-lang="html">&lt;<span style="color:#268bd2;font-weight:bold">div</span> <span style="color:#268bd2">id</span>=<span style="color:#2aa198">&#34;main&#34;</span>&gt;&lt;/<span style="color:#268bd2;font-weight:bold">div</span>&gt;
-&lt;<span style="color:#268bd2;font-weight:bold">script</span> <span style="color:#268bd2">type</span>=<span style="color:#2aa198">&#34;text/javascript&#34;</span> <span style="color:#268bd2">src</span>=<span style="color:#2aa198">&#34;/js/click-drag.js&#34;</span>&gt;&lt;/<span style="color:#268bd2;font-weight:bold">script</span>&gt;</code></pre></div>
-<p>Then the first step is to create our SVG image element to act as our &ldquo;canvas&rdquo;
+<div class="highlight-html notranslate"><div class="highlight"><pre><span></span><span class="p">&lt;</span><span class="nt">div</span> <span class="na">id</span><span class="o">=</span><span class="s">&quot;main&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">script</span> <span class="na">type</span><span class="o">=</span><span class="s">&quot;text/javascript&quot;</span> <span class="na">src</span><span class="o">=</span><span class="s">&quot;/js/click-drag.js&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
+</pre></div>
+</div>
+<p>Then the first step is to create our SVG image element to act as our “canvas”
 that we can draw on.</p>
-<p><a id="code-snippet--create-canvas"></a>
-<div class="highlight"><pre style="color:#586e75;background-color:#eee8d5;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#859900">const</span> <span style="color:#268bd2">svgns</span> = <span style="color:#2aa198">&#34;http://www.w3.org/2000/svg&#34;</span>
-<span style="color:#859900">const</span> <span style="color:#268bd2">main</span> = <span style="color:#cb4b16">document</span>.<span style="color:#268bd2">getElementById</span>(<span style="color:#2aa198">&#34;main&#34;</span>)
+<div class="highlight-js notranslate"><div class="highlight"><pre><span></span><span class="kd">const</span> <span class="nx">svgns</span> <span class="o">=</span> <span class="s2">&quot;http://www.w3.org/2000/svg&quot;</span>
+<span class="kd">const</span> <span class="nx">main</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="s2">&quot;main&quot;</span><span class="p">)</span>
 
-<span style="color:#859900">const</span> <span style="color:#268bd2">canvas</span> = <span style="color:#cb4b16">document</span>.<span style="color:#268bd2">createElementNS</span>(<span style="color:#268bd2">svgns</span>, <span style="color:#2aa198">&#34;svg&#34;</span>)
-<span style="color:#268bd2">canvas</span>.<span style="color:#268bd2">setAttribute</span>(<span style="color:#2aa198">&#34;width&#34;</span>, <span style="color:#2aa198">&#34;100%&#34;</span>)
-<span style="color:#268bd2">canvas</span>.<span style="color:#268bd2">setAttribute</span>(<span style="color:#2aa198">&#34;height&#34;</span>, <span style="color:#2aa198">&#34;100%&#34;</span>)
-<span style="color:#268bd2">canvas</span>.<span style="color:#268bd2">style</span>.<span style="color:#268bd2">border</span> = <span style="color:#2aa198">&#34;solid 2px #242930&#34;</span>
+<span class="kd">const</span> <span class="nx">canvas</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">createElementNS</span><span class="p">(</span><span class="nx">svgns</span><span class="p">,</span> <span class="s2">&quot;svg&quot;</span><span class="p">)</span>
+<span class="nx">canvas</span><span class="p">.</span><span class="nx">setAttribute</span><span class="p">(</span><span class="s2">&quot;width&quot;</span><span class="p">,</span> <span class="s2">&quot;100%&quot;</span><span class="p">)</span>
+<span class="nx">canvas</span><span class="p">.</span><span class="nx">setAttribute</span><span class="p">(</span><span class="s2">&quot;height&quot;</span><span class="p">,</span> <span class="s2">&quot;100%&quot;</span><span class="p">)</span>
+<span class="nx">canvas</span><span class="p">.</span><span class="nx">style</span><span class="p">.</span><span class="nx">border</span> <span class="o">=</span> <span class="s2">&quot;solid 2px #242930&quot;</span>
 
-<span style="color:#268bd2">main</span>.<span style="color:#268bd2">appendChild</span>(<span style="color:#268bd2">canvas</span>)
-</code></pre></div></p>
+<span class="nx">main</span><span class="p">.</span><span class="nx">appendChild</span><span class="p">(</span><span class="nx">canvas</span><span class="p">)</span>
+</pre></div>
+</div>
 <p>A few things to note:</p>
-<ul>
-<li>By adding our <code>&lt;svg&gt;</code> element as a child of some <code>&lt;div&gt;</code> element and setting
-both the <code>width</code> and <code>height</code> to <code>100%</code> our canvas will be able to
-scale responsively based on the styles applied to the parent <code>&lt;div&gt;</code></li>
-<li>You might already be familiar with the <a href="https://developer.mozilla.org/en-US/docs/Web/API/Document/createElement"><code>document.createElement()</code></a> function for
+<ul class="simple">
+<li><p>By adding our <code class="docutils literal notranslate"><span class="pre">&lt;svg&gt;</span></code> element as a child of some <code class="docutils literal notranslate"><span class="pre">&lt;div&gt;</span></code> element and setting
+both the <code class="docutils literal notranslate"><span class="pre">width</span></code> and <code class="docutils literal notranslate"><span class="pre">height</span></code> to <code class="docutils literal notranslate"><span class="pre">100%</span></code> our canvas will be able to
+scale responsively based on the styles applied to the parent <code class="docutils literal notranslate"><span class="pre">&lt;div&gt;</span></code></p></li>
+<li><p>You might already be familiar with the <a class="reference external" href="https://developer.mozilla.org/en-US/docs/Web/API/Document/createElement">document.createElement()</a> function for
 creating HTML elements using JavaScript. However in order to work with SVG
-elements we need to use the <a href="https://developer.mozilla.org/en-US/docs/Web/API/Document/createElementNS"><code>document.createElementNS()</code></a> function which allows
-us to use the SVG namespace instead of the HTML default.</li>
+elements we need to use the <a class="reference external" href="https://developer.mozilla.org/en-US/docs/Web/API/Document/createElementNS">document.createElementNS()</a> function which allows
+us to use the SVG namespace instead of the HTML default.</p></li>
 </ul>
-<h2 id="the-view-box">The View Box</h2>
-<p>The next step is to construct an appropriate <code>viewBox</code> definition for our
-canvas. For more information on the <code>viewBox</code> you can refer to the <a href="https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/viewBox">documentation</a>
+</div>
+<div class="section" id="the-view-box">
+<h2>The View Box<a class="headerlink" href="#the-view-box" title="Permalink to this headline">¶</a></h2>
+<p>The next step is to construct an appropriate <code class="docutils literal notranslate"><span class="pre">viewBox</span></code> definition for our
+canvas. For more information on the <code class="docutils literal notranslate"><span class="pre">viewBox</span></code> you can refer to the <a class="reference external" href="https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/viewBox">documentation</a>
 but to briefly summarise. An SVG image exists on an infinite plane and the
-<code>viewBox</code> is the window we use to view a portion of that space, changing the
-definition of the <code>viewBox</code> allows you to zoom in and out on particular regions.</p>
-<p>For our purposes what&rsquo;s important is that we construct a <code>viewBox</code> that matches
-the proportions of the <code>&lt;svg&gt;</code> element as it is displayed in the browser. If
+<code class="docutils literal notranslate"><span class="pre">viewBox</span></code> is the window we use to view a portion of that space, changing the
+definition of the <code class="docutils literal notranslate"><span class="pre">viewBox</span></code> allows you to zoom in and out on particular regions.</p>
+<p>For our purposes what’s important is that we construct a <code class="docutils literal notranslate"><span class="pre">viewBox</span></code> that matches
+the proportions of the <code class="docutils literal notranslate"><span class="pre">&lt;svg&gt;</span></code> element as it is displayed in the browser. If
 these proportions do not match then the element being dragged around will not
 accurately track the cursor, either racing away from or lagging behind it.</p>
-<p>One minor issue is that in our setup we didn&rsquo;t explicitly set the dimensions of
-our <code>&lt;svg&gt;</code> element - so how can we know its proportions? Thankfully once the
-<code>&lt;svg&gt;</code> as been added to the page we can ask the browser for the bounding box
+<p>One minor issue is that in our setup we didn’t explicitly set the dimensions of
+our <code class="docutils literal notranslate"><span class="pre">&lt;svg&gt;</span></code> element - so how can we know its proportions? Thankfully once the
+<code class="docutils literal notranslate"><span class="pre">&lt;svg&gt;</span></code> as been added to the page we can ask the browser for the bounding box
 around the element.</p>
-<p><a id="code-snippet--set-viewbox"></a>
-<div class="highlight"><pre style="color:#586e75;background-color:#eee8d5;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#859900">let</span> <span style="color:#268bd2">bbox</span> = <span style="color:#268bd2">canvas</span>.<span style="color:#268bd2">getBoundingClientRect</span>()
-</code></pre></div></p>
-<p>Among other properties that are outlined on <a href="https://developer.mozilla.org/en-US/docs/Web/API/Element/getBoundingClientRect">this</a> page we can get the width and
+<div class="highlight-js notranslate"><div class="highlight"><pre><span></span><span class="kd">let</span> <span class="nx">bbox</span> <span class="o">=</span> <span class="nx">canvas</span><span class="p">.</span><span class="nx">getBoundingClientRect</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>Among other properties that are outlined on <a class="reference external" href="https://developer.mozilla.org/en-US/docs/Web/API/Element/getBoundingClientRect">this</a> page we can get the width and
 height of the rendered image in pixels from which its easy to calculate the
 aspect ratio.</p>
-<p><a id="code-snippet--set-viewbox"></a>
-<div class="highlight"><pre style="color:#586e75;background-color:#eee8d5;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#859900">const</span> <span style="color:#268bd2">aspectRatio</span> = <span style="color:#268bd2">bbox</span>.<span style="color:#268bd2">width</span> / <span style="color:#268bd2">bbox</span>.<span style="color:#268bd2">height</span>
-</code></pre></div></p>
-<p>We&rsquo;re free to choose whichever scale we want for the vertical height of the
-<code>viewBox</code> into the <code>&lt;svg&gt;</code> element. I have chosen <code>100</code> simply because it feels
-like a nice round number. Once we&rsquo;ve decided on a scale for the height, it&rsquo;s
+<div class="highlight-js notranslate"><div class="highlight"><pre><span></span><span class="kd">const</span> <span class="nx">aspectRatio</span> <span class="o">=</span> <span class="nx">bbox</span><span class="p">.</span><span class="nx">width</span> <span class="o">/</span> <span class="nx">bbox</span><span class="p">.</span><span class="nx">height</span>
+</pre></div>
+</div>
+<p>We’re free to choose whichever scale we want for the vertical height of the
+<code class="docutils literal notranslate"><span class="pre">viewBox</span></code> into the <code class="docutils literal notranslate"><span class="pre">&lt;svg&gt;</span></code> element. I have chosen <code class="docutils literal notranslate"><span class="pre">100</span></code> simply because it feels
+like a nice round number. Once we’ve decided on a scale for the height, it’s
 easy enough to calculate the corresponding width from our aspect ratio.</p>
-<p><a id="code-snippet--set-viewbox"></a>
-<div class="highlight"><pre style="color:#586e75;background-color:#eee8d5;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#859900">const</span> <span style="color:#268bd2">height</span> = <span style="color:#2aa198;font-weight:bold">100</span>
-<span style="color:#859900">const</span> <span style="color:#268bd2">width</span> = <span style="color:#268bd2">height</span> * <span style="color:#268bd2">aspectRatio</span>
-</code></pre></div></p>
-<p>With the dimensions of the <code>viewBox</code> taken care of all that is left to do is
-decide on the coordinates to assign to the top left corner of the <code>&lt;svg&gt;</code>
+<div class="highlight-js notranslate"><div class="highlight"><pre><span></span><span class="kd">const</span> <span class="nx">height</span> <span class="o">=</span> <span class="mf">100</span>
+<span class="kd">const</span> <span class="nx">width</span> <span class="o">=</span> <span class="nx">height</span> <span class="o">*</span> <span class="nx">aspectRatio</span>
+</pre></div>
+</div>
+<p>With the dimensions of the <code class="docutils literal notranslate"><span class="pre">viewBox</span></code> taken care of all that is left to do is
+decide on the coordinates to assign to the top left corner of the <code class="docutils literal notranslate"><span class="pre">&lt;svg&gt;</span></code>
 element and assign the view box to our canvas.</p>
-<p><a id="code-snippet--set-viewbox"></a>
-<div class="highlight"><pre style="color:#586e75;background-color:#eee8d5;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#859900">const</span> <span style="color:#268bd2">viewBox</span> = {<span style="color:#268bd2">minX</span>: <span style="color:#2aa198;font-weight:bold">0</span>, <span style="color:#268bd2">minY</span>: <span style="color:#2aa198;font-weight:bold">0</span>, <span style="color:#268bd2">width</span>: <span style="color:#268bd2">width</span>, <span style="color:#268bd2">height</span>: <span style="color:#268bd2">height</span>}
+<div class="highlight-js notranslate"><div class="highlight"><pre><span></span><span class="kd">const</span> <span class="nx">viewBox</span> <span class="o">=</span> <span class="p">{</span><span class="nx">minX</span><span class="o">:</span> <span class="mf">0</span><span class="p">,</span> <span class="nx">minY</span><span class="o">:</span> <span class="mf">0</span><span class="p">,</span> <span class="nx">width</span><span class="o">:</span> <span class="nx">width</span><span class="p">,</span> <span class="nx">height</span><span class="o">:</span> <span class="nx">height</span><span class="p">}</span>
 
-<span style="color:#859900">const</span> <span style="color:#268bd2">viewBoxStr</span> = [
-  <span style="color:#268bd2">viewBox</span>.<span style="color:#268bd2">minX</span>, <span style="color:#268bd2">viewBox</span>.<span style="color:#268bd2">minY</span>, <span style="color:#268bd2">viewBox</span>.<span style="color:#268bd2">width</span>, <span style="color:#268bd2">viewBox</span>.<span style="color:#268bd2">height</span>
-].<span style="color:#268bd2">join</span>(<span style="color:#2aa198">&#34; &#34;</span>)
+<span class="kd">const</span> <span class="nx">viewBoxStr</span> <span class="o">=</span> <span class="p">[</span>
+  <span class="nx">viewBox</span><span class="p">.</span><span class="nx">minX</span><span class="p">,</span> <span class="nx">viewBox</span><span class="p">.</span><span class="nx">minY</span><span class="p">,</span> <span class="nx">viewBox</span><span class="p">.</span><span class="nx">width</span><span class="p">,</span> <span class="nx">viewBox</span><span class="p">.</span><span class="nx">height</span>
+<span class="p">].</span><span class="nx">join</span><span class="p">(</span><span class="s2">&quot; &quot;</span><span class="p">)</span>
 
-<span style="color:#268bd2">canvas</span>.<span style="color:#268bd2">setAttribute</span>(<span style="color:#2aa198">&#34;viewBox&#34;</span>, <span style="color:#268bd2">viewBoxStr</span>)
-</code></pre></div></p>
-<h2 id="something-to-click-on">Something to Click on</h2>
-<p>By this point we have finished preparing our canvas and it&rsquo;s time to add
-something for us to interact with. To keep things simple I will stick to a <code>&lt;circle&gt;</code>
+<span class="nx">canvas</span><span class="p">.</span><span class="nx">setAttribute</span><span class="p">(</span><span class="s2">&quot;viewBox&quot;</span><span class="p">,</span> <span class="nx">viewBoxStr</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="something-to-click-on">
+<h2>Something to Click on<a class="headerlink" href="#something-to-click-on" title="Permalink to this headline">¶</a></h2>
+<p>By this point we have finished preparing our canvas and it’s time to add
+something for us to interact with. To keep things simple I will stick to a <code class="docutils literal notranslate"><span class="pre">&lt;circle&gt;</span></code>
 element, though the method we use here should apply to any SVG element (or any
-collection of elements under a <code>&lt;g&gt;</code> tag).</p>
-<p><a id="code-snippet--add-circle"></a>
-<div class="highlight"><pre style="color:#586e75;background-color:#eee8d5;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#859900">const</span> <span style="color:#268bd2">circle</span> = <span style="color:#cb4b16">document</span>.<span style="color:#268bd2">createElementNS</span>(<span style="color:#268bd2">svgns</span>, <span style="color:#2aa198">&#34;circle&#34;</span>)
-<span style="color:#268bd2">circle</span>.<span style="color:#268bd2">setAttribute</span>(<span style="color:#2aa198">&#34;cx&#34;</span>, <span style="color:#268bd2">viewBox</span>.<span style="color:#268bd2">width</span> / <span style="color:#2aa198;font-weight:bold">2</span>)
-<span style="color:#268bd2">circle</span>.<span style="color:#268bd2">setAttribute</span>(<span style="color:#2aa198">&#34;cy&#34;</span>, <span style="color:#268bd2">viewBox</span>.<span style="color:#268bd2">height</span> / <span style="color:#2aa198;font-weight:bold">2</span>)
-<span style="color:#268bd2">circle</span>.<span style="color:#268bd2">setAttribute</span>(<span style="color:#2aa198">&#34;r&#34;</span>, <span style="color:#2aa198;font-weight:bold">15</span>)
-<span style="color:#268bd2">circle</span>.<span style="color:#268bd2">setAttribute</span>(<span style="color:#2aa198">&#34;fill&#34;</span>, <span style="color:#2aa198">&#34;#57cc8a&#34;</span>)
+collection of elements under a <code class="docutils literal notranslate"><span class="pre">&lt;g&gt;</span></code> tag).</p>
+<div class="highlight-js notranslate"><div class="highlight"><pre><span></span><span class="kd">const</span> <span class="nx">circle</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">createElementNS</span><span class="p">(</span><span class="nx">svgns</span><span class="p">,</span> <span class="s2">&quot;circle&quot;</span><span class="p">)</span>
+<span class="nx">circle</span><span class="p">.</span><span class="nx">setAttribute</span><span class="p">(</span><span class="s2">&quot;cx&quot;</span><span class="p">,</span> <span class="nx">viewBox</span><span class="p">.</span><span class="nx">width</span> <span class="o">/</span> <span class="mf">2</span><span class="p">)</span>
+<span class="nx">circle</span><span class="p">.</span><span class="nx">setAttribute</span><span class="p">(</span><span class="s2">&quot;cy&quot;</span><span class="p">,</span> <span class="nx">viewBox</span><span class="p">.</span><span class="nx">height</span> <span class="o">/</span> <span class="mf">2</span><span class="p">)</span>
+<span class="nx">circle</span><span class="p">.</span><span class="nx">setAttribute</span><span class="p">(</span><span class="s2">&quot;r&quot;</span><span class="p">,</span> <span class="mf">15</span><span class="p">)</span>
+<span class="nx">circle</span><span class="p">.</span><span class="nx">setAttribute</span><span class="p">(</span><span class="s2">&quot;fill&quot;</span><span class="p">,</span> <span class="s2">&quot;#57cc8a&quot;</span><span class="p">)</span>
 
-<span style="color:#268bd2">canvas</span>.<span style="color:#268bd2">appendChild</span>(<span style="color:#268bd2">circle</span>)
-</code></pre></div></p>
-<blockquote>
-<p><strong>Note:</strong></p>
+<span class="nx">canvas</span><span class="p">.</span><span class="nx">appendChild</span><span class="p">(</span><span class="nx">circle</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
 <p>Of course the way in which you define the position of your interactive element
 will depend on the element you have chosen.</p>
-</blockquote>
-<h2 id="implementing-the-drag">Implementing the Drag</h2>
-<p>We will create an event handler for the <code>mousemove</code> event and attach it to
+</div>
+</div>
+<div class="section" id="implementing-the-drag">
+<h2>Implementing the Drag<a class="headerlink" href="#implementing-the-drag" title="Permalink to this headline">¶</a></h2>
+<p>We will create an event handler for the <code class="docutils literal notranslate"><span class="pre">mousemove</span></code> event and attach it to
 our canvas.</p>
-<div class="highlight"><pre style="color:#586e75;background-color:#eee8d5;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#268bd2">canvas</span>.<span style="color:#268bd2">addEventListener</span>(<span style="color:#2aa198">&#34;mousemove&#34;</span>, (<span style="color:#268bd2">event</span>) =&gt; {
-  <span style="color:#93a1a1;font-style:italic">// Do something clever here...
-</span><span style="color:#93a1a1;font-style:italic"></span>})
-</code></pre></div>
+<div class="highlight-js notranslate"><div class="highlight"><pre><span></span><span class="nx">canvas</span><span class="p">.</span><span class="nx">addEventListener</span><span class="p">(</span><span class="s2">&quot;mousemove&quot;</span><span class="p">,</span> <span class="p">(</span><span class="nx">event</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">{</span>
+  <span class="c1">// Do something clever here...</span>
+<span class="p">})</span>
+</pre></div>
+</div>
 <p>The function we write will be called every time the cursor moves regardless of
 whether the user has clicked or not. This means our event handler has to be able
 to cope with two situations, the cursor moving when the user has clicked and the
 cursor moving when the user has not clicked.</p>
-<p>To do this we will declare a variable called <code>clicked</code> outside the scope of our
+<p>To do this we will declare a variable called <code class="docutils literal notranslate"><span class="pre">clicked</span></code> outside the scope of our
 function.</p>
-<p><a id="code-snippet--dragging"></a>
-<div class="highlight"><pre style="color:#586e75;background-color:#eee8d5;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#859900">let</span> <span style="color:#268bd2">clicked</span> = <span style="color:#859900;font-weight:bold">false</span>
-</code></pre></div></p>
+<div class="highlight-js notranslate"><div class="highlight"><pre><span></span><span class="kd">let</span> <span class="nx">clicked</span> <span class="o">=</span> <span class="kc">false</span>
+</pre></div>
+</div>
 <p>For the moment we will ignore the details around how this variable is updated
-(it is covered in the next section), instead let&rsquo;s focus on what we do while the
+(it is covered in the next section), instead let’s focus on what we do while the
 cursor is moving about the page</p>
-<p>Let&rsquo;s get the simpler case out of the way first</p>
-<h3 id="not-clicked">Not Clicked</h3>
+<p>Let’s get the simpler case out of the way first</p>
+<div class="section" id="not-clicked">
+<h3>Not Clicked<a class="headerlink" href="#not-clicked" title="Permalink to this headline">¶</a></h3>
 <p>When the mouse is moving but the user has not clicked, then there is nothing for
-us to do! We can simply check the value of the <code>clicked</code> variable and stop the
+us to do! We can simply check the value of the <code class="docutils literal notranslate"><span class="pre">clicked</span></code> variable and stop the
 function if it meets the criteria.</p>
-<div class="highlight"><pre style="color:#586e75;background-color:#eee8d5;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#859900">if</span> (!<span style="color:#268bd2">clicked</span>) {
-  <span style="color:#859900">return</span>
-}
-</code></pre></div>
-<h3 id="clicked">Clicked</h3>
+<div class="highlight-js notranslate"><div class="highlight"><pre><span></span><span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nx">clicked</span><span class="p">)</span> <span class="p">{</span>
+  <span class="k">return</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="clicked">
+<h3>Clicked<a class="headerlink" href="#clicked" title="Permalink to this headline">¶</a></h3>
 <p>Now for the interesting part! The mouse is moving and the user has clicked on
 the circle, all we have to do now is update its position to match
-the cursor&rsquo;s current position. The only problem is&hellip; where is it?</p>
-<p>Like all mouse related events the <code>event</code> object passed into the event handler
+the cursor’s current position. The only problem is… where is it?</p>
+<p>Like all mouse related events the <code class="docutils literal notranslate"><span class="pre">event</span></code> object passed into the event handler
 will contain a number of position related properties.</p>
-<ul>
-<li><code>e.client&lt;XY&gt;</code>: Coordinates of the cursor with respect to the current portion
-of the document visible on the page.</li>
-<li><code>e.offset&lt;XY&gt;</code>: Coordinates of the cursor with respect to the edge of the
-target element</li>
-<li><code>e.page&lt;XY&gt;</code>: Coordinates of the cursor with respect to the entire HTML page,
-including any portions of the page not currently visible</li>
-<li><code>e.screen&lt;XY&gt;</code>: Coordinates of the cursor with respect to the user&rsquo;s display</li>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">e.client&lt;XY&gt;</span></code>: Coordinates of the cursor with respect to the current portion
+of the document visible on the page.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">e.offset&lt;XY&gt;</span></code>: Coordinates of the cursor with respect to the edge of the
+target element</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">e.page&lt;XY&gt;</span></code>: Coordinates of the cursor with respect to the entire HTML page,
+including any portions of the page not currently visible</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">e.screen&lt;XY&gt;</span></code>: Coordinates of the cursor with respect to the user’s display</p></li>
 </ul>
-<p>Reading through those descriptions you would imagine that the <code>e.offset&lt;XY&gt;</code>
-properties would be the best fit for our use case. However it&rsquo;s not quite as
+<p>Reading through those descriptions you would imagine that the <code class="docutils literal notranslate"><span class="pre">e.offset&lt;XY&gt;</span></code>
+properties would be the best fit for our use case. However it’s not quite as
 simple as that.</p>
 <p>Below you should see 2 boxes, the bigger one on the left is our canvas. The
 smaller box on the right contains a smaller circle that represents the
-calculated position of the cursor based on the <code>offset&lt;XY&gt;</code> properties like so.</p>
-<div class="highlight"><pre style="color:#586e75;background-color:#eee8d5;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#859900">const</span> <span style="color:#268bd2">x</span> = <span style="color:#268bd2">event</span>.<span style="color:#268bd2">offsetX</span>
-<span style="color:#859900">const</span> <span style="color:#268bd2">y</span> = <span style="color:#268bd2">event</span>.<span style="color:#268bd2">offsetY</span>
-</code></pre></div>
+calculated position of the cursor based on the <code class="docutils literal notranslate"><span class="pre">offset&lt;XY&gt;</span></code> properties like so.</p>
+<div class="highlight-js notranslate"><div class="highlight"><pre><span></span><span class="kd">const</span> <span class="nx">x</span> <span class="o">=</span> <span class="nx">event</span><span class="p">.</span><span class="nx">offsetX</span>
+<span class="kd">const</span> <span class="nx">y</span> <span class="o">=</span> <span class="nx">event</span><span class="p">.</span><span class="nx">offsetY</span>
+</pre></div>
+</div>
 <p>Try moving the mouse across the canvas and keep an eye on the calculated
 position.</p>
 <figure>
@@ -318,373 +381,251 @@ position.</p>
     </p>
   </figcaption>
 </figure>
-<script type="text/javascript" src="/js/click-drag-offset.js"></script>
-<p>Notice the issue when we move across the circle? Why does the calculated
+<script type="text/javascript" src="/_static/js/click-drag-offset.js"></script><p>Notice the issue when we move across the circle? Why does the calculated
 position of the cursor suddenly jump whenever we touch it? The answer lies in
-the description of the <code>offset&lt;XY&gt;</code> property &ldquo;with respect to the edge of the
-<strong>target</strong> element&rdquo;</p>
+the description of the <code class="docutils literal notranslate"><span class="pre">offset&lt;XY&gt;</span></code> property “with respect to the edge of the
+<strong>target</strong> element”</p>
 <p>When initially trying to implement this I incorrectly assumed that the target
 element meant the element that we attached the event listener to - the canvas. In
 fact the target element is whichever element is currently under the cursor</p>
 <p>To work around this we can calculate the offset values we need ourselves. In
 order to do this we will make use of both the bounding box returned from the
-<code>canvas.getBoundingClientRect()</code> method as well as the <code>client&lt;XY&gt;</code> properties
+<code class="docutils literal notranslate"><span class="pre">canvas.getBoundingClientRect()</span></code> method as well as the <code class="docutils literal notranslate"><span class="pre">client&lt;XY&gt;</span></code> properties
 found on the mouse event.</p>
 <p>It turns out that the bounding box also returns the coordinates of the top left
-corner of the canvas relative to the user&rsquo;s current view of the document -
-exactly the same coordinate system used by the <code>client&lt;XY&gt;</code> properties! From
-those two pieces of information it&rsquo;s easy enough to recover the <code>offset&lt;XY&gt;</code>
+corner of the canvas relative to the user’s current view of the document -
+exactly the same coordinate system used by the <code class="docutils literal notranslate"><span class="pre">client&lt;XY&gt;</span></code> properties! From
+those two pieces of information it’s easy enough to recover the <code class="docutils literal notranslate"><span class="pre">offset&lt;XY&gt;</span></code>
 values ourselves.</p>
-<div class="highlight"><pre style="color:#586e75;background-color:#eee8d5;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#268bd2">bbox</span> = <span style="color:#268bd2">canvas</span>.<span style="color:#268bd2">getBoundingClientRect</span>()
+<div class="highlight-js notranslate"><div class="highlight"><pre><span></span><span class="nx">bbox</span> <span class="o">=</span> <span class="nx">canvas</span><span class="p">.</span><span class="nx">getBoundingClientRect</span><span class="p">()</span>
 
-<span style="color:#859900">const</span> <span style="color:#268bd2">x</span> = <span style="color:#268bd2">event</span>.<span style="color:#268bd2">clientX</span> - <span style="color:#268bd2">bbox</span>.<span style="color:#268bd2">left</span>
-<span style="color:#859900">const</span> <span style="color:#268bd2">y</span> = <span style="color:#268bd2">event</span>.<span style="color:#268bd2">clientY</span> - <span style="color:#268bd2">bbox</span>.<span style="color:#268bd2">top</span>
-</code></pre></div>
+<span class="kd">const</span> <span class="nx">x</span> <span class="o">=</span> <span class="nx">event</span><span class="p">.</span><span class="nx">clientX</span> <span class="o">-</span> <span class="nx">bbox</span><span class="p">.</span><span class="nx">left</span>
+<span class="kd">const</span> <span class="nx">y</span> <span class="o">=</span> <span class="nx">event</span><span class="p">.</span><span class="nx">clientY</span> <span class="o">-</span> <span class="nx">bbox</span><span class="p">.</span><span class="nx">top</span>
+</pre></div>
+</div>
 <p>By calculating the coordinates using values that are independent of the element
 currently underneath the cursor we sidestep any issues that arise from a
 changing target. Try the same thing again on the canvas below.</p>
 <figure>
-  <div id="client-demo"
-       style="display:grid;grid-template-columns:50% auto;grid-gap:10px">
-    <h3 id="offset-title" style="margin: 0; padding: 15px; padding-top: 0">
+<div id="client-demo"
+      style="display:grid;grid-template-columns:50% auto;grid-gap:10px">
+   <h3 id="offset-title" style="margin: 0; padding: 15px; padding-top: 0">
       Cursor Position: Client
-    </h3>
-    <div>
+   </h3>
+   <div>
       <p style="margin:0;padding-left:20px">Target: <span id="client-target"></span></p>
       <p style="margin:0;padding-left:20px">Position: <span id="client-position"></span></p>
-    </div>
-    <svg width="100%"
+   </div>
+   <svg width="100%"
          id="client-demo-canvas"
          style="border: solid 2px var(--background-dark)">
-    </svg>
+   </svg>
       <svg width="50%"
-           id="client-posbox"
-           style="border: solid 2px var(--background-dark);margin:auto"><svg>
-  </div>
-  <figcaption>
-    <p>
+         id="client-posbox"
+         style="border: solid 2px var(--background-dark);margin:auto"><svg>
+</div>
+<figcaption>
+   <p>
       Determining the cursor's position using the <code>event.clientX</code> and
       <code>event.clientY</code> properties
-    </p>
-  </figcaption>
+   </p>
+</figcaption>
 </figure>
-<script type="text/javascript" src="/js/click-drag-client.js"></script>
-<blockquote>
-<p><strong>Important:</strong></p>
-<p>Since the values <code>bbox.top</code> and <code>bbox.left</code> are defined relative to the user&rsquo;s
+<script type="text/javascript" src="/_static/js/click-drag-client.js"></script><div class="admonition important">
+<p class="admonition-title">Important</p>
+<p>Since the values <code class="docutils literal notranslate"><span class="pre">bbox.top</span></code> and <code class="docutils literal notranslate"><span class="pre">bbox.left</span></code> are defined relative to the user’s
 current view on the document these values are <strong>not</strong> constant. They will change
 whenever the user alters their view of the page, i.e. performing actions like
 resizing the window or scrolling. This is why we ask for an updated bounding box
 every time our event handler is called.</p>
-</blockquote>
+</div>
 <p>Now that we can reliably know the position of the cursor, we can focus on the
-final piece of this puzzle - updating the position of our <code>&lt;circle&gt;</code>
+final piece of this puzzle - updating the position of our <code class="docutils literal notranslate"><span class="pre">&lt;circle&gt;</span></code>
 element. There is however one further issue to work through. The position of the
-cursor that we&rsquo;ve just calculated is using a different coordinate system to the
+cursor that we’ve just calculated is using a different coordinate system to the
 one used to draw our circle!</p>
-<p>Although we have managed to correctly calculate the cursor&rsquo;s position relative
+<p>Although we have managed to correctly calculate the cursor’s position relative
 to our canvas, that position is measured using pixels which makes it highly
-dependent on the resolution of the user&rsquo;s screen. A user who uses a 4K monitor
+dependent on the resolution of the user’s screen. A user who uses a 4K monitor
 and positions their cursor at the bottom right of the canvas will have a
-calculated position much larger than a user on a smartphone&hellip;</p>
+calculated position much larger than a user on a smartphone…</p>
 <p>What this means is that if we map this calculated position directly onto the
-circle it won&rsquo;t accurately follow the cursor. The only time the circle would
+circle it won’t accurately follow the cursor. The only time the circle would
 follow the cursor correctly is when the pixel based coordinates line up with the
 coordinate system used in the SVG image. I.e. when the dimensions of the canvas
-match up <strong>exactly</strong> with the scale used to define our <code>viewBox</code> which in this
-case would be <code>100px</code> tall</p>
-<p>Since the mouse circle and the circle use different coordinate systems, we don&rsquo;t
-actually care about the exact position we have just calculated. What&rsquo;s more
+match up <strong>exactly</strong> with the scale used to define our <cite>viewBox</cite> which in this
+case would be <code class="docutils literal notranslate"><span class="pre">100px</span></code> tall</p>
+<p>Since the mouse circle and the circle use different coordinate systems, we don’t
+actually care about the exact position we have just calculated. What’s more
 important is the position of the cursor relative to bounds of the canvas - a
-percentage. For example, let&rsquo;s say that the cursor was halfway down the canvas
-(<code>50%</code>) then we could calculate the corresponding coordinate value in the SVG
-coordinate system by multiplying the total height by <code>50%</code>. In our particular
-case this would mean setting <code>y = 100 * 0.5 = 50</code>.</p>
-<p>We can adopt this approach by using the <code>width</code> and <code>height</code> information
+percentage. For example, let’s say that the cursor was halfway down the canvas
+(<code class="docutils literal notranslate"><span class="pre">50%</span></code>) then we could calculate the corresponding coordinate value in the SVG
+coordinate system by multiplying the total height by <code class="docutils literal notranslate"><span class="pre">50%</span></code>. In our particular
+case this would mean setting <code class="docutils literal notranslate"><span class="pre">y</span> <span class="pre">=</span> <span class="pre">100</span> <span class="pre">*</span> <span class="pre">0.5</span> <span class="pre">=</span> <span class="pre">50</span></code>.</p>
+<p>We can adopt this approach by using the <cite>width</cite> and <cite>height</cite> information
 returned as part of the bounding box to modify our calculation to produce a
 percentage rather than an absolute value.</p>
-<div class="highlight"><pre style="color:#586e75;background-color:#eee8d5;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#859900">const</span> <span style="color:#268bd2">x</span> = (<span style="color:#268bd2">event</span>.<span style="color:#268bd2">clientX</span> - <span style="color:#268bd2">bbox</span>.<span style="color:#268bd2">left</span>) / <span style="color:#268bd2">bbox</span>.<span style="color:#268bd2">width</span>
-<span style="color:#859900">const</span> <span style="color:#268bd2">y</span> = (<span style="color:#268bd2">event</span>.<span style="color:#268bd2">clientY</span> - <span style="color:#268bd2">bbox</span>.<span style="color:#268bd2">top</span>) / <span style="color:#268bd2">bbox</span>.<span style="color:#268bd2">height</span>
-</code></pre></div>
+<div class="highlight-js notranslate"><div class="highlight"><pre><span></span><span class="kd">const</span> <span class="nx">x</span> <span class="o">=</span> <span class="p">(</span><span class="nx">event</span><span class="p">.</span><span class="nx">clientX</span> <span class="o">-</span> <span class="nx">bbox</span><span class="p">.</span><span class="nx">left</span><span class="p">)</span> <span class="o">/</span> <span class="nx">bbox</span><span class="p">.</span><span class="nx">width</span>
+<span class="kd">const</span> <span class="nx">y</span> <span class="o">=</span> <span class="p">(</span><span class="nx">event</span><span class="p">.</span><span class="nx">clientY</span> <span class="o">-</span> <span class="nx">bbox</span><span class="p">.</span><span class="nx">top</span><span class="p">)</span> <span class="o">/</span> <span class="nx">bbox</span><span class="p">.</span><span class="nx">height</span>
+</pre></div>
+</div>
 <p>To then convert this percentage into its corresponding value in the SVG
 coordinate system all we have to do is multiply it by the width and height of
-that system and assign the result to our circle&rsquo;s position!</p>
-<div class="highlight"><pre style="color:#586e75;background-color:#eee8d5;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#268bd2">circle</span>.<span style="color:#268bd2">setAttriubte</span>(<span style="color:#2aa198">&#34;cx&#34;</span>, <span style="color:#268bd2">x</span> * <span style="color:#268bd2">viewBox</span>.<span style="color:#268bd2">width</span>)
-<span style="color:#268bd2">circle</span>.<span style="color:#268bd2">setAttribute</span>(<span style="color:#2aa198">&#34;cy&#34;</span>, <span style="color:#268bd2">y</span> * <span style="color:#268bd2">viewBox</span>.<span style="color:#268bd2">height</span>)
-</code></pre></div>
+that system and assign the result to our circle’s position!</p>
+<div class="highlight-js notranslate"><div class="highlight"><pre><span></span><span class="nx">circle</span><span class="p">.</span><span class="nx">setAttriubte</span><span class="p">(</span><span class="s2">&quot;cx&quot;</span><span class="p">,</span> <span class="nx">x</span> <span class="o">*</span> <span class="nx">viewBox</span><span class="p">.</span><span class="nx">width</span><span class="p">)</span>
+<span class="nx">circle</span><span class="p">.</span><span class="nx">setAttribute</span><span class="p">(</span><span class="s2">&quot;cy&quot;</span><span class="p">,</span> <span class="nx">y</span> <span class="o">*</span> <span class="nx">viewBox</span><span class="p">.</span><span class="nx">height</span><span class="p">)</span>
+</pre></div>
+</div>
 <p>Bringing all that together we end up with the following implementation of our
-<code>mousemove</code> event handler.</p>
-<p><a id="code-snippet--dragging"></a>
-<div class="highlight"><pre style="color:#586e75;background-color:#eee8d5;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#268bd2">canvas</span>.<span style="color:#268bd2">addEventListener</span>(<span style="color:#2aa198">&#34;mousemove&#34;</span>, (<span style="color:#268bd2">event</span>) =&gt; {
+<code class="docutils literal notranslate"><span class="pre">mousemove</span></code> event handler.</p>
+<div class="highlight-js notranslate"><div class="highlight"><pre><span></span><span class="nx">canvas</span><span class="p">.</span><span class="nx">addEventListener</span><span class="p">(</span><span class="s2">&quot;mousemove&quot;</span><span class="p">,</span> <span class="p">(</span><span class="nx">event</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">{</span>
 
-  <span style="color:#859900">if</span> (!<span style="color:#268bd2">clicked</span>) {
-    <span style="color:#859900">return</span>
-  }
+   <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nx">clicked</span><span class="p">)</span> <span class="p">{</span>
+      <span class="k">return</span>
+   <span class="p">}</span>
 
-  <span style="color:#268bd2">bbox</span> = <span style="color:#268bd2">canvas</span>.<span style="color:#268bd2">getBoundingClientRect</span>()
+   <span class="nx">bbox</span> <span class="o">=</span> <span class="nx">canvas</span><span class="p">.</span><span class="nx">getBoundingClientRect</span><span class="p">()</span>
 
-  <span style="color:#859900">const</span> <span style="color:#268bd2">x</span> = (<span style="color:#268bd2">event</span>.<span style="color:#268bd2">clientX</span> - <span style="color:#268bd2">bbox</span>.<span style="color:#268bd2">left</span>) / <span style="color:#268bd2">bbox</span>.<span style="color:#268bd2">width</span>
-  <span style="color:#859900">const</span> <span style="color:#268bd2">y</span> = (<span style="color:#268bd2">event</span>.<span style="color:#268bd2">clientY</span> - <span style="color:#268bd2">bbox</span>.<span style="color:#268bd2">top</span>) / <span style="color:#268bd2">bbox</span>.<span style="color:#268bd2">height</span>
+   <span class="kd">const</span> <span class="nx">x</span> <span class="o">=</span> <span class="p">(</span><span class="nx">event</span><span class="p">.</span><span class="nx">clientX</span> <span class="o">-</span> <span class="nx">bbox</span><span class="p">.</span><span class="nx">left</span><span class="p">)</span> <span class="o">/</span> <span class="nx">bbox</span><span class="p">.</span><span class="nx">width</span>
+   <span class="kd">const</span> <span class="nx">y</span> <span class="o">=</span> <span class="p">(</span><span class="nx">event</span><span class="p">.</span><span class="nx">clientY</span> <span class="o">-</span> <span class="nx">bbox</span><span class="p">.</span><span class="nx">top</span><span class="p">)</span> <span class="o">/</span> <span class="nx">bbox</span><span class="p">.</span><span class="nx">height</span>
 
-  <span style="color:#268bd2">circle</span>.<span style="color:#268bd2">setAttribute</span>(<span style="color:#2aa198">&#34;cx&#34;</span>, <span style="color:#268bd2">x</span> * <span style="color:#268bd2">viewBox</span>.<span style="color:#268bd2">width</span>)
-  <span style="color:#268bd2">circle</span>.<span style="color:#268bd2">setAttribute</span>(<span style="color:#2aa198">&#34;cy&#34;</span>, <span style="color:#268bd2">y</span> * <span style="color:#268bd2">viewBox</span>.<span style="color:#268bd2">height</span>)
-})
-</code></pre></div></p>
+   <span class="nx">circle</span><span class="p">.</span><span class="nx">setAttribute</span><span class="p">(</span><span class="s2">&quot;cx&quot;</span><span class="p">,</span> <span class="nx">x</span> <span class="o">*</span> <span class="nx">viewBox</span><span class="p">.</span><span class="nx">width</span><span class="p">)</span>
+   <span class="nx">circle</span><span class="p">.</span><span class="nx">setAttribute</span><span class="p">(</span><span class="s2">&quot;cy&quot;</span><span class="p">,</span> <span class="nx">y</span> <span class="o">*</span> <span class="nx">viewBox</span><span class="p">.</span><span class="nx">height</span><span class="p">)</span>
+<span class="p">})</span>
+</pre></div>
+</div>
 <p>Nearly there! The only thing left to do is decide on how we want to update the
-<code>clicked</code> variable.</p>
-<h2 id="click-detection">Click Detection</h2>
-<p>Finally all that&rsquo;s left is to do is decide how we want to toggle the dragging
+<code class="docutils literal notranslate"><span class="pre">clicked</span></code> variable.</p>
+</div>
+</div>
+<div class="section" id="click-detection">
+<h2>Click Detection<a class="headerlink" href="#click-detection" title="Permalink to this headline">¶</a></h2>
+<p>Finally all that’s left is to do is decide how we want to toggle the dragging
 behaviour. This mostly comes down to how you want the user to interact with the
 draggable object and will change depending on your use case. To keep things
 simple I will go with a fairly simple interaction model</p>
-<ul>
-<li>If the mouse is over the circle and the user clicks then start dragging</li>
-<li>If the user releases the mouse button then stop dragging</li>
+<ul class="simple">
+<li><p>If the mouse is over the circle and the user clicks then start dragging</p></li>
+<li><p>If the user releases the mouse button then stop dragging</p></li>
 </ul>
-<p><a id="code-snippet--clicking"></a>
-<div class="highlight"><pre style="color:#586e75;background-color:#eee8d5;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#268bd2">circle</span>.<span style="color:#268bd2">addEventListener</span>(<span style="color:#2aa198">&#34;mousedown&#34;</span>,  (<span style="color:#268bd2">_</span>) =&gt; { <span style="color:#268bd2">clicked</span> = <span style="color:#859900;font-weight:bold">true</span> })
-<span style="color:#268bd2">circle</span>.<span style="color:#268bd2">addEventListener</span>(<span style="color:#2aa198">&#34;mouseup&#34;</span>, (<span style="color:#268bd2">_</span>) =&gt; { <span style="color:#268bd2">clicked</span> = <span style="color:#859900;font-weight:bold">false</span> })
-</code></pre></div></p>
+<div class="highlight-js notranslate"><div class="highlight"><pre><span></span><span class="nx">circle</span><span class="p">.</span><span class="nx">addEventListener</span><span class="p">(</span><span class="s2">&quot;mousedown&quot;</span><span class="p">,</span>  <span class="p">(</span><span class="nx">_</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">{</span> <span class="nx">clicked</span> <span class="o">=</span> <span class="kc">true</span> <span class="p">})</span>
+<span class="nx">circle</span><span class="p">.</span><span class="nx">addEventListener</span><span class="p">(</span><span class="s2">&quot;mouseup&quot;</span><span class="p">,</span> <span class="p">(</span><span class="nx">_</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">{</span> <span class="nx">clicked</span> <span class="o">=</span> <span class="kc">false</span> <span class="p">})</span>
+</pre></div>
+</div>
 <p>Additionally I will impose one final condition</p>
-<ul>
-<li>If the mouse leaves the bounds of the canvas then stop dragging.</li>
+<ul class="simple">
+<li><p>If the mouse leaves the bounds of the canvas then stop dragging.</p></li>
 </ul>
-<p><a id="code-snippet--clicking"></a>
-<div class="highlight"><pre style="color:#586e75;background-color:#eee8d5;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#268bd2">canvas</span>.<span style="color:#268bd2">addEventListener</span>(<span style="color:#2aa198">&#34;mouseleave&#34;</span>, (<span style="color:#268bd2">_</span>) =&gt; { <span style="color:#268bd2">clicked</span> = <span style="color:#859900;font-weight:bold">false</span> })
-</code></pre></div></p>
+<div class="highlight-js notranslate"><div class="highlight"><pre><span></span><span class="nx">canvas</span><span class="p">.</span><span class="nx">addEventListener</span><span class="p">(</span><span class="s2">&quot;mouseleave&quot;</span><span class="p">,</span> <span class="p">(</span><span class="nx">_</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">{</span> <span class="nx">clicked</span> <span class="o">=</span> <span class="kc">false</span> <span class="p">})</span>
+</pre></div>
+</div>
 <p>This last point is to work around an issue that arises when the user moves the
 cursor out of the bounds of the canvas and releases the mouse button. Since the
-cursor is no longer over the circle the handler for the <code>mouseup</code> event on the
+cursor is no longer over the circle the handler for the <code class="docutils literal notranslate"><span class="pre">mouseup</span></code> event on the
 circle is never fired so when the user brings their cursor back over the canvas
 our code still believes the user never released the mouse button and so the
-circle will appear &ldquo;stuck&rdquo; to their cursor until they click again.</p>
-<h2 id="conclusion">Conclusion</h2>
+circle will appear “stuck” to their cursor until they click again.</p>
+</div>
+<div class="section" id="conclusion">
+<h2>Conclusion<a class="headerlink" href="#conclusion" title="Permalink to this headline">¶</a></h2>
 <p>There you have it, those were some of the basics required to get a working proof
 of concept of clicking and dragging functionality using only the JavaScript APIs
 that come with your web browser. However in writing this blog post I realised
 as with anything that the rabbit hole goes deep and there are many
-considerations to keep in mind if you wanted to &ldquo;productionise&rdquo; this code for
+considerations to keep in mind if you wanted to “productionise” this code for
 any real usage.</p>
 <ul>
-<li>
-<p><strong>Touchscreen Support</strong></p>
+<li><p><strong>Touchscreen Support</strong></p>
 <p>If you were reading this post on a mobile device you will already have noticed
 that none of the interactive demos have worked. This is because touchscreens
-have their own family of <code>touchXXXX</code> events that are triggered when a user
+have their own family of <code class="docutils literal notranslate"><span class="pre">touchXXXX</span></code> events that are triggered when a user
 interacts with a webpage. While there is some mouse emulation done by the
-browsers (e.g. a <code>touchstart</code> event will trigger a <code>mousedown</code> event if not
-handled), some key events such as <code>mousemove</code> are not emulated and require
-dedicated support in your code. See <a href="https://www.html5rocks.com/en/mobile/touch/">these</a> <a href="https://www.html5rocks.com/en/mobile/touchandmouse/">articles</a> for more details</p>
+browsers (e.g. a <cite>touchstart</cite> event will trigger a <code class="docutils literal notranslate"><span class="pre">mousedown</span></code> event if not
+handled), some key events such as <cite>mousemove</cite> are not emulated and require
+dedicated support in your code. See <a class="reference external" href="https://www.html5rocks.com/en/mobile/touch/">these</a> <a class="reference external" href="https://www.html5rocks.com/en/mobile/touchandmouse/">articles</a> for more details</p>
 </li>
-<li>
-<p><strong>Snap to Center</strong></p>
+<li><p><strong>Snap to Center</strong></p>
 <p>This is only a minor issue and depending on your use case may not be a problem
 at all. Currently whenever you pick up the circle its center snaps to the
-cursor&rsquo;s position. There may be situations where you would prefer the keep the
-object&rsquo;s relative position to the cursor e.g. fine adjustments, the last thing
+cursor’s position. There may be situations where you would prefer the keep the
+object’s relative position to the cursor e.g. fine adjustments, the last thing
 you would want is for the object to jump to the cursor just because the user
 happened to click on it off center.</p>
 <p>A way around this would be to record the original positions of both the mouse
-cursor and the object on a click, then on each <code>mousemove</code> event calculate the
+cursor and the object on a click, then on each <code class="docutils literal notranslate"><span class="pre">mousemove</span></code> event calculate the
 distance moved by the cursor and apply it to the original recorded position of
 the object.</p>
 </li>
-<li>
-<p><strong>Multiple Objects</strong></p>
+<li><p><strong>Multiple Objects</strong></p>
 <p>Chances are when using this functionality in a real application you would want
 the ability to click and drag on multiple objects. Adding support for this
 would require reworking at least some of the code, having the canvas object
 handle all mouse movements is probably a good idea but of course updating the
-circle&rsquo;s position directly would have to change. It would probably make sense
+circle’s position directly would have to change. It would probably make sense
 to move the click detection logic onto the canvas also, making use of the
-<code>event.target</code> property to determine which object would need updating.</p>
+<code class="docutils literal notranslate"><span class="pre">event.target</span></code> property to determine which object would need updating.</p>
 </li>
-<li>
-<p><strong>Canvas Resizing</strong></p>
+<li><p><strong>Canvas Resizing</strong></p>
 <p>While the existing code makes some effort to ensure this works in a responsive
-manner it is currently only &ldquo;statically responsive&rdquo;. What I mean is that on
+manner it is currently only “statically responsive”. What I mean is that on
 page load all the necessary calculations are performed to ensure that the
-<code>viewBox</code> has the correct proportions for example. However if the user were to
+<code class="docutils literal notranslate"><span class="pre">viewBox</span></code> has the correct proportions for example. However if the user were to
 resize the webpage, or rotate their device chances are the proportions of the
 canvas would change meaning that the circle would no longer follow the cursor
 correctly.</p>
 <p>In order to be truly responsive, we would need to listen for events such as
-<a href="https://developer.mozilla.org/en-US/docs/Web/API/Window/resize%5Fevent">resize</a> and perform all the calculations again.</p>
+<a class="reference external" href="https://developer.mozilla.org/en-US/docs/Web/API/Window/resize%5Fevent">resize</a> and perform all the calculations again.</p>
 </li>
-<li>
-<p><strong>Pan and Zoom</strong></p>
-<p>Something I realised when writing up the part where we map the cursor&rsquo;s
+<li><p><strong>Pan and Zoom</strong></p>
+<p>Something I realised when writing up the part where we map the cursor’s
 position onto the position of the circle is that I had by chance chosen a
-special case where the maths is a little easier. The calculations <code>x * viewBox.width</code> and <code>y * viewBox.height</code> only work because our <code>viewBox</code> starts
-at <code>(0, 0)</code>.</p>
+special case where the maths is a little easier. The calculations
+<code class="docutils literal notranslate"><span class="pre">x</span> <span class="pre">*</span> <span class="pre">viewBox.width</span></code> and <code class="docutils literal notranslate"><span class="pre">y</span> <span class="pre">*</span> <span class="pre">viewBox.height</span></code> only work because our <code class="docutils literal notranslate"><span class="pre">viewBox</span></code> starts
+at <code class="docutils literal notranslate"><span class="pre">(0,</span> <span class="pre">0)</span></code>.</p>
 <p>Say we had an application that also allowed for panning and zooming of the
-canvas itself then the chances are our <code>viewBox</code> would not be starting at <code>(0, 0)</code> and we would have to include an offset in our calculations to reflect
+canvas itself then the chances are our <code class="docutils literal notranslate"><span class="pre">viewBox</span></code> would not be starting at
+<code class="docutils literal notranslate"><span class="pre">(0,</span> <span class="pre">0)</span></code> and we would have to include an offset in our calculations to reflect
 this. This means for the general case our code should probably look something
 like this</p>
-<div class="highlight"><pre style="color:#586e75;background-color:#eee8d5;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript">    <span style="color:#268bd2">circle</span>.<span style="color:#268bd2">setAttribute</span>(<span style="color:#2aa198">&#34;cx&#34;</span>, (<span style="color:#268bd2">x</span> * <span style="color:#268bd2">viewBox</span>.<span style="color:#268bd2">width</span>) - <span style="color:#268bd2">viewBox</span>.<span style="color:#268bd2">minX</span>)
-    <span style="color:#268bd2">circle</span>.<span style="color:#268bd2">setAttribute</span>(<span style="color:#2aa198">&#34;cy&#34;</span>, (<span style="color:#268bd2">y</span> * <span style="color:#268bd2">viewBox</span>.<span style="color:#268bd2">height</span>) - <span style="color:#268bd2">viewBox</span>.<span style="color:#268bd2">minY</span>)
-    
-</code></pre></div>
+<div class="highlight-js notranslate"><div class="highlight"><pre><span></span><span class="nx">circle</span><span class="p">.</span><span class="nx">setAttribute</span><span class="p">(</span><span class="s2">&quot;cx&quot;</span><span class="p">,</span> <span class="p">(</span><span class="nx">x</span> <span class="o">*</span> <span class="nx">viewBox</span><span class="p">.</span><span class="nx">width</span><span class="p">)</span> <span class="o">-</span> <span class="nx">viewBox</span><span class="p">.</span><span class="nx">minX</span><span class="p">)</span>
+<span class="nx">circle</span><span class="p">.</span><span class="nx">setAttribute</span><span class="p">(</span><span class="s2">&quot;cy&quot;</span><span class="p">,</span> <span class="p">(</span><span class="nx">y</span> <span class="o">*</span> <span class="nx">viewBox</span><span class="p">.</span><span class="nx">height</span><span class="p">)</span> <span class="o">-</span> <span class="nx">viewBox</span><span class="p">.</span><span class="nx">minY</span><span class="p">)</span>
+</pre></div>
+</div>
 </li>
 </ul>
-<p>I&rsquo;m sure there are more edge cases and considerations to think of but this post
+<p>I’m sure there are more edge cases and considerations to think of but this post
 is long enough already! - Perhaps this is why people use libraries for this kind
-of thing 🤔&hellip;</p>
+of thing 🤔…</p>
 <p>I will leave you with the final version of the code that went into the demo you
 saw at the start of this blog post so you can see it all in context. Hopefully
-you found this useful and I&rsquo;ll see you in the next one!</p>
-<div class="highlight"><pre style="color:#586e75;background-color:#eee8d5;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#93a1a1;font-style:italic">// Setup
-</span><span style="color:#93a1a1;font-style:italic"></span><span style="color:#859900">const</span> <span style="color:#268bd2">svgns</span> = <span style="color:#2aa198">&#34;http://www.w3.org/2000/svg&#34;</span>
-<span style="color:#859900">const</span> <span style="color:#268bd2">main</span> = <span style="color:#cb4b16">document</span>.<span style="color:#268bd2">getElementById</span>(<span style="color:#2aa198">&#34;main&#34;</span>)
-
-<span style="color:#859900">const</span> <span style="color:#268bd2">canvas</span> = <span style="color:#cb4b16">document</span>.<span style="color:#268bd2">createElementNS</span>(<span style="color:#268bd2">svgns</span>, <span style="color:#2aa198">&#34;svg&#34;</span>)
-<span style="color:#268bd2">canvas</span>.<span style="color:#268bd2">setAttribute</span>(<span style="color:#2aa198">&#34;width&#34;</span>, <span style="color:#2aa198">&#34;100%&#34;</span>)
-<span style="color:#268bd2">canvas</span>.<span style="color:#268bd2">setAttribute</span>(<span style="color:#2aa198">&#34;height&#34;</span>, <span style="color:#2aa198">&#34;100%&#34;</span>)
-<span style="color:#268bd2">canvas</span>.<span style="color:#268bd2">style</span>.<span style="color:#268bd2">border</span> = <span style="color:#2aa198">&#34;solid 2px #242930&#34;</span>
-
-<span style="color:#268bd2">main</span>.<span style="color:#268bd2">appendChild</span>(<span style="color:#268bd2">canvas</span>)
-
-<span style="color:#93a1a1;font-style:italic">// Viewbox
-</span><span style="color:#93a1a1;font-style:italic"></span><span style="color:#859900">let</span> <span style="color:#268bd2">bbox</span> = <span style="color:#268bd2">canvas</span>.<span style="color:#268bd2">getBoundingClientRect</span>()
-<span style="color:#859900">const</span> <span style="color:#268bd2">aspectRatio</span> = <span style="color:#268bd2">bbox</span>.<span style="color:#268bd2">width</span> / <span style="color:#268bd2">bbox</span>.<span style="color:#268bd2">height</span>
-<span style="color:#859900">const</span> <span style="color:#268bd2">height</span> = <span style="color:#2aa198;font-weight:bold">100</span>
-<span style="color:#859900">const</span> <span style="color:#268bd2">width</span> = <span style="color:#268bd2">height</span> * <span style="color:#268bd2">aspectRatio</span>
-<span style="color:#859900">const</span> <span style="color:#268bd2">viewBox</span> = {<span style="color:#268bd2">minX</span>: <span style="color:#2aa198;font-weight:bold">0</span>, <span style="color:#268bd2">minY</span>: <span style="color:#2aa198;font-weight:bold">0</span>, <span style="color:#268bd2">width</span>: <span style="color:#268bd2">width</span>, <span style="color:#268bd2">height</span>: <span style="color:#268bd2">height</span>}
-
-<span style="color:#859900">const</span> <span style="color:#268bd2">viewBoxStr</span> = [
-  <span style="color:#268bd2">viewBox</span>.<span style="color:#268bd2">minX</span>, <span style="color:#268bd2">viewBox</span>.<span style="color:#268bd2">minY</span>, <span style="color:#268bd2">viewBox</span>.<span style="color:#268bd2">width</span>, <span style="color:#268bd2">viewBox</span>.<span style="color:#268bd2">height</span>
-].<span style="color:#268bd2">join</span>(<span style="color:#2aa198">&#34; &#34;</span>)
-
-<span style="color:#268bd2">canvas</span>.<span style="color:#268bd2">setAttribute</span>(<span style="color:#2aa198">&#34;viewBox&#34;</span>, <span style="color:#268bd2">viewBoxStr</span>)
-
-<span style="color:#93a1a1;font-style:italic">// Something to click on
-</span><span style="color:#93a1a1;font-style:italic"></span><span style="color:#859900">const</span> <span style="color:#268bd2">circle</span> = <span style="color:#cb4b16">document</span>.<span style="color:#268bd2">createElementNS</span>(<span style="color:#268bd2">svgns</span>, <span style="color:#2aa198">&#34;circle&#34;</span>)
-<span style="color:#268bd2">circle</span>.<span style="color:#268bd2">setAttribute</span>(<span style="color:#2aa198">&#34;cx&#34;</span>, <span style="color:#268bd2">viewBox</span>.<span style="color:#268bd2">width</span> / <span style="color:#2aa198;font-weight:bold">2</span>)
-<span style="color:#268bd2">circle</span>.<span style="color:#268bd2">setAttribute</span>(<span style="color:#2aa198">&#34;cy&#34;</span>, <span style="color:#268bd2">viewBox</span>.<span style="color:#268bd2">height</span> / <span style="color:#2aa198;font-weight:bold">2</span>)
-<span style="color:#268bd2">circle</span>.<span style="color:#268bd2">setAttribute</span>(<span style="color:#2aa198">&#34;r&#34;</span>, <span style="color:#2aa198;font-weight:bold">15</span>)
-<span style="color:#268bd2">circle</span>.<span style="color:#268bd2">setAttribute</span>(<span style="color:#2aa198">&#34;fill&#34;</span>, <span style="color:#2aa198">&#34;#57cc8a&#34;</span>)
-
-<span style="color:#268bd2">canvas</span>.<span style="color:#268bd2">appendChild</span>(<span style="color:#268bd2">circle</span>)
-
-<span style="color:#93a1a1;font-style:italic">// Implementing the drag
-</span><span style="color:#93a1a1;font-style:italic"></span><span style="color:#859900">let</span> <span style="color:#268bd2">clicked</span> = <span style="color:#859900;font-weight:bold">false</span>
-<span style="color:#268bd2">canvas</span>.<span style="color:#268bd2">addEventListener</span>(<span style="color:#2aa198">&#34;mousemove&#34;</span>, (<span style="color:#268bd2">event</span>) =&gt; {
-
-  <span style="color:#859900">if</span> (!<span style="color:#268bd2">clicked</span>) {
-    <span style="color:#859900">return</span>
-  }
-
-  <span style="color:#268bd2">bbox</span> = <span style="color:#268bd2">canvas</span>.<span style="color:#268bd2">getBoundingClientRect</span>()
-
-  <span style="color:#859900">const</span> <span style="color:#268bd2">x</span> = (<span style="color:#268bd2">event</span>.<span style="color:#268bd2">clientX</span> - <span style="color:#268bd2">bbox</span>.<span style="color:#268bd2">left</span>) / <span style="color:#268bd2">bbox</span>.<span style="color:#268bd2">width</span>
-  <span style="color:#859900">const</span> <span style="color:#268bd2">y</span> = (<span style="color:#268bd2">event</span>.<span style="color:#268bd2">clientY</span> - <span style="color:#268bd2">bbox</span>.<span style="color:#268bd2">top</span>) / <span style="color:#268bd2">bbox</span>.<span style="color:#268bd2">height</span>
-
-  <span style="color:#268bd2">circle</span>.<span style="color:#268bd2">setAttribute</span>(<span style="color:#2aa198">&#34;cx&#34;</span>, <span style="color:#268bd2">x</span> * <span style="color:#268bd2">viewBox</span>.<span style="color:#268bd2">width</span>)
-  <span style="color:#268bd2">circle</span>.<span style="color:#268bd2">setAttribute</span>(<span style="color:#2aa198">&#34;cy&#34;</span>, <span style="color:#268bd2">y</span> * <span style="color:#268bd2">viewBox</span>.<span style="color:#268bd2">height</span>)
-})
-
-<span style="color:#93a1a1;font-style:italic">// Click detection
-</span><span style="color:#93a1a1;font-style:italic"></span><span style="color:#268bd2">circle</span>.<span style="color:#268bd2">addEventListener</span>(<span style="color:#2aa198">&#34;mousedown&#34;</span>,  (<span style="color:#268bd2">_</span>) =&gt; { <span style="color:#268bd2">clicked</span> = <span style="color:#859900;font-weight:bold">true</span> })
-<span style="color:#268bd2">circle</span>.<span style="color:#268bd2">addEventListener</span>(<span style="color:#2aa198">&#34;mouseup&#34;</span>, (<span style="color:#268bd2">_</span>) =&gt; { <span style="color:#268bd2">clicked</span> = <span style="color:#859900;font-weight:bold">false</span> })
-<span style="color:#268bd2">canvas</span>.<span style="color:#268bd2">addEventListener</span>(<span style="color:#2aa198">&#34;mouseleave&#34;</span>, (<span style="color:#268bd2">_</span>) =&gt; { <span style="color:#268bd2">clicked</span> = <span style="color:#859900;font-weight:bold">false</span> })
-</code></pre></div>
-        </div>
-        <div class="flex items-center justify-end mt-4 space-x-4">
-    <a class="px-2 text-sm text-gray-600 bg-green-200 border border-green-600 rounded" href="https://www.alcarney.me/tags/svg/">
-        #svg
-    </a><a class="px-2 text-sm text-gray-600 bg-green-200 border border-green-600 rounded" href="https://www.alcarney.me/tags/web/">
-        #web
-    </a><a class="px-2 text-sm text-gray-600 bg-green-200 border border-green-600 rounded" href="https://www.alcarney.me/tags/js/">
-        #js
-    </a></div>
-        <div class="pt-4 mt-8 border-t">
-            <div id="disqus_thread"></div>
-<script type="application/javascript">
-    var disqus_config = function () {
-    
-    
-    
-    };
-    (function() {
-        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
-            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
-            return;
-        }
-        var d = document, s = d.createElement('script'); s.async = true;
-        s.src = '//' + "alcarney-me" + '.disqus.com/embed.js';
-        s.setAttribute('data-timestamp', +new Date());
-        (d.head || d.body).appendChild(s);
-    })();
-</script>
-<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
-<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
-        </div>
-    </article>
+you found this useful and I’ll see you in the next one!</p>
+</div>
 </div>
 
-    </main><footer class="items-baseline p-4 text-white bg-gray-700 w-full">
-    <div class="flex justify-between">
-        <div></div>
+</article>
 
-        <div class="flex justify-between space-x-4">
-            
-            <a target="_blank" rel="noreferrer noopener" href="https://github.com/alcarney">
-                <svg class="w-8 h-8 bg-transparent stroke-current" style="fill:none">
-    <use xlink:href="/svg/feather-sprite.svg#github" />
-</svg>
-            </a>
-            
-            <a target="_blank" rel="noreferrer noopener" href="https://twitter.com/alcarneyme">
-                <svg class="w-8 h-8 bg-transparent stroke-current" style="fill:none">
-    <use xlink:href="/svg/feather-sprite.svg#twitter" />
-</svg>
-            </a>
-            
-            <a target="_blank" rel="noreferrer noopener" href="https://instagram.com/alcarneyme">
-                <svg class="w-8 h-8 bg-transparent stroke-current" style="fill:none">
-    <use xlink:href="/svg/feather-sprite.svg#instagram" />
-</svg>
-            </a>
-            
-            <a target="_blank" rel="noreferrer noopener" href="https://www.youtube.com/channel/UC5GPflgRWhnCxA0BllfP5CA">
-                <svg class="w-8 h-8 bg-transparent stroke-current" style="fill:none">
-    <use xlink:href="/svg/feather-sprite.svg#youtube" />
-</svg>
-            </a>
-            
-        </div>
 
-        <div></div>
+
+
+                </div>
+            </div>
+
+            <footer class="p-2 mt-8 mb-2 text-sm text-gray-600 border-t">
+                <div class="flex flex-col justify-between max-w-3xl mx-auto lg:flex-row">
+                    <span>
+                        <a class="text-green-600" href="../../../_sources/blog/2019/click-drag-vanilla-js.rst.txt" rel="nofollow">
+                            Page Source
+                        </a>
+                    </span>
+                    <span>Built with <a class="text-green-600" href="https://www.sphinx-doc.org/en/master/">Sphinx</a> v4.2.0</span>
+                    <span>&#169; Copyright 2021, Alex Carney.</span>
+                </div>
+            </footer>
+        </main>
+        
     </div>
-</footer>
-
-    <script>
-      const codeBlocks = document.querySelectorAll(".highlight pre")
-      Array.from(codeBlocks).forEach(el => {
-          el.style.backgroundColor = "#fdf6e3"
-      })
-
-      function copyText(text) {
-          const textArea = document.createElement("textarea")
-          textArea.value = text
-
-          textArea.style.top = 0
-          textArea.style.left = 0
-          textArea.style.position = 'fixed'
-
-          document.body.append(textArea)
-          textArea.focus()
-          textArea.select()
-
-          document.execCommand('copy')
-          document.body.removeChild(textArea)
-      }
-    </script>
-
-    <script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
-    <script>mermaid.initialize({startOnLoad:true});</script>
+<script src="/_static/js/theme.js"></script>
 
 
-</body>
-
+  </body>
 </html>

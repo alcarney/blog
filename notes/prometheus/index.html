@@ -1,257 +1,353 @@
+
 <!DOCTYPE html>
-<html lang="en">
 
-<head><meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Kubernetes Focused Prometheus Queries &#8212; Blog  documentation</title>
 
-<meta name="theme-color" content="#259669" />
+    
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
+    
+    
+    
+    <link rel="stylesheet" type="text/css" href="../../_static/togglebutton.css" />
+    
+    
+    <link rel="stylesheet" type="text/css" href="../../_static/css/styles.css" />
+    
 
-<meta name="generator" content="Hugo 0.79.1" />
-<meta name="author" content="Alex Carney" />
-<meta name="description" content="Examples and tips for writing queries for kubernetes clusters." />
+    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/togglebutton.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <link rel="shortcut icon" href="../../_static/favicon.ico"/>
+    <link rel="index" title="Index" href="../../genindex/" />
+    <link rel="search" title="Search" href="../../search/" />
+    <link rel="next" title="Python 2.x Gotchas" href="../python-2-gotchas/" />
+    <link rel="prev" title="Installing npm packages globally without root" href="../npm-global-user-install/" /> 
+  </head><body class="flex flex-col justify-between min-h-screen overflow-x-hidden bg-gray-100 ">
+    <div class="flex flex-grow">
+        <input id="menu-state" type="checkbox" class="hidden" />
+        <aside class="flex justify-between flex-shrink-0 transition-all duration-500 bg-white border-r -ml-80 lg:ml-0">
+            <div class="flex flex-col justify-between h-full border-r w-80">
+                <div class="sticky top-0 flex flex-col h-screen"> 
+                    
+                    <div id="profile-card" class="full-profile">
+    <img class="" src="https://github.com/alcarney.png"/>
+    <h2 class=""><a href="/">Alex Carney</a></h2>
+</div>
+                    
+                    <div id="searchbox" style="display: none" role="search" class="px-4 py-4">
+    <form class="flex justify-between px-2 py-1 bg-gray-100 border-2 rounded search focus-within:border-green-600" action="../../search/" method="get">
+        <label class="mr-2 text-gray-500" for="sbox">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="feather feather-search">
+                <circle cx="11" cy="11" r="6" />
+                <path d="m21 21-4.35-4.35" />
+            </svg>
+        </label>
+        <input id="sbox" class="flex-grow bg-gray-100 focus:outline-none" type="search" name="q" placeholder="Search..." aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" />
+    </form>
+</div>
+<script>$('#searchbox').show(0);</script>
+                    
+                    
+    
+<nav class="flex flex-col text-center">
+    <a class="text-green-600 py-1 border-t text-lg hover:bg-gray-50" href="/blog">Blog</a>
+    <a class="text-green-600 py-1 border-t text-lg hover:bg-gray-50" href="/code">Code</a>
+    <a class="text-green-600 py-1 border-t text-lg hover:bg-gray-50" href="/notes">Notes</a>
+</nav>
+                    
+                    <div class="flex-shrink overflow-auto"><nav id="localtoc" class="p-4 border-t">
+    <ul>
+<li><a class="reference internal" href="#">Kubernetes Focused Prometheus Queries</a><ul>
+<li><a class="reference internal" href="#queries">Queries</a><ul>
+<li><a class="reference internal" href="#nodes">Nodes</a><ul>
+<li><a class="reference internal" href="#cpu">CPU</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#kubernetes">Kubernetes</a><ul>
+<li><a class="reference internal" href="#pods">Pods</a></li>
+<li><a class="reference internal" href="#services">Services</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
 
-<meta property="og:title" content="Kubernetes Focused Prometheus Queries" />
-<meta property="og:description" content="Examples and tips for writing queries for kubernetes clusters." />
-<meta property="og:type" content="article" />
-<meta property="og:url" content="https://www.alcarney.me/notes/prometheus/" />
-<meta property="article:modified_time" content="2021-08-13T23:42:52+01:00" />
+</nav>
+                    </div>
+                    
+                    <footer class="w-full p-4 mt-auto text-white bg-gray-700">
+                        <div class="flex justify-between">
+    <div></div>
 
-<meta property="article:tag" content="monitoring" />
-<meta property="article:tag" content="devops" />
-<meta property="article:tag" content="prometheus" />
-<meta property="article:tag" content="k8s" />
+    <div class="flex justify-between space-x-4">
+        <a target="_blank" rel="noreferrer noopener" href="https://github.com/alcarney">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="w-8 h-8">
+                <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path>
+            </svg>
+        </a>
 
-<meta name="twitter:creator" content="@alcarneyme" />
-<meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="Kubernetes Focused Prometheus Queries"/>
-<meta name="twitter:description" content="Examples and tips for writing queries for kubernetes clusters."/>
+        <a target="_blank" rel="noreferrer noopener" href="https://twitter.com/alcarneyme">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="w-8 h-8">
+                <path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"></path>
+            </svg>
+        </a>
 
+        <a target="_blank" rel="noreferrer noopener" href="https://instagram.com/alcarneyme">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="w-8 h-8">
+                <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
+                <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
+                <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
+            </svg>
+        </a>
 
-<title>Kubernetes Focused Prometheus Queries | Alex Carney</title>
-
-
-
-<link rel="stylesheet" href="https://www.alcarney.me/main.f0fcfa33b6ee0d4eb9f5f5d87692f86fb025cfdb3907f9545b6b316fa12a3587.css" /></head>
-
-<body class="bg-gray-100 flex flex-col justify-between min-h-screen items-center">
-    <div class="flex items-baseline justify-between w-full p-4 bg-white border-b">
-
-        <div>
-            <h1>Alex Carney</h1>
-        </div>
-
-        <div class="flex justify-center flex-grow">
-        </div>
-
-        <nav class="flex space-x-4 items-between">
-            <a href="/blog">Blog</a>
-            <a href="/code">Code</a>
-            <a href="/notes">Notes</a>
-        </nav>
+        <a target="_blank" rel="noreferrer noopener" href="https://www.youtube.com/channel/UC5GPflgRWhnCxA0BllfP5CA">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="w-8 h-8">
+                <path d="M22.54 6.42a2.78 2.78 0 0 0-1.94-2C18.88 4 12 4 12 4s-6.88 0-8.6.46a2.78 2.78 0 0 0-1.94 2A29 29 0 0 0 1 11.75a29 29 0 0 0 .46 5.33A2.78 2.78 0 0 0 3.4 19c1.72.46 8.6.46 8.6.46s6.88 0 8.6-.46a2.78 2.78 0 0 0 1.94-2 29 29 0 0 0 .46-5.25 29 29 0 0 0-.46-5.33z"></path>
+                <polygon points="9.75 15.02 15.5 11.75 9.75 8.48 9.75 15.02"></polygon>
+            </svg>
+        </a>
     </div>
 
-    <main class="max-w-4xl w-full flex-grow mb-8">
-<article class="mx-2 mt-8 bg-white border shadow-lg">
-  <div class="relative z-10 rounded bg-white p-4 m-auto prose prose-lg prose-green">
-    <h1>Kubernetes Focused Prometheus Queries</h1>
-    <h2 id="queries">Queries</h2>
+    <div></div>
+</div>
+                    </footer>
+                </div>
+            </div>     
+        </aside>
+        
+        <main class="w-full mx-auto lg:pr-0">
+            <div class="sticky top-0 z-50 mt-0 transition-all duration-300 bg-white border-b shadow-md lg:shadow-none lg:relative lg:-mt-16">
+                <label class="flex h-16 text-gray-600 transition" for="menu-state">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="w-8 h-8 my-auto" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="feather feather-arrow-right"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                </label>
+            </div> 
+
+            <div id="content" class="mx-2 my-8">
+                <div class="max-w-3xl mx-auto">
+                    
+
+<article class="p-4 prose-sm prose bg-white border prose-md prose-green max-w-none">
+    <div class="section" id="kubernetes-focused-prometheus-queries">
+<h1>Kubernetes Focused Prometheus Queries<a class="headerlink" href="#kubernetes-focused-prometheus-queries" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="queries">
+<h2>Queries<a class="headerlink" href="#queries" title="Permalink to this headline">¶</a></h2>
 <p>A collection of queries for inspecting data stored in a Prometheus server. Most
 of these queries should work in vanilla prometheus however a small number may
-contain a few &ldquo;grafana-isms&rdquo;</p>
+contain a few “grafana-isms”</p>
 <p>The following variables are used as examples</p>
-<table>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 21%" />
+<col style="width: 79%" />
+</colgroup>
 <thead>
-<tr>
-<th>Name</th>
-<th>Description</th>
+<tr class="row-odd"><th class="head"><p>Name</p></th>
+<th class="head"><p>Description</p></th>
 </tr>
 </thead>
 <tbody>
-<tr>
-<td><code>$interval</code></td>
-<td>A time interval e.g. <code>1m</code>. <code>5m</code>, <code>1h</code> etc.</td>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">$interval</span></code></p></td>
+<td><p>A time interval e.g. <code class="docutils literal notranslate"><span class="pre">1m</span></code>. <code class="docutils literal notranslate"><span class="pre">5m</span></code>, <code class="docutils literal notranslate"><span class="pre">1h</span></code> etc.</p></td>
 </tr>
 </tbody>
 </table>
-<h3 id="nodes">Nodes</h3>
-<p>Queries relating to the state of the &ldquo;physical&rdquo; hardware that is hosting the
+<div class="section" id="nodes">
+<h3>Nodes<a class="headerlink" href="#nodes" title="Permalink to this headline">¶</a></h3>
+<p>Queries relating to the state of the “physical” hardware that is hosting the
 cluster</p>
 <p>The following metrics are used in the exmaples</p>
-<table>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 27%" />
+<col style="width: 73%" />
+</colgroup>
 <thead>
-<tr>
-<th>Name</th>
-<th>Description</th>
+<tr class="row-odd"><th class="head"><p>Name</p></th>
+<th class="head"><p>Description</p></th>
 </tr>
 </thead>
 <tbody>
-<tr>
-<td><code>node_cpu_seconds_total</code></td>
-<td>CPU time broken down into <code>mode</code>s e.g. <code>idle</code>, <code>system</code>, <code>user</code></td>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">node_cpu_seconds_total</span></code></p></td>
+<td><p>CPU time broken down into <code class="docutils literal notranslate"><span class="pre">modes</span></code> e.g. <code class="docutils literal notranslate"><span class="pre">idle</span></code>, <code class="docutils literal notranslate"><span class="pre">system</span></code>, <code class="docutils literal notranslate"><span class="pre">user</span></code></p></td>
 </tr>
-<tr>
-<td><code>node_load1/5/15</code></td>
-<td>1m, 5m, 15m CPU load averages.</td>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">node_load1/5/15</span></code></p></td>
+<td><p>1m, 5m, 15m CPU load averages.</p></td>
 </tr>
 </tbody>
 </table>
-<p><strong>CPU</strong></p>
+<div class="section" id="cpu">
+<h4>CPU<a class="headerlink" href="#cpu" title="Permalink to this headline">¶</a></h4>
 <p>CPU Utilisation, broken down by node</p>
-<pre><code>sum(rate(node_cpu_seconds_total{mode!=&quot;idle&quot;, mode!=&quot;iowait&quot;}[$interval])) by (instance)
-</code></pre><p>CPU load times, broken down by node normalised by number of cores</p>
-<pre><code>sum(node_load1) by (instance) / count(node_cpu_seconds_total{mode=&quot;system&quot;}) by (instance) * 100
-</code></pre><h3 id="kubernetes">Kubernetes</h3>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>sum(rate(node_cpu_seconds_total{mode!=&quot;idle&quot;, mode!=&quot;iowait&quot;}[$interval])) by (instance)
+</pre></div>
+</div>
+<p>CPU load times, broken down by node normalised by number of cores</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>sum(node_load1) by (instance) / count(node_cpu_seconds_total{mode=&quot;system&quot;}) by (instance) * 100
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="kubernetes">
+<h3>Kubernetes<a class="headerlink" href="#kubernetes" title="Permalink to this headline">¶</a></h3>
 <p>A collection of queries specific to kubernetes instances</p>
-<p><strong>Pods</strong></p>
+<div class="section" id="pods">
+<h4>Pods<a class="headerlink" href="#pods" title="Permalink to this headline">¶</a></h4>
 <p>Useful for alerts, this query returns which pods are not ready</p>
-<pre><code>sum(kube_pod_container_status_ready) by (pod) &lt; 1
-</code></pre><p>This returns the number of times a pod has restarted</p>
-<pre><code>kube_pod_container_status_restarts_total
-</code></pre><p>Useful for alerts, this query will return the pods that are waiting
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>sum(kube_pod_container_status_ready) by (pod) &lt; 1
+</pre></div>
+</div>
+<p>This returns the number of times a pod has restarted</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>kube_pod_container_status_restarts_total
+</pre></div>
+</div>
+<p>Useful for alerts, this query will return the pods that are waiting
 and the reason for the delay</p>
-<pre><code>sum(kube_pod_container_status_waiting_reason) by (pod, reason) &gt; 0
-</code></pre><p><strong>Services</strong></p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>sum(kube_pod_container_status_waiting_reason) by (pod, reason) &gt; 0
+</pre></div>
+</div>
+</div>
+<div class="section" id="services">
+<h4>Services<a class="headerlink" href="#services" title="Permalink to this headline">¶</a></h4>
 <p>A collection of queries for metrics useful for monitoring services</p>
 <p>The following metrics will be used as examples</p>
-<table>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 28%" />
+<col style="width: 72%" />
+</colgroup>
 <thead>
-<tr>
-<th>Name</th>
-<th>Description</th>
+<tr class="row-odd"><th class="head"><p>Name</p></th>
+<th class="head"><p>Description</p></th>
 </tr>
 </thead>
 <tbody>
-<tr>
-<td><code>service_requests</code></td>
-<td>A counter that counts the number of requests received</td>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">service_requests</span></code></p></td>
+<td><p>A counter that counts the number of requests received</p></td>
 </tr>
-<tr>
-<td><code>service_requests_latency</code></td>
-<td>A histogram that records the response times for a request</td>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">service_requests_latency</span></code></p></td>
+<td><p>A histogram that records the response times for a request</p></td>
 </tr>
-<tr>
-<td><code>service_info</code></td>
-<td>A counter that encodes information about the service in the metric labels</td>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">service_info</span></code></p></td>
+<td><p>A counter that encodes information about the service in the metric labels</p></td>
 </tr>
 </tbody>
 </table>
 <p>The number of requests received (usually per second)</p>
-<pre><code>sum(rate(service_requests[$interval]))
-</code></pre><p>The number of internal server errors (5xx responses), again usually per second</p>
-<pre><code>sum(rate(service_requests{code=~&quot;5.*&quot;}[$interval]))
-</code></pre><p>The number of user errors (4xx responses), per second</p>
-<pre><code>sum(rate(service_requests{code=~&quot;4.*&quot;}[$interval]))
-</code></pre><p>Each of the by can be broken down by service (assuming the existence of a
-<code>service</code> label in the scraped data) as follows</p>
-<pre><code>sum(rate(fdm_requests[$interval])) by (service)
-</code></pre><p>Request latencies are recorded as a histogram and so we can only collect
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>sum(rate(service_requests[$interval]))
+</pre></div>
+</div>
+<p>The number of internal server errors (5xx responses), again usually per second</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>sum(rate(service_requests{code=~&quot;5.*&quot;}[$interval]))
+</pre></div>
+</div>
+<p>The number of user errors (4xx responses), per second</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>sum(rate(service_requests{code=~&quot;4.*&quot;}[$interval]))
+</pre></div>
+</div>
+<p>Each of the by can be broken down by service (assuming the existence of a
+<code class="docutils literal notranslate"><span class="pre">service</span></code> label in the scraped data) as follows</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>sum(rate(fdm_requests[$interval])) by (service)
+</pre></div>
+</div>
+<p>Request latencies are recorded as a histogram and so we can only collect
 aggregate values. As far as I can tell the usual way to do this is to generate
 the following datapoints</p>
-<ul>
-<li>95th/99th percentile</li>
-<li>50th percentile / median</li>
-<li>average response time</li>
+<ul class="simple">
+<li><p>95th/99th percentile</p></li>
+<li><p>50th percentile / median</p></li>
+<li><p>average response time</p></li>
 </ul>
 <p>The Xth percentile tells us the upper bound on the amount of time X% requests
 are processed in. E.g. if the 95th percentile is 500ms, then 95% of requests are
 handled in 500ms or less.</p>
 <p>Using these metrics we can get a feel for the distribution of the request times:</p>
-<ul>
-<li>If the median coincides with the mean then we can infer that the response
-times are normally distributed</li>
-<li>If the mean &lt; median then the distribution is skewed towards zero i.e. the
-majority of requests are being processed quicker</li>
-<li>If the mean &gt; median then the distribution is skewed high, i.e. the majority
-of requests take a longer time to be processed.</li>
+<ul class="simple">
+<li><p>If the median coincides with the mean then we can infer that the response
+times are normally distributed</p></li>
+<li><p>If the mean &lt; median then the distribution is skewed towards zero i.e. the
+majority of requests are being processed quicker</p></li>
+<li><p>If the mean &gt; median then the distribution is skewed high, i.e. the majority
+of requests take a longer time to be processed.</p></li>
 </ul>
 <p>To generate the Xth percentile</p>
-<pre><code>histogram_quantile(0.X, sum(rate(service_requests_latency_bucket[$interval])) by (le))
-</code></pre><p><strong>NOTE:</strong> This will only work if the bucket label is called <code>le</code></p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>histogram_quantile(0.X, sum(rate(service_requests_latency_bucket[$interval])) by (le))
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This will only work if the bucket label is called <code class="docutils literal notranslate"><span class="pre">le</span></code></p>
+</div>
 <p>To get the average</p>
-<pre><code>sum(rate(service_requests_latency_sum[$interval])) / sum(rate(service_requests_latency_count[$interval]))
-</code></pre><p>To get a count of the number of services</p>
-<pre><code>count(sum(service_info) by (service))
-</code></pre><p>Assuming the existence of a <code>service</code> label</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>sum(rate(service_requests_latency_sum[$interval])) / sum(rate(service_requests_latency_count[$interval]))
+</pre></div>
+</div>
+<p>To get a count of the number of services</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>count(sum(service_info) by (service))
+</pre></div>
+</div>
+<p>Assuming the existence of a <code class="docutils literal notranslate"><span class="pre">service</span></code> label</p>
+</div>
+</div>
+</div>
+</div>
 
-  </div>
-  <div class="p-4">
-    <div class="flex items-center justify-end mt-4 space-x-4">
-    <a class="px-2 text-sm text-gray-600 bg-green-200 border border-green-600 rounded" href="https://www.alcarney.me/tags/monitoring/">
-        #monitoring
-    </a><a class="px-2 text-sm text-gray-600 bg-green-200 border border-green-600 rounded" href="https://www.alcarney.me/tags/devops/">
-        #devops
-    </a><a class="px-2 text-sm text-gray-600 bg-green-200 border border-green-600 rounded" href="https://www.alcarney.me/tags/prometheus/">
-        #prometheus
-    </a><a class="px-2 text-sm text-gray-600 bg-green-200 border border-green-600 rounded" href="https://www.alcarney.me/tags/k8s/">
-        #k8s
-    </a></div>
-  </div>
 </article>
 
-    </main><footer class="items-baseline p-4 text-white bg-gray-700 w-full">
-    <div class="flex justify-between">
-        <div></div>
 
-        <div class="flex justify-between space-x-4">
+<nav class="mt-8">
+    <ul class="flex flex-row justify-between">
+        
+        
+        <li  class="w-1/2 p-4 mr-2 bg-white border hover:shadow-lg" >
             
-            <a target="_blank" rel="noreferrer noopener" href="https://github.com/alcarney">
-                <svg class="w-8 h-8 bg-transparent stroke-current" style="fill:none">
-    <use xlink:href="/svg/feather-sprite.svg#github" />
-</svg>
+            <a class="flex items-center justify-between h-full" href="../npm-global-user-install/">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="flex-shrink-0 w-8 h-8" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg>
+                <p class="ml-4 text-green-600">Installing npm packages globally without root</p>
             </a>
             
-            <a target="_blank" rel="noreferrer noopener" href="https://twitter.com/alcarneyme">
-                <svg class="w-8 h-8 bg-transparent stroke-current" style="fill:none">
-    <use xlink:href="/svg/feather-sprite.svg#twitter" />
-</svg>
+        </li>
+        
+        <li class="w-1/2 p-4 ml-2 bg-white border hover:shadow-lg">
+            <a class="flex items-center justify-between h-full" href="../python-2-gotchas/">
+                <p class="text-green-600">Python 2.x Gotchas</p>
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="flex-shrink-0 w-8 h-8 ml-4" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg>
             </a>
-            
-            <a target="_blank" rel="noreferrer noopener" href="https://instagram.com/alcarneyme">
-                <svg class="w-8 h-8 bg-transparent stroke-current" style="fill:none">
-    <use xlink:href="/svg/feather-sprite.svg#instagram" />
-</svg>
-            </a>
-            
-            <a target="_blank" rel="noreferrer noopener" href="https://www.youtube.com/channel/UC5GPflgRWhnCxA0BllfP5CA">
-                <svg class="w-8 h-8 bg-transparent stroke-current" style="fill:none">
-    <use xlink:href="/svg/feather-sprite.svg#youtube" />
-</svg>
-            </a>
-            
-        </div>
+        </li>
+        
+    </ul>
 
-        <div></div>
+</nav>
+
+
+
+                </div>
+            </div>
+
+            <footer class="p-2 mt-8 mb-2 text-sm text-gray-600 border-t">
+                <div class="flex flex-col justify-between max-w-3xl mx-auto lg:flex-row">
+                    <span>
+                        <a class="text-green-600" href="../../_sources/notes/prometheus.rst.txt" rel="nofollow">
+                            Page Source
+                        </a>
+                    </span>
+                    <span>Built with <a class="text-green-600" href="https://www.sphinx-doc.org/en/master/">Sphinx</a> v4.2.0</span>
+                    <span>&#169; Copyright 2021, Alex Carney.</span>
+                </div>
+            </footer>
+        </main>
+        
     </div>
-</footer>
-
-    <script>
-      const codeBlocks = document.querySelectorAll(".highlight pre")
-      Array.from(codeBlocks).forEach(el => {
-          el.style.backgroundColor = "#fdf6e3"
-      })
-
-      function copyText(text) {
-          const textArea = document.createElement("textarea")
-          textArea.value = text
-
-          textArea.style.top = 0
-          textArea.style.left = 0
-          textArea.style.position = 'fixed'
-
-          document.body.append(textArea)
-          textArea.focus()
-          textArea.select()
-
-          document.execCommand('copy')
-          document.body.removeChild(textArea)
-      }
-    </script>
-
-    <script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
-    <script>mermaid.initialize({startOnLoad:true});</script>
+<script src="/_static/js/theme.js"></script>
 
 
-</body>
-
+  </body>
 </html>

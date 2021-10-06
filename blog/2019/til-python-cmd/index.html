@@ -1,247 +1,315 @@
+
 <!DOCTYPE html>
-<html lang="en">
 
-<head><meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>TIL: Python has a cmd module &#8212; Blog  documentation</title>
 
-<meta name="theme-color" content="#259669" />
+    
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css" />
+    
+    
+    
+    <link rel="stylesheet" type="text/css" href="../../../_static/togglebutton.css" />
+    
+    
+    <link rel="stylesheet" type="text/css" href="../../../_static/css/styles.css" />
+    
 
-<meta name="generator" content="Hugo 0.79.1" />
-<meta name="author" content="Alex Carney" />
-<meta name="description" content="Today I learned about Pyton&#39;s cmd module" />
+    <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
+    <script src="../../../_static/jquery.js"></script>
+    <script src="../../../_static/underscore.js"></script>
+    <script src="../../../_static/doctools.js"></script>
+    <script src="../../../_static/togglebutton.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <link rel="shortcut icon" href="../../../_static/favicon.ico"/>
+    <link rel="index" title="Index" href="../../../genindex/" />
+    <link rel="search" title="Search" href="../../../search/" /> 
+  </head><body class="flex flex-col justify-between min-h-screen overflow-x-hidden bg-gray-100 ">
+    <div class="flex flex-grow">
+        <input id="menu-state" type="checkbox" class="hidden" />
+        <aside class="flex justify-between flex-shrink-0 transition-all duration-500 bg-white border-r -ml-80 lg:ml-0">
+            <div class="flex flex-col justify-between h-full border-r w-80">
+                <div class="sticky top-0 flex flex-col h-screen"> 
+                    
+                    <div id="profile-card" class="full-profile">
+    <img class="" src="https://github.com/alcarney.png"/>
+    <h2 class=""><a href="/">Alex Carney</a></h2>
+</div>
+                    
+                    <div id="searchbox" style="display: none" role="search" class="px-4 py-4">
+    <form class="flex justify-between px-2 py-1 bg-gray-100 border-2 rounded search focus-within:border-green-600" action="../../../search/" method="get">
+        <label class="mr-2 text-gray-500" for="sbox">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="feather feather-search">
+                <circle cx="11" cy="11" r="6" />
+                <path d="m21 21-4.35-4.35" />
+            </svg>
+        </label>
+        <input id="sbox" class="flex-grow bg-gray-100 focus:outline-none" type="search" name="q" placeholder="Search..." aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" />
+    </form>
+</div>
+<script>$('#searchbox').show(0);</script>
+                    
+                    
+    
+<nav class="flex flex-col text-center">
+    <a class="text-green-600 py-1 border-t text-lg hover:bg-gray-50" href="/blog">Blog</a>
+    <a class="text-green-600 py-1 border-t text-lg hover:bg-gray-50" href="/code">Code</a>
+    <a class="text-green-600 py-1 border-t text-lg hover:bg-gray-50" href="/notes">Notes</a>
+</nav>
+                    
+                    <div class="flex-shrink overflow-auto">
 
-<meta property="og:title" content="TIL: Python has a cmd module" />
-<meta property="og:description" content="Today I learned about Pyton&#39;s cmd module" />
-<meta property="og:type" content="article" />
-<meta property="og:url" content="https://www.alcarney.me/blog/2019/til-python-cmd/" />
-<meta property="article:published_time" content="2019-01-05T00:00:00+00:00" />
-<meta property="article:modified_time" content="2021-08-13T23:42:52+01:00" />
+<div class="grid justify-between p-4 text-gray-500 border-t" style="grid-template-columns: 24px auto">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+</svg>
+    <span class="ml-2 text-right">Jan 05, 2019</span>
+    
 
-<meta property="article:tag" content="stylo" />
-<meta property="article:tag" content="python" />
-<meta property="article:tag" content="til" />
-<meta property="article:tag" content="cli" />
+    <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z" />
+</svg>
+    <ul class="text-right">
+        
+        <li class="mb-1">
+            <a href="../../tag/stylo/" class="px-2 my-1 text-green-600 border border-green-600 rounded bg-green-50">
+                #stylo
+            </a>
+        </li>
+        
+        <li class="mb-1">
+            <a href="../../tag/python/" class="px-2 my-1 text-green-600 border border-green-600 rounded bg-green-50">
+                #python
+            </a>
+        </li>
+        
+        <li class="mb-1">
+            <a href="../../tag/til/" class="px-2 my-1 text-green-600 border border-green-600 rounded bg-green-50">
+                #til
+            </a>
+        </li>
+        
+        <li class="mb-1">
+            <a href="../../tag/cli/" class="px-2 my-1 text-green-600 border border-green-600 rounded bg-green-50">
+                #cli
+            </a>
+        </li>
+        
+    </ul>
+</div>
+<nav id="localtoc" class="p-4 border-t">
+    <ul>
+<li><a class="reference internal" href="#">TIL: Python has a cmd module</a><ul>
+<li><a class="reference internal" href="#setup">Setup</a></li>
+<li><a class="reference internal" href="#adding-commands">Adding Commands</a></li>
+<li><a class="reference internal" href="#getting-help">Getting Help</a></li>
+<li><a class="reference internal" href="#giving-feedback">Giving Feedback</a></li>
+<li><a class="reference internal" href="#finishing-touches">Finishing Touches</a><ul>
+<li><a class="reference internal" href="#exiting-the-program">Exiting the Program</a></li>
+<li><a class="reference internal" href="#changing-the-prompt">Changing the Prompt</a></li>
+<li><a class="reference internal" href="#greeting-the-user">Greeting the User</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#wrapping-up">Wrapping Up</a></li>
+</ul>
+</li>
+</ul>
 
-<meta name="twitter:creator" content="@alcarneyme" />
-<meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="TIL: Python has a cmd module"/>
-<meta name="twitter:description" content="Today I learned about Pyton&#39;s cmd module"/>
+</nav>
+                    </div>
+                    
+                    <footer class="w-full p-4 mt-auto text-white bg-gray-700">
+                        <div class="flex justify-between">
+    <div></div>
 
+    <div class="flex justify-between space-x-4">
+        <a target="_blank" rel="noreferrer noopener" href="https://github.com/alcarney">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="w-8 h-8">
+                <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path>
+            </svg>
+        </a>
 
-<title>TIL: Python has a cmd module | Alex Carney</title>
+        <a target="_blank" rel="noreferrer noopener" href="https://twitter.com/alcarneyme">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="w-8 h-8">
+                <path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"></path>
+            </svg>
+        </a>
 
+        <a target="_blank" rel="noreferrer noopener" href="https://instagram.com/alcarneyme">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="w-8 h-8">
+                <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
+                <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
+                <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
+            </svg>
+        </a>
 
-
-<link rel="stylesheet" href="https://www.alcarney.me/main.f0fcfa33b6ee0d4eb9f5f5d87692f86fb025cfdb3907f9545b6b316fa12a3587.css" /></head>
-
-<body class="bg-gray-100 flex flex-col justify-between min-h-screen items-center">
-    <div class="flex items-baseline justify-between w-full p-4 bg-white border-b">
-
-        <div>
-            <h1>Alex Carney</h1>
-        </div>
-
-        <div class="flex justify-center flex-grow">
-        </div>
-
-        <nav class="flex space-x-4 items-between">
-            <a href="/blog">Blog</a>
-            <a href="/code">Code</a>
-            <a href="/notes">Notes</a>
-        </nav>
+        <a target="_blank" rel="noreferrer noopener" href="https://www.youtube.com/channel/UC5GPflgRWhnCxA0BllfP5CA">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="w-8 h-8">
+                <path d="M22.54 6.42a2.78 2.78 0 0 0-1.94-2C18.88 4 12 4 12 4s-6.88 0-8.6.46a2.78 2.78 0 0 0-1.94 2A29 29 0 0 0 1 11.75a29 29 0 0 0 .46 5.33A2.78 2.78 0 0 0 3.4 19c1.72.46 8.6.46 8.6.46s6.88 0 8.6-.46a2.78 2.78 0 0 0 1.94-2 29 29 0 0 0 .46-5.25 29 29 0 0 0-.46-5.33z"></path>
+                <polygon points="9.75 15.02 15.5 11.75 9.75 8.48 9.75 15.02"></polygon>
+            </svg>
+        </a>
     </div>
 
-    <main class="max-w-4xl w-full flex-grow mb-8">
-<style>
-    header::before {
-        position: absolute;
-        top: 16px;
-        left: -12.5px;
-        display: block;
-        content: '';
-        width: 25px;
-        height: 25px;
-        background: white;
-        transform: rotate(45deg);
-        border-left: solid 1px #e5e7eb;
-        border-bottom: solid 1px #e5e7eb;
-    }
+    <div></div>
+</div>
+                    </footer>
+                </div>
+            </div>     
+        </aside>
+        
+        <main class="w-full mx-auto lg:pr-0">
+            <div class="sticky top-0 z-50 mt-0 transition-all duration-300 bg-white border-b shadow-md lg:shadow-none lg:relative lg:-mt-16">
+                <label class="flex h-16 text-gray-600 transition" for="menu-state">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="w-8 h-8 my-auto" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="feather feather-arrow-right"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                </label>
+            </div> 
 
-    @media(max-width: 1024px) {
-        header::before {
-            left: 19px;
-            top: -12.5px;
-            border-top: sold 1px #e5e7eb;
-            border-bottom: none;
-        }
-    }
-</style>
-<div class="flex flex-col justify-between mx-2 lg:items-baseline lg:flex-row">
-    <style>
-    aside::after {
-        position: absolute;
-        top: 8px;
-        right: -10px;
-        display: block;
-        content: '';
-        width: 8px;
-        height: 8px;
-        border-radius: 100%;
-        background: #717885;
-    }
+            <div id="content" class="mx-2 my-8">
+                <div class="max-w-3xl mx-auto">
+                    
 
-    @media(max-width: 1024px) {
-        aside::after {
-            top: unset;
-            bottom: 6px;
-            left: -18px;
-            border-top: sold 1px #e5e7eb;
-            border-bottom: none;
-        }
-    }
-</style>
-<aside class="relative flex pr-2 mt-4 ml-12 -mb-3 space-x-4 text-gray-500 lg:mr-8 lg:ml-0 lg:block lg:space-x-0">
-    <span class="flex justify-between">
-        <svg class="w-6 h-6 bg-transparent stroke-current" style="fill:none">
-    <use xlink:href="/svg/feather-sprite.svg#calendar" />
-</svg>
-        <span class="ml-2">Jan 5, 2019</span>
-    </span>
-    <span class="flex justify-between">
-        <svg class="w-6 h-6 bg-transparent stroke-current" style="fill:none">
-    <use xlink:href="/svg/feather-sprite.svg#clock" />
-</svg>
-        <span class="ml-2">8 min read</span>
-    </span>
-</aside>
-
-    <article class="relative flex-grow p-4 mt-8 transition bg-white border shadow-lg">
-        <div class="m-auto prose prose-lg prose-green">
-            <header>
-                <h1>TIL: Python has a cmd module</h1>
-            </header>
-            <p>Today I Learned that Python&rsquo;s standard library has a <a href="https://docs.python.org/3/library/cmd.html">cmd</a> module and it is <em>awesome!</em></p>
-<figure><a href="/images/cmd_python.gif">
-    <img src="/images/cmd_python.gif"
-         alt="Interactive program using the cmd module."/> </a><figcaption>
-            <p>Interactive program using the cmd module.</p>
-        </figcaption>
-</figure>
-
-<p>The <a href="https://docs.python.org/3/library/cmd.html">cmd</a> module contains a single class called <code>Cmd</code> which handles all the
-details of creating an application similar to Python&rsquo;s REPL. All you need to do
-is to provide some command definitions and the <code>Cmd</code> class will handle the rest.</p>
-<p>In an attempt to demonstrate why I think this is so cool I&rsquo;m going to walk
+<article class="p-4 prose-sm prose bg-white border prose-md prose-green max-w-none">
+    <div class="section" id="til-python-has-a-cmd-module">
+<h1>TIL: Python has a cmd module<a class="headerlink" href="#til-python-has-a-cmd-module" title="Permalink to this headline">¶</a></h1>
+<p>Today I Learned that Python’s standard library has a <a class="reference external" href="https://docs.python.org/3/library/cmd.html">cmd</a> module and it is <em>awesome!</em></p>
+<div class="figure align-center" id="id1">
+<img alt="../../../_images/cmd_python.gif" src="../../../_images/cmd_python.gif" />
+<p class="caption"><span class="caption-text">Interactive program using the cmd module</span><a class="headerlink" href="#id1" title="Permalink to this image">¶</a></p>
+</div>
+<p>The <a class="reference external" href="https://docs.python.org/3/library/cmd.html">cmd</a> module contains a single class called <code class="docutils literal notranslate"><span class="pre">Cmd</span></code> which handles all the
+details of creating an application similar to Python’s REPL. All you need to do
+is to provide some command definitions and the <code class="docutils literal notranslate"><span class="pre">Cmd</span></code> class will handle the rest.</p>
+<p>In an attempt to demonstrate why I think this is so cool I’m going to walk
 through the process of building the application you see in the screencast above.</p>
-<p>The example application we&rsquo;re going to create is a very basic REPL for a passion
-project of mine called <a href="https://github.com/alcarney/stylo">stylo</a>. Stylo is a Python library that allows you to draw
+<p>The example application we’re going to create is a very basic REPL for a passion
+project of mine called <a class="reference external" href="https://github.com/alcarney/stylo">stylo</a>. Stylo is a Python library that allows you to draw
 images and create animations using code and some mathematics. The application
-will expose some of the basic shapes available and for the &ldquo;Print&rdquo; part of the
-<a href="https://en.wikipedia.org/wiki/Read%25E2%2580%2593eval%25E2%2580%2593print%5Floop">REPL</a> it will show a preview of your image.</p>
-<p>My main focus for this post is the <code>cmd</code> module which means I&rsquo;m not going to go
-into any of the specifics of <code>stylo</code> or how to use it. If you want to know more
-about it I will point you in the direction of the <a href="https://stylo.readthedocs.io/">documentation</a>
-(under construction 🚧) and the <a href="https://alcarney.github.io/stylo-doodles">example gallery</a></p>
-<h2 id="setup">Setup</h2>
-<p>To start with we&rsquo;re going to create a virtual environment and install <code>stylo</code>
-into it. This will also install <code>matplotlib</code> which we will be using later on.
-I&rsquo;m using Python 3.7 but this application should work on all versions of Python
+will expose some of the basic shapes available and for the “Print” part of the
+<a class="reference external" href="https://en.wikipedia.org/wiki/Read%25E2%2580%2593eval%25E2%2580%2593print%5Floop">REPL</a> it will show a preview of your image.</p>
+<p>My main focus for this post is the <code class="docutils literal notranslate"><span class="pre">cmd</span></code> module which means I’m not going to go
+into any of the specifics of <code class="docutils literal notranslate"><span class="pre">stylo</span></code> or how to use it. If you want to know more
+about it I will point you in the direction of the <a class="reference external" href="https://stylo.readthedocs.io/">documentation</a>
+(under construction) and the <a class="reference external" href="https://alcarney.github.io/stylo-doodles">example gallery</a></p>
+<div class="section" id="setup">
+<h2>Setup<a class="headerlink" href="#setup" title="Permalink to this headline">¶</a></h2>
+<p>To start with we’re going to create a virtual environment and install <code class="docutils literal notranslate"><span class="pre">stylo</span></code>
+into it. This will also install <code class="docutils literal notranslate"><span class="pre">matplotlib</span></code> which we will be using later on.
+I’m using Python 3.7 but this application should work on all versions of Python
 ≥ 3.5.</p>
-<div class="highlight"><pre style="color:#586e75;background-color:#eee8d5;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">$ python -m venv env
-$ <span style="color:#cb4b16">source</span> env/bin/activate
-(env) $ pip install stylo</code></pre></div>
-<p><strong>Note:</strong> The <code>cmd</code> module is available for <a href="https://docs.python.org/2.7/library/cmd.html">even older</a> versions of
-Python. However we are limited by <code>stylo</code> which only supports Python 3.5+</p>
-<p>With the dependencies out of the way we can create a file called <code>stylo-cmd.py</code>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>python -m venv env
+<span class="gp">$ </span><span class="nb">source</span> env/bin/activate
+<span class="gp gp-VirtualEnv">(env)</span> <span class="gp">$ </span>pip install stylo
+</pre></div>
+</div>
+<p><strong>Note:</strong> The <code class="docutils literal notranslate"><span class="pre">cmd</span></code> module is available for <a class="reference external" href="https://docs.python.org/2.7/library/cmd.html">even older</a> versions of
+Python. However we are limited by <code class="docutils literal notranslate"><span class="pre">stylo</span></code> which only supports Python 3.5+</p>
+<p>With the dependencies out of the way we can create a file called <code class="docutils literal notranslate"><span class="pre">stylo-cmd.py</span></code>
 and start writing some code!</p>
-<div class="highlight"><pre style="color:#586e75;background-color:#eee8d5;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#dc322f;font-weight:bold">import</span> <span style="color:#268bd2">cmd</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">cmd</span>
 
-<span style="color:#859900">class</span> <span style="color:#cb4b16">StyloPrompt</span>(<span style="color:#268bd2">cmd</span>.<span style="color:#268bd2">Cmd</span>):
-    <span style="color:#859900">pass</span>
+<span class="k">class</span> <span class="nc">StyloPrompt</span><span class="p">(</span><span class="n">cmd</span><span class="o">.</span><span class="n">Cmd</span><span class="p">):</span>
+   <span class="k">pass</span>
 
-<span style="color:#859900">if</span> <span style="color:#268bd2">__name__</span> == <span style="color:#2aa198">&#39;__main__&#39;</span>:
-    <span style="color:#268bd2">prompt</span> = <span style="color:#268bd2">StyloPrompt</span>()
-    <span style="color:#268bd2">prompt</span>.<span style="color:#268bd2">cmdloop</span>()</code></pre></div>
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+   <span class="n">prompt</span> <span class="o">=</span> <span class="n">StyloPrompt</span><span class="p">()</span>
+ <span class="n">prompt</span><span class="o">.</span><span class="n">cmdloop</span><span class="p">()</span>
+</pre></div>
+</div>
 <p>This is the bare minimum required to get something we can start playing with.
-If you were to run <code>python stylo-cmd.py</code> you would see the following prompt
-which comes with a single built-in command <code>help</code>.</p>
-<pre><code class="language-nil" data-lang="nil">(Cmd) help
+If you were to run <code class="docutils literal notranslate"><span class="pre">python</span> <span class="pre">stylo-cmd.py</span></code> you would see the following prompt
+which comes with a single built-in command <code class="docutils literal notranslate"><span class="pre">help</span></code>.</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>(Cmd) help
 
 Documented commands (type help &lt;topic&gt;):
 ========================================
-help</code></pre>
-<p><code>Ctrl-C</code> will exit the application. Obviously this is pretty useless right now
-so let&rsquo;s look at adding in some commands of our own.</p>
-<h2 id="adding-commands">Adding Commands</h2>
-<p>Any method on our <code>StyloPrompt</code> class with a name of the form <code>do_*</code> is
+help
+</pre></div>
+</div>
+<p><kbd class="kbd docutils literal notranslate">Ctrl-C</kbd> will exit the application. Obviously this is pretty useless right now
+so let’s look at adding in some commands of our own.</p>
+</div>
+<div class="section" id="adding-commands">
+<h2>Adding Commands<a class="headerlink" href="#adding-commands" title="Permalink to this headline">¶</a></h2>
+<p>Any method on our <code class="docutils literal notranslate"><span class="pre">StyloPrompt</span></code> class with a name of the form <code class="docutils literal notranslate"><span class="pre">do_*</span></code> is
 considered a command, with the command name given by whatever is after the
-underscore.  To get ourselves warmed up let&rsquo;s add two commands <code>reset</code> and
-<code>save</code> which will allow us to create a fresh image and save it to a file.</p>
-<div class="highlight"><pre style="color:#586e75;background-color:#eee8d5;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#dc322f;font-weight:bold">from</span> <span style="color:#268bd2">stylo.image</span> <span style="color:#dc322f;font-weight:bold">import</span> <span style="color:#268bd2">LayeredImage</span>
+underscore.  To get ourselves warmed up let’s add two commands <code class="docutils literal notranslate"><span class="pre">reset</span></code> and
+<code class="docutils literal notranslate"><span class="pre">save</span></code> which will allow us to create a fresh image and save it to a file.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">stylo.image</span> <span class="kn">import</span> <span class="n">LayeredImage</span>
 
-<span style="color:#859900">class</span> <span style="color:#cb4b16">StyloPrompt</span>(<span style="color:#268bd2">cmd</span>.<span style="color:#268bd2">Cmd</span>):
+<span class="k">class</span> <span class="nc">StyloPrompt</span><span class="p">(</span><span class="n">cmd</span><span class="o">.</span><span class="n">Cmd</span><span class="p">):</span>
 
-    <span style="color:#859900">def</span> <span style="color:#268bd2">__init__</span>(<span style="color:#268bd2">self</span>):
-        <span style="color:#cb4b16">super</span>().<span style="color:#268bd2">__init__</span>()
-        <span style="color:#268bd2">self</span>.<span style="color:#268bd2">image</span> = <span style="color:#268bd2">LayeredImage</span>()
+   <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+      <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
+      <span class="bp">self</span><span class="o">.</span><span class="n">image</span> <span class="o">=</span> <span class="n">LayeredImage</span><span class="p">()</span>
 
-    <span style="color:#859900">def</span> <span style="color:#268bd2">do_reset</span>(<span style="color:#268bd2">self</span>, <span style="color:#268bd2">args</span>):
-        <span style="color:#268bd2">self</span>.<span style="color:#268bd2">image</span> = <span style="color:#268bd2">LayeredImage</span>()
+   <span class="k">def</span> <span class="nf">do_reset</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">args</span><span class="p">):</span>
+      <span class="bp">self</span><span class="o">.</span><span class="n">image</span> <span class="o">=</span> <span class="n">LayeredImage</span><span class="p">()</span>
 
-    <span style="color:#859900">def</span> <span style="color:#268bd2">do_save</span>(<span style="color:#268bd2">self</span>, <span style="color:#268bd2">args</span>):
-        <span style="color:#268bd2">width</span>, <span style="color:#268bd2">height</span>, <span style="color:#268bd2">filename</span> = <span style="color:#268bd2">args</span>.<span style="color:#268bd2">split</span>(<span style="color:#2aa198">&#34; &#34;</span>)
+   <span class="k">def</span> <span class="nf">do_save</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">args</span><span class="p">):</span>
+      <span class="n">width</span><span class="p">,</span> <span class="n">height</span><span class="p">,</span> <span class="n">filename</span> <span class="o">=</span> <span class="n">args</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot; &quot;</span><span class="p">)</span>
 
-        <span style="color:#268bd2">width</span> = <span style="color:#cb4b16">int</span>(<span style="color:#268bd2">width</span>)
-        <span style="color:#268bd2">height</span> = <span style="color:#cb4b16">int</span>(<span style="color:#268bd2">height</span>)
+      <span class="n">width</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">width</span><span class="p">)</span>
+      <span class="n">height</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">height</span><span class="p">)</span>
 
-        <span style="color:#268bd2">self</span>.<span style="color:#268bd2">image</span>(<span style="color:#268bd2">width</span>, <span style="color:#268bd2">height</span>, <span style="color:#268bd2">filename</span>=<span style="color:#268bd2">filename</span>)</code></pre></div>
+      <span class="bp">self</span><span class="o">.</span><span class="n">image</span><span class="p">(</span><span class="n">width</span><span class="p">,</span> <span class="n">height</span><span class="p">,</span> <span class="n">filename</span><span class="o">=</span><span class="n">filename</span><span class="p">)</span>
+</pre></div>
+</div>
 <p>As you can see each command receives its arguments as a single string and
 it is up to the method to handle them - including conversions to appropriate
-data types as is the case with the <code>width</code> and <code>height</code> arguments. For the sake
+data types as is the case with the <code class="docutils literal notranslate"><span class="pre">width</span></code> and <code class="docutils literal notranslate"><span class="pre">height</span></code> arguments. For the sake
 of being brief proper error handling has been omitted.</p>
 <p>Now if we were to fire up the application we would be able to produce an image!</p>
-<pre><code class="language-nil" data-lang="nil">(Cmd) reset
-(Cmd) save 1920 1080 image.png</code></pre>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>(Cmd) reset
+(Cmd) save 1920 1080 image.png
+</pre></div>
+</div>
 <p>Of course this image is currently empty so next we should add the ability for
-the user to place shapes on the image. We&rsquo;ll create two more commands <code>circle</code>
-and <code>square</code>.</p>
-<div class="highlight"><pre style="color:#586e75;background-color:#eee8d5;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#dc322f;font-weight:bold">from</span> <span style="color:#268bd2">stylo.color</span> <span style="color:#dc322f;font-weight:bold">import</span> <span style="color:#268bd2">FillColor</span>
-<span style="color:#dc322f;font-weight:bold">from</span> <span style="color:#268bd2">stylo.shape</span> <span style="color:#dc322f;font-weight:bold">import</span> <span style="color:#268bd2">Circle</span>, <span style="color:#268bd2">Square</span>
+the user to place shapes on the image. We’ll create two more commands <code class="docutils literal notranslate"><span class="pre">circle</span></code>
+and <code class="docutils literal notranslate"><span class="pre">square</span></code>.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">stylo.color</span> <span class="kn">import</span> <span class="n">FillColor</span>
+<span class="kn">from</span> <span class="nn">stylo.shape</span> <span class="kn">import</span> <span class="n">Circle</span><span class="p">,</span> <span class="n">Square</span>
 
-<span style="color:#859900">class</span> <span style="color:#cb4b16">StyloPrompt</span>(<span style="color:#268bd2">cmd</span>.<span style="color:#268bd2">Cmd</span>):
-    ...
+<span class="k">class</span> <span class="nc">StyloPrompt</span><span class="p">(</span><span class="n">cmd</span><span class="o">.</span><span class="n">Cmd</span><span class="p">):</span>
+   <span class="o">...</span>
 
-    <span style="color:#859900">def</span> <span style="color:#268bd2">do_circle</span>(<span style="color:#268bd2">self</span>, <span style="color:#268bd2">args</span>):
-        <span style="color:#268bd2">x</span>, <span style="color:#268bd2">y</span>, <span style="color:#268bd2">r</span>, <span style="color:#268bd2">color</span> = <span style="color:#268bd2">args</span>.<span style="color:#268bd2">split</span>(<span style="color:#2aa198">&#34; &#34;</span>)
+   <span class="k">def</span> <span class="nf">do_circle</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">args</span><span class="p">):</span>
+      <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">r</span><span class="p">,</span> <span class="n">color</span> <span class="o">=</span> <span class="n">args</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot; &quot;</span><span class="p">)</span>
 
-        <span style="color:#268bd2">circle</span> = <span style="color:#268bd2">Circle</span>(<span style="color:#cb4b16">float</span>(<span style="color:#268bd2">x</span>), <span style="color:#cb4b16">float</span>(<span style="color:#268bd2">y</span>), <span style="color:#cb4b16">float</span>(<span style="color:#268bd2">r</span>), <span style="color:#268bd2">fill</span>=<span style="color:#268bd2">True</span>)
-        <span style="color:#268bd2">self</span>.<span style="color:#268bd2">image</span>.<span style="color:#268bd2">add_layer</span>(<span style="color:#268bd2">circle</span>, <span style="color:#268bd2">FillColor</span>(<span style="color:#268bd2">color</span>))
+      <span class="n">circle</span> <span class="o">=</span> <span class="n">Circle</span><span class="p">(</span><span class="nb">float</span><span class="p">(</span><span class="n">x</span><span class="p">),</span> <span class="nb">float</span><span class="p">(</span><span class="n">y</span><span class="p">),</span> <span class="nb">float</span><span class="p">(</span><span class="n">r</span><span class="p">),</span> <span class="n">fill</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+      <span class="bp">self</span><span class="o">.</span><span class="n">image</span><span class="o">.</span><span class="n">add_layer</span><span class="p">(</span><span class="n">circle</span><span class="p">,</span> <span class="n">FillColor</span><span class="p">(</span><span class="n">color</span><span class="p">))</span>
 
-    <span style="color:#859900">def</span> <span style="color:#268bd2">do_square</span>(<span style="color:#268bd2">self</span>, <span style="color:#268bd2">args</span>):
-        <span style="color:#268bd2">x</span>, <span style="color:#268bd2">y</span>, <span style="color:#268bd2">size</span>, <span style="color:#268bd2">color</span> = <span style="color:#268bd2">args</span>.<span style="color:#268bd2">split</span>(<span style="color:#2aa198">&#34; &#34;</span>)
+   <span class="k">def</span> <span class="nf">do_square</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">args</span><span class="p">):</span>
+      <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">size</span><span class="p">,</span> <span class="n">color</span> <span class="o">=</span> <span class="n">args</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot; &quot;</span><span class="p">)</span>
 
-        <span style="color:#268bd2">square</span> = <span style="color:#268bd2">Square</span>(<span style="color:#cb4b16">float</span>(<span style="color:#268bd2">x</span>), <span style="color:#cb4b16">float</span>(<span style="color:#268bd2">y</span>), <span style="color:#cb4b16">float</span>(<span style="color:#268bd2">size</span>))
-        <span style="color:#268bd2">self</span>.<span style="color:#268bd2">image</span>.<span style="color:#268bd2">add_layer</span>(<span style="color:#268bd2">square</span>, <span style="color:#268bd2">FillColor</span>(<span style="color:#268bd2">color</span>))</code></pre></div>
+      <span class="n">square</span> <span class="o">=</span> <span class="n">Square</span><span class="p">(</span><span class="nb">float</span><span class="p">(</span><span class="n">x</span><span class="p">),</span> <span class="nb">float</span><span class="p">(</span><span class="n">y</span><span class="p">),</span> <span class="nb">float</span><span class="p">(</span><span class="n">size</span><span class="p">))</span>
+      <span class="bp">self</span><span class="o">.</span><span class="n">image</span><span class="o">.</span><span class="n">add_layer</span><span class="p">(</span><span class="n">square</span><span class="p">,</span> <span class="n">FillColor</span><span class="p">(</span><span class="n">color</span><span class="p">))</span>
+</pre></div>
+</div>
 <p>Now when we use the application we can create something a bit more
-interesting than a snowman in a blizzard! 😄</p>
-<figure><a href="/images/dice.png">
-    <img src="/images/dice.png"
-         alt="Number 3 on a dice"/> </a><figcaption>
-            <p>Number 3 on a dice</p>
-        </figcaption>
-</figure>
-
-<pre><code class="language-nil" data-lang="nil">(Cmd) square 0 0 1.75 000000
+interesting than a snowman in a blizzard!</p>
+<div class="figure align-center" id="id2">
+<img alt="../../../_images/dice.png" src="../../../_images/dice.png" />
+<p class="caption"><span class="caption-text">Number 3 on a dice</span><a class="headerlink" href="#id2" title="Permalink to this image">¶</a></p>
+</div>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>(Cmd) square 0 0 1.75 000000
 (Cmd) circle 0 0 0.3 ffffff
 (Cmd) circle -0.5 0.5 0.3 ffffff
 (Cmd) circle 0.5 -0.5 0.3 ffffff
-(Cmd) save 1920 1080 image.png</code></pre>
-<h2 id="getting-help">Getting Help</h2>
+(Cmd) save 1920 1080 image.png
+</pre></div>
+</div>
+</div>
+<div class="section" id="getting-help">
+<h2>Getting Help<a class="headerlink" href="#getting-help" title="Permalink to this headline">¶</a></h2>
 <p>Now that we have a few commands available we need to tell users how they can be
-used. If we were to use the <code>help</code> command we would see something like the
+used. If we were to use the <code class="docutils literal notranslate"><span class="pre">help</span></code> command we would see something like the
 following.</p>
-<pre><code class="language-nil" data-lang="nil">(Cmd) help
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>(Cmd) help
 
 Documented commands (type help &lt;topic&gt;):
 ========================================
@@ -249,252 +317,202 @@ help
 
 Undocumented commands:
 ======================
-circle reset save square</code></pre>
+circle reset save square
+</pre></div>
+</div>
 <p>Not very helpful.</p>
-<p>Thankfully the default help system doesn&rsquo;t require much to get started, all we
-have to do is add docstrings to our <code>do_*</code> methods!</p>
-<div class="highlight"><pre style="color:#586e75;background-color:#eee8d5;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#859900">def</span> <span style="color:#268bd2">do_circle</span>(<span style="color:#268bd2">self</span>, <span style="color:#268bd2">args</span>):
-    <span style="color:#2aa198">&#34;&#34;&#34;usage: circle &lt;x&gt; &lt;y&gt; &lt;r&gt; &lt;color&gt;
-</span><span style="color:#2aa198">
-</span><span style="color:#2aa198">    This command will draw a circle centered at the coordinates (&lt;x&gt;, &lt;y&gt;)
-</span><span style="color:#2aa198">    with radius given by &lt;r&gt;. The &lt;color&gt; argument is a 6 digit hex
-</span><span style="color:#2aa198">    representing a color in RGB format.
-</span><span style="color:#2aa198">    &#34;&#34;&#34;</span>
-    ...</code></pre></div>
-<p>Now if we were to run <code>help circle</code></p>
-<pre><code class="language-nil" data-lang="nil">(Cmd) help circle
+<p>Thankfully the default help system doesn’t require much to get started, all we
+have to do is add docstrings to our <code class="docutils literal notranslate"><span class="pre">do_*</span></code> methods!</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">do_circle</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">args</span><span class="p">):</span>
+   <span class="sd">&quot;&quot;&quot;usage: circle &lt;x&gt; &lt;y&gt; &lt;r&gt; &lt;color&gt;</span>
+
+<span class="sd">   This command will draw a circle centered at the coordinates (&lt;x&gt;, &lt;y&gt;)</span>
+<span class="sd">   with radius given by &lt;r&gt;. The &lt;color&gt; argument is a 6 digit hex</span>
+<span class="sd">   representing a color in RGB format.</span>
+<span class="sd">   &quot;&quot;&quot;</span>
+   <span class="o">...</span>
+</pre></div>
+</div>
+<p>Now if we were to run <code class="docutils literal notranslate"><span class="pre">help</span> <span class="pre">circle</span></code></p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>(Cmd) help circle
 circle &lt;x&gt; &lt;y&gt; &lt;r&gt; &lt;color&gt;
 
-        This command will draw a circle centered at the coordinates (&lt;x&gt;, &lt;y&gt;)
-        with radius given by &lt;r&gt;. The &lt;color&gt; argument is a 6 digit hex
-        representing a color in RGB format.</code></pre>
-<p>Much better 😄</p>
-<h2 id="giving-feedback">Giving Feedback</h2>
-<p>Right now our program is&hellip; ok. The user can type in a few commands and they
-can create some images, but it&rsquo;s not much of a step up from using the library
+      This command will draw a circle centered at the coordinates (&lt;x&gt;, &lt;y&gt;)
+      with radius given by &lt;r&gt;. The &lt;color&gt; argument is a 6 digit hex
+      representing a color in RGB format.
+</pre></div>
+</div>
+<p>Much better</p>
+</div>
+<div class="section" id="giving-feedback">
+<h2>Giving Feedback<a class="headerlink" href="#giving-feedback" title="Permalink to this headline">¶</a></h2>
+<p>Right now our program is… ok. The user can type in a few commands and they
+can create some images, but it’s not much of a step up from using the library
 as they still have to wait until they have saved their image before
-they can view it. Add in the fact that our program isn&rsquo;t that flexible they may
+they can view it. Add in the fact that our program isn’t that flexible they may
 as well be using the library directly.</p>
 <p>If only there was some way we could show the user their image as they build it
-up a command at a time&hellip;</p>
-<p>Enter <code>postcmd</code>! This handy method is called each time our program has
+up a command at a time…</p>
+<p>Enter <code class="docutils literal notranslate"><span class="pre">postcmd</span></code>! This handy method is called each time our program has
 processed a command - we can use this to redraw the image each time.
-Then &ldquo;all&rdquo; we have to do if find a way to display the current image to the user.</p>
+Then “all” we have to do if find a way to display the current image to the user.</p>
 <p>After some searching and head scratching I was able to come up with the
-following <code>matplotlib</code> incantation to add our image to a figure and display it.</p>
-<div class="highlight"><pre style="color:#586e75;background-color:#eee8d5;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">...
-<span style="color:#dc322f;font-weight:bold">import</span> <span style="color:#268bd2">matplotlib.pyplot</span> <span style="color:#dc322f;font-weight:bold">as</span> <span style="color:#268bd2">plt</span>
+following <code class="docutils literal notranslate"><span class="pre">matplotlib</span></code> incantation to add our image to a figure and display it.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="o">...</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
 
-<span style="color:#859900">class</span> <span style="color:#cb4b16">StyloPrompt</span>(<span style="color:#268bd2">cmd</span>.<span style="color:#268bd2">Cmd</span>):
+<span class="k">class</span> <span class="nc">StyloPrompt</span><span class="p">(</span><span class="n">cmd</span><span class="o">.</span><span class="n">Cmd</span><span class="p">):</span>
 
-    <span style="color:#859900">def</span> <span style="color:#268bd2">__init__</span>(<span style="color:#268bd2">self</span>):
-        ...
+   <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+      <span class="o">...</span>
 
-        <span style="color:#268bd2">self</span>.<span style="color:#268bd2">fig</span>, <span style="color:#268bd2">self</span>.<span style="color:#268bd2">ax</span> = <span style="color:#268bd2">plt</span>.<span style="color:#268bd2">subplots</span>(<span style="color:#2aa198;font-weight:bold">1</span>)
-        <span style="color:#268bd2">self</span>.<span style="color:#268bd2">ax</span>.<span style="color:#268bd2">get_xaxis</span>().<span style="color:#268bd2">set_visible</span>(<span style="color:#268bd2">False</span>)
-        <span style="color:#268bd2">self</span>.<span style="color:#268bd2">ax</span>.<span style="color:#268bd2">get_yaxis</span>().<span style="color:#268bd2">set_visible</span>(<span style="color:#268bd2">False</span>)
+      <span class="bp">self</span><span class="o">.</span><span class="n">fig</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+      <span class="bp">self</span><span class="o">.</span><span class="n">ax</span><span class="o">.</span><span class="n">get_xaxis</span><span class="p">()</span><span class="o">.</span><span class="n">set_visible</span><span class="p">(</span><span class="kc">False</span><span class="p">)</span>
+      <span class="bp">self</span><span class="o">.</span><span class="n">ax</span><span class="o">.</span><span class="n">get_yaxis</span><span class="p">()</span><span class="o">.</span><span class="n">set_visible</span><span class="p">(</span><span class="kc">False</span><span class="p">)</span>
 
-        <span style="color:#268bd2">self</span>.<span style="color:#268bd2">update_image</span>()
-    ...
+      <span class="bp">self</span><span class="o">.</span><span class="n">update_image</span><span class="p">()</span>
+   <span class="o">...</span>
 
-    <span style="color:#859900">def</span> <span style="color:#268bd2">postcmd</span>(<span style="color:#268bd2">self</span>, <span style="color:#268bd2">stop</span>, <span style="color:#268bd2">line</span>):
+   <span class="k">def</span> <span class="nf">postcmd</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">stop</span><span class="p">,</span> <span class="n">line</span><span class="p">):</span>
 
-        <span style="color:#859900">if</span> <span style="color:#268bd2">stop</span>:
-            <span style="color:#859900">return</span> <span style="color:#268bd2">True</span>
+      <span class="k">if</span> <span class="n">stop</span><span class="p">:</span>
+            <span class="k">return</span> <span class="kc">True</span>
 
-        <span style="color:#268bd2">self</span>.<span style="color:#268bd2">update_image</span>()
+      <span class="bp">self</span><span class="o">.</span><span class="n">update_image</span><span class="p">()</span>
 
-    <span style="color:#859900">def</span> <span style="color:#268bd2">update_image</span>(<span style="color:#268bd2">self</span>):
+   <span class="k">def</span> <span class="nf">update_image</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 
-        <span style="color:#93a1a1;font-style:italic"># Re-render the image</span>
-        <span style="color:#268bd2">self</span>.<span style="color:#268bd2">image</span>(<span style="color:#2aa198;font-weight:bold">1920</span>, <span style="color:#2aa198;font-weight:bold">1080</span>)
+      <span class="c1"># Re-render the image</span>
+      <span class="bp">self</span><span class="o">.</span><span class="n">image</span><span class="p">(</span><span class="mi">1920</span><span class="p">,</span> <span class="mi">1080</span><span class="p">)</span>
 
-        <span style="color:#93a1a1;font-style:italic"># Update the preview</span>
-        <span style="color:#268bd2">self</span>.<span style="color:#268bd2">ax</span>.<span style="color:#268bd2">imshow</span>(<span style="color:#268bd2">image</span>.<span style="color:#268bd2">data</span>)
-        <span style="color:#268bd2">self</span>.<span style="color:#268bd2">fig</span>.<span style="color:#268bd2">show</span>()</code></pre></div>
-<p>I won&rsquo;t go into too much detail here but I will point out a few things.</p>
-<ul>
-<li>
-<p>The <code>stop</code> argument to <code>postcmd</code> indicates whether the previous command
-wanted to exit the program (by returning <code>True</code>). We have the option of
-overriding that by not returning <code>True</code>. But in our case we will just pass
-the message on.</p>
-</li>
-<li>
-<p>Matplotlib is smart enough to use an existing window when calling <code>show()</code> on
-a figure so all we have to do is update the plot in the axis object</p>
-</li>
-<li>
-<p>In the <code>__init__</code> method we are disabling the scale on the axis so that the
-user doesn&rsquo;t see something that looks like a graph.</p>
-</li>
+      <span class="c1"># Update the preview</span>
+      <span class="bp">self</span><span class="o">.</span><span class="n">ax</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">image</span><span class="o">.</span><span class="n">data</span><span class="p">)</span>
+      <span class="bp">self</span><span class="o">.</span><span class="n">fig</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>I won’t go into too much detail here but I will point out a few things.</p>
+<ul class="simple">
+<li><p>The <code class="docutils literal notranslate"><span class="pre">stop</span></code> argument to <code class="docutils literal notranslate"><span class="pre">postcmd</span></code> indicates whether the previous command
+wanted to exit the program (by returning <code class="docutils literal notranslate"><span class="pre">True</span></code>). We have the option of
+overriding that by not returning <code class="docutils literal notranslate"><span class="pre">True</span></code>. But in our case we will just pass
+the message on.</p></li>
+<li><p>Matplotlib is smart enough to use an existing window when calling <code class="docutils literal notranslate"><span class="pre">show()</span></code> on
+a figure so all we have to do is update the plot in the axis object</p></li>
+<li><p>In the <code class="docutils literal notranslate"><span class="pre">__init__</span></code> method we are disabling the scale on the axis so that the
+user doesn’t see something that looks like a graph.</p></li>
 </ul>
-<h2 id="finishing-touches">Finishing Touches</h2>
+</div>
+<div class="section" id="finishing-touches">
+<h2>Finishing Touches<a class="headerlink" href="#finishing-touches" title="Permalink to this headline">¶</a></h2>
 <p>With most of the functionality out of the way we can look at tweaking
 some things to make the overall experience nicer.</p>
-<h3 id="exiting-the-program">Exiting the Program</h3>
-<p>So far we don&rsquo;t have a clean way to close the program, we can hit <code>Ctrl-C</code> to
+<div class="section" id="exiting-the-program">
+<h3>Exiting the Program<a class="headerlink" href="#exiting-the-program" title="Permalink to this headline">¶</a></h3>
+<p>So far we don’t have a clean way to close the program, we can hit <kbd class="kbd docutils literal notranslate">Ctrl-C</kbd> to
 terminate the script but it results in Python printing a traceback and it looks
 like an error in our program more than anything.</p>
-<p>Instead we can override the <code>default</code> method on our class. This method is
-called whenever the program doesn&rsquo;t recogise the user&rsquo;s input as a valid
-command and we can use it to look at all of the user&rsquo;s input (not just the
-<code>args</code>) and decide what to do with it.</p>
+<p>Instead we can override the <code class="docutils literal notranslate"><span class="pre">default</span></code> method on our class. This method is
+called whenever the program doesn’t recogise the user’s input as a valid
+command and we can use it to look at all of the user’s input (not just the
+<code class="docutils literal notranslate"><span class="pre">args</span></code>) and decide what to do with it.</p>
 <p>In this case we will say that the program will exit whenever the user types a
-<code>q</code> or we receive an <code>EOF</code> character (<code>Ctrl-D</code>).</p>
-<div class="highlight"><pre style="color:#586e75;background-color:#eee8d5;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#859900">class</span> <span style="color:#cb4b16">StyloPrompt</span>(<span style="color:#268bd2">cmd</span>.<span style="color:#268bd2">Cmd</span>):
-    ...
+<code class="docutils literal notranslate"><span class="pre">q</span></code> or we receive an <code class="docutils literal notranslate"><span class="pre">EOF</span></code> character (<kbd class="kbd docutils literal notranslate">Ctrl-D</kbd>).</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">StyloPrompt</span><span class="p">(</span><span class="n">cmd</span><span class="o">.</span><span class="n">Cmd</span><span class="p">):</span>
+   <span class="o">...</span>
 
-    <span style="color:#859900">def</span> <span style="color:#268bd2">default</span>(<span style="color:#268bd2">self</span>, <span style="color:#268bd2">line</span>):
-        <span style="color:#859900">if</span> <span style="color:#268bd2">line</span> == <span style="color:#2aa198">&#34;q&#34;</span> <span style="color:#859900">or</span> <span style="color:#268bd2">line</span> == <span style="color:#2aa198">&#34;EOF&#34;</span>:
-            <span style="color:#859900">return</span> <span style="color:#268bd2">True</span>
+   <span class="k">def</span> <span class="nf">default</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">line</span><span class="p">):</span>
+      <span class="k">if</span> <span class="n">line</span> <span class="o">==</span> <span class="s2">&quot;q&quot;</span> <span class="ow">or</span> <span class="n">line</span> <span class="o">==</span> <span class="s2">&quot;EOF&quot;</span><span class="p">:</span>
+            <span class="k">return</span> <span class="kc">True</span>
 
-        <span style="color:#859900">return</span> <span style="color:#cb4b16">super</span>().<span style="color:#268bd2">default</span>(<span style="color:#268bd2">line</span>)</code></pre></div>
-<h3 id="changing-the-prompt">Changing the Prompt</h3>
-<p>We can change the default prompt <code>(Cmd)</code> by setting the <code>prompt</code> attribute on
+      <span class="k">return</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">default</span><span class="p">(</span><span class="n">line</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="changing-the-prompt">
+<h3>Changing the Prompt<a class="headerlink" href="#changing-the-prompt" title="Permalink to this headline">¶</a></h3>
+<p>We can change the default prompt <code class="docutils literal notranslate"><span class="pre">(Cmd)</span></code> by setting the <code class="docutils literal notranslate"><span class="pre">prompt</span></code> attribute on
 our class.</p>
-<div class="highlight"><pre style="color:#586e75;background-color:#eee8d5;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#859900">class</span> <span style="color:#cb4b16">StyloPromt</span>(<span style="color:#268bd2">Cmd</span>):
-    <span style="color:#268bd2">prompt</span> = <span style="color:#2aa198">&#34;-&gt; &#34;</span>
-    ...</code></pre></div>
-<h3 id="greeting-the-user">Greeting the User</h3>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">StyloPromt</span><span class="p">(</span><span class="n">Cmd</span><span class="p">):</span>
+   <span class="n">prompt</span> <span class="o">=</span> <span class="s2">&quot;-&gt; &quot;</span>
+   <span class="o">...</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="greeting-the-user">
+<h3>Greeting the User<a class="headerlink" href="#greeting-the-user" title="Permalink to this headline">¶</a></h3>
 <p>Currently when our program starts it simply shows them the prompt, which if
-they are using it for the first time they probably won&rsquo;t know where to start.
-To help them get started we can set the <code>intro</code> attribute to contain a welcome
+they are using it for the first time they probably won’t know where to start.
+To help them get started we can set the <code class="docutils literal notranslate"><span class="pre">intro</span></code> attribute to contain a welcome
 message.</p>
-<div class="highlight"><pre style="color:#586e75;background-color:#eee8d5;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">...
-<span style="color:#dc322f;font-weight:bold">from</span> <span style="color:#268bd2">stylo</span> <span style="color:#dc322f;font-weight:bold">import</span> <span style="color:#268bd2">__version__</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="o">...</span>
+<span class="kn">from</span> <span class="nn">stylo</span> <span class="kn">import</span> <span class="n">__version__</span>
 
-<span style="color:#268bd2">intro_text</span> = <span style="color:#2aa198">&#34;&#34;&#34;</span><span style="color:#2aa198">\
-</span><span style="color:#2aa198"></span><span style="color:#2aa198">Interactive Shell for Stylo v{}
-</span><span style="color:#2aa198">----------------------------------
-</span><span style="color:#2aa198">
-</span><span style="color:#2aa198">Type `q` or `Ctrl-D` to quit.
-</span><span style="color:#2aa198">Type `help` or `?` for an overview `help &lt;command&gt;` for more details.
-</span><span style="color:#2aa198">&#34;&#34;&#34;</span>
+<span class="n">intro_text</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;</span><span class="se">\</span>
+<span class="s2">Interactive Shell for Stylo v</span><span class="si">{}</span><span class="s2"></span>
+<span class="s2">----------------------------------</span>
 
-<span style="color:#859900">class</span> <span style="color:#cb4b16">StyloPrompt</span>(<span style="color:#268bd2">cmd</span>.<span style="color:#268bd2">Cmd</span>):
-    <span style="color:#268bd2">intro</span> = <span style="color:#268bd2">intro_text</span>.<span style="color:#268bd2">format</span>(<span style="color:#268bd2">__version__</span>)
-    ...</code></pre></div>
+<span class="s2">Type `q` or `Ctrl-D` to quit.</span>
+<span class="s2">Type `help` or `?` for an overview `help &lt;command&gt;` for more details.</span>
+<span class="s2">&quot;&quot;&quot;</span>
+
+<span class="k">class</span> <span class="nc">StyloPrompt</span><span class="p">(</span><span class="n">cmd</span><span class="o">.</span><span class="n">Cmd</span><span class="p">):</span>
+   <span class="n">intro</span> <span class="o">=</span> <span class="n">intro_text</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">__version__</span><span class="p">)</span>
+   <span class="o">...</span>
+</pre></div>
+</div>
 <p>Now when the user starts the program they should have enough information to
 continue from there.</p>
-<pre><code class="language-nil" data-lang="nil">Interactive Shell for Stylo v0.9.1
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>Interactive Shell for Stylo v0.9.1
 ----------------------------------
 
 Type `q` or `Ctrl-D` to quit.
 Type `help` or `?` for an overview `help &lt;command&gt;` for more details.
 
--&gt;</code></pre>
-<p>There are also <code>doc_header</code>, <code>misc_header</code> and <code>undoc_header</code> that you can set
+-&gt;
+</pre></div>
+</div>
+<p>There are also <code class="docutils literal notranslate"><span class="pre">doc_header</span></code>, <code class="docutils literal notranslate"><span class="pre">misc_header</span></code> and <code class="docutils literal notranslate"><span class="pre">undoc_header</span></code> that you can set
 to include even more information at different points in your program. You can
-refer to the <a href="https://docs.python.org/3/library/cmd.html">documentation</a> for more details.</p>
-<h2 id="wrapping-up">Wrapping Up</h2>
-<p>I can&rsquo;t believe I only just found out about this module. I hope you found this
+refer to the <a class="reference external" href="https://docs.python.org/3/library/cmd.html">docs</a> for more details.</p>
+</div>
+</div>
+<div class="section" id="wrapping-up">
+<h2>Wrapping Up<a class="headerlink" href="#wrapping-up" title="Permalink to this headline">¶</a></h2>
+<p>I can’t believe I only just found out about this module. I hope you found this
 as useful as I did and I strongly encourage you to take a look at the
-<a href="https://docs.python.org/3/library/cmd.html">documentation</a> as there are features there that I didn&rsquo;t get around to
+<a class="reference external" href="https://docs.python.org/3/library/cmd.html">docs</a> as there are features there that I didn’t get around to
 mentioning - such as completion!</p>
 <p>For those interested the final version of this program (with a few minor
-tweaks) is available as a <a href="https://gist.github.com/alcarney/2f58820dd7a7c999197a450cf2069954">Gist</a> on Github. I think what I like most
+tweaks) is available as a <a class="reference external" href="https://gist.github.com/alcarney/2f58820dd7a7c999197a450cf2069954">Gist</a> on Github. I think what I like most
 about this module is that it requires very little code before you start seeing
 real results - Our entire application is only 155 lines of code!</p>
-        </div>
-        <div class="flex items-center justify-end mt-4 space-x-4">
-    <a class="px-2 text-sm text-gray-600 bg-green-200 border border-green-600 rounded" href="https://www.alcarney.me/tags/stylo/">
-        #stylo
-    </a><a class="px-2 text-sm text-gray-600 bg-green-200 border border-green-600 rounded" href="https://www.alcarney.me/tags/python/">
-        #python
-    </a><a class="px-2 text-sm text-gray-600 bg-green-200 border border-green-600 rounded" href="https://www.alcarney.me/tags/til/">
-        #til
-    </a><a class="px-2 text-sm text-gray-600 bg-green-200 border border-green-600 rounded" href="https://www.alcarney.me/tags/cli/">
-        #cli
-    </a></div>
-        <div class="pt-4 mt-8 border-t">
-            <div id="disqus_thread"></div>
-<script type="application/javascript">
-    var disqus_config = function () {
-    
-    
-    
-    };
-    (function() {
-        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
-            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
-            return;
-        }
-        var d = document, s = d.createElement('script'); s.async = true;
-        s.src = '//' + "alcarney-me" + '.disqus.com/embed.js';
-        s.setAttribute('data-timestamp', +new Date());
-        (d.head || d.body).appendChild(s);
-    })();
-</script>
-<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
-<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
-        </div>
-    </article>
+</div>
 </div>
 
-    </main><footer class="items-baseline p-4 text-white bg-gray-700 w-full">
-    <div class="flex justify-between">
-        <div></div>
+</article>
 
-        <div class="flex justify-between space-x-4">
-            
-            <a target="_blank" rel="noreferrer noopener" href="https://github.com/alcarney">
-                <svg class="w-8 h-8 bg-transparent stroke-current" style="fill:none">
-    <use xlink:href="/svg/feather-sprite.svg#github" />
-</svg>
-            </a>
-            
-            <a target="_blank" rel="noreferrer noopener" href="https://twitter.com/alcarneyme">
-                <svg class="w-8 h-8 bg-transparent stroke-current" style="fill:none">
-    <use xlink:href="/svg/feather-sprite.svg#twitter" />
-</svg>
-            </a>
-            
-            <a target="_blank" rel="noreferrer noopener" href="https://instagram.com/alcarneyme">
-                <svg class="w-8 h-8 bg-transparent stroke-current" style="fill:none">
-    <use xlink:href="/svg/feather-sprite.svg#instagram" />
-</svg>
-            </a>
-            
-            <a target="_blank" rel="noreferrer noopener" href="https://www.youtube.com/channel/UC5GPflgRWhnCxA0BllfP5CA">
-                <svg class="w-8 h-8 bg-transparent stroke-current" style="fill:none">
-    <use xlink:href="/svg/feather-sprite.svg#youtube" />
-</svg>
-            </a>
-            
-        </div>
 
-        <div></div>
+
+
+                </div>
+            </div>
+
+            <footer class="p-2 mt-8 mb-2 text-sm text-gray-600 border-t">
+                <div class="flex flex-col justify-between max-w-3xl mx-auto lg:flex-row">
+                    <span>
+                        <a class="text-green-600" href="../../../_sources/blog/2019/til-python-cmd.rst.txt" rel="nofollow">
+                            Page Source
+                        </a>
+                    </span>
+                    <span>Built with <a class="text-green-600" href="https://www.sphinx-doc.org/en/master/">Sphinx</a> v4.2.0</span>
+                    <span>&#169; Copyright 2021, Alex Carney.</span>
+                </div>
+            </footer>
+        </main>
+        
     </div>
-</footer>
-
-    <script>
-      const codeBlocks = document.querySelectorAll(".highlight pre")
-      Array.from(codeBlocks).forEach(el => {
-          el.style.backgroundColor = "#fdf6e3"
-      })
-
-      function copyText(text) {
-          const textArea = document.createElement("textarea")
-          textArea.value = text
-
-          textArea.style.top = 0
-          textArea.style.left = 0
-          textArea.style.position = 'fixed'
-
-          document.body.append(textArea)
-          textArea.focus()
-          textArea.select()
-
-          document.execCommand('copy')
-          document.body.removeChild(textArea)
-      }
-    </script>
-
-    <script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
-    <script>mermaid.initialize({startOnLoad:true});</script>
+<script src="/_static/js/theme.js"></script>
 
 
-</body>
-
+  </body>
 </html>

@@ -1,452 +1,190 @@
+
 <!DOCTYPE html>
-<html lang="en">
 
-<head><meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Notes &#8212; Blog  documentation</title>
 
-<meta name="theme-color" content="#259669" />
-
-<meta name="generator" content="Hugo 0.79.1" />
-<meta name="author" content="Alex Carney" />
-
-<meta property="og:title" content="Notes" />
-<meta property="og:description" content="Software developer, amateur mathematician. I love to learn, try to animate and talk about it all to anyone who will listen" />
-<meta property="og:type" content="website" />
-<meta property="og:url" content="https://www.alcarney.me/notes/" />
-
-
-
-<meta name="twitter:creator" content="@alcarneyme" />
-<meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="Notes"/>
-<meta name="twitter:description" content="Software developer, amateur mathematician. I love to learn, try to animate and talk about it all to anyone who will listen"/>
-
-
-<title>Notes | Alex Carney</title>
-
-
-
-<link rel="stylesheet" href="https://www.alcarney.me/main.f0fcfa33b6ee0d4eb9f5f5d87692f86fb025cfdb3907f9545b6b316fa12a3587.css" /></head>
-
-<body class="bg-gray-100 flex flex-col justify-between min-h-screen items-center">
-    <div class="flex items-baseline justify-between w-full p-4 bg-white border-b">
-
-        <div>
-            <h1>Alex Carney</h1>
-        </div>
-
-        <div class="flex justify-center flex-grow">
-<input class="max-w-lg px-2 py-1 m-auto border-2 rounded-md  w-72 lg:w-full focus:border-green-600" id="note-search"
-  type="search" placeholder="Search... ">
-
-        </div>
-
-        <nav class="flex space-x-4 items-between">
-            <a href="/blog">Blog</a>
-            <a href="/code">Code</a>
-            <a href="/notes">Notes</a>
-        </nav>
-    </div>
-
-    <main class="max-w-4xl w-full flex-grow mb-8">
-<div class="mt-8">
-  <div id="note-results" class="grid grid-cols-1 gap-2 p-2 md:grid-cols-2">
     
-    <article id="custom-jupyter-kernels"
-      class="flex flex-col justify-between p-2 bg-white border shadow-sm hover:shadow-lg">
-      <a class="" href="https://www.alcarney.me/notes/custom-jupyter-kernels/">
-        <h2 class="text-xl text-green-600 flex gap-2 items-center">
-          <span class="flex-shrink-0">
-            <svg class="w-6 h-6 bg-transparent stroke-current" style="fill:none">
-    <use xlink:href="/svg/feather-sprite.svg#bookmark" />
-</svg>
-          </span>
-          <span title="Custom Jupyter Kernels"
-                class="whitespace-nowrap overflow-ellipsis overflow-hidden">
-            Custom Jupyter Kernels
-          </span>
-        </h2>
-        <div class="prose mt-4">
-          &#34;Publishing&#34; multiple Python environments to use within Jupyter
-        </div>
-      </a>
-
-      <div class="post-meta">
-        <div class="flex items-center justify-end mt-4 space-x-4">
-    <a class="px-2 text-sm text-gray-600 bg-green-200 border border-green-600 rounded" href="https://www.alcarney.me/tags/python/">
-        #python
-    </a><a class="px-2 text-sm text-gray-600 bg-green-200 border border-green-600 rounded" href="https://www.alcarney.me/tags/jupyter/">
-        #jupyter
-    </a></div>
-      </div>
-    </article>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
     
-    <article id="deserialising-abstract-classes-with-jackson"
-      class="flex flex-col justify-between p-2 bg-white border shadow-sm hover:shadow-lg">
-      <a class="" href="https://www.alcarney.me/notes/deserialising-abstract-classes/">
-        <h2 class="text-xl text-green-600 flex gap-2 items-center">
-          <span class="flex-shrink-0">
-            <svg class="w-6 h-6 bg-transparent stroke-current" style="fill:none">
-    <use xlink:href="/svg/feather-sprite.svg#bookmark" />
-</svg>
-          </span>
-          <span title="Deserialising Abstract Classes with Jackson"
-                class="whitespace-nowrap overflow-ellipsis overflow-hidden">
-            Deserialising Abstract Classes with Jackson
-          </span>
-        </h2>
-        <div class="prose mt-4">
-          Parsing JSON into different class instances based on the value of a given field.
-        </div>
-      </a>
-
-      <div class="post-meta">
-        <div class="flex items-center justify-end mt-4 space-x-4">
-    <a class="px-2 text-sm text-gray-600 bg-green-200 border border-green-600 rounded" href="https://www.alcarney.me/tags/java/">
-        #java
-    </a><a class="px-2 text-sm text-gray-600 bg-green-200 border border-green-600 rounded" href="https://www.alcarney.me/tags/json/">
-        #json
-    </a></div>
-      </div>
-    </article>
     
-    <article id="emacs-sub-processes"
-      class="flex flex-col justify-between p-2 bg-white border shadow-sm hover:shadow-lg">
-      <a class="" href="https://www.alcarney.me/notes/emacs-subprocesses/">
-        <h2 class="text-xl text-green-600 flex gap-2 items-center">
-          <span class="flex-shrink-0">
-            <svg class="w-6 h-6 bg-transparent stroke-current" style="fill:none">
-    <use xlink:href="/svg/feather-sprite.svg#bookmark" />
-</svg>
-          </span>
-          <span title="Emacs Sub Processes"
-                class="whitespace-nowrap overflow-ellipsis overflow-hidden">
-            Emacs Sub Processes
-          </span>
-        </h2>
-        <div class="prose mt-4">
-          Running sub processes from within Emacs
-        </div>
-      </a>
-
-      <div class="post-meta">
-        <div class="flex items-center justify-end mt-4 space-x-4">
-    <a class="px-2 text-sm text-gray-600 bg-green-200 border border-green-600 rounded" href="https://www.alcarney.me/tags/emacs/">
-        #emacs
-    </a></div>
-      </div>
-    </article>
     
-    <article id="enabling-touchpad-gestures-on-linux"
-      class="flex flex-col justify-between p-2 bg-white border shadow-sm hover:shadow-lg">
-      <a class="" href="https://www.alcarney.me/notes/touchpad-gestures-linux/">
-        <h2 class="text-xl text-green-600 flex gap-2 items-center">
-          <span class="flex-shrink-0">
-            <svg class="w-6 h-6 bg-transparent stroke-current" style="fill:none">
-    <use xlink:href="/svg/feather-sprite.svg#bookmark" />
-</svg>
-          </span>
-          <span title="Enabling Touchpad Gestures on Linux"
-                class="whitespace-nowrap overflow-ellipsis overflow-hidden">
-            Enabling Touchpad Gestures on Linux
-          </span>
-        </h2>
-        <div class="prose mt-4">
-          Enabling multi-finger touchpad gestures on linux.
-        </div>
-      </a>
-
-      <div class="post-meta">
-        <div class="flex items-center justify-end mt-4 space-x-4">
-    <a class="px-2 text-sm text-gray-600 bg-green-200 border border-green-600 rounded" href="https://www.alcarney.me/tags/linux/">
-        #linux
-    </a></div>
-      </div>
-    </article>
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
     
-    <article id="installing-npm-packages-globally-without-root"
-      class="flex flex-col justify-between p-2 bg-white border shadow-sm hover:shadow-lg">
-      <a class="" href="https://www.alcarney.me/notes/npm-global-user-install/">
-        <h2 class="text-xl text-green-600 flex gap-2 items-center">
-          <span class="flex-shrink-0">
-            <svg class="w-6 h-6 bg-transparent stroke-current" style="fill:none">
-    <use xlink:href="/svg/feather-sprite.svg#bookmark" />
-</svg>
-          </span>
-          <span title="Installing npm packages globally without root"
-                class="whitespace-nowrap overflow-ellipsis overflow-hidden">
-            Installing npm packages globally without root
-          </span>
-        </h2>
-        <div class="prose mt-4">
-          A few tweaks to configure npm to use the user&#39;s home for package installs
-        </div>
-      </a>
-
-      <div class="post-meta">
-        <div class="flex items-center justify-end mt-4 space-x-4">
-    <a class="px-2 text-sm text-gray-600 bg-green-200 border border-green-600 rounded" href="https://www.alcarney.me/tags/npm/">
-        #npm
-    </a><a class="px-2 text-sm text-gray-600 bg-green-200 border border-green-600 rounded" href="https://www.alcarney.me/tags/js/">
-        #js
-    </a></div>
-      </div>
-    </article>
     
-    <article id="kubernetes-focused-prometheus-queries"
-      class="flex flex-col justify-between p-2 bg-white border shadow-sm hover:shadow-lg">
-      <a class="" href="https://www.alcarney.me/notes/prometheus/">
-        <h2 class="text-xl text-green-600 flex gap-2 items-center">
-          <span class="flex-shrink-0">
-            <svg class="w-6 h-6 bg-transparent stroke-current" style="fill:none">
-    <use xlink:href="/svg/feather-sprite.svg#bookmark" />
-</svg>
-          </span>
-          <span title="Kubernetes Focused Prometheus Queries"
-                class="whitespace-nowrap overflow-ellipsis overflow-hidden">
-            Kubernetes Focused Prometheus Queries
-          </span>
-        </h2>
-        <div class="prose mt-4">
-          Examples and tips for writing queries for kubernetes clusters.
-        </div>
-      </a>
-
-      <div class="post-meta">
-        <div class="flex items-center justify-end mt-4 space-x-4">
-    <a class="px-2 text-sm text-gray-600 bg-green-200 border border-green-600 rounded" href="https://www.alcarney.me/tags/monitoring/">
-        #monitoring
-    </a><a class="px-2 text-sm text-gray-600 bg-green-200 border border-green-600 rounded" href="https://www.alcarney.me/tags/devops/">
-        #devops
-    </a><a class="px-2 text-sm text-gray-600 bg-green-200 border border-green-600 rounded" href="https://www.alcarney.me/tags/prometheus/">
-        #prometheus
-    </a><a class="px-2 text-sm text-gray-600 bg-green-200 border border-green-600 rounded" href="https://www.alcarney.me/tags/k8s/">
-        #k8s
-    </a></div>
-      </div>
-    </article>
+    <link rel="stylesheet" type="text/css" href="../_static/css/styles.css" />
     
-    <article id="notes-on-git"
-      class="flex flex-col justify-between p-2 bg-white border shadow-sm hover:shadow-lg">
-      <a class="" href="https://www.alcarney.me/notes/git-clone-submodules/">
-        <h2 class="text-xl text-green-600 flex gap-2 items-center">
-          <span class="flex-shrink-0">
-            <svg class="w-6 h-6 bg-transparent stroke-current" style="fill:none">
-    <use xlink:href="/svg/feather-sprite.svg#bookmark" />
-</svg>
-          </span>
-          <span title="Notes on Git"
-                class="whitespace-nowrap overflow-ellipsis overflow-hidden">
-            Notes on Git
-          </span>
-        </h2>
-        <div class="prose mt-4">
-          Collections of tips and tricks I&#39;ve gathered on working with Git
-        </div>
-      </a>
 
-      <div class="post-meta">
-        <div class="flex items-center justify-end mt-4 space-x-4">
-    <a class="px-2 text-sm text-gray-600 bg-green-200 border border-green-600 rounded" href="https://www.alcarney.me/tags/git/">
-        #git
-    </a></div>
-      </div>
-    </article>
-    
-    <article id="python-2.x-gotchas"
-      class="flex flex-col justify-between p-2 bg-white border shadow-sm hover:shadow-lg">
-      <a class="" href="https://www.alcarney.me/notes/python-2-gotchas/">
-        <h2 class="text-xl text-green-600 flex gap-2 items-center">
-          <span class="flex-shrink-0">
-            <svg class="w-6 h-6 bg-transparent stroke-current" style="fill:none">
-    <use xlink:href="/svg/feather-sprite.svg#bookmark" />
-</svg>
-          </span>
-          <span title="Python 2.x Gotchas"
-                class="whitespace-nowrap overflow-ellipsis overflow-hidden">
-            Python 2.x Gotchas
-          </span>
-        </h2>
-        <div class="prose mt-4">
-          Differences that trip me up as I&#39;m used to Python 3.x
-        </div>
-      </a>
-
-      <div class="post-meta">
-        <div class="flex items-center justify-end mt-4 space-x-4">
-    <a class="px-2 text-sm text-gray-600 bg-green-200 border border-green-600 rounded" href="https://www.alcarney.me/tags/python/">
-        #python
-    </a></div>
-      </div>
-    </article>
-    
-    <article id="python-3.x-gotchas"
-      class="flex flex-col justify-between p-2 bg-white border shadow-sm hover:shadow-lg">
-      <a class="" href="https://www.alcarney.me/notes/python-3-gotchas/">
-        <h2 class="text-xl text-green-600 flex gap-2 items-center">
-          <span class="flex-shrink-0">
-            <svg class="w-6 h-6 bg-transparent stroke-current" style="fill:none">
-    <use xlink:href="/svg/feather-sprite.svg#bookmark" />
-</svg>
-          </span>
-          <span title="Python 3.x Gotchas"
-                class="whitespace-nowrap overflow-ellipsis overflow-hidden">
-            Python 3.x Gotchas
-          </span>
-        </h2>
-        <div class="prose mt-4">
-          As the legacy of Python 3.x grows I forget how new some features are
-        </div>
-      </a>
-
-      <div class="post-meta">
-        <div class="flex items-center justify-end mt-4 space-x-4">
-    <a class="px-2 text-sm text-gray-600 bg-green-200 border border-green-600 rounded" href="https://www.alcarney.me/tags/python/">
-        #python
-    </a></div>
-      </div>
-    </article>
-    
-    <article id="writing-makefiles"
-      class="flex flex-col justify-between p-2 bg-white border shadow-sm hover:shadow-lg">
-      <a class="" href="https://www.alcarney.me/notes/writing-makefiles/">
-        <h2 class="text-xl text-green-600 flex gap-2 items-center">
-          <span class="flex-shrink-0">
-            <svg class="w-6 h-6 bg-transparent stroke-current" style="fill:none">
-    <use xlink:href="/svg/feather-sprite.svg#bookmark" />
-</svg>
-          </span>
-          <span title="Writing Makefiles"
-                class="whitespace-nowrap overflow-ellipsis overflow-hidden">
-            Writing Makefiles
-          </span>
-        </h2>
-        <div class="prose mt-4">
-          A collection of notes on writing Makefiles
-        </div>
-      </a>
-
-      <div class="post-meta">
-        <div class="flex items-center justify-end mt-4 space-x-4">
-    <a class="px-2 text-sm text-gray-600 bg-green-200 border border-green-600 rounded" href="https://www.alcarney.me/tags/c/">
-        #c
-    </a><a class="px-2 text-sm text-gray-600 bg-green-200 border border-green-600 rounded" href="https://www.alcarney.me/tags/make/">
-        #make
-    </a></div>
-      </div>
-    </article>
-    
-  </div>
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/togglebutton.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <link rel="shortcut icon" href="../_static/favicon.ico"/>
+    <link rel="index" title="Index" href="../genindex/" />
+    <link rel="search" title="Search" href="../search/" />
+    <link rel="next" title="Custom Jupyter Kernels" href="custom-jupyter-kernels/" />
+    <link rel="prev" title="Simple AST" href="../code/simple-ast/" /> 
+  </head><body class="flex flex-col justify-between min-h-screen overflow-x-hidden bg-gray-100 ">
+    <div class="flex flex-grow">
+        <input id="menu-state" type="checkbox" class="hidden" />
+        <aside class="flex justify-between flex-shrink-0 transition-all duration-500 bg-white border-r -ml-80 lg:ml-0">
+            <div class="flex flex-col justify-between h-full border-r w-80">
+                <div class="sticky top-0 flex flex-col h-screen"> 
+                    
+                    <div id="profile-card" class="full-profile">
+    <img class="" src="https://github.com/alcarney.png"/>
+    <h2 class=""><a href="/">Alex Carney</a></h2>
 </div>
-<script src="https://unpkg.com/lunr/lunr.js"></script>
-<script>
-  let index
+                    
+                    <div id="searchbox" style="display: none" role="search" class="px-4 py-4">
+    <form class="flex justify-between px-2 py-1 bg-gray-100 border-2 rounded search focus-within:border-green-600" action="../search/" method="get">
+        <label class="mr-2 text-gray-500" for="sbox">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="feather feather-search">
+                <circle cx="11" cy="11" r="6" />
+                <path d="m21 21-4.35-4.35" />
+            </svg>
+        </label>
+        <input id="sbox" class="flex-grow bg-gray-100 focus:outline-none" type="search" name="q" placeholder="Search..." aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" />
+    </form>
+</div>
+<script>$('#searchbox').show(0);</script>
+                    
+                    
+    
+<nav class="flex flex-col text-center">
+    <a class="text-green-600 py-1 border-t text-lg hover:bg-gray-50" href="/blog">Blog</a>
+    <a class="text-green-600 py-1 border-t text-lg hover:bg-gray-50" href="/code">Code</a>
+    <a class="text-green-600 py-1 border-t text-lg hover:bg-gray-50" href="/notes">Notes</a>
+</nav>
+                    
+                    <div class="flex-shrink overflow-auto">
+                    </div>
+                    
+                    <footer class="w-full p-4 mt-auto text-white bg-gray-700">
+                        <div class="flex justify-between">
+    <div></div>
 
-  fetch("/index.json")
-    .then(res => res.json())
-    .then(notes => {
+    <div class="flex justify-between space-x-4">
+        <a target="_blank" rel="noreferrer noopener" href="https://github.com/alcarney">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="w-8 h-8">
+                <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path>
+            </svg>
+        </a>
 
-      index = lunr(function () {
-        this.ref('id')
-        this.field("title")
-        this.field('content')
-        this.field('tags')
+        <a target="_blank" rel="noreferrer noopener" href="https://twitter.com/alcarneyme">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="w-8 h-8">
+                <path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"></path>
+            </svg>
+        </a>
 
-        notes.forEach(function (doc) {
-          this.add(doc)
-        }, this)
-      })
-    })
+        <a target="_blank" rel="noreferrer noopener" href="https://instagram.com/alcarneyme">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="w-8 h-8">
+                <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
+                <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
+                <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
+            </svg>
+        </a>
 
-  const resultsList = document.getElementById("note-results")
-  const searchBox = document.getElementById("note-search")
-  searchBox.addEventListener('input', event => {
-    let search = `*${event.target.value}*`
-    let display = search === "" ? "flex" : "none"
-
-    for (let i = 0; i < resultsList.children.length; i++) {
-      resultsList.children[i].style.display = display;
-    }
-
-    if (search === "") {
-      return
-    }
-
-    let results = index.search(search)
-    console.log(results)
-    results.forEach(res => {
-      console.log(res.ref)
-      let note = document.getElementById(res.ref)
-      note.style.display = "flex"
-    })
-
-  })
-</script>
-
-    </main><footer class="items-baseline p-4 text-white bg-gray-700 w-full">
-    <div class="flex justify-between">
-        <div></div>
-
-        <div class="flex justify-between space-x-4">
-            
-            <a target="_blank" rel="noreferrer noopener" href="https://github.com/alcarney">
-                <svg class="w-8 h-8 bg-transparent stroke-current" style="fill:none">
-    <use xlink:href="/svg/feather-sprite.svg#github" />
-</svg>
-            </a>
-            
-            <a target="_blank" rel="noreferrer noopener" href="https://twitter.com/alcarneyme">
-                <svg class="w-8 h-8 bg-transparent stroke-current" style="fill:none">
-    <use xlink:href="/svg/feather-sprite.svg#twitter" />
-</svg>
-            </a>
-            
-            <a target="_blank" rel="noreferrer noopener" href="https://instagram.com/alcarneyme">
-                <svg class="w-8 h-8 bg-transparent stroke-current" style="fill:none">
-    <use xlink:href="/svg/feather-sprite.svg#instagram" />
-</svg>
-            </a>
-            
-            <a target="_blank" rel="noreferrer noopener" href="https://www.youtube.com/channel/UC5GPflgRWhnCxA0BllfP5CA">
-                <svg class="w-8 h-8 bg-transparent stroke-current" style="fill:none">
-    <use xlink:href="/svg/feather-sprite.svg#youtube" />
-</svg>
-            </a>
-            
-        </div>
-
-        <div></div>
+        <a target="_blank" rel="noreferrer noopener" href="https://www.youtube.com/channel/UC5GPflgRWhnCxA0BllfP5CA">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="w-8 h-8">
+                <path d="M22.54 6.42a2.78 2.78 0 0 0-1.94-2C18.88 4 12 4 12 4s-6.88 0-8.6.46a2.78 2.78 0 0 0-1.94 2A29 29 0 0 0 1 11.75a29 29 0 0 0 .46 5.33A2.78 2.78 0 0 0 3.4 19c1.72.46 8.6.46 8.6.46s6.88 0 8.6-.46a2.78 2.78 0 0 0 1.94-2 29 29 0 0 0 .46-5.25 29 29 0 0 0-.46-5.33z"></path>
+                <polygon points="9.75 15.02 15.5 11.75 9.75 8.48 9.75 15.02"></polygon>
+            </svg>
+        </a>
     </div>
-</footer>
 
-    <script>
-      const codeBlocks = document.querySelectorAll(".highlight pre")
-      Array.from(codeBlocks).forEach(el => {
-          el.style.backgroundColor = "#fdf6e3"
-      })
+    <div></div>
+</div>
+                    </footer>
+                </div>
+            </div>     
+        </aside>
+        
+        <main class="w-full mx-auto lg:pr-0">
+            <div class="sticky top-0 z-50 mt-0 transition-all duration-300 bg-white border-b shadow-md lg:shadow-none lg:relative lg:-mt-16">
+                <label class="flex h-16 text-gray-600 transition" for="menu-state">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="w-8 h-8 my-auto" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="feather feather-arrow-right"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                </label>
+            </div> 
 
-      function copyText(text) {
-          const textArea = document.createElement("textarea")
-          textArea.value = text
+            <div id="content" class="mx-2 my-8">
+                <div class="max-w-3xl mx-auto">
+                    
 
-          textArea.style.top = 0
-          textArea.style.left = 0
-          textArea.style.position = 'fixed'
+<article class="p-4 prose-sm prose bg-white border prose-md prose-green max-w-none">
+    <div class="section" id="notes">
+<h1>Notes<a class="headerlink" href="#notes" title="Permalink to this headline">¶</a></h1>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="custom-jupyter-kernels/">Custom Jupyter Kernels</a></li>
+<li class="toctree-l1"><a class="reference internal" href="custom_directives/">Custom Directives</a></li>
+<li class="toctree-l1"><a class="reference internal" href="deserialising-abstract-classes/">Deserialising Abstract Classes with Jackson</a></li>
+<li class="toctree-l1"><a class="reference internal" href="emacs-subprocesses/">Emacs Sub Processes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="git/">Notes on Git</a></li>
+<li class="toctree-l1"><a class="reference internal" href="jinja_templates/">Jinja Templates</a></li>
+<li class="toctree-l1"><a class="reference internal" href="npm-global-user-install/">Installing npm packages globally without root</a></li>
+<li class="toctree-l1"><a class="reference internal" href="prometheus/">Kubernetes Focused Prometheus Queries</a></li>
+<li class="toctree-l1"><a class="reference internal" href="python-2-gotchas/">Python 2.x Gotchas</a></li>
+<li class="toctree-l1"><a class="reference internal" href="python-3-gotchas/">Python 3.x Gotchas</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tar-command/">Extracting archives</a></li>
+<li class="toctree-l1"><a class="reference internal" href="writing-makefiles/">Writing Makefiles</a></li>
+</ul>
+</div>
+</div>
 
-          document.body.append(textArea)
-          textArea.focus()
-          textArea.select()
-
-          document.execCommand('copy')
-          document.body.removeChild(textArea)
-      }
-    </script>
-
-    <script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
-    <script>mermaid.initialize({startOnLoad:true});</script>
+</article>
 
 
-</body>
+<nav class="mt-8">
+    <ul class="flex flex-row justify-between">
+        
+        
+        <li  class="w-1/2 p-4 mr-2 bg-white border hover:shadow-lg" >
+            
+            <a class="flex items-center justify-between h-full" href="../code/simple-ast/">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="flex-shrink-0 w-8 h-8" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg>
+                <p class="ml-4 text-green-600">Simple AST</p>
+            </a>
+            
+        </li>
+        
+        <li class="w-1/2 p-4 ml-2 bg-white border hover:shadow-lg">
+            <a class="flex items-center justify-between h-full" href="custom-jupyter-kernels/">
+                <p class="text-green-600">Custom Jupyter Kernels</p>
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="flex-shrink-0 w-8 h-8 ml-4" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg>
+            </a>
+        </li>
+        
+    </ul>
 
+</nav>
+
+
+
+                </div>
+            </div>
+
+            <footer class="p-2 mt-8 mb-2 text-sm text-gray-600 border-t">
+                <div class="flex flex-col justify-between max-w-3xl mx-auto lg:flex-row">
+                    <span>
+                        <a class="text-green-600" href="../_sources/notes.rst.txt" rel="nofollow">
+                            Page Source
+                        </a>
+                    </span>
+                    <span>Built with <a class="text-green-600" href="https://www.sphinx-doc.org/en/master/">Sphinx</a> v4.2.0</span>
+                    <span>&#169; Copyright 2021, Alex Carney.</span>
+                </div>
+            </footer>
+        </main>
+        
+    </div>
+<script src="/_static/js/theme.js"></script>
+
+
+  </body>
 </html>
