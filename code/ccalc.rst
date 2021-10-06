@@ -1,0 +1,6 @@
+=====
+CCalc
+=====
+
+.. code-project:: ccalc
+

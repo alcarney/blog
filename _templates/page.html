@@ -1,0 +1,34 @@
+{%- extends "layout.html" %}
+{% block body %}
+
+<article class="p-4 prose-sm prose bg-white border prose-md prose-green max-w-none">
+    {{ body }}
+</article>
+
+{% if next or prev %}
+<nav class="mt-8">
+    <ul class="flex flex-row justify-between">
+        
+        {# Even if there's no "Previous" link, we want the li node here so that "Next" is forced to the right #}
+        <li {% if prev %} class="w-1/2 p-4 mr-2 bg-white border hover:shadow-lg" {% endif %}>
+            {% if prev %}
+            <a class="flex items-center justify-between h-full" href="{{ prev.link | e }}">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="flex-shrink-0 w-8 h-8" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg>
+                <p class="ml-4 text-green-600">{{prev.title}}</p>
+            </a>
+            {% endif %}
+        </li>
+        {% if next %}
+        <li class="w-1/2 p-4 ml-2 bg-white border hover:shadow-lg">
+            <a class="flex items-center justify-between h-full" href="{{next.link | e }}">
+                <p class="text-green-600">{{next.title}}</p>
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="flex-shrink-0 w-8 h-8 ml-4" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg>
+            </a>
+        </li>
+        {% endif %}
+    </ul>
+
+</nav>
+{% endif %}
+
+{% endblock %}

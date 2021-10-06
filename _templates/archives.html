@@ -1,0 +1,9 @@
+<ul class="flex flex-col py-4 space-y-2 text-center border-t">
+  {% for coll in ablog.archive %} {% if coll %}
+  <li class="text-md">
+    <a href="{{ pathto(coll.docname) }}">
+        <span class="text-green-600">{{ coll }}</span> ({{ coll|length }})
+    </a>
+  </li>
+  {% endif %} {% endfor %}
+</ul>

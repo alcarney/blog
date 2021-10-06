@@ -17,41 +17,42 @@ jobs:
       with:
         persist-credentials: false
 
-    - uses: 'actions/setup-node@v1'
+    - name: Setup Python
+      uses: actions/setup-python@v1
+      with:
+        python-version: 3.9
+
+    - name: Setup Node
+      uses: 'actions/setup-node@v1'
       with:
         node-version: 12.x
-
-    - name: Setup Hugo
-      uses: peaceiris/actions-hugo@v2
-      with:
-        hugo-version: '0.79.1'
-        extended: true
 
     - run: |
         set -e
 
-        cd themes/local
-        npm i
-        npm run build
+        python -m pip install --upgrade pip
+        python -m pip install -r requirements.txt
 
-      name: Generate CSS
+        npm install
+
+      name: Setup Dependencies
 
     - run: |
-        set - e
-        hugo
-      name: Build Blog
+        set -e
+        make html
+      name: Build
 
     - name: 'Upload Aritfact'
       uses: 'actions/upload-artifact@v1.0.0'
       with:
         name: 'blog'
-        path: 'public'
+        path: '_build/html'
 
     - name: 'Publish Docs'
       uses: JamesIves/github-pages-deploy-action@releases/v3
       with:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         BRANCH: gh-pages
-        FOLDER: public
+        FOLDER: _build/html
         CLEAN: true
       if: success() && startsWith(github.ref, 'refs/heads/release')

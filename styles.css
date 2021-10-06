@@ -1,0 +1,93 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+
+/* --  Menu open/close controls -- */
+#menu-state:checked + aside {
+    @apply ml-0
+}
+
+#menu-state ~ main label[for='menu-state'] svg {
+    @apply transition
+}
+
+#menu-state:checked ~ main label[for='menu-state'] svg {
+    @apply transform rotate-180
+}
+
+/* -- Section title links --*/
+
+a.headerlink {
+    @apply float-right
+}
+
+div.section a.headerlink {
+    @apply text-white
+}
+
+h1 > a.headerlink::before,
+h2 > a.headerlink::before,
+h3 > a.headerlink::before,
+h4 > a.headerlink::before,
+h5 > a.headerlink::before,
+h6 > a.headerlink::before {
+    @apply hidden
+}
+
+h1:hover > a.headerlink::before,
+h2:hover > a.headerlink::before,
+h3:hover > a.headerlink::before,
+h4:hover > a.headerlink::before,
+h5:hover > a.headerlink::before,
+h6:hover > a.headerlink::before {
+    @apply inline-block
+}
+
+div.section a.headerlink::before {
+    content: "";
+    background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="24px" height="24px" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1" /></svg>');
+    width: 24px;
+    height: 24px;
+}
+
+/* -- Local table of contents -- */
+
+#localtoc a[href='#'] {
+    @apply font-semibold    
+}
+
+#localtoc a[href='#'] + ul {
+    @apply ml-0
+}
+
+#localtoc ul {
+    @apply list-none
+}
+
+/* -- Profile image -- */
+
+.full-profile {
+    @apply flex justify-between p-2 lg:flex-col border-b lg:border-b-0
+}
+
+.full-profile img {
+    @apply transition-all duration-300 w-12 border-2 border-green-700 rounded-full lg:m-auto lg:border-4 lg:w-40
+}
+
+.full-profile h2 {
+    @apply transition-all duration-300 mt-2 text-xl text-green-600 lg:text-center lg:text-2xl
+}
+
+.small-profile {
+    @apply flex justify-between p-2 border-b
+}
+
+.small-profile img {
+    @apply transition-all duration-300 w-12 border-2 border-green-700 rounded-full
+}
+
+.small-profile h2 {
+    @apply transition-all duration-300 mt-2 text-xl text-green-600
+}
