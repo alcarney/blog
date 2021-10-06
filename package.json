@@ -1,0 +1,20 @@
+{
+  "name": "theme",
+  "version": "0.0.0",
+  "description": "Theme for my blog",
+  "main": "index.js",
+  "private": true,
+  "scripts": {
+    "dev": "postcss styles.css -o _static/css/styles.css",
+    "build": "postcss --env production styles.css -o _static/css/styles.css"
+  },
+  "author": "",
+  "license": "MIT",
+  "devDependencies": {
+    "@tailwindcss/typography": "^0.4.1",
+    "autoprefixer": "^10.3.1",
+    "postcss": "^8.3.6",
+    "postcss-cli": "^8.3.1",
+    "tailwindcss": "^2.2.7"
+  }
+}

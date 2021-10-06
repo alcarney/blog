@@ -1,3 +1,7 @@
-resources/_gen/
-public/
+.env/
+__pycache__
+*.pyc
+_build
+_website
 node_modules
+_static/css/styles.css
