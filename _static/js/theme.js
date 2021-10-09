@@ -1,8 +1,6 @@
 function growShrinkProfile(profileElement, referenceElement) {
     const bbox = referenceElement.getBoundingClientRect()
     const className = bbox.top < 0 ? "small-profile" : "full-profile"
-    console.log(referenceElement)
-    console.log(bbox.top)
     profileElement.className = className
 }
 
