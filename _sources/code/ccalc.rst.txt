@@ -1,6 +1,6 @@
-=====
-CCalc
-=====
+===============
+CCalc Extension
+===============
 
 .. code-project:: ccalc
 

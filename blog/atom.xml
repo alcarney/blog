@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
   <id>www.alcarney.me</id>
   <title>Blog</title>
-  <updated>2021-10-06T19:33:38.504821+00:00</updated>
+  <updated>2021-10-09T19:13:47.126488+00:00</updated>
   <link href="www.alcarney.me"/>
   <link href="www.alcarney.me/blog/atom.xml" rel="self"/>
   <generator uri="https://ablog.readthedocs.org/" version="0.10.19">ABlog</generator>
@@ -305,24 +305,5 @@ be the frontend and embed my toy language into it via a CPython Extension</summa
     <category term="python" label="python"/>
     <category term="prog-langs" label="prog-langs"/>
     <published>2021-01-13T00:00:00+00:00</published>
-  </entry>
-  <entry>
-    <id>www.alcarney.me/blog/2021/sphinx-template-discovery/</id>
-    <title>Sphinx Template Discovery</title>
-    <updated>2021-09-28T00:00:00+00:00</updated>
-    <author>
-      <name>me</name>
-    </author>
-    <content type="html">&lt;p&gt;When I was redesigning this site, there were times when it wasn’t obvious to me which
-templates were being used to render a given page. Thankfully it’s not too hard to get
-Sphinx itself to tell you.&lt;/p&gt;
-</content>
-    <link href="www.alcarney.me/blog/2021/sphinx-template-discovery/" rel="alternate"/>
-    <summary>When I was redesigning this site, there were times when it wasn’t obvious to me which
-templates were being used to render a given page. Thankfully it’s not too hard to get
-Sphinx itself to tell you.</summary>
-    <category term="sphinx" label="sphinx"/>
-    <category term="python" label="python"/>
-    <published>2021-09-28T00:00:00+00:00</published>
   </entry>
 </feed>
