@@ -1,11 +1,8 @@
-.. post:: 2021-09-28
-   :tags: sphinx, python
-   :author: me
-   :language: en
-   :excerpt: 1
+Sphinx Theming
+==============
 
-Sphinx Template Discovery
-=========================
+Template Discovery
+------------------
 
 When I was redesigning this site, there were times when it wasn't obvious to me which
 templates were being used to render a given page. Thankfully it's not too hard to get
@@ -33,7 +30,7 @@ I needed.
 
 
 Then to determine which template was being used for a given page, I only had to find it 
-in the build output.
+in the build output. 
 
 .. code-block:: none 
 
