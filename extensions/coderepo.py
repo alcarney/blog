@@ -12,6 +12,9 @@ from pygments.lexers import guess_lexer_for_filename
 from sphinx.application import Sphinx
 from sphinx.environment import BuildEnvironment
 from sphinx.util.docutils import SphinxDirective
+from sphinx.util.logging import getLogger
+
+logger = getLogger("coderepo")
 
 
 def load_project(
@@ -40,6 +43,16 @@ def load_project(
     """
 
     for item in parent.glob("*"):
+
+        logger.debug("[coderepo]: %s - %s", item, item.suffix)
+        if item.suffix in {".png"}:
+            # Skip images for now.
+            continue
+
+        if item.name in {"node_modules", "dist"}:
+            logger.debug("[coderepo]: Skipping %s", item)
+            continue
+
         key = str(item).replace(prefix, "")
         items[key] = {
             "depth": depth,
