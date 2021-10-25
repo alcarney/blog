@@ -40,7 +40,7 @@
 <style>
     {% for path, info in project.items() %}
 
-    input[data-id='{{path}}']:checked + div {
+    input[data-id='{{path}}']:checked ~ div {
         max-height: 350px;
     }
 
