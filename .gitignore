@@ -3,5 +3,6 @@ __pycache__
 *.pyc
 _build
 _website
+dist
 node_modules
 _static/css/styles.css
