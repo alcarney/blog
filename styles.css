@@ -62,6 +62,10 @@ div.section a.headerlink::before {
 }
 
 /* -- Figures -- */
+img[style*="width"] {
+    @apply m-auto
+}
+
 .caption {
     @apply text-center text-gray-500 mt-0
 }
