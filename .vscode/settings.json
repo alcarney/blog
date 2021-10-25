@@ -4,6 +4,9 @@
     },
     "[rst]": {
         "editor.tabSize": 3,
+        "editor.rulers": [
+            88
+        ]
     },
     "files.exclude": {
         "**/.git": true,
