@@ -3642,6 +3642,33 @@ div.section a.headerlink::before {
   height: 24px;
 }
 
+/* -- Admonitions -- */
+
+.admonition {
+  border-width: 1px;
+  --tw-bg-opacity: 1;
+  background-color: rgba(236, 253, 245, var(--tw-bg-opacity));
+  padding-left: 1rem;
+  padding-right: 1rem
+}
+
+.admonition-title {
+  font-weight: 600
+}
+
+/* -- Figures -- */
+
+img[style*="width"] {
+  margin: auto
+}
+
+.caption {
+  margin-top: 0px;
+  text-align: center;
+  --tw-text-opacity: 1;
+  color: rgba(107, 114, 128, var(--tw-text-opacity))
+}
+
 /* -- Local table of contents -- */
 
 #localtoc a[href='#'] {

@@ -2,10 +2,10 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
   <id>www.alcarney.me</id>
   <title>Blog</title>
-  <updated>2021-10-09T19:13:47.126488+00:00</updated>
+  <updated>2021-10-25T23:01:22.397359+00:00</updated>
   <link href="www.alcarney.me"/>
   <link href="www.alcarney.me/blog/atom.xml" rel="self"/>
-  <generator uri="https://ablog.readthedocs.org/" version="0.10.19">ABlog</generator>
+  <generator uri="https://ablog.readthedocs.org/" version="0.10.20">ABlog</generator>
   <entry>
     <id>www.alcarney.me/blog/2018/first-article/</id>
     <title>I’ve Started a Blog… Again!</title>
@@ -305,5 +305,35 @@ be the frontend and embed my toy language into it via a CPython Extension</summa
     <category term="python" label="python"/>
     <category term="prog-langs" label="prog-langs"/>
     <published>2021-01-13T00:00:00+00:00</published>
+  </entry>
+  <entry>
+    <id>www.alcarney.me/blog/2021/bringing-esbonio-to-the-browser/</id>
+    <title>Bringing Esbonio to the Browser</title>
+    <updated>2021-10-25T00:00:00+00:00</updated>
+    <author>
+      <name>me</name>
+    </author>
+    <content type="html">&lt;p&gt;For the past year or so I’ve been working on a language server called &lt;a class="reference external" href="https://github.com/swyddfa/esbonio"&gt;Esbonio&lt;/a&gt;.
+It’s a language server designed to streamline the process of working with your
+&lt;a class="reference external" href="https://www.sphinx-doc.org/en/master/"&gt;Sphinx&lt;/a&gt; documentation projects. Currently its feature set is quite limited, but I
+think it does a good job of providing you with completion suggestions for all your
+roles, directives and cross-references.&lt;/p&gt;
+&lt;p&gt;Anyway with the recent releases of &lt;a class="reference external" href="https://github.com/github/dev"&gt;github.dev&lt;/a&gt; and &lt;a class="reference external" href="https://code.visualstudio.com/blogs/2021/10/20/vscode-dev"&gt;vscode.dev&lt;/a&gt; I really want to
+see if I can bring Esbonio into the browser version of VSCode. There’s only one
+problem… Esbonio is written in Python! 😬&lt;/p&gt;
+&lt;img alt="https://github.com/swyddfa/esbonio/raw/develop/resources/images/completion-demo.gif" src="https://github.com/swyddfa/esbonio/raw/develop/resources/images/completion-demo.gif" style="width: 80%;" /&gt;
+</content>
+    <link href="www.alcarney.me/blog/2021/bringing-esbonio-to-the-browser/" rel="alternate"/>
+    <summary>For the past year or so I’ve been working on a language server called Esbonio.
+It’s a language server designed to streamline the process of working with your
+Sphinx documentation projects. Currently its feature set is quite limited, but I
+think it does a good job of providing you with completion suggestions for all your
+roles, directives and cross-references.Anyway with the recent releases of github.dev and vscode.dev I really want to
+see if I can bring Esbonio into the browser version of VSCode. There’s only one
+problem… Esbonio is written in Python! 😬</summary>
+    <category term="lsp" label="lsp"/>
+    <category term="esbonio" label="esbonio"/>
+    <category term="vscode" label="vscode"/>
+    <published>2021-10-25T00:00:00+00:00</published>
   </entry>
 </feed>

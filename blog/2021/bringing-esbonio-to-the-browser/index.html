@@ -1,0 +1,531 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Bringing Esbonio to the Browser &#8212; Blog  documentation</title>
+
+    
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css" />
+    
+    
+    
+    <link rel="stylesheet" type="text/css" href="../../../_static/togglebutton.css" />
+    
+    
+    <link rel="stylesheet" type="text/css" href="../../../_static/css/styles.css" />
+    
+
+    <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
+    <script src="../../../_static/jquery.js"></script>
+    <script src="../../../_static/underscore.js"></script>
+    <script src="../../../_static/doctools.js"></script>
+    <script src="../../../_static/togglebutton.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="https://unpkg.com/mermaid/dist/mermaid.min.js"></script>
+    <script>mermaid.initialize({startOnLoad:true});</script>
+    <link rel="shortcut icon" href="../../../_static/favicon.ico"/>
+    <link rel="index" title="Index" href="../../../genindex/" />
+    <link rel="search" title="Search" href="../../../search/" /> 
+  </head><body class="flex flex-col justify-between min-h-screen overflow-x-hidden bg-gray-100 ">
+    <div class="flex flex-grow">
+        <input id="menu-state" type="checkbox" class="hidden" />
+        <aside class="flex justify-between flex-shrink-0 transition-all duration-500 bg-white border-r -ml-80 lg:ml-0">
+            <div class="flex flex-col justify-between h-full border-r w-80">
+                <div class="sticky top-0 flex flex-col h-screen"> 
+                    
+                    <div id="profile-card" class="full-profile">
+    <img class="" src="https://github.com/alcarney.png"/>
+    <h2 class=""><a href="/">Alex Carney</a></h2>
+</div>
+                    
+                    <div id="searchbox" style="display: none" role="search" class="px-4 py-4">
+    <form class="flex justify-between px-2 py-1 bg-gray-100 border-2 rounded search focus-within:border-green-600" action="../../../search/" method="get">
+        <label class="mr-2 text-gray-500" for="sbox">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="feather feather-search">
+                <circle cx="11" cy="11" r="6" />
+                <path d="m21 21-4.35-4.35" />
+            </svg>
+        </label>
+        <input id="sbox" class="flex-grow bg-gray-100 focus:outline-none" type="search" name="q" placeholder="Search..." aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" />
+    </form>
+</div>
+<script>$('#searchbox').show(0);</script>
+                    
+                    
+    
+<nav class="flex flex-col text-center">
+    <a class="text-green-600 py-1 border-t text-lg hover:bg-gray-50" href="/blog">Blog</a>
+    <a class="text-green-600 py-1 border-t text-lg hover:bg-gray-50" href="/code">Code</a>
+    <a class="text-green-600 py-1 border-t text-lg hover:bg-gray-50" href="/notes">Notes</a>
+</nav>
+                    
+                    <div class="flex-shrink overflow-auto">
+
+<div class="grid justify-between p-4 text-gray-500 border-t" style="grid-template-columns: 24px auto">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+</svg>
+    <span class="ml-2 text-right">Oct 25, 2021</span>
+    
+
+    <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z" />
+</svg>
+    <ul class="text-right">
+        
+        <li class="mb-1">
+            <a href="../../tag/lsp/" class="px-2 my-1 text-green-600 border border-green-600 rounded bg-green-50">
+                #lsp
+            </a>
+        </li>
+        
+        <li class="mb-1">
+            <a href="../../tag/esbonio/" class="px-2 my-1 text-green-600 border border-green-600 rounded bg-green-50">
+                #esbonio
+            </a>
+        </li>
+        
+        <li class="mb-1">
+            <a href="../../tag/vscode/" class="px-2 my-1 text-green-600 border border-green-600 rounded bg-green-50">
+                #vscode
+            </a>
+        </li>
+        
+    </ul>
+</div>
+<nav id="localtoc" class="p-4 border-t">
+    <ul>
+<li><a class="reference internal" href="#">Bringing Esbonio to the Browser</a><ul>
+<li><a class="reference internal" href="#the-approach">The Approach</a></li>
+<li><a class="reference internal" href="#the-setup">The Setup</a><ul>
+<li><a class="reference internal" href="#architecture">Architecture</a></li>
+<li><a class="reference internal" href="#writing-the-language-client">Writing the Language Client</a></li>
+<li><a class="reference internal" href="#writing-the-language-server">Writing the Language Server</a></li>
+<li><a class="reference internal" href="#packaging-for-the-web">Packaging for the Web</a></li>
+<li><a class="reference internal" href="#trying-it-out">Trying it out</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#next-steps">Next Steps</a></li>
+</ul>
+</li>
+</ul>
+
+</nav>
+                    </div>
+                    
+                    <footer class="w-full p-4 mt-auto text-white bg-gray-700">
+                        <div class="flex justify-between">
+    <div></div>
+
+    <div class="flex justify-between space-x-4">
+        <a target="_blank" rel="noreferrer noopener" href="https://github.com/alcarney">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="w-8 h-8">
+                <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path>
+            </svg>
+        </a>
+
+        <a target="_blank" rel="noreferrer noopener" href="https://twitter.com/alcarneyme">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="w-8 h-8">
+                <path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"></path>
+            </svg>
+        </a>
+
+        <a target="_blank" rel="noreferrer noopener" href="https://instagram.com/alcarneyme">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="w-8 h-8">
+                <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
+                <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
+                <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
+            </svg>
+        </a>
+
+        <a target="_blank" rel="noreferrer noopener" href="https://www.youtube.com/channel/UC5GPflgRWhnCxA0BllfP5CA">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="w-8 h-8">
+                <path d="M22.54 6.42a2.78 2.78 0 0 0-1.94-2C18.88 4 12 4 12 4s-6.88 0-8.6.46a2.78 2.78 0 0 0-1.94 2A29 29 0 0 0 1 11.75a29 29 0 0 0 .46 5.33A2.78 2.78 0 0 0 3.4 19c1.72.46 8.6.46 8.6.46s6.88 0 8.6-.46a2.78 2.78 0 0 0 1.94-2 29 29 0 0 0 .46-5.25 29 29 0 0 0-.46-5.33z"></path>
+                <polygon points="9.75 15.02 15.5 11.75 9.75 8.48 9.75 15.02"></polygon>
+            </svg>
+        </a>
+    </div>
+
+    <div></div>
+</div>
+                    </footer>
+                </div>
+            </div>     
+        </aside>
+        
+        <main class="w-full mx-auto lg:pr-0">
+            <div class="sticky top-0 z-50 mt-0 transition-all duration-300 bg-white border-b shadow-md lg:shadow-none lg:relative lg:-mt-16">
+                <label class="flex h-16 text-gray-600 transition" for="menu-state">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="w-8 h-8 my-auto" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="feather feather-arrow-right"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                </label>
+            </div> 
+
+            <div id="content" class="mx-2 my-8">
+                <div class="max-w-3xl mx-auto">
+                    
+
+<article class="p-4 prose-sm prose bg-white border prose-md prose-green max-w-none">
+    <div class="section" id="bringing-esbonio-to-the-browser">
+<h1>Bringing Esbonio to the Browser<a class="headerlink" href="#bringing-esbonio-to-the-browser" title="Permalink to this headline">¶</a></h1>
+<p>For the past year or so I’ve been working on a language server called <a class="reference external" href="https://github.com/swyddfa/esbonio">Esbonio</a>.
+It’s a language server designed to streamline the process of working with your
+<a class="reference external" href="https://www.sphinx-doc.org/en/master/">Sphinx</a> documentation projects. Currently its feature set is quite limited, but I
+think it does a good job of providing you with completion suggestions for all your
+roles, directives and cross-references.</p>
+<div class="figure align-center">
+<a class="reference internal image-reference" href="https://github.com/swyddfa/esbonio/raw/develop/resources/images/completion-demo.gif"><img alt="https://github.com/swyddfa/esbonio/raw/develop/resources/images/completion-demo.gif" src="https://github.com/swyddfa/esbonio/raw/develop/resources/images/completion-demo.gif" style="width: 80%;" /></a>
+</div>
+<p>Anyway with the recent releases of <a class="reference external" href="https://github.com/github/dev">github.dev</a> and <a class="reference external" href="https://code.visualstudio.com/blogs/2021/10/20/vscode-dev">vscode.dev</a> I really want to
+see if I can bring Esbonio into the browser version of VSCode. There’s only one
+problem… Esbonio is written in Python! 😬</p>
+<div class="section" id="the-approach">
+<h2>The Approach<a class="headerlink" href="#the-approach" title="Permalink to this headline">¶</a></h2>
+<p>I’m sure there will be plenty of problems that need to be solved in order to
+make this work, but my gut instinct is that it <em>is</em> possible. First of all there is
+<a class="reference external" href="https://pyodide.org/en/stable/index.html">Pyodide</a> which, if you’ve not come across it before, is the Python interpreter,
+(<a class="reference external" href="https://pyodide.org/en/stable/usage/wasm-constraints.html">most of</a>) the standard library and the “scientific stack” compiled down to
+WebAssembly which can then be executed in a browser.</p>
+<p>Also, as part of the vscode.dev <a class="reference external" href="https://www.youtube.com/watch?v=sy3TUb_iVJM&amp;t=1447">announcement stream</a> they demo’d the <a class="reference external" href="https://marketplace.visualstudio.com/items?itemName=joyceerhl.vscode-pyodide">vscode-pyodide</a>
+extension which builds on Pyodide and <a class="reference external" href="https://github.com/jupyterlite/jupyterlite">JupyterLite</a> to allow for executable Python
+notebooks from a web browser! This proves that it’s possible to run Python code via
+Pyodide from within VSCode running in a web browser.</p>
+<p>All that’s left to do is “just” to connect the dots! 😃</p>
+<p>Of course, the devil is in the details and there’s going to be all sorts of gotchas on
+the way to making this work. But I think a rough plan of attack would be to tackle the
+following steps.</p>
+<ul class="simple">
+<li><p>Setup a basic VSCode extension that runs in a browser composed of placeholder language
+client and server components.</p></li>
+<li><p>Expand on the language server to include a server implemented with <a class="reference external" href="https://github.com/openlawlibrary/pygls">pygls</a>
+(the library that Esbonio is built on).</p></li>
+<li><p>Ensure Sphinx works in a browser context. I’m fairly sure Sphinx is a pure Python
+project so in theory should “just work” but file I/O could prove a challenge.</p></li>
+<li><p>Bring all of the above together and get the Esbonio language server running.</p></li>
+<li><p>Ship it!</p></li>
+</ul>
+</div>
+<div class="section" id="the-setup">
+<h2>The Setup<a class="headerlink" href="#the-setup" title="Permalink to this headline">¶</a></h2>
+<p>Using the <a class="reference external" href="https://github.com/microsoft/vscode-extension-samples/tree/main/lsp-web-extension-sample">lsp-web-extension-sample</a> as a guide, the remainder of this blog post is
+going to be dedicated to setting up the rough structure of a web-enabled lsp VSCode
+extension. You can browse the completed extension <a class="reference internal" href="../../../code/hello-lsp-web/"><span class="doc">here</span></a>.</p>
+<p>But before we get too far into it, it’s probably worth zooming out a bit and roughly
+sketch out all the pieces and how they fit together.</p>
+<div class="section" id="architecture">
+<h3>Architecture<a class="headerlink" href="#architecture" title="Permalink to this headline">¶</a></h3>
+<p>At the core we have two components, a language client (e.g. our VSCode extension) and
+a language server (e.g. the <a class="reference external" href="https://pypi.org/project/esbonio">esbonio</a> Python package) which communicate by sending
+messages between each other.</p>
+<div align="center" class="mermaid align-center">
+            flowchart LR
+   client[LSP Client] --&gt; server[LSP Server]
+   server --&gt; client
+        </div>
+        <p>In a web browser context, the client runs as a <a class="reference external" href="https://developer.mozilla.org/en-US/docs/Web/API/Web_Workers_API">Web Worker</a> that it managed by VSCode’s
+Extension Host. The client in turn manages its own Web Worker which hosts the language
+server. Hopefully, this server web worker will eventually contain an instance of Pyodide
+running Esbonio managed by a bit of JavaScript glue code.</p>
+<div align="center" class="mermaid align-center">
+            flowchart LR
+
+subgraph VSCode
+   ext[Extension Host]
+end
+
+subgraph Web Worker
+   ext  &lt;--&gt; client[Language Client]
+end
+
+subgraph &quot;Language Server (Web Worker)&quot;
+   client &lt;--&gt; js[JS Wrapper]
+   js &lt;--&gt; py[Pyodide]
+
+end
+        </div>
+        </div>
+<div class="section" id="writing-the-language-client">
+<h3>Writing the Language Client<a class="headerlink" href="#writing-the-language-client" title="Permalink to this headline">¶</a></h3>
+<p>The language client code is pretty straightforward as all the heavy lifting is done
+by the <a class="reference external" href="https://www.npmjs.com/package/vscode-languageclient">vscode-languageclient</a> library.</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>npm install --save vscode-languageclient
+</pre></div>
+</div>
+<p>The client code is pretty much identical to code found in the <a class="reference external" href="https://github.com/microsoft/vscode-extension-samples/blob/355d5851a8e87301cf814a3d20f3918cb162ff73/lsp-web-extension-sample/client/src/browserClientMain.ts">sample extension</a>
+I used as reference. All that we have to do it tell the language client which documents
+we’re interested in</p>
+<div class="highlight-typescript notranslate"><div class="highlight"><pre><span></span><span class="kd">const</span> <span class="nx">clientOptions</span>: <span class="kt">LanguageClientOptions</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="nx">documentSelector</span><span class="o">:</span> <span class="p">[</span>
+        <span class="p">{</span> <span class="nx">scheme</span><span class="o">:</span> <span class="s2">&quot;file&quot;</span><span class="p">,</span> <span class="nx">language</span><span class="o">:</span> <span class="s2">&quot;plaintext&quot;</span> <span class="p">},</span>
+    <span class="p">],</span>
+    <span class="nx">outputChannelName</span><span class="o">:</span> <span class="s2">&quot;Hello Language Server&quot;</span><span class="p">,</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>and since we’re building this for the web, we need to start a web worker that hosts the
+language server and pass that to the client also.</p>
+<div class="highlight-typescript notranslate"><div class="highlight"><pre><span></span><span class="kd">const</span> <span class="nx">path</span> <span class="o">=</span> <span class="nx">Uri</span><span class="p">.</span><span class="nx">joinPath</span><span class="p">(</span><span class="nx">context</span><span class="p">.</span><span class="nx">extensionUri</span><span class="p">,</span> <span class="s2">&quot;dist/server.js&quot;</span><span class="p">)</span>
+<span class="kd">const</span> <span class="nx">worker</span> <span class="o">=</span> <span class="ow">new</span> <span class="nx">Worker</span><span class="p">(</span><span class="nx">path</span><span class="p">.</span><span class="nx">toString</span><span class="p">())</span>
+
+<span class="kd">const</span> <span class="nx">client</span> <span class="o">=</span> <span class="ow">new</span> <span class="nx">LanguageClient</span><span class="p">(</span><span class="s2">&quot;hello-lsp-web&quot;</span><span class="p">,</span> <span class="s2">&quot;Hello LSP&quot;</span><span class="p">,</span> <span class="nx">clientOptions</span><span class="p">,</span> <span class="nx">worker</span><span class="p">)</span>
+<span class="nx">context</span><span class="p">.</span><span class="nx">subscriptions</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="nx">client</span><span class="p">.</span><span class="nx">start</span><span class="p">())</span>
+
+<span class="nx">client</span><span class="p">.</span><span class="nx">onReady</span><span class="p">().</span><span class="nx">then</span><span class="p">(()</span> <span class="p">=&gt;</span> <span class="p">{</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;hello-lsp-web server is ready&quot;</span><span class="p">)</span>
+<span class="p">})</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="writing-the-language-server">
+<h3>Writing the Language Server<a class="headerlink" href="#writing-the-language-server" title="Permalink to this headline">¶</a></h3>
+<p>The goal of this post is just to get the simplest end-to-end concept working so the
+“language server” in this case does barely anything except prove that</p>
+<ul class="simple">
+<li><p>We can communicate with the client</p></li>
+<li><p>We can load Pyodide and execute some Python code</p></li>
+</ul>
+<p>Communication with web workers is achieved through <a class="reference external" href="https://developer.mozilla.org/en-US/docs/Web/API/Web_Workers_API/Using_web_workers#sending_messages_to_and_from_a_dedicated_worker">sending messages</a>, so to handle
+incoming messages from the client we create an <code class="docutils literal notranslate"><span class="pre">onmessage</span></code> event handler and use the
+<code class="docutils literal notranslate"><span class="pre">postMessage</span></code> to send our responses.</p>
+<p>To prove that the communication works, our “language server” handles the <code class="docutils literal notranslate"><span class="pre">initialize</span></code>
+request to establish the session, but ignores everything else.</p>
+<div class="highlight-typescript notranslate"><div class="highlight"><pre><span></span><span class="nx">onmessage</span> <span class="o">=</span> <span class="k">async</span> <span class="p">(</span><span class="nx">event</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">{</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="sb">`Client message:`</span><span class="p">,</span> <span class="nx">event</span><span class="p">.</span><span class="nx">data</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="p">(</span><span class="nx">event</span><span class="p">.</span><span class="nx">data</span><span class="p">.</span><span class="nx">method</span> <span class="o">===</span> <span class="s2">&quot;initialize&quot;</span><span class="p">)</span> <span class="p">{</span>
+        <span class="nx">postMessage</span><span class="p">({</span>
+            <span class="nx">jsonrpc</span><span class="o">:</span> <span class="s2">&quot;2.0&quot;</span><span class="p">,</span>
+            <span class="nx">id</span>: <span class="kt">event.data.id</span><span class="p">,</span>
+            <span class="nx">result</span><span class="o">:</span> <span class="p">{</span>
+                <span class="nx">serverInfo</span><span class="o">:</span> <span class="p">{</span> <span class="nx">name</span><span class="o">:</span> <span class="s2">&quot;Hello, LSP&quot;</span> <span class="p">},</span>
+                <span class="nx">capabilities</span><span class="o">:</span> <span class="p">{}</span>
+            <span class="p">}</span>
+        <span class="p">})</span>
+    <span class="p">}</span>
+</pre></div>
+</div>
+<p>With the communication taken care of, we can focus on setting up Pyodide. Adapting one
+of the <a class="reference external" href="https://pyodide.org/en/stable/usage/quickstart.html#complete-example">getting started examples</a> from the Pyodide documentation and using the
+<a class="reference external" href="https://developer.mozilla.org/en-US/docs/Web/API/Web_Workers_API/Using_web_workers#importing_scripts_and_libraries">importScripts</a> function that’s available to web workers it’s relatively
+straightforward to load Pyodide from a CDN and initialize it.</p>
+<div class="highlight-typescript notranslate"><div class="highlight"><pre><span></span><span class="nx">importScripts</span><span class="p">(</span><span class="s2">&quot;https://cdn.jsdelivr.net/pyodide/v0.18.1/full/pyodide.js&quot;</span><span class="p">)</span>
+
+<span class="k">async</span> <span class="kd">function</span> <span class="nx">initPyodide</span><span class="p">()</span> <span class="p">{</span>
+
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;Initing pyodide.&quot;</span><span class="p">)</span>
+
+    <span class="cm">/* @ts-ignore */</span>
+    <span class="kd">let</span> <span class="nx">pyodide</span> <span class="o">=</span> <span class="k">await</span> <span class="nx">loadPyodide</span><span class="p">({</span>
+        <span class="nx">indexURL</span><span class="o">:</span> <span class="s2">&quot;https://cdn.jsdelivr.net/pyodide/v0.18.1/full/&quot;</span>
+    <span class="p">})</span>
+
+    <span class="k">return</span> <span class="nx">pyodide</span>
+<span class="p">}</span>
+
+<span class="kd">const</span> <span class="nx">pyodideReady</span> <span class="o">=</span> <span class="nx">initPyodide</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>Pyodide isn’t exactly a small component to download and especially when we start
+pulling in packages, will take some time to initialize. Using a global <code class="docutils literal notranslate"><span class="pre">pyodideReady</span></code>
+promise we can make any code that depends on pyodide wait until it’s ready to use.</p>
+<div class="highlight-typescript notranslate"><div class="highlight"><pre><span></span><span class="kd">let</span> <span class="nx">pyodide</span> <span class="o">=</span> <span class="k">await</span> <span class="nx">pyodideReady</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">pyodide</span><span class="p">.</span><span class="nx">runPython</span><span class="p">(</span><span class="s2">&quot;import sys;sys.version&quot;</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="packaging-for-the-web">
+<h3>Packaging for the Web<a class="headerlink" href="#packaging-for-the-web" title="Permalink to this headline">¶</a></h3>
+<p>You may have noticed that the code above was written in TypeScript which needs to be
+compiled into JavaScript in order to run in the browser. Additionally, due
+to the way VSCode <a class="reference external" href="https://code.visualstudio.com/api/extension-guides/web-extensions#web-extension-main-file">handles web extensions</a> all the code that comprises the language
+client (including the dependencies!) needs to be bundled into a single JavaScript file.</p>
+<p>To do this we’ll use <a class="reference external" href="https://webpack.js.org/">webpack</a> along with a few other tools.</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>npm install --save-dev webpack webpack-cli typescript ts-loader @types/vscode path-browserify
+</pre></div>
+</div>
+<p>Like most of this setup, the webpack configuration was based on the
+<a class="reference external" href="https://github.com/microsoft/vscode-extension-samples/tree/main/lsp-web-extension-sample">lsp-web-extension-sample</a>  where we export 2 configurations, one for the client and
+one for the server.</p>
+<div class="highlight-js notranslate"><div class="highlight"><pre><span></span><span class="kd">const</span> <span class="nx">clientConfig</span> <span class="o">=</span> <span class="p">{</span>
+   <span class="nx">target</span><span class="o">:</span> <span class="s1">&#39;webworker&#39;</span>
+   <span class="nx">entry</span><span class="o">:</span> <span class="p">{</span>
+      <span class="nx">client</span><span class="o">:</span> <span class="s1">&#39;./src/client&#39;</span>
+   <span class="p">},</span>
+   <span class="nx">resolve</span><span class="o">:</span> <span class="p">{</span>
+      <span class="nx">fallback</span><span class="o">:</span> <span class="p">{</span>
+         <span class="nx">path</span><span class="o">:</span> <span class="nx">require</span><span class="p">.</span><span class="nx">resolve</span><span class="p">(</span><span class="s1">&#39;path-browserify&#39;</span><span class="p">)</span>
+      <span class="p">}</span>
+      <span class="p">...</span>
+   <span class="p">},</span>
+   <span class="p">...,</span>
+   <span class="nx">externals</span><span class="o">:</span> <span class="p">{</span>
+      <span class="nx">vscode</span><span class="o">:</span> <span class="s1">&#39;commonjs vscode&#39;</span>
+   <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="kd">const</span> <span class="nx">serverConfig</span> <span class="o">=</span> <span class="p">{</span>
+   <span class="nx">target</span><span class="o">:</span> <span class="s1">&#39;webworker&#39;</span><span class="p">,</span>
+   <span class="nx">entry</span><span class="o">:</span> <span class="p">{</span>
+      <span class="nx">server</span><span class="o">:</span> <span class="s1">&#39;./src/server&#39;</span>
+   <span class="p">},</span>
+   <span class="p">...</span>
+<span class="p">}</span>
+
+<span class="nx">module</span><span class="p">.</span><span class="nx">exports</span> <span class="o">=</span> <span class="p">[</span><span class="nx">clientConfig</span><span class="p">,</span> <span class="nx">serverConfig</span><span class="p">]</span>
+</pre></div>
+</div>
+<p>I’ve omitted most of the more standard configuration fields for brevity but you can
+look at the <a class="reference internal" href="../../../code/hello-lsp-web/"><span class="doc">code</span></a> for full details though there are a few
+things worth mentioning</p>
+<ul class="simple">
+<li><p>Both client and server will be running in web workers so we need to make sure we tell
+webpack to <code class="docutils literal notranslate"><span class="pre">target:</span> <span class="pre">webworker</span></code></p></li>
+<li><p>The client depends on the VSCode API but it’s not available at build time, so we use
+the <code class="docutils literal notranslate"><span class="pre">externals</span></code> field to tell webpack to translate any <code class="docutils literal notranslate"><span class="pre">import</span> <span class="pre">{}</span> <span class="pre">from</span> <span class="pre">'vscode'</span></code>
+statements into a CommonJS import.</p></li>
+<li><p>Node libraries like <code class="docutils literal notranslate"><span class="pre">path</span></code>  are not available in the browser, so we use the
+<code class="docutils literal notranslate"><span class="pre">fallback</span></code> field to replace calls to the <code class="docutils literal notranslate"><span class="pre">path</span></code> library, will calls to the
+<a class="reference external" href="https://www.npmjs.com/package/path-browserify">path-browserify</a> library which implements the same API, but works within the browser.</p></li>
+</ul>
+<p>Finally to invoke webpack we can add a couple of scripts to our <code class="docutils literal notranslate"><span class="pre">package.json</span></code> for
+convenience.</p>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="nt">&quot;scripts&quot;</span><span class="p">:</span> <span class="p">{</span>
+   <span class="nt">&quot;compile&quot;</span><span class="p">:</span> <span class="s2">&quot;webpack&quot;</span><span class="p">,</span>
+   <span class="nt">&quot;watch&quot;</span><span class="p">:</span> <span class="s2">&quot;webpack --watch&quot;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="trying-it-out">
+<h3>Trying it out<a class="headerlink" href="#trying-it-out" title="Permalink to this headline">¶</a></h3>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>I don’t fully understand how this section works, thankfully the VSCode devs figured
+out these steps and <a class="reference external" href="https://code.visualstudio.com/api/extension-guides/web-extensions#test-your-web-extension-in-on-vscode.dev">wrote them up</a></p>
+</div>
+<p>The last step is to actually try to run this extension in the web version of VSCode and
+see if it works. Unfortunately testing a web extension is not as straightforward as a
+desktop one, but with a few <code class="docutils literal notranslate"><span class="pre">npm</span></code> commands  <em>✨magic happens✨</em> and the web version
+of VSCode is able to install our extension from a simple web server running on
+<code class="docutils literal notranslate"><span class="pre">localhost</span></code></p>
+<p>First we start by adding a few more scripts to our <code class="docutils literal notranslate"><span class="pre">package.json</span></code></p>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="nt">&quot;scripts&quot;</span><span class="p">:</span> <span class="p">{</span>
+   <span class="nt">&quot;serve&quot;</span><span class="p">:</span> <span class="s2">&quot;npx serve --cors -l 5000&quot;</span><span class="p">,</span>
+   <span class="nt">&quot;tunnel&quot;</span><span class="p">:</span> <span class="s2">&quot;npx localtunnel -p 5000&quot;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Now assuming that we’ve already run <code class="docutils literal notranslate"><span class="pre">npm</span> <span class="pre">run</span> <span class="pre">watch</span></code> or <code class="docutils literal notranslate"><span class="pre">npm</span> <span class="pre">run</span> <span class="pre">compile</span></code> from the
+previous section, we run both the <code class="docutils literal notranslate"><span class="pre">serve</span></code> and <code class="docutils literal notranslate"><span class="pre">tunnel</span></code> scripts from <strong>two separate
+terminals</strong></p>
+<div class="flex flex-col lg:flex-row justify-around docutils container">
+<div class="overflow-auto highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>npm run serve
+
+<span class="go">&gt; hello-lsp-web@ serve blog/code/hello-lsp-web</span>
+<span class="go">&gt; npx serve --cors -l 5000</span>
+
+<span class="go">npx: installed 88 in 6.613s</span>
+
+<span class="go">┌──────────────────────────────────────────────────┐</span>
+<span class="go">│                                                  │</span>
+<span class="go">│   Serving!                                       │</span>
+<span class="go">│                                                  │</span>
+<span class="go">│   - Local:            http://localhost:5000      │</span>
+<span class="go">│   - On Your Network:  http://192.168.0.31:5000   │</span>
+<span class="go">│                                                  │</span>
+<span class="go">│   Copied local address to clipboard!             │</span>
+<span class="go">│                                                  │</span>
+<span class="go">└──────────────────────────────────────────────────┘</span>
+</pre></div>
+</div>
+<div class="overflow-auto lg:ml-2 highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>npm run tunnel
+
+<span class="go">&gt; hello-lsp-web@ tunnel blog/code/hello-lsp-web</span>
+<span class="go">&gt; npx localtunnel -p 5000</span>
+
+<span class="go">npx: installed 22 in 3.043s</span>
+<span class="go">your url is: https://xxxx-yyyy-zzzz.loca.lt</span>
+</pre></div>
+</div>
+</div>
+<p>Then to enable the tunnel we have to visit the <code class="docutils literal notranslate"><span class="pre">https://xxxx-yyyy-zzz.loca.lt</span></code>
+URL printed by the <code class="docutils literal notranslate"><span class="pre">tunnel</span></code> script, which takes us to a “Friendly Reminder” screen
+and we click the <code class="docutils literal notranslate"><span class="pre">Click</span> <span class="pre">to</span> <span class="pre">Continue</span></code> button.</p>
+<div class="figure align-default">
+<img alt="../../../_images/tunnel_warning.png" src="../../../_images/tunnel_warning.png" />
+</div>
+<p>Now we can finally open the <a class="reference external" href="https://vscode.dev/github/alcarney/blog">web version</a> of VSCode itself, open the command palette
+with <kbd class="kbd docutils literal notranslate">F1</kbd> and pick the <code class="docutils literal notranslate"><span class="pre">Developer:</span> <span class="pre">Install</span> <span class="pre">Web</span> <span class="pre">Extension...</span></code> command. When asked
+for the URL to install from, we paste the URL given to us from the <code class="docutils literal notranslate"><span class="pre">tunnel</span></code>  script
+above.</p>
+<div class="figure align-default">
+<img alt="../../../_images/install_extension.png" src="../../../_images/install_extension.png" />
+</div>
+<p>With any luck, VSCode should install the extension show it in the installed extensions
+list in the <code class="docutils literal notranslate"><span class="pre">Extensions</span></code> tab. All that’s left us to do is actually test the extension!</p>
+<p>As you can probably guess from the code we wrote above, there’s actually not much for
+us to test. However, we can open the dev tools as you would on any other website and
+create a file <code class="docutils literal notranslate"><span class="pre">test.txt</span></code> if everything works as expected, we should see the following
+messages printed to console.</p>
+<div class="figure align-center" id="id1">
+<img alt="../../../_images/hello-lsp-web.png" src="../../../_images/hello-lsp-web.png" />
+<p class="caption"><span class="caption-text">Success!</span><a class="headerlink" href="#id1" title="Permalink to this image">¶</a></p>
+</div>
+</div>
+</div>
+<div class="section" id="next-steps">
+<h2>Next Steps<a class="headerlink" href="#next-steps" title="Permalink to this headline">¶</a></h2>
+<p>That’s it! We have a very simple proof of concept web extension setup where the language
+server component is able to run Python code and communicate with the client. In the next
+post I hope to be able to stand up a simple <a class="reference external" href="https://github.com/openlawlibrary/pygls">pygls</a> language server and have it work
+with the online version of VSCode 🤞</p>
+</div>
+</div>
+
+</article>
+
+
+
+
+<div class="mt-8 pt-4 border-t">
+    <script src="https://giscus.app/client.js"
+            data-repo="alcarney/blog"
+            data-repo-id="MDEwOlJlcG9zaXRvcnk2Njk3NzM3MQ=="
+            data-category="Comments"
+            data-category-id="DIC_kwDOA_3-W84B_XOl"
+            data-mapping="pathname"
+            data-reactions-enabled="1"
+            data-emit-metadata="0"
+            data-theme="light"
+            crossorigin="anonymous"
+            async>
+    </script>
+</div>
+
+
+
+                </div>
+            </div>
+
+            <footer class="p-2 mt-8 mb-2 text-sm text-gray-600 border-t">
+                <div class="flex flex-col justify-between max-w-3xl mx-auto lg:flex-row">
+                    <span>
+                        <a class="text-green-600" href="../../../_sources/blog/2021/bringing-esbonio-to-the-browser.rst.txt" rel="nofollow">
+                            Page Source
+                        </a>
+                    </span>
+                    <span>Built with <a class="text-green-600" href="https://www.sphinx-doc.org/en/master/">Sphinx</a> v4.2.0</span>
+                    <span>&#169; Copyright 2021, Alex Carney.</span>
+                </div>
+            </footer>
+        </main>
+        
+    </div>
+<script src="/_static/js/theme.js"></script>
+
+
+  </body>
+</html>

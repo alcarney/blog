@@ -24,11 +24,13 @@
     <script src="../../_static/doctools.js"></script>
     <script src="../../_static/togglebutton.js"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="https://unpkg.com/mermaid/dist/mermaid.min.js"></script>
+    <script>mermaid.initialize({startOnLoad:true});</script>
     <link rel="shortcut icon" href="../../_static/favicon.ico"/>
     <link rel="index" title="Index" href="../../genindex/" />
     <link rel="search" title="Search" href="../../search/" />
     <link rel="next" title="Notes" href="../../notes/" />
-    <link rel="prev" title="Click Drag" href="../click-drag/" /> 
+    <link rel="prev" title="Hello LSP Web" href="../hello-lsp-web/" /> 
   </head><body class="flex flex-col justify-between min-h-screen overflow-x-hidden bg-gray-100 ">
     <div class="flex flex-grow">
         <input id="menu-state" type="checkbox" class="hidden" />
@@ -312,7 +314,7 @@ compiled with just a C compiler
 <style>
     
 
-    input[data-id='simple-ast.c']:checked + div {
+    input[data-id='simple-ast.c']:checked ~ div {
         max-height: 350px;
     }
 
@@ -322,7 +324,7 @@ compiled with just a C compiler
     
     
 
-    input[data-id='README.rst']:checked + div {
+    input[data-id='README.rst']:checked ~ div {
         max-height: 350px;
     }
 
@@ -371,9 +373,9 @@ compiled with just a C compiler</p>
         
         <li  class="w-1/2 p-4 mr-2 bg-white border hover:shadow-lg" >
             
-            <a class="flex items-center justify-between h-full" href="../click-drag/">
+            <a class="flex items-center justify-between h-full" href="../hello-lsp-web/">
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="flex-shrink-0 w-8 h-8" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg>
-                <p class="ml-4 text-green-600">Click Drag</p>
+                <p class="ml-4 text-green-600">Hello LSP Web</p>
             </a>
             
         </li>
