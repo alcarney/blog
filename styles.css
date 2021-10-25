@@ -52,6 +52,20 @@ div.section a.headerlink::before {
     height: 24px;
 }
 
+/* -- Admonitions -- */
+.admonition {
+    @apply px-4 bg-green-50 border
+}
+
+.admonition-title {
+    @apply font-semibold
+}
+
+/* -- Figures -- */
+.caption {
+    @apply text-center text-gray-500 mt-0
+}
+
 /* -- Local table of contents -- */
 
 #localtoc a[href='#'] {
