@@ -33,10 +33,11 @@ author = "Alex Carney"
 # ones.
 extensions = [
     "ablog",
-    "coderepo",
+    "coderepo",  # see: ./extensions.coderepo.py
     "sphinx.ext.intersphinx",
     "sphinx_togglebutton",
-    "tailwind",
+    "sphinxcontrib.mermaid",
+    "tailwind",  # see: ./extensions/tailwind.py
 ]
 
 # Add any paths that contain templates here, relative to this directory.
