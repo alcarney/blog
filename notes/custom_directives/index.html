@@ -68,6 +68,8 @@
     <ul>
 <li><a class="reference internal" href="#">Custom Directives</a><ul>
 <li><a class="reference internal" href="#based-on-directive">Based on <code class="docutils literal notranslate"><span class="pre">Directive</span></code></a><ul>
+<li><a class="reference internal" href="#arguments">Arguments</a></li>
+<li><a class="reference internal" href="#options">Options</a></li>
 <li><a class="reference internal" href="#including-files">Including files</a></li>
 </ul>
 </li>
@@ -140,7 +142,109 @@
 <div class="section" id="based-on-directive">
 <h2>Based on <code class="docutils literal notranslate"><span class="pre">Directive</span></code><a class="headerlink" href="#based-on-directive" title="Permalink to this headline">¶</a></h2>
 <p>For basic directives, or if you want maximum portability, you can base your directive on
-the <code class="docutils literal notranslate"><span class="pre">Directive</span></code> class from <code class="docutils literal notranslate"><span class="pre">docutils</span></code>.</p>
+the <code class="docutils literal notranslate"><span class="pre">Directive</span></code> class from <code class="docutils literal notranslate"><span class="pre">docutils</span></code>:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">docutils.parsers.rst</span> <span class="kn">import</span> <span class="n">Directive</span>
+
+<span class="k">class</span> <span class="nc">MyCustom</span><span class="p">(</span><span class="n">Directive</span><span class="p">):</span>
+
+    <span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="p">[]</span>
+</pre></div>
+</div>
+<div class="section" id="arguments">
+<h3>Arguments<a class="headerlink" href="#arguments" title="Permalink to this headline">¶</a></h3>
+<p>Directive arguments are declared by setting the <code class="docutils literal notranslate"><span class="pre">required_arguments</span></code> and <code class="docutils literal notranslate"><span class="pre">optional_arguments</span></code> fields to
+an appropriate value:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">MyCustom</span><span class="p">(</span><span class="n">Directive</span><span class="p">):</span>
+
+    <span class="n">required_arguments</span> <span class="o">=</span> <span class="mi">1</span>
+    <span class="n">optional_arguments</span> <span class="o">=</span> <span class="mi">0</span>  <span class="c1"># (The default)</span>
+</pre></div>
+</div>
+<p>These arguments can then be accessed using the <code class="docutils literal notranslate"><span class="pre">arguments</span></code> field during the <code class="docutils literal notranslate"><span class="pre">run</span></code> method:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">MyCustom</span><span class="p">(</span><span class="n">Directive</span><span class="p">):</span>
+
+    <span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">for</span> <span class="n">arg</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">arguments</span><span class="p">:</span>
+            <span class="o">...</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="options">
+<h3>Options<a class="headerlink" href="#options" title="Permalink to this headline">¶</a></h3>
+<p>Directive options are declared using the <code class="docutils literal notranslate"><span class="pre">option_spec</span></code> field. This is a dictionary mapping option names to
+the functions used to parse them:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">docutils.parsers.rst</span> <span class="kn">import</span> <span class="n">Directive</span>
+
+<span class="k">class</span> <span class="nc">MyCustom</span><span class="p">(</span><span class="n">Directive</span><span class="p">):</span>
+
+    <span class="n">option_spec</span> <span class="o">=</span> <span class="p">{</span>
+       <span class="s2">&quot;arg-name&quot;</span><span class="p">:</span> <span class="n">paser_function</span>
+    <span class="p">}</span>
+
+    <span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="p">[]</span>
+</pre></div>
+</div>
+<p>where the following built in parsers are available</p>
+<dl>
+<dt><code class="docutils literal notranslate"><span class="pre">docutils.parsers.rst.directives.choice</span></code></dt><dd><p>A helper function to write a parser function that ensures the argument is one of a valid set of choices.
+For example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">docutils.parsers.rst</span> <span class="kn">import</span> <span class="n">directives</span>
+
+<span class="k">def</span> <span class="nf">yesorno</span><span class="p">(</span><span class="n">argument</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">directives</span><span class="o">.</span><span class="n">choice</span><span class="p">(</span><span class="n">argument</span><span class="p">,</span> <span class="p">(</span><span class="s1">&#39;yes&#39;</span><span class="p">,</span> <span class="s1">&#39;no&#39;</span><span class="p">))</span>
+</pre></div>
+</div>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">docutils.parsers.rst.directives.class_option</span></code></dt><dd><p>Converts a string separated list of values into a list of valid class names.</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">docutils.parsers.rst.directives.encoding</span></code></dt><dd><p>Ensures the argument is a valid character encoding.</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">docutils.parsers.rst.directives.flag</span></code></dt><dd><p>Option is a flag, raises an error if a value is given</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">docutils.parsers.rst.directives.length_or_unitless</span></code></dt><dd><p>A valid length value (<code class="docutils literal notranslate"><span class="pre">em</span></code>, <code class="docutils literal notranslate"><span class="pre">ex</span></code>, <code class="docutils literal notranslate"><span class="pre">px</span></code>, <code class="docutils literal notranslate"><span class="pre">in</span></code>, <code class="docutils literal notranslate"><span class="pre">cm</span></code>, <code class="docutils literal notranslate"><span class="pre">mm</span></code>, <code class="docutils literal notranslate"><span class="pre">pt</span></code>, <code class="docutils literal notranslate"><span class="pre">pc</span></code>) or
+a unitless value.</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">docutils.parsers.rst.directives.length_or_percentage_or_unitless</span></code></dt><dd><p>A valid length, percentage or unitless value.</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">docutils.parsers.rst.directives.path</span></code></dt><dd><p>From the docutils docs.</p>
+<blockquote>
+<div><p>Return the path arguments unwrapped (with newlines removed).
+Rase <code class="docutils literal notranslate"><span class="pre">ValueError</span></code> if no argument is found</p>
+</div></blockquote>
+<p>But I’m not entirely sure what this means…</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">docutils.parsers.rst.directives.nonnegative_int</span></code></dt><dd><p>Ensure the argument given is a positive integer (zero included).</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">docutils.parsers.rst.directives.percentage</span></code></dt><dd><p>Argument should be a positive integer - with optional percentage sign</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">docutils.parsers.rst.directives.positive_int</span></code></dt><dd><p>Ensure the argument given is a positive integer (zero excluded).</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">docutils.parsers.rst.directives.positive_int_list</span></code></dt><dd><p>A CSV or space separated list of positive integers.</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">docutils.parsers.rst.directives.single_char_or_unicode</span></code></dt><dd><p>Passes through a single character as-is, or if a unicode character code is given it gets
+converted into a unicode character.</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">docutils.parsers.rst.directives.single_char_or_whitespace_or_unicode</span></code></dt><dd><p>Same as above but <code class="docutils literal notranslate"><span class="pre">tab</span></code> or <code class="docutils literal notranslate"><span class="pre">space</span></code> are also supported.</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">docutils.parsers.rst.directives.unchanged</span></code></dt><dd><p>Pass the option through unchanged</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">docutils.parsers.rst.directives.unchanged_required</span></code></dt><dd><p>Option is required, pass it through unchanged</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">docutils.parsers.rst.directives.unicode_code</span></code></dt><dd><p>Converts a unicode character code (e.g. <code class="docutils literal notranslate"><span class="pre">U+262E</span></code>) into a unicode character.</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">docutils.parsers.rst.directives.uri</span></code></dt><dd><p>Ensure the argument given is an URI</p>
+</dd>
+</dl>
+<p>These options can then be accessed using the <code class="docutils literal notranslate"><span class="pre">options</span></code> field during the <code class="docutils literal notranslate"><span class="pre">run</span></code> method:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">MyCustom</span><span class="p">(</span><span class="n">Directive</span><span class="p">):</span>
+
+    <span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">opt</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">options</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;arg-name&#39;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
 <div class="section" id="including-files">
 <h3>Including files<a class="headerlink" href="#including-files" title="Permalink to this headline">¶</a></h3>
 <p>If your directive mimics the <code class="docutils literal notranslate"><span class="pre">..</span> <span class="pre">include::</span></code> directive in some way it’s easy enough to
@@ -174,7 +278,7 @@ Thankfully, there is the <a class="reference external" href="https://www.sphinx-
 method that implements that logic for you</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
    <span class="o">...</span>
-   <span class="n">relpath</span><span class="p">,</span> <span class="n">abspath</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">env</span><span class="o">.</span><span class="n">relfn2</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span>
+   <span class="n">relpath</span><span class="p">,</span> <span class="n">abspath</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">env</span><span class="o">.</span><span class="n">relfn2path</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>which returns</p>
