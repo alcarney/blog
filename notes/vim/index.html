@@ -5,30 +5,32 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Posts tagged esbonio &#8212; Blog  documentation</title>
+    <title>(N)Vim &#8212; Blog  documentation</title>
 
     
-    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
     
     
     
-    <link rel="stylesheet" type="text/css" href="../../../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/togglebutton.css" />
     
     
-    <link rel="stylesheet" type="text/css" href="../../../_static/css/styles.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/css/styles.css" />
     
 
-    <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
-    <script src="../../../_static/jquery.js"></script>
-    <script src="../../../_static/underscore.js"></script>
-    <script src="../../../_static/doctools.js"></script>
-    <script src="../../../_static/togglebutton.js"></script>
+    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/togglebutton.js"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
     <script src="https://unpkg.com/mermaid/dist/mermaid.min.js"></script>
     <script>mermaid.initialize({startOnLoad:true});</script>
-    <link rel="shortcut icon" href="../../../_static/favicon.ico"/>
-    <link rel="index" title="Index" href="../../../genindex/" />
-    <link rel="search" title="Search" href="../../../search/" /> 
+    <link rel="shortcut icon" href="../../_static/favicon.ico"/>
+    <link rel="index" title="Index" href="../../genindex/" />
+    <link rel="search" title="Search" href="../../search/" />
+    <link rel="next" title="Writing Makefiles" href="../writing-makefiles/" />
+    <link rel="prev" title="Extracting archives" href="../tar-command/" /> 
   </head><body class="flex flex-col justify-between min-h-screen overflow-x-hidden bg-gray-100 ">
     <div class="flex flex-grow">
         <input id="menu-state" type="checkbox" class="hidden" />
@@ -42,7 +44,7 @@
 </div>
                     
                     <div id="searchbox" style="display: none" role="search" class="px-4 py-4">
-    <form class="flex justify-between px-2 py-1 bg-gray-100 border-2 rounded search focus-within:border-green-600" action="../../../search/" method="get">
+    <form class="flex justify-between px-2 py-1 bg-gray-100 border-2 rounded search focus-within:border-green-600" action="../../search/" method="get">
         <label class="mr-2 text-gray-500" for="sbox">
             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="feather feather-search">
                 <circle cx="11" cy="11" r="6" />
@@ -62,7 +64,20 @@
     <a class="text-green-600 py-1 border-t text-lg hover:bg-gray-50" href="/notes">Notes</a>
 </nav>
                     
-                    <div class="flex-shrink overflow-auto">
+                    <div class="flex-shrink overflow-auto"><nav id="localtoc" class="p-4 border-t">
+    <ul>
+<li><a class="reference internal" href="#">(N)Vim</a><ul>
+<li><a class="reference internal" href="#common">Common</a></li>
+<li><a class="reference internal" href="#neovim-only">Neovim Only</a><ul>
+<li><a class="reference internal" href="#listing-registered-autocmds">Listing Registered <code class="docutils literal notranslate"><span class="pre">autocmds</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#vim-only">Vim Only</a></li>
+</ul>
+</li>
+</ul>
+
+</nav>
                     </div>
                     
                     <footer class="w-full p-4 mt-auto text-white bg-gray-700">
@@ -115,109 +130,71 @@
             <div id="content" class="mx-2 my-8">
                 <div class="max-w-3xl mx-auto">
                     
-<style>
-    header::before {
-        position: absolute;
-        top: 4px;
-        left: -13px;
-        display: block;
-        content: '';
-        width: 25px;
-        height: 25px;
-        background: white;
-        transform: rotate(45deg);
-        border-left: solid 1px #e5e7eb;
-        border-bottom: solid 1px #e5e7eb;
 
-    }
+<article class="p-4 prose-sm prose bg-white border prose-md prose-green max-w-none">
+    <div class="section" id="n-vim">
+<h1>(N)Vim<a class="headerlink" href="#n-vim" title="Permalink to this headline">¶</a></h1>
+<p>Notes on using <code class="docutils literal notranslate"><span class="pre">vim</span></code> and <code class="docutils literal notranslate"><span class="pre">nvim</span></code></p>
+<div class="section" id="common">
+<h2>Common<a class="headerlink" href="#common" title="Permalink to this headline">¶</a></h2>
+<p>Notes that should apply to both flavours of vim.</p>
+</div>
+<div class="section" id="neovim-only">
+<h2>Neovim Only<a class="headerlink" href="#neovim-only" title="Permalink to this headline">¶</a></h2>
+<p>Notes that apply to just <code class="docutils literal notranslate"><span class="pre">nvim</span></code>.</p>
+<div class="section" id="listing-registered-autocmds">
+<h3>Listing Registered <code class="docutils literal notranslate"><span class="pre">autocmds</span></code><a class="headerlink" href="#listing-registered-autocmds" title="Permalink to this headline">¶</a></h3>
+<p><code class="docutils literal notranslate"><span class="pre">:autocmd</span></code> lists all registered <code class="docutils literal notranslate"><span class="pre">autocmds</span></code>.</p>
+<p><code class="docutils literal notranslate"><span class="pre">:autocmd</span> <span class="pre">&lt;Event&gt;</span></code> lists all registered <code class="docutils literal notranslate"><span class="pre">autocmds</span></code> for the given event.</p>
+<div class="highlight-vim notranslate"><div class="highlight"><pre><span></span><span class="p">:</span>autocmd <span class="nb">FileType</span>
+<span class="p">---</span> Autocommands <span class="p">---</span>
+filetypeplugin  <span class="nb">FileType</span>
+    *         <span class="k">call</span> s:LoadFTPlugin<span class="p">()</span>
+filetypeindent  <span class="nb">FileType</span>
+    *         <span class="k">call</span> s:LoadIndent<span class="p">()</span>
+syntaxset  <span class="nb">FileType</span>
+    *         exe <span class="s2">&quot;set syntax=&quot;</span> . expand<span class="p">(</span><span class="s2">&quot;&lt;amatch&gt;&quot;</span><span class="p">)</span>
+packer_load_aucmds  <span class="nb">FileType</span>
+    <span class="k">python</span>    <span class="n">lua</span> <span class="n">require</span><span class="p">(</span><span class="s2">&quot;packer.load&quot;</span><span class="p">)({</span><span class="s1">&#39;black&#39;</span><span class="p">},</span> <span class="p">{</span> <span class="n">ft</span> <span class="o">=</span> <span class="s2">&quot;python&quot;</span> <span class="p">},</span> <span class="n">_G</span><span class="o">.</span><span class="n">packer_plugins</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="vim-only">
+<h2>Vim Only<a class="headerlink" href="#vim-only" title="Permalink to this headline">¶</a></h2>
+<p>Notes that apply to just <code class="docutils literal notranslate"><span class="pre">vim</span></code>.</p>
+</div>
+</div>
 
-    header h2 {
-        margin-top: -16px;
-    }
+</article>
 
-    aside[data-id='post-meta']::after {
-        position: absolute;
-        top: 45px;
-        right: -5px;
-        display: block;
-        content: '';
-        width: 8px;
-        height: 8px;
-        border-radius: 100%;
-        background: #717885;
-    }
 
-    @media(max-width: 700px) {
-        header::before {
-            left: 19px;
-            top: -13px;
-            border-top: solid 1px #e5e7eb;
-            border-bottom: none;
-            clip-path: polygon(0 0, 100% 0, 100% 10%, 10% 100%, 0 100%);
-        }
-
-        aside[data-id='post-meta']::after {
-            top: 10px;
-            left: 28px;
-        }
-
-    }
-</style>
-<!-- <div class="grid items-baseline grid-cols-1 mb-12 md:grid-cols-4"> -->
-    <div >
-        <div class="flex flex-col items-baseline w-full md:flex-row">
-        <aside data-id="post-meta" class="relative self-stretch w-40 mt-8 text-right text-gray-500 md:px-4 md:mt-0 md:mr-8 md:border-r-2">
-            <div class="flex md:mt-9">
-                <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
-</svg>
-                <span class="ml-4 text-right md:ml-auto">Oct 25, 2021</span>
-            </div>
-        </aside>
-        <article class="relative p-4 mt-4 bg-white border md:w- md:mt-8 md:col-span-3 hover:shadow-lg">
-            <header>
-                <a href="../../2021/bringing-esbonio-to-the-browser/">
-                    <h2 style="max-width: 33ch" class="mb-4 text-2xl text-green-600">Bringing Esbonio to the Browser</h2>
-                </a>
-            </header>
-            <div class="prose-sm prose prose-green">
-                <p>For the past year or so I’ve been working on a language server called <a class="reference external" href="https://github.com/swyddfa/esbonio">Esbonio</a>.
-It’s a language server designed to streamline the process of working with your
-<a class="reference external" href="https://www.sphinx-doc.org/en/master/">Sphinx</a> documentation projects. Currently its feature set is quite limited, but I
-think it does a good job of providing you with completion suggestions for all your
-roles, directives and cross-references.</p>
-<p>Anyway with the recent releases of <a class="reference external" href="https://github.com/github/dev">github.dev</a> and <a class="reference external" href="https://code.visualstudio.com/blogs/2021/10/20/vscode-dev">vscode.dev</a> I really want to
-see if I can bring Esbonio into the browser version of VSCode. There’s only one
-problem… Esbonio is written in Python! 😬</p>
-<img alt="https://github.com/swyddfa/esbonio/raw/develop/resources/images/completion-demo.gif" src="https://github.com/swyddfa/esbonio/raw/develop/resources/images/completion-demo.gif" style="width: 80%;" />
-
+<nav class="mt-8">
+    <ul class="flex flex-row justify-between">
         
-            </div>
-            <div class="flex flex-col justify-between mt-4 lg:flex-row">
-                <p class="prose-sm prose prose-green"><a href="../../2021/bringing-esbonio-to-the-browser/">Read More...</a></p>
         
-                <ul class="flex flex-wrap space-x-2">
-                    <li class="mb-1">
-                        <a href="../lsp/" class="px-2 text-green-600 border border-green-600 rounded bg-green-50">
-                            #lsp
-                        </a>
-                    </li>
-                    <li class="mb-1">
-                        <a href="#" class="px-2 text-green-600 border border-green-600 rounded bg-green-50">
-                            #esbonio
-                        </a>
-                    </li>
-                    <li class="mb-1">
-                        <a href="../vscode/" class="px-2 text-green-600 border border-green-600 rounded bg-green-50">
-                            #vscode
-                        </a>
-                    </li>
-                </ul>
-            </div>
-        </article>
-        </div>
-    </div>
-<!-- </div> -->
+        <li  class="w-1/2 p-4 mr-2 bg-white border hover:shadow-lg" >
+            
+            <a class="flex items-center justify-between h-full" href="../tar-command/">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="flex-shrink-0 w-8 h-8" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg>
+                <p class="ml-4 text-green-600">Extracting archives</p>
+            </a>
+            
+        </li>
+        
+        <li class="w-1/2 p-4 ml-2 bg-white border hover:shadow-lg">
+            <a class="flex items-center justify-between h-full" href="../writing-makefiles/">
+                <p class="text-green-600">Writing Makefiles</p>
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="flex-shrink-0 w-8 h-8 ml-4" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg>
+            </a>
+        </li>
+        
+    </ul>
+
+</nav>
+
+
+
 
 
                 </div>
@@ -226,6 +203,9 @@ problem… Esbonio is written in Python! 😬</p>
             <footer class="p-2 mt-8 mb-2 text-sm text-gray-600 border-t">
                 <div class="flex flex-col justify-between max-w-3xl mx-auto lg:flex-row">
                     <span>
+                        <a class="text-green-600" href="../../_sources/notes/vim.rst.txt" rel="nofollow">
+                            Page Source
+                        </a>
                     </span>
                     <span>Built with <a class="text-green-600" href="https://www.sphinx-doc.org/en/master/">Sphinx</a> v4.3.1</span>
                     <span>&#169; Copyright 2021, Alex Carney.</span>
