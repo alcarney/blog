@@ -67,11 +67,11 @@
                     <div class="flex-shrink overflow-auto"><nav id="localtoc" class="p-4 border-t">
     <ul>
 <li><a class="reference internal" href="#">(N)Vim</a><ul>
-<li><a class="reference internal" href="#common">Common</a></li>
-<li><a class="reference internal" href="#neovim-only">Neovim Only</a><ul>
+<li><a class="reference internal" href="#common">Common</a><ul>
 <li><a class="reference internal" href="#listing-registered-autocmds">Listing Registered <code class="docutils literal notranslate"><span class="pre">autocmds</span></code></a></li>
 </ul>
 </li>
+<li><a class="reference internal" href="#neovim-only">Neovim Only</a></li>
 <li><a class="reference internal" href="#vim-only">Vim Only</a></li>
 </ul>
 </li>
@@ -138,14 +138,10 @@
 <div class="section" id="common">
 <h2>Common<a class="headerlink" href="#common" title="Permalink to this headline">¶</a></h2>
 <p>Notes that should apply to both flavours of vim.</p>
-</div>
-<div class="section" id="neovim-only">
-<h2>Neovim Only<a class="headerlink" href="#neovim-only" title="Permalink to this headline">¶</a></h2>
-<p>Notes that apply to just <code class="docutils literal notranslate"><span class="pre">nvim</span></code>.</p>
 <div class="section" id="listing-registered-autocmds">
 <h3>Listing Registered <code class="docutils literal notranslate"><span class="pre">autocmds</span></code><a class="headerlink" href="#listing-registered-autocmds" title="Permalink to this headline">¶</a></h3>
 <p><code class="docutils literal notranslate"><span class="pre">:autocmd</span></code> lists all registered <code class="docutils literal notranslate"><span class="pre">autocmds</span></code>.</p>
-<p><code class="docutils literal notranslate"><span class="pre">:autocmd</span> <span class="pre">&lt;Event&gt;</span></code> lists all registered <code class="docutils literal notranslate"><span class="pre">autocmds</span></code> for the given event.</p>
+<p><code class="docutils literal notranslate"><span class="pre">:autocmd</span> <span class="pre">&lt;Event&gt;</span></code> lists all registered <code class="docutils literal notranslate"><span class="pre">autocmds</span></code> for the given event. e.g.</p>
 <div class="highlight-vim notranslate"><div class="highlight"><pre><span></span><span class="p">:</span>autocmd <span class="nb">FileType</span>
 <span class="p">---</span> Autocommands <span class="p">---</span>
 filetypeplugin  <span class="nb">FileType</span>
@@ -159,6 +155,10 @@ packer_load_aucmds  <span class="nb">FileType</span>
 </pre></div>
 </div>
 </div>
+</div>
+<div class="section" id="neovim-only">
+<h2>Neovim Only<a class="headerlink" href="#neovim-only" title="Permalink to this headline">¶</a></h2>
+<p>Notes that apply to just <code class="docutils literal notranslate"><span class="pre">nvim</span></code>.</p>
 </div>
 <div class="section" id="vim-only">
 <h2>Vim Only<a class="headerlink" href="#vim-only" title="Permalink to this headline">¶</a></h2>
