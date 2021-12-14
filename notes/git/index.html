@@ -68,6 +68,10 @@
     <ul>
 <li><a class="reference internal" href="#">Notes on Git</a><ul>
 <li><a class="reference internal" href="#submodules">Submodules</a></li>
+<li><a class="reference internal" href="#tags">Tags</a><ul>
+<li><a class="reference internal" href="#updating-tags-from-remote">Updating tags from remote</a></li>
+</ul>
+</li>
 <li><a class="reference internal" href="#links-resources">Links &amp; Resources</a></li>
 </ul>
 </li>
@@ -142,10 +146,37 @@ submodules</p>
 </pre></div>
 </div>
 </div>
+<div class="section" id="tags">
+<h2>Tags<a class="headerlink" href="#tags" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="updating-tags-from-remote">
+<h3>Updating tags from remote<a class="headerlink" href="#updating-tags-from-remote" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>git fetch --tags
+<span class="go">remote: Enumerating objects: 307, done.</span>
+<span class="go">remote: Counting objects: 100% (228/228), done.</span>
+<span class="go">remote: Total 307 (delta 228), reused 228 (delta 228), pack-reused 79</span>
+<span class="go">Receiving objects: 100% (307/307), 311.14 KiB | 1.88 MiB/s, done.</span>
+<span class="go">Resolving deltas: 100% (281/281), completed with 101 local objects.</span>
+<span class="go">From https://github.com/neovim/neovim</span>
+<span class="go">* [new tag]             eval-clear-rebase-1-compiles-and-passes-u-tests-3-next  -&gt; eval-clear-rebase-1-compiles-and-passes-u-tests-3-next</span>
+<span class="go">...</span>
+<span class="go">! [rejected]            nightly                                                 -&gt; nightly  (would clobber existing tag)</span>
+<span class="go">! [rejected]            stable                                                  -&gt; stable  (would clobber existing tag)</span>
+</pre></div>
+</div>
+<p>For tags that move (e.g. neovim’s <code class="docutils literal notranslate"><span class="pre">nightly</span></code> and <code class="docutils literal notranslate"><span class="pre">stable</span></code> tags) an additional <code class="docutils literal notranslate"><span class="pre">-f</span></code> flag is required.</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>git fetch --tags -f
+<span class="go">From https://github.com/neovim/neovim</span>
+<span class="go">t [tag update]          nightly    -&gt; nightly</span>
+<span class="go">t [tag update]          stable     -&gt; stable</span>
+</pre></div>
+</div>
+</div>
+</div>
 <div class="section" id="links-resources">
 <h2>Links &amp; Resources<a class="headerlink" href="#links-resources" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
 <li><p><a class="reference external" href="https://stackoverflow.com/questions/3796927/how-to-git-clone-including-submodules">How to “git clone” including submodules?</a></p></li>
+<li><p><a class="reference external" href="https://stackoverflow.com/questions/58031165/how-to-get-rid-of-would-clobber-existing-tag">How to get rid of “would clobber existing tag”</a></p></li>
 </ul>
 </div>
 </div>
