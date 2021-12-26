@@ -13,50 +13,50 @@
 {%- endfor %}
 {% endblock %}
 
-{% block body_tag %}<body class="flex flex-col justify-between min-h-screen overflow-x-hidden bg-gray-100 ">{% endblock %}
+{% block body_tag %}<body class="flex flex-col justify-between min-h-screen overflow-x-hidden bg-gray-100 dark:bg-gray-900">{% endblock %}
 
 {% block relbar1 %}{% endblock %}
 
 {%- block content %}
     <div class="flex flex-grow">
         <input id="menu-state" type="checkbox" class="hidden" />
-        <aside class="flex justify-between flex-shrink-0 transition-all duration-500 bg-white border-r -ml-80 lg:ml-0">
-            <div class="flex flex-col justify-between h-full border-r w-80">
-                <div class="sticky top-0 flex flex-col h-screen"> 
-                    
+        <aside class="flex justify-between flex-shrink-0 transition-all duration-500 bg-white dark:bg-gray-800 -ml-80 lg:ml-0 dark:border-gray-600">
+            <div class="flex flex-col justify-between h-full border-r w-80 dark:border-gray-600">
+                <div class="sticky top-0 flex flex-col h-screen">
+
                     {% include "profilecard.html" %}
-                    
+
                     {% include "searchbox.html" %}
-                    
+
                     {% include "globaltoc.html" %}
-                    
+
                     <div class="flex-shrink overflow-auto">
                         {%- for sidebartemplate in sidebars %}
                         {%- include sidebartemplate %}
                         {%- endfor %}
                     </div>
-                    
+
                     <footer class="w-full p-4 mt-auto text-white bg-gray-700">
                         {% include "social_links.html" %}
                     </footer>
                 </div>
-            </div>     
+            </div>
         </aside>
-        
+
         <main class="w-full mx-auto lg:pr-0">
-            <div class="sticky top-0 z-50 mt-0 transition-all duration-300 bg-white border-b shadow-md lg:shadow-none lg:relative lg:-mt-16">
+            <div class="sticky top-0 z-50 mt-0 transition-all duration-300 bg-white dark:bg-gray-800 border-b shadow-md lg:shadow-none lg:relative lg:-mt-16 dark:border-gray-600">
                 <label class="flex h-16 text-gray-600 transition" for="menu-state">
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="w-8 h-8 my-auto" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="feather feather-arrow-right"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
                 </label>
-            </div> 
+            </div>
 
             <div id="content" class="mx-2 my-8">
-                <div class="max-w-3xl mx-auto">
+                <div role="main" class="max-w-3xl mx-auto">
                     {% block body %} {{body}} {% endblock %}
                 </div>
             </div>
 
-            <footer class="p-2 mt-8 mb-2 text-sm text-gray-600 border-t">
+            <footer class="p-2 mt-8 mb-2 text-sm text-gray-600 border-t dark:border-gray-600">
                 <div class="flex flex-col justify-between max-w-3xl mx-auto lg:flex-row">
                     <span>
                         {%- if show_source and has_source and sourcename %}
@@ -70,7 +70,7 @@
                 </div>
             </footer>
         </main>
-        
+
     </div>
 {%- endblock %}
 

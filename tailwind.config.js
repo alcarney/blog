@@ -1,16 +1,28 @@
+const colors = require('tailwindcss/colors')
+
 module.exports = {
-  purge: [
-    "./**/*.html",
+  content: [
+    "./styles.css",
     "./**/*.rst",
-    "./**/*.js"
+    "./landing.html",
+    "./searchtools.patch",
+    "./_templates/**/*.html",
+    "./extensions/**/*.html",
+    "./code/**/*.js"
   ],
-  darkMode: false, // or 'media' or 'class'
+  plugins: [
+    require('@tailwindcss/typography')
+  ],
   theme: {
     screens: {
       "md": "700px",
       "lg": "1100px"
     },
     extend: {
+      colors: {
+        gray: colors.zinc,
+        green: colors.emerald,
+      },
       typography: (theme) => ({
         DEFAULT: {
           css: {
@@ -31,8 +43,8 @@ module.exports = {
               color: theme('colors.green.600')
             },
             pre: {
-              color: 'rgb(88, 110, 117)',
-              backgroundColor: '#fdf6e3'
+              color: 'inherit',
+              backgroundColor: 'unset'
             },
             a: {
               textDecoration: 'none'
@@ -61,14 +73,16 @@ module.exports = {
               userSelect: 'none',
             }
           }
-        }
+        },
+        sm: {
+          css: {
+            pre: {
+              marginTop: 0,
+              marginBottom: 0
+            },
+          }
+        },
       })
     },
   },
-  variants: {
-    extend: {},
-  },
-  plugins: [
-    require('@tailwindcss/typography')
-  ],
 }

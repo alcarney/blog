@@ -1,4 +1,4 @@
-<div class="my-4 border border-t-0">
+<div class="my-4 border border-t-0 dark:border-gray-600">
     {% for path, info in project.items() %}
 
     {%- if info.depth > 0 %}
@@ -7,9 +7,9 @@
         {%- set initial_classes = "" %}
     {%- endif %}
 
-    <div data-parent="{{info.parent}}" class="{{ initial_classes }} border-t">
+    <div data-parent="{{info.parent}}" class="{{ initial_classes }} border-t dark:border-gray-600"">
         <label for="{{path}}">
-            <div style="padding-left: {{ 4 + (info.depth * 16) }}px;" class="flex items-center px-2 py-1 space-x-2 hover:bg-gray-50">
+            <div style="padding-left: {{ 4 + (info.depth * 16) }}px;" class="flex items-center px-2 py-1 space-x-2 hover:bg-gray-50 hover:dark:bg-gray-700">
                 {% if info.type == "file" %}
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" ><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
                     <path d="M14 2v6h6M16 13H8M16 17H8M10 9H8"/>
@@ -19,11 +19,11 @@
                     <path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/>
                 </svg>
                 {% endif %}
-                
+
                 <span>{{info.name}}</span>
             </div>
         </label>
-        
+
         {% if info.type == "file" %}
         <input class="hidden" data-type="{{info.type}}" data-id="{{path}}" type="checkbox" id="{{path}}" />
         <div class="overflow-y-auto transition-all max-h-0">
@@ -36,7 +36,7 @@
         {% endif %}
 
     {% endfor %}
-</div> 
+</div>
 <style>
     {% for path, info in project.items() %}
 
@@ -47,6 +47,6 @@
     input[data-id='{{info.parent}}']:checked ~ div[data-parent='{{path}}'] {
         max-height: 382px;
     }
-    
+
     {% endfor %}
 </style>
