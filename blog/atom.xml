@@ -2,10 +2,10 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
   <id>www.alcarney.me</id>
   <title>Blog</title>
-  <updated>2021-12-14T13:31:39.740341+00:00</updated>
+  <updated>2022-02-01T17:53:58.375974+00:00</updated>
   <link href="www.alcarney.me"/>
   <link href="www.alcarney.me/blog/atom.xml" rel="self"/>
-  <generator uri="https://ablog.readthedocs.org/" version="0.10.21">ABlog</generator>
+  <generator uri="https://ablog.readthedocs.org/" version="0.10.23">ABlog</generator>
   <entry>
     <id>www.alcarney.me/blog/2018/first-article/</id>
     <title>I’ve Started a Blog… Again!</title>
@@ -13,7 +13,8 @@
     <author>
       <name>me</name>
     </author>
-    <content type="html">&lt;p&gt;Not that you would have known it, but I’ve had a blog since 2014.  Well 2015 if
+    <content type="html">&lt;div class="ablog-post-excerpt docutils container"&gt;
+&lt;p&gt;Not that you would have known it, but I’ve had a blog since 2014.  Well 2015 if
 you’re feeling generous, the first (and only) post went up in the last few
 hours of New Year’s Eve. It was a look back on some of the projects I had
 worked on that year and I announced my intentions to start blogging.&lt;/p&gt;
@@ -24,6 +25,7 @@ blogging - &lt;strong&gt;again&lt;/strong&gt;. So I guess you are wondering what
 (It’s been so long I can’t actually remember why), I decided that it was not the
 static site generator I was looking for. So I promptly set off on a voyage of
 discovery in search of the ultimate static site generator.&lt;/p&gt;
+&lt;/div&gt;
 </content>
     <link href="www.alcarney.me/blog/2018/first-article/" rel="alternate"/>
     <summary>Not that you would have known it, but I’ve had a blog since 2014.  Well 2015 if
@@ -44,7 +46,8 @@ discovery in search of the ultimate static site generator.</summary>
     <author>
       <name>me</name>
     </author>
-    <content type="html">&lt;p&gt;A few weeks back at &lt;a class="reference external" href="https://2018.pyconuk.org/"&gt;PyConUK&lt;/a&gt; I gave my first &lt;a class="reference external" href="https://youtu.be/F5jSUJVymXk?t=3480"&gt;lighting talk&lt;/a&gt;
+    <content type="html">&lt;div class="ablog-post-excerpt docutils container"&gt;
+&lt;p&gt;A few weeks back at &lt;a class="reference external" href="https://2018.pyconuk.org/"&gt;PyConUK&lt;/a&gt; I gave my first &lt;a class="reference external" href="https://youtu.be/F5jSUJVymXk?t=3480"&gt;lighting talk&lt;/a&gt;
 at a conference. During that talk I spoke publically about &lt;a class="reference external" href="https://github.com/alcarney/stylo"&gt;stylo&lt;/a&gt; for
 the first time. Stylo is a Python library that I have been working on for just
 over a year and a half and it aims to make the creation of images easier by
@@ -58,6 +61,7 @@ other people wouldn’t it be great if there was a community driven example
 gallery that people could get inspired by? - Well now there is! And it’s
 called &lt;a class="reference external" href="https://alcarney.github.io/stylo-doodles"&gt;Stylo Doodles&lt;/a&gt;&lt;/p&gt;
 &lt;img alt="../_images/stylo-doodles.png" src="../_images/stylo-doodles.png" /&gt;
+&lt;/div&gt;
 </content>
     <link href="www.alcarney.me/blog/2018/introducing-stylo-doodles/" rel="alternate"/>
     <summary>A few weeks back at PyConUK I gave my first lighting talk
@@ -82,8 +86,10 @@ called Stylo Doodles</summary>
     <author>
       <name>me</name>
     </author>
-    <content type="html">&lt;p&gt;Today I Learned that Python’s standard library has a &lt;a class="reference external" href="https://docs.python.org/3/library/cmd.html"&gt;cmd&lt;/a&gt; module and it is &lt;em&gt;awesome!&lt;/em&gt;&lt;/p&gt;
+    <content type="html">&lt;div class="ablog-post-excerpt docutils container"&gt;
+&lt;p&gt;Today I Learned that Python’s standard library has a &lt;a class="reference external" href="https://docs.python.org/3/library/cmd.html"&gt;cmd&lt;/a&gt; module and it is &lt;em&gt;awesome!&lt;/em&gt;&lt;/p&gt;
 &lt;img alt="../_images/cmd_python.gif" src="../_images/cmd_python.gif" /&gt;
+&lt;/div&gt;
 </content>
     <link href="www.alcarney.me/blog/2019/til-python-cmd/" rel="alternate"/>
     <summary>Today I Learned that Python’s standard library has a cmd module and it is awesome!</summary>
@@ -100,7 +106,8 @@ called Stylo Doodles</summary>
     <author>
       <name>me</name>
     </author>
-    <content type="html">&lt;p&gt;This post makes use of a number of interactive elements to help illustrate a few
+    <content type="html">&lt;div class="ablog-post-excerpt docutils container"&gt;
+&lt;p&gt;This post makes use of a number of interactive elements to help illustrate a few
 concepts. Unfortunately these do not yet work on mobile devices - sorry mobile
 users!&lt;/p&gt;
 &lt;p&gt;I have for quite some time now wanted to play around with web development some
@@ -118,6 +125,7 @@ functionality using only vanilla JavaScript. Clicking and dragging as a concept
 can apply to many kinds of interactions so in this instance I’m specifically
 referring to clicking on an SVG element moving it around on the page as
 illustrated by the demo above.&lt;/p&gt;
+&lt;/div&gt;
 </content>
     <link href="www.alcarney.me/blog/2019/click-drag-vanilla-js/" rel="alternate"/>
     <summary>This post makes use of a number of interactive elements to help illustrate a few
@@ -147,7 +155,8 @@ illustrated by the demo above.</summary>
     <author>
       <name>me</name>
     </author>
-    <content type="html">&lt;p&gt;I have always been interested in graphics and have on numerous occasions tried
+    <content type="html">&lt;div class="ablog-post-excerpt docutils container"&gt;
+&lt;p&gt;I have always been interested in graphics and have on numerous occasions tried
 to dip my toe into the world of OpenGL and more recently Vulkan. However I have
 never been able to get past the “Hello, World” of these technologies - drawing a
 triangle on screen, I think mostly becuase I never really had a goal in mind
@@ -155,6 +164,7 @@ once I got that far…&lt;/p&gt;
 &lt;p&gt;But that’s (hopefully) about to change! What better excuse than a new decade to
 jump back into this world for the 100th time and try to get to all those
 interesting ideas I see people playing with all the time!&lt;/p&gt;
+&lt;/div&gt;
 </content>
     <link href="www.alcarney.me/blog/2020/learning-vulkan-p0/" rel="alternate"/>
     <summary>I have always been interested in graphics and have on numerous occasions tried
@@ -176,7 +186,8 @@ interesting ideas I see people playing with all the time!</summary>
     <author>
       <name>me</name>
     </author>
-    <content type="html">&lt;p&gt;Being an API for talking to GPUs and other compute devices every Vulkan
+    <content type="html">&lt;div class="ablog-post-excerpt docutils container"&gt;
+&lt;p&gt;Being an API for talking to GPUs and other compute devices every Vulkan
 program starts off by looking for an appropriate &lt;a class="reference external" href="https://www.khronos.org/registry/vulkan/specs/1.1-extensions/man/html/VkPhysicalDevice.html"&gt;physical device&lt;/a&gt;
 to use. In this post I write a little C program that initialises the Vulkan
 API and lists out the available devices in the system.&lt;/p&gt;
@@ -184,6 +195,7 @@ API and lists out the available devices in the system.&lt;/p&gt;
 Vulkan to explore various concepts in graphics programming. As mentioned in
 the &lt;a class="reference internal" href="2020/learning-vulkan-p0/"&gt;&lt;span class="doc"&gt;Overview&lt;/span&gt;&lt;/a&gt; I don’t necessarily
 know what I’m doing!&lt;/p&gt;
+&lt;/div&gt;
 </content>
     <link href="www.alcarney.me/blog/2020/learning-vulkan-p1/" rel="alternate"/>
     <summary>Being an API for talking to GPUs and other compute devices every Vulkan
@@ -205,12 +217,14 @@ know what I’m doing!</summary>
     <author>
       <name>me</name>
     </author>
-    <content type="html">&lt;p&gt;WebAssembly is something I’ve wanted to play with for quite a while now and
+    <content type="html">&lt;div class="ablog-post-excerpt docutils container"&gt;
+&lt;p&gt;WebAssembly is something I’ve wanted to play with for quite a while now and
 I’ve finally got around to taking a look at it. In this post I describe how I
 managed to use &lt;a class="reference external" href="https://tinygo.org/"&gt;TinyGo&lt;/a&gt; to compile a “Hello, World!” Go program into
 WebAssembly and execute it in the browser. So that I have something to refer
 back to I also describe setting up my development environment as a container
 using &lt;a class="reference external" href="https://linuxcontainers.org/"&gt;LXD&lt;/a&gt;.&lt;/p&gt;
+&lt;/div&gt;
 </content>
     <link href="www.alcarney.me/blog/2020/hello-world-tinygo-wasm/" rel="alternate"/>
     <summary>WebAssembly is something I’ve wanted to play with for quite a while now and
@@ -233,12 +247,14 @@ using LXD.</summary>
     <author>
       <name>me</name>
     </author>
-    <content type="html">&lt;p&gt;After getting a &lt;a class="reference internal" href="2020/hello-world-tinygo-wasm/"&gt;&lt;span class="doc"&gt;“Hello, World!”&lt;/span&gt;&lt;/a&gt; WebAssembly
+    <content type="html">&lt;div class="ablog-post-excerpt docutils container"&gt;
+&lt;p&gt;After getting a &lt;a class="reference internal" href="2020/hello-world-tinygo-wasm/"&gt;&lt;span class="doc"&gt;“Hello, World!”&lt;/span&gt;&lt;/a&gt; WebAssembly
 application working I thought it would be fun to try and implement a toy programming
 language in the browser. However before I could even start thinking about parsers,
 abstract syntax trees and the like I had to be able to pass strings between my
 WebAssembly module and the surrounding JavaScript.&lt;/p&gt;
 &lt;p&gt;Turns out that is much trickier than I expected.&lt;/p&gt;
+&lt;/div&gt;
 </content>
     <link href="www.alcarney.me/blog/2020/passing-strings-between-tinygo-wasm/" rel="alternate"/>
     <summary>After getting a “Hello, World!” WebAssembly
@@ -259,11 +275,13 @@ WebAssembly module and the surrounding JavaScript.Turns out that is much trickie
     <author>
       <name>me</name>
     </author>
-    <content type="html">&lt;p&gt;Programming languages and their implementation is a topic I’ve been interested
+    <content type="html">&lt;div class="ablog-post-excerpt docutils container"&gt;
+&lt;p&gt;Programming languages and their implementation is a topic I’ve been interested
 in for a long time and I thought it would be worth trying to get a bit more
 hands on and play with some of the ideas in this space. Choosing a topic
 somewhat at random I’ve chosen to take a look at implementing an Abstract Syntax
 Tree (AST).&lt;/p&gt;
+&lt;/div&gt;
 </content>
     <link href="www.alcarney.me/blog/2020/ast-simple-eval/" rel="alternate"/>
     <summary>Programming languages and their implementation is a topic I’ve been interested
@@ -282,7 +300,8 @@ Tree (AST).</summary>
     <author>
       <name>me</name>
     </author>
-    <content type="html">&lt;p&gt;&lt;a class="reference internal" href="2020/ast-simple-eval/"&gt;&lt;span class="doc"&gt;Previously&lt;/span&gt;&lt;/a&gt;, as part of my exploration
+    <content type="html">&lt;div class="ablog-post-excerpt docutils container"&gt;
+&lt;p&gt;&lt;a class="reference internal" href="2020/ast-simple-eval/"&gt;&lt;span class="doc"&gt;Previously&lt;/span&gt;&lt;/a&gt;, as part of my exploration
 into how programming languages are implemented, I wrote a very simple AST
 evaluator that knew how to add and multiply floats together. Since constructing
 these ASTs by hand is quite painful I thought it would be fun to come up with a
@@ -291,6 +310,7 @@ frontend to my “programming language” which could do it for me.&lt;/p&gt;
 compiler/interpreter. However, while I’m definitely interested in parsing I
 don’t quite feel like tackling that just yet. Instead I’m going to have Python
 be the frontend and embed my toy language into it via a &lt;a class="reference external" href="https://docs.python.org/3/extending/extending.html"&gt;CPython Extension&lt;/a&gt;&lt;/p&gt;
+&lt;/div&gt;
 </content>
     <link href="www.alcarney.me/blog/2021/ast-python-frontend/" rel="alternate"/>
     <summary>Previously, as part of my exploration
@@ -313,7 +333,8 @@ be the frontend and embed my toy language into it via a CPython Extension</summa
     <author>
       <name>me</name>
     </author>
-    <content type="html">&lt;p&gt;For the past year or so I’ve been working on a language server called &lt;a class="reference external" href="https://github.com/swyddfa/esbonio"&gt;Esbonio&lt;/a&gt;.
+    <content type="html">&lt;div class="ablog-post-excerpt docutils container"&gt;
+&lt;p&gt;For the past year or so I’ve been working on a language server called &lt;a class="reference external" href="https://github.com/swyddfa/esbonio"&gt;Esbonio&lt;/a&gt;.
 It’s a language server designed to streamline the process of working with your
 &lt;a class="reference external" href="https://www.sphinx-doc.org/en/master/"&gt;Sphinx&lt;/a&gt; documentation projects. Currently its feature set is quite limited, but I
 think it does a good job of providing you with completion suggestions for all your
@@ -322,6 +343,7 @@ roles, directives and cross-references.&lt;/p&gt;
 see if I can bring Esbonio into the browser version of VSCode. There’s only one
 problem… Esbonio is written in Python! 😬&lt;/p&gt;
 &lt;img alt="https://github.com/swyddfa/esbonio/raw/develop/resources/images/completion-demo.gif" src="https://github.com/swyddfa/esbonio/raw/develop/resources/images/completion-demo.gif" style="width: 80%;" /&gt;
+&lt;/div&gt;
 </content>
     <link href="www.alcarney.me/blog/2021/bringing-esbonio-to-the-browser/" rel="alternate"/>
     <summary>For the past year or so I’ve been working on a language server called Esbonio.

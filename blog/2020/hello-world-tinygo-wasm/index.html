@@ -303,12 +303,12 @@ the effort? Well, I guess only time will tell…</p>
 <div class="section" id="tinygo">
 <span id="hello-world-tinygo-wasm-tinygo"></span><h2>TinyGo<a class="headerlink" href="#tinygo" title="Permalink to this headline">¶</a></h2>
 <p>With the setup out of the way time to write our “Hello, World!” program in Go</p>
-<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kn">package</span> <span class="nx">main</span>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kn">package</span><span class="w"> </span><span class="nx">main</span><span class="w"></span>
 
-<span class="c1">//go:export main</span>
-<span class="kd">func</span> <span class="nx">main</span><span class="p">()</span> <span class="p">{</span>
-   <span class="nb">println</span><span class="p">(</span><span class="s">&quot;Hello, World!&quot;</span><span class="p">)</span>
-<span class="p">}</span>
+<span class="c1">//go:export main</span><span class="w"></span>
+<span class="kd">func</span><span class="w"> </span><span class="nx">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">   </span><span class="nb">println</span><span class="p">(</span><span class="s">&quot;Hello, World!&quot;</span><span class="p">)</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 </pre></div>
 </div>
 <p>Notice the <code class="docutils literal notranslate"><span class="pre">//go:export</span> <span class="pre">main</span></code> comment. Using comments like these is how we tell TinyGo
@@ -406,7 +406,7 @@ and see the message “Hello, World!” written to the console!</p>
                             Page Source
                         </a>
                     </span>
-                    <span>Built with <a class="text-green-600" href="https://www.sphinx-doc.org/en/master/">Sphinx</a> v4.3.1</span>
+                    <span>Built with <a class="text-green-600" href="https://www.sphinx-doc.org/en/master/">Sphinx</a> v4.4.0</span>
                     <span>&#169; Copyright 2021, Alex Carney.</span>
                 </div>
             </footer>

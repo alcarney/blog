@@ -233,13 +233,13 @@ to the “log” <code class="docutils literal notranslate"><span class="pre">te
 <p>Next we need some way to reference such a function from our go code. If we define a
 function but not implement it TinyGo will recognise it as an external function whose
 implementation should be provided by the surrounding JavaScript.</p>
-<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kn">package</span> <span class="nx">main</span>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kn">package</span><span class="w"> </span><span class="nx">main</span><span class="w"></span>
 
-<span class="kd">func</span> <span class="nx">log</span><span class="p">(</span><span class="nx">message</span> <span class="kt">string</span><span class="p">)</span>
+<span class="kd">func</span><span class="w"> </span><span class="nx">log</span><span class="p">(</span><span class="nx">message</span><span class="w"> </span><span class="kt">string</span><span class="p">)</span><span class="w"></span>
 
-<span class="kd">func</span> <span class="nx">main</span><span class="p">()</span> <span class="p">{</span>
-   <span class="nx">log</span><span class="p">(</span><span class="s">&quot;Hello, World!&quot;</span><span class="p">)</span>
-<span class="p">}</span>
+<span class="kd">func</span><span class="w"> </span><span class="nx">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">   </span><span class="nx">log</span><span class="p">(</span><span class="s">&quot;Hello, World!&quot;</span><span class="p">)</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 </pre></div>
 </div>
 <div class="admonition note">
@@ -301,11 +301,11 @@ passes to LLVM in order to generate the WebAssembly code.</p>
 </pre></div>
 </div>
 <p>Now, there is a <em>lot</em> going on (20,000+ lines) in this file as it includes not just our
-simple program but the Go runtime required to execute it. Thankfully with <kbd class="kbd docutils literal notranslate">Ctrl-F</kbd> to
+simple program but the Go runtime required to execute it. Thankfully with <kbd class="kbd compound docutils literal notranslate"><kbd class="kbd docutils literal notranslate">Ctrl</kbd>-<kbd class="kbd docutils literal notranslate">F</kbd></kbd> to
 the rescue, it’s easy enough to track down where our “Hello, World!” string is defined</p>
-<div class="highlight-llvm notranslate"><div class="highlight"><pre><span></span><span class="p">...</span>
-<span class="vg">@&quot;main.go.main$string&quot;</span> <span class="p">=</span> <span class="k">internal</span> <span class="k">unnamed_addr</span> <span class="k">constant</span> <span class="p">[</span><span class="m">13</span> <span class="k">x</span> <span class="kt">i8</span><span class="p">]</span> <span class="k">c</span><span class="s">&quot;Hello, World!&quot;</span>
-<span class="p">...</span>
+<div class="highlight-llvm notranslate"><div class="highlight"><pre><span></span><span class="p">...</span><span class="w"></span>
+<span class="vg">@&quot;main.go.main$string&quot;</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="k">internal</span><span class="w"> </span><span class="k">unnamed_addr</span><span class="w"> </span><span class="k">constant</span><span class="w"> </span><span class="p">[</span><span class="m">13</span><span class="w"> </span><span class="k">x</span><span class="w"> </span><span class="kt">i8</span><span class="p">]</span><span class="w"> </span><span class="k">c</span><span class="s">&quot;Hello, World!&quot;</span><span class="w"></span>
+<span class="p">...</span><span class="w"></span>
 </pre></div>
 </div>
 <p>I don’t know the first thing when it comes to LLVM’s IR representation of code but after
@@ -314,24 +314,24 @@ that our string is represented by an array of 13, 8-bit integers.</p>
 <p>Awesome, we now know how to interpret the values we see in the WebAssembly module’s
 <code class="docutils literal notranslate"><span class="pre">ArrayBuffer</span></code>, but how will we know how many values to look for?</p>
 <p>Let’s try and find our <code class="docutils literal notranslate"><span class="pre">log</span></code> function…</p>
-<div class="highlight-llvm notranslate"><div class="highlight"><pre><span></span><span class="k">declare</span> <span class="k">void</span> <span class="vg">@main.go.log</span><span class="p">(</span><span class="kt">i8</span><span class="p">*,</span> <span class="kt">i32</span><span class="p">,</span> <span class="kt">i8</span><span class="p">*,</span> <span class="kt">i8</span><span class="p">*)</span>
+<div class="highlight-llvm notranslate"><div class="highlight"><pre><span></span><span class="k">declare</span><span class="w"> </span><span class="k">void</span><span class="w"> </span><span class="vg">@main.go.log</span><span class="p">(</span><span class="kt">i8</span><span class="p">*,</span><span class="w"> </span><span class="kt">i32</span><span class="p">,</span><span class="w"> </span><span class="kt">i8</span><span class="p">*,</span><span class="w"> </span><span class="kt">i8</span><span class="p">*)</span><span class="w"></span>
 </pre></div>
 </div>
 <p>Ah, just like the <code class="docutils literal notranslate"><span class="pre">log</span></code> function in our go code it has no implementation since this is
 to be provided by the JavaScript wrapper. However instead of a single argument it now
 takes 4! Interesting… let’s track down our main function and see how it is used.</p>
-<div class="highlight-llvm notranslate"><div class="highlight"><pre><span></span><span class="k">define</span> <span class="k">dso_local</span> <span class="k">void</span> <span class="vg">@main.go.main</span><span class="p">(</span><span class="kt">i8</span><span class="p">*</span> <span class="nv">%context</span><span class="p">,</span> <span class="kt">i8</span><span class="p">*</span> <span class="nv">%parentHandle</span><span class="p">)</span> <span class="k">unnamed_addr</span> <span class="p">{</span>
-<span class="nl">entry:</span>
-<span class="k">call</span> <span class="k">void</span> <span class="vg">@main.go.log</span><span class="p">(</span><span class="kt">i8</span><span class="p">*</span> <span class="k">getelementptr</span> <span class="k">inbounds</span> <span class="p">([</span><span class="m">13</span> <span class="k">x</span> <span class="kt">i8</span><span class="p">],</span> <span class="p">[</span><span class="m">13</span> <span class="k">x</span> <span class="kt">i8</span><span class="p">]*</span> <span class="vg">@&quot;main.go.main$string&quot;</span><span class="p">,</span> <span class="kt">i32</span> <span class="m">0</span><span class="p">,</span> <span class="kt">i32</span> <span class="m">0</span><span class="p">),</span> <span class="kt">i32</span> <span class="m">13</span><span class="p">,</span> <span class="kt">i8</span><span class="p">*</span> <span class="k">undef</span><span class="p">,</span> <span class="kt">i8</span><span class="p">*</span> <span class="k">undef</span><span class="p">)</span>
-   <span class="k">ret</span> <span class="k">void</span>
-<span class="p">}</span>
+<div class="highlight-llvm notranslate"><div class="highlight"><pre><span></span><span class="k">define</span><span class="w"> </span><span class="k">dso_local</span><span class="w"> </span><span class="k">void</span><span class="w"> </span><span class="vg">@main.go.main</span><span class="p">(</span><span class="kt">i8</span><span class="p">*</span><span class="w"> </span><span class="nv">%context</span><span class="p">,</span><span class="w"> </span><span class="kt">i8</span><span class="p">*</span><span class="w"> </span><span class="nv">%parentHandle</span><span class="p">)</span><span class="w"> </span><span class="k">unnamed_addr</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="nl">entry:</span><span class="w"></span>
+<span class="k">call</span><span class="w"> </span><span class="k">void</span><span class="w"> </span><span class="vg">@main.go.log</span><span class="p">(</span><span class="kt">i8</span><span class="p">*</span><span class="w"> </span><span class="k">getelementptr</span><span class="w"> </span><span class="k">inbounds</span><span class="w"> </span><span class="p">([</span><span class="m">13</span><span class="w"> </span><span class="k">x</span><span class="w"> </span><span class="kt">i8</span><span class="p">],</span><span class="w"> </span><span class="p">[</span><span class="m">13</span><span class="w"> </span><span class="k">x</span><span class="w"> </span><span class="kt">i8</span><span class="p">]*</span><span class="w"> </span><span class="vg">@&quot;main.go.main$string&quot;</span><span class="p">,</span><span class="w"> </span><span class="kt">i32</span><span class="w"> </span><span class="m">0</span><span class="p">,</span><span class="w"> </span><span class="kt">i32</span><span class="w"> </span><span class="m">0</span><span class="p">),</span><span class="w"> </span><span class="kt">i32</span><span class="w"> </span><span class="m">13</span><span class="p">,</span><span class="w"> </span><span class="kt">i8</span><span class="p">*</span><span class="w"> </span><span class="k">undef</span><span class="p">,</span><span class="w"> </span><span class="kt">i8</span><span class="p">*</span><span class="w"> </span><span class="k">undef</span><span class="p">)</span><span class="w"></span>
+<span class="w">   </span><span class="k">ret</span><span class="w"> </span><span class="k">void</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 </pre></div>
 </div>
 <p>Wow. Umm… there’s a lot going on here… what if we try “squinting” at this code a bit</p>
-<div class="highlight-llvm notranslate"><div class="highlight"><pre><span></span><span class="k">define</span> <span class="k">void</span> <span class="vg">@main.go.main</span><span class="p">(...)</span> <span class="p">{</span>
-<span class="k">call</span> <span class="vg">@main.go.log</span><span class="p">(</span><span class="kt">i8</span><span class="p">*</span> <span class="k">getelementptr</span> <span class="p">(...</span> <span class="vg">@&quot;main.go.main$string&quot;</span><span class="p">,...),</span> <span class="kt">i32</span> <span class="m">13</span><span class="p">,</span> <span class="p">...)</span>
-   <span class="k">ret</span> <span class="k">void</span>
-<span class="p">}</span>
+<div class="highlight-llvm notranslate"><div class="highlight"><pre><span></span><span class="k">define</span><span class="w"> </span><span class="k">void</span><span class="w"> </span><span class="vg">@main.go.main</span><span class="p">(...)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="k">call</span><span class="w"> </span><span class="vg">@main.go.log</span><span class="p">(</span><span class="kt">i8</span><span class="p">*</span><span class="w"> </span><span class="k">getelementptr</span><span class="w"> </span><span class="p">(...</span><span class="w"> </span><span class="vg">@&quot;main.go.main$string&quot;</span><span class="p">,...),</span><span class="w"> </span><span class="kt">i32</span><span class="w"> </span><span class="m">13</span><span class="p">,</span><span class="w"> </span><span class="p">...)</span><span class="w"></span>
+<span class="w">   </span><span class="k">ret</span><span class="w"> </span><span class="k">void</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 </pre></div>
 </div>
 <p>Ok, so it looks like there’s a call being made to our log function and
@@ -402,10 +402,10 @@ instance directly.</p>
 together it’s “just” a matter of doing the inverse process to pass a string from our
 JavaScript code into our WebAssembly module. As a proof of concept let’s create an
 <code class="docutils literal notranslate"><span class="pre">echo</span></code> function in TinyGo that will simply log whatever text it receives.</p>
-<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="c1">//go:export echo</span>
-<span class="kd">func</span> <span class="nx">echo</span><span class="p">(</span><span class="nx">message</span> <span class="kt">string</span><span class="p">)</span> <span class="p">{</span>
-   <span class="nx">log</span><span class="p">(</span><span class="nx">message</span><span class="p">)</span>
-<span class="p">}</span>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="c1">//go:export echo</span><span class="w"></span>
+<span class="kd">func</span><span class="w"> </span><span class="nx">echo</span><span class="p">(</span><span class="nx">message</span><span class="w"> </span><span class="kt">string</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">   </span><span class="nx">log</span><span class="p">(</span><span class="nx">message</span><span class="p">)</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 </pre></div>
 </div>
 <p>In order to actually pass a string to this function, we need to insert the string into
@@ -420,12 +420,12 @@ having two competing codebases manipulate the same memory layout seems to be ask
 for trouble…</p>
 <p>Thankfully I came across <a class="reference external" href="https://github.com/tinygo-org/tinygo/issues/411#issuecomment-503066868">this comment</a> on an issue in the TinyGo project
 which provides a way we can work around this.</p>
-<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">var</span> <span class="nx">buf</span> <span class="p">[</span><span class="mi">1024</span><span class="p">]</span><span class="kt">byte</span>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">var</span><span class="w"> </span><span class="nx">buf</span><span class="w"> </span><span class="p">[</span><span class="mi">1024</span><span class="p">]</span><span class="kt">byte</span><span class="w"></span>
 
-<span class="c1">//go:export getBuffer</span>
-<span class="kd">func</span> <span class="nx">getBuffer</span><span class="p">()</span> <span class="o">*</span><span class="kt">byte</span> <span class="p">{</span>
-   <span class="k">return</span> <span class="o">&amp;</span><span class="nx">buf</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
-<span class="p">}</span>
+<span class="c1">//go:export getBuffer</span><span class="w"></span>
+<span class="kd">func</span><span class="w"> </span><span class="nx">getBuffer</span><span class="p">()</span><span class="w"> </span><span class="o">*</span><span class="kt">byte</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">   </span><span class="k">return</span><span class="w"> </span><span class="o">&amp;</span><span class="nx">buf</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 </pre></div>
 </div>
 <p>If we declare an array of bytes in the module, the TinyGo compiler will allocate space
@@ -543,7 +543,7 @@ Perhaps I’m just using it wrong 🤔</p>
                             Page Source
                         </a>
                     </span>
-                    <span>Built with <a class="text-green-600" href="https://www.sphinx-doc.org/en/master/">Sphinx</a> v4.3.1</span>
+                    <span>Built with <a class="text-green-600" href="https://www.sphinx-doc.org/en/master/">Sphinx</a> v4.4.0</span>
                     <span>&#169; Copyright 2021, Alex Carney.</span>
                 </div>
             </footer>

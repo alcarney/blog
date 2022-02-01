@@ -194,7 +194,8 @@
                 </a>
             </header>
             <div class="prose-sm prose prose-green">
-                <p>For the past year or so I’ve been working on a language server called <a class="reference external" href="https://github.com/swyddfa/esbonio">Esbonio</a>.
+                <div class="ablog-post-excerpt docutils container">
+<p>For the past year or so I’ve been working on a language server called <a class="reference external" href="https://github.com/swyddfa/esbonio">Esbonio</a>.
 It’s a language server designed to streamline the process of working with your
 <a class="reference external" href="https://www.sphinx-doc.org/en/master/">Sphinx</a> documentation projects. Currently its feature set is quite limited, but I
 think it does a good job of providing you with completion suggestions for all your
@@ -203,6 +204,7 @@ roles, directives and cross-references.</p>
 see if I can bring Esbonio into the browser version of VSCode. There’s only one
 problem… Esbonio is written in Python! 😬</p>
 <img alt="https://github.com/swyddfa/esbonio/raw/develop/resources/images/completion-demo.gif" src="https://github.com/swyddfa/esbonio/raw/develop/resources/images/completion-demo.gif" style="width: 80%;" />
+</div>
 
         
             </div>
@@ -245,7 +247,8 @@ problem… Esbonio is written in Python! 😬</p>
                 </a>
             </header>
             <div class="prose-sm prose prose-green">
-                <p><a class="reference internal" href="../../2020/ast-simple-eval/"><span class="doc">Previously</span></a>, as part of my exploration
+                <div class="ablog-post-excerpt docutils container">
+<p><a class="reference internal" href="../../2020/ast-simple-eval/"><span class="doc">Previously</span></a>, as part of my exploration
 into how programming languages are implemented, I wrote a very simple AST
 evaluator that knew how to add and multiply floats together. Since constructing
 these ASTs by hand is quite painful I thought it would be fun to come up with a
@@ -254,6 +257,7 @@ frontend to my “programming language” which could do it for me.</p>
 compiler/interpreter. However, while I’m definitely interested in parsing I
 don’t quite feel like tackling that just yet. Instead I’m going to have Python
 be the frontend and embed my toy language into it via a <a class="reference external" href="https://docs.python.org/3/extending/extending.html">CPython Extension</a></p>
+</div>
 
         
             </div>
@@ -296,11 +300,13 @@ be the frontend and embed my toy language into it via a <a class="reference exte
                 </a>
             </header>
             <div class="prose-sm prose prose-green">
-                <p>Programming languages and their implementation is a topic I’ve been interested
+                <div class="ablog-post-excerpt docutils container">
+<p>Programming languages and their implementation is a topic I’ve been interested
 in for a long time and I thought it would be worth trying to get a bit more
 hands on and play with some of the ideas in this space. Choosing a topic
 somewhat at random I’ve chosen to take a look at implementing an Abstract Syntax
 Tree (AST).</p>
+</div>
 
         
             </div>
@@ -338,12 +344,14 @@ Tree (AST).</p>
                 </a>
             </header>
             <div class="prose-sm prose prose-green">
-                <p>After getting a <a class="reference internal" href="../../2020/hello-world-tinygo-wasm/"><span class="doc">“Hello, World!”</span></a> WebAssembly
+                <div class="ablog-post-excerpt docutils container">
+<p>After getting a <a class="reference internal" href="../../2020/hello-world-tinygo-wasm/"><span class="doc">“Hello, World!”</span></a> WebAssembly
 application working I thought it would be fun to try and implement a toy programming
 language in the browser. However before I could even start thinking about parsers,
 abstract syntax trees and the like I had to be able to pass strings between my
 WebAssembly module and the surrounding JavaScript.</p>
 <p>Turns out that is much trickier than I expected.</p>
+</div>
 
         
             </div>
@@ -391,12 +399,14 @@ WebAssembly module and the surrounding JavaScript.</p>
                 </a>
             </header>
             <div class="prose-sm prose prose-green">
-                <p>WebAssembly is something I’ve wanted to play with for quite a while now and
+                <div class="ablog-post-excerpt docutils container">
+<p>WebAssembly is something I’ve wanted to play with for quite a while now and
 I’ve finally got around to taking a look at it. In this post I describe how I
 managed to use <a class="reference external" href="https://tinygo.org/">TinyGo</a> to compile a “Hello, World!” Go program into
 WebAssembly and execute it in the browser. So that I have something to refer
 back to I also describe setting up my development environment as a container
 using <a class="reference external" href="https://linuxcontainers.org/">LXD</a>.</p>
+</div>
 
         
             </div>
@@ -449,7 +459,8 @@ using <a class="reference external" href="https://linuxcontainers.org/">LXD</a>.
                 </a>
             </header>
             <div class="prose-sm prose prose-green">
-                <p>Being an API for talking to GPUs and other compute devices every Vulkan
+                <div class="ablog-post-excerpt docutils container">
+<p>Being an API for talking to GPUs and other compute devices every Vulkan
 program starts off by looking for an appropriate <a class="reference external" href="https://www.khronos.org/registry/vulkan/specs/1.1-extensions/man/html/VkPhysicalDevice.html">physical device</a>
 to use. In this post I write a little C program that initialises the Vulkan
 API and lists out the available devices in the system.</p>
@@ -457,6 +468,7 @@ API and lists out the available devices in the system.</p>
 Vulkan to explore various concepts in graphics programming. As mentioned in
 the <a class="reference internal" href="../../2020/learning-vulkan-p0/"><span class="doc">Overview</span></a> I don’t necessarily
 know what I’m doing!</p>
+</div>
 
         
             </div>
@@ -499,7 +511,8 @@ know what I’m doing!</p>
                 </a>
             </header>
             <div class="prose-sm prose prose-green">
-                <p>I have always been interested in graphics and have on numerous occasions tried
+                <div class="ablog-post-excerpt docutils container">
+<p>I have always been interested in graphics and have on numerous occasions tried
 to dip my toe into the world of OpenGL and more recently Vulkan. However I have
 never been able to get past the “Hello, World” of these technologies - drawing a
 triangle on screen, I think mostly becuase I never really had a goal in mind
@@ -507,6 +520,7 @@ once I got that far…</p>
 <p>But that’s (hopefully) about to change! What better excuse than a new decade to
 jump back into this world for the 100th time and try to get to all those
 interesting ideas I see people playing with all the time!</p>
+</div>
 
         
             </div>
@@ -549,7 +563,8 @@ interesting ideas I see people playing with all the time!</p>
                 </a>
             </header>
             <div class="prose-sm prose prose-green">
-                <p>This post makes use of a number of interactive elements to help illustrate a few
+                <div class="ablog-post-excerpt docutils container">
+<p>This post makes use of a number of interactive elements to help illustrate a few
 concepts. Unfortunately these do not yet work on mobile devices - sorry mobile
 users!</p>
 <p>I have for quite some time now wanted to play around with web development some
@@ -567,6 +582,7 @@ functionality using only vanilla JavaScript. Clicking and dragging as a concept
 can apply to many kinds of interactions so in this instance I’m specifically
 referring to clicking on an SVG element moving it around on the page as
 illustrated by the demo above.</p>
+</div>
 
         
             </div>
@@ -609,8 +625,10 @@ illustrated by the demo above.</p>
                 </a>
             </header>
             <div class="prose-sm prose prose-green">
-                <p>Today I Learned that Python’s standard library has a <a class="reference external" href="https://docs.python.org/3/library/cmd.html">cmd</a> module and it is <em>awesome!</em></p>
+                <div class="ablog-post-excerpt docutils container">
+<p>Today I Learned that Python’s standard library has a <a class="reference external" href="https://docs.python.org/3/library/cmd.html">cmd</a> module and it is <em>awesome!</em></p>
 <img alt="../../../_images/cmd_python.gif" src="../../../_images/cmd_python.gif" />
+</div>
 
         
             </div>
@@ -658,7 +676,8 @@ illustrated by the demo above.</p>
                 </a>
             </header>
             <div class="prose-sm prose prose-green">
-                <p>A few weeks back at <a class="reference external" href="https://2018.pyconuk.org/">PyConUK</a> I gave my first <a class="reference external" href="https://youtu.be/F5jSUJVymXk?t=3480">lighting talk</a>
+                <div class="ablog-post-excerpt docutils container">
+<p>A few weeks back at <a class="reference external" href="https://2018.pyconuk.org/">PyConUK</a> I gave my first <a class="reference external" href="https://youtu.be/F5jSUJVymXk?t=3480">lighting talk</a>
 at a conference. During that talk I spoke publically about <a class="reference external" href="https://github.com/alcarney/stylo">stylo</a> for
 the first time. Stylo is a Python library that I have been working on for just
 over a year and a half and it aims to make the creation of images easier by
@@ -672,6 +691,7 @@ other people wouldn’t it be great if there was a community driven example
 gallery that people could get inspired by? - Well now there is! And it’s
 called <a class="reference external" href="https://alcarney.github.io/stylo-doodles">Stylo Doodles</a></p>
 <img alt="../../../_images/stylo-doodles.png" src="../../../_images/stylo-doodles.png" />
+</div>
 
         
             </div>
@@ -709,7 +729,8 @@ called <a class="reference external" href="https://alcarney.github.io/stylo-dood
                 </a>
             </header>
             <div class="prose-sm prose prose-green">
-                <p>Not that you would have known it, but I’ve had a blog since 2014.  Well 2015 if
+                <div class="ablog-post-excerpt docutils container">
+<p>Not that you would have known it, but I’ve had a blog since 2014.  Well 2015 if
 you’re feeling generous, the first (and only) post went up in the last few
 hours of New Year’s Eve. It was a look back on some of the projects I had
 worked on that year and I announced my intentions to start blogging.</p>
@@ -720,6 +741,7 @@ blogging - <strong>again</strong>. So I guess you are wondering what happened?</
 (It’s been so long I can’t actually remember why), I decided that it was not the
 static site generator I was looking for. So I promptly set off on a voyage of
 discovery in search of the ultimate static site generator.</p>
+</div>
 
         
             </div>
@@ -747,7 +769,7 @@ discovery in search of the ultimate static site generator.</p>
                 <div class="flex flex-col justify-between max-w-3xl mx-auto lg:flex-row">
                     <span>
                     </span>
-                    <span>Built with <a class="text-green-600" href="https://www.sphinx-doc.org/en/master/">Sphinx</a> v4.3.1</span>
+                    <span>Built with <a class="text-green-600" href="https://www.sphinx-doc.org/en/master/">Sphinx</a> v4.4.0</span>
                     <span>&#169; Copyright 2021, Alex Carney.</span>
                 </div>
             </footer>

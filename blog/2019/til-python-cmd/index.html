@@ -232,7 +232,7 @@ Documented commands (type help &lt;topic&gt;):
 help
 </pre></div>
 </div>
-<p><kbd class="kbd docutils literal notranslate">Ctrl-C</kbd> will exit the application. Obviously this is pretty useless right now
+<p><kbd class="kbd compound docutils literal notranslate"><kbd class="kbd docutils literal notranslate">Ctrl</kbd>-<kbd class="kbd docutils literal notranslate">C</kbd></kbd> will exit the application. Obviously this is pretty useless right now
 so let’s look at adding in some commands of our own.</p>
 </div>
 <div class="section" id="adding-commands">
@@ -410,7 +410,7 @@ user doesn’t see something that looks like a graph.</p></li>
 some things to make the overall experience nicer.</p>
 <div class="section" id="exiting-the-program">
 <h3>Exiting the Program<a class="headerlink" href="#exiting-the-program" title="Permalink to this headline">¶</a></h3>
-<p>So far we don’t have a clean way to close the program, we can hit <kbd class="kbd docutils literal notranslate">Ctrl-C</kbd> to
+<p>So far we don’t have a clean way to close the program, we can hit <kbd class="kbd compound docutils literal notranslate"><kbd class="kbd docutils literal notranslate">Ctrl</kbd>-<kbd class="kbd docutils literal notranslate">C</kbd></kbd> to
 terminate the script but it results in Python printing a traceback and it looks
 like an error in our program more than anything.</p>
 <p>Instead we can override the <code class="docutils literal notranslate"><span class="pre">default</span></code> method on our class. This method is
@@ -418,7 +418,7 @@ called whenever the program doesn’t recogise the user’s input as a valid
 command and we can use it to look at all of the user’s input (not just the
 <code class="docutils literal notranslate"><span class="pre">args</span></code>) and decide what to do with it.</p>
 <p>In this case we will say that the program will exit whenever the user types a
-<code class="docutils literal notranslate"><span class="pre">q</span></code> or we receive an <code class="docutils literal notranslate"><span class="pre">EOF</span></code> character (<kbd class="kbd docutils literal notranslate">Ctrl-D</kbd>).</p>
+<code class="docutils literal notranslate"><span class="pre">q</span></code> or we receive an <code class="docutils literal notranslate"><span class="pre">EOF</span></code> character (<kbd class="kbd compound docutils literal notranslate"><kbd class="kbd docutils literal notranslate">Ctrl</kbd>-<kbd class="kbd docutils literal notranslate">D</kbd></kbd>).</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">StyloPrompt</span><span class="p">(</span><span class="n">cmd</span><span class="o">.</span><span class="n">Cmd</span><span class="p">):</span>
    <span class="o">...</span>
 
@@ -523,7 +523,7 @@ real results - Our entire application is only 155 lines of code!</p>
                             Page Source
                         </a>
                     </span>
-                    <span>Built with <a class="text-green-600" href="https://www.sphinx-doc.org/en/master/">Sphinx</a> v4.3.1</span>
+                    <span>Built with <a class="text-green-600" href="https://www.sphinx-doc.org/en/master/">Sphinx</a> v4.4.0</span>
                     <span>&#169; Copyright 2021, Alex Carney.</span>
                 </div>
             </footer>

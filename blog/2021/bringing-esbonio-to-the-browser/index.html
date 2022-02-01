@@ -392,10 +392,10 @@ statements into a CommonJS import.</p></li>
 </ul>
 <p>Finally to invoke webpack we can add a couple of scripts to our <code class="docutils literal notranslate"><span class="pre">package.json</span></code> for
 convenience.</p>
-<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="nt">&quot;scripts&quot;</span><span class="p">:</span> <span class="p">{</span>
-   <span class="nt">&quot;compile&quot;</span><span class="p">:</span> <span class="s2">&quot;webpack&quot;</span><span class="p">,</span>
-   <span class="nt">&quot;watch&quot;</span><span class="p">:</span> <span class="s2">&quot;webpack --watch&quot;</span>
-<span class="p">}</span>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="nt">&quot;scripts&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">   </span><span class="nt">&quot;compile&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;webpack&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">   </span><span class="nt">&quot;watch&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;webpack --watch&quot;</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 </pre></div>
 </div>
 </div>
@@ -412,10 +412,10 @@ desktop one, but with a few <code class="docutils literal notranslate"><span cla
 of VSCode is able to install our extension from a simple web server running on
 <code class="docutils literal notranslate"><span class="pre">localhost</span></code></p>
 <p>First we start by adding a few more scripts to our <code class="docutils literal notranslate"><span class="pre">package.json</span></code></p>
-<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="nt">&quot;scripts&quot;</span><span class="p">:</span> <span class="p">{</span>
-   <span class="nt">&quot;serve&quot;</span><span class="p">:</span> <span class="s2">&quot;npx serve --cors -l 5000&quot;</span><span class="p">,</span>
-   <span class="nt">&quot;tunnel&quot;</span><span class="p">:</span> <span class="s2">&quot;npx localtunnel -p 5000&quot;</span>
-<span class="p">}</span>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="nt">&quot;scripts&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">   </span><span class="nt">&quot;serve&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;npx serve --cors -l 5000&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">   </span><span class="nt">&quot;tunnel&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;npx localtunnel -p 5000&quot;</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 </pre></div>
 </div>
 <p>Now assuming that we’ve already run <code class="docutils literal notranslate"><span class="pre">npm</span> <span class="pre">run</span> <span class="pre">watch</span></code> or <code class="docutils literal notranslate"><span class="pre">npm</span> <span class="pre">run</span> <span class="pre">compile</span></code> from the
@@ -517,7 +517,7 @@ with the online version of VSCode 🤞</p>
                             Page Source
                         </a>
                     </span>
-                    <span>Built with <a class="text-green-600" href="https://www.sphinx-doc.org/en/master/">Sphinx</a> v4.3.1</span>
+                    <span>Built with <a class="text-green-600" href="https://www.sphinx-doc.org/en/master/">Sphinx</a> v4.4.0</span>
                     <span>&#169; Copyright 2021, Alex Carney.</span>
                 </div>
             </footer>

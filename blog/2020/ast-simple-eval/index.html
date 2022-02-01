@@ -202,7 +202,7 @@ of how that program happens to be written down.</p>
 <span id="ast-simple-eval-ast-repr"></span><h2>Representing an AST<a class="headerlink" href="#representing-an-ast" title="Permalink to this headline">¶</a></h2>
 <p>For no particular reason other I fancied trying it, I decided to use C to
 represent my AST where each node is represented by the following struct.</p>
-<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="k">typedef</span><span class="w"> </span><span class="k">struct</span> <span class="nc">_ast</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="k">typedef</span><span class="w"> </span><span class="k">struct</span><span class="w"> </span><span class="nc">_ast</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
 <span class="w">    </span><span class="cm">/* The type of node this represents e.g.</span>
 <span class="cm">       a literal, an operator etc. */</span><span class="w"></span>
 <span class="w">    </span><span class="n">AstNodeType</span><span class="w"> </span><span class="n">type</span><span class="p">;</span><span class="w"></span>
@@ -213,11 +213,11 @@ represent my AST where each node is represented by the following struct.</p>
 
 <span class="w">    </span><span class="cm">/* In the case of an operator, this pointer</span>
 <span class="cm">       refers to the left child node */</span><span class="w"></span>
-<span class="w">    </span><span class="k">struct</span> <span class="nc">_ast</span><span class="w"> </span><span class="o">*</span><span class="n">left</span><span class="p">;</span><span class="w"></span>
+<span class="w">    </span><span class="k">struct</span><span class="w"> </span><span class="nc">_ast</span><span class="w"> </span><span class="o">*</span><span class="n">left</span><span class="p">;</span><span class="w"></span>
 
 <span class="w">    </span><span class="cm">/* In the case of an operator, this pointer</span>
 <span class="cm">       refers to the right child node */</span><span class="w"></span>
-<span class="w">    </span><span class="k">struct</span> <span class="nc">_ast</span><span class="w"> </span><span class="o">*</span><span class="n">right</span><span class="p">;</span><span class="w"></span>
+<span class="w">    </span><span class="k">struct</span><span class="w"> </span><span class="nc">_ast</span><span class="w"> </span><span class="o">*</span><span class="n">right</span><span class="p">;</span><span class="w"></span>
 <span class="p">}</span><span class="w"> </span><span class="n">AstNode</span><span class="p">;</span><span class="w"></span>
 </pre></div>
 </div>
@@ -333,7 +333,7 @@ floats! 😃 If you want to see the entire source file you can find it here.</p>
                             Page Source
                         </a>
                     </span>
-                    <span>Built with <a class="text-green-600" href="https://www.sphinx-doc.org/en/master/">Sphinx</a> v4.3.1</span>
+                    <span>Built with <a class="text-green-600" href="https://www.sphinx-doc.org/en/master/">Sphinx</a> v4.4.0</span>
                     <span>&#169; Copyright 2021, Alex Carney.</span>
                 </div>
             </footer>

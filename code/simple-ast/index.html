@@ -136,6 +136,59 @@
     
 
     <div data-parent="" class=" border-t">
+        <label for="README.rst">
+            <div style="padding-left: 4px;" class="flex items-center px-2 py-1 space-x-2 hover:bg-gray-50">
+                
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" ><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+                    <path d="M14 2v6h6M16 13H8M16 17H8M10 9H8"/>
+                </svg>
+                
+                
+                <span>README.rst</span>
+            </div>
+        </label>
+        
+        
+        <input class="hidden" data-type="file" data-id="README.rst" type="checkbox" id="README.rst" />
+        <div class="overflow-y-auto transition-all max-h-0">
+            <div class="highlight"><pre style="margin: 0"><span></span>A simple C program that can construct and evaluate a simple Abstract Syntax Tree
+(AST). The AST represents a toy &quot;programming language&quot; that only knows how to
+add and multiply floating point numbers together.
+
+<span class="p">..</span> <span class="ow">code-block</span><span class="p">::</span> <span class="k">console</span>
+
+   <span class="gp">$ </span>./simple-ast
+   <span class="go">*</span>
+   <span class="go">+</span>
+   <span class="go">   1.00</span>
+   <span class="go">   2.00</span>
+   <span class="go">3.00</span>
+   <span class="go">Example 1: 9.00</span>
+   <span class="go">+</span>
+   <span class="go">1.00</span>
+   <span class="go">*</span>
+   <span class="go">   2.00</span>
+   <span class="go">   3.00</span>
+   <span class="go">Example 2: 7.00</span>
+
+<span class="gh">Building</span>
+<span class="gh">--------</span>
+
+Having no real dependencies beyond the standard library this program can be
+compiled with just a C compiler
+
+<span class="p">..</span> <span class="ow">code-block</span><span class="p">::</span> console
+
+   gcc simple-ast.c -o simple-ast
+</pre></div>
+
+        </div>
+    </div>
+        
+
+    
+
+    <div data-parent="" class=" border-t">
         <label for="simple-ast.c">
             <div style="padding-left: 4px;" class="flex items-center px-2 py-1 space-x-2 hover:bg-gray-50">
                 
@@ -159,7 +212,7 @@
 <span class="w">    </span><span class="n">AST_MULTIPLY</span><span class="p">,</span><span class="w"></span>
 <span class="p">}</span><span class="w"> </span><span class="n">AstNodeType</span><span class="p">;</span><span class="w"></span>
 
-<span class="k">typedef</span><span class="w"> </span><span class="k">struct</span> <span class="nc">_ast</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="k">typedef</span><span class="w"> </span><span class="k">struct</span><span class="w"> </span><span class="nc">_ast</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
 <span class="w">    </span><span class="cm">/* The type of node this represents e.g.</span>
 <span class="cm">       a literal, an operator etc. */</span><span class="w"></span>
 <span class="w">    </span><span class="n">AstNodeType</span><span class="w"> </span><span class="n">type</span><span class="p">;</span><span class="w"></span>
@@ -170,11 +223,11 @@
 
 <span class="w">    </span><span class="cm">/* In the case of an operator, this pointer</span>
 <span class="cm">       refers to the left child node */</span><span class="w"></span>
-<span class="w">    </span><span class="k">struct</span> <span class="nc">_ast</span><span class="w"> </span><span class="o">*</span><span class="n">left</span><span class="p">;</span><span class="w"></span>
+<span class="w">    </span><span class="k">struct</span><span class="w"> </span><span class="nc">_ast</span><span class="w"> </span><span class="o">*</span><span class="n">left</span><span class="p">;</span><span class="w"></span>
 
 <span class="w">    </span><span class="cm">/* In the case of an operator, this pointer</span>
 <span class="cm">       refers to the right child node */</span><span class="w"></span>
-<span class="w">    </span><span class="k">struct</span> <span class="nc">_ast</span><span class="w"> </span><span class="o">*</span><span class="n">right</span><span class="p">;</span><span class="w"></span>
+<span class="w">    </span><span class="k">struct</span><span class="w"> </span><span class="nc">_ast</span><span class="w"> </span><span class="o">*</span><span class="n">right</span><span class="p">;</span><span class="w"></span>
 <span class="p">}</span><span class="w"> </span><span class="n">AstNode</span><span class="p">;</span><span class="w"></span>
 
 <span class="kt">void</span><span class="w"></span>
@@ -257,71 +310,8 @@
         
 
     
-
-    <div data-parent="" class=" border-t">
-        <label for="README.rst">
-            <div style="padding-left: 4px;" class="flex items-center px-2 py-1 space-x-2 hover:bg-gray-50">
-                
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" ><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
-                    <path d="M14 2v6h6M16 13H8M16 17H8M10 9H8"/>
-                </svg>
-                
-                
-                <span>README.rst</span>
-            </div>
-        </label>
-        
-        
-        <input class="hidden" data-type="file" data-id="README.rst" type="checkbox" id="README.rst" />
-        <div class="overflow-y-auto transition-all max-h-0">
-            <div class="highlight"><pre style="margin: 0"><span></span>A simple C program that can construct and evaluate a simple Abstract Syntax Tree
-(AST). The AST represents a toy &quot;programming language&quot; that only knows how to
-add and multiply floating point numbers together.
-
-<span class="p">..</span> <span class="ow">code-block</span><span class="p">::</span> <span class="k">console</span>
-
-   <span class="gp">$ </span>./simple-ast
-   <span class="go">*</span>
-   <span class="go">+</span>
-   <span class="go">   1.00</span>
-   <span class="go">   2.00</span>
-   <span class="go">3.00</span>
-   <span class="go">Example 1: 9.00</span>
-   <span class="go">+</span>
-   <span class="go">1.00</span>
-   <span class="go">*</span>
-   <span class="go">   2.00</span>
-   <span class="go">   3.00</span>
-   <span class="go">Example 2: 7.00</span>
-
-<span class="gh">Building</span>
-<span class="gh">--------</span>
-
-Having no real dependencies beyond the standard library this program can be
-compiled with just a C compiler
-
-<span class="p">..</span> <span class="ow">code-block</span><span class="p">::</span> console
-
-   gcc simple-ast.c -o simple-ast
-</pre></div>
-
-        </div>
-    </div>
-        
-
-    
 </div> 
 <style>
-    
-
-    input[data-id='simple-ast.c']:checked ~ div {
-        max-height: 350px;
-    }
-
-    input[data-id='']:checked ~ div[data-parent='simple-ast.c'] {
-        max-height: 382px;
-    }
-    
     
 
     input[data-id='README.rst']:checked ~ div {
@@ -329,6 +319,16 @@ compiled with just a C compiler
     }
 
     input[data-id='']:checked ~ div[data-parent='README.rst'] {
+        max-height: 382px;
+    }
+    
+    
+
+    input[data-id='simple-ast.c']:checked ~ div {
+        max-height: 350px;
+    }
+
+    input[data-id='']:checked ~ div[data-parent='simple-ast.c'] {
         max-height: 382px;
     }
     
@@ -405,7 +405,7 @@ compiled with just a C compiler</p>
                             Page Source
                         </a>
                     </span>
-                    <span>Built with <a class="text-green-600" href="https://www.sphinx-doc.org/en/master/">Sphinx</a> v4.3.1</span>
+                    <span>Built with <a class="text-green-600" href="https://www.sphinx-doc.org/en/master/">Sphinx</a> v4.4.0</span>
                     <span>&#169; Copyright 2021, Alex Carney.</span>
                 </div>
             </footer>
