@@ -4,7 +4,8 @@
 <html>
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
     <title>Learning Vulkan: Enumerating Physical Devices &#8212; Blog  documentation</title>
 
     
@@ -22,6 +23,9 @@
     <script src="../../../_static/jquery.js"></script>
     <script src="../../../_static/underscore.js"></script>
     <script src="../../../_static/doctools.js"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
     <script src="../../../_static/togglebutton.js"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
     <script src="https://unpkg.com/mermaid/dist/mermaid.min.js"></script>
@@ -168,7 +172,7 @@
                     
 
 <article class="p-4 prose-sm prose bg-white border prose-md prose-green max-w-none">
-    <div class="section" id="learning-vulkan-enumerating-physical-devices">
+    <section id="learning-vulkan-enumerating-physical-devices">
 <h1>Learning Vulkan: Enumerating Physical Devices<a class="headerlink" href="#learning-vulkan-enumerating-physical-devices" title="Permalink to this headline">¶</a></h1>
 <p>Being an API for talking to GPUs and other compute devices every Vulkan
 program starts off by looking for an appropriate <a class="reference external" href="https://www.khronos.org/registry/vulkan/specs/1.1-extensions/man/html/VkPhysicalDevice.html">physical device</a>
@@ -190,7 +194,7 @@ Vulkan to explore various concepts in graphics programming. As mentioned in
 the <a class="reference internal" href="../learning-vulkan-p0/"><span class="doc">Overview</span></a> I don’t necessarily
 know what I’m doing!</p>
 </div>
-<div class="section" id="setup">
+<section id="setup">
 <h2>Setup<a class="headerlink" href="#setup" title="Permalink to this headline">¶</a></h2>
 <p>Unlike Python which has tools like <code class="docutils literal notranslate"><span class="pre">pip</span></code> and <code class="docutils literal notranslate"><span class="pre">venv</span></code> to manage
 dependencies and development environments, C projects (as far as I know)
@@ -215,7 +219,7 @@ Vulkan related packages</p>
 </div>
 <p>I’m not sure however which of these are essential for the code contained in this
 post.</p>
-<div class="section" id="project-structure">
+<section id="project-structure">
 <h3>Project Structure<a class="headerlink" href="#project-structure" title="Permalink to this headline">¶</a></h3>
 <p>I’m intending over the course of this series to build up a repository of Vulkan
 examples/utilities and since the API  has a reputation of being verbose I’ll be looking
@@ -235,8 +239,8 @@ project structure</p>
 <p>Nothing ground breaking, a <code class="docutils literal notranslate"><span class="pre">src/</span></code> folder to hold the source and intermediate build files,
 <code class="docutils literal notranslate"><span class="pre">bin/</span></code> to hold all the compiled programs and a plain <code class="docutils literal notranslate"><span class="pre">Makefile</span></code> to orchestrate the whole
 thing.</p>
-</div>
-<div class="section" id="the-makefile">
+</section>
+<section id="the-makefile">
 <h3>The Makefile<a class="headerlink" href="#the-makefile" title="Permalink to this headline">¶</a></h3>
 <p>I know that there are tools such as <a class="reference external" href="https://cmake.org/">CMake</a> and <a class="reference external" href="https://www.gnu.org/software/autoconf/">Autoconf</a> that are
 probably preferable to a plain Makefile since they can be used to abstract over some
@@ -281,9 +285,9 @@ links the relevant object files (as defined by <code class="docutils literal not
 <span class="go">gcc -lvulkan src/vkdevice.o -o bin/vkdevice</span>
 </pre></div>
 </div>
-</div>
-</div>
-<div class="section" id="creating-an-instance">
+</section>
+</section>
+<section id="creating-an-instance">
 <h2>Creating an instance<a class="headerlink" href="#creating-an-instance" title="Permalink to this headline">¶</a></h2>
 <p>With all the housekeeping out of the way, time to dive into the code which starts in
 a fairly standard way with us including all the header files we need.</p>
@@ -334,8 +338,8 @@ arbitrary and can be set to whatever we like.</p>
 </div>
 <p>This is me attempting to apply <a class="reference external" href="https://www.kernel.org/doc/html/v4.10/process/coding-style.html#centralized-exiting-of-functions">this</a> rule from the Linux kernel style
 guide to help manage resources through the lifetime of the program.</p>
-</div>
-<div class="section" id="listing-devices">
+</section>
+<section id="listing-devices">
 <h2>Listing Devices<a class="headerlink" href="#listing-devices" title="Permalink to this headline">¶</a></h2>
 <p>Now that we have an instance we can start querying the API for the physical devices that
 are in the system. The issue is however - we don’t know how many devices the system has!
@@ -394,8 +398,8 @@ devices than can fit in the array then <code class="docutils literal notranslate
 us the option to try again with a larger array.</p>
 <p>This creates a dilemma - which approach is better? 🤔</p>
 </div>
-</div>
-<div class="section" id="device-properties">
+</section>
+<section id="device-properties">
 <h2>Device Properties<a class="headerlink" href="#device-properties" title="Permalink to this headline">¶</a></h2>
 <p>It turns out that a <code class="docutils literal notranslate"><span class="pre">VkPhysicalDevice</span></code> on its own is rather useless since it doesn’t
 carry any information about itself. In order to find out more about what the device is
@@ -441,15 +445,15 @@ macros that make decoding them nice and easy for us.</p>
 <p>I should also note that <code class="docutils literal notranslate"><span class="pre">vkPhysicalDeviceType_as_string</span></code> is a helper function I
 defined that converts a member of the <a class="reference external" href="https://www.khronos.org/registry/vulkan/specs/1.1-extensions/man/html/VkPhysicalDeviceType.html">VkPhysicalDeviceType</a> enum
 into a string representation with a <code class="docutils literal notranslate"><span class="pre">switch</span></code> statement.</p>
-</div>
-<div class="section" id="conclusion">
+</section>
+<section id="conclusion">
 <h2>Conclusion<a class="headerlink" href="#conclusion" title="Permalink to this headline">¶</a></h2>
 <p>And that’s that! I’ve taken my first few baby steps with the Vulkan API and I hope that
 if you’ve read this far then this post was as useful to you as it was to me! If you are
 interested then you can see the full code listing <a class="reference external" href="https://github.com/alcarney/vk/blob/2e7daaa68d79c6467e91bbd9d5ebfcf34729f6a5/src/vkdevice.c">here</a> and I’ll see you in the
 next one.</p>
-</div>
-</div>
+</section>
+</section>
 
 </article>
 
@@ -483,7 +487,7 @@ next one.</p>
                             Page Source
                         </a>
                     </span>
-                    <span>Built with <a class="text-green-600" href="https://www.sphinx-doc.org/en/master/">Sphinx</a> v4.4.0</span>
+                    <span>Built with <a class="text-green-600" href="https://www.sphinx-doc.org/en/master/">Sphinx</a> v4.5.0</span>
                     <span>&#169; Copyright 2021, Alex Carney.</span>
                 </div>
             </footer>

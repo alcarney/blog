@@ -4,7 +4,8 @@
 <html>
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
     <title>Evaluating a Simple Abstract Syntax Tree &#8212; Blog  documentation</title>
 
     
@@ -22,6 +23,9 @@
     <script src="../../../_static/jquery.js"></script>
     <script src="../../../_static/underscore.js"></script>
     <script src="../../../_static/doctools.js"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
     <script src="../../../_static/togglebutton.js"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
     <script src="https://unpkg.com/mermaid/dist/mermaid.min.js"></script>
@@ -156,14 +160,14 @@
                     
 
 <article class="p-4 prose-sm prose bg-white border prose-md prose-green max-w-none">
-    <div class="section" id="evaluating-a-simple-abstract-syntax-tree">
+    <section id="evaluating-a-simple-abstract-syntax-tree">
 <h1>Evaluating a Simple Abstract Syntax Tree<a class="headerlink" href="#evaluating-a-simple-abstract-syntax-tree" title="Permalink to this headline">¶</a></h1>
 <p>Programming languages and their implementation is a topic I’ve been interested
 in for a long time and I thought it would be worth trying to get a bit more
 hands on and play with some of the ideas in this space. Choosing a topic
 somewhat at random I’ve chosen to take a look at implementing an Abstract Syntax
 Tree (AST).</p>
-<div class="section" id="what-is-an-abstract-syntax-tree">
+<section id="what-is-an-abstract-syntax-tree">
 <h2>What is an Abstract Syntax Tree?<a class="headerlink" href="#what-is-an-abstract-syntax-tree" title="Permalink to this headline">¶</a></h2>
 <p>An <a class="reference external" href="https://en.wikipedia.org/wiki/Abstract_syntax_tree">Abstract Syntax Tree</a> is a way to represent a program’s source
 code within an interpreter/compiler. Consider an expression like <code class="docutils literal notranslate"><span class="pre">1</span> <span class="pre">+</span> <span class="pre">2</span></code>, it
@@ -197,8 +201,8 @@ This choice gets encoded into the structure of tree itself</p>
 <p>Encoding a program in this way allows the interpreter/compiler to focus on the
 semantic meaning of the program without having to worry about the finer details
 of how that program happens to be written down.</p>
-</div>
-<div class="section" id="representing-an-ast">
+</section>
+<section id="representing-an-ast">
 <span id="ast-simple-eval-ast-repr"></span><h2>Representing an AST<a class="headerlink" href="#representing-an-ast" title="Permalink to this headline">¶</a></h2>
 <p>For no particular reason other I fancied trying it, I decided to use C to
 represent my AST where each node is represented by the following struct.</p>
@@ -247,8 +251,8 @@ for the two examples we outlined earlier</p>
 <span class="n">AstNode</span><span class="w"> </span><span class="n">example2</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="p">.</span><span class="n">type</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">AST_PLUS</span><span class="p">,</span><span class="w"> </span><span class="p">.</span><span class="n">left</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">&amp;</span><span class="n">one</span><span class="p">,</span><span class="w"> </span><span class="p">.</span><span class="n">right</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">&amp;</span><span class="n">mul1</span><span class="p">};</span><span class="w"></span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="evaluating-the-ast">
+</section>
+<section id="evaluating-the-ast">
 <h2>Evaluating the AST<a class="headerlink" href="#evaluating-the-ast" title="Permalink to this headline">¶</a></h2>
 <p>To evaluate an instance of the AST we have defined we can take a simple approach</p>
 <ul>
@@ -298,8 +302,8 @@ Example 1: 7.00
 </div>
 <p>And there you have it, a calculator that only knows how to add and multiply
 floats! 😃 If you want to see the entire source file you can find it here.</p>
-</div>
-</div>
+</section>
+</section>
 
 </article>
 
@@ -333,7 +337,7 @@ floats! 😃 If you want to see the entire source file you can find it here.</p>
                             Page Source
                         </a>
                     </span>
-                    <span>Built with <a class="text-green-600" href="https://www.sphinx-doc.org/en/master/">Sphinx</a> v4.4.0</span>
+                    <span>Built with <a class="text-green-600" href="https://www.sphinx-doc.org/en/master/">Sphinx</a> v4.5.0</span>
                     <span>&#169; Copyright 2021, Alex Carney.</span>
                 </div>
             </footer>

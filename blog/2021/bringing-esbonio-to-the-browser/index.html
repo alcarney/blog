@@ -4,7 +4,8 @@
 <html>
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
     <title>Bringing Esbonio to the Browser &#8212; Blog  documentation</title>
 
     
@@ -22,6 +23,9 @@
     <script src="../../../_static/jquery.js"></script>
     <script src="../../../_static/underscore.js"></script>
     <script src="../../../_static/doctools.js"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
     <script src="../../../_static/togglebutton.js"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
     <script src="https://unpkg.com/mermaid/dist/mermaid.min.js"></script>
@@ -169,20 +173,20 @@
                     
 
 <article class="p-4 prose-sm prose bg-white border prose-md prose-green max-w-none">
-    <div class="section" id="bringing-esbonio-to-the-browser">
+    <section id="bringing-esbonio-to-the-browser">
 <h1>Bringing Esbonio to the Browser<a class="headerlink" href="#bringing-esbonio-to-the-browser" title="Permalink to this headline">¶</a></h1>
 <p>For the past year or so I’ve been working on a language server called <a class="reference external" href="https://github.com/swyddfa/esbonio">Esbonio</a>.
 It’s a language server designed to streamline the process of working with your
 <a class="reference external" href="https://www.sphinx-doc.org/en/master/">Sphinx</a> documentation projects. Currently its feature set is quite limited, but I
 think it does a good job of providing you with completion suggestions for all your
 roles, directives and cross-references.</p>
-<div class="figure align-center">
+<figure class="align-center">
 <a class="reference internal image-reference" href="https://github.com/swyddfa/esbonio/raw/develop/resources/images/completion-demo.gif"><img alt="https://github.com/swyddfa/esbonio/raw/develop/resources/images/completion-demo.gif" src="https://github.com/swyddfa/esbonio/raw/develop/resources/images/completion-demo.gif" style="width: 80%;" /></a>
-</div>
+</figure>
 <p>Anyway with the recent releases of <a class="reference external" href="https://github.com/github/dev">github.dev</a> and <a class="reference external" href="https://code.visualstudio.com/blogs/2021/10/20/vscode-dev">vscode.dev</a> I really want to
 see if I can bring Esbonio into the browser version of VSCode. There’s only one
 problem… Esbonio is written in Python! 😬</p>
-<div class="section" id="the-approach">
+<section id="the-approach">
 <h2>The Approach<a class="headerlink" href="#the-approach" title="Permalink to this headline">¶</a></h2>
 <p>I’m sure there will be plenty of problems that need to be solved in order to
 make this work, but my gut instinct is that it <em>is</em> possible. First of all there is
@@ -207,15 +211,15 @@ project so in theory should “just work” but file I/O could prove a challenge
 <li><p>Bring all of the above together and get the Esbonio language server running.</p></li>
 <li><p>Ship it!</p></li>
 </ul>
-</div>
-<div class="section" id="the-setup">
+</section>
+<section id="the-setup">
 <h2>The Setup<a class="headerlink" href="#the-setup" title="Permalink to this headline">¶</a></h2>
 <p>Using the <a class="reference external" href="https://github.com/microsoft/vscode-extension-samples/tree/main/lsp-web-extension-sample">lsp-web-extension-sample</a> as a guide, the remainder of this blog post is
 going to be dedicated to setting up the rough structure of a web-enabled lsp VSCode
 extension. You can browse the completed extension <a class="reference internal" href="../../../code/hello-lsp-web/"><span class="doc">here</span></a>.</p>
 <p>But before we get too far into it, it’s probably worth zooming out a bit and roughly
 sketch out all the pieces and how they fit together.</p>
-<div class="section" id="architecture">
+<section id="architecture">
 <h3>Architecture<a class="headerlink" href="#architecture" title="Permalink to this headline">¶</a></h3>
 <p>At the core we have two components, a language client (e.g. our VSCode extension) and
 a language server (e.g. the <a class="reference external" href="https://pypi.org/project/esbonio">esbonio</a> Python package) which communicate by sending
@@ -246,8 +250,8 @@ subgraph &quot;Language Server (Web Worker)&quot;
 
 end
         </div>
-        </div>
-<div class="section" id="writing-the-language-client">
+        </section>
+<section id="writing-the-language-client">
 <h3>Writing the Language Client<a class="headerlink" href="#writing-the-language-client" title="Permalink to this headline">¶</a></h3>
 <p>The language client code is pretty straightforward as all the heavy lifting is done
 by the <a class="reference external" href="https://www.npmjs.com/package/vscode-languageclient">vscode-languageclient</a> library.</p>
@@ -278,8 +282,8 @@ language server and pass that to the client also.</p>
 <span class="p">})</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="writing-the-language-server">
+</section>
+<section id="writing-the-language-server">
 <h3>Writing the Language Server<a class="headerlink" href="#writing-the-language-server" title="Permalink to this headline">¶</a></h3>
 <p>The goal of this post is just to get the simplest end-to-end concept working so the
 “language server” in this case does barely anything except prove that</p>
@@ -335,8 +339,8 @@ promise we can make any code that depends on pyodide wait until it’s ready to 
 <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">pyodide</span><span class="p">.</span><span class="nx">runPython</span><span class="p">(</span><span class="s2">&quot;import sys;sys.version&quot;</span><span class="p">))</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="packaging-for-the-web">
+</section>
+<section id="packaging-for-the-web">
 <h3>Packaging for the Web<a class="headerlink" href="#packaging-for-the-web" title="Permalink to this headline">¶</a></h3>
 <p>You may have noticed that the code above was written in TypeScript which needs to be
 compiled into JavaScript in order to run in the browser. Additionally, due
@@ -398,8 +402,8 @@ convenience.</p>
 <span class="p">}</span><span class="w"></span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="trying-it-out">
+</section>
+<section id="trying-it-out">
 <h3>Trying it out<a class="headerlink" href="#trying-it-out" title="Permalink to this headline">¶</a></h3>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
@@ -454,36 +458,38 @@ terminals</strong></p>
 <p>Then to enable the tunnel we have to visit the <code class="docutils literal notranslate"><span class="pre">https://xxxx-yyyy-zzz.loca.lt</span></code>
 URL printed by the <code class="docutils literal notranslate"><span class="pre">tunnel</span></code> script, which takes us to a “Friendly Reminder” screen
 and we click the <code class="docutils literal notranslate"><span class="pre">Click</span> <span class="pre">to</span> <span class="pre">Continue</span></code> button.</p>
-<div class="figure align-default">
+<figure class="align-default">
 <img alt="../../../_images/tunnel_warning.png" src="../../../_images/tunnel_warning.png" />
-</div>
+</figure>
 <p>Now we can finally open the <a class="reference external" href="https://vscode.dev/github/alcarney/blog">web version</a> of VSCode itself, open the command palette
 with <kbd class="kbd docutils literal notranslate">F1</kbd> and pick the <code class="docutils literal notranslate"><span class="pre">Developer:</span> <span class="pre">Install</span> <span class="pre">Web</span> <span class="pre">Extension...</span></code> command. When asked
 for the URL to install from, we paste the URL given to us from the <code class="docutils literal notranslate"><span class="pre">tunnel</span></code>  script
 above.</p>
-<div class="figure align-default">
+<figure class="align-default">
 <img alt="../../../_images/install_extension.png" src="../../../_images/install_extension.png" />
-</div>
+</figure>
 <p>With any luck, VSCode should install the extension show it in the installed extensions
 list in the <code class="docutils literal notranslate"><span class="pre">Extensions</span></code> tab. All that’s left us to do is actually test the extension!</p>
 <p>As you can probably guess from the code we wrote above, there’s actually not much for
 us to test. However, we can open the dev tools as you would on any other website and
 create a file <code class="docutils literal notranslate"><span class="pre">test.txt</span></code> if everything works as expected, we should see the following
 messages printed to console.</p>
-<div class="figure align-center" id="id1">
+<figure class="align-center" id="id1">
 <img alt="../../../_images/hello-lsp-web.png" src="../../../_images/hello-lsp-web.png" />
-<p class="caption"><span class="caption-text">Success!</span><a class="headerlink" href="#id1" title="Permalink to this image">¶</a></p>
-</div>
-</div>
-</div>
-<div class="section" id="next-steps">
+<figcaption>
+<p><span class="caption-text">Success!</span><a class="headerlink" href="#id1" title="Permalink to this image">¶</a></p>
+</figcaption>
+</figure>
+</section>
+</section>
+<section id="next-steps">
 <h2>Next Steps<a class="headerlink" href="#next-steps" title="Permalink to this headline">¶</a></h2>
 <p>That’s it! We have a very simple proof of concept web extension setup where the language
 server component is able to run Python code and communicate with the client. In the next
 post I hope to be able to stand up a simple <a class="reference external" href="https://github.com/openlawlibrary/pygls">pygls</a> language server and have it work
 with the online version of VSCode 🤞</p>
-</div>
-</div>
+</section>
+</section>
 
 </article>
 
@@ -517,7 +523,7 @@ with the online version of VSCode 🤞</p>
                             Page Source
                         </a>
                     </span>
-                    <span>Built with <a class="text-green-600" href="https://www.sphinx-doc.org/en/master/">Sphinx</a> v4.4.0</span>
+                    <span>Built with <a class="text-green-600" href="https://www.sphinx-doc.org/en/master/">Sphinx</a> v4.5.0</span>
                     <span>&#169; Copyright 2021, Alex Carney.</span>
                 </div>
             </footer>

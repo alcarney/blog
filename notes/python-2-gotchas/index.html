@@ -4,7 +4,8 @@
 <html>
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
     <title>Python 2.x Gotchas &#8212; Blog  documentation</title>
 
     
@@ -22,6 +23,9 @@
     <script src="../../_static/jquery.js"></script>
     <script src="../../_static/underscore.js"></script>
     <script src="../../_static/doctools.js"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
     <script src="../../_static/togglebutton.js"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
     <script src="https://unpkg.com/mermaid/dist/mermaid.min.js"></script>
@@ -142,15 +146,15 @@
                     
 
 <article class="p-4 prose-sm prose bg-white border prose-md prose-green max-w-none">
-    <div class="section" id="python-2-x-gotchas">
+    <section id="python-2-x-gotchas">
 <h1>Python 2.x Gotchas<a class="headerlink" href="#python-2-x-gotchas" title="Permalink to this headline">¶</a></h1>
 <p>While Python 2 is finally out of support, there is a <em>lot</em> of legacy code out there.
 Here are some of the things that often trip me up when working with Python 2.x code.</p>
-<div class="section" id="missing-features">
+<section id="missing-features">
 <h2>Missing Features<a class="headerlink" href="#missing-features" title="Permalink to this headline">¶</a></h2>
 <p>In the 10+ years since Python 3’s release it’s not surprising that it has
 accumlated a bunch of features that simply don’t exist in Python 2.x</p>
-<div class="section" id="no-enum-module">
+<section id="no-enum-module">
 <h3>No <code class="docutils literal notranslate"><span class="pre">enum</span></code> module<a class="headerlink" href="#no-enum-module" title="Permalink to this headline">¶</a></h3>
 <p>The <code class="docutils literal notranslate"><span class="pre">enum</span></code> module was added in Python 3.4. In order to make use of this module
 in versions of Python older than this we can install the <a class="reference external" href="https://pypi.org/project/enum34">enum34</a> package from
@@ -164,8 +168,8 @@ PyPi.</p>
 <p>It would seem that this package is not actively maintained with the most
 recent change being in 2016 at the time of writing.</p>
 </div>
-</div>
-<div class="section" id="no-pathlib-module">
+</section>
+<section id="no-pathlib-module">
 <h3>No <code class="docutils literal notranslate"><span class="pre">pathlib</span></code> module<a class="headerlink" href="#no-pathlib-module" title="Permalink to this headline">¶</a></h3>
 <p>The <code class="docutils literal notranslate"><span class="pre">pathlib</span></code> module was added in Python 3.4. In order to make use of this
 module in older versions of Python we can install the <a class="reference external" href="https://pypi.org/project/pathlib2">pathlib2</a> package on PyPi</p>
@@ -173,8 +177,8 @@ module in older versions of Python we can install the <a class="reference extern
 </pre></div>
 </div>
 <p>Then code written for the standard <code class="docutils literal notranslate"><span class="pre">pathlib</span></code> module should work as expected.</p>
-</div>
-<div class="section" id="no-filenotfounderrors">
+</section>
+<section id="no-filenotfounderrors">
 <h3>No <code class="docutils literal notranslate"><span class="pre">FileNotFoundErrors</span></code><a class="headerlink" href="#no-filenotfounderrors" title="Permalink to this headline">¶</a></h3>
 <p>Not sure when these were added. If you simply want to be able to throw one it’s
 easy enough to backport one yourself</p>
@@ -182,14 +186,14 @@ easy enough to backport one yourself</p>
     <span class="k">pass</span>
 </pre></div>
 </div>
-</div>
-</div>
-<div class="section" id="moved-changed-features">
+</section>
+</section>
+<section id="moved-changed-features">
 <h2>Moved / Changed Features<a class="headerlink" href="#moved-changed-features" title="Permalink to this headline">¶</a></h2>
 <p>There are a number of features that did exist in Python 2.x but were
 renamed/moved or tweaked in someway in Python 3.x so that they are not directly
 compatible with older interpreters anymore</p>
-<div class="section" id="configparser-is-configparser">
+<section id="configparser-is-configparser">
 <h3><code class="docutils literal notranslate"><span class="pre">configparser</span></code> is <code class="docutils literal notranslate"><span class="pre">ConfigParser</span></code><a class="headerlink" href="#configparser-is-configparser" title="Permalink to this headline">¶</a></h3>
 <p>Before Python 3 the <code class="docutils literal notranslate"><span class="pre">configparser</span></code> module was called <code class="docutils literal notranslate"><span class="pre">ConfigParser</span></code>, I’m
 struggling to see if there are any functional differences between the two
@@ -199,21 +203,21 @@ has apparently backported a number of changes to older versions of Python</p>
 </pre></div>
 </div>
 <p>In theory code using the standard <code class="docutils literal notranslate"><span class="pre">configparser</span></code> module will “just work”.</p>
-</div>
-</div>
-<div class="section" id="best-practice">
+</section>
+</section>
+<section id="best-practice">
 <h2>“Best Practice”<a class="headerlink" href="#best-practice" title="Permalink to this headline">¶</a></h2>
 <p>Here is a miscellaneous collection things to do when writing code that will run
 under Python 2.x that should hopefully minimise the amount of surprises!</p>
-<div class="section" id="use-new-style-classes">
+<section id="use-new-style-classes">
 <h3>Use new style classes<a class="headerlink" href="#use-new-style-classes" title="Permalink to this headline">¶</a></h3>
 <p>In Python 2.x new style classes are an explicit opt-in</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">MyClass</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
     <span class="o">...</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="define-both-eq-and-ne">
+</section>
+<section id="define-both-eq-and-ne">
 <h3>Define both <code class="docutils literal notranslate"><span class="pre">__eq__</span></code> and <code class="docutils literal notranslate"><span class="pre">__ne__</span></code><a class="headerlink" href="#define-both-eq-and-ne" title="Permalink to this headline">¶</a></h3>
 <p>When creating a class that you wish to define equality for you need to ensure
 that you define both the <code class="docutils literal notranslate"><span class="pre">__eq__</span></code> and <code class="docutils literal notranslate"><span class="pre">__ne__</span></code> special methods for your class to
@@ -235,8 +239,8 @@ following.</p>
         <span class="k">return</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="fm">__eq__</span><span class="p">(</span><span class="n">other</span><span class="p">)</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="str-str">
+</section>
+<section id="str-str">
 <h3><code class="docutils literal notranslate"><span class="pre">str</span> <span class="pre">!=</span> <span class="pre">str</span></code><a class="headerlink" href="#str-str" title="Permalink to this headline">¶</a></h3>
 <p>In Python 3 the string related datatypes were overhauled to include built-in
 support for unicode character encodings. This means that the <code class="docutils literal notranslate"><span class="pre">str</span></code> type in
@@ -253,9 +257,9 @@ best way is to make use the <a class="reference external" href="https://pypi.org
     <span class="o">...</span>
 </pre></div>
 </div>
-</div>
-</div>
-</div>
+</section>
+</section>
+</section>
 
 </article>
 
@@ -298,7 +302,7 @@ best way is to make use the <a class="reference external" href="https://pypi.org
                             Page Source
                         </a>
                     </span>
-                    <span>Built with <a class="text-green-600" href="https://www.sphinx-doc.org/en/master/">Sphinx</a> v4.4.0</span>
+                    <span>Built with <a class="text-green-600" href="https://www.sphinx-doc.org/en/master/">Sphinx</a> v4.5.0</span>
                     <span>&#169; Copyright 2021, Alex Carney.</span>
                 </div>
             </footer>

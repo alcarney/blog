@@ -4,7 +4,8 @@
 <html>
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
     <title>Passing strings between TinyGo and JavaScript &#8212; Blog  documentation</title>
 
     
@@ -22,6 +23,9 @@
     <script src="../../../_static/jquery.js"></script>
     <script src="../../../_static/underscore.js"></script>
     <script src="../../../_static/doctools.js"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
     <script src="../../../_static/togglebutton.js"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
     <script src="https://unpkg.com/mermaid/dist/mermaid.min.js"></script>
@@ -177,7 +181,7 @@
                     
 
 <article class="p-4 prose-sm prose bg-white border prose-md prose-green max-w-none">
-    <div class="section" id="passing-strings-between-tinygo-and-javascript">
+    <section id="passing-strings-between-tinygo-and-javascript">
 <h1>Passing strings between TinyGo and JavaScript<a class="headerlink" href="#passing-strings-between-tinygo-and-javascript" title="Permalink to this headline">¶</a></h1>
 <p>After getting a <a class="reference internal" href="../hello-world-tinygo-wasm/"><span class="doc">“Hello, World!”</span></a> WebAssembly
 application working I thought it would be fun to try and implement a toy programming
@@ -190,12 +194,14 @@ WebAssembly module and the surrounding JavaScript.</p>
 <p>I definitely don’t know what I’m doing, if there’s a better way of doing this I’d love
 to know about it! 🙂</p>
 </div>
-<div class="section" id="the-interface">
+<section id="the-interface">
 <h2>The Interface<a class="headerlink" href="#the-interface" title="Permalink to this headline">¶</a></h2>
-<div class="figure align-center" id="id1">
+<figure class="align-center" id="id1">
 <img alt="../../../_images/wasm-input-output.png" src="../../../_images/wasm-input-output.png" />
-<p class="caption"><span class="caption-text">The Interface to our ‘interpreter’</span><a class="headerlink" href="#id1" title="Permalink to this image">¶</a></p>
-</div>
+<figcaption>
+<p><span class="caption-text">The Interface to our ‘interpreter’</span><a class="headerlink" href="#id1" title="Permalink to this image">¶</a></p>
+</figcaption>
+</figure>
 <p>Our WebAssembly module needs a way to interact with the user in order both collect input
 and show the output. So to start with I updated the webpage from the previous post to
 include a number of <code class="docutils literal notranslate"><span class="pre">textarea</span></code> elements and a “Run” button.</p>
@@ -218,8 +224,8 @@ include a number of <code class="docutils literal notranslate"><span class="pre"
 <p>Now we could just use the <code class="docutils literal notranslate"><span class="pre">println</span></code> function to do the equivalent of a <code class="docutils literal notranslate"><span class="pre">console.log</span></code>
 from our TinyGo code but it could be useful to have a log on screen to provide feedback
 to the user.</p>
-</div>
-<div class="section" id="passing-strings-from-tinygo-to-javascript">
+</section>
+<section id="passing-strings-from-tinygo-to-javascript">
 <h2>Passing strings from TinyGo to JavaScript<a class="headerlink" href="#passing-strings-from-tinygo-to-javascript" title="Permalink to this headline">¶</a></h2>
 <p>To achieve this we first need a JavaScript function which takes some text and appends it
 to the “log” <code class="docutils literal notranslate"><span class="pre">textarea</span></code> element on screen.</p>
@@ -268,10 +274,12 @@ might as well wire up that “Run” button.</p>
 </pre></div>
 </div>
 <p>That should be everything connected up, time to give it a whirl!</p>
-<div class="figure align-center" id="id2">
+<figure class="align-center" id="id2">
 <img alt="../../../_images/wasm-addr.png" src="../../../_images/wasm-addr.png" />
-<p class="caption"><span class="caption-text">Not exactly what I had in mind…</span><a class="headerlink" href="#id2" title="Permalink to this image">¶</a></p>
-</div>
+<figcaption>
+<p><span class="caption-text">Not exactly what I had in mind…</span><a class="headerlink" href="#id2" title="Permalink to this image">¶</a></p>
+</figcaption>
+</figure>
 <p>Hmm… 🤔</p>
 <p>This result quickly prompted an extended session of searching around for the “right”
 way to pass values back and forth between my WebAssembly module and the surrounding
@@ -282,7 +290,7 @@ thing along with a <a class="reference external" href="https://www.aaron-powell.
 to fly in the face of the <a class="reference external" href="https://tinygo.org/webassembly/webassembly/">examples</a> (which I did manage to reproduce) on the TinyGo
 website where it appears the compiler is handling most of these details.</p>
 <p>Unable to find an example to copy I decided it was time for a peek behind the curtain…</p>
-<div class="section" id="digging-deeper">
+<section id="digging-deeper">
 <h3>Digging Deeper<a class="headerlink" href="#digging-deeper" title="Permalink to this headline">¶</a></h3>
 <p>On my travels I did manage to find out some more information about WebAssembly itself</p>
 <ul class="simple">
@@ -346,12 +354,14 @@ second argument and see what happens</p>
 <span class="p">}</span>
 </pre></div>
 </div>
-<div class="figure align-center" id="id3">
+<figure class="align-center" id="id3">
 <img alt="../../../_images/wasm-addr-length.png" src="../../../_images/wasm-addr-length.png" />
-<p class="caption"><span class="caption-text">That looks promising!</span><a class="headerlink" href="#id3" title="Permalink to this image">¶</a></p>
-</div>
-</div>
-<div class="section" id="extracting-the-string">
+<figcaption>
+<p><span class="caption-text">That looks promising!</span><a class="headerlink" href="#id3" title="Permalink to this image">¶</a></p>
+</figcaption>
+</figure>
+</section>
+<section id="extracting-the-string">
 <h3>Extracting the String<a class="headerlink" href="#extracting-the-string" title="Permalink to this headline">¶</a></h3>
 <p>Assuming our assumptions are correct we should now have all the information we need in
 order to extract the string from the WebAssembly module’s memory. <code class="docutils literal notranslate"><span class="pre">ArrayBuffer</span></code> objects
@@ -374,10 +384,12 @@ From our explorations above we know that we should use an <code class="docutils 
 <p>From there we map the <code class="docutils literal notranslate"><span class="pre">String.fromCharCode</span></code> function over the array of ints to convert
 them to a string. Finally, we should be able to see our “Hello, World!” string output to
 the log area</p>
-<div class="figure align-center" id="id4">
+<figure class="align-center" id="id4">
 <img alt="../../../_images/wasm-log-hello.png" src="../../../_images/wasm-log-hello.png" />
-<p class="caption"><span class="caption-text">Success!</span><a class="headerlink" href="#id4" title="Permalink to this image">¶</a></p>
-</div>
+<figcaption>
+<p><span class="caption-text">Success!</span><a class="headerlink" href="#id4" title="Permalink to this image">¶</a></p>
+</figcaption>
+</figure>
 <p>This did require a slight tweak to the way we load the module so that we have a global
 <code class="docutils literal notranslate"><span class="pre">wasm</span></code> reference that our <code class="docutils literal notranslate"><span class="pre">logText</span></code> function is able to use to access the module
 instance directly.</p>
@@ -394,9 +406,9 @@ instance directly.</p>
    <span class="p">})</span>
 </pre></div>
 </div>
-</div>
-</div>
-<div class="section" id="passing-strings-from-javascript-to-tinygo">
+</section>
+</section>
+<section id="passing-strings-from-javascript-to-tinygo">
 <h2>Passing strings from JavaScript to TinyGo<a class="headerlink" href="#passing-strings-from-javascript-to-tinygo" title="Permalink to this headline">¶</a></h2>
 <p>Phew, at least we’re halfway there! Now that we’ve figured out how things actually hang
 together it’s “just” a matter of doing the inverse process to pass a string from our
@@ -410,7 +422,7 @@ JavaScript code into our WebAssembly module. As a proof of concept let’s creat
 </div>
 <p>In order to actually pass a string to this function, we need to insert the string into
 the memory of the WebAssembly module before calling <code class="docutils literal notranslate"><span class="pre">echo</span></code> with its address and length.</p>
-<div class="section" id="manipulating-memory">
+<section id="manipulating-memory">
 <h3>Manipulating Memory<a class="headerlink" href="#manipulating-memory" title="Permalink to this headline">¶</a></h3>
 <p>The problem is, where exactly in the module’s memory should we place the string? We
 can’t shove it anywhere as we could corrupt memory required for some other part of the
@@ -457,8 +469,8 @@ inserts it into the module’s memory.</p>
 the bytes and so that the numbers representing the characters in the string are encoded
 correctly. Also note that we’re using the <a class="reference external" href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/TypedArray/subarray">subarray</a> method this time so that we’re
 modifying the original array and not a copy.</p>
-</div>
-<div class="section" id="calling-the-echo-function">
+</section>
+<section id="calling-the-echo-function">
 <h3>Calling the Echo Function<a class="headerlink" href="#calling-the-echo-function" title="Permalink to this headline">¶</a></h3>
 <p>With a way for us to insert the string we want into the module’s memory we should now
 be in a position to call the <code class="docutils literal notranslate"><span class="pre">echo</span></code> function passing the starting address and length
@@ -480,12 +492,12 @@ don’t we take it from the input <code class="docutils literal notranslate"><sp
 <span class="p">}</span>
 </pre></div>
 </div>
-<div class="figure align-center">
+<figure class="align-center">
 <img alt="../../../_images/wasm-echo.gif" src="../../../_images/wasm-echo.gif" />
-</div>
-</div>
-</div>
-<div class="section" id="wrapping-up">
+</figure>
+</section>
+</section>
+<section id="wrapping-up">
 <h2>Wrapping Up<a class="headerlink" href="#wrapping-up" title="Permalink to this headline">¶</a></h2>
 <p>That’s about it, if you want to have a look at the final codebase then you can find it
 <a class="reference external" href="https://github.com/alcarney/wisp/tree/passing-strings">here</a>.</p>
@@ -508,8 +520,8 @@ unnecessary overhead.</p></li>
 </ul>
 <p>And with all that said isn’t this a problem that the toolchain should be solving?
 Perhaps I’m just using it wrong 🤔</p>
-</div>
-</div>
+</section>
+</section>
 
 </article>
 
@@ -543,7 +555,7 @@ Perhaps I’m just using it wrong 🤔</p>
                             Page Source
                         </a>
                     </span>
-                    <span>Built with <a class="text-green-600" href="https://www.sphinx-doc.org/en/master/">Sphinx</a> v4.4.0</span>
+                    <span>Built with <a class="text-green-600" href="https://www.sphinx-doc.org/en/master/">Sphinx</a> v4.5.0</span>
                     <span>&#169; Copyright 2021, Alex Carney.</span>
                 </div>
             </footer>

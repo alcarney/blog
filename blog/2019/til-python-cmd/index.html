@@ -4,7 +4,8 @@
 <html>
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
     <title>TIL: Python has a cmd module &#8212; Blog  documentation</title>
 
     
@@ -22,6 +23,9 @@
     <script src="../../../_static/jquery.js"></script>
     <script src="../../../_static/underscore.js"></script>
     <script src="../../../_static/doctools.js"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
     <script src="../../../_static/togglebutton.js"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
     <script src="https://unpkg.com/mermaid/dist/mermaid.min.js"></script>
@@ -176,13 +180,15 @@
                     
 
 <article class="p-4 prose-sm prose bg-white border prose-md prose-green max-w-none">
-    <div class="section" id="til-python-has-a-cmd-module">
+    <section id="til-python-has-a-cmd-module">
 <h1>TIL: Python has a cmd module<a class="headerlink" href="#til-python-has-a-cmd-module" title="Permalink to this headline">¶</a></h1>
 <p>Today I Learned that Python’s standard library has a <a class="reference external" href="https://docs.python.org/3/library/cmd.html">cmd</a> module and it is <em>awesome!</em></p>
-<div class="figure align-center" id="id1">
+<figure class="align-center" id="id1">
 <img alt="../../../_images/cmd_python.gif" src="../../../_images/cmd_python.gif" />
-<p class="caption"><span class="caption-text">Interactive program using the cmd module</span><a class="headerlink" href="#id1" title="Permalink to this image">¶</a></p>
-</div>
+<figcaption>
+<p><span class="caption-text">Interactive program using the cmd module</span><a class="headerlink" href="#id1" title="Permalink to this image">¶</a></p>
+</figcaption>
+</figure>
 <p>The <a class="reference external" href="https://docs.python.org/3/library/cmd.html">cmd</a> module contains a single class called <code class="docutils literal notranslate"><span class="pre">Cmd</span></code> which handles all the
 details of creating an application similar to Python’s REPL. All you need to do
 is to provide some command definitions and the <code class="docutils literal notranslate"><span class="pre">Cmd</span></code> class will handle the rest.</p>
@@ -197,7 +203,7 @@ will expose some of the basic shapes available and for the “Print” part of t
 into any of the specifics of <code class="docutils literal notranslate"><span class="pre">stylo</span></code> or how to use it. If you want to know more
 about it I will point you in the direction of the <a class="reference external" href="https://stylo.readthedocs.io/">documentation</a>
 (under construction) and the <a class="reference external" href="https://alcarney.github.io/stylo-doodles">example gallery</a></p>
-<div class="section" id="setup">
+<section id="setup">
 <h2>Setup<a class="headerlink" href="#setup" title="Permalink to this headline">¶</a></h2>
 <p>To start with we’re going to create a virtual environment and install <code class="docutils literal notranslate"><span class="pre">stylo</span></code>
 into it. This will also install <code class="docutils literal notranslate"><span class="pre">matplotlib</span></code> which we will be using later on.
@@ -234,8 +240,8 @@ help
 </div>
 <p><kbd class="kbd compound docutils literal notranslate"><kbd class="kbd docutils literal notranslate">Ctrl</kbd>-<kbd class="kbd docutils literal notranslate">C</kbd></kbd> will exit the application. Obviously this is pretty useless right now
 so let’s look at adding in some commands of our own.</p>
-</div>
-<div class="section" id="adding-commands">
+</section>
+<section id="adding-commands">
 <h2>Adding Commands<a class="headerlink" href="#adding-commands" title="Permalink to this headline">¶</a></h2>
 <p>Any method on our <code class="docutils literal notranslate"><span class="pre">StyloPrompt</span></code> class with a name of the form <code class="docutils literal notranslate"><span class="pre">do_*</span></code> is
 considered a command, with the command name given by whatever is after the
@@ -294,10 +300,12 @@ and <code class="docutils literal notranslate"><span class="pre">square</span></
 </div>
 <p>Now when we use the application we can create something a bit more
 interesting than a snowman in a blizzard!</p>
-<div class="figure align-center" id="id2">
+<figure class="align-center" id="id2">
 <img alt="../../../_images/dice.png" src="../../../_images/dice.png" />
-<p class="caption"><span class="caption-text">Number 3 on a dice</span><a class="headerlink" href="#id2" title="Permalink to this image">¶</a></p>
-</div>
+<figcaption>
+<p><span class="caption-text">Number 3 on a dice</span><a class="headerlink" href="#id2" title="Permalink to this image">¶</a></p>
+</figcaption>
+</figure>
 <div class="highlight-none notranslate"><div class="highlight"><pre><span></span>(Cmd) square 0 0 1.75 000000
 (Cmd) circle 0 0 0.3 ffffff
 (Cmd) circle -0.5 0.5 0.3 ffffff
@@ -305,8 +313,8 @@ interesting than a snowman in a blizzard!</p>
 (Cmd) save 1920 1080 image.png
 </pre></div>
 </div>
-</div>
-<div class="section" id="getting-help">
+</section>
+<section id="getting-help">
 <h2>Getting Help<a class="headerlink" href="#getting-help" title="Permalink to this headline">¶</a></h2>
 <p>Now that we have a few commands available we need to tell users how they can be
 used. If we were to use the <code class="docutils literal notranslate"><span class="pre">help</span></code> command we would see something like the
@@ -345,8 +353,8 @@ circle &lt;x&gt; &lt;y&gt; &lt;r&gt; &lt;color&gt;
 </pre></div>
 </div>
 <p>Much better</p>
-</div>
-<div class="section" id="giving-feedback">
+</section>
+<section id="giving-feedback">
 <h2>Giving Feedback<a class="headerlink" href="#giving-feedback" title="Permalink to this headline">¶</a></h2>
 <p>Right now our program is… ok. The user can type in a few commands and they
 can create some images, but it’s not much of a step up from using the library
@@ -403,12 +411,12 @@ a figure so all we have to do is update the plot in the axis object</p></li>
 <li><p>In the <code class="docutils literal notranslate"><span class="pre">__init__</span></code> method we are disabling the scale on the axis so that the
 user doesn’t see something that looks like a graph.</p></li>
 </ul>
-</div>
-<div class="section" id="finishing-touches">
+</section>
+<section id="finishing-touches">
 <h2>Finishing Touches<a class="headerlink" href="#finishing-touches" title="Permalink to this headline">¶</a></h2>
 <p>With most of the functionality out of the way we can look at tweaking
 some things to make the overall experience nicer.</p>
-<div class="section" id="exiting-the-program">
+<section id="exiting-the-program">
 <h3>Exiting the Program<a class="headerlink" href="#exiting-the-program" title="Permalink to this headline">¶</a></h3>
 <p>So far we don’t have a clean way to close the program, we can hit <kbd class="kbd compound docutils literal notranslate"><kbd class="kbd docutils literal notranslate">Ctrl</kbd>-<kbd class="kbd docutils literal notranslate">C</kbd></kbd> to
 terminate the script but it results in Python printing a traceback and it looks
@@ -429,8 +437,8 @@ command and we can use it to look at all of the user’s input (not just the
       <span class="k">return</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">default</span><span class="p">(</span><span class="n">line</span><span class="p">)</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="changing-the-prompt">
+</section>
+<section id="changing-the-prompt">
 <h3>Changing the Prompt<a class="headerlink" href="#changing-the-prompt" title="Permalink to this headline">¶</a></h3>
 <p>We can change the default prompt <code class="docutils literal notranslate"><span class="pre">(Cmd)</span></code> by setting the <code class="docutils literal notranslate"><span class="pre">prompt</span></code> attribute on
 our class.</p>
@@ -439,8 +447,8 @@ our class.</p>
    <span class="o">...</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="greeting-the-user">
+</section>
+<section id="greeting-the-user">
 <h3>Greeting the User<a class="headerlink" href="#greeting-the-user" title="Permalink to this headline">¶</a></h3>
 <p>Currently when our program starts it simply shows them the prompt, which if
 they are using it for the first time they probably won’t know where to start.
@@ -476,9 +484,9 @@ Type `help` or `?` for an overview `help &lt;command&gt;` for more details.
 <p>There are also <code class="docutils literal notranslate"><span class="pre">doc_header</span></code>, <code class="docutils literal notranslate"><span class="pre">misc_header</span></code> and <code class="docutils literal notranslate"><span class="pre">undoc_header</span></code> that you can set
 to include even more information at different points in your program. You can
 refer to the <a class="reference external" href="https://docs.python.org/3/library/cmd.html">docs</a> for more details.</p>
-</div>
-</div>
-<div class="section" id="wrapping-up">
+</section>
+</section>
+<section id="wrapping-up">
 <h2>Wrapping Up<a class="headerlink" href="#wrapping-up" title="Permalink to this headline">¶</a></h2>
 <p>I can’t believe I only just found out about this module. I hope you found this
 as useful as I did and I strongly encourage you to take a look at the
@@ -488,8 +496,8 @@ mentioning - such as completion!</p>
 tweaks) is available as a <a class="reference external" href="https://gist.github.com/alcarney/2f58820dd7a7c999197a450cf2069954">Gist</a> on Github. I think what I like most
 about this module is that it requires very little code before you start seeing
 real results - Our entire application is only 155 lines of code!</p>
-</div>
-</div>
+</section>
+</section>
 
 </article>
 
@@ -523,7 +531,7 @@ real results - Our entire application is only 155 lines of code!</p>
                             Page Source
                         </a>
                     </span>
-                    <span>Built with <a class="text-green-600" href="https://www.sphinx-doc.org/en/master/">Sphinx</a> v4.4.0</span>
+                    <span>Built with <a class="text-green-600" href="https://www.sphinx-doc.org/en/master/">Sphinx</a> v4.5.0</span>
                     <span>&#169; Copyright 2021, Alex Carney.</span>
                 </div>
             </footer>

@@ -4,7 +4,8 @@
 <html>
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
     <title>Saying ‘Hello, World!’ with TinyGo and WebAssembly &#8212; Blog  documentation</title>
 
     
@@ -22,6 +23,9 @@
     <script src="../../../_static/jquery.js"></script>
     <script src="../../../_static/underscore.js"></script>
     <script src="../../../_static/doctools.js"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
     <script src="../../../_static/togglebutton.js"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
     <script src="https://unpkg.com/mermaid/dist/mermaid.min.js"></script>
@@ -180,7 +184,7 @@
                     
 
 <article class="p-4 prose-sm prose bg-white border prose-md prose-green max-w-none">
-    <div class="section" id="saying-hello-world-with-tinygo-and-webassembly">
+    <section id="saying-hello-world-with-tinygo-and-webassembly">
 <h1>Saying ‘Hello, World!’ with TinyGo and WebAssembly<a class="headerlink" href="#saying-hello-world-with-tinygo-and-webassembly" title="Permalink to this headline">¶</a></h1>
 <p>WebAssembly is something I’ve wanted to play with for quite a while now and
 I’ve finally got around to taking a look at it. In this post I describe how I
@@ -188,7 +192,7 @@ managed to use <a class="reference external" href="https://tinygo.org/">TinyGo</
 WebAssembly and execute it in the browser. So that I have something to refer
 back to I also describe setting up my development environment as a container
 using <a class="reference external" href="https://linuxcontainers.org/">LXD</a>.</p>
-<div class="section" id="setting-up">
+<section id="setting-up">
 <h2>Setting Up<a class="headerlink" href="#setting-up" title="Permalink to this headline">¶</a></h2>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
@@ -206,7 +210,7 @@ of some programming language and start playing with it…</p>
 interface it provides around the native container technology built into Linux I was
 able to spin up an Arch Linux container with all the tools I needed to edit and run
 my code.</p>
-<div class="section" id="spinning-up-arch-linux">
+<section id="spinning-up-arch-linux">
 <h3>Spinning up Arch Linux<a class="headerlink" href="#spinning-up-arch-linux" title="Permalink to this headline">¶</a></h3>
 <p>Following this`_ article it was easy enough to pull down and
 launch an Arch Linux image from the community <a class="reference external" href="https://uk.images.linuxcontainers.org/">repository</a></p>
@@ -221,8 +225,8 @@ installing what we need</p>
 <span class="gp">[root@tinygo] $ </span>pacman -S tinygo llvm lld
 </pre></div>
 </div>
-</div>
-<div class="section" id="users-and-project-data">
+</section>
+<section id="users-and-project-data">
 <h3>Users and Project Data<a class="headerlink" href="#users-and-project-data" title="Permalink to this headline">¶</a></h3>
 <p>Even in an unprivileged container (which is what I think LXD uses by default?) its
 probably not the best idea to run programs as root so we should create a normal user
@@ -240,13 +244,15 @@ are able to work with it.</p>
 <span class="go">hello-world</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="vscode">
+</section>
+<section id="vscode">
 <h3>VSCode<a class="headerlink" href="#vscode" title="Permalink to this headline">¶</a></h3>
-<div class="figure align-center" id="id2">
+<figure class="align-center" id="id2">
 <img alt="../../../_images/vscode-remote.gif" src="../../../_images/vscode-remote.gif" />
-<p class="caption"><span class="caption-text">Attaching VSCode to ‘tinygo’ container.</span><a class="headerlink" href="#id2" title="Permalink to this image">¶</a></p>
-</div>
+<figcaption>
+<p><span class="caption-text">Attaching VSCode to ‘tinygo’ container.</span><a class="headerlink" href="#id2" title="Permalink to this image">¶</a></p>
+</figcaption>
+</figure>
 <p>Just because the development tools we’re using are isolated in their own container
 doesn’t mean we have to give up on all the features of our editor. With VSCode’s
 <a class="reference external" href="https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.vscode-remote-extensionpack">Remote Development Extensions</a> we can connect to a remote environment where VSCode
@@ -276,8 +282,8 @@ try to connect VSCode to the container logging in as the <cite>alex</cite> user 
 <span class="go">+--------+---------+---------------------+-----------------------------------------------+-----------+-----------+</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="access-denied">
+</section>
+<section id="access-denied">
 <h3>Access Denied!!<a class="headerlink" href="#access-denied" title="Permalink to this headline">¶</a></h3>
 <p>Once I started to create the files necessary for the project I very quickly realised that
 the project folder we passed into the container was mounted as read-only! It turns
@@ -298,9 +304,9 @@ per-container basis we also need to tell LXD to reuse my ID within a given conta
 <p>Phew! I think, finally, we’re in a position to crack on with the program itself. Was all
 of that necessary?.. probably not. Was it interesting? I certainly think so! Is it worth
 the effort? Well, I guess only time will tell…</p>
-</div>
-</div>
-<div class="section" id="tinygo">
+</section>
+</section>
+<section id="tinygo">
 <span id="hello-world-tinygo-wasm-tinygo"></span><h2>TinyGo<a class="headerlink" href="#tinygo" title="Permalink to this headline">¶</a></h2>
 <p>With the setup out of the way time to write our “Hello, World!” program in Go</p>
 <div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kn">package</span><span class="w"> </span><span class="nx">main</span><span class="w"></span>
@@ -327,8 +333,8 @@ specifically targets constrained environments such as embedded devices and
 microcontrollers. This means the binaries it produces are typically much smaller - at
 the expense of <a class="reference external" href="https://tinygo.org/lang-support/">missing</a> some features of the language.</p>
 </div>
-</div>
-<div class="section" id="webassembly">
+</section>
+<section id="webassembly">
 <h2>WebAssembly<a class="headerlink" href="#webassembly" title="Permalink to this headline">¶</a></h2>
 <p>With our WebAssembly binary ready to go it’s time to load it into the browser and
 execute it.</p>
@@ -365,14 +371,16 @@ this file is also accessible by the browser. The file itself should be included 
 of your TinyGo install, mine was located in <code class="docutils literal notranslate"><span class="pre">/usr/lib/tinygo/targets/wasm_exec.js</span></code></p>
 <p>More details on using the compiled WebAssembly module can be found in the
 <a class="reference external" href="https://tinygo.org/webassembly/webassembly/">TinyGo documentation</a></p>
-<div class="figure align-center" id="id3">
+<figure class="align-center" id="id3">
 <img alt="../../../_images/wasm-hello-world.png" src="../../../_images/wasm-hello-world.png" />
-<p class="caption"><span class="caption-text">This is probably my most convoluted ‘Hello, World!’ program to date!</span><a class="headerlink" href="#id3" title="Permalink to this image">¶</a></p>
-</div>
+<figcaption>
+<p><span class="caption-text">This is probably my most convoluted ‘Hello, World!’ program to date!</span><a class="headerlink" href="#id3" title="Permalink to this image">¶</a></p>
+</figcaption>
+</figure>
 <p>All being well, you should be able to open your browser to the webpage we created above
 and see the message “Hello, World!” written to the console!</p>
-</div>
-</div>
+</section>
+</section>
 
 </article>
 
@@ -406,7 +414,7 @@ and see the message “Hello, World!” written to the console!</p>
                             Page Source
                         </a>
                     </span>
-                    <span>Built with <a class="text-green-600" href="https://www.sphinx-doc.org/en/master/">Sphinx</a> v4.4.0</span>
+                    <span>Built with <a class="text-green-600" href="https://www.sphinx-doc.org/en/master/">Sphinx</a> v4.5.0</span>
                     <span>&#169; Copyright 2021, Alex Carney.</span>
                 </div>
             </footer>

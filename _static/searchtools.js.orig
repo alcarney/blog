@@ -136,7 +136,7 @@ var Search = {
     this.title = $('<h2>' + _('Searching') + '</h2>').appendTo(this.out);
     this.dots = $('<span></span>').appendTo(this.title);
     this.status = $('<p class="search-summary">&nbsp;</p>').appendTo(this.out);
-    this.output = $('<ul class="m-0"/>').appendTo(this.out);
+    this.output = $('<ul class="search"/>').appendTo(this.out);
 
     $('#search-progress').text(_('Preparing search...'));
     this.startPulse();
@@ -244,7 +244,7 @@ var Search = {
       // results left, load the summary and display it
       if (results.length) {
         var item = results.pop();
-        var listItem = $('<li class="p-4 mt-4 bg-white border"></li>');
+        var listItem = $('<li></li>');
         var requestUrl = "";
         var linkUrl = "";
         if (DOCUMENTATION_OPTIONS.BUILDER === 'dirhtml') {

@@ -4,7 +4,8 @@
 <html>
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
     <title>Python 3.x Gotchas &#8212; Blog  documentation</title>
 
     
@@ -22,6 +23,9 @@
     <script src="../../_static/jquery.js"></script>
     <script src="../../_static/underscore.js"></script>
     <script src="../../_static/doctools.js"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
     <script src="../../_static/togglebutton.js"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
     <script src="https://unpkg.com/mermaid/dist/mermaid.min.js"></script>
@@ -127,11 +131,11 @@
                     
 
 <article class="p-4 prose-sm prose bg-white border prose-md prose-green max-w-none">
-    <div class="section" id="python-3-x-gotchas">
+    <section id="python-3-x-gotchas">
 <h1>Python 3.x Gotchas<a class="headerlink" href="#python-3-x-gotchas" title="Permalink to this headline">¶</a></h1>
 <p>Python continues to improve with plenty of new features and improvements with each release.
 When working with older versions of Python 3.x it’s easy to forget how new some features are.</p>
-<div class="section" id="beware-pathlib-on-3-5">
+<section id="beware-pathlib-on-3-5">
 <h2>Beware <code class="docutils literal notranslate"><span class="pre">pathlib</span></code> on 3.5<a class="headerlink" href="#beware-pathlib-on-3-5" title="Permalink to this headline">¶</a></h2>
 <p>While <a class="reference external" href="https://docs.python.org/3.5/library/pathlib.html#module-pathlib" title="(in Python v3.5)"><code class="docutils literal notranslate"><span class="pre">pathlib</span></code></a> exists in Python 3.5, it’s not fully integrated yet. Passing a
 <a class="reference external" href="https://docs.python.org/3.5/library/pathlib.html#pathlib.Path" title="(in Python v3.5)"><code class="docutils literal notranslate"><span class="pre">pathlib.Path</span></code></a> object to the built-in <a class="reference external" href="https://docs.python.org/3.5/library/functions.html#open" title="(in Python v3.5)"><code class="docutils literal notranslate"><span class="pre">open()</span></code></a> method will result in a surprising error</p>
@@ -139,8 +143,8 @@ When working with older versions of Python 3.x it’s easy to forget how new som
 </pre></div>
 </div>
 <p>In this situation it’s better to call the path’s <a class="reference external" href="https://docs.python.org/3.5/library/pathlib.html#pathlib.Path.open" title="(in Python v3.5)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">open()</span></code></a> method instead.</p>
-</div>
-</div>
+</section>
+</section>
 
 </article>
 
@@ -183,7 +187,7 @@ When working with older versions of Python 3.x it’s easy to forget how new som
                             Page Source
                         </a>
                     </span>
-                    <span>Built with <a class="text-green-600" href="https://www.sphinx-doc.org/en/master/">Sphinx</a> v4.4.0</span>
+                    <span>Built with <a class="text-green-600" href="https://www.sphinx-doc.org/en/master/">Sphinx</a> v4.5.0</span>
                     <span>&#169; Copyright 2021, Alex Carney.</span>
                 </div>
             </footer>

@@ -4,7 +4,8 @@
 <html>
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
     <title>Notes on Git &#8212; Blog  documentation</title>
 
     
@@ -22,6 +23,9 @@
     <script src="../../_static/jquery.js"></script>
     <script src="../../_static/underscore.js"></script>
     <script src="../../_static/doctools.js"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
     <script src="../../_static/togglebutton.js"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
     <script src="https://unpkg.com/mermaid/dist/mermaid.min.js"></script>
@@ -132,9 +136,9 @@
                     
 
 <article class="p-4 prose-sm prose bg-white border prose-md prose-green max-w-none">
-    <div class="section" id="notes-on-git">
+    <section id="notes-on-git">
 <h1>Notes on Git<a class="headerlink" href="#notes-on-git" title="Permalink to this headline">¶</a></h1>
-<div class="section" id="submodules">
+<section id="submodules">
 <h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this headline">¶</a></h2>
 <p>To clone a repo that contains submodules we can run the following command</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>git clone --recurse-submodules &lt;repo-url&gt;
@@ -145,10 +149,10 @@ submodules</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>git submodule update --init --recursive
 </pre></div>
 </div>
-</div>
-<div class="section" id="tags">
+</section>
+<section id="tags">
 <h2>Tags<a class="headerlink" href="#tags" title="Permalink to this headline">¶</a></h2>
-<div class="section" id="updating-tags-from-remote">
+<section id="updating-tags-from-remote">
 <h3>Updating tags from remote<a class="headerlink" href="#updating-tags-from-remote" title="Permalink to this headline">¶</a></h3>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>git fetch --tags
 <span class="go">remote: Enumerating objects: 307, done.</span>
@@ -170,16 +174,16 @@ submodules</p>
 <span class="go">t [tag update]          stable     -&gt; stable</span>
 </pre></div>
 </div>
-</div>
-</div>
-<div class="section" id="links-resources">
+</section>
+</section>
+<section id="links-resources">
 <h2>Links &amp; Resources<a class="headerlink" href="#links-resources" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
 <li><p><a class="reference external" href="https://stackoverflow.com/questions/3796927/how-to-git-clone-including-submodules">How to “git clone” including submodules?</a></p></li>
 <li><p><a class="reference external" href="https://stackoverflow.com/questions/58031165/how-to-get-rid-of-would-clobber-existing-tag">How to get rid of “would clobber existing tag”</a></p></li>
 </ul>
-</div>
-</div>
+</section>
+</section>
 
 </article>
 
@@ -222,7 +226,7 @@ submodules</p>
                             Page Source
                         </a>
                     </span>
-                    <span>Built with <a class="text-green-600" href="https://www.sphinx-doc.org/en/master/">Sphinx</a> v4.4.0</span>
+                    <span>Built with <a class="text-green-600" href="https://www.sphinx-doc.org/en/master/">Sphinx</a> v4.5.0</span>
                     <span>&#169; Copyright 2021, Alex Carney.</span>
                 </div>
             </footer>

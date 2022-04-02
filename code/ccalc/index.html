@@ -4,7 +4,8 @@
 <html>
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
     <title>CCalc Extension &#8212; Blog  documentation</title>
 
     
@@ -22,6 +23,9 @@
     <script src="../../_static/jquery.js"></script>
     <script src="../../_static/underscore.js"></script>
     <script src="../../_static/doctools.js"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
     <script src="../../_static/togglebutton.js"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
     <script src="https://unpkg.com/mermaid/dist/mermaid.min.js"></script>
@@ -130,7 +134,7 @@
                     
 
 <article class="p-4 prose-sm prose bg-white border prose-md prose-green max-w-none">
-    <div class="section" id="ccalc-extension">
+    <section id="ccalc-extension">
 <h1>CCalc Extension<a class="headerlink" href="#ccalc-extension" title="Permalink to this headline">¶</a></h1>
 <div class="my-4 border border-t-0">
     
@@ -164,84 +168,6 @@
 <span class="p">)</span>
 </pre></div>
 
-        </div>
-    </div>
-        
-
-    
-
-    <div data-parent="" class=" border-t">
-        <label for="README.rst">
-            <div style="padding-left: 4px;" class="flex items-center px-2 py-1 space-x-2 hover:bg-gray-50">
-                
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" ><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
-                    <path d="M14 2v6h6M16 13H8M16 17H8M10 9H8"/>
-                </svg>
-                
-                
-                <span>README.rst</span>
-            </div>
-        </label>
-        
-        
-        <input class="hidden" data-type="file" data-id="README.rst" type="checkbox" id="README.rst" />
-        <div class="overflow-y-auto transition-all max-h-0">
-            <div class="highlight"><pre style="margin: 0"><span></span>A CPython extension that embeds the <span class="s">``simple-ast``</span> program into Python.
-
-<span class="p">..</span> <span class="ow">code-block</span><span class="p">::</span> <span class="k">python</span>
-
-   <span class="o">&gt;&gt;&gt;</span> <span class="kn">import</span> <span class="nn">ccalc</span>
-   <span class="o">&gt;&gt;&gt;</span> <span class="n">expression</span> <span class="o">=</span> <span class="p">(</span><span class="n">ccalc</span><span class="o">.</span><span class="n">Literal</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span> <span class="o">+</span> <span class="mi">2</span><span class="p">)</span> <span class="o">*</span> <span class="mi">3</span>
-   <span class="o">&gt;&gt;&gt;</span> <span class="n">expression</span>
-   <span class="n">Multiply</span><span class="o">&lt;</span><span class="n">Plus</span><span class="o">&lt;</span><span class="n">Literal</span><span class="o">&lt;</span><span class="mf">1.0</span><span class="o">&gt;</span><span class="p">,</span> <span class="n">Literal</span><span class="o">&lt;</span><span class="mf">2.0</span><span class="o">&gt;&gt;</span><span class="p">,</span> <span class="n">Literal</span><span class="o">&lt;</span><span class="mf">3.0</span><span class="o">&gt;&gt;</span>
-
-   <span class="o">&gt;&gt;&gt;</span> <span class="n">ccalc</span><span class="o">.</span><span class="n">eval_ast</span><span class="p">(</span><span class="n">expression</span><span class="p">)</span>
-   <span class="mf">9.0</span>
-
-<span class="gh">Building</span>
-<span class="gh">--------</span>
-
-It&#39;s probably worth creating a virtual environment to work in
-
-<span class="p">..</span> <span class="ow">code-block</span><span class="p">::</span> <span class="k">console</span>
-
-   <span class="gp">$ </span>python -m venv .env
-
-Assuming you have a C compiler available, building the extension is as easy as
-running the following command
-
-<span class="p">..</span> <span class="ow">code-block</span><span class="p">::</span> console
-
-   (.env) $ python setup.py install 
-</pre></div>
-
-        </div>
-    </div>
-        
-
-    
-
-    <div data-parent="" class=" border-t">
-        <label for=".gitignore">
-            <div style="padding-left: 4px;" class="flex items-center px-2 py-1 space-x-2 hover:bg-gray-50">
-                
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" ><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
-                    <path d="M14 2v6h6M16 13H8M16 17H8M10 9H8"/>
-                </svg>
-                
-                
-                <span>.gitignore</span>
-            </div>
-        </label>
-        
-        
-        <input class="hidden" data-type="file" data-id=".gitignore" type="checkbox" id=".gitignore" />
-        <div class="overflow-y-auto transition-all max-h-0">
-            <pre class="m-0">build
-dist
-__pycache__
-*.pyc
-*.egg-info</pre>
         </div>
     </div>
         
@@ -499,6 +425,84 @@ __pycache__
     
 
     <div data-parent="" class=" border-t">
+        <label for="README.rst">
+            <div style="padding-left: 4px;" class="flex items-center px-2 py-1 space-x-2 hover:bg-gray-50">
+                
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" ><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+                    <path d="M14 2v6h6M16 13H8M16 17H8M10 9H8"/>
+                </svg>
+                
+                
+                <span>README.rst</span>
+            </div>
+        </label>
+        
+        
+        <input class="hidden" data-type="file" data-id="README.rst" type="checkbox" id="README.rst" />
+        <div class="overflow-y-auto transition-all max-h-0">
+            <div class="highlight"><pre style="margin: 0"><span></span>A CPython extension that embeds the <span class="s">``simple-ast``</span> program into Python.
+
+<span class="p">..</span> <span class="ow">code-block</span><span class="p">::</span> <span class="k">python</span>
+
+   <span class="o">&gt;&gt;&gt;</span> <span class="kn">import</span> <span class="nn">ccalc</span>
+   <span class="o">&gt;&gt;&gt;</span> <span class="n">expression</span> <span class="o">=</span> <span class="p">(</span><span class="n">ccalc</span><span class="o">.</span><span class="n">Literal</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span> <span class="o">+</span> <span class="mi">2</span><span class="p">)</span> <span class="o">*</span> <span class="mi">3</span>
+   <span class="o">&gt;&gt;&gt;</span> <span class="n">expression</span>
+   <span class="n">Multiply</span><span class="o">&lt;</span><span class="n">Plus</span><span class="o">&lt;</span><span class="n">Literal</span><span class="o">&lt;</span><span class="mf">1.0</span><span class="o">&gt;</span><span class="p">,</span> <span class="n">Literal</span><span class="o">&lt;</span><span class="mf">2.0</span><span class="o">&gt;&gt;</span><span class="p">,</span> <span class="n">Literal</span><span class="o">&lt;</span><span class="mf">3.0</span><span class="o">&gt;&gt;</span>
+
+   <span class="o">&gt;&gt;&gt;</span> <span class="n">ccalc</span><span class="o">.</span><span class="n">eval_ast</span><span class="p">(</span><span class="n">expression</span><span class="p">)</span>
+   <span class="mf">9.0</span>
+
+<span class="gh">Building</span>
+<span class="gh">--------</span>
+
+It&#39;s probably worth creating a virtual environment to work in
+
+<span class="p">..</span> <span class="ow">code-block</span><span class="p">::</span> <span class="k">console</span>
+
+   <span class="gp">$ </span>python -m venv .env
+
+Assuming you have a C compiler available, building the extension is as easy as
+running the following command
+
+<span class="p">..</span> <span class="ow">code-block</span><span class="p">::</span> console
+
+   (.env) $ python setup.py install 
+</pre></div>
+
+        </div>
+    </div>
+        
+
+    
+
+    <div data-parent="" class=" border-t">
+        <label for=".gitignore">
+            <div style="padding-left: 4px;" class="flex items-center px-2 py-1 space-x-2 hover:bg-gray-50">
+                
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" ><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+                    <path d="M14 2v6h6M16 13H8M16 17H8M10 9H8"/>
+                </svg>
+                
+                
+                <span>.gitignore</span>
+            </div>
+        </label>
+        
+        
+        <input class="hidden" data-type="file" data-id=".gitignore" type="checkbox" id=".gitignore" />
+        <div class="overflow-y-auto transition-all max-h-0">
+            <pre class="m-0">build
+dist
+__pycache__
+*.pyc
+*.egg-info</pre>
+        </div>
+    </div>
+        
+
+    
+
+    <div data-parent="" class=" border-t">
         <label for="ccalc">
             <div style="padding-left: 4px;" class="flex items-center px-2 py-1 space-x-2 hover:bg-gray-50">
                 
@@ -630,6 +634,16 @@ __pycache__
     
     
 
+    input[data-id='ccalcmodule.c']:checked ~ div {
+        max-height: 350px;
+    }
+
+    input[data-id='']:checked ~ div[data-parent='ccalcmodule.c'] {
+        max-height: 382px;
+    }
+    
+    
+
     input[data-id='README.rst']:checked ~ div {
         max-height: 350px;
     }
@@ -645,16 +659,6 @@ __pycache__
     }
 
     input[data-id='']:checked ~ div[data-parent='.gitignore'] {
-        max-height: 382px;
-    }
-    
-    
-
-    input[data-id='ccalcmodule.c']:checked ~ div {
-        max-height: 350px;
-    }
-
-    input[data-id='']:checked ~ div[data-parent='ccalcmodule.c'] {
         max-height: 382px;
     }
     
@@ -679,7 +683,7 @@ __pycache__
     }
     
     
-</style><div class="section" id="readme">
+</style><section id="readme">
 <h2>README<a class="headerlink" href="#readme" title="Permalink to this headline">¶</a></h2>
 <p>A CPython extension that embeds the <code class="docutils literal notranslate"><span class="pre">simple-ast</span></code> program into Python.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">ccalc</span>
@@ -691,7 +695,7 @@ __pycache__
 <span class="go">9.0</span>
 </pre></div>
 </div>
-<div class="section" id="building">
+<section id="building">
 <h3>Building<a class="headerlink" href="#building" title="Permalink to this headline">¶</a></h3>
 <p>It’s probably worth creating a virtual environment to work in</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>python -m venv .env
@@ -702,9 +706,9 @@ running the following command</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp gp-VirtualEnv">(.env)</span> <span class="gp">$ </span>python setup.py install 
 </pre></div>
 </div>
-</div>
-</div>
-</div>
+</section>
+</section>
+</section>
 
 </article>
 
@@ -747,7 +751,7 @@ running the following command</p>
                             Page Source
                         </a>
                     </span>
-                    <span>Built with <a class="text-green-600" href="https://www.sphinx-doc.org/en/master/">Sphinx</a> v4.4.0</span>
+                    <span>Built with <a class="text-green-600" href="https://www.sphinx-doc.org/en/master/">Sphinx</a> v4.5.0</span>
                     <span>&#169; Copyright 2021, Alex Carney.</span>
                 </div>
             </footer>

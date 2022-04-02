@@ -4,7 +4,8 @@
 <html>
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
     <title>Implementing Click &amp; Drag with Vanilla JS &#8212; Blog  documentation</title>
 
     
@@ -22,6 +23,9 @@
     <script src="../../../_static/jquery.js"></script>
     <script src="../../../_static/underscore.js"></script>
     <script src="../../../_static/doctools.js"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
     <script src="../../../_static/togglebutton.js"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
     <script src="https://unpkg.com/mermaid/dist/mermaid.min.js"></script>
@@ -169,7 +173,7 @@
                     
 
 <article class="p-4 prose-sm prose bg-white border prose-md prose-green max-w-none">
-    <div class="section" id="implementing-click-drag-with-vanilla-js">
+    <section id="implementing-click-drag-with-vanilla-js">
 <h1>Implementing Click &amp; Drag with Vanilla JS<a class="headerlink" href="#implementing-click-drag-with-vanilla-js" title="Permalink to this headline">¶</a></h1>
 <figure>
   <div id="main"></div>
@@ -198,7 +202,7 @@ functionality using only vanilla JavaScript. Clicking and dragging as a concept
 can apply to many kinds of interactions so in this instance I’m specifically
 referring to clicking on an SVG element moving it around on the page as
 illustrated by the demo above.</p>
-<div class="section" id="setup">
+<section id="setup">
 <h2>Setup<a class="headerlink" href="#setup" title="Permalink to this headline">¶</a></h2>
 <p>All we need to get started is a HTML document that contains some markup which
 provides someplace we can reference and attach our image element to, as well as
@@ -230,8 +234,8 @@ creating HTML elements using JavaScript. However in order to work with SVG
 elements we need to use the <a class="reference external" href="https://developer.mozilla.org/en-US/docs/Web/API/Document/createElementNS">document.createElementNS()</a> function which allows
 us to use the SVG namespace instead of the HTML default.</p></li>
 </ul>
-</div>
-<div class="section" id="the-view-box">
+</section>
+<section id="the-view-box">
 <h2>The View Box<a class="headerlink" href="#the-view-box" title="Permalink to this headline">¶</a></h2>
 <p>The next step is to construct an appropriate <code class="docutils literal notranslate"><span class="pre">viewBox</span></code> definition for our
 canvas. For more information on the <code class="docutils literal notranslate"><span class="pre">viewBox</span></code> you can refer to the <a class="reference external" href="https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/viewBox">documentation</a>
@@ -275,8 +279,8 @@ element and assign the view box to our canvas.</p>
 <span class="nx">canvas</span><span class="p">.</span><span class="nx">setAttribute</span><span class="p">(</span><span class="s2">&quot;viewBox&quot;</span><span class="p">,</span> <span class="nx">viewBoxStr</span><span class="p">)</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="something-to-click-on">
+</section>
+<section id="something-to-click-on">
 <h2>Something to Click on<a class="headerlink" href="#something-to-click-on" title="Permalink to this headline">¶</a></h2>
 <p>By this point we have finished preparing our canvas and it’s time to add
 something for us to interact with. To keep things simple I will stick to a <code class="docutils literal notranslate"><span class="pre">&lt;circle&gt;</span></code>
@@ -296,8 +300,8 @@ collection of elements under a <code class="docutils literal notranslate"><span 
 <p>Of course the way in which you define the position of your interactive element
 will depend on the element you have chosen.</p>
 </div>
-</div>
-<div class="section" id="implementing-the-drag">
+</section>
+<section id="implementing-the-drag">
 <h2>Implementing the Drag<a class="headerlink" href="#implementing-the-drag" title="Permalink to this headline">¶</a></h2>
 <p>We will create an event handler for the <code class="docutils literal notranslate"><span class="pre">mousemove</span></code> event and attach it to
 our canvas.</p>
@@ -319,7 +323,7 @@ function.</p>
 (it is covered in the next section), instead let’s focus on what we do while the
 cursor is moving about the page</p>
 <p>Let’s get the simpler case out of the way first</p>
-<div class="section" id="not-clicked">
+<section id="not-clicked">
 <h3>Not Clicked<a class="headerlink" href="#not-clicked" title="Permalink to this headline">¶</a></h3>
 <p>When the mouse is moving but the user has not clicked, then there is nothing for
 us to do! We can simply check the value of the <code class="docutils literal notranslate"><span class="pre">clicked</span></code> variable and stop the
@@ -329,8 +333,8 @@ function if it meets the criteria.</p>
 <span class="p">}</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="clicked">
+</section>
+<section id="clicked">
 <h3>Clicked<a class="headerlink" href="#clicked" title="Permalink to this headline">¶</a></h3>
 <p>Now for the interesting part! The mouse is moving and the user has clicked on
 the circle, all we have to do now is update its position to match
@@ -498,9 +502,9 @@ that system and assign the result to our circle’s position!</p>
 </div>
 <p>Nearly there! The only thing left to do is decide on how we want to update the
 <code class="docutils literal notranslate"><span class="pre">clicked</span></code> variable.</p>
-</div>
-</div>
-<div class="section" id="click-detection">
+</section>
+</section>
+<section id="click-detection">
 <h2>Click Detection<a class="headerlink" href="#click-detection" title="Permalink to this headline">¶</a></h2>
 <p>Finally all that’s left is to do is decide how we want to toggle the dragging
 behaviour. This mostly comes down to how you want the user to interact with the
@@ -527,8 +531,8 @@ cursor is no longer over the circle the handler for the <code class="docutils li
 circle is never fired so when the user brings their cursor back over the canvas
 our code still believes the user never released the mouse button and so the
 circle will appear “stuck” to their cursor until they click again.</p>
-</div>
-<div class="section" id="conclusion">
+</section>
+<section id="conclusion">
 <h2>Conclusion<a class="headerlink" href="#conclusion" title="Permalink to this headline">¶</a></h2>
 <p>There you have it, those were some of the basics required to get a working proof
 of concept of clicking and dragging functionality using only the JavaScript APIs
@@ -601,8 +605,8 @@ of thing 🤔…</p>
 <p>I will leave you with the final version of the code that went into the demo you
 saw at the start of this blog post so you can see it all in context. Hopefully
 you found this useful and I’ll see you in the next one!</p>
-</div>
-</div>
+</section>
+</section>
 
 </article>
 
@@ -636,7 +640,7 @@ you found this useful and I’ll see you in the next one!</p>
                             Page Source
                         </a>
                     </span>
-                    <span>Built with <a class="text-green-600" href="https://www.sphinx-doc.org/en/master/">Sphinx</a> v4.4.0</span>
+                    <span>Built with <a class="text-green-600" href="https://www.sphinx-doc.org/en/master/">Sphinx</a> v4.5.0</span>
                     <span>&#169; Copyright 2021, Alex Carney.</span>
                 </div>
             </footer>

@@ -4,7 +4,8 @@
 <html>
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
     <title>Creating a CPython Extension &#8212; Blog  documentation</title>
 
     
@@ -22,6 +23,9 @@
     <script src="../../../_static/jquery.js"></script>
     <script src="../../../_static/underscore.js"></script>
     <script src="../../../_static/doctools.js"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
     <script src="../../../_static/togglebutton.js"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
     <script src="https://unpkg.com/mermaid/dist/mermaid.min.js"></script>
@@ -182,7 +186,7 @@
                     
 
 <article class="p-4 prose-sm prose bg-white border prose-md prose-green max-w-none">
-    <div class="section" id="creating-a-cpython-extension">
+    <section id="creating-a-cpython-extension">
 <h1>Creating a CPython Extension<a class="headerlink" href="#creating-a-cpython-extension" title="Permalink to this headline">¶</a></h1>
 <p><a class="reference internal" href="../../2020/ast-simple-eval/"><span class="doc">Previously</span></a>, as part of my exploration
 into how programming languages are implemented, I wrote a very simple AST
@@ -193,7 +197,7 @@ frontend to my “programming language” which could do it for me.</p>
 compiler/interpreter. However, while I’m definitely interested in parsing I
 don’t quite feel like tackling that just yet. Instead I’m going to have Python
 be the frontend and embed my toy language into it via a <a class="reference external" href="https://docs.python.org/3/extending/extending.html">CPython Extension</a></p>
-<div class="section" id="overview">
+<section id="overview">
 <h2>Overview<a class="headerlink" href="#overview" title="Permalink to this headline">¶</a></h2>
 <p>Before diving into the detail I think it would be worth keeping in mind what we
 want the end result to be. By the end of this post, we want to have a CPython
@@ -228,8 +232,8 @@ the C representation, passing it off to the evaluator before converting the
 result back into Python.</p>
 </li>
 </ul>
-</div>
-<div class="section" id="constructing-an-ast-representation">
+</section>
+<section id="constructing-an-ast-representation">
 <span id="ast-python-frontend-ast-repr"></span><h2>Constructing an AST Representation<a class="headerlink" href="#constructing-an-ast-representation" title="Permalink to this headline">¶</a></h2>
 <p>To represent the AST in Python code we can create a class that captures the same
 information as our <a class="reference internal" href="../../2020/ast-simple-eval/#ast-simple-eval-ast-repr"><span class="std std-ref">AstNode</span></a> struct from the C code</p>
@@ -313,8 +317,8 @@ directly</p>
 <span class="go">Plus&lt;Literal&lt;1.0&gt;, Multiply&lt;Literal&lt;2.0&gt;, Literal&lt;3.0&gt;&gt;</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="setting-up-the-c-extension">
+</section>
+<section id="setting-up-the-c-extension">
 <span id="ast-python-frontend-ext-setup"></span><h2>Setting up the C Extension<a class="headerlink" href="#setting-up-the-c-extension" title="Permalink to this headline">¶</a></h2>
 <p>Using <a class="reference external" href="https://realpython.com/build-python-c-extension-module/">this tutorial</a> from Real Python as a guide I was able
 to get a C Extension up and running surprisingly easily. Be sure to check out
@@ -387,7 +391,7 @@ called with. Check out the <a class="reference external" href="https://docs.pyth
 <span class="p">}</span><span class="w"></span>
 </pre></div>
 </div>
-<div class="section" id="building-the-extension">
+<section id="building-the-extension">
 <h3>Building the Extension<a class="headerlink" href="#building-the-extension" title="Permalink to this headline">¶</a></h3>
 <p>To my surprise, this was the easiest step of them all. Rather than worrying
 about writing a <code class="docutils literal notranslate"><span class="pre">Makefile</span></code> or providing the right flags to link against my
@@ -471,9 +475,9 @@ functions from it just as we would with any other module.</p>
 <span class="go">Hello, World!</span>
 </pre></div>
 </div>
-</div>
-</div>
-<div class="section" id="converting-between-python-and-c">
+</section>
+</section>
+<section id="converting-between-python-and-c">
 <span id="ast-python-frontend-conversions"></span><h2>Converting Between Python and C<a class="headerlink" href="#converting-between-python-and-c" title="Permalink to this headline">¶</a></h2>
 <p>Now for the fun part! It’s time to write a method for our extension module
 <code class="docutils literal notranslate"><span class="pre">method_eval_ast</span></code> that takes a Python representation of the AST and converts it
@@ -498,7 +502,7 @@ Python.</p>
 <li><p><a class="reference internal" href="#ast-python-frontend-c-ast"><span class="std std-ref">Constructing the C AST</span></a></p></li>
 <li><p><a class="reference internal" href="#ast-python-frontend-return"><span class="std std-ref">Returning the Result</span></a></p></li>
 </ul>
-<div class="section" id="parsing-function-arguments">
+<section id="parsing-function-arguments">
 <span id="ast-python-frontend-function-args"></span><h3>Parsing Function Arguments<a class="headerlink" href="#parsing-function-arguments" title="Permalink to this headline">¶</a></h3>
 <p>When writing a <code class="docutils literal notranslate"><span class="pre">METH_VARARGS</span></code> style function, it gets called with 2 parameters
 <code class="docutils literal notranslate"><span class="pre">self</span></code> and <code class="docutils literal notranslate"><span class="pre">args</span></code>. <code class="docutils literal notranslate"><span class="pre">self</span></code> in this case is a reference to our <code class="docutils literal notranslate"><span class="pre">_ccalc</span></code> module and
@@ -523,8 +527,8 @@ to us.</p>
 error indicator for us with the correct error message. So all that would be left
 for us to do is to return <code class="docutils literal notranslate"><span class="pre">NULL</span></code> which indicates to the code calling us that
 there was an error. See the documentation on <a class="reference external" href="https://docs.python.org/3/c-api/exceptions.html">error handling</a> for more details</p>
-</div>
-<div class="section" id="constructing-the-c-ast">
+</section>
+<section id="constructing-the-c-ast">
 <span id="ast-python-frontend-c-ast"></span><h3>Constructing the C AST<a class="headerlink" href="#constructing-the-c-ast" title="Permalink to this headline">¶</a></h3>
 <p>With a reference to the Python object that (hopefully!) represents a valid AST
 it’s time to do the conversion into our C representation. To do this we’ll write
@@ -539,7 +543,7 @@ a function dedicated to handling the conversion and call it from
 <p>The first step is to dynamically allocate enough memory to store the C
 representation. Easy enough to do, assuming that you know the size of the
 tree…</p>
-<div class="section" id="allocating-memory">
+<section id="allocating-memory">
 <h4>Allocating Memory<a class="headerlink" href="#allocating-memory" title="Permalink to this headline">¶</a></h4>
 <p>It took me a while to realise it, but even though we’re writing C code we are
 still within the Python interpreter. This means we still have access to all the standard
@@ -609,8 +613,8 @@ on our <code class="docutils literal notranslate"><span class="pre">AstNode</spa
       <span class="k">return</span> <span class="mi">1</span> <span class="o">+</span> <span class="n">left</span> <span class="o">+</span> <span class="n">right</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="inspecting-nodes">
+</section>
+<section id="inspecting-nodes">
 <h4>Inspecting Nodes<a class="headerlink" href="#inspecting-nodes" title="Permalink to this headline">¶</a></h4>
 <p>With the memory to hold the tree allocated it’s time to start on the actual
 conversion. To handle this we’ll write another function <code class="docutils literal notranslate"><span class="pre">AstNode_FromPyObject</span></code>
@@ -649,9 +653,9 @@ those for now.</p>
 uses <a class="reference external" href="https://en.wikipedia.org/wiki/Reference_counting">Reference Counting</a> internally it’s our responsibility to decrement the
 count (using <code class="docutils literal notranslate"><span class="pre">Py_DECREF</span></code>) when we are finished with it - at least that’s what I
 think should be done based on what I found in the documentation on <a class="reference external" href="https://docs.python.org/3/extending/extending.html#ownership-rules">ownership</a></p>
-</div>
-</div>
-<div class="section" id="converting-the-node">
+</section>
+</section>
+<section id="converting-the-node">
 <h3>Converting the Node<a class="headerlink" href="#converting-the-node" title="Permalink to this headline">¶</a></h3>
 <p>Now that we have an integer <code class="docutils literal notranslate"><span class="pre">node_type</span></code> that corresponds with one of the
 <code class="docutils literal notranslate"><span class="pre">AstNodeType</span></code> enum entries we can use a <code class="docutils literal notranslate"><span class="pre">switch</span></code> statement and start writing the
@@ -686,8 +690,8 @@ enough information to fill out our first <code class="docutils literal notransla
 <p>As this node type has no children there’s no further work to do and we can
 return successfully. However, in the case of <code class="docutils literal notranslate"><span class="pre">AST_PLUS</span></code> and <code class="docutils literal notranslate"><span class="pre">AST_MULTIPLY</span></code>
 things aren’t as straightforward…</p>
-</div>
-<div class="section" id="traversing-the-tree">
+</section>
+<section id="traversing-the-tree">
 <h3>Traversing the Tree<a class="headerlink" href="#traversing-the-tree" title="Permalink to this headline">¶</a></h3>
 <p>Handling the other node types starts off easy enough, since  they are almost
 identical we can handle their differences in the <code class="docutils literal notranslate"><span class="pre">switch</span></code> statement and then use
@@ -771,8 +775,8 @@ to work well enough for this at least.</p>
 <span class="k">return</span><span class="w"> </span><span class="n">ast</span><span class="p">;</span><span class="w"></span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="returning-the-result">
+</section>
+<section id="returning-the-result">
 <span id="ast-python-frontend-return"></span><h3>Returning the Result<a class="headerlink" href="#returning-the-result" title="Permalink to this headline">¶</a></h3>
 <p>Phew! That was a lot of work but we’re almost there. We just need to add a few
 more lines to <code class="docutils literal notranslate"><span class="pre">method_eval_ast</span></code> that takes the newly constructed AST and
@@ -802,13 +806,13 @@ actually work!</p>
 <span class="go">9.0</span>
 </pre></div>
 </div>
-</div>
-</div>
-<div class="section" id="final-thoughts">
+</section>
+</section>
+<section id="final-thoughts">
 <h2>Final Thoughts<a class="headerlink" href="#final-thoughts" title="Permalink to this headline">¶</a></h2>
 <p>There was a lot of code flying around in this post, if you want to see the final
 result in its entirety you can find it</p>
-<div class="section" id="best-practice">
+<section id="best-practice">
 <h3>Best Practice?<a class="headerlink" href="#best-practice" title="Permalink to this headline">¶</a></h3>
 <p>This was my first CPython extension so I might be missing out on some best
 practices, for example a question I had was around my use of <code class="docutils literal notranslate"><span class="pre">malloc</span></code> and
@@ -819,8 +823,8 @@ like there is a learning curve to these as some functions require holding
 the <a class="reference external" href="https://docs.python.org/3/glossary.html#term-global-interpreter-lock">GIL</a> and some don’t.</p>
 <p>Hmm… speaking of the GIL, should this extension be acquiring it at any point?
 🤔</p>
-</div>
-<div class="section" id="another-approach">
+</section>
+<section id="another-approach">
 <h3>Another approach<a class="headerlink" href="#another-approach" title="Permalink to this headline">¶</a></h3>
 <p>Another note worth mentioning is that it looks like it’s possible to
 <a class="reference external" href="https://docs.python.org/3/extending/newtypes_tutorial.html">define custom types</a> directly in C. This means it should be possible to extend
@@ -833,9 +837,9 @@ exposes the correct fields then any method of generating the AST from Python is
 perfectly valid.</p>
 <p>Anyway, I think this post has gone on long enough I hope you found it useful and
 I’ll see you in the next one!</p>
-</div>
-</div>
-</div>
+</section>
+</section>
+</section>
 
 </article>
 
@@ -869,7 +873,7 @@ I’ll see you in the next one!</p>
                             Page Source
                         </a>
                     </span>
-                    <span>Built with <a class="text-green-600" href="https://www.sphinx-doc.org/en/master/">Sphinx</a> v4.4.0</span>
+                    <span>Built with <a class="text-green-600" href="https://www.sphinx-doc.org/en/master/">Sphinx</a> v4.5.0</span>
                     <span>&#169; Copyright 2021, Alex Carney.</span>
                 </div>
             </footer>

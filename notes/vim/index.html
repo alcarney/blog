@@ -4,7 +4,8 @@
 <html>
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
     <title>(N)Vim &#8212; Blog  documentation</title>
 
     
@@ -22,6 +23,9 @@
     <script src="../../_static/jquery.js"></script>
     <script src="../../_static/underscore.js"></script>
     <script src="../../_static/doctools.js"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
     <script src="../../_static/togglebutton.js"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
     <script src="https://unpkg.com/mermaid/dist/mermaid.min.js"></script>
@@ -133,13 +137,13 @@
                     
 
 <article class="p-4 prose-sm prose bg-white border prose-md prose-green max-w-none">
-    <div class="section" id="n-vim">
+    <section id="n-vim">
 <h1>(N)Vim<a class="headerlink" href="#n-vim" title="Permalink to this headline">¶</a></h1>
 <p>Notes on using <code class="docutils literal notranslate"><span class="pre">vim</span></code> and <code class="docutils literal notranslate"><span class="pre">nvim</span></code></p>
-<div class="section" id="common">
+<section id="common">
 <h2>Common<a class="headerlink" href="#common" title="Permalink to this headline">¶</a></h2>
 <p>Notes that should apply to both flavours of vim.</p>
-<div class="section" id="keybindings">
+<section id="keybindings">
 <h3>Keybindings<a class="headerlink" href="#keybindings" title="Permalink to this headline">¶</a></h3>
 <table class="docutils align-default">
 <colgroup>
@@ -172,8 +176,8 @@
 </tr>
 </tbody>
 </table>
-</div>
-<div class="section" id="listing-registered-autocmds">
+</section>
+<section id="listing-registered-autocmds">
 <h3>Listing Registered <code class="docutils literal notranslate"><span class="pre">autocmds</span></code><a class="headerlink" href="#listing-registered-autocmds" title="Permalink to this headline">¶</a></h3>
 <p><code class="docutils literal notranslate"><span class="pre">:autocmd</span></code> lists all registered <code class="docutils literal notranslate"><span class="pre">autocmds</span></code>.</p>
 <p><code class="docutils literal notranslate"><span class="pre">:autocmd</span> <span class="pre">&lt;Event&gt;</span></code> lists all registered <code class="docutils literal notranslate"><span class="pre">autocmds</span></code> for the given event. e.g.</p>
@@ -189,17 +193,17 @@ packer_load_aucmds  <span class="nb">FileType</span>
     <span class="k">python</span>    <span class="n">lua</span> <span class="n">require</span><span class="p">(</span><span class="s2">&quot;packer.load&quot;</span><span class="p">)({</span><span class="s1">&#39;black&#39;</span><span class="p">},</span> <span class="p">{</span> <span class="n">ft</span> <span class="o">=</span> <span class="s2">&quot;python&quot;</span> <span class="p">},</span> <span class="n">_G</span><span class="o">.</span><span class="n">packer_plugins</span><span class="p">)</span>
 </pre></div>
 </div>
-</div>
-</div>
-<div class="section" id="neovim-only">
+</section>
+</section>
+<section id="neovim-only">
 <h2>Neovim Only<a class="headerlink" href="#neovim-only" title="Permalink to this headline">¶</a></h2>
 <p>Notes that apply to just <code class="docutils literal notranslate"><span class="pre">nvim</span></code>.</p>
-</div>
-<div class="section" id="vim-only">
+</section>
+<section id="vim-only">
 <h2>Vim Only<a class="headerlink" href="#vim-only" title="Permalink to this headline">¶</a></h2>
 <p>Notes that apply to just <code class="docutils literal notranslate"><span class="pre">vim</span></code>.</p>
-</div>
-</div>
+</section>
+</section>
 
 </article>
 
@@ -242,7 +246,7 @@ packer_load_aucmds  <span class="nb">FileType</span>
                             Page Source
                         </a>
                     </span>
-                    <span>Built with <a class="text-green-600" href="https://www.sphinx-doc.org/en/master/">Sphinx</a> v4.4.0</span>
+                    <span>Built with <a class="text-green-600" href="https://www.sphinx-doc.org/en/master/">Sphinx</a> v4.5.0</span>
                     <span>&#169; Copyright 2021, Alex Carney.</span>
                 </div>
             </footer>
