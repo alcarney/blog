@@ -661,7 +661,7 @@ think should be done based on what I found in the documentation on <a class="ref
 <code class="docutils literal notranslate"><span class="pre">AstNodeType</span></code> enum entries we can use a <code class="docutils literal notranslate"><span class="pre">switch</span></code> statement and start writing the
 conversion code for each type in turn.</p>
 <div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="k">switch</span><span class="p">(</span><span class="n">node_type</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="k">case</span><span class="w"> </span><span class="nl">AST_LITERAL</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="k">case</span><span class="w"> </span><span class="no">AST_LITERAL</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
 
 <span class="w">   </span><span class="n">PyObject</span><span class="w"> </span><span class="o">*</span><span class="n">value</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">PyObject_GetAttrString</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;value&quot;</span><span class="p">);</span><span class="w"></span>
 <span class="w">   </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">value</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="nb">NULL</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
@@ -697,11 +697,11 @@ things aren’t as straightforward…</p>
 identical we can handle their differences in the <code class="docutils literal notranslate"><span class="pre">switch</span></code> statement and then use
 the remainder of the function to handle recursing down both the <code class="docutils literal notranslate"><span class="pre">left</span></code> and
 <code class="docutils literal notranslate"><span class="pre">right</span></code> branches.</p>
-<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="k">case</span><span class="w"> </span><span class="nl">AST_PLUS</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="k">case</span><span class="w"> </span><span class="no">AST_PLUS</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
 <span class="w">   </span><span class="n">node</span><span class="o">-&gt;</span><span class="n">type</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">AST_PLUS</span><span class="p">;</span><span class="w"></span>
 <span class="w">   </span><span class="k">break</span><span class="p">;</span><span class="w"></span>
 <span class="p">}</span><span class="w"></span>
-<span class="k">case</span><span class="w"> </span><span class="nl">AST_MULTIPLY</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="k">case</span><span class="w"> </span><span class="no">AST_MULTIPLY</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
 <span class="w">   </span><span class="n">node</span><span class="o">-&gt;</span><span class="n">type</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">AST_MULTIPLY</span><span class="p">;</span><span class="w"></span>
 <span class="w">   </span><span class="k">break</span><span class="p">;</span><span class="w"></span>
 <span class="p">}</span><span class="w"></span>

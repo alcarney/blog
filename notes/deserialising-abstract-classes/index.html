@@ -153,61 +153,61 @@ method I have chosen is to tell it to look for a <code class="docutils literal n
 </div>
 <p>Which can be represented by the following classes</p>
 <div class="flex flex-col lg:flex-row justify-around docutils container">
-<div class="w-full lg:w-1/2 lg:mr-2 highlight-java notranslate"><div class="highlight"><pre><span></span><span class="kd">public</span> <span class="kd">class</span> <span class="nc">IdName</span> <span class="kd">extends</span> <span class="n">IdField</span> <span class="p">{</span>
-   <span class="kd">public</span> <span class="kd">static</span> <span class="kd">final</span> <span class="n">String</span> <span class="n">FIELD_TYPE</span> <span class="o">=</span> <span class="s">&quot;name&quot;</span><span class="p">;</span>
-   <span class="kd">private</span> <span class="n">String</span> <span class="n">name</span><span class="p">;</span>
+<div class="w-full lg:w-1/2 lg:mr-2 highlight-java notranslate"><div class="highlight"><pre><span></span><span class="kd">public</span><span class="w"> </span><span class="kd">class</span> <span class="nc">IdName</span><span class="w"> </span><span class="kd">extends</span><span class="w"> </span><span class="n">IdField</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">   </span><span class="kd">public</span><span class="w"> </span><span class="kd">static</span><span class="w"> </span><span class="kd">final</span><span class="w"> </span><span class="n">String</span><span class="w"> </span><span class="n">FIELD_TYPE</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;name&quot;</span><span class="p">;</span><span class="w"></span>
+<span class="w">   </span><span class="kd">private</span><span class="w"> </span><span class="n">String</span><span class="w"> </span><span class="n">name</span><span class="p">;</span><span class="w"></span>
 
-   <span class="kd">public</span> <span class="nf">IdName</span><span class="p">()</span> <span class="p">{</span>
-      <span class="kd">super</span><span class="p">(</span><span class="n">FIELD_TYPE</span><span class="p">);</span>
-   <span class="p">}</span>
+<span class="w">   </span><span class="kd">public</span><span class="w"> </span><span class="nf">IdName</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">      </span><span class="kd">super</span><span class="p">(</span><span class="n">FIELD_TYPE</span><span class="p">);</span><span class="w"></span>
+<span class="w">   </span><span class="p">}</span><span class="w"></span>
 
-   <span class="p">...</span>
-<span class="p">}</span>
+<span class="w">   </span><span class="p">...</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 </pre></div>
 </div>
-<div class="w-full lg:w-1/2 lg:ml-2 highlight-java notranslate"><div class="highlight"><pre><span></span><span class="kd">public</span> <span class="kd">class</span> <span class="nc">IdValue</span> <span class="kd">extends</span> <span class="n">IdField</span> <span class="p">{</span>
-   <span class="kd">public</span> <span class="kd">static</span> <span class="kd">final</span> <span class="n">String</span> <span class="n">FIELD_TYPE</span> <span class="o">=</span> <span class="s">&quot;value&quot;</span><span class="p">;</span>
-   <span class="kd">private</span> <span class="kt">float</span> <span class="n">value</span><span class="p">;</span>
+<div class="w-full lg:w-1/2 lg:ml-2 highlight-java notranslate"><div class="highlight"><pre><span></span><span class="kd">public</span><span class="w"> </span><span class="kd">class</span> <span class="nc">IdValue</span><span class="w"> </span><span class="kd">extends</span><span class="w"> </span><span class="n">IdField</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">   </span><span class="kd">public</span><span class="w"> </span><span class="kd">static</span><span class="w"> </span><span class="kd">final</span><span class="w"> </span><span class="n">String</span><span class="w"> </span><span class="n">FIELD_TYPE</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;value&quot;</span><span class="p">;</span><span class="w"></span>
+<span class="w">   </span><span class="kd">private</span><span class="w"> </span><span class="kt">float</span><span class="w"> </span><span class="n">value</span><span class="p">;</span><span class="w"></span>
 
-   <span class="kd">public</span> <span class="nf">IdValue</span><span class="p">()</span> <span class="p">{</span>
-      <span class="kd">super</span><span class="p">(</span><span class="n">FIELD_TYPE</span><span class="p">);</span>
-   <span class="p">}</span>
+<span class="w">   </span><span class="kd">public</span><span class="w"> </span><span class="nf">IdValue</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">      </span><span class="kd">super</span><span class="p">(</span><span class="n">FIELD_TYPE</span><span class="p">);</span><span class="w"></span>
+<span class="w">   </span><span class="p">}</span><span class="w"></span>
 
-   <span class="p">...</span>
-<span class="p">}</span>
+<span class="w">   </span><span class="p">...</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 </pre></div>
 </div>
 </div>
 <p>We can then add a few annotations to the base abstract class telling Jackson to
 check the value of the <code class="docutils literal notranslate"><span class="pre">type</span></code> field and have it pick the correct concrete class
 automatically.</p>
-<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="nd">@JsonTypeInfo</span><span class="p">(</span><span class="n">use</span> <span class="o">=</span> <span class="n">JsonTypeInfo</span><span class="p">.</span><span class="na">Id</span><span class="p">.</span><span class="na">NAME</span><span class="p">,</span> <span class="n">include</span> <span class="o">=</span> <span class="n">JsonTypeInfo</span><span class="p">.</span><span class="na">As</span><span class="p">.</span><span class="na">EXISTING_PROPERTY</span><span class="p">,</span> <span class="n">property</span> <span class="o">=</span> <span class="s">&quot;type&quot;</span><span class="p">)</span>
-<span class="nd">@JsonSubTypes</span><span class="p">({</span>
-      <span class="nd">@JsonSubTypes.Type</span><span class="p">(</span><span class="n">value</span> <span class="o">=</span> <span class="n">IdName</span><span class="p">.</span><span class="na">class</span><span class="p">,</span> <span class="n">name</span> <span class="o">=</span> <span class="n">IdName</span><span class="p">.</span><span class="na">FIELD_TYPE</span><span class="p">),</span>
-            <span class="nd">@JsonSubTypes.Type</span><span class="p">(</span><span class="n">value</span> <span class="o">=</span> <span class="n">IdValue</span><span class="p">.</span><span class="na">class</span><span class="p">,</span> <span class="n">name</span> <span class="o">=</span> <span class="n">IdValue</span><span class="p">.</span><span class="na">FIELD_TYPE</span><span class="p">)</span>
-<span class="p">})</span>
-<span class="kd">public</span> <span class="kd">abstract</span> <span class="kd">class</span> <span class="nc">IdField</span> <span class="p">{</span>
-   <span class="kd">private</span> <span class="n">String</span> <span class="n">id</span><span class="p">;</span>
-   <span class="kd">private</span> <span class="n">String</span> <span class="n">type</span><span class="p">;</span>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="nd">@JsonTypeInfo</span><span class="p">(</span><span class="n">use</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">JsonTypeInfo</span><span class="p">.</span><span class="na">Id</span><span class="p">.</span><span class="na">NAME</span><span class="p">,</span><span class="w"> </span><span class="n">include</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">JsonTypeInfo</span><span class="p">.</span><span class="na">As</span><span class="p">.</span><span class="na">EXISTING_PROPERTY</span><span class="p">,</span><span class="w"> </span><span class="n">property</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;type&quot;</span><span class="p">)</span><span class="w"></span>
+<span class="nd">@JsonSubTypes</span><span class="p">({</span><span class="w"></span>
+<span class="w">      </span><span class="nd">@JsonSubTypes.Type</span><span class="p">(</span><span class="n">value</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">IdName</span><span class="p">.</span><span class="na">class</span><span class="p">,</span><span class="w"> </span><span class="n">name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">IdName</span><span class="p">.</span><span class="na">FIELD_TYPE</span><span class="p">),</span><span class="w"></span>
+<span class="w">            </span><span class="nd">@JsonSubTypes.Type</span><span class="p">(</span><span class="n">value</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">IdValue</span><span class="p">.</span><span class="na">class</span><span class="p">,</span><span class="w"> </span><span class="n">name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">IdValue</span><span class="p">.</span><span class="na">FIELD_TYPE</span><span class="p">)</span><span class="w"></span>
+<span class="p">})</span><span class="w"></span>
+<span class="kd">public</span><span class="w"> </span><span class="kd">abstract</span><span class="w"> </span><span class="kd">class</span> <span class="nc">IdField</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">   </span><span class="kd">private</span><span class="w"> </span><span class="n">String</span><span class="w"> </span><span class="n">id</span><span class="p">;</span><span class="w"></span>
+<span class="w">   </span><span class="kd">private</span><span class="w"> </span><span class="n">String</span><span class="w"> </span><span class="n">type</span><span class="p">;</span><span class="w"></span>
 
-   <span class="kd">public</span> <span class="nf">IdField</span><span class="p">(</span><span class="n">String</span> <span class="n">type</span><span class="p">)</span> <span class="p">{</span>
-      <span class="k">this</span><span class="p">.</span><span class="na">id</span> <span class="o">=</span> <span class="n">UUID</span><span class="p">.</span><span class="na">randomUUID</span><span class="p">().</span><span class="na">toString</span><span class="p">();</span>
-      <span class="k">this</span><span class="p">.</span><span class="na">type</span> <span class="o">=</span> <span class="n">type</span><span class="p">;</span>
-   <span class="p">}</span>
+<span class="w">   </span><span class="kd">public</span><span class="w"> </span><span class="nf">IdField</span><span class="p">(</span><span class="n">String</span><span class="w"> </span><span class="n">type</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">      </span><span class="k">this</span><span class="p">.</span><span class="na">id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">UUID</span><span class="p">.</span><span class="na">randomUUID</span><span class="p">().</span><span class="na">toString</span><span class="p">();</span><span class="w"></span>
+<span class="w">      </span><span class="k">this</span><span class="p">.</span><span class="na">type</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">type</span><span class="p">;</span><span class="w"></span>
+<span class="w">   </span><span class="p">}</span><span class="w"></span>
 
-   <span class="p">...</span>
-<span class="p">}</span>
+<span class="w">   </span><span class="p">...</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 </pre></div>
 </div>
 <p>Then we can just parse the json as we normally would.</p>
-<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="n">String</span> <span class="n">jsonStr</span> <span class="o">=</span> <span class="s">&quot;{\&quot;id\&quot;:\&quot;123\&quot;,\&quot;name\&quot;:\&quot;Alex\&quot;}&quot;</span><span class="p">;</span>
-<span class="n">ObjectMapper</span> <span class="n">mapper</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ObjectMapper</span><span class="p">();</span>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="n">String</span><span class="w"> </span><span class="n">jsonStr</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;{\&quot;id\&quot;:\&quot;123\&quot;,\&quot;name\&quot;:\&quot;Alex\&quot;}&quot;</span><span class="p">;</span><span class="w"></span>
+<span class="n">ObjectMapper</span><span class="w"> </span><span class="n">mapper</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">ObjectMapper</span><span class="p">();</span><span class="w"></span>
 
-<span class="n">IdField</span> <span class="n">field</span> <span class="o">=</span> <span class="n">mapper</span><span class="p">.</span><span class="na">readValue</span><span class="p">(</span><span class="n">jsonStr</span><span class="p">,</span> <span class="n">IdField</span><span class="p">.</span><span class="na">class</span><span class="p">);</span>
-<span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="n">field</span><span class="p">.</span><span class="na">getType</span><span class="p">());</span>                        <span class="c1">// =&gt; &quot;name&quot;</span>
+<span class="n">IdField</span><span class="w"> </span><span class="n">field</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">mapper</span><span class="p">.</span><span class="na">readValue</span><span class="p">(</span><span class="n">jsonStr</span><span class="p">,</span><span class="w"> </span><span class="n">IdField</span><span class="p">.</span><span class="na">class</span><span class="p">);</span><span class="w"></span>
+<span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="n">field</span><span class="p">.</span><span class="na">getType</span><span class="p">());</span><span class="w">                        </span><span class="c1">// =&gt; &quot;name&quot;</span><span class="w"></span>
 
-<span class="n">IdName</span> <span class="n">nameField</span> <span class="o">=</span> <span class="p">(</span><span class="n">IdName</span><span class="p">)</span> <span class="n">field</span><span class="p">;</span>
-<span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="n">nameField</span><span class="p">.</span><span class="na">getName</span><span class="p">());</span>                    <span class="c1">// =&gt; &quot;Alex&quot;</span>
+<span class="n">IdName</span><span class="w"> </span><span class="n">nameField</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="n">IdName</span><span class="p">)</span><span class="w"> </span><span class="n">field</span><span class="p">;</span><span class="w"></span>
+<span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="n">nameField</span><span class="p">.</span><span class="na">getName</span><span class="p">());</span><span class="w">                    </span><span class="c1">// =&gt; &quot;Alex&quot;</span><span class="w"></span>
 </pre></div>
 </div>
 </section>

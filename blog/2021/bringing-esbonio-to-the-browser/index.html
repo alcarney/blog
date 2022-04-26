@@ -261,25 +261,25 @@ by the <a class="reference external" href="https://www.npmjs.com/package/vscode-
 <p>The client code is pretty much identical to code found in the <a class="reference external" href="https://github.com/microsoft/vscode-extension-samples/blob/355d5851a8e87301cf814a3d20f3918cb162ff73/lsp-web-extension-sample/client/src/browserClientMain.ts">sample extension</a>
 I used as reference. All that we have to do it tell the language client which documents
 we’re interested in</p>
-<div class="highlight-typescript notranslate"><div class="highlight"><pre><span></span><span class="kd">const</span> <span class="nx">clientOptions</span>: <span class="kt">LanguageClientOptions</span> <span class="o">=</span> <span class="p">{</span>
-    <span class="nx">documentSelector</span><span class="o">:</span> <span class="p">[</span>
-        <span class="p">{</span> <span class="nx">scheme</span><span class="o">:</span> <span class="s2">&quot;file&quot;</span><span class="p">,</span> <span class="nx">language</span><span class="o">:</span> <span class="s2">&quot;plaintext&quot;</span> <span class="p">},</span>
-    <span class="p">],</span>
-    <span class="nx">outputChannelName</span><span class="o">:</span> <span class="s2">&quot;Hello Language Server&quot;</span><span class="p">,</span>
-<span class="p">}</span>
+<div class="highlight-typescript notranslate"><div class="highlight"><pre><span></span><span class="kd">const</span><span class="w"> </span><span class="nx">clientOptions</span><span class="o">:</span><span class="w"> </span><span class="kt">LanguageClientOptions</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="nx">documentSelector</span><span class="o">:</span><span class="w"> </span><span class="p">[</span><span class="w"></span>
+<span class="w">        </span><span class="p">{</span><span class="w"> </span><span class="nx">scheme</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;file&quot;</span><span class="p">,</span><span class="w"> </span><span class="nx">language</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;plaintext&quot;</span><span class="w"> </span><span class="p">},</span><span class="w"></span>
+<span class="w">    </span><span class="p">],</span><span class="w"></span>
+<span class="w">    </span><span class="nx">outputChannelName</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;Hello Language Server&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 </pre></div>
 </div>
 <p>and since we’re building this for the web, we need to start a web worker that hosts the
 language server and pass that to the client also.</p>
-<div class="highlight-typescript notranslate"><div class="highlight"><pre><span></span><span class="kd">const</span> <span class="nx">path</span> <span class="o">=</span> <span class="nx">Uri</span><span class="p">.</span><span class="nx">joinPath</span><span class="p">(</span><span class="nx">context</span><span class="p">.</span><span class="nx">extensionUri</span><span class="p">,</span> <span class="s2">&quot;dist/server.js&quot;</span><span class="p">)</span>
-<span class="kd">const</span> <span class="nx">worker</span> <span class="o">=</span> <span class="ow">new</span> <span class="nx">Worker</span><span class="p">(</span><span class="nx">path</span><span class="p">.</span><span class="nx">toString</span><span class="p">())</span>
+<div class="highlight-typescript notranslate"><div class="highlight"><pre><span></span><span class="kd">const</span><span class="w"> </span><span class="nx">path</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">Uri</span><span class="p">.</span><span class="nx">joinPath</span><span class="p">(</span><span class="nx">context</span><span class="p">.</span><span class="nx">extensionUri</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;dist/server.js&quot;</span><span class="p">)</span><span class="w"></span>
+<span class="kd">const</span><span class="w"> </span><span class="nx">worker</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nx">Worker</span><span class="p">(</span><span class="nx">path</span><span class="p">.</span><span class="nx">toString</span><span class="p">())</span><span class="w"></span>
 
-<span class="kd">const</span> <span class="nx">client</span> <span class="o">=</span> <span class="ow">new</span> <span class="nx">LanguageClient</span><span class="p">(</span><span class="s2">&quot;hello-lsp-web&quot;</span><span class="p">,</span> <span class="s2">&quot;Hello LSP&quot;</span><span class="p">,</span> <span class="nx">clientOptions</span><span class="p">,</span> <span class="nx">worker</span><span class="p">)</span>
-<span class="nx">context</span><span class="p">.</span><span class="nx">subscriptions</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="nx">client</span><span class="p">.</span><span class="nx">start</span><span class="p">())</span>
+<span class="kd">const</span><span class="w"> </span><span class="nx">client</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nx">LanguageClient</span><span class="p">(</span><span class="s2">&quot;hello-lsp-web&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;Hello LSP&quot;</span><span class="p">,</span><span class="w"> </span><span class="nx">clientOptions</span><span class="p">,</span><span class="w"> </span><span class="nx">worker</span><span class="p">)</span><span class="w"></span>
+<span class="nx">context</span><span class="p">.</span><span class="nx">subscriptions</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="nx">client</span><span class="p">.</span><span class="nx">start</span><span class="p">())</span><span class="w"></span>
 
-<span class="nx">client</span><span class="p">.</span><span class="nx">onReady</span><span class="p">().</span><span class="nx">then</span><span class="p">(()</span> <span class="p">=&gt;</span> <span class="p">{</span>
-    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;hello-lsp-web server is ready&quot;</span><span class="p">)</span>
-<span class="p">})</span>
+<span class="nx">client</span><span class="p">.</span><span class="nx">onReady</span><span class="p">().</span><span class="nx">then</span><span class="p">(()</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;hello-lsp-web server is ready&quot;</span><span class="p">)</span><span class="w"></span>
+<span class="p">})</span><span class="w"></span>
 </pre></div>
 </div>
 </section>
@@ -296,47 +296,47 @@ incoming messages from the client we create an <code class="docutils literal not
 <code class="docutils literal notranslate"><span class="pre">postMessage</span></code> to send our responses.</p>
 <p>To prove that the communication works, our “language server” handles the <code class="docutils literal notranslate"><span class="pre">initialize</span></code>
 request to establish the session, but ignores everything else.</p>
-<div class="highlight-typescript notranslate"><div class="highlight"><pre><span></span><span class="nx">onmessage</span> <span class="o">=</span> <span class="k">async</span> <span class="p">(</span><span class="nx">event</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">{</span>
-    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="sb">`Client message:`</span><span class="p">,</span> <span class="nx">event</span><span class="p">.</span><span class="nx">data</span><span class="p">)</span>
+<div class="highlight-typescript notranslate"><div class="highlight"><pre><span></span><span class="nx">onmessage</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">async</span><span class="w"> </span><span class="p">(</span><span class="nx">event</span><span class="p">)</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="sb">`Client message:`</span><span class="p">,</span><span class="w"> </span><span class="nx">event</span><span class="p">.</span><span class="nx">data</span><span class="p">)</span><span class="w"></span>
 
-    <span class="k">if</span> <span class="p">(</span><span class="nx">event</span><span class="p">.</span><span class="nx">data</span><span class="p">.</span><span class="nx">method</span> <span class="o">===</span> <span class="s2">&quot;initialize&quot;</span><span class="p">)</span> <span class="p">{</span>
-        <span class="nx">postMessage</span><span class="p">({</span>
-            <span class="nx">jsonrpc</span><span class="o">:</span> <span class="s2">&quot;2.0&quot;</span><span class="p">,</span>
-            <span class="nx">id</span>: <span class="kt">event.data.id</span><span class="p">,</span>
-            <span class="nx">result</span><span class="o">:</span> <span class="p">{</span>
-                <span class="nx">serverInfo</span><span class="o">:</span> <span class="p">{</span> <span class="nx">name</span><span class="o">:</span> <span class="s2">&quot;Hello, LSP&quot;</span> <span class="p">},</span>
-                <span class="nx">capabilities</span><span class="o">:</span> <span class="p">{}</span>
-            <span class="p">}</span>
-        <span class="p">})</span>
-    <span class="p">}</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="nx">event</span><span class="p">.</span><span class="nx">data</span><span class="p">.</span><span class="nx">method</span><span class="w"> </span><span class="o">===</span><span class="w"> </span><span class="s2">&quot;initialize&quot;</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">        </span><span class="nx">postMessage</span><span class="p">({</span><span class="w"></span>
+<span class="w">            </span><span class="nx">jsonrpc</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;2.0&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">            </span><span class="nx">id</span><span class="o">:</span><span class="w"> </span><span class="kt">event.data.id</span><span class="p">,</span><span class="w"></span>
+<span class="w">            </span><span class="nx">result</span><span class="o">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">                </span><span class="nx">serverInfo</span><span class="o">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">name</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;Hello, LSP&quot;</span><span class="w"> </span><span class="p">},</span><span class="w"></span>
+<span class="w">                </span><span class="nx">capabilities</span><span class="o">:</span><span class="w"> </span><span class="p">{}</span><span class="w"></span>
+<span class="w">            </span><span class="p">}</span><span class="w"></span>
+<span class="w">        </span><span class="p">})</span><span class="w"></span>
+<span class="w">    </span><span class="p">}</span><span class="w"></span>
 </pre></div>
 </div>
 <p>With the communication taken care of, we can focus on setting up Pyodide. Adapting one
 of the <a class="reference external" href="https://pyodide.org/en/stable/usage/quickstart.html#complete-example">getting started examples</a> from the Pyodide documentation and using the
 <a class="reference external" href="https://developer.mozilla.org/en-US/docs/Web/API/Web_Workers_API/Using_web_workers#importing_scripts_and_libraries">importScripts</a> function that’s available to web workers it’s relatively
 straightforward to load Pyodide from a CDN and initialize it.</p>
-<div class="highlight-typescript notranslate"><div class="highlight"><pre><span></span><span class="nx">importScripts</span><span class="p">(</span><span class="s2">&quot;https://cdn.jsdelivr.net/pyodide/v0.18.1/full/pyodide.js&quot;</span><span class="p">)</span>
+<div class="highlight-typescript notranslate"><div class="highlight"><pre><span></span><span class="nx">importScripts</span><span class="p">(</span><span class="s2">&quot;https://cdn.jsdelivr.net/pyodide/v0.18.1/full/pyodide.js&quot;</span><span class="p">)</span><span class="w"></span>
 
-<span class="k">async</span> <span class="kd">function</span> <span class="nx">initPyodide</span><span class="p">()</span> <span class="p">{</span>
+<span class="k">async</span><span class="w"> </span><span class="kd">function</span><span class="w"> </span><span class="nx">initPyodide</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
 
-    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;Initing pyodide.&quot;</span><span class="p">)</span>
+<span class="w">    </span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;Initing pyodide.&quot;</span><span class="p">)</span><span class="w"></span>
 
-    <span class="cm">/* @ts-ignore */</span>
-    <span class="kd">let</span> <span class="nx">pyodide</span> <span class="o">=</span> <span class="k">await</span> <span class="nx">loadPyodide</span><span class="p">({</span>
-        <span class="nx">indexURL</span><span class="o">:</span> <span class="s2">&quot;https://cdn.jsdelivr.net/pyodide/v0.18.1/full/&quot;</span>
-    <span class="p">})</span>
+<span class="w">    </span><span class="cm">/* @ts-ignore */</span><span class="w"></span>
+<span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="nx">pyodide</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">await</span><span class="w"> </span><span class="nx">loadPyodide</span><span class="p">({</span><span class="w"></span>
+<span class="w">        </span><span class="nx">indexURL</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;https://cdn.jsdelivr.net/pyodide/v0.18.1/full/&quot;</span><span class="w"></span>
+<span class="w">    </span><span class="p">})</span><span class="w"></span>
 
-    <span class="k">return</span> <span class="nx">pyodide</span>
-<span class="p">}</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="nx">pyodide</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 
-<span class="kd">const</span> <span class="nx">pyodideReady</span> <span class="o">=</span> <span class="nx">initPyodide</span><span class="p">()</span>
+<span class="kd">const</span><span class="w"> </span><span class="nx">pyodideReady</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">initPyodide</span><span class="p">()</span><span class="w"></span>
 </pre></div>
 </div>
 <p>Pyodide isn’t exactly a small component to download and especially when we start
 pulling in packages, will take some time to initialize. Using a global <code class="docutils literal notranslate"><span class="pre">pyodideReady</span></code>
 promise we can make any code that depends on pyodide wait until it’s ready to use.</p>
-<div class="highlight-typescript notranslate"><div class="highlight"><pre><span></span><span class="kd">let</span> <span class="nx">pyodide</span> <span class="o">=</span> <span class="k">await</span> <span class="nx">pyodideReady</span>
-<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">pyodide</span><span class="p">.</span><span class="nx">runPython</span><span class="p">(</span><span class="s2">&quot;import sys;sys.version&quot;</span><span class="p">))</span>
+<div class="highlight-typescript notranslate"><div class="highlight"><pre><span></span><span class="kd">let</span><span class="w"> </span><span class="nx">pyodide</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">await</span><span class="w"> </span><span class="nx">pyodideReady</span><span class="w"></span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">pyodide</span><span class="p">.</span><span class="nx">runPython</span><span class="p">(</span><span class="s2">&quot;import sys;sys.version&quot;</span><span class="p">))</span><span class="w"></span>
 </pre></div>
 </div>
 </section>
@@ -353,32 +353,32 @@ client (including the dependencies!) needs to be bundled into a single JavaScrip
 <p>Like most of this setup, the webpack configuration was based on the
 <a class="reference external" href="https://github.com/microsoft/vscode-extension-samples/tree/main/lsp-web-extension-sample">lsp-web-extension-sample</a>  where we export 2 configurations, one for the client and
 one for the server.</p>
-<div class="highlight-js notranslate"><div class="highlight"><pre><span></span><span class="kd">const</span> <span class="nx">clientConfig</span> <span class="o">=</span> <span class="p">{</span>
-   <span class="nx">target</span><span class="o">:</span> <span class="s1">&#39;webworker&#39;</span>
-   <span class="nx">entry</span><span class="o">:</span> <span class="p">{</span>
-      <span class="nx">client</span><span class="o">:</span> <span class="s1">&#39;./src/client&#39;</span>
-   <span class="p">},</span>
-   <span class="nx">resolve</span><span class="o">:</span> <span class="p">{</span>
-      <span class="nx">fallback</span><span class="o">:</span> <span class="p">{</span>
-         <span class="nx">path</span><span class="o">:</span> <span class="nx">require</span><span class="p">.</span><span class="nx">resolve</span><span class="p">(</span><span class="s1">&#39;path-browserify&#39;</span><span class="p">)</span>
-      <span class="p">}</span>
-      <span class="p">...</span>
-   <span class="p">},</span>
-   <span class="p">...,</span>
-   <span class="nx">externals</span><span class="o">:</span> <span class="p">{</span>
-      <span class="nx">vscode</span><span class="o">:</span> <span class="s1">&#39;commonjs vscode&#39;</span>
-   <span class="p">}</span>
-<span class="p">}</span>
+<div class="highlight-js notranslate"><div class="highlight"><pre><span></span><span class="kd">const</span><span class="w"> </span><span class="nx">clientConfig</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">   </span><span class="nx">target</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;webworker&#39;</span><span class="w"></span>
+<span class="w">   </span><span class="nx">entry</span><span class="o">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">      </span><span class="nx">client</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;./src/client&#39;</span><span class="w"></span>
+<span class="w">   </span><span class="p">},</span><span class="w"></span>
+<span class="w">   </span><span class="nx">resolve</span><span class="o">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">      </span><span class="nx">fallback</span><span class="o">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">         </span><span class="nx">path</span><span class="o">:</span><span class="w"> </span><span class="nx">require</span><span class="p">.</span><span class="nx">resolve</span><span class="p">(</span><span class="s1">&#39;path-browserify&#39;</span><span class="p">)</span><span class="w"></span>
+<span class="w">      </span><span class="p">}</span><span class="w"></span>
+<span class="w">      </span><span class="p">...</span><span class="w"></span>
+<span class="w">   </span><span class="p">},</span><span class="w"></span>
+<span class="w">   </span><span class="p">...,</span><span class="w"></span>
+<span class="w">   </span><span class="nx">externals</span><span class="o">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">      </span><span class="nx">vscode</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;commonjs vscode&#39;</span><span class="w"></span>
+<span class="w">   </span><span class="p">}</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 
-<span class="kd">const</span> <span class="nx">serverConfig</span> <span class="o">=</span> <span class="p">{</span>
-   <span class="nx">target</span><span class="o">:</span> <span class="s1">&#39;webworker&#39;</span><span class="p">,</span>
-   <span class="nx">entry</span><span class="o">:</span> <span class="p">{</span>
-      <span class="nx">server</span><span class="o">:</span> <span class="s1">&#39;./src/server&#39;</span>
-   <span class="p">},</span>
-   <span class="p">...</span>
-<span class="p">}</span>
+<span class="kd">const</span><span class="w"> </span><span class="nx">serverConfig</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">   </span><span class="nx">target</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;webworker&#39;</span><span class="p">,</span><span class="w"></span>
+<span class="w">   </span><span class="nx">entry</span><span class="o">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">      </span><span class="nx">server</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;./src/server&#39;</span><span class="w"></span>
+<span class="w">   </span><span class="p">},</span><span class="w"></span>
+<span class="w">   </span><span class="p">...</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 
-<span class="nx">module</span><span class="p">.</span><span class="nx">exports</span> <span class="o">=</span> <span class="p">[</span><span class="nx">clientConfig</span><span class="p">,</span> <span class="nx">serverConfig</span><span class="p">]</span>
+<span class="nx">module</span><span class="p">.</span><span class="nx">exports</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[</span><span class="nx">clientConfig</span><span class="p">,</span><span class="w"> </span><span class="nx">serverConfig</span><span class="p">]</span><span class="w"></span>
 </pre></div>
 </div>
 <p>I’ve omitted most of the more standard configuration fields for brevity but you can

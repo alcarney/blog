@@ -139,8 +139,8 @@ in the background. This can be done with the <code class="docutils literal notra
 <h2>Examples<a class="headerlink" href="#examples" title="Permalink to this headline">¶</a></h2>
 <p>We can set the directory to run in by wrapping the call to <code class="docutils literal notranslate"><span class="pre">start-process</span></code> in a
 <code class="docutils literal notranslate"><span class="pre">let</span></code> expression that sets the <code class="docutils literal notranslate"><span class="pre">default-directory</span></code> variable.</p>
-<div class="highlight-elisp notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="k">let</span> <span class="p">((</span><span class="nv">default-directory</span> <span class="s">&quot;~/Projects/blog&quot;</span><span class="p">))</span>
-  <span class="p">(</span><span class="nf">start-process</span> <span class="s">&quot;hugo&quot;</span> <span class="s">&quot;hugo[blog]&quot;</span> <span class="s">&quot;hugo&quot;</span> <span class="s">&quot;server&quot;</span> <span class="s">&quot;--buildDrafts&quot;</span> <span class="s">&quot;--buildFuture&quot;</span><span class="p">))</span>
+<div class="highlight-elisp notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="k">let</span><span class="w"> </span><span class="p">((</span><span class="nv">default-directory</span><span class="w"> </span><span class="s">&quot;~/Projects/blog&quot;</span><span class="p">))</span><span class="w"></span>
+<span class="w">  </span><span class="p">(</span><span class="nf">start-process</span><span class="w"> </span><span class="s">&quot;hugo&quot;</span><span class="w"> </span><span class="s">&quot;hugo[blog]&quot;</span><span class="w"> </span><span class="s">&quot;hugo&quot;</span><span class="w"> </span><span class="s">&quot;server&quot;</span><span class="w"> </span><span class="s">&quot;--buildDrafts&quot;</span><span class="w"> </span><span class="s">&quot;--buildFuture&quot;</span><span class="p">))</span><span class="w"></span>
 </pre></div>
 </div>
 <p>There’s a lot of mentions of hugo here let’s break this down a bit</p>

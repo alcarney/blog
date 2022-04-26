@@ -140,291 +140,6 @@
     
 
     <div data-parent="" class=" border-t">
-        <label for="setup.py">
-            <div style="padding-left: 4px;" class="flex items-center px-2 py-1 space-x-2 hover:bg-gray-50">
-                
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" ><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
-                    <path d="M14 2v6h6M16 13H8M16 17H8M10 9H8"/>
-                </svg>
-                
-                
-                <span>setup.py</span>
-            </div>
-        </label>
-        
-        
-        <input class="hidden" data-type="file" data-id="setup.py" type="checkbox" id="setup.py" />
-        <div class="overflow-y-auto transition-all max-h-0">
-            <div class="highlight"><pre style="margin: 0"><span></span><span class="kn">from</span> <span class="nn">setuptools</span> <span class="kn">import</span> <span class="n">setup</span><span class="p">,</span> <span class="n">Extension</span>
-
-<span class="n">ccalcmod</span> <span class="o">=</span> <span class="n">Extension</span><span class="p">(</span><span class="s2">&quot;_ccalc&quot;</span><span class="p">,</span> <span class="n">sources</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;ccalcmodule.c&quot;</span><span class="p">],</span> <span class="n">language</span><span class="o">=</span><span class="s2">&quot;c&quot;</span><span class="p">)</span>
-
-<span class="n">setup</span><span class="p">(</span>
-    <span class="n">name</span><span class="o">=</span><span class="s2">&quot;ccalc&quot;</span><span class="p">,</span>
-    <span class="n">version</span><span class="o">=</span><span class="s2">&quot;1.0.0&quot;</span><span class="p">,</span>
-    <span class="n">description</span><span class="o">=</span><span class="s2">&quot;A simple calculator implemented in C&quot;</span><span class="p">,</span>
-    <span class="n">packages</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;ccalc&quot;</span><span class="p">],</span>
-    <span class="n">ext_modules</span><span class="o">=</span><span class="p">[</span><span class="n">ccalcmod</span><span class="p">],</span>
-<span class="p">)</span>
-</pre></div>
-
-        </div>
-    </div>
-        
-
-    
-
-    <div data-parent="" class=" border-t">
-        <label for="ccalcmodule.c">
-            <div style="padding-left: 4px;" class="flex items-center px-2 py-1 space-x-2 hover:bg-gray-50">
-                
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" ><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
-                    <path d="M14 2v6h6M16 13H8M16 17H8M10 9H8"/>
-                </svg>
-                
-                
-                <span>ccalcmodule.c</span>
-            </div>
-        </label>
-        
-        
-        <input class="hidden" data-type="file" data-id="ccalcmodule.c" type="checkbox" id="ccalcmodule.c" />
-        <div class="overflow-y-auto transition-all max-h-0">
-            <div class="highlight"><pre style="margin: 0"><span></span><span class="cp">#define PY_SSIZE_T_CLEAN</span>
-<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;Python.h&gt;</span><span class="cp"></span>
-
-<span class="k">typedef</span><span class="w"> </span><span class="k">enum</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">    </span><span class="n">AST_LITERAL</span><span class="p">,</span><span class="w"></span>
-<span class="w">    </span><span class="n">AST_PLUS</span><span class="p">,</span><span class="w"></span>
-<span class="w">    </span><span class="n">AST_MULTIPLY</span><span class="p">,</span><span class="w"></span>
-<span class="p">}</span><span class="w"> </span><span class="n">AstNodeType</span><span class="p">;</span><span class="w"></span>
-
-<span class="k">typedef</span><span class="w"> </span><span class="k">struct</span><span class="w"> </span><span class="nc">_ast</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">    </span><span class="cm">/* The type of node this represents e.g.</span>
-<span class="cm">       a literal, an operator etc. */</span><span class="w"></span>
-<span class="w">    </span><span class="n">AstNodeType</span><span class="w"> </span><span class="n">type</span><span class="p">;</span><span class="w"></span>
-
-<span class="w">    </span><span class="cm">/* In the case of a literal value, this field</span>
-<span class="cm">       holds the actual value */</span><span class="w"></span>
-<span class="w">    </span><span class="kt">double</span><span class="w"> </span><span class="n">value</span><span class="p">;</span><span class="w"></span>
-
-<span class="w">    </span><span class="cm">/* In the case of an operator, this pointer</span>
-<span class="cm">       refers to the left child node */</span><span class="w"></span>
-<span class="w">    </span><span class="k">struct</span><span class="w"> </span><span class="nc">_ast</span><span class="w"> </span><span class="o">*</span><span class="n">left</span><span class="p">;</span><span class="w"></span>
-
-<span class="w">    </span><span class="cm">/* In the case of an operator, this pointer</span>
-<span class="cm">       refers to the right child node */</span><span class="w"></span>
-<span class="w">    </span><span class="k">struct</span><span class="w"> </span><span class="nc">_ast</span><span class="w"> </span><span class="o">*</span><span class="n">right</span><span class="p">;</span><span class="w"></span>
-<span class="p">}</span><span class="w"> </span><span class="n">AstNode</span><span class="p">;</span><span class="w"></span>
-
-<span class="kt">void</span><span class="w"></span>
-<span class="nf">ast_print</span><span class="p">(</span><span class="n">AstNode</span><span class="w"> </span><span class="o">*</span><span class="n">ast</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">level</span><span class="p">)</span><span class="w"></span>
-<span class="p">{</span><span class="w"></span>
-<span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">level</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="o">++</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">        </span><span class="n">printf</span><span class="p">(</span><span class="s">&quot;  &quot;</span><span class="p">);</span><span class="w"></span>
-<span class="w">    </span><span class="p">}</span><span class="w"></span>
-
-<span class="w">    </span><span class="k">switch</span><span class="p">(</span><span class="n">ast</span><span class="o">-&gt;</span><span class="n">type</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">    </span><span class="k">case</span><span class="w"> </span><span class="nl">AST_LITERAL</span><span class="p">:</span><span class="w"></span>
-<span class="w">        </span><span class="n">printf</span><span class="p">(</span><span class="s">&quot;%.2f</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">ast</span><span class="o">-&gt;</span><span class="n">value</span><span class="p">);</span><span class="w"></span>
-<span class="w">        </span><span class="k">break</span><span class="p">;</span><span class="w"></span>
-
-<span class="w">    </span><span class="k">case</span><span class="w"> </span><span class="nl">AST_PLUS</span><span class="p">:</span><span class="w"></span>
-<span class="w">        </span><span class="n">printf</span><span class="p">(</span><span class="s">&quot;+</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">);</span><span class="w"></span>
-<span class="w">        </span><span class="n">ast_print</span><span class="p">(</span><span class="n">ast</span><span class="o">-&gt;</span><span class="n">left</span><span class="p">,</span><span class="w"> </span><span class="n">level</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="p">);</span><span class="w"></span>
-<span class="w">        </span><span class="n">ast_print</span><span class="p">(</span><span class="n">ast</span><span class="o">-&gt;</span><span class="n">right</span><span class="p">,</span><span class="w"> </span><span class="n">level</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="p">);</span><span class="w"></span>
-<span class="w">        </span><span class="k">break</span><span class="p">;</span><span class="w"></span>
-
-<span class="w">    </span><span class="k">case</span><span class="w"> </span><span class="nl">AST_MULTIPLY</span><span class="p">:</span><span class="w"></span>
-<span class="w">        </span><span class="n">printf</span><span class="p">(</span><span class="s">&quot;*</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">);</span><span class="w"></span>
-<span class="w">        </span><span class="n">ast_print</span><span class="p">(</span><span class="n">ast</span><span class="o">-&gt;</span><span class="n">left</span><span class="p">,</span><span class="w"> </span><span class="n">level</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="p">);</span><span class="w"></span>
-<span class="w">        </span><span class="n">ast_print</span><span class="p">(</span><span class="n">ast</span><span class="o">-&gt;</span><span class="n">right</span><span class="p">,</span><span class="w"> </span><span class="n">level</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="p">);</span><span class="w"></span>
-<span class="w">        </span><span class="k">break</span><span class="p">;</span><span class="w"></span>
-<span class="w">    </span><span class="p">}</span><span class="w"></span>
-<span class="p">}</span><span class="w"></span>
-
-<span class="kt">double</span><span class="w"></span>
-<span class="nf">ast_evaluate</span><span class="p">(</span><span class="n">AstNode</span><span class="w"> </span><span class="o">*</span><span class="n">ast</span><span class="p">)</span><span class="w"></span>
-<span class="p">{</span><span class="w"></span>
-<span class="w">    </span><span class="k">switch</span><span class="p">(</span><span class="n">ast</span><span class="o">-&gt;</span><span class="n">type</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">    </span><span class="k">case</span><span class="w"> </span><span class="nl">AST_LITERAL</span><span class="p">:</span><span class="w"></span>
-<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">ast</span><span class="o">-&gt;</span><span class="n">value</span><span class="p">;</span><span class="w"></span>
-
-<span class="w">    </span><span class="k">case</span><span class="w"> </span><span class="nl">AST_PLUS</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">        </span><span class="kt">double</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ast_evaluate</span><span class="p">(</span><span class="n">ast</span><span class="o">-&gt;</span><span class="n">left</span><span class="p">);</span><span class="w"></span>
-<span class="w">        </span><span class="kt">double</span><span class="w"> </span><span class="n">b</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ast_evaluate</span><span class="p">(</span><span class="n">ast</span><span class="o">-&gt;</span><span class="n">right</span><span class="p">);</span><span class="w"></span>
-
-<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">b</span><span class="p">;</span><span class="w"></span>
-<span class="w">    </span><span class="p">}</span><span class="w"></span>
-
-<span class="w">    </span><span class="k">case</span><span class="w"> </span><span class="nl">AST_MULTIPLY</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">        </span><span class="kt">double</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ast_evaluate</span><span class="p">(</span><span class="n">ast</span><span class="o">-&gt;</span><span class="n">left</span><span class="p">);</span><span class="w"></span>
-<span class="w">        </span><span class="kt">double</span><span class="w"> </span><span class="n">b</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ast_evaluate</span><span class="p">(</span><span class="n">ast</span><span class="o">-&gt;</span><span class="n">right</span><span class="p">);</span><span class="w"></span>
-
-<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">b</span><span class="p">;</span><span class="w"></span>
-<span class="w">    </span><span class="p">}</span><span class="w"></span>
-<span class="w">    </span><span class="k">default</span><span class="o">:</span><span class="w"></span>
-<span class="w">        </span><span class="n">assert</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span><span class="w"> </span><span class="c1">// Unknown node type!</span>
-<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="mi">-1</span><span class="p">;</span><span class="w"></span>
-<span class="w">    </span><span class="p">}</span><span class="w"></span>
-<span class="p">}</span><span class="w"></span>
-
-<span class="k">static</span><span class="w"> </span><span class="kt">int</span><span class="w"></span>
-<span class="nf">AstNode_FromPyObject</span><span class="p">(</span><span class="n">PyObject</span><span class="o">*</span><span class="w"> </span><span class="n">obj</span><span class="p">,</span><span class="w"> </span><span class="n">AstNode</span><span class="w"> </span><span class="o">*</span><span class="n">ast</span><span class="p">,</span><span class="w"> </span><span class="n">Py_ssize_t</span><span class="w"> </span><span class="o">*</span><span class="n">index</span><span class="p">)</span><span class="w"></span>
-<span class="p">{</span><span class="w"></span>
-<span class="w">    </span><span class="n">PyObject</span><span class="o">*</span><span class="w"> </span><span class="n">type</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">PyObject_GetAttrString</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;type&quot;</span><span class="p">);</span><span class="w"></span>
-<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">type</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="nb">NULL</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"></span>
-<span class="w">    </span><span class="p">}</span><span class="w"></span>
-
-<span class="w">    </span><span class="kt">long</span><span class="w"> </span><span class="n">node_type</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">PyLong_AsLong</span><span class="p">(</span><span class="n">type</span><span class="p">);</span><span class="w"></span>
-<span class="w">    </span><span class="n">Py_DECREF</span><span class="p">(</span><span class="n">type</span><span class="p">);</span><span class="w"></span>
-
-<span class="w">    </span><span class="c1">// Get a pointer to the current node.</span>
-<span class="w">    </span><span class="n">AstNode</span><span class="w"> </span><span class="o">*</span><span class="n">node</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">&amp;</span><span class="n">ast</span><span class="p">[</span><span class="o">*</span><span class="n">index</span><span class="p">];</span><span class="w"></span>
-
-<span class="w">    </span><span class="k">switch</span><span class="p">(</span><span class="n">node_type</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">    </span><span class="k">case</span><span class="w"> </span><span class="nl">AST_LITERAL</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-
-<span class="w">        </span><span class="n">PyObject</span><span class="o">*</span><span class="w"> </span><span class="n">value</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">PyObject_GetAttrString</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;value&quot;</span><span class="p">);</span><span class="w"></span>
-<span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">value</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="nb">NULL</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">            </span><span class="k">return</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"></span>
-<span class="w">        </span><span class="p">}</span><span class="w"></span>
-
-<span class="w">        </span><span class="kt">double</span><span class="w"> </span><span class="n">v</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">PyFloat_AsDouble</span><span class="p">(</span><span class="n">value</span><span class="p">);</span><span class="w"></span>
-<span class="w">        </span><span class="n">Py_DECREF</span><span class="p">(</span><span class="n">value</span><span class="p">);</span><span class="w"></span>
-
-<span class="w">        </span><span class="n">node</span><span class="o">-&gt;</span><span class="n">type</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">AST_LITERAL</span><span class="p">;</span><span class="w"></span>
-<span class="w">        </span><span class="n">node</span><span class="o">-&gt;</span><span class="n">value</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">v</span><span class="p">;</span><span class="w"></span>
-<span class="w">        </span><span class="n">node</span><span class="o">-&gt;</span><span class="n">left</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">NULL</span><span class="p">;</span><span class="w"></span>
-<span class="w">        </span><span class="n">node</span><span class="o">-&gt;</span><span class="n">right</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">NULL</span><span class="p">;</span><span class="w"></span>
-
-<span class="w">        </span><span class="c1">// No need to recurse so return early.</span>
-<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span><span class="w"></span>
-<span class="w">    </span><span class="p">}</span><span class="w"></span>
-<span class="w">    </span><span class="k">case</span><span class="w"> </span><span class="nl">AST_PLUS</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">        </span><span class="n">node</span><span class="o">-&gt;</span><span class="n">type</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">AST_PLUS</span><span class="p">;</span><span class="w"></span>
-<span class="w">        </span><span class="k">break</span><span class="p">;</span><span class="w"></span>
-<span class="w">    </span><span class="p">}</span><span class="w"></span>
-
-<span class="w">    </span><span class="k">case</span><span class="w"> </span><span class="nl">AST_MULTIPLY</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">        </span><span class="n">node</span><span class="o">-&gt;</span><span class="n">type</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">AST_MULTIPLY</span><span class="p">;</span><span class="w"></span>
-<span class="w">        </span><span class="k">break</span><span class="p">;</span><span class="w"></span>
-<span class="w">    </span><span class="p">}</span><span class="w"></span>
-
-<span class="w">    </span><span class="k">default</span><span class="o">:</span><span class="w"></span>
-<span class="w">        </span><span class="c1">// TODO: Raise exception</span>
-<span class="w">        </span><span class="n">printf</span><span class="p">(</span><span class="s">&quot;Error! Field &#39;type&#39; was not a valid node type.</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">);</span><span class="w"></span>
-<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"></span>
-<span class="w">    </span><span class="p">}</span><span class="w"></span>
-
-
-<span class="w">    </span><span class="n">PyObject</span><span class="w"> </span><span class="o">*</span><span class="n">left</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">PyObject_GetAttrString</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;left&quot;</span><span class="p">);</span><span class="w"></span>
-<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">left</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="nb">NULL</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"></span>
-<span class="w">    </span><span class="p">}</span><span class="w"></span>
-
-<span class="w">    </span><span class="n">PyObject</span><span class="w"> </span><span class="o">*</span><span class="n">right</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">PyObject_GetAttrString</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;right&quot;</span><span class="p">);</span><span class="w"></span>
-<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">right</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="nb">NULL</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"></span>
-<span class="w">    </span><span class="p">}</span><span class="w"></span>
-
-<span class="w">    </span><span class="c1">// Increment the index to get pointers to the next array cells.</span>
-<span class="w">    </span><span class="p">(</span><span class="o">*</span><span class="n">index</span><span class="p">)</span><span class="o">++</span><span class="p">;</span><span class="w"></span>
-<span class="w">    </span><span class="n">node</span><span class="o">-&gt;</span><span class="n">left</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">&amp;</span><span class="n">ast</span><span class="p">[</span><span class="o">*</span><span class="n">index</span><span class="p">];</span><span class="w"></span>
-
-<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="o">!</span><span class="n">AstNode_FromPyObject</span><span class="p">(</span><span class="n">left</span><span class="p">,</span><span class="w"> </span><span class="n">ast</span><span class="p">,</span><span class="w"> </span><span class="n">index</span><span class="p">))</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"></span>
-<span class="w">    </span><span class="p">}</span><span class="w"></span>
-
-<span class="w">    </span><span class="p">(</span><span class="o">*</span><span class="n">index</span><span class="p">)</span><span class="o">++</span><span class="p">;</span><span class="w"></span>
-<span class="w">    </span><span class="n">node</span><span class="o">-&gt;</span><span class="n">right</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">&amp;</span><span class="n">ast</span><span class="p">[</span><span class="o">*</span><span class="n">index</span><span class="p">];</span><span class="w"></span>
-
-<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="o">!</span><span class="n">AstNode_FromPyObject</span><span class="p">(</span><span class="n">right</span><span class="p">,</span><span class="w"> </span><span class="n">ast</span><span class="p">,</span><span class="w"> </span><span class="n">index</span><span class="p">))</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"></span>
-<span class="w">    </span><span class="p">}</span><span class="w"></span>
-
-<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span><span class="w"></span>
-<span class="p">}</span><span class="w"></span>
-
-<span class="k">static</span><span class="w"> </span><span class="n">AstNode</span><span class="o">*</span><span class="w"></span>
-<span class="nf">AstTree_FromPyObject</span><span class="p">(</span><span class="n">PyObject</span><span class="o">*</span><span class="w"> </span><span class="n">obj</span><span class="p">)</span><span class="w"></span>
-<span class="p">{</span><span class="w"></span>
-<span class="w">    </span><span class="c1">// Allocate enough memory to store the resulting AST.</span>
-<span class="w">    </span><span class="n">Py_ssize_t</span><span class="w"> </span><span class="n">num_nodes</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">PyObject_Length</span><span class="p">(</span><span class="n">obj</span><span class="p">);</span><span class="w"></span>
-<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">num_nodes</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">-1</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="nb">NULL</span><span class="p">;</span><span class="w"></span>
-<span class="w">    </span><span class="p">}</span><span class="w"></span>
-
-<span class="w">    </span><span class="n">AstNode</span><span class="w"> </span><span class="o">*</span><span class="n">ast</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">malloc</span><span class="p">(</span><span class="n">num_nodes</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">sizeof</span><span class="p">(</span><span class="n">AstNode</span><span class="p">));</span><span class="w"></span>
-<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">ast</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="nb">NULL</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">        </span><span class="n">PyErr_SetString</span><span class="p">(</span><span class="n">PyExc_MemoryError</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;Unable to allocate memory for the AST.&quot;</span><span class="p">)</span><span class="w"> </span><span class="p">;</span><span class="w"></span>
-<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="nb">NULL</span><span class="p">;</span><span class="w"></span>
-<span class="w">    </span><span class="p">}</span><span class="w"></span>
-
-<span class="w">    </span><span class="n">Py_ssize_t</span><span class="w"> </span><span class="n">index</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"></span>
-<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="o">!</span><span class="n">AstNode_FromPyObject</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span><span class="w"> </span><span class="n">ast</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">index</span><span class="p">))</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">        </span><span class="n">free</span><span class="p">(</span><span class="n">ast</span><span class="p">);</span><span class="w"></span>
-<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="nb">NULL</span><span class="p">;</span><span class="w"></span>
-<span class="w">    </span><span class="p">}</span><span class="w"></span>
-
-<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">ast</span><span class="p">;</span><span class="w"></span>
-<span class="p">}</span><span class="w"></span>
-
-<span class="k">static</span><span class="w"> </span><span class="n">PyObject</span><span class="o">*</span><span class="w"></span>
-<span class="nf">method_eval_ast</span><span class="p">(</span><span class="n">PyObject</span><span class="w"> </span><span class="o">*</span><span class="n">self</span><span class="p">,</span><span class="w"> </span><span class="n">PyObject</span><span class="w"> </span><span class="o">*</span><span class="n">args</span><span class="p">)</span><span class="w"></span>
-<span class="p">{</span><span class="w"></span>
-<span class="w">    </span><span class="n">PyObject</span><span class="w"> </span><span class="o">*</span><span class="n">obj</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">NULL</span><span class="p">;</span><span class="w"></span>
-
-<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="o">!</span><span class="n">PyArg_ParseTuple</span><span class="p">(</span><span class="n">args</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;O&quot;</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">obj</span><span class="p">))</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="nb">NULL</span><span class="p">;</span><span class="w"></span>
-<span class="w">    </span><span class="p">}</span><span class="w"></span>
-
-<span class="w">    </span><span class="n">AstNode</span><span class="w"> </span><span class="o">*</span><span class="n">ast</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">AstTree_FromPyObject</span><span class="p">(</span><span class="n">obj</span><span class="p">);</span><span class="w"></span>
-<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">ast</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="nb">NULL</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="nb">NULL</span><span class="p">;</span><span class="w"></span>
-<span class="w">    </span><span class="p">};</span><span class="w"></span>
-
-<span class="w">    </span><span class="kt">double</span><span class="w"> </span><span class="n">result</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ast_evaluate</span><span class="p">(</span><span class="n">ast</span><span class="p">);</span><span class="w"></span>
-<span class="w">    </span><span class="n">free</span><span class="p">(</span><span class="n">ast</span><span class="p">);</span><span class="w"></span>
-<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">PyFloat_FromDouble</span><span class="p">(</span><span class="n">result</span><span class="p">);</span><span class="w"></span>
-<span class="p">}</span><span class="w"></span>
-
-<span class="k">static</span><span class="w"> </span><span class="n">PyObject</span><span class="o">*</span><span class="w"></span>
-<span class="nf">method_hello_world</span><span class="p">(</span><span class="n">PyObject</span><span class="w"> </span><span class="o">*</span><span class="n">self</span><span class="p">,</span><span class="w"> </span><span class="n">PyObject</span><span class="w"> </span><span class="o">*</span><span class="n">args</span><span class="p">)</span><span class="w"></span>
-<span class="p">{</span><span class="w"></span>
-<span class="w">    </span><span class="n">printf</span><span class="p">(</span><span class="s">&quot;Hello, World!</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">);</span><span class="w"></span>
-<span class="w">    </span><span class="n">Py_RETURN_NONE</span><span class="p">;</span><span class="w"></span>
-<span class="p">}</span><span class="w"></span>
-
-<span class="k">static</span><span class="w"> </span><span class="n">PyMethodDef</span><span class="w"> </span><span class="n">ccalc_methods</span><span class="p">[]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">    </span><span class="p">{</span><span class="s">&quot;hello_world&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">method_hello_world</span><span class="p">,</span><span class="w"> </span><span class="n">METH_VARARGS</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;Print &#39;Hello, World!&#39;.&quot;</span><span class="p">},</span><span class="w"></span>
-<span class="w">    </span><span class="p">{</span><span class="s">&quot;eval_ast&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">method_eval_ast</span><span class="p">,</span><span class="w"> </span><span class="n">METH_VARARGS</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;Evaluate the given ast.&quot;</span><span class="p">},</span><span class="w"></span>
-<span class="w">    </span><span class="p">{</span><span class="nb">NULL</span><span class="p">,</span><span class="w"> </span><span class="nb">NULL</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="nb">NULL</span><span class="p">}</span><span class="w"></span>
-<span class="p">};</span><span class="w"></span>
-
-<span class="k">static</span><span class="w"> </span><span class="k">struct</span><span class="w"> </span><span class="nc">PyModuleDef</span><span class="w"> </span><span class="n">ccalcmodule</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">    </span><span class="n">PyModuleDef_HEAD_INIT</span><span class="p">,</span><span class="w"></span>
-<span class="w">    </span><span class="s">&quot;_ccalc&quot;</span><span class="p">,</span><span class="w"></span>
-<span class="w">    </span><span class="s">&quot;Simple calculator implemented in C&quot;</span><span class="p">,</span><span class="w"></span>
-<span class="w">    </span><span class="mi">-1</span><span class="p">,</span><span class="w"></span>
-<span class="w">    </span><span class="n">ccalc_methods</span><span class="w"></span>
-<span class="p">};</span><span class="w"></span>
-
-<span class="n">PyMODINIT_FUNC</span><span class="w"></span>
-<span class="nf">PyInit__ccalc</span><span class="p">()</span><span class="w"></span>
-<span class="p">{</span><span class="w"></span>
-<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">PyModule_Create</span><span class="p">(</span><span class="o">&amp;</span><span class="n">ccalcmodule</span><span class="p">);</span><span class="w"></span>
-<span class="p">}</span><span class="w"></span>
-</pre></div>
-
-        </div>
-    </div>
-        
-
-    
-
-    <div data-parent="" class=" border-t">
         <label for="README.rst">
             <div style="padding-left: 4px;" class="flex items-center px-2 py-1 space-x-2 hover:bg-gray-50">
                 
@@ -496,6 +211,41 @@ dist
 __pycache__
 *.pyc
 *.egg-info</pre>
+        </div>
+    </div>
+        
+
+    
+
+    <div data-parent="" class=" border-t">
+        <label for="setup.py">
+            <div style="padding-left: 4px;" class="flex items-center px-2 py-1 space-x-2 hover:bg-gray-50">
+                
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" ><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+                    <path d="M14 2v6h6M16 13H8M16 17H8M10 9H8"/>
+                </svg>
+                
+                
+                <span>setup.py</span>
+            </div>
+        </label>
+        
+        
+        <input class="hidden" data-type="file" data-id="setup.py" type="checkbox" id="setup.py" />
+        <div class="overflow-y-auto transition-all max-h-0">
+            <div class="highlight"><pre style="margin: 0"><span></span><span class="kn">from</span> <span class="nn">setuptools</span> <span class="kn">import</span> <span class="n">setup</span><span class="p">,</span> <span class="n">Extension</span>
+
+<span class="n">ccalcmod</span> <span class="o">=</span> <span class="n">Extension</span><span class="p">(</span><span class="s2">&quot;_ccalc&quot;</span><span class="p">,</span> <span class="n">sources</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;ccalcmodule.c&quot;</span><span class="p">],</span> <span class="n">language</span><span class="o">=</span><span class="s2">&quot;c&quot;</span><span class="p">)</span>
+
+<span class="n">setup</span><span class="p">(</span>
+    <span class="n">name</span><span class="o">=</span><span class="s2">&quot;ccalc&quot;</span><span class="p">,</span>
+    <span class="n">version</span><span class="o">=</span><span class="s2">&quot;1.0.0&quot;</span><span class="p">,</span>
+    <span class="n">description</span><span class="o">=</span><span class="s2">&quot;A simple calculator implemented in C&quot;</span><span class="p">,</span>
+    <span class="n">packages</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;ccalc&quot;</span><span class="p">],</span>
+    <span class="n">ext_modules</span><span class="o">=</span><span class="p">[</span><span class="n">ccalcmod</span><span class="p">],</span>
+<span class="p">)</span>
+</pre></div>
+
         </div>
     </div>
         
@@ -620,28 +370,258 @@ __pycache__
         
 
     
+
+    <div data-parent="" class=" border-t">
+        <label for="ccalcmodule.c">
+            <div style="padding-left: 4px;" class="flex items-center px-2 py-1 space-x-2 hover:bg-gray-50">
+                
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" ><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+                    <path d="M14 2v6h6M16 13H8M16 17H8M10 9H8"/>
+                </svg>
+                
+                
+                <span>ccalcmodule.c</span>
+            </div>
+        </label>
+        
+        
+        <input class="hidden" data-type="file" data-id="ccalcmodule.c" type="checkbox" id="ccalcmodule.c" />
+        <div class="overflow-y-auto transition-all max-h-0">
+            <div class="highlight"><pre style="margin: 0"><span></span><span class="cp">#define PY_SSIZE_T_CLEAN</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;Python.h&gt;</span><span class="cp"></span>
+
+<span class="k">typedef</span><span class="w"> </span><span class="k">enum</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="n">AST_LITERAL</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="n">AST_PLUS</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="n">AST_MULTIPLY</span><span class="p">,</span><span class="w"></span>
+<span class="p">}</span><span class="w"> </span><span class="n">AstNodeType</span><span class="p">;</span><span class="w"></span>
+
+<span class="k">typedef</span><span class="w"> </span><span class="k">struct</span><span class="w"> </span><span class="nc">_ast</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="cm">/* The type of node this represents e.g.</span>
+<span class="cm">       a literal, an operator etc. */</span><span class="w"></span>
+<span class="w">    </span><span class="n">AstNodeType</span><span class="w"> </span><span class="n">type</span><span class="p">;</span><span class="w"></span>
+
+<span class="w">    </span><span class="cm">/* In the case of a literal value, this field</span>
+<span class="cm">       holds the actual value */</span><span class="w"></span>
+<span class="w">    </span><span class="kt">double</span><span class="w"> </span><span class="n">value</span><span class="p">;</span><span class="w"></span>
+
+<span class="w">    </span><span class="cm">/* In the case of an operator, this pointer</span>
+<span class="cm">       refers to the left child node */</span><span class="w"></span>
+<span class="w">    </span><span class="k">struct</span><span class="w"> </span><span class="nc">_ast</span><span class="w"> </span><span class="o">*</span><span class="n">left</span><span class="p">;</span><span class="w"></span>
+
+<span class="w">    </span><span class="cm">/* In the case of an operator, this pointer</span>
+<span class="cm">       refers to the right child node */</span><span class="w"></span>
+<span class="w">    </span><span class="k">struct</span><span class="w"> </span><span class="nc">_ast</span><span class="w"> </span><span class="o">*</span><span class="n">right</span><span class="p">;</span><span class="w"></span>
+<span class="p">}</span><span class="w"> </span><span class="n">AstNode</span><span class="p">;</span><span class="w"></span>
+
+<span class="kt">void</span><span class="w"></span>
+<span class="nf">ast_print</span><span class="p">(</span><span class="n">AstNode</span><span class="w"> </span><span class="o">*</span><span class="n">ast</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">level</span><span class="p">)</span><span class="w"></span>
+<span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">level</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="o">++</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">        </span><span class="n">printf</span><span class="p">(</span><span class="s">&quot;  &quot;</span><span class="p">);</span><span class="w"></span>
+<span class="w">    </span><span class="p">}</span><span class="w"></span>
+
+<span class="w">    </span><span class="k">switch</span><span class="p">(</span><span class="n">ast</span><span class="o">-&gt;</span><span class="n">type</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="k">case</span><span class="w"> </span><span class="no">AST_LITERAL</span><span class="p">:</span><span class="w"></span>
+<span class="w">        </span><span class="n">printf</span><span class="p">(</span><span class="s">&quot;%.2f</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">ast</span><span class="o">-&gt;</span><span class="n">value</span><span class="p">);</span><span class="w"></span>
+<span class="w">        </span><span class="k">break</span><span class="p">;</span><span class="w"></span>
+
+<span class="w">    </span><span class="k">case</span><span class="w"> </span><span class="no">AST_PLUS</span><span class="p">:</span><span class="w"></span>
+<span class="w">        </span><span class="n">printf</span><span class="p">(</span><span class="s">&quot;+</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">);</span><span class="w"></span>
+<span class="w">        </span><span class="n">ast_print</span><span class="p">(</span><span class="n">ast</span><span class="o">-&gt;</span><span class="n">left</span><span class="p">,</span><span class="w"> </span><span class="n">level</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="p">);</span><span class="w"></span>
+<span class="w">        </span><span class="n">ast_print</span><span class="p">(</span><span class="n">ast</span><span class="o">-&gt;</span><span class="n">right</span><span class="p">,</span><span class="w"> </span><span class="n">level</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="p">);</span><span class="w"></span>
+<span class="w">        </span><span class="k">break</span><span class="p">;</span><span class="w"></span>
+
+<span class="w">    </span><span class="k">case</span><span class="w"> </span><span class="no">AST_MULTIPLY</span><span class="p">:</span><span class="w"></span>
+<span class="w">        </span><span class="n">printf</span><span class="p">(</span><span class="s">&quot;*</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">);</span><span class="w"></span>
+<span class="w">        </span><span class="n">ast_print</span><span class="p">(</span><span class="n">ast</span><span class="o">-&gt;</span><span class="n">left</span><span class="p">,</span><span class="w"> </span><span class="n">level</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="p">);</span><span class="w"></span>
+<span class="w">        </span><span class="n">ast_print</span><span class="p">(</span><span class="n">ast</span><span class="o">-&gt;</span><span class="n">right</span><span class="p">,</span><span class="w"> </span><span class="n">level</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="p">);</span><span class="w"></span>
+<span class="w">        </span><span class="k">break</span><span class="p">;</span><span class="w"></span>
+<span class="w">    </span><span class="p">}</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
+
+<span class="kt">double</span><span class="w"></span>
+<span class="nf">ast_evaluate</span><span class="p">(</span><span class="n">AstNode</span><span class="w"> </span><span class="o">*</span><span class="n">ast</span><span class="p">)</span><span class="w"></span>
+<span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="k">switch</span><span class="p">(</span><span class="n">ast</span><span class="o">-&gt;</span><span class="n">type</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="k">case</span><span class="w"> </span><span class="no">AST_LITERAL</span><span class="p">:</span><span class="w"></span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">ast</span><span class="o">-&gt;</span><span class="n">value</span><span class="p">;</span><span class="w"></span>
+
+<span class="w">    </span><span class="k">case</span><span class="w"> </span><span class="no">AST_PLUS</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">        </span><span class="kt">double</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ast_evaluate</span><span class="p">(</span><span class="n">ast</span><span class="o">-&gt;</span><span class="n">left</span><span class="p">);</span><span class="w"></span>
+<span class="w">        </span><span class="kt">double</span><span class="w"> </span><span class="n">b</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ast_evaluate</span><span class="p">(</span><span class="n">ast</span><span class="o">-&gt;</span><span class="n">right</span><span class="p">);</span><span class="w"></span>
+
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">b</span><span class="p">;</span><span class="w"></span>
+<span class="w">    </span><span class="p">}</span><span class="w"></span>
+
+<span class="w">    </span><span class="k">case</span><span class="w"> </span><span class="no">AST_MULTIPLY</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">        </span><span class="kt">double</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ast_evaluate</span><span class="p">(</span><span class="n">ast</span><span class="o">-&gt;</span><span class="n">left</span><span class="p">);</span><span class="w"></span>
+<span class="w">        </span><span class="kt">double</span><span class="w"> </span><span class="n">b</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ast_evaluate</span><span class="p">(</span><span class="n">ast</span><span class="o">-&gt;</span><span class="n">right</span><span class="p">);</span><span class="w"></span>
+
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">b</span><span class="p">;</span><span class="w"></span>
+<span class="w">    </span><span class="p">}</span><span class="w"></span>
+<span class="w">    </span><span class="k">default</span><span class="o">:</span><span class="w"></span>
+<span class="w">        </span><span class="n">assert</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span><span class="w"> </span><span class="c1">// Unknown node type!</span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="mi">-1</span><span class="p">;</span><span class="w"></span>
+<span class="w">    </span><span class="p">}</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
+
+<span class="k">static</span><span class="w"> </span><span class="kt">int</span><span class="w"></span>
+<span class="nf">AstNode_FromPyObject</span><span class="p">(</span><span class="n">PyObject</span><span class="o">*</span><span class="w"> </span><span class="n">obj</span><span class="p">,</span><span class="w"> </span><span class="n">AstNode</span><span class="w"> </span><span class="o">*</span><span class="n">ast</span><span class="p">,</span><span class="w"> </span><span class="n">Py_ssize_t</span><span class="w"> </span><span class="o">*</span><span class="n">index</span><span class="p">)</span><span class="w"></span>
+<span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="n">PyObject</span><span class="o">*</span><span class="w"> </span><span class="n">type</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">PyObject_GetAttrString</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;type&quot;</span><span class="p">);</span><span class="w"></span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">type</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="nb">NULL</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"></span>
+<span class="w">    </span><span class="p">}</span><span class="w"></span>
+
+<span class="w">    </span><span class="kt">long</span><span class="w"> </span><span class="n">node_type</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">PyLong_AsLong</span><span class="p">(</span><span class="n">type</span><span class="p">);</span><span class="w"></span>
+<span class="w">    </span><span class="n">Py_DECREF</span><span class="p">(</span><span class="n">type</span><span class="p">);</span><span class="w"></span>
+
+<span class="w">    </span><span class="c1">// Get a pointer to the current node.</span>
+<span class="w">    </span><span class="n">AstNode</span><span class="w"> </span><span class="o">*</span><span class="n">node</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">&amp;</span><span class="n">ast</span><span class="p">[</span><span class="o">*</span><span class="n">index</span><span class="p">];</span><span class="w"></span>
+
+<span class="w">    </span><span class="k">switch</span><span class="p">(</span><span class="n">node_type</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="k">case</span><span class="w"> </span><span class="no">AST_LITERAL</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+
+<span class="w">        </span><span class="n">PyObject</span><span class="o">*</span><span class="w"> </span><span class="n">value</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">PyObject_GetAttrString</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;value&quot;</span><span class="p">);</span><span class="w"></span>
+<span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">value</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="nb">NULL</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">            </span><span class="k">return</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"></span>
+<span class="w">        </span><span class="p">}</span><span class="w"></span>
+
+<span class="w">        </span><span class="kt">double</span><span class="w"> </span><span class="n">v</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">PyFloat_AsDouble</span><span class="p">(</span><span class="n">value</span><span class="p">);</span><span class="w"></span>
+<span class="w">        </span><span class="n">Py_DECREF</span><span class="p">(</span><span class="n">value</span><span class="p">);</span><span class="w"></span>
+
+<span class="w">        </span><span class="n">node</span><span class="o">-&gt;</span><span class="n">type</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">AST_LITERAL</span><span class="p">;</span><span class="w"></span>
+<span class="w">        </span><span class="n">node</span><span class="o">-&gt;</span><span class="n">value</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">v</span><span class="p">;</span><span class="w"></span>
+<span class="w">        </span><span class="n">node</span><span class="o">-&gt;</span><span class="n">left</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">NULL</span><span class="p">;</span><span class="w"></span>
+<span class="w">        </span><span class="n">node</span><span class="o">-&gt;</span><span class="n">right</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">NULL</span><span class="p">;</span><span class="w"></span>
+
+<span class="w">        </span><span class="c1">// No need to recurse so return early.</span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span><span class="w"></span>
+<span class="w">    </span><span class="p">}</span><span class="w"></span>
+<span class="w">    </span><span class="k">case</span><span class="w"> </span><span class="no">AST_PLUS</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">        </span><span class="n">node</span><span class="o">-&gt;</span><span class="n">type</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">AST_PLUS</span><span class="p">;</span><span class="w"></span>
+<span class="w">        </span><span class="k">break</span><span class="p">;</span><span class="w"></span>
+<span class="w">    </span><span class="p">}</span><span class="w"></span>
+
+<span class="w">    </span><span class="k">case</span><span class="w"> </span><span class="no">AST_MULTIPLY</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">        </span><span class="n">node</span><span class="o">-&gt;</span><span class="n">type</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">AST_MULTIPLY</span><span class="p">;</span><span class="w"></span>
+<span class="w">        </span><span class="k">break</span><span class="p">;</span><span class="w"></span>
+<span class="w">    </span><span class="p">}</span><span class="w"></span>
+
+<span class="w">    </span><span class="k">default</span><span class="o">:</span><span class="w"></span>
+<span class="w">        </span><span class="c1">// TODO: Raise exception</span>
+<span class="w">        </span><span class="n">printf</span><span class="p">(</span><span class="s">&quot;Error! Field &#39;type&#39; was not a valid node type.</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">);</span><span class="w"></span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"></span>
+<span class="w">    </span><span class="p">}</span><span class="w"></span>
+
+
+<span class="w">    </span><span class="n">PyObject</span><span class="w"> </span><span class="o">*</span><span class="n">left</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">PyObject_GetAttrString</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;left&quot;</span><span class="p">);</span><span class="w"></span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">left</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="nb">NULL</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"></span>
+<span class="w">    </span><span class="p">}</span><span class="w"></span>
+
+<span class="w">    </span><span class="n">PyObject</span><span class="w"> </span><span class="o">*</span><span class="n">right</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">PyObject_GetAttrString</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;right&quot;</span><span class="p">);</span><span class="w"></span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">right</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="nb">NULL</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"></span>
+<span class="w">    </span><span class="p">}</span><span class="w"></span>
+
+<span class="w">    </span><span class="c1">// Increment the index to get pointers to the next array cells.</span>
+<span class="w">    </span><span class="p">(</span><span class="o">*</span><span class="n">index</span><span class="p">)</span><span class="o">++</span><span class="p">;</span><span class="w"></span>
+<span class="w">    </span><span class="n">node</span><span class="o">-&gt;</span><span class="n">left</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">&amp;</span><span class="n">ast</span><span class="p">[</span><span class="o">*</span><span class="n">index</span><span class="p">];</span><span class="w"></span>
+
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="o">!</span><span class="n">AstNode_FromPyObject</span><span class="p">(</span><span class="n">left</span><span class="p">,</span><span class="w"> </span><span class="n">ast</span><span class="p">,</span><span class="w"> </span><span class="n">index</span><span class="p">))</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"></span>
+<span class="w">    </span><span class="p">}</span><span class="w"></span>
+
+<span class="w">    </span><span class="p">(</span><span class="o">*</span><span class="n">index</span><span class="p">)</span><span class="o">++</span><span class="p">;</span><span class="w"></span>
+<span class="w">    </span><span class="n">node</span><span class="o">-&gt;</span><span class="n">right</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">&amp;</span><span class="n">ast</span><span class="p">[</span><span class="o">*</span><span class="n">index</span><span class="p">];</span><span class="w"></span>
+
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="o">!</span><span class="n">AstNode_FromPyObject</span><span class="p">(</span><span class="n">right</span><span class="p">,</span><span class="w"> </span><span class="n">ast</span><span class="p">,</span><span class="w"> </span><span class="n">index</span><span class="p">))</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"></span>
+<span class="w">    </span><span class="p">}</span><span class="w"></span>
+
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
+
+<span class="k">static</span><span class="w"> </span><span class="n">AstNode</span><span class="o">*</span><span class="w"></span>
+<span class="nf">AstTree_FromPyObject</span><span class="p">(</span><span class="n">PyObject</span><span class="o">*</span><span class="w"> </span><span class="n">obj</span><span class="p">)</span><span class="w"></span>
+<span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="c1">// Allocate enough memory to store the resulting AST.</span>
+<span class="w">    </span><span class="n">Py_ssize_t</span><span class="w"> </span><span class="n">num_nodes</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">PyObject_Length</span><span class="p">(</span><span class="n">obj</span><span class="p">);</span><span class="w"></span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">num_nodes</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">-1</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="nb">NULL</span><span class="p">;</span><span class="w"></span>
+<span class="w">    </span><span class="p">}</span><span class="w"></span>
+
+<span class="w">    </span><span class="n">AstNode</span><span class="w"> </span><span class="o">*</span><span class="n">ast</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">malloc</span><span class="p">(</span><span class="n">num_nodes</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">sizeof</span><span class="p">(</span><span class="n">AstNode</span><span class="p">));</span><span class="w"></span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">ast</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="nb">NULL</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">        </span><span class="n">PyErr_SetString</span><span class="p">(</span><span class="n">PyExc_MemoryError</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;Unable to allocate memory for the AST.&quot;</span><span class="p">)</span><span class="w"> </span><span class="p">;</span><span class="w"></span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="nb">NULL</span><span class="p">;</span><span class="w"></span>
+<span class="w">    </span><span class="p">}</span><span class="w"></span>
+
+<span class="w">    </span><span class="n">Py_ssize_t</span><span class="w"> </span><span class="n">index</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"></span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="o">!</span><span class="n">AstNode_FromPyObject</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span><span class="w"> </span><span class="n">ast</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">index</span><span class="p">))</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">        </span><span class="n">free</span><span class="p">(</span><span class="n">ast</span><span class="p">);</span><span class="w"></span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="nb">NULL</span><span class="p">;</span><span class="w"></span>
+<span class="w">    </span><span class="p">}</span><span class="w"></span>
+
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">ast</span><span class="p">;</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
+
+<span class="k">static</span><span class="w"> </span><span class="n">PyObject</span><span class="o">*</span><span class="w"></span>
+<span class="nf">method_eval_ast</span><span class="p">(</span><span class="n">PyObject</span><span class="w"> </span><span class="o">*</span><span class="n">self</span><span class="p">,</span><span class="w"> </span><span class="n">PyObject</span><span class="w"> </span><span class="o">*</span><span class="n">args</span><span class="p">)</span><span class="w"></span>
+<span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="n">PyObject</span><span class="w"> </span><span class="o">*</span><span class="n">obj</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">NULL</span><span class="p">;</span><span class="w"></span>
+
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="o">!</span><span class="n">PyArg_ParseTuple</span><span class="p">(</span><span class="n">args</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;O&quot;</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">obj</span><span class="p">))</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="nb">NULL</span><span class="p">;</span><span class="w"></span>
+<span class="w">    </span><span class="p">}</span><span class="w"></span>
+
+<span class="w">    </span><span class="n">AstNode</span><span class="w"> </span><span class="o">*</span><span class="n">ast</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">AstTree_FromPyObject</span><span class="p">(</span><span class="n">obj</span><span class="p">);</span><span class="w"></span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">ast</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="nb">NULL</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="nb">NULL</span><span class="p">;</span><span class="w"></span>
+<span class="w">    </span><span class="p">};</span><span class="w"></span>
+
+<span class="w">    </span><span class="kt">double</span><span class="w"> </span><span class="n">result</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ast_evaluate</span><span class="p">(</span><span class="n">ast</span><span class="p">);</span><span class="w"></span>
+<span class="w">    </span><span class="n">free</span><span class="p">(</span><span class="n">ast</span><span class="p">);</span><span class="w"></span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">PyFloat_FromDouble</span><span class="p">(</span><span class="n">result</span><span class="p">);</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
+
+<span class="k">static</span><span class="w"> </span><span class="n">PyObject</span><span class="o">*</span><span class="w"></span>
+<span class="nf">method_hello_world</span><span class="p">(</span><span class="n">PyObject</span><span class="w"> </span><span class="o">*</span><span class="n">self</span><span class="p">,</span><span class="w"> </span><span class="n">PyObject</span><span class="w"> </span><span class="o">*</span><span class="n">args</span><span class="p">)</span><span class="w"></span>
+<span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="n">printf</span><span class="p">(</span><span class="s">&quot;Hello, World!</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">);</span><span class="w"></span>
+<span class="w">    </span><span class="n">Py_RETURN_NONE</span><span class="p">;</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
+
+<span class="k">static</span><span class="w"> </span><span class="n">PyMethodDef</span><span class="w"> </span><span class="n">ccalc_methods</span><span class="p">[]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="p">{</span><span class="s">&quot;hello_world&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">method_hello_world</span><span class="p">,</span><span class="w"> </span><span class="n">METH_VARARGS</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;Print &#39;Hello, World!&#39;.&quot;</span><span class="p">},</span><span class="w"></span>
+<span class="w">    </span><span class="p">{</span><span class="s">&quot;eval_ast&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">method_eval_ast</span><span class="p">,</span><span class="w"> </span><span class="n">METH_VARARGS</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;Evaluate the given ast.&quot;</span><span class="p">},</span><span class="w"></span>
+<span class="w">    </span><span class="p">{</span><span class="nb">NULL</span><span class="p">,</span><span class="w"> </span><span class="nb">NULL</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="nb">NULL</span><span class="p">}</span><span class="w"></span>
+<span class="p">};</span><span class="w"></span>
+
+<span class="k">static</span><span class="w"> </span><span class="k">struct</span><span class="w"> </span><span class="nc">PyModuleDef</span><span class="w"> </span><span class="n">ccalcmodule</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="n">PyModuleDef_HEAD_INIT</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="s">&quot;_ccalc&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="s">&quot;Simple calculator implemented in C&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="mi">-1</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="n">ccalc_methods</span><span class="w"></span>
+<span class="p">};</span><span class="w"></span>
+
+<span class="n">PyMODINIT_FUNC</span><span class="w"></span>
+<span class="nf">PyInit__ccalc</span><span class="p">()</span><span class="w"></span>
+<span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">PyModule_Create</span><span class="p">(</span><span class="o">&amp;</span><span class="n">ccalcmodule</span><span class="p">);</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
+</pre></div>
+
+        </div>
+    </div>
+        
+
+    
 </div> 
 <style>
-    
-
-    input[data-id='setup.py']:checked ~ div {
-        max-height: 350px;
-    }
-
-    input[data-id='']:checked ~ div[data-parent='setup.py'] {
-        max-height: 382px;
-    }
-    
-    
-
-    input[data-id='ccalcmodule.c']:checked ~ div {
-        max-height: 350px;
-    }
-
-    input[data-id='']:checked ~ div[data-parent='ccalcmodule.c'] {
-        max-height: 382px;
-    }
-    
     
 
     input[data-id='README.rst']:checked ~ div {
@@ -664,6 +644,16 @@ __pycache__
     
     
 
+    input[data-id='setup.py']:checked ~ div {
+        max-height: 350px;
+    }
+
+    input[data-id='']:checked ~ div[data-parent='setup.py'] {
+        max-height: 382px;
+    }
+    
+    
+
     input[data-id='ccalc']:checked ~ div {
         max-height: 350px;
     }
@@ -679,6 +669,16 @@ __pycache__
     }
 
     input[data-id='ccalc']:checked ~ div[data-parent='ccalc/__init__.py'] {
+        max-height: 382px;
+    }
+    
+    
+
+    input[data-id='ccalcmodule.c']:checked ~ div {
+        max-height: 350px;
+    }
+
+    input[data-id='']:checked ~ div[data-parent='ccalcmodule.c'] {
         max-height: 382px;
     }
     

@@ -262,7 +262,7 @@ return the value stored in that node</p>
 <span class="nf">ast_evaluate</span><span class="p">(</span><span class="n">AstNode</span><span class="w"> </span><span class="o">*</span><span class="n">ast</span><span class="p">)</span><span class="w"></span>
 <span class="p">{</span><span class="w"></span>
 <span class="w">    </span><span class="k">switch</span><span class="p">(</span><span class="n">ast</span><span class="o">-&gt;</span><span class="n">type</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">    </span><span class="k">case</span><span class="w"> </span><span class="nl">AST_LITERAL</span><span class="p">:</span><span class="w"></span>
+<span class="w">    </span><span class="k">case</span><span class="w"> </span><span class="no">AST_LITERAL</span><span class="p">:</span><span class="w"></span>
 <span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">ast</span><span class="o">-&gt;</span><span class="n">value</span><span class="p">;</span><span class="w"></span>
 
 </pre></div>
@@ -271,7 +271,7 @@ return the value stored in that node</p>
 <li><p>In the case of <code class="docutils literal notranslate"><span class="pre">AST_PLUS</span></code>, we recursively call <code class="docutils literal notranslate"><span class="pre">ast_evaluate</span></code> on
 both the left and right branches of the tree and then add the resulting values
 together</p>
-<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="w">    </span><span class="k">case</span><span class="w"> </span><span class="nl">AST_PLUS</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="w">    </span><span class="k">case</span><span class="w"> </span><span class="no">AST_PLUS</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
 <span class="w">        </span><span class="kt">float</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ast_evaluate</span><span class="p">(</span><span class="n">ast</span><span class="o">-&gt;</span><span class="n">left</span><span class="p">);</span><span class="w"></span>
 <span class="w">        </span><span class="kt">float</span><span class="w"> </span><span class="n">b</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ast_evaluate</span><span class="p">(</span><span class="n">ast</span><span class="o">-&gt;</span><span class="n">right</span><span class="p">);</span><span class="w"></span>
 
@@ -281,7 +281,7 @@ together</p>
 </div>
 </li>
 <li><p>Simiarly for <code class="docutils literal notranslate"><span class="pre">AST_MULTIPLY</span></code>, but returing <code class="docutils literal notranslate"><span class="pre">a</span> <span class="pre">*</span> <span class="pre">b</span></code> in this case.</p>
-<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="w">    </span><span class="k">case</span><span class="w"> </span><span class="nl">AST_MULTIPLY</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="w">    </span><span class="k">case</span><span class="w"> </span><span class="no">AST_MULTIPLY</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
 <span class="w">        </span><span class="kt">float</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ast_evaluate</span><span class="p">(</span><span class="n">ast</span><span class="o">-&gt;</span><span class="n">left</span><span class="p">);</span><span class="w"></span>
 <span class="w">        </span><span class="kt">float</span><span class="w"> </span><span class="n">b</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ast_evaluate</span><span class="p">(</span><span class="n">ast</span><span class="o">-&gt;</span><span class="n">right</span><span class="p">);</span><span class="w"></span>
 

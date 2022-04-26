@@ -347,15 +347,15 @@ execute it.</p>
 <span class="p">&lt;/</span><span class="nt">head</span><span class="p">&gt;</span>
 <span class="p">&lt;</span><span class="nt">body</span><span class="p">&gt;</span>
    <span class="p">&lt;</span><span class="nt">script</span> <span class="na">src</span><span class="o">=</span><span class="s">&quot;wasm_exec.js&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
-   <span class="p">&lt;</span><span class="nt">script</span><span class="p">&gt;</span>
-      <span class="kd">const</span> <span class="nx">go</span> <span class="o">=</span> <span class="ow">new</span> <span class="nx">Go</span><span class="p">()</span>
+   <span class="p">&lt;</span><span class="nt">script</span><span class="p">&gt;</span><span class="w"></span>
+<span class="w">      </span><span class="kd">const</span><span class="w"> </span><span class="nx">go</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nx">Go</span><span class="p">()</span><span class="w"></span>
 
-      <span class="nx">WebAssembly</span><span class="p">.</span><span class="nx">instantiateStreaming</span><span class="p">(</span><span class="nx">fetch</span><span class="p">(</span><span class="s2">&quot;hello.wasm&quot;</span><span class="p">),</span> <span class="nx">go</span><span class="p">.</span><span class="nx">importObject</span><span class="p">)</span>
-            <span class="p">.</span><span class="nx">then</span><span class="p">(</span><span class="nx">module</span> <span class="p">=&gt;</span> <span class="p">{</span>
-               <span class="kd">let</span> <span class="nx">wasm</span> <span class="o">=</span> <span class="nx">module</span><span class="p">.</span><span class="nx">instance</span>
-               <span class="nx">go</span><span class="p">.</span><span class="nx">run</span><span class="p">(</span><span class="nx">wasm</span><span class="p">)</span>
-            <span class="p">})</span>
-   <span class="p">&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
+<span class="w">      </span><span class="nx">WebAssembly</span><span class="p">.</span><span class="nx">instantiateStreaming</span><span class="p">(</span><span class="nx">fetch</span><span class="p">(</span><span class="s2">&quot;hello.wasm&quot;</span><span class="p">),</span><span class="w"> </span><span class="nx">go</span><span class="p">.</span><span class="nx">importObject</span><span class="p">)</span><span class="w"></span>
+<span class="w">            </span><span class="p">.</span><span class="nx">then</span><span class="p">(</span><span class="nx">module</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">               </span><span class="kd">let</span><span class="w"> </span><span class="nx">wasm</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">module</span><span class="p">.</span><span class="nx">instance</span><span class="w"></span>
+<span class="w">               </span><span class="nx">go</span><span class="p">.</span><span class="nx">run</span><span class="p">(</span><span class="nx">wasm</span><span class="p">)</span><span class="w"></span>
+<span class="w">            </span><span class="p">})</span><span class="w"></span>
+<span class="w">   </span><span class="p">&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
 <span class="p">&lt;/</span><span class="nt">body</span><span class="p">&gt;</span>
 <span class="p">&lt;/</span><span class="nt">html</span><span class="p">&gt;</span>
 </pre></div>

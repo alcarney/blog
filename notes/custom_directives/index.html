@@ -272,13 +272,13 @@ when it comes to whitespace, so the above approach may not be sufficient in all 
 <section id="based-on-sphinxdirective">
 <h2>Based on <code class="docutils literal notranslate"><span class="pre">SphinxDirective</span></code><a class="headerlink" href="#based-on-sphinxdirective" title="Permalink to this headline">¶</a></h2>
 <p>If the directive is only for use within Sphinx projects, it’s a good idea to base it
-on <a class="reference external" href="https://www.sphinx-doc.org/en/master/extdev/utils.html#sphinx.util.docutils.SphinxDirective" title="(in Sphinx v5.0.0+)"><code class="xref py py-class docutils literal notranslate"><span class="pre">SphinxDirective</span></code></a> as it exposes more of Sphinx’s
+on <a class="reference external" href="https://www.sphinx-doc.org/en/master/extdev/utils.html#sphinx.util.docutils.SphinxDirective" title="(in Sphinx v6.0.0)"><code class="xref py py-class docutils literal notranslate"><span class="pre">SphinxDirective</span></code></a> as it exposes more of Sphinx’s
 internals potentially leading into better integration.</p>
 <section id="referencing-files">
 <h3>Referencing Files<a class="headerlink" href="#referencing-files" title="Permalink to this headline">¶</a></h3>
 <p>If you are referencing files from a directive, chances are you want to reference that
 file either relative to the document’s source or the root of the documentation project.
-Thankfully, there is the <a class="reference external" href="https://www.sphinx-doc.org/en/master/extdev/envapi.html#sphinx.environment.BuildEnvironment.relfn2path" title="(in Sphinx v5.0.0+)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">relfn2path()</span></code></a>
+Thankfully, there is the <a class="reference external" href="https://www.sphinx-doc.org/en/master/extdev/envapi.html#sphinx.environment.BuildEnvironment.relfn2path" title="(in Sphinx v6.0.0)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">relfn2path()</span></code></a>
 method that implements that logic for you</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
    <span class="o">...</span>
@@ -296,7 +296,7 @@ method that implements that logic for you</p>
 <section id="noting-dependencies">
 <h3>Noting Dependencies<a class="headerlink" href="#noting-dependencies" title="Permalink to this headline">¶</a></h3>
 <p>If the result of your directive depends on more than just the source file that contains
-it you can use the <a class="reference external" href="https://www.sphinx-doc.org/en/master/extdev/envapi.html#sphinx.environment.BuildEnvironment.note_dependency" title="(in Sphinx v5.0.0+)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">note_dependency()</span></code></a>
+it you can use the <a class="reference external" href="https://www.sphinx-doc.org/en/master/extdev/envapi.html#sphinx.environment.BuildEnvironment.note_dependency" title="(in Sphinx v6.0.0)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">note_dependency()</span></code></a>
 method to indicate the document should be rebuild if one of these external files change.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
    <span class="o">...</span>
