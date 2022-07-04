@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
   <id>www.alcarney.me</id>
   <title>Blog</title>
-  <updated>2022-04-26T12:52:30.707004+00:00</updated>
+  <updated>2022-07-04T15:01:25.378848+00:00</updated>
   <link href="www.alcarney.me"/>
   <link href="www.alcarney.me/blog/atom.xml" rel="self"/>
   <generator uri="https://ablog.readthedocs.org/" version="0.10.25">ABlog</generator>

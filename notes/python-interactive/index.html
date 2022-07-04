@@ -6,7 +6,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
-    <title>Python 3.x Gotchas &#8212; Blog  documentation</title>
+    <title>Detecting python -i &#8212; Blog  documentation</title>
 
     
     <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
@@ -33,8 +33,8 @@
     <link rel="shortcut icon" href="../../_static/favicon.ico"/>
     <link rel="index" title="Index" href="../../genindex/" />
     <link rel="search" title="Search" href="../../search/" />
-    <link rel="next" title="Detecting python -i" href="../python-interactive/" />
-    <link rel="prev" title="Python 2.x Gotchas" href="../python-2-gotchas/" /> 
+    <link rel="next" title="Sphinx Theming" href="../sphinx-theming/" />
+    <link rel="prev" title="Python 3.x Gotchas" href="../python-3-gotchas/" /> 
   </head><body class="flex flex-col justify-between min-h-screen overflow-x-hidden bg-gray-100 ">
     <div class="flex flex-grow">
         <input id="menu-state" type="checkbox" class="hidden" />
@@ -70,10 +70,7 @@
                     
                     <div class="flex-shrink overflow-auto"><nav id="localtoc" class="p-4 border-t">
     <ul>
-<li><a class="reference internal" href="#">Python 3.x Gotchas</a><ul>
-<li><a class="reference internal" href="#beware-pathlib-on-3-5">Beware <code class="docutils literal notranslate"><span class="pre">pathlib</span></code> on 3.5</a></li>
-</ul>
-</li>
+<li><a class="reference internal" href="#">Detecting <code class="docutils literal notranslate"><span class="pre">python</span> <span class="pre">-i</span></code></a></li>
 </ul>
 
 </nav>
@@ -131,19 +128,27 @@
                     
 
 <article class="p-4 prose-sm prose bg-white border prose-md prose-green max-w-none">
-    <section id="python-3-x-gotchas">
-<h1>Python 3.x Gotchas<a class="headerlink" href="#python-3-x-gotchas" title="Permalink to this headline">¶</a></h1>
-<p>Python continues to improve with plenty of new features and improvements with each release.
-When working with older versions of Python 3.x it’s easy to forget how new some features are.</p>
-<section id="beware-pathlib-on-3-5">
-<h2>Beware <code class="docutils literal notranslate"><span class="pre">pathlib</span></code> on 3.5<a class="headerlink" href="#beware-pathlib-on-3-5" title="Permalink to this headline">¶</a></h2>
-<p>While <a class="reference external" href="https://docs.python.org/3.5/library/pathlib.html#module-pathlib" title="(in Python v3.5)"><code class="docutils literal notranslate"><span class="pre">pathlib</span></code></a> exists in Python 3.5, it’s not fully integrated yet. Passing a
-<a class="reference external" href="https://docs.python.org/3.5/library/pathlib.html#pathlib.Path" title="(in Python v3.5)"><code class="docutils literal notranslate"><span class="pre">pathlib.Path</span></code></a> object to the built-in <a class="reference external" href="https://docs.python.org/3.5/library/functions.html#open" title="(in Python v3.5)"><code class="docutils literal notranslate"><span class="pre">open()</span></code></a> method will result in a surprising error</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="ne">TypeError</span><span class="p">:</span> <span class="n">invalid</span> <span class="n">file</span><span class="p">:</span> <span class="n">PosixPath</span><span class="p">(</span><span class="s1">&#39;path/to/file.txt&#39;</span><span class="p">)</span>
+    <section id="detecting-python-i">
+<h1>Detecting <code class="docutils literal notranslate"><span class="pre">python</span> <span class="pre">-i</span></code><a class="headerlink" href="#detecting-python-i" title="Permalink to this headline">¶</a></h1>
+<p>An awesome feature of Python that I’m using more and more is running <code class="docutils literal notranslate"><span class="pre">python</span> <span class="pre">-i</span> <span class="pre">&lt;script&gt;</span></code>.</p>
+<p>This first runs the script before opening a standard Python REPL, it’s fantastic for when I’m working on some code and quickly want to play around with some existing functions and figure out what the next step should be.
+Unfortunately, because this sets <code class="docutils literal notranslate"><span class="pre">__name__</span> <span class="pre">=</span> <span class="pre">'__main__'</span></code> if you’re working on a cli script with a <code class="docutils literal notranslate"><span class="pre">if</span> <span class="pre">__name__</span> <span class="pre">==</span> <span class="pre">'__main__'</span></code> block it will get executed along with all your function definitions.</p>
+<p>But thanks to <a class="reference external" href="https://stackoverflow.com/a/640431">this Stack Overflow answer</a> it’s possible to add a little <code class="docutils literal notranslate"><span class="pre">ctypes</span></code> magic to your script and only trigger the main block if Python has not been started with the <code class="docutils literal notranslate"><span class="pre">-i</span></code> flag!</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">ctypes</span>
+
+
+<span class="k">def</span> <span class="nf">is_interactive_mode</span><span class="p">():</span>
+    <span class="sd">&quot;&quot;&quot;Check whether python was invoked with the -i flag.&quot;&quot;&quot;</span>
+
+    <span class="n">interactive_flag</span> <span class="o">=</span> <span class="n">ctypes</span><span class="o">.</span><span class="n">cast</span><span class="p">(</span>
+        <span class="n">ctypes</span><span class="o">.</span><span class="n">pythonapi</span><span class="o">.</span><span class="n">Py_InteractiveFlag</span><span class="p">,</span> <span class="n">ctypes</span><span class="o">.</span><span class="n">POINTER</span><span class="p">(</span><span class="n">ctypes</span><span class="o">.</span><span class="n">c_int</span><span class="p">)</span>
+    <span class="p">)</span>
+    <span class="k">return</span> <span class="n">interactive_flag</span><span class="o">.</span><span class="n">contents</span><span class="o">.</span><span class="n">value</span> <span class="o">&gt;</span> <span class="mi">0</span>
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">is_interactive_mode</span><span class="p">():</span>
+    <span class="o">...</span>
 </pre></div>
 </div>
-<p>In this situation it’s better to call the path’s <a class="reference external" href="https://docs.python.org/3.5/library/pathlib.html#pathlib.Path.open" title="(in Python v3.5)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">open()</span></code></a> method instead.</p>
-</section>
 </section>
 
 </article>
@@ -155,16 +160,16 @@ When working with older versions of Python 3.x it’s easy to forget how new som
         
         <li  class="w-1/2 p-4 mr-2 bg-white border hover:shadow-lg" >
             
-            <a class="flex items-center justify-between h-full" href="../python-2-gotchas/">
+            <a class="flex items-center justify-between h-full" href="../python-3-gotchas/">
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="flex-shrink-0 w-8 h-8" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg>
-                <p class="ml-4 text-green-600">Python 2.x Gotchas</p>
+                <p class="ml-4 text-green-600">Python 3.x Gotchas</p>
             </a>
             
         </li>
         
         <li class="w-1/2 p-4 ml-2 bg-white border hover:shadow-lg">
-            <a class="flex items-center justify-between h-full" href="../python-interactive/">
-                <p class="text-green-600">Detecting <code class="docutils literal notranslate"><span class="pre">python</span> <span class="pre">-i</span></code></p>
+            <a class="flex items-center justify-between h-full" href="../sphinx-theming/">
+                <p class="text-green-600">Sphinx Theming</p>
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="flex-shrink-0 w-8 h-8 ml-4" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg>
             </a>
         </li>
@@ -183,7 +188,7 @@ When working with older versions of Python 3.x it’s easy to forget how new som
             <footer class="p-2 mt-8 mb-2 text-sm text-gray-600 border-t">
                 <div class="flex flex-col justify-between max-w-3xl mx-auto lg:flex-row">
                     <span>
-                        <a class="text-green-600" href="../../_sources/notes/python-3-gotchas.rst.txt" rel="nofollow">
+                        <a class="text-green-600" href="../../_sources/notes/python-interactive.rst.txt" rel="nofollow">
                             Page Source
                         </a>
                     </span>
