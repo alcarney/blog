@@ -140,134 +140,6 @@
     
 
     <div data-parent="" class=" border-t">
-        <label for="src">
-            <div style="padding-left: 4px;" class="flex items-center px-2 py-1 space-x-2 hover:bg-gray-50">
-                
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round">
-                    <path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/>
-                </svg>
-                
-                
-                <span>src</span>
-            </div>
-        </label>
-        
-        
-    </div>
-    <input class="hidden" data-type="folder" data-id="src" type="checkbox" id="src" />
-        
-
-    
-
-    <div data-parent="src" class="max-h-0 transition-all overflow-y-hidden border-t">
-        <label for="src/server.ts">
-            <div style="padding-left: 20px;" class="flex items-center px-2 py-1 space-x-2 hover:bg-gray-50">
-                
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" ><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
-                    <path d="M14 2v6h6M16 13H8M16 17H8M10 9H8"/>
-                </svg>
-                
-                
-                <span>server.ts</span>
-            </div>
-        </label>
-        
-        
-        <input class="hidden" data-type="file" data-id="src/server.ts" type="checkbox" id="src/server.ts" />
-        <div class="overflow-y-auto transition-all max-h-0">
-            <div class="highlight"><pre style="margin: 0"><span></span><span class="nx">importScripts</span><span class="p">(</span><span class="s2">&quot;https://cdn.jsdelivr.net/pyodide/v0.18.1/full/pyodide.js&quot;</span><span class="p">)</span><span class="w"></span>
-
-<span class="k">async</span><span class="w"> </span><span class="kd">function</span><span class="w"> </span><span class="nx">initPyodide</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-
-<span class="w">    </span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;Initing pyodide.&quot;</span><span class="p">)</span><span class="w"></span>
-
-<span class="w">    </span><span class="cm">/* @ts-ignore */</span><span class="w"></span>
-<span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="nx">pyodide</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">await</span><span class="w"> </span><span class="nx">loadPyodide</span><span class="p">({</span><span class="w"></span>
-<span class="w">        </span><span class="nx">indexURL</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;https://cdn.jsdelivr.net/pyodide/v0.18.1/full/&quot;</span><span class="w"></span>
-<span class="w">    </span><span class="p">})</span><span class="w"></span>
-
-<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="nx">pyodide</span><span class="w"></span>
-<span class="p">}</span><span class="w"></span>
-
-<span class="kd">const</span><span class="w"> </span><span class="nx">pyodideReady</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">initPyodide</span><span class="p">()</span><span class="w"></span>
-
-<span class="nx">onmessage</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">async</span><span class="w"> </span><span class="p">(</span><span class="nx">event</span><span class="p">)</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">    </span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="sb">`Client message:`</span><span class="p">,</span><span class="w"> </span><span class="nx">event</span><span class="p">.</span><span class="nx">data</span><span class="p">)</span><span class="w"></span>
-
-<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="nx">event</span><span class="p">.</span><span class="nx">data</span><span class="p">.</span><span class="nx">method</span><span class="w"> </span><span class="o">===</span><span class="w"> </span><span class="s2">&quot;initialize&quot;</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">        </span><span class="nx">postMessage</span><span class="p">({</span><span class="w"></span>
-<span class="w">            </span><span class="nx">jsonrpc</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;2.0&quot;</span><span class="p">,</span><span class="w"></span>
-<span class="w">            </span><span class="nx">id</span><span class="o">:</span><span class="w"> </span><span class="kt">event.data.id</span><span class="p">,</span><span class="w"></span>
-<span class="w">            </span><span class="nx">result</span><span class="o">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">                </span><span class="nx">serverInfo</span><span class="o">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">name</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;Hello, LSP&quot;</span><span class="w"> </span><span class="p">},</span><span class="w"></span>
-<span class="w">                </span><span class="nx">capabilities</span><span class="o">:</span><span class="w"> </span><span class="p">{}</span><span class="w"></span>
-<span class="w">            </span><span class="p">}</span><span class="w"></span>
-<span class="w">        </span><span class="p">})</span><span class="w"></span>
-<span class="w">    </span><span class="p">}</span><span class="w"></span>
-
-<span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="nx">pyodide</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">await</span><span class="w"> </span><span class="nx">pyodideReady</span><span class="w"></span>
-<span class="w">    </span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">pyodide</span><span class="p">.</span><span class="nx">runPython</span><span class="p">(</span><span class="s2">&quot;import sys;sys.version&quot;</span><span class="p">))</span><span class="w"></span>
-<span class="p">}</span><span class="w"></span>
-</pre></div>
-
-        </div>
-    </div>
-        
-
-    
-
-    <div data-parent="src" class="max-h-0 transition-all overflow-y-hidden border-t">
-        <label for="src/client.ts">
-            <div style="padding-left: 20px;" class="flex items-center px-2 py-1 space-x-2 hover:bg-gray-50">
-                
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" ><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
-                    <path d="M14 2v6h6M16 13H8M16 17H8M10 9H8"/>
-                </svg>
-                
-                
-                <span>client.ts</span>
-            </div>
-        </label>
-        
-        
-        <input class="hidden" data-type="file" data-id="src/client.ts" type="checkbox" id="src/client.ts" />
-        <div class="overflow-y-auto transition-all max-h-0">
-            <div class="highlight"><pre style="margin: 0"><span></span><span class="k">import</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">ExtensionContext</span><span class="p">,</span><span class="w"> </span><span class="nx">Uri</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="kr">from</span><span class="w"> </span><span class="s2">&quot;vscode&quot;</span><span class="p">;</span><span class="w"></span>
-<span class="k">import</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">LanguageClientOptions</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="kr">from</span><span class="w"> </span><span class="s2">&quot;vscode-languageclient&quot;</span><span class="p">;</span><span class="w"></span>
-
-<span class="c1">// Be sure to use the browser version of the client!</span><span class="w"></span>
-<span class="k">import</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">LanguageClient</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="kr">from</span><span class="w"> </span><span class="s2">&quot;vscode-languageclient/browser&quot;</span><span class="p">;</span><span class="w"></span>
-
-<span class="k">export</span><span class="w"> </span><span class="kd">function</span><span class="w"> </span><span class="nx">activate</span><span class="p">(</span><span class="nx">context</span><span class="o">:</span><span class="w"> </span><span class="kt">ExtensionContext</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-
-<span class="w">    </span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;activating extension&quot;</span><span class="p">)</span><span class="w"></span>
-
-<span class="w">    </span><span class="kd">const</span><span class="w"> </span><span class="nx">clientOptions</span><span class="o">:</span><span class="w"> </span><span class="kt">LanguageClientOptions</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">        </span><span class="nx">documentSelector</span><span class="o">:</span><span class="w"> </span><span class="p">[</span><span class="w"></span>
-<span class="w">            </span><span class="p">{</span><span class="w"> </span><span class="nx">scheme</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;file&quot;</span><span class="p">,</span><span class="w"> </span><span class="nx">language</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;plaintext&quot;</span><span class="w"> </span><span class="p">},</span><span class="w"></span>
-<span class="w">        </span><span class="p">],</span><span class="w"></span>
-<span class="w">        </span><span class="nx">outputChannelName</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;Hello Language Server&quot;</span><span class="p">,</span><span class="w"></span>
-<span class="w">    </span><span class="p">}</span><span class="w"></span>
-
-<span class="w">    </span><span class="kd">const</span><span class="w"> </span><span class="nx">path</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">Uri</span><span class="p">.</span><span class="nx">joinPath</span><span class="p">(</span><span class="nx">context</span><span class="p">.</span><span class="nx">extensionUri</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;dist/server.js&quot;</span><span class="p">)</span><span class="w"></span>
-<span class="w">    </span><span class="kd">const</span><span class="w"> </span><span class="nx">worker</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nx">Worker</span><span class="p">(</span><span class="nx">path</span><span class="p">.</span><span class="nx">toString</span><span class="p">())</span><span class="w"></span>
-
-<span class="w">    </span><span class="kd">const</span><span class="w"> </span><span class="nx">client</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nx">LanguageClient</span><span class="p">(</span><span class="s2">&quot;hello-lsp-web&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;Hello LSP&quot;</span><span class="p">,</span><span class="w"> </span><span class="nx">clientOptions</span><span class="p">,</span><span class="w"> </span><span class="nx">worker</span><span class="p">)</span><span class="w"></span>
-<span class="w">    </span><span class="nx">context</span><span class="p">.</span><span class="nx">subscriptions</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="nx">client</span><span class="p">.</span><span class="nx">start</span><span class="p">())</span><span class="w"></span>
-
-<span class="w">    </span><span class="nx">client</span><span class="p">.</span><span class="nx">onReady</span><span class="p">().</span><span class="nx">then</span><span class="p">(()</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">        </span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;hello-lsp-web server is ready&quot;</span><span class="p">)</span><span class="w"></span>
-<span class="w">    </span><span class="p">})</span><span class="w"></span>
-<span class="p">}</span><span class="w"></span>
-</pre></div>
-
-        </div>
-    </div>
-        
-
-    
-
-    <div data-parent="" class=" border-t">
         <label for="README.rst">
             <div style="padding-left: 4px;" class="flex items-center px-2 py-1 space-x-2 hover:bg-gray-50">
                 
@@ -353,129 +225,6 @@ version of VSCode can then pick up and install.
 <span class="p">   ..</span> <span class="ow">figure</span><span class="p">::</span> /code/hello-lsp-web/resources/install_extension.png
 
 <span class="m">#.</span> Finally, paste in your <span class="s">``https://...loca.lt``</span> URL and click install. 
-</pre></div>
-
-        </div>
-    </div>
-        
-
-    
-
-    <div data-parent="" class=" border-t">
-        <label for="tsconfig.json">
-            <div style="padding-left: 4px;" class="flex items-center px-2 py-1 space-x-2 hover:bg-gray-50">
-                
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" ><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
-                    <path d="M14 2v6h6M16 13H8M16 17H8M10 9H8"/>
-                </svg>
-                
-                
-                <span>tsconfig.json</span>
-            </div>
-        </label>
-        
-        
-        <input class="hidden" data-type="file" data-id="tsconfig.json" type="checkbox" id="tsconfig.json" />
-        <div class="overflow-y-auto transition-all max-h-0">
-            <div class="highlight"><pre style="margin: 0"><span></span><span class="p">{</span><span class="w"></span>
-<span class="w">    </span><span class="nt">&quot;compilerOptions&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">        </span><span class="nt">&quot;module&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;commonjs&quot;</span><span class="p">,</span><span class="w"></span>
-<span class="w">        </span><span class="nt">&quot;target&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;es2019&quot;</span><span class="p">,</span><span class="w"></span>
-<span class="w">        </span><span class="nt">&quot;lib&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w"></span>
-<span class="w">            </span><span class="s2">&quot;ES2019&quot;</span><span class="p">,</span><span class="w"></span>
-<span class="w">            </span><span class="s2">&quot;WebWorker&quot;</span><span class="w"></span>
-<span class="w">        </span><span class="p">],</span><span class="w"></span>
-<span class="w">        </span><span class="nt">&quot;rootDir&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;src&quot;</span><span class="p">,</span><span class="w"></span>
-<span class="w">        </span><span class="nt">&quot;outDir&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;dist&quot;</span><span class="p">,</span><span class="w"></span>
-<span class="w">        </span><span class="nt">&quot;sourceMap&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w"></span>
-<span class="w">    </span><span class="p">},</span><span class="w"></span>
-<span class="w">    </span><span class="nt">&quot;include&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w"></span>
-<span class="w">        </span><span class="s2">&quot;src&quot;</span><span class="w"></span>
-<span class="w">    </span><span class="p">],</span><span class="w"></span>
-<span class="w">    </span><span class="nt">&quot;exclude&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w"></span>
-<span class="w">        </span><span class="s2">&quot;node_modules&quot;</span><span class="w"></span>
-<span class="w">    </span><span class="p">]</span><span class="w"></span>
-<span class="p">}</span><span class="w"></span>
-</pre></div>
-
-        </div>
-    </div>
-        
-
-    
-
-    <div data-parent="" class=" border-t">
-        <label for="resources">
-            <div style="padding-left: 4px;" class="flex items-center px-2 py-1 space-x-2 hover:bg-gray-50">
-                
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round">
-                    <path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/>
-                </svg>
-                
-                
-                <span>resources</span>
-            </div>
-        </label>
-        
-        
-    </div>
-    <input class="hidden" data-type="folder" data-id="resources" type="checkbox" id="resources" />
-        
-
-    
-
-    <div data-parent="" class=" border-t">
-        <label for="package.json">
-            <div style="padding-left: 4px;" class="flex items-center px-2 py-1 space-x-2 hover:bg-gray-50">
-                
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" ><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
-                    <path d="M14 2v6h6M16 13H8M16 17H8M10 9H8"/>
-                </svg>
-                
-                
-                <span>package.json</span>
-            </div>
-        </label>
-        
-        
-        <input class="hidden" data-type="file" data-id="package.json" type="checkbox" id="package.json" />
-        <div class="overflow-y-auto transition-all max-h-0">
-            <div class="highlight"><pre style="margin: 0"><span></span><span class="p">{</span><span class="w"></span>
-<span class="w">    </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;hello-lsp-web&quot;</span><span class="p">,</span><span class="w"></span>
-<span class="w">    </span><span class="nt">&quot;description&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Proof of concept web based lsp extension for VSCode&quot;</span><span class="p">,</span><span class="w"></span>
-<span class="w">    </span><span class="nt">&quot;private&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w"></span>
-<span class="w">    </span><span class="nt">&quot;author&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Alex Carney&quot;</span><span class="p">,</span><span class="w"></span>
-<span class="w">    </span><span class="nt">&quot;publisher&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;swyddfa&quot;</span><span class="p">,</span><span class="w"></span>
-<span class="w">    </span><span class="nt">&quot;categories&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w"></span>
-<span class="w">        </span><span class="s2">&quot;Other&quot;</span><span class="w"></span>
-<span class="w">    </span><span class="p">],</span><span class="w"></span>
-<span class="w">    </span><span class="nt">&quot;version&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;0.1.0&quot;</span><span class="p">,</span><span class="w"></span>
-<span class="w">    </span><span class="nt">&quot;license&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;MIT&quot;</span><span class="p">,</span><span class="w"></span>
-<span class="w">    </span><span class="nt">&quot;activationEvents&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w"></span>
-<span class="w">        </span><span class="s2">&quot;onLanguage:plaintext&quot;</span><span class="w"></span>
-<span class="w">    </span><span class="p">],</span><span class="w"></span>
-<span class="w">    </span><span class="nt">&quot;engines&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">        </span><span class="nt">&quot;vscode&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;^1.61.0&quot;</span><span class="w"></span>
-<span class="w">    </span><span class="p">},</span><span class="w"></span>
-<span class="w">    </span><span class="nt">&quot;browser&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;./dist/client&quot;</span><span class="p">,</span><span class="w"></span>
-<span class="w">    </span><span class="nt">&quot;scripts&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">        </span><span class="nt">&quot;compile&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;webpack&quot;</span><span class="p">,</span><span class="w"></span>
-<span class="w">        </span><span class="nt">&quot;watch&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;webpack --watch&quot;</span><span class="p">,</span><span class="w"></span>
-<span class="w">        </span><span class="nt">&quot;serve&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;npx serve --cors -l 5000&quot;</span><span class="p">,</span><span class="w"></span>
-<span class="w">        </span><span class="nt">&quot;tunnel&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;npx localtunnel -p 5000&quot;</span><span class="w"></span>
-<span class="w">    </span><span class="p">},</span><span class="w"></span>
-<span class="w">    </span><span class="nt">&quot;dependencies&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">        </span><span class="nt">&quot;vscode-languageclient&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;^7.0.0&quot;</span><span class="w"></span>
-<span class="w">    </span><span class="p">},</span><span class="w"></span>
-<span class="w">    </span><span class="nt">&quot;devDependencies&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">        </span><span class="nt">&quot;@types/vscode&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;^1.61.0&quot;</span><span class="p">,</span><span class="w"></span>
-<span class="w">        </span><span class="nt">&quot;path-browserify&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;^1.0.1&quot;</span><span class="p">,</span><span class="w"></span>
-<span class="w">        </span><span class="nt">&quot;ts-loader&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;^9.2.6&quot;</span><span class="p">,</span><span class="w"></span>
-<span class="w">        </span><span class="nt">&quot;typescript&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;^4.4.4&quot;</span><span class="p">,</span><span class="w"></span>
-<span class="w">        </span><span class="nt">&quot;webpack&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;^5.59.1&quot;</span><span class="p">,</span><span class="w"></span>
-<span class="w">        </span><span class="nt">&quot;webpack-cli&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;^4.9.1&quot;</span><span class="w"></span>
-<span class="w">    </span><span class="p">}</span><span class="w"></span>
-<span class="p">}</span><span class="w"></span>
 </pre></div>
 
         </div>
@@ -601,14 +350,64 @@ version of VSCode can then pick up and install.
         <div class="overflow-y-auto transition-all max-h-0">
             <div class="highlight"><pre style="margin: 0"><span></span><span class="p">{</span><span class="w"></span>
 <span class="w">    </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;hello-lsp-web&quot;</span><span class="p">,</span><span class="w"></span>
-<span class="w">    </span><span class="nt">&quot;requires&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="nt">&quot;version&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;0.1.0&quot;</span><span class="p">,</span><span class="w"></span>
 <span class="w">    </span><span class="nt">&quot;lockfileVersion&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="nt">&quot;requires&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w"></span>
 <span class="w">    </span><span class="nt">&quot;dependencies&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
 <span class="w">        </span><span class="nt">&quot;@discoveryjs/json-ext&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
 <span class="w">            </span><span class="nt">&quot;version&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;0.5.5&quot;</span><span class="p">,</span><span class="w"></span>
 <span class="w">            </span><span class="nt">&quot;resolved&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;https://registry.npmjs.org/@discoveryjs/json-ext/-/json-ext-0.5.5.tgz&quot;</span><span class="p">,</span><span class="w"></span>
 <span class="w">            </span><span class="nt">&quot;integrity&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;sha512-6nFkfkmSeV/rqSaS4oWHgmpnYw194f6hmWF5is6b0J1naJZoiD0NTc9AiUwPHvWsowkjuHErCZT1wa0jg+BLIA==&quot;</span><span class="p">,</span><span class="w"></span>
 <span class="w">            </span><span class="nt">&quot;dev&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w"></span>
+<span class="w">        </span><span class="p">},</span><span class="w"></span>
+<span class="w">        </span><span class="nt">&quot;@jridgewell/gen-mapping&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">            </span><span class="nt">&quot;version&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;0.3.2&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">            </span><span class="nt">&quot;resolved&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;https://registry.npmjs.org/@jridgewell/gen-mapping/-/gen-mapping-0.3.2.tgz&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">            </span><span class="nt">&quot;integrity&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;sha512-mh65xKQAzI6iBcFzwv28KVWSmCkdRBWoOh+bYQGW3+6OZvbbN3TqMGo5hqYxQniRcH9F2VZIoJCm4pa3BPDK/A==&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">            </span><span class="nt">&quot;dev&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w"></span>
+<span class="w">            </span><span class="nt">&quot;requires&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">                </span><span class="nt">&quot;@jridgewell/set-array&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;^1.0.1&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">                </span><span class="nt">&quot;@jridgewell/sourcemap-codec&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;^1.4.10&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">                </span><span class="nt">&quot;@jridgewell/trace-mapping&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;^0.3.9&quot;</span><span class="w"></span>
+<span class="w">            </span><span class="p">}</span><span class="w"></span>
+<span class="w">        </span><span class="p">},</span><span class="w"></span>
+<span class="w">        </span><span class="nt">&quot;@jridgewell/resolve-uri&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">            </span><span class="nt">&quot;version&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;3.1.0&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">            </span><span class="nt">&quot;resolved&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;https://registry.npmjs.org/@jridgewell/resolve-uri/-/resolve-uri-3.1.0.tgz&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">            </span><span class="nt">&quot;integrity&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;sha512-F2msla3tad+Mfht5cJq7LSXcdudKTWCVYUgw6pLFOOHSTtZlj6SWNYAp+AhuqLmWdBO2X5hPrLcu8cVP8fy28w==&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">            </span><span class="nt">&quot;dev&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w"></span>
+<span class="w">        </span><span class="p">},</span><span class="w"></span>
+<span class="w">        </span><span class="nt">&quot;@jridgewell/set-array&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">            </span><span class="nt">&quot;version&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;1.1.2&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">            </span><span class="nt">&quot;resolved&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;https://registry.npmjs.org/@jridgewell/set-array/-/set-array-1.1.2.tgz&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">            </span><span class="nt">&quot;integrity&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;sha512-xnkseuNADM0gt2bs+BvhO0p78Mk762YnZdsuzFV018NoG1Sj1SCQvpSqa7XUaTam5vAGasABV9qXASMKnFMwMw==&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">            </span><span class="nt">&quot;dev&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w"></span>
+<span class="w">        </span><span class="p">},</span><span class="w"></span>
+<span class="w">        </span><span class="nt">&quot;@jridgewell/source-map&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">            </span><span class="nt">&quot;version&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;0.3.2&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">            </span><span class="nt">&quot;resolved&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;https://registry.npmjs.org/@jridgewell/source-map/-/source-map-0.3.2.tgz&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">            </span><span class="nt">&quot;integrity&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;sha512-m7O9o2uR8k2ObDysZYzdfhb08VuEml5oWGiosa1VdaPZ/A6QyPkAJuwN0Q1lhULOf6B7MtQmHENS743hWtCrgw==&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">            </span><span class="nt">&quot;dev&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w"></span>
+<span class="w">            </span><span class="nt">&quot;requires&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">                </span><span class="nt">&quot;@jridgewell/gen-mapping&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;^0.3.0&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">                </span><span class="nt">&quot;@jridgewell/trace-mapping&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;^0.3.9&quot;</span><span class="w"></span>
+<span class="w">            </span><span class="p">}</span><span class="w"></span>
+<span class="w">        </span><span class="p">},</span><span class="w"></span>
+<span class="w">        </span><span class="nt">&quot;@jridgewell/sourcemap-codec&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">            </span><span class="nt">&quot;version&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;1.4.14&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">            </span><span class="nt">&quot;resolved&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;https://registry.npmjs.org/@jridgewell/sourcemap-codec/-/sourcemap-codec-1.4.14.tgz&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">            </span><span class="nt">&quot;integrity&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;sha512-XPSJHWmi394fuUuzDnGz1wiKqWfo1yXecHQMRf2l6hztTO+nPru658AyDngaBe7isIxEkRsPR3FZh+s7iVa4Uw==&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">            </span><span class="nt">&quot;dev&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w"></span>
+<span class="w">        </span><span class="p">},</span><span class="w"></span>
+<span class="w">        </span><span class="nt">&quot;@jridgewell/trace-mapping&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">            </span><span class="nt">&quot;version&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;0.3.14&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">            </span><span class="nt">&quot;resolved&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;https://registry.npmjs.org/@jridgewell/trace-mapping/-/trace-mapping-0.3.14.tgz&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">            </span><span class="nt">&quot;integrity&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;sha512-bJWEfQ9lPTvm3SneWwRFVLzrh6nhjwqw7TUFFBEMzwvg7t7PCDenf2lDwqo4NQXzdpgBXyFgDWnQA+2vkruksQ==&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">            </span><span class="nt">&quot;dev&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w"></span>
+<span class="w">            </span><span class="nt">&quot;requires&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">                </span><span class="nt">&quot;@jridgewell/resolve-uri&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;^3.0.3&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">                </span><span class="nt">&quot;@jridgewell/sourcemap-codec&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;^1.4.10&quot;</span><span class="w"></span>
+<span class="w">            </span><span class="p">}</span><span class="w"></span>
 <span class="w">        </span><span class="p">},</span><span class="w"></span>
 <span class="w">        </span><span class="nt">&quot;@types/eslint&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
 <span class="w">            </span><span class="nt">&quot;version&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;7.28.2&quot;</span><span class="p">,</span><span class="w"></span>
@@ -1589,22 +1388,15 @@ version of VSCode can then pick up and install.
 <span class="w">            </span><span class="nt">&quot;dev&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w"></span>
 <span class="w">        </span><span class="p">},</span><span class="w"></span>
 <span class="w">        </span><span class="nt">&quot;terser&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">            </span><span class="nt">&quot;version&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;5.9.0&quot;</span><span class="p">,</span><span class="w"></span>
-<span class="w">            </span><span class="nt">&quot;resolved&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;https://registry.npmjs.org/terser/-/terser-5.9.0.tgz&quot;</span><span class="p">,</span><span class="w"></span>
-<span class="w">            </span><span class="nt">&quot;integrity&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;sha512-h5hxa23sCdpzcye/7b8YqbE5OwKca/ni0RQz1uRX3tGh8haaGHqcuSqbGRybuAKNdntZ0mDgFNXPJ48xQ2RXKQ==&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">            </span><span class="nt">&quot;version&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;5.14.2&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">            </span><span class="nt">&quot;resolved&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;https://registry.npmjs.org/terser/-/terser-5.14.2.tgz&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">            </span><span class="nt">&quot;integrity&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;sha512-oL0rGeM/WFQCUd0y2QrWxYnq7tfSuKBiqTjRPWrRgB46WD/kiwHwF8T23z78H6Q6kGCuuHcPB+KULHRdxvVGQA==&quot;</span><span class="p">,</span><span class="w"></span>
 <span class="w">            </span><span class="nt">&quot;dev&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w"></span>
 <span class="w">            </span><span class="nt">&quot;requires&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">                </span><span class="nt">&quot;@jridgewell/source-map&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;^0.3.2&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">                </span><span class="nt">&quot;acorn&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;^8.5.0&quot;</span><span class="p">,</span><span class="w"></span>
 <span class="w">                </span><span class="nt">&quot;commander&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;^2.20.0&quot;</span><span class="p">,</span><span class="w"></span>
-<span class="w">                </span><span class="nt">&quot;source-map&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;~0.7.2&quot;</span><span class="p">,</span><span class="w"></span>
 <span class="w">                </span><span class="nt">&quot;source-map-support&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;~0.5.20&quot;</span><span class="w"></span>
-<span class="w">            </span><span class="p">},</span><span class="w"></span>
-<span class="w">            </span><span class="nt">&quot;dependencies&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">                </span><span class="nt">&quot;source-map&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">                    </span><span class="nt">&quot;version&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;0.7.3&quot;</span><span class="p">,</span><span class="w"></span>
-<span class="w">                    </span><span class="nt">&quot;resolved&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;https://registry.npmjs.org/source-map/-/source-map-0.7.3.tgz&quot;</span><span class="p">,</span><span class="w"></span>
-<span class="w">                    </span><span class="nt">&quot;integrity&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;sha512-CkCj6giN3S+n9qrYiBTX5gystlENnRW5jZeNLHpe6aue+SrHcG5VYwujhW9s4dY31mEGsxBDrHR6oI69fTXsaQ==&quot;</span><span class="p">,</span><span class="w"></span>
-<span class="w">                    </span><span class="nt">&quot;dev&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w"></span>
-<span class="w">                </span><span class="p">}</span><span class="w"></span>
 <span class="w">            </span><span class="p">}</span><span class="w"></span>
 <span class="w">        </span><span class="p">},</span><span class="w"></span>
 <span class="w">        </span><span class="nt">&quot;terser-webpack-plugin&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
@@ -1807,8 +1599,319 @@ version of VSCode can then pick up and install.
         
 
     
+
+    <div data-parent="" class=" border-t">
+        <label for="resources">
+            <div style="padding-left: 4px;" class="flex items-center px-2 py-1 space-x-2 hover:bg-gray-50">
+                
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/>
+                </svg>
+                
+                
+                <span>resources</span>
+            </div>
+        </label>
+        
+        
+    </div>
+    <input class="hidden" data-type="folder" data-id="resources" type="checkbox" id="resources" />
+        
+
+    
+
+    <div data-parent="" class=" border-t">
+        <label for="tsconfig.json">
+            <div style="padding-left: 4px;" class="flex items-center px-2 py-1 space-x-2 hover:bg-gray-50">
+                
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" ><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+                    <path d="M14 2v6h6M16 13H8M16 17H8M10 9H8"/>
+                </svg>
+                
+                
+                <span>tsconfig.json</span>
+            </div>
+        </label>
+        
+        
+        <input class="hidden" data-type="file" data-id="tsconfig.json" type="checkbox" id="tsconfig.json" />
+        <div class="overflow-y-auto transition-all max-h-0">
+            <div class="highlight"><pre style="margin: 0"><span></span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="nt">&quot;compilerOptions&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">        </span><span class="nt">&quot;module&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;commonjs&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">        </span><span class="nt">&quot;target&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;es2019&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">        </span><span class="nt">&quot;lib&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w"></span>
+<span class="w">            </span><span class="s2">&quot;ES2019&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">            </span><span class="s2">&quot;WebWorker&quot;</span><span class="w"></span>
+<span class="w">        </span><span class="p">],</span><span class="w"></span>
+<span class="w">        </span><span class="nt">&quot;rootDir&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;src&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">        </span><span class="nt">&quot;outDir&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;dist&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">        </span><span class="nt">&quot;sourceMap&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w"></span>
+<span class="w">    </span><span class="p">},</span><span class="w"></span>
+<span class="w">    </span><span class="nt">&quot;include&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w"></span>
+<span class="w">        </span><span class="s2">&quot;src&quot;</span><span class="w"></span>
+<span class="w">    </span><span class="p">],</span><span class="w"></span>
+<span class="w">    </span><span class="nt">&quot;exclude&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w"></span>
+<span class="w">        </span><span class="s2">&quot;node_modules&quot;</span><span class="w"></span>
+<span class="w">    </span><span class="p">]</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
+</pre></div>
+
+        </div>
+    </div>
+        
+
+    
+
+    <div data-parent="" class=" border-t">
+        <label for="package.json">
+            <div style="padding-left: 4px;" class="flex items-center px-2 py-1 space-x-2 hover:bg-gray-50">
+                
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" ><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+                    <path d="M14 2v6h6M16 13H8M16 17H8M10 9H8"/>
+                </svg>
+                
+                
+                <span>package.json</span>
+            </div>
+        </label>
+        
+        
+        <input class="hidden" data-type="file" data-id="package.json" type="checkbox" id="package.json" />
+        <div class="overflow-y-auto transition-all max-h-0">
+            <div class="highlight"><pre style="margin: 0"><span></span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;hello-lsp-web&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="nt">&quot;description&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Proof of concept web based lsp extension for VSCode&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="nt">&quot;private&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="nt">&quot;author&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Alex Carney&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="nt">&quot;publisher&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;swyddfa&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="nt">&quot;categories&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w"></span>
+<span class="w">        </span><span class="s2">&quot;Other&quot;</span><span class="w"></span>
+<span class="w">    </span><span class="p">],</span><span class="w"></span>
+<span class="w">    </span><span class="nt">&quot;version&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;0.1.0&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="nt">&quot;license&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;MIT&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="nt">&quot;activationEvents&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w"></span>
+<span class="w">        </span><span class="s2">&quot;onLanguage:plaintext&quot;</span><span class="w"></span>
+<span class="w">    </span><span class="p">],</span><span class="w"></span>
+<span class="w">    </span><span class="nt">&quot;engines&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">        </span><span class="nt">&quot;vscode&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;^1.61.0&quot;</span><span class="w"></span>
+<span class="w">    </span><span class="p">},</span><span class="w"></span>
+<span class="w">    </span><span class="nt">&quot;browser&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;./dist/client&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="nt">&quot;scripts&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">        </span><span class="nt">&quot;compile&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;webpack&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">        </span><span class="nt">&quot;watch&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;webpack --watch&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">        </span><span class="nt">&quot;serve&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;npx serve --cors -l 5000&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">        </span><span class="nt">&quot;tunnel&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;npx localtunnel -p 5000&quot;</span><span class="w"></span>
+<span class="w">    </span><span class="p">},</span><span class="w"></span>
+<span class="w">    </span><span class="nt">&quot;dependencies&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">        </span><span class="nt">&quot;vscode-languageclient&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;^7.0.0&quot;</span><span class="w"></span>
+<span class="w">    </span><span class="p">},</span><span class="w"></span>
+<span class="w">    </span><span class="nt">&quot;devDependencies&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">        </span><span class="nt">&quot;@types/vscode&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;^1.61.0&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">        </span><span class="nt">&quot;path-browserify&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;^1.0.1&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">        </span><span class="nt">&quot;ts-loader&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;^9.2.6&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">        </span><span class="nt">&quot;typescript&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;^4.4.4&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">        </span><span class="nt">&quot;webpack&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;^5.59.1&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">        </span><span class="nt">&quot;webpack-cli&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;^4.9.1&quot;</span><span class="w"></span>
+<span class="w">    </span><span class="p">}</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
+</pre></div>
+
+        </div>
+    </div>
+        
+
+    
+
+    <div data-parent="" class=" border-t">
+        <label for="src">
+            <div style="padding-left: 4px;" class="flex items-center px-2 py-1 space-x-2 hover:bg-gray-50">
+                
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/>
+                </svg>
+                
+                
+                <span>src</span>
+            </div>
+        </label>
+        
+        
+    </div>
+    <input class="hidden" data-type="folder" data-id="src" type="checkbox" id="src" />
+        
+
+    
+
+    <div data-parent="src" class="max-h-0 transition-all overflow-y-hidden border-t">
+        <label for="src/server.ts">
+            <div style="padding-left: 20px;" class="flex items-center px-2 py-1 space-x-2 hover:bg-gray-50">
+                
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" ><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+                    <path d="M14 2v6h6M16 13H8M16 17H8M10 9H8"/>
+                </svg>
+                
+                
+                <span>server.ts</span>
+            </div>
+        </label>
+        
+        
+        <input class="hidden" data-type="file" data-id="src/server.ts" type="checkbox" id="src/server.ts" />
+        <div class="overflow-y-auto transition-all max-h-0">
+            <div class="highlight"><pre style="margin: 0"><span></span><span class="nx">importScripts</span><span class="p">(</span><span class="s2">&quot;https://cdn.jsdelivr.net/pyodide/v0.18.1/full/pyodide.js&quot;</span><span class="p">)</span><span class="w"></span>
+
+<span class="k">async</span><span class="w"> </span><span class="kd">function</span><span class="w"> </span><span class="nx">initPyodide</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+
+<span class="w">    </span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;Initing pyodide.&quot;</span><span class="p">)</span><span class="w"></span>
+
+<span class="w">    </span><span class="cm">/* @ts-ignore */</span><span class="w"></span>
+<span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="nx">pyodide</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">await</span><span class="w"> </span><span class="nx">loadPyodide</span><span class="p">({</span><span class="w"></span>
+<span class="w">        </span><span class="nx">indexURL</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;https://cdn.jsdelivr.net/pyodide/v0.18.1/full/&quot;</span><span class="w"></span>
+<span class="w">    </span><span class="p">})</span><span class="w"></span>
+
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="nx">pyodide</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
+
+<span class="kd">const</span><span class="w"> </span><span class="nx">pyodideReady</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">initPyodide</span><span class="p">()</span><span class="w"></span>
+
+<span class="nx">onmessage</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">async</span><span class="w"> </span><span class="p">(</span><span class="nx">event</span><span class="p">)</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="sb">`Client message:`</span><span class="p">,</span><span class="w"> </span><span class="nx">event</span><span class="p">.</span><span class="nx">data</span><span class="p">)</span><span class="w"></span>
+
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="nx">event</span><span class="p">.</span><span class="nx">data</span><span class="p">.</span><span class="nx">method</span><span class="w"> </span><span class="o">===</span><span class="w"> </span><span class="s2">&quot;initialize&quot;</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">        </span><span class="nx">postMessage</span><span class="p">({</span><span class="w"></span>
+<span class="w">            </span><span class="nx">jsonrpc</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;2.0&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">            </span><span class="nx">id</span><span class="o">:</span><span class="w"> </span><span class="kt">event.data.id</span><span class="p">,</span><span class="w"></span>
+<span class="w">            </span><span class="nx">result</span><span class="o">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">                </span><span class="nx">serverInfo</span><span class="o">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">name</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;Hello, LSP&quot;</span><span class="w"> </span><span class="p">},</span><span class="w"></span>
+<span class="w">                </span><span class="nx">capabilities</span><span class="o">:</span><span class="w"> </span><span class="p">{}</span><span class="w"></span>
+<span class="w">            </span><span class="p">}</span><span class="w"></span>
+<span class="w">        </span><span class="p">})</span><span class="w"></span>
+<span class="w">    </span><span class="p">}</span><span class="w"></span>
+
+<span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="nx">pyodide</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">await</span><span class="w"> </span><span class="nx">pyodideReady</span><span class="w"></span>
+<span class="w">    </span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">pyodide</span><span class="p">.</span><span class="nx">runPython</span><span class="p">(</span><span class="s2">&quot;import sys;sys.version&quot;</span><span class="p">))</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
+</pre></div>
+
+        </div>
+    </div>
+        
+
+    
+
+    <div data-parent="src" class="max-h-0 transition-all overflow-y-hidden border-t">
+        <label for="src/client.ts">
+            <div style="padding-left: 20px;" class="flex items-center px-2 py-1 space-x-2 hover:bg-gray-50">
+                
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" ><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+                    <path d="M14 2v6h6M16 13H8M16 17H8M10 9H8"/>
+                </svg>
+                
+                
+                <span>client.ts</span>
+            </div>
+        </label>
+        
+        
+        <input class="hidden" data-type="file" data-id="src/client.ts" type="checkbox" id="src/client.ts" />
+        <div class="overflow-y-auto transition-all max-h-0">
+            <div class="highlight"><pre style="margin: 0"><span></span><span class="k">import</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">ExtensionContext</span><span class="p">,</span><span class="w"> </span><span class="nx">Uri</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="kr">from</span><span class="w"> </span><span class="s2">&quot;vscode&quot;</span><span class="p">;</span><span class="w"></span>
+<span class="k">import</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">LanguageClientOptions</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="kr">from</span><span class="w"> </span><span class="s2">&quot;vscode-languageclient&quot;</span><span class="p">;</span><span class="w"></span>
+
+<span class="c1">// Be sure to use the browser version of the client!</span><span class="w"></span>
+<span class="k">import</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">LanguageClient</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="kr">from</span><span class="w"> </span><span class="s2">&quot;vscode-languageclient/browser&quot;</span><span class="p">;</span><span class="w"></span>
+
+<span class="k">export</span><span class="w"> </span><span class="kd">function</span><span class="w"> </span><span class="nx">activate</span><span class="p">(</span><span class="nx">context</span><span class="o">:</span><span class="w"> </span><span class="kt">ExtensionContext</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+
+<span class="w">    </span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;activating extension&quot;</span><span class="p">)</span><span class="w"></span>
+
+<span class="w">    </span><span class="kd">const</span><span class="w"> </span><span class="nx">clientOptions</span><span class="o">:</span><span class="w"> </span><span class="kt">LanguageClientOptions</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">        </span><span class="nx">documentSelector</span><span class="o">:</span><span class="w"> </span><span class="p">[</span><span class="w"></span>
+<span class="w">            </span><span class="p">{</span><span class="w"> </span><span class="nx">scheme</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;file&quot;</span><span class="p">,</span><span class="w"> </span><span class="nx">language</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;plaintext&quot;</span><span class="w"> </span><span class="p">},</span><span class="w"></span>
+<span class="w">        </span><span class="p">],</span><span class="w"></span>
+<span class="w">        </span><span class="nx">outputChannelName</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;Hello Language Server&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="p">}</span><span class="w"></span>
+
+<span class="w">    </span><span class="kd">const</span><span class="w"> </span><span class="nx">path</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">Uri</span><span class="p">.</span><span class="nx">joinPath</span><span class="p">(</span><span class="nx">context</span><span class="p">.</span><span class="nx">extensionUri</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;dist/server.js&quot;</span><span class="p">)</span><span class="w"></span>
+<span class="w">    </span><span class="kd">const</span><span class="w"> </span><span class="nx">worker</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nx">Worker</span><span class="p">(</span><span class="nx">path</span><span class="p">.</span><span class="nx">toString</span><span class="p">())</span><span class="w"></span>
+
+<span class="w">    </span><span class="kd">const</span><span class="w"> </span><span class="nx">client</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nx">LanguageClient</span><span class="p">(</span><span class="s2">&quot;hello-lsp-web&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;Hello LSP&quot;</span><span class="p">,</span><span class="w"> </span><span class="nx">clientOptions</span><span class="p">,</span><span class="w"> </span><span class="nx">worker</span><span class="p">)</span><span class="w"></span>
+<span class="w">    </span><span class="nx">context</span><span class="p">.</span><span class="nx">subscriptions</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="nx">client</span><span class="p">.</span><span class="nx">start</span><span class="p">())</span><span class="w"></span>
+
+<span class="w">    </span><span class="nx">client</span><span class="p">.</span><span class="nx">onReady</span><span class="p">().</span><span class="nx">then</span><span class="p">(()</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">        </span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;hello-lsp-web server is ready&quot;</span><span class="p">)</span><span class="w"></span>
+<span class="w">    </span><span class="p">})</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
+</pre></div>
+
+        </div>
+    </div>
+        
+
+    
 </div> 
 <style>
+    
+
+    input[data-id='README.rst']:checked ~ div {
+        max-height: 350px;
+    }
+
+    input[data-id='']:checked ~ div[data-parent='README.rst'] {
+        max-height: 382px;
+    }
+    
+    
+
+    input[data-id='webpack.config.js']:checked ~ div {
+        max-height: 350px;
+    }
+
+    input[data-id='']:checked ~ div[data-parent='webpack.config.js'] {
+        max-height: 382px;
+    }
+    
+    
+
+    input[data-id='package-lock.json']:checked ~ div {
+        max-height: 350px;
+    }
+
+    input[data-id='']:checked ~ div[data-parent='package-lock.json'] {
+        max-height: 382px;
+    }
+    
+    
+
+    input[data-id='resources']:checked ~ div {
+        max-height: 350px;
+    }
+
+    input[data-id='']:checked ~ div[data-parent='resources'] {
+        max-height: 382px;
+    }
+    
+    
+
+    input[data-id='tsconfig.json']:checked ~ div {
+        max-height: 350px;
+    }
+
+    input[data-id='']:checked ~ div[data-parent='tsconfig.json'] {
+        max-height: 382px;
+    }
+    
+    
+
+    input[data-id='package.json']:checked ~ div {
+        max-height: 350px;
+    }
+
+    input[data-id='']:checked ~ div[data-parent='package.json'] {
+        max-height: 382px;
+    }
+    
     
 
     input[data-id='src']:checked ~ div {
@@ -1836,66 +1939,6 @@ version of VSCode can then pick up and install.
     }
 
     input[data-id='src']:checked ~ div[data-parent='src/client.ts'] {
-        max-height: 382px;
-    }
-    
-    
-
-    input[data-id='README.rst']:checked ~ div {
-        max-height: 350px;
-    }
-
-    input[data-id='']:checked ~ div[data-parent='README.rst'] {
-        max-height: 382px;
-    }
-    
-    
-
-    input[data-id='tsconfig.json']:checked ~ div {
-        max-height: 350px;
-    }
-
-    input[data-id='']:checked ~ div[data-parent='tsconfig.json'] {
-        max-height: 382px;
-    }
-    
-    
-
-    input[data-id='resources']:checked ~ div {
-        max-height: 350px;
-    }
-
-    input[data-id='']:checked ~ div[data-parent='resources'] {
-        max-height: 382px;
-    }
-    
-    
-
-    input[data-id='package.json']:checked ~ div {
-        max-height: 350px;
-    }
-
-    input[data-id='']:checked ~ div[data-parent='package.json'] {
-        max-height: 382px;
-    }
-    
-    
-
-    input[data-id='webpack.config.js']:checked ~ div {
-        max-height: 350px;
-    }
-
-    input[data-id='']:checked ~ div[data-parent='webpack.config.js'] {
-        max-height: 382px;
-    }
-    
-    
-
-    input[data-id='package-lock.json']:checked ~ div {
-        max-height: 350px;
-    }
-
-    input[data-id='']:checked ~ div[data-parent='package-lock.json'] {
         max-height: 382px;
     }
     
