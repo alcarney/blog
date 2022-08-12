@@ -4,7 +4,6 @@ import pathlib
 from typing import Dict
 
 import jinja2 as j2
-
 from docutils import nodes
 from pygments import highlight
 from pygments.formatters import HtmlFormatter
@@ -98,7 +97,6 @@ class CodeProject(SphinxDirective):
         templates_dir = pathlib.Path(__file__).parent / "templates"
         env = j2.Environment(loader=j2.FileSystemLoader(templates_dir))
         template = env.get_template("repo.html")
-        self.env
 
         viewer = nodes.raw(
             "",

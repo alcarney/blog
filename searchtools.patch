@@ -1,22 +1,48 @@
-diff --git a/_build/html/_static/searchtools.js b/_build/html/_static/searchtools.js
-index 58ff35c..f8a5061 100644
---- a/_build/html/_static/searchtools.js
-+++ b/_build/html/_static/searchtools.js	
-@@ -136,7 +136,7 @@ var Search = {
-     this.title = $('<h2>' + _('Searching') + '</h2>').appendTo(this.out);
+diff --git a/_build/html/_static/searchtools.js.orig b/_build/html/_static/searchtools.js
+index 0a44e85..a495cb0 100644
+--- a/_build/html/_static/searchtools.js.orig
++++ b/_build/html/_static/searchtools.js
+@@ -133,10 +133,10 @@ var Search = {
+   performSearch : function(query) {
+     // create the required interface elements
+     this.out = $('#search-results');
+-    this.title = $('<h2>' + _('Searching') + '</h2>').appendTo(this.out);
++    this.title = $('<h2 class="text-3xl text-green-600">' + _('Searching') + '</h2>').appendTo(this.out);
      this.dots = $('<span></span>').appendTo(this.title);
-     this.status = $('<p class="search-summary">&nbsp;</p>').appendTo(this.out);
+-    this.status = $('<p class="search-summary">&nbsp;</p>').appendTo(this.out);
 -    this.output = $('<ul class="search"/>').appendTo(this.out);
++    this.status = $('<p class="dark:text-white my-4">&nbsp;</p>').appendTo(this.out);
 +    this.output = $('<ul class="m-0"/>').appendTo(this.out);
  
      $('#search-progress').text(_('Preparing search...'));
      this.startPulse();
-@@ -248,7 +248,7 @@ var Search = {
+@@ -244,7 +244,7 @@ var Search = {
        // results left, load the summary and display it
        if (results.length) {
          var item = results.pop();
 -        var listItem = $('<li></li>');
-+        var listItem = $('<li class="p-4 mt-4 bg-white border"></li>');
++        var listItem = $('<li class="p-4 mt-4 bg-white dark:bg-gray-800 border dark:border-gray-600"></li>');
          var requestUrl = "";
          var linkUrl = "";
          if (DOCUMENTATION_OPTIONS.BUILDER === 'dirhtml') {
+@@ -263,7 +263,7 @@ var Search = {
+           requestUrl = DOCUMENTATION_OPTIONS.URL_ROOT + item[0] + DOCUMENTATION_OPTIONS.FILE_SUFFIX;
+           linkUrl = item[0] + DOCUMENTATION_OPTIONS.LINK_SUFFIX;
+         }
+-        listItem.append($('<a/>').attr('href',
++        listItem.append($('<a class="text-green-600"/>').attr('href',
+             linkUrl +
+             highlightstring + item[2]).html(item[1]));
+         if (item[3]) {
+@@ -512,9 +512,9 @@ var Search = {
+     var excerpt = ((start > 0) ? '...' : '') +
+       $.trim(text.substr(start, 240)) +
+       ((start + 240 - text.length) ? '...' : '');
+-    var rv = $('<p class="context"></p>').text(excerpt);
++    var rv = $('<p class="dark:text-white"></p>').text(excerpt);
+     $.each(hlwords, function() {
+-      rv = rv.highlightText(this, 'highlighted');
++      rv = rv.highlightText(this, 'px-2 border border-amber-500 bg-amber-500 dark:bg-amber-500/[0.2] dark:text-amber-200 rounded');
+     });
+     return rv;
+   }
