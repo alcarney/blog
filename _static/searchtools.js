@@ -133,9 +133,9 @@ var Search = {
   performSearch : function(query) {
     // create the required interface elements
     this.out = $('#search-results');
-    this.title = $('<h2>' + _('Searching') + '</h2>').appendTo(this.out);
+    this.title = $('<h2 class="text-3xl text-green-600">' + _('Searching') + '</h2>').appendTo(this.out);
     this.dots = $('<span></span>').appendTo(this.title);
-    this.status = $('<p class="search-summary">&nbsp;</p>').appendTo(this.out);
+    this.status = $('<p class="dark:text-white my-4">&nbsp;</p>').appendTo(this.out);
     this.output = $('<ul class="m-0"/>').appendTo(this.out);
 
     $('#search-progress').text(_('Preparing search...'));
@@ -244,7 +244,7 @@ var Search = {
       // results left, load the summary and display it
       if (results.length) {
         var item = results.pop();
-        var listItem = $('<li class="p-4 mt-4 bg-white border"></li>');
+        var listItem = $('<li class="p-4 mt-4 bg-white dark:bg-gray-800 border dark:border-gray-600"></li>');
         var requestUrl = "";
         var linkUrl = "";
         if (DOCUMENTATION_OPTIONS.BUILDER === 'dirhtml') {
@@ -263,7 +263,7 @@ var Search = {
           requestUrl = DOCUMENTATION_OPTIONS.URL_ROOT + item[0] + DOCUMENTATION_OPTIONS.FILE_SUFFIX;
           linkUrl = item[0] + DOCUMENTATION_OPTIONS.LINK_SUFFIX;
         }
-        listItem.append($('<a/>').attr('href',
+        listItem.append($('<a class="text-green-600"/>').attr('href',
             linkUrl +
             highlightstring + item[2]).html(item[1]));
         if (item[3]) {
@@ -512,9 +512,9 @@ var Search = {
     var excerpt = ((start > 0) ? '...' : '') +
       $.trim(text.substr(start, 240)) +
       ((start + 240 - text.length) ? '...' : '');
-    var rv = $('<p class="context"></p>').text(excerpt);
+    var rv = $('<p class="dark:text-white"></p>').text(excerpt);
     $.each(hlwords, function() {
-      rv = rv.highlightText(this, 'highlighted');
+      rv = rv.highlightText(this, 'px-2 border border-amber-500 bg-amber-500 dark:bg-amber-500/[0.2] dark:text-amber-200 rounded');
     });
     return rv;
   }

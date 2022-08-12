@@ -12,75 +12,68 @@
     
     
     
-    <link rel="stylesheet" type="text/css" href="../../../_static/togglebutton.css" />
-    
-    
     <link rel="stylesheet" type="text/css" href="../../../_static/css/styles.css" />
+    
+    
+    <link id="pygments_dark_css" media="(prefers-color-scheme: dark)" rel="stylesheet" type="text/css" href="../../../_static/pygments_dark.css" />
     
 
     <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
     <script src="../../../_static/jquery.js"></script>
     <script src="../../../_static/underscore.js"></script>
     <script src="../../../_static/doctools.js"></script>
-    <script>let toggleHintShow = 'Click to show';</script>
-    <script>let toggleHintHide = 'Click to hide';</script>
-    <script>let toggleOpenOnPrint = 'true';</script>
-    <script src="../../../_static/togglebutton.js"></script>
-    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
-    <script src="https://unpkg.com/mermaid/dist/mermaid.min.js"></script>
-    <script>mermaid.initialize({startOnLoad:true});</script>
     <link rel="shortcut icon" href="../../../_static/favicon.ico"/>
     <link rel="index" title="Index" href="../../../genindex/" />
     <link rel="search" title="Search" href="../../../search/" /> 
-  </head><body class="flex flex-col justify-between min-h-screen overflow-x-hidden bg-gray-100 ">
+  </head><body class="flex flex-col justify-between min-h-screen overflow-x-hidden bg-gray-100 dark:bg-gray-900">
     <div class="flex flex-grow">
         <input id="menu-state" type="checkbox" class="hidden" />
-        <aside class="flex justify-between flex-shrink-0 transition-all duration-500 bg-white border-r -ml-80 lg:ml-0">
-            <div class="flex flex-col justify-between h-full border-r w-80">
-                <div class="sticky top-0 flex flex-col h-screen"> 
-                    
+        <aside class="flex justify-between flex-shrink-0 transition-all duration-500 bg-white dark:bg-gray-800 -ml-80 lg:ml-0 dark:border-gray-600">
+            <div class="flex flex-col justify-between h-full border-r w-80 dark:border-gray-600">
+                <div class="sticky top-0 flex flex-col h-screen">
+
                     <div id="profile-card" class="full-profile">
     <img class="" src="https://github.com/alcarney.png"/>
     <h2 class=""><a href="/">Alex Carney</a></h2>
 </div>
-                    
+
                     <div id="searchbox" style="display: none" role="search" class="px-4 py-4">
-    <form class="flex justify-between px-2 py-1 bg-gray-100 border-2 rounded search focus-within:border-green-600" action="../../../search/" method="get">
+    <form class="flex justify-between px-2 py-1 bg-gray-100 border-2 rounded search dark:bg-gray-900 focus-within:border-green-600 dark:border-gray-600" action="../../../search/" method="get">
         <label class="mr-2 text-gray-500" for="sbox">
             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="feather feather-search">
                 <circle cx="11" cy="11" r="6" />
                 <path d="m21 21-4.35-4.35" />
             </svg>
         </label>
-        <input id="sbox" class="flex-grow bg-gray-100 focus:outline-none" type="search" name="q" placeholder="Search..." aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" />
+        <input id="sbox" class="flex-grow bg-gray-100 dark:text-white dark:bg-gray-900 focus:outline-none" type="search" name="q" placeholder="Search..." aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" />
     </form>
 </div>
 <script>$('#searchbox').show(0);</script>
+
                     
-                    
-    
+
 <nav class="flex flex-col text-center">
-    <a class="text-green-600 py-1 border-t text-lg hover:bg-gray-50" href="/blog">Blog</a>
-    <a class="text-green-600 py-1 border-t text-lg hover:bg-gray-50" href="/code">Code</a>
-    <a class="text-green-600 py-1 border-t text-lg hover:bg-gray-50" href="/notes">Notes</a>
+    <a class="text-green-600 py-1 border-t text-lg hover:bg-gray-50 dark:border-gray-600 dark:hover:bg-gray-900" href="/blog">Blog</a>
+    <a class="text-green-600 py-1 border-t text-lg hover:bg-gray-50 dark:border-gray-600 dark:hover:bg-gray-900" href="/code">Code</a>
+    <a class="text-green-600 py-1 border-t text-lg hover:bg-gray-50 dark:border-gray-600 dark:hover:bg-gray-900" href="/notes">Notes</a>
 </nav>
-                    
-                    <div class="flex-shrink overflow-auto"><nav id="localtoc" class="p-4 border-t">
+
+                    <div class="flex-shrink overflow-auto"><nav id="localtoc" class="p-4 border-t dark:text-gray-200 dark:border-gray-600">
     
 </nav><div id="searchbox" style="display: none" role="search" class="px-4 py-4">
-    <form class="flex justify-between px-2 py-1 bg-gray-100 border-2 rounded search focus-within:border-green-600" action="../../../search/" method="get">
+    <form class="flex justify-between px-2 py-1 bg-gray-100 border-2 rounded search dark:bg-gray-900 focus-within:border-green-600 dark:border-gray-600" action="../../../search/" method="get">
         <label class="mr-2 text-gray-500" for="sbox">
             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="feather feather-search">
                 <circle cx="11" cy="11" r="6" />
                 <path d="m21 21-4.35-4.35" />
             </svg>
         </label>
-        <input id="sbox" class="flex-grow bg-gray-100 focus:outline-none" type="search" name="q" placeholder="Search..." aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" />
+        <input id="sbox" class="flex-grow bg-gray-100 dark:text-white dark:bg-gray-900 focus:outline-none" type="search" name="q" placeholder="Search..." aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" />
     </form>
 </div>
 <script>$('#searchbox').show(0);</script>
                     </div>
-                    
+
                     <footer class="w-full p-4 mt-auto text-white bg-gray-700">
                         <div class="flex justify-between">
     <div></div>
@@ -118,18 +111,18 @@
 </div>
                     </footer>
                 </div>
-            </div>     
+            </div>
         </aside>
-        
+
         <main class="w-full mx-auto lg:pr-0">
-            <div class="sticky top-0 z-50 mt-0 transition-all duration-300 bg-white border-b shadow-md lg:shadow-none lg:relative lg:-mt-16">
+            <div class="sticky top-0 z-50 mt-0 transition-all duration-300 bg-white dark:bg-gray-800 border-b shadow-md lg:shadow-none lg:relative lg:-mt-16 dark:border-gray-600">
                 <label class="flex h-16 text-gray-600 transition" for="menu-state">
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="w-8 h-8 my-auto" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="feather feather-arrow-right"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
                 </label>
-            </div> 
+            </div>
 
             <div id="content" class="mx-2 my-8">
-                <div class="max-w-3xl mx-auto">
+                <div role="main" class="max-w-3xl mx-auto">
                     
 <style>
     header::before {
@@ -163,11 +156,19 @@
         background: #717885;
     }
 
+    @media(prefers-color-scheme: dark) {
+        header::before {
+            background: rgb(39 39 42 / var(--tw-bg-opacity));
+            border-left: solid 1px rgb(82 82 91 / var(--tw-border-opacity));
+            border-bottom: solid 1px rgb(82 82 91 / var(--tw-border-opacity));
+        }
+    }
+
     @media(max-width: 700px) {
         header::before {
             left: 19px;
             top: -13px;
-            border-top: solid 1px #e5e7eb;
+            border-top: solid 1px rgb(82 82 91 / var(--tw-border-opacity));
             border-bottom: none;
             clip-path: polygon(0 0, 100% 0, 100% 10%, 10% 100%, 0 100%);
         }
@@ -182,7 +183,7 @@
 <!-- <div class="grid items-baseline grid-cols-1 mb-12 md:grid-cols-4"> -->
     <div >
         <div class="flex flex-col items-baseline w-full md:flex-row">
-        <aside data-id="post-meta" class="relative self-stretch w-40 mt-8 text-right text-gray-500 md:px-4 md:mt-0 md:mr-8 md:border-r-2">
+        <aside data-id="post-meta" class="relative self-stretch w-40 mt-8 text-right text-gray-500 md:px-4 md:mt-0 md:mr-8 md:border-r-2 dark:border-gray-600">
             <div class="flex md:mt-9">
                 <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
@@ -190,13 +191,13 @@
                 <span class="ml-4 text-right md:ml-auto">Oct 25, 2021</span>
             </div>
         </aside>
-        <article class="relative p-4 mt-4 bg-white border md:w- md:mt-8 md:col-span-3 hover:shadow-lg">
+        <article class="relative p-4 mt-4 bg-white dark:bg-gray-800 border md:mt-8 md:col-span-3 hover:shadow-lg dark:border-gray-600">
             <header>
                 <a href="../../2021/bringing-esbonio-to-the-browser/">
                     <h2 style="max-width: 33ch" class="mb-4 text-2xl text-green-600">Bringing Esbonio to the Browser</h2>
                 </a>
             </header>
-            <div class="prose-sm prose prose-green">
+            <div class="prose-sm prose prose-emerald dark:prose-invert">
                 <div class="ablog-post-excerpt docutils container">
 <p>For the past year or so I’ve been working on a language server called <a class="reference external" href="https://github.com/swyddfa/esbonio">Esbonio</a>.
 It’s a language server designed to streamline the process of working with your
@@ -209,25 +210,25 @@ problem… Esbonio is written in Python! 😬</p>
 <img alt="https://github.com/swyddfa/esbonio/raw/develop/resources/images/completion-demo.gif" src="https://github.com/swyddfa/esbonio/raw/develop/resources/images/completion-demo.gif" style="width: 80%;" />
 </div>
 
-        
+
             </div>
             <div class="flex flex-col justify-between mt-4 lg:flex-row">
-                <p class="prose-sm prose prose-green"><a href="../../2021/bringing-esbonio-to-the-browser/">Read More...</a></p>
-        
+                <p class="prose-sm prose prose-emerald dark:prose-invert"><a href="../../2021/bringing-esbonio-to-the-browser/">Read More...</a></p>
+
                 <ul class="flex flex-wrap space-x-2">
                     <li class="mb-1">
-                        <a href="../../tag/lsp/" class="px-2 text-green-600 border border-green-600 rounded bg-green-50">
-                            #lsp
+                        <a href="../../tag/vscode/" class="px-2 text-green-600 border border-green-600 rounded bg-green-50 dark:bg-green-600/[.2] dark:text-green-200">
+                            #vscode
                         </a>
                     </li>
                     <li class="mb-1">
-                        <a href="../../tag/esbonio/" class="px-2 text-green-600 border border-green-600 rounded bg-green-50">
+                        <a href="../../tag/esbonio/" class="px-2 text-green-600 border border-green-600 rounded bg-green-50 dark:bg-green-600/[.2] dark:text-green-200">
                             #esbonio
                         </a>
                     </li>
                     <li class="mb-1">
-                        <a href="../../tag/vscode/" class="px-2 text-green-600 border border-green-600 rounded bg-green-50">
-                            #vscode
+                        <a href="../../tag/lsp/" class="px-2 text-green-600 border border-green-600 rounded bg-green-50 dark:bg-green-600/[.2] dark:text-green-200">
+                            #lsp
                         </a>
                     </li>
                 </ul>
@@ -235,7 +236,7 @@ problem… Esbonio is written in Python! 😬</p>
         </article>
         </div>
         <div class="flex flex-col items-baseline w-full md:flex-row">
-        <aside data-id="post-meta" class="relative self-stretch w-40 mt-8 text-right text-gray-500 md:px-4 md:mt-0 md:mr-8 md:border-r-2">
+        <aside data-id="post-meta" class="relative self-stretch w-40 mt-8 text-right text-gray-500 md:px-4 md:mt-0 md:mr-8 md:border-r-2 dark:border-gray-600">
             <div class="flex md:mt-9">
                 <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
@@ -243,13 +244,13 @@ problem… Esbonio is written in Python! 😬</p>
                 <span class="ml-4 text-right md:ml-auto">Jan 13, 2021</span>
             </div>
         </aside>
-        <article class="relative p-4 mt-4 bg-white border md:w- md:mt-8 md:col-span-3 hover:shadow-lg">
+        <article class="relative p-4 mt-4 bg-white dark:bg-gray-800 border md:mt-8 md:col-span-3 hover:shadow-lg dark:border-gray-600">
             <header>
                 <a href="../../2021/ast-python-frontend/">
                     <h2 style="max-width: 33ch" class="mb-4 text-2xl text-green-600">Creating a CPython Extension</h2>
                 </a>
             </header>
-            <div class="prose-sm prose prose-green">
+            <div class="prose-sm prose prose-emerald dark:prose-invert">
                 <div class="ablog-post-excerpt docutils container">
 <p><a class="reference internal" href="../../2020/ast-simple-eval/"><span class="doc">Previously</span></a>, as part of my exploration
 into how programming languages are implemented, I wrote a very simple AST
@@ -262,25 +263,25 @@ don’t quite feel like tackling that just yet. Instead I’m going to have Pyth
 be the frontend and embed my toy language into it via a <a class="reference external" href="https://docs.python.org/3/extending/extending.html">CPython Extension</a></p>
 </div>
 
-        
+
             </div>
             <div class="flex flex-col justify-between mt-4 lg:flex-row">
-                <p class="prose-sm prose prose-green"><a href="../../2021/ast-python-frontend/">Read More...</a></p>
-        
+                <p class="prose-sm prose prose-emerald dark:prose-invert"><a href="../../2021/ast-python-frontend/">Read More...</a></p>
+
                 <ul class="flex flex-wrap space-x-2">
                     <li class="mb-1">
-                        <a href="../../tag/c/" class="px-2 text-green-600 border border-green-600 rounded bg-green-50">
+                        <a href="../../tag/c/" class="px-2 text-green-600 border border-green-600 rounded bg-green-50 dark:bg-green-600/[.2] dark:text-green-200">
                             #c
                         </a>
                     </li>
                     <li class="mb-1">
-                        <a href="../../tag/python/" class="px-2 text-green-600 border border-green-600 rounded bg-green-50">
-                            #python
+                        <a href="../../tag/prog-langs/" class="px-2 text-green-600 border border-green-600 rounded bg-green-50 dark:bg-green-600/[.2] dark:text-green-200">
+                            #prog-langs
                         </a>
                     </li>
                     <li class="mb-1">
-                        <a href="../../tag/prog-langs/" class="px-2 text-green-600 border border-green-600 rounded bg-green-50">
-                            #prog-langs
+                        <a href="../../tag/python/" class="px-2 text-green-600 border border-green-600 rounded bg-green-50 dark:bg-green-600/[.2] dark:text-green-200">
+                            #python
                         </a>
                     </li>
                 </ul>
@@ -288,7 +289,7 @@ be the frontend and embed my toy language into it via a <a class="reference exte
         </article>
         </div>
         <div class="flex flex-col items-baseline w-full md:flex-row">
-        <aside data-id="post-meta" class="relative self-stretch w-40 mt-8 text-right text-gray-500 md:px-4 md:mt-0 md:mr-8 md:border-r-2">
+        <aside data-id="post-meta" class="relative self-stretch w-40 mt-8 text-right text-gray-500 md:px-4 md:mt-0 md:mr-8 md:border-r-2 dark:border-gray-600">
             <div class="flex md:mt-9">
                 <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
@@ -296,13 +297,13 @@ be the frontend and embed my toy language into it via a <a class="reference exte
                 <span class="ml-4 text-right md:ml-auto">Dec 17, 2020</span>
             </div>
         </aside>
-        <article class="relative p-4 mt-4 bg-white border md:w- md:mt-8 md:col-span-3 hover:shadow-lg">
+        <article class="relative p-4 mt-4 bg-white dark:bg-gray-800 border md:mt-8 md:col-span-3 hover:shadow-lg dark:border-gray-600">
             <header>
                 <a href="../../2020/ast-simple-eval/">
                     <h2 style="max-width: 33ch" class="mb-4 text-2xl text-green-600">Evaluating a Simple Abstract Syntax Tree</h2>
                 </a>
             </header>
-            <div class="prose-sm prose prose-green">
+            <div class="prose-sm prose prose-emerald dark:prose-invert">
                 <div class="ablog-post-excerpt docutils container">
 <p>Programming languages and their implementation is a topic I’ve been interested
 in for a long time and I thought it would be worth trying to get a bit more
@@ -311,19 +312,19 @@ somewhat at random I’ve chosen to take a look at implementing an Abstract Synt
 Tree (AST).</p>
 </div>
 
-        
+
             </div>
             <div class="flex flex-col justify-between mt-4 lg:flex-row">
-                <p class="prose-sm prose prose-green"><a href="../../2020/ast-simple-eval/">Read More...</a></p>
-        
+                <p class="prose-sm prose prose-emerald dark:prose-invert"><a href="../../2020/ast-simple-eval/">Read More...</a></p>
+
                 <ul class="flex flex-wrap space-x-2">
                     <li class="mb-1">
-                        <a href="../../tag/c/" class="px-2 text-green-600 border border-green-600 rounded bg-green-50">
+                        <a href="../../tag/c/" class="px-2 text-green-600 border border-green-600 rounded bg-green-50 dark:bg-green-600/[.2] dark:text-green-200">
                             #c
                         </a>
                     </li>
                     <li class="mb-1">
-                        <a href="../../tag/prog-langs/" class="px-2 text-green-600 border border-green-600 rounded bg-green-50">
+                        <a href="../../tag/prog-langs/" class="px-2 text-green-600 border border-green-600 rounded bg-green-50 dark:bg-green-600/[.2] dark:text-green-200">
                             #prog-langs
                         </a>
                     </li>
@@ -332,7 +333,7 @@ Tree (AST).</p>
         </article>
         </div>
         <div class="flex flex-col items-baseline w-full md:flex-row">
-        <aside data-id="post-meta" class="relative self-stretch w-40 mt-8 text-right text-gray-500 md:px-4 md:mt-0 md:mr-8 md:border-r-2">
+        <aside data-id="post-meta" class="relative self-stretch w-40 mt-8 text-right text-gray-500 md:px-4 md:mt-0 md:mr-8 md:border-r-2 dark:border-gray-600">
             <div class="flex md:mt-9">
                 <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
@@ -340,13 +341,13 @@ Tree (AST).</p>
                 <span class="ml-4 text-right md:ml-auto">May 06, 2020</span>
             </div>
         </aside>
-        <article class="relative p-4 mt-4 bg-white border md:w- md:mt-8 md:col-span-3 hover:shadow-lg">
+        <article class="relative p-4 mt-4 bg-white dark:bg-gray-800 border md:mt-8 md:col-span-3 hover:shadow-lg dark:border-gray-600">
             <header>
                 <a href="../../2020/passing-strings-between-tinygo-wasm/">
                     <h2 style="max-width: 33ch" class="mb-4 text-2xl text-green-600">Passing strings between TinyGo and JavaScript</h2>
                 </a>
             </header>
-            <div class="prose-sm prose prose-green">
+            <div class="prose-sm prose prose-emerald dark:prose-invert">
                 <div class="ablog-post-excerpt docutils container">
 <p>After getting a <a class="reference internal" href="../../2020/hello-world-tinygo-wasm/"><span class="doc">“Hello, World!”</span></a> WebAssembly
 application working I thought it would be fun to try and implement a toy programming
@@ -356,30 +357,30 @@ WebAssembly module and the surrounding JavaScript.</p>
 <p>Turns out that is much trickier than I expected.</p>
 </div>
 
-        
+
             </div>
             <div class="flex flex-col justify-between mt-4 lg:flex-row">
-                <p class="prose-sm prose prose-green"><a href="../../2020/passing-strings-between-tinygo-wasm/">Read More...</a></p>
-        
+                <p class="prose-sm prose prose-emerald dark:prose-invert"><a href="../../2020/passing-strings-between-tinygo-wasm/">Read More...</a></p>
+
                 <ul class="flex flex-wrap space-x-2">
                     <li class="mb-1">
-                        <a href="../../tag/go/" class="px-2 text-green-600 border border-green-600 rounded bg-green-50">
+                        <a href="../../tag/js/" class="px-2 text-green-600 border border-green-600 rounded bg-green-50 dark:bg-green-600/[.2] dark:text-green-200">
+                            #js
+                        </a>
+                    </li>
+                    <li class="mb-1">
+                        <a href="../../tag/go/" class="px-2 text-green-600 border border-green-600 rounded bg-green-50 dark:bg-green-600/[.2] dark:text-green-200">
                             #go
                         </a>
                     </li>
                     <li class="mb-1">
-                        <a href="../../tag/tinygo/" class="px-2 text-green-600 border border-green-600 rounded bg-green-50">
-                            #tinygo
-                        </a>
-                    </li>
-                    <li class="mb-1">
-                        <a href="../../tag/wasm/" class="px-2 text-green-600 border border-green-600 rounded bg-green-50">
+                        <a href="../../tag/wasm/" class="px-2 text-green-600 border border-green-600 rounded bg-green-50 dark:bg-green-600/[.2] dark:text-green-200">
                             #wasm
                         </a>
                     </li>
                     <li class="mb-1">
-                        <a href="../../tag/js/" class="px-2 text-green-600 border border-green-600 rounded bg-green-50">
-                            #js
+                        <a href="../../tag/tinygo/" class="px-2 text-green-600 border border-green-600 rounded bg-green-50 dark:bg-green-600/[.2] dark:text-green-200">
+                            #tinygo
                         </a>
                     </li>
                 </ul>
@@ -387,7 +388,7 @@ WebAssembly module and the surrounding JavaScript.</p>
         </article>
         </div>
         <div class="flex flex-col items-baseline w-full md:flex-row">
-        <aside data-id="post-meta" class="relative self-stretch w-40 mt-8 text-right text-gray-500 md:px-4 md:mt-0 md:mr-8 md:border-r-2">
+        <aside data-id="post-meta" class="relative self-stretch w-40 mt-8 text-right text-gray-500 md:px-4 md:mt-0 md:mr-8 md:border-r-2 dark:border-gray-600">
             <div class="flex md:mt-9">
                 <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
@@ -395,13 +396,13 @@ WebAssembly module and the surrounding JavaScript.</p>
                 <span class="ml-4 text-right md:ml-auto">Apr 28, 2020</span>
             </div>
         </aside>
-        <article class="relative p-4 mt-4 bg-white border md:w- md:mt-8 md:col-span-3 hover:shadow-lg">
+        <article class="relative p-4 mt-4 bg-white dark:bg-gray-800 border md:mt-8 md:col-span-3 hover:shadow-lg dark:border-gray-600">
             <header>
                 <a href="../../2020/hello-world-tinygo-wasm/">
                     <h2 style="max-width: 33ch" class="mb-4 text-2xl text-green-600">Saying ‘Hello, World!’ with TinyGo and WebAssembly</h2>
                 </a>
             </header>
-            <div class="prose-sm prose prose-green">
+            <div class="prose-sm prose prose-emerald dark:prose-invert">
                 <div class="ablog-post-excerpt docutils container">
 <p>WebAssembly is something I’ve wanted to play with for quite a while now and
 I’ve finally got around to taking a look at it. In this post I describe how I
@@ -411,35 +412,35 @@ back to I also describe setting up my development environment as a container
 using <a class="reference external" href="https://linuxcontainers.org/">LXD</a>.</p>
 </div>
 
-        
+
             </div>
             <div class="flex flex-col justify-between mt-4 lg:flex-row">
-                <p class="prose-sm prose prose-green"><a href="../../2020/hello-world-tinygo-wasm/">Read More...</a></p>
-        
+                <p class="prose-sm prose prose-emerald dark:prose-invert"><a href="../../2020/hello-world-tinygo-wasm/">Read More...</a></p>
+
                 <ul class="flex flex-wrap space-x-2">
                     <li class="mb-1">
-                        <a href="../../tag/go/" class="px-2 text-green-600 border border-green-600 rounded bg-green-50">
-                            #go
-                        </a>
-                    </li>
-                    <li class="mb-1">
-                        <a href="../../tag/tinygo/" class="px-2 text-green-600 border border-green-600 rounded bg-green-50">
-                            #tinygo
-                        </a>
-                    </li>
-                    <li class="mb-1">
-                        <a href="../../tag/wasm/" class="px-2 text-green-600 border border-green-600 rounded bg-green-50">
+                        <a href="../../tag/wasm/" class="px-2 text-green-600 border border-green-600 rounded bg-green-50 dark:bg-green-600/[.2] dark:text-green-200">
                             #wasm
                         </a>
                     </li>
                     <li class="mb-1">
-                        <a href="../../tag/lxd/" class="px-2 text-green-600 border border-green-600 rounded bg-green-50">
+                        <a href="../../tag/containers/" class="px-2 text-green-600 border border-green-600 rounded bg-green-50 dark:bg-green-600/[.2] dark:text-green-200">
+                            #containers
+                        </a>
+                    </li>
+                    <li class="mb-1">
+                        <a href="../../tag/tinygo/" class="px-2 text-green-600 border border-green-600 rounded bg-green-50 dark:bg-green-600/[.2] dark:text-green-200">
+                            #tinygo
+                        </a>
+                    </li>
+                    <li class="mb-1">
+                        <a href="../../tag/lxd/" class="px-2 text-green-600 border border-green-600 rounded bg-green-50 dark:bg-green-600/[.2] dark:text-green-200">
                             #lxd
                         </a>
                     </li>
                     <li class="mb-1">
-                        <a href="../../tag/containers/" class="px-2 text-green-600 border border-green-600 rounded bg-green-50">
-                            #containers
+                        <a href="../../tag/go/" class="px-2 text-green-600 border border-green-600 rounded bg-green-50 dark:bg-green-600/[.2] dark:text-green-200">
+                            #go
                         </a>
                     </li>
                 </ul>
@@ -447,7 +448,7 @@ using <a class="reference external" href="https://linuxcontainers.org/">LXD</a>.
         </article>
         </div>
         <div class="flex flex-col items-baseline w-full md:flex-row">
-        <aside data-id="post-meta" class="relative self-stretch w-40 mt-8 text-right text-gray-500 md:px-4 md:mt-0 md:mr-8 md:border-r-2">
+        <aside data-id="post-meta" class="relative self-stretch w-40 mt-8 text-right text-gray-500 md:px-4 md:mt-0 md:mr-8 md:border-r-2 dark:border-gray-600">
             <div class="flex md:mt-9">
                 <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
@@ -455,13 +456,13 @@ using <a class="reference external" href="https://linuxcontainers.org/">LXD</a>.
                 <span class="ml-4 text-right md:ml-auto">Jan 08, 2020</span>
             </div>
         </aside>
-        <article class="relative p-4 mt-4 bg-white border md:w- md:mt-8 md:col-span-3 hover:shadow-lg">
+        <article class="relative p-4 mt-4 bg-white dark:bg-gray-800 border md:mt-8 md:col-span-3 hover:shadow-lg dark:border-gray-600">
             <header>
                 <a href="../../2020/learning-vulkan-p1/">
                     <h2 style="max-width: 33ch" class="mb-4 text-2xl text-green-600">Learning Vulkan: Enumerating Physical Devices</h2>
                 </a>
             </header>
-            <div class="prose-sm prose prose-green">
+            <div class="prose-sm prose prose-emerald dark:prose-invert">
                 <div class="ablog-post-excerpt docutils container">
 <p>Being an API for talking to GPUs and other compute devices every Vulkan
 program starts off by looking for an appropriate <a class="reference external" href="https://www.khronos.org/registry/vulkan/specs/1.1-extensions/man/html/VkPhysicalDevice.html">physical device</a>
@@ -473,25 +474,25 @@ the <a class="reference internal" href="../../2020/learning-vulkan-p0/"><span cl
 know what I’m doing!</p>
 </div>
 
-        
+
             </div>
             <div class="flex flex-col justify-between mt-4 lg:flex-row">
-                <p class="prose-sm prose prose-green"><a href="../../2020/learning-vulkan-p1/">Read More...</a></p>
-        
+                <p class="prose-sm prose prose-emerald dark:prose-invert"><a href="../../2020/learning-vulkan-p1/">Read More...</a></p>
+
                 <ul class="flex flex-wrap space-x-2">
                     <li class="mb-1">
-                        <a href="../../tag/c/" class="px-2 text-green-600 border border-green-600 rounded bg-green-50">
+                        <a href="../../tag/graphics/" class="px-2 text-green-600 border border-green-600 rounded bg-green-50 dark:bg-green-600/[.2] dark:text-green-200">
+                            #graphics
+                        </a>
+                    </li>
+                    <li class="mb-1">
+                        <a href="../../tag/c/" class="px-2 text-green-600 border border-green-600 rounded bg-green-50 dark:bg-green-600/[.2] dark:text-green-200">
                             #c
                         </a>
                     </li>
                     <li class="mb-1">
-                        <a href="../../tag/vulkan/" class="px-2 text-green-600 border border-green-600 rounded bg-green-50">
+                        <a href="../../tag/vulkan/" class="px-2 text-green-600 border border-green-600 rounded bg-green-50 dark:bg-green-600/[.2] dark:text-green-200">
                             #vulkan
-                        </a>
-                    </li>
-                    <li class="mb-1">
-                        <a href="../../tag/graphics/" class="px-2 text-green-600 border border-green-600 rounded bg-green-50">
-                            #graphics
                         </a>
                     </li>
                 </ul>
@@ -499,7 +500,7 @@ know what I’m doing!</p>
         </article>
         </div>
         <div class="flex flex-col items-baseline w-full md:flex-row">
-        <aside data-id="post-meta" class="relative self-stretch w-40 mt-8 text-right text-gray-500 md:px-4 md:mt-0 md:mr-8 md:border-r-2">
+        <aside data-id="post-meta" class="relative self-stretch w-40 mt-8 text-right text-gray-500 md:px-4 md:mt-0 md:mr-8 md:border-r-2 dark:border-gray-600">
             <div class="flex md:mt-9">
                 <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
@@ -507,13 +508,13 @@ know what I’m doing!</p>
                 <span class="ml-4 text-right md:ml-auto">Jan 01, 2020</span>
             </div>
         </aside>
-        <article class="relative p-4 mt-4 bg-white border md:w- md:mt-8 md:col-span-3 hover:shadow-lg">
+        <article class="relative p-4 mt-4 bg-white dark:bg-gray-800 border md:mt-8 md:col-span-3 hover:shadow-lg dark:border-gray-600">
             <header>
                 <a href="../../2020/learning-vulkan-p0/">
                     <h2 style="max-width: 33ch" class="mb-4 text-2xl text-green-600">Learning Vulkan: Overview</h2>
                 </a>
             </header>
-            <div class="prose-sm prose prose-green">
+            <div class="prose-sm prose prose-emerald dark:prose-invert">
                 <div class="ablog-post-excerpt docutils container">
 <p>I have always been interested in graphics and have on numerous occasions tried
 to dip my toe into the world of OpenGL and more recently Vulkan. However I have
@@ -525,25 +526,25 @@ jump back into this world for the 100th time and try to get to all those
 interesting ideas I see people playing with all the time!</p>
 </div>
 
-        
+
             </div>
             <div class="flex flex-col justify-between mt-4 lg:flex-row">
-                <p class="prose-sm prose prose-green"><a href="../../2020/learning-vulkan-p0/">Read More...</a></p>
-        
+                <p class="prose-sm prose prose-emerald dark:prose-invert"><a href="../../2020/learning-vulkan-p0/">Read More...</a></p>
+
                 <ul class="flex flex-wrap space-x-2">
                     <li class="mb-1">
-                        <a href="../../tag/c/" class="px-2 text-green-600 border border-green-600 rounded bg-green-50">
+                        <a href="../../tag/graphics/" class="px-2 text-green-600 border border-green-600 rounded bg-green-50 dark:bg-green-600/[.2] dark:text-green-200">
+                            #graphics
+                        </a>
+                    </li>
+                    <li class="mb-1">
+                        <a href="../../tag/c/" class="px-2 text-green-600 border border-green-600 rounded bg-green-50 dark:bg-green-600/[.2] dark:text-green-200">
                             #c
                         </a>
                     </li>
                     <li class="mb-1">
-                        <a href="../../tag/vulkan/" class="px-2 text-green-600 border border-green-600 rounded bg-green-50">
+                        <a href="../../tag/vulkan/" class="px-2 text-green-600 border border-green-600 rounded bg-green-50 dark:bg-green-600/[.2] dark:text-green-200">
                             #vulkan
-                        </a>
-                    </li>
-                    <li class="mb-1">
-                        <a href="../../tag/graphics/" class="px-2 text-green-600 border border-green-600 rounded bg-green-50">
-                            #graphics
                         </a>
                     </li>
                 </ul>
@@ -551,7 +552,7 @@ interesting ideas I see people playing with all the time!</p>
         </article>
         </div>
         <div class="flex flex-col items-baseline w-full md:flex-row">
-        <aside data-id="post-meta" class="relative self-stretch w-40 mt-8 text-right text-gray-500 md:px-4 md:mt-0 md:mr-8 md:border-r-2">
+        <aside data-id="post-meta" class="relative self-stretch w-40 mt-8 text-right text-gray-500 md:px-4 md:mt-0 md:mr-8 md:border-r-2 dark:border-gray-600">
             <div class="flex md:mt-9">
                 <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
@@ -559,13 +560,13 @@ interesting ideas I see people playing with all the time!</p>
                 <span class="ml-4 text-right md:ml-auto">Jul 07, 2019</span>
             </div>
         </aside>
-        <article class="relative p-4 mt-4 bg-white border md:w- md:mt-8 md:col-span-3 hover:shadow-lg">
+        <article class="relative p-4 mt-4 bg-white dark:bg-gray-800 border md:mt-8 md:col-span-3 hover:shadow-lg dark:border-gray-600">
             <header>
                 <a href="../../2019/click-drag-vanilla-js/">
                     <h2 style="max-width: 33ch" class="mb-4 text-2xl text-green-600">Implementing Click & Drag with Vanilla JS</h2>
                 </a>
             </header>
-            <div class="prose-sm prose prose-green">
+            <div class="prose-sm prose prose-emerald dark:prose-invert">
                 <div class="ablog-post-excerpt docutils container">
 <p>This post makes use of a number of interactive elements to help illustrate a few
 concepts. Unfortunately these do not yet work on mobile devices - sorry mobile
@@ -587,25 +588,25 @@ referring to clicking on an SVG element moving it around on the page as
 illustrated by the demo above.</p>
 </div>
 
-        
+
             </div>
             <div class="flex flex-col justify-between mt-4 lg:flex-row">
-                <p class="prose-sm prose prose-green"><a href="../../2019/click-drag-vanilla-js/">Read More...</a></p>
-        
+                <p class="prose-sm prose prose-emerald dark:prose-invert"><a href="../../2019/click-drag-vanilla-js/">Read More...</a></p>
+
                 <ul class="flex flex-wrap space-x-2">
                     <li class="mb-1">
-                        <a href="../../tag/svg/" class="px-2 text-green-600 border border-green-600 rounded bg-green-50">
+                        <a href="../../tag/js/" class="px-2 text-green-600 border border-green-600 rounded bg-green-50 dark:bg-green-600/[.2] dark:text-green-200">
+                            #js
+                        </a>
+                    </li>
+                    <li class="mb-1">
+                        <a href="../../tag/svg/" class="px-2 text-green-600 border border-green-600 rounded bg-green-50 dark:bg-green-600/[.2] dark:text-green-200">
                             #svg
                         </a>
                     </li>
                     <li class="mb-1">
-                        <a href="../../tag/web/" class="px-2 text-green-600 border border-green-600 rounded bg-green-50">
+                        <a href="../../tag/web/" class="px-2 text-green-600 border border-green-600 rounded bg-green-50 dark:bg-green-600/[.2] dark:text-green-200">
                             #web
-                        </a>
-                    </li>
-                    <li class="mb-1">
-                        <a href="../../tag/js/" class="px-2 text-green-600 border border-green-600 rounded bg-green-50">
-                            #js
                         </a>
                     </li>
                 </ul>
@@ -613,7 +614,7 @@ illustrated by the demo above.</p>
         </article>
         </div>
         <div class="flex flex-col items-baseline w-full md:flex-row">
-        <aside data-id="post-meta" class="relative self-stretch w-40 mt-8 text-right text-gray-500 md:px-4 md:mt-0 md:mr-8 md:border-r-2">
+        <aside data-id="post-meta" class="relative self-stretch w-40 mt-8 text-right text-gray-500 md:px-4 md:mt-0 md:mr-8 md:border-r-2 dark:border-gray-600">
             <div class="flex md:mt-9">
                 <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
@@ -621,42 +622,42 @@ illustrated by the demo above.</p>
                 <span class="ml-4 text-right md:ml-auto">Jan 05, 2019</span>
             </div>
         </aside>
-        <article class="relative p-4 mt-4 bg-white border md:w- md:mt-8 md:col-span-3 hover:shadow-lg">
+        <article class="relative p-4 mt-4 bg-white dark:bg-gray-800 border md:mt-8 md:col-span-3 hover:shadow-lg dark:border-gray-600">
             <header>
                 <a href="../../2019/til-python-cmd/">
                     <h2 style="max-width: 33ch" class="mb-4 text-2xl text-green-600">TIL: Python has a cmd module</h2>
                 </a>
             </header>
-            <div class="prose-sm prose prose-green">
+            <div class="prose-sm prose prose-emerald dark:prose-invert">
                 <div class="ablog-post-excerpt docutils container">
 <p>Today I Learned that Python’s standard library has a <a class="reference external" href="https://docs.python.org/3/library/cmd.html">cmd</a> module and it is <em>awesome!</em></p>
 <img alt="../../../_images/cmd_python.gif" src="../../../_images/cmd_python.gif" />
 </div>
 
-        
+
             </div>
             <div class="flex flex-col justify-between mt-4 lg:flex-row">
-                <p class="prose-sm prose prose-green"><a href="../../2019/til-python-cmd/">Read More...</a></p>
-        
+                <p class="prose-sm prose prose-emerald dark:prose-invert"><a href="../../2019/til-python-cmd/">Read More...</a></p>
+
                 <ul class="flex flex-wrap space-x-2">
                     <li class="mb-1">
-                        <a href="../../tag/stylo/" class="px-2 text-green-600 border border-green-600 rounded bg-green-50">
-                            #stylo
-                        </a>
-                    </li>
-                    <li class="mb-1">
-                        <a href="../../tag/python/" class="px-2 text-green-600 border border-green-600 rounded bg-green-50">
-                            #python
-                        </a>
-                    </li>
-                    <li class="mb-1">
-                        <a href="../../tag/til/" class="px-2 text-green-600 border border-green-600 rounded bg-green-50">
+                        <a href="../../tag/til/" class="px-2 text-green-600 border border-green-600 rounded bg-green-50 dark:bg-green-600/[.2] dark:text-green-200">
                             #til
                         </a>
                     </li>
                     <li class="mb-1">
-                        <a href="../../tag/cli/" class="px-2 text-green-600 border border-green-600 rounded bg-green-50">
+                        <a href="../../tag/cli/" class="px-2 text-green-600 border border-green-600 rounded bg-green-50 dark:bg-green-600/[.2] dark:text-green-200">
                             #cli
+                        </a>
+                    </li>
+                    <li class="mb-1">
+                        <a href="../../tag/python/" class="px-2 text-green-600 border border-green-600 rounded bg-green-50 dark:bg-green-600/[.2] dark:text-green-200">
+                            #python
+                        </a>
+                    </li>
+                    <li class="mb-1">
+                        <a href="../../tag/stylo/" class="px-2 text-green-600 border border-green-600 rounded bg-green-50 dark:bg-green-600/[.2] dark:text-green-200">
+                            #stylo
                         </a>
                     </li>
                 </ul>
@@ -664,7 +665,7 @@ illustrated by the demo above.</p>
         </article>
         </div>
         <div class="flex flex-col items-baseline w-full md:flex-row">
-        <aside data-id="post-meta" class="relative self-stretch w-40 mt-8 text-right text-gray-500 md:px-4 md:mt-0 md:mr-8 md:border-r-2">
+        <aside data-id="post-meta" class="relative self-stretch w-40 mt-8 text-right text-gray-500 md:px-4 md:mt-0 md:mr-8 md:border-r-2 dark:border-gray-600">
             <div class="flex md:mt-9">
                 <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
@@ -672,13 +673,13 @@ illustrated by the demo above.</p>
                 <span class="ml-4 text-right md:ml-auto">Oct 12, 2018</span>
             </div>
         </aside>
-        <article class="relative p-4 mt-4 bg-white border md:w- md:mt-8 md:col-span-3 hover:shadow-lg">
+        <article class="relative p-4 mt-4 bg-white dark:bg-gray-800 border md:mt-8 md:col-span-3 hover:shadow-lg dark:border-gray-600">
             <header>
                 <a href="../../2018/introducing-stylo-doodles/">
                     <h2 style="max-width: 33ch" class="mb-4 text-2xl text-green-600">Introducing Stylo Doodles!</h2>
                 </a>
             </header>
-            <div class="prose-sm prose prose-green">
+            <div class="prose-sm prose prose-emerald dark:prose-invert">
                 <div class="ablog-post-excerpt docutils container">
 <p>A few weeks back at <a class="reference external" href="https://2018.pyconuk.org/">PyConUK</a> I gave my first <a class="reference external" href="https://youtu.be/F5jSUJVymXk?t=3480">lighting talk</a>
 at a conference. During that talk I spoke publically about <a class="reference external" href="https://github.com/alcarney/stylo">stylo</a> for
@@ -696,20 +697,20 @@ called <a class="reference external" href="https://alcarney.github.io/stylo-dood
 <img alt="../../../_images/stylo-doodles.png" src="../../../_images/stylo-doodles.png" />
 </div>
 
-        
+
             </div>
             <div class="flex flex-col justify-between mt-4 lg:flex-row">
-                <p class="prose-sm prose prose-green"><a href="../../2018/introducing-stylo-doodles/">Read More...</a></p>
-        
+                <p class="prose-sm prose prose-emerald dark:prose-invert"><a href="../../2018/introducing-stylo-doodles/">Read More...</a></p>
+
                 <ul class="flex flex-wrap space-x-2">
                     <li class="mb-1">
-                        <a href="../../tag/stylo/" class="px-2 text-green-600 border border-green-600 rounded bg-green-50">
-                            #stylo
+                        <a href="../../tag/python/" class="px-2 text-green-600 border border-green-600 rounded bg-green-50 dark:bg-green-600/[.2] dark:text-green-200">
+                            #python
                         </a>
                     </li>
                     <li class="mb-1">
-                        <a href="../../tag/python/" class="px-2 text-green-600 border border-green-600 rounded bg-green-50">
-                            #python
+                        <a href="../../tag/stylo/" class="px-2 text-green-600 border border-green-600 rounded bg-green-50 dark:bg-green-600/[.2] dark:text-green-200">
+                            #stylo
                         </a>
                     </li>
                 </ul>
@@ -717,7 +718,7 @@ called <a class="reference external" href="https://alcarney.github.io/stylo-dood
         </article>
         </div>
         <div class="flex flex-col items-baseline w-full md:flex-row">
-        <aside data-id="post-meta" class="relative self-stretch w-40 mt-8 text-right text-gray-500 md:px-4 md:mt-0 md:mr-8 md:border-r-2">
+        <aside data-id="post-meta" class="relative self-stretch w-40 mt-8 text-right text-gray-500 md:px-4 md:mt-0 md:mr-8 md:border-r-2 dark:border-gray-600">
             <div class="flex md:mt-9">
                 <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
@@ -725,13 +726,13 @@ called <a class="reference external" href="https://alcarney.github.io/stylo-dood
                 <span class="ml-4 text-right md:ml-auto">Sep 22, 2018</span>
             </div>
         </aside>
-        <article class="relative p-4 mt-4 bg-white border md:w- md:mt-8 md:col-span-3 hover:shadow-lg">
+        <article class="relative p-4 mt-4 bg-white dark:bg-gray-800 border md:mt-8 md:col-span-3 hover:shadow-lg dark:border-gray-600">
             <header>
                 <a href="../../2018/first-article/">
                     <h2 style="max-width: 33ch" class="mb-4 text-2xl text-green-600">I’ve Started a Blog… Again!</h2>
                 </a>
             </header>
-            <div class="prose-sm prose prose-green">
+            <div class="prose-sm prose prose-emerald dark:prose-invert">
                 <div class="ablog-post-excerpt docutils container">
 <p>Not that you would have known it, but I’ve had a blog since 2014.  Well 2015 if
 you’re feeling generous, the first (and only) post went up in the last few
@@ -746,14 +747,14 @@ static site generator I was looking for. So I promptly set off on a voyage of
 discovery in search of the ultimate static site generator.</p>
 </div>
 
-        
+
             </div>
             <div class="flex flex-col justify-between mt-4 lg:flex-row">
-                <p class="prose-sm prose prose-green"><a href="../../2018/first-article/">Read More...</a></p>
-        
+                <p class="prose-sm prose prose-emerald dark:prose-invert"><a href="../../2018/first-article/">Read More...</a></p>
+
                 <ul class="flex flex-wrap space-x-2">
                     <li class="mb-1">
-                        <a href="../../tag/blogging/" class="px-2 text-green-600 border border-green-600 rounded bg-green-50">
+                        <a href="../../tag/blogging/" class="px-2 text-green-600 border border-green-600 rounded bg-green-50 dark:bg-green-600/[.2] dark:text-green-200">
                             #blogging
                         </a>
                     </li>
@@ -768,7 +769,7 @@ discovery in search of the ultimate static site generator.</p>
                 </div>
             </div>
 
-            <footer class="p-2 mt-8 mb-2 text-sm text-gray-600 border-t">
+            <footer class="p-2 mt-8 mb-2 text-sm text-gray-600 border-t dark:border-gray-600">
                 <div class="flex flex-col justify-between max-w-3xl mx-auto lg:flex-row">
                     <span>
                     </span>
@@ -777,7 +778,7 @@ discovery in search of the ultimate static site generator.</p>
                 </div>
             </footer>
         </main>
-        
+
     </div>
 <script src="/_static/js/theme.js"></script>
 

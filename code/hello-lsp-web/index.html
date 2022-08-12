@@ -13,62 +13,55 @@
     
     
     
-    <link rel="stylesheet" type="text/css" href="../../_static/togglebutton.css" />
-    
-    
     <link rel="stylesheet" type="text/css" href="../../_static/css/styles.css" />
+    
+    
+    <link id="pygments_dark_css" media="(prefers-color-scheme: dark)" rel="stylesheet" type="text/css" href="../../_static/pygments_dark.css" />
     
 
     <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
     <script src="../../_static/jquery.js"></script>
     <script src="../../_static/underscore.js"></script>
     <script src="../../_static/doctools.js"></script>
-    <script>let toggleHintShow = 'Click to show';</script>
-    <script>let toggleHintHide = 'Click to hide';</script>
-    <script>let toggleOpenOnPrint = 'true';</script>
-    <script src="../../_static/togglebutton.js"></script>
-    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
-    <script src="https://unpkg.com/mermaid/dist/mermaid.min.js"></script>
-    <script>mermaid.initialize({startOnLoad:true});</script>
     <link rel="shortcut icon" href="../../_static/favicon.ico"/>
     <link rel="index" title="Index" href="../../genindex/" />
     <link rel="search" title="Search" href="../../search/" />
     <link rel="next" title="Simple AST" href="../simple-ast/" />
     <link rel="prev" title="Click Drag" href="../click-drag/" /> 
-  </head><body class="flex flex-col justify-between min-h-screen overflow-x-hidden bg-gray-100 ">
+  </head><body class="flex flex-col justify-between min-h-screen overflow-x-hidden bg-gray-100 dark:bg-gray-900">
     <div class="flex flex-grow">
         <input id="menu-state" type="checkbox" class="hidden" />
-        <aside class="flex justify-between flex-shrink-0 transition-all duration-500 bg-white border-r -ml-80 lg:ml-0">
-            <div class="flex flex-col justify-between h-full border-r w-80">
-                <div class="sticky top-0 flex flex-col h-screen"> 
-                    
+        <aside class="flex justify-between flex-shrink-0 transition-all duration-500 bg-white dark:bg-gray-800 -ml-80 lg:ml-0 dark:border-gray-600">
+            <div class="flex flex-col justify-between h-full border-r w-80 dark:border-gray-600">
+                <div class="sticky top-0 flex flex-col h-screen">
+
                     <div id="profile-card" class="full-profile">
     <img class="" src="https://github.com/alcarney.png"/>
     <h2 class=""><a href="/">Alex Carney</a></h2>
 </div>
-                    
+
                     <div id="searchbox" style="display: none" role="search" class="px-4 py-4">
-    <form class="flex justify-between px-2 py-1 bg-gray-100 border-2 rounded search focus-within:border-green-600" action="../../search/" method="get">
+    <form class="flex justify-between px-2 py-1 bg-gray-100 border-2 rounded search dark:bg-gray-900 focus-within:border-green-600 dark:border-gray-600" action="../../search/" method="get">
         <label class="mr-2 text-gray-500" for="sbox">
             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="feather feather-search">
                 <circle cx="11" cy="11" r="6" />
                 <path d="m21 21-4.35-4.35" />
             </svg>
         </label>
-        <input id="sbox" class="flex-grow bg-gray-100 focus:outline-none" type="search" name="q" placeholder="Search..." aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" />
+        <input id="sbox" class="flex-grow bg-gray-100 dark:text-white dark:bg-gray-900 focus:outline-none" type="search" name="q" placeholder="Search..." aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" />
     </form>
 </div>
 <script>$('#searchbox').show(0);</script>
+
                     
-                    
-    
+
 <nav class="flex flex-col text-center">
-    <a class="text-green-600 py-1 border-t text-lg hover:bg-gray-50" href="/blog">Blog</a>
-    <a class="text-green-600 py-1 border-t text-lg hover:bg-gray-50" href="/code">Code</a>
-    <a class="text-green-600 py-1 border-t text-lg hover:bg-gray-50" href="/notes">Notes</a>
+    <a class="text-green-600 py-1 border-t text-lg hover:bg-gray-50 dark:border-gray-600 dark:hover:bg-gray-900" href="/blog">Blog</a>
+    <a class="text-green-600 py-1 border-t text-lg hover:bg-gray-50 dark:border-gray-600 dark:hover:bg-gray-900" href="/code">Code</a>
+    <a class="text-green-600 py-1 border-t text-lg hover:bg-gray-50 dark:border-gray-600 dark:hover:bg-gray-900" href="/notes">Notes</a>
 </nav>
-                    
-                    <div class="flex-shrink overflow-auto"><nav id="localtoc" class="p-4 border-t">
+
+                    <div class="flex-shrink overflow-auto"><nav id="localtoc" class="p-4 border-t dark:text-gray-200 dark:border-gray-600">
     <ul>
 <li><a class="reference internal" href="#">Hello LSP Web</a><ul>
 <li><a class="reference internal" href="#readme">README</a><ul>
@@ -81,7 +74,7 @@
 
 </nav>
                     </div>
-                    
+
                     <footer class="w-full p-4 mt-auto text-white bg-gray-700">
                         <div class="flex justify-between">
     <div></div>
@@ -119,39 +112,39 @@
 </div>
                     </footer>
                 </div>
-            </div>     
+            </div>
         </aside>
-        
+
         <main class="w-full mx-auto lg:pr-0">
-            <div class="sticky top-0 z-50 mt-0 transition-all duration-300 bg-white border-b shadow-md lg:shadow-none lg:relative lg:-mt-16">
+            <div class="sticky top-0 z-50 mt-0 transition-all duration-300 bg-white dark:bg-gray-800 border-b shadow-md lg:shadow-none lg:relative lg:-mt-16 dark:border-gray-600">
                 <label class="flex h-16 text-gray-600 transition" for="menu-state">
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="w-8 h-8 my-auto" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="feather feather-arrow-right"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
                 </label>
-            </div> 
+            </div>
 
             <div id="content" class="mx-2 my-8">
-                <div class="max-w-3xl mx-auto">
+                <div role="main" class="max-w-3xl mx-auto">
                     
 
-<article class="p-4 prose-sm prose bg-white border prose-md prose-green max-w-none">
+<article class="p-4 prose-sm prose bg-white dark:bg-gray-800 border prose-md prose-emerald max-w-none dark:prose-invert dark:border-gray-600">
     <section id="hello-lsp-web">
 <h1>Hello LSP Web<a class="headerlink" href="#hello-lsp-web" title="Permalink to this headline">¶</a></h1>
-<div class="my-4 border border-t-0">
+<div class="my-4 border border-t-0 dark:border-gray-600">
     
 
-    <div data-parent="" class=" border-t">
+    <div data-parent="" class=" border-t dark:border-gray-600"">
         <label for="README.rst">
-            <div style="padding-left: 4px;" class="flex items-center px-2 py-1 space-x-2 hover:bg-gray-50">
+            <div style="padding-left: 4px;" class="flex items-center px-2 py-1 space-x-2 hover:bg-gray-50 hover:dark:bg-gray-700">
                 
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" ><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
                     <path d="M14 2v6h6M16 13H8M16 17H8M10 9H8"/>
                 </svg>
                 
-                
+
                 <span>README.rst</span>
             </div>
         </label>
-        
+
         
         <input class="hidden" data-type="file" data-id="README.rst" type="checkbox" id="README.rst" />
         <div class="overflow-y-auto transition-all max-h-0">
@@ -233,19 +226,19 @@ version of VSCode can then pick up and install.
 
     
 
-    <div data-parent="" class=" border-t">
+    <div data-parent="" class=" border-t dark:border-gray-600"">
         <label for="webpack.config.js">
-            <div style="padding-left: 4px;" class="flex items-center px-2 py-1 space-x-2 hover:bg-gray-50">
+            <div style="padding-left: 4px;" class="flex items-center px-2 py-1 space-x-2 hover:bg-gray-50 hover:dark:bg-gray-700">
                 
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" ><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
                     <path d="M14 2v6h6M16 13H8M16 17H8M10 9H8"/>
                 </svg>
                 
-                
+
                 <span>webpack.config.js</span>
             </div>
         </label>
-        
+
         
         <input class="hidden" data-type="file" data-id="webpack.config.js" type="checkbox" id="webpack.config.js" />
         <div class="overflow-y-auto transition-all max-h-0">
@@ -332,19 +325,19 @@ version of VSCode can then pick up and install.
 
     
 
-    <div data-parent="" class=" border-t">
+    <div data-parent="" class=" border-t dark:border-gray-600"">
         <label for="package-lock.json">
-            <div style="padding-left: 4px;" class="flex items-center px-2 py-1 space-x-2 hover:bg-gray-50">
+            <div style="padding-left: 4px;" class="flex items-center px-2 py-1 space-x-2 hover:bg-gray-50 hover:dark:bg-gray-700">
                 
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" ><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
                     <path d="M14 2v6h6M16 13H8M16 17H8M10 9H8"/>
                 </svg>
                 
-                
+
                 <span>package-lock.json</span>
             </div>
         </label>
-        
+
         
         <input class="hidden" data-type="file" data-id="package-lock.json" type="checkbox" id="package-lock.json" />
         <div class="overflow-y-auto transition-all max-h-0">
@@ -1600,19 +1593,19 @@ version of VSCode can then pick up and install.
 
     
 
-    <div data-parent="" class=" border-t">
+    <div data-parent="" class=" border-t dark:border-gray-600"">
         <label for="resources">
-            <div style="padding-left: 4px;" class="flex items-center px-2 py-1 space-x-2 hover:bg-gray-50">
+            <div style="padding-left: 4px;" class="flex items-center px-2 py-1 space-x-2 hover:bg-gray-50 hover:dark:bg-gray-700">
                 
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round">
                     <path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/>
                 </svg>
                 
-                
+
                 <span>resources</span>
             </div>
         </label>
-        
+
         
     </div>
     <input class="hidden" data-type="folder" data-id="resources" type="checkbox" id="resources" />
@@ -1620,19 +1613,19 @@ version of VSCode can then pick up and install.
 
     
 
-    <div data-parent="" class=" border-t">
+    <div data-parent="" class=" border-t dark:border-gray-600"">
         <label for="tsconfig.json">
-            <div style="padding-left: 4px;" class="flex items-center px-2 py-1 space-x-2 hover:bg-gray-50">
+            <div style="padding-left: 4px;" class="flex items-center px-2 py-1 space-x-2 hover:bg-gray-50 hover:dark:bg-gray-700">
                 
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" ><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
                     <path d="M14 2v6h6M16 13H8M16 17H8M10 9H8"/>
                 </svg>
                 
-                
+
                 <span>tsconfig.json</span>
             </div>
         </label>
-        
+
         
         <input class="hidden" data-type="file" data-id="tsconfig.json" type="checkbox" id="tsconfig.json" />
         <div class="overflow-y-auto transition-all max-h-0">
@@ -1663,19 +1656,19 @@ version of VSCode can then pick up and install.
 
     
 
-    <div data-parent="" class=" border-t">
+    <div data-parent="" class=" border-t dark:border-gray-600"">
         <label for="package.json">
-            <div style="padding-left: 4px;" class="flex items-center px-2 py-1 space-x-2 hover:bg-gray-50">
+            <div style="padding-left: 4px;" class="flex items-center px-2 py-1 space-x-2 hover:bg-gray-50 hover:dark:bg-gray-700">
                 
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" ><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
                     <path d="M14 2v6h6M16 13H8M16 17H8M10 9H8"/>
                 </svg>
                 
-                
+
                 <span>package.json</span>
             </div>
         </label>
-        
+
         
         <input class="hidden" data-type="file" data-id="package.json" type="checkbox" id="package.json" />
         <div class="overflow-y-auto transition-all max-h-0">
@@ -1723,19 +1716,19 @@ version of VSCode can then pick up and install.
 
     
 
-    <div data-parent="" class=" border-t">
+    <div data-parent="" class=" border-t dark:border-gray-600"">
         <label for="src">
-            <div style="padding-left: 4px;" class="flex items-center px-2 py-1 space-x-2 hover:bg-gray-50">
+            <div style="padding-left: 4px;" class="flex items-center px-2 py-1 space-x-2 hover:bg-gray-50 hover:dark:bg-gray-700">
                 
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round">
                     <path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/>
                 </svg>
                 
-                
+
                 <span>src</span>
             </div>
         </label>
-        
+
         
     </div>
     <input class="hidden" data-type="folder" data-id="src" type="checkbox" id="src" />
@@ -1743,19 +1736,19 @@ version of VSCode can then pick up and install.
 
     
 
-    <div data-parent="src" class="max-h-0 transition-all overflow-y-hidden border-t">
+    <div data-parent="src" class="max-h-0 transition-all overflow-y-hidden border-t dark:border-gray-600"">
         <label for="src/server.ts">
-            <div style="padding-left: 20px;" class="flex items-center px-2 py-1 space-x-2 hover:bg-gray-50">
+            <div style="padding-left: 20px;" class="flex items-center px-2 py-1 space-x-2 hover:bg-gray-50 hover:dark:bg-gray-700">
                 
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" ><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
                     <path d="M14 2v6h6M16 13H8M16 17H8M10 9H8"/>
                 </svg>
                 
-                
+
                 <span>server.ts</span>
             </div>
         </label>
-        
+
         
         <input class="hidden" data-type="file" data-id="src/server.ts" type="checkbox" id="src/server.ts" />
         <div class="overflow-y-auto transition-all max-h-0">
@@ -1800,19 +1793,19 @@ version of VSCode can then pick up and install.
 
     
 
-    <div data-parent="src" class="max-h-0 transition-all overflow-y-hidden border-t">
+    <div data-parent="src" class="max-h-0 transition-all overflow-y-hidden border-t dark:border-gray-600"">
         <label for="src/client.ts">
-            <div style="padding-left: 20px;" class="flex items-center px-2 py-1 space-x-2 hover:bg-gray-50">
+            <div style="padding-left: 20px;" class="flex items-center px-2 py-1 space-x-2 hover:bg-gray-50 hover:dark:bg-gray-700">
                 
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" ><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
                     <path d="M14 2v6h6M16 13H8M16 17H8M10 9H8"/>
                 </svg>
                 
-                
+
                 <span>client.ts</span>
             </div>
         </label>
-        
+
         
         <input class="hidden" data-type="file" data-id="src/client.ts" type="checkbox" id="src/client.ts" />
         <div class="overflow-y-auto transition-all max-h-0">
@@ -1850,7 +1843,7 @@ version of VSCode can then pick up and install.
         
 
     
-</div> 
+</div>
 <style>
     
 
@@ -1861,7 +1854,7 @@ version of VSCode can then pick up and install.
     input[data-id='']:checked ~ div[data-parent='README.rst'] {
         max-height: 382px;
     }
-    
+
     
 
     input[data-id='webpack.config.js']:checked ~ div {
@@ -1871,7 +1864,7 @@ version of VSCode can then pick up and install.
     input[data-id='']:checked ~ div[data-parent='webpack.config.js'] {
         max-height: 382px;
     }
-    
+
     
 
     input[data-id='package-lock.json']:checked ~ div {
@@ -1881,7 +1874,7 @@ version of VSCode can then pick up and install.
     input[data-id='']:checked ~ div[data-parent='package-lock.json'] {
         max-height: 382px;
     }
-    
+
     
 
     input[data-id='resources']:checked ~ div {
@@ -1891,7 +1884,7 @@ version of VSCode can then pick up and install.
     input[data-id='']:checked ~ div[data-parent='resources'] {
         max-height: 382px;
     }
-    
+
     
 
     input[data-id='tsconfig.json']:checked ~ div {
@@ -1901,7 +1894,7 @@ version of VSCode can then pick up and install.
     input[data-id='']:checked ~ div[data-parent='tsconfig.json'] {
         max-height: 382px;
     }
-    
+
     
 
     input[data-id='package.json']:checked ~ div {
@@ -1911,7 +1904,7 @@ version of VSCode can then pick up and install.
     input[data-id='']:checked ~ div[data-parent='package.json'] {
         max-height: 382px;
     }
-    
+
     
 
     input[data-id='src']:checked ~ div {
@@ -1921,7 +1914,7 @@ version of VSCode can then pick up and install.
     input[data-id='']:checked ~ div[data-parent='src'] {
         max-height: 382px;
     }
-    
+
     
 
     input[data-id='src/server.ts']:checked ~ div {
@@ -1931,7 +1924,7 @@ version of VSCode can then pick up and install.
     input[data-id='src']:checked ~ div[data-parent='src/server.ts'] {
         max-height: 382px;
     }
-    
+
     
 
     input[data-id='src/client.ts']:checked ~ div {
@@ -1941,7 +1934,7 @@ version of VSCode can then pick up and install.
     input[data-id='src']:checked ~ div[data-parent='src/client.ts'] {
         max-height: 382px;
     }
-    
+
     
 </style><section id="readme">
 <h2>README<a class="headerlink" href="#readme" title="Permalink to this headline">¶</a></h2>
@@ -2021,9 +2014,9 @@ once it has loaded. Bring up the command palette with <kbd class="kbd docutils l
 
 <nav class="mt-8">
     <ul class="flex flex-row justify-between">
+
         
-        
-        <li  class="w-1/2 p-4 mr-2 bg-white border hover:shadow-lg" >
+        <li  class="w-1/2 p-4 mr-2 bg-white dark:bg-gray-800 border hover:shadow-lg dark:border-gray-600" >
             
             <a class="flex items-center justify-between h-full" href="../click-drag/">
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="flex-shrink-0 w-8 h-8" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg>
@@ -2032,7 +2025,7 @@ once it has loaded. Bring up the command palette with <kbd class="kbd docutils l
             
         </li>
         
-        <li class="w-1/2 p-4 ml-2 bg-white border hover:shadow-lg">
+        <li class="w-1/2 p-4 ml-2 bg-white dark:bg-gray-800 border hover:shadow-lg dark:border-gray-600">
             <a class="flex items-center justify-between h-full" href="../simple-ast/">
                 <p class="text-green-600">Simple AST</p>
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="flex-shrink-0 w-8 h-8 ml-4" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg>
@@ -2050,7 +2043,7 @@ once it has loaded. Bring up the command palette with <kbd class="kbd docutils l
                 </div>
             </div>
 
-            <footer class="p-2 mt-8 mb-2 text-sm text-gray-600 border-t">
+            <footer class="p-2 mt-8 mb-2 text-sm text-gray-600 border-t dark:border-gray-600">
                 <div class="flex flex-col justify-between max-w-3xl mx-auto lg:flex-row">
                     <span>
                         <a class="text-green-600" href="../../_sources/code/hello-lsp-web.rst.txt" rel="nofollow">
@@ -2062,7 +2055,7 @@ once it has loaded. Bring up the command palette with <kbd class="kbd docutils l
                 </div>
             </footer>
         </main>
-        
+
     </div>
 <script src="/_static/js/theme.js"></script>
 

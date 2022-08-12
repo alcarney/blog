@@ -12,75 +12,68 @@
     
     
     
-    <link rel="stylesheet" type="text/css" href="../../_static/togglebutton.css" />
-    
-    
     <link rel="stylesheet" type="text/css" href="../../_static/css/styles.css" />
+    
+    
+    <link id="pygments_dark_css" media="(prefers-color-scheme: dark)" rel="stylesheet" type="text/css" href="../../_static/pygments_dark.css" />
     
 
     <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
     <script src="../../_static/jquery.js"></script>
     <script src="../../_static/underscore.js"></script>
     <script src="../../_static/doctools.js"></script>
-    <script>let toggleHintShow = 'Click to show';</script>
-    <script>let toggleHintHide = 'Click to hide';</script>
-    <script>let toggleOpenOnPrint = 'true';</script>
-    <script src="../../_static/togglebutton.js"></script>
-    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
-    <script src="https://unpkg.com/mermaid/dist/mermaid.min.js"></script>
-    <script>mermaid.initialize({startOnLoad:true});</script>
     <link rel="shortcut icon" href="../../_static/favicon.ico"/>
     <link rel="index" title="Index" href="../../genindex/" />
     <link rel="search" title="Search" href="../../search/" /> 
-  </head><body class="flex flex-col justify-between min-h-screen overflow-x-hidden bg-gray-100 ">
+  </head><body class="flex flex-col justify-between min-h-screen overflow-x-hidden bg-gray-100 dark:bg-gray-900">
     <div class="flex flex-grow">
         <input id="menu-state" type="checkbox" class="hidden" />
-        <aside class="flex justify-between flex-shrink-0 transition-all duration-500 bg-white border-r -ml-80 lg:ml-0">
-            <div class="flex flex-col justify-between h-full border-r w-80">
-                <div class="sticky top-0 flex flex-col h-screen"> 
-                    
+        <aside class="flex justify-between flex-shrink-0 transition-all duration-500 bg-white dark:bg-gray-800 -ml-80 lg:ml-0 dark:border-gray-600">
+            <div class="flex flex-col justify-between h-full border-r w-80 dark:border-gray-600">
+                <div class="sticky top-0 flex flex-col h-screen">
+
                     <div id="profile-card" class="full-profile">
     <img class="" src="https://github.com/alcarney.png"/>
     <h2 class=""><a href="/">Alex Carney</a></h2>
 </div>
-                    
+
                     <div id="searchbox" style="display: none" role="search" class="px-4 py-4">
-    <form class="flex justify-between px-2 py-1 bg-gray-100 border-2 rounded search focus-within:border-green-600" action="../../search/" method="get">
+    <form class="flex justify-between px-2 py-1 bg-gray-100 border-2 rounded search dark:bg-gray-900 focus-within:border-green-600 dark:border-gray-600" action="../../search/" method="get">
         <label class="mr-2 text-gray-500" for="sbox">
             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="feather feather-search">
                 <circle cx="11" cy="11" r="6" />
                 <path d="m21 21-4.35-4.35" />
             </svg>
         </label>
-        <input id="sbox" class="flex-grow bg-gray-100 focus:outline-none" type="search" name="q" placeholder="Search..." aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" />
+        <input id="sbox" class="flex-grow bg-gray-100 dark:text-white dark:bg-gray-900 focus:outline-none" type="search" name="q" placeholder="Search..." aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" />
     </form>
 </div>
 <script>$('#searchbox').show(0);</script>
+
                     
-                    
-    
+
 <nav class="flex flex-col text-center">
-    <a class="text-green-600 py-1 border-t text-lg hover:bg-gray-50" href="/blog">Blog</a>
-    <a class="text-green-600 py-1 border-t text-lg hover:bg-gray-50" href="/code">Code</a>
-    <a class="text-green-600 py-1 border-t text-lg hover:bg-gray-50" href="/notes">Notes</a>
+    <a class="text-green-600 py-1 border-t text-lg hover:bg-gray-50 dark:border-gray-600 dark:hover:bg-gray-900" href="/blog">Blog</a>
+    <a class="text-green-600 py-1 border-t text-lg hover:bg-gray-50 dark:border-gray-600 dark:hover:bg-gray-900" href="/code">Code</a>
+    <a class="text-green-600 py-1 border-t text-lg hover:bg-gray-50 dark:border-gray-600 dark:hover:bg-gray-900" href="/notes">Notes</a>
 </nav>
-                    
-                    <div class="flex-shrink overflow-auto"><nav id="localtoc" class="p-4 border-t">
+
+                    <div class="flex-shrink overflow-auto"><nav id="localtoc" class="p-4 border-t dark:text-gray-200 dark:border-gray-600">
     
 </nav><div id="searchbox" style="display: none" role="search" class="px-4 py-4">
-    <form class="flex justify-between px-2 py-1 bg-gray-100 border-2 rounded search focus-within:border-green-600" action="../../search/" method="get">
+    <form class="flex justify-between px-2 py-1 bg-gray-100 border-2 rounded search dark:bg-gray-900 focus-within:border-green-600 dark:border-gray-600" action="../../search/" method="get">
         <label class="mr-2 text-gray-500" for="sbox">
             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="feather feather-search">
                 <circle cx="11" cy="11" r="6" />
                 <path d="m21 21-4.35-4.35" />
             </svg>
         </label>
-        <input id="sbox" class="flex-grow bg-gray-100 focus:outline-none" type="search" name="q" placeholder="Search..." aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" />
+        <input id="sbox" class="flex-grow bg-gray-100 dark:text-white dark:bg-gray-900 focus:outline-none" type="search" name="q" placeholder="Search..." aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" />
     </form>
 </div>
 <script>$('#searchbox').show(0);</script>
                     </div>
-                    
+
                     <footer class="w-full p-4 mt-auto text-white bg-gray-700">
                         <div class="flex justify-between">
     <div></div>
@@ -118,18 +111,18 @@
 </div>
                     </footer>
                 </div>
-            </div>     
+            </div>
         </aside>
-        
+
         <main class="w-full mx-auto lg:pr-0">
-            <div class="sticky top-0 z-50 mt-0 transition-all duration-300 bg-white border-b shadow-md lg:shadow-none lg:relative lg:-mt-16">
+            <div class="sticky top-0 z-50 mt-0 transition-all duration-300 bg-white dark:bg-gray-800 border-b shadow-md lg:shadow-none lg:relative lg:-mt-16 dark:border-gray-600">
                 <label class="flex h-16 text-gray-600 transition" for="menu-state">
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="w-8 h-8 my-auto" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="feather feather-arrow-right"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
                 </label>
-            </div> 
+            </div>
 
             <div id="content" class="mx-2 my-8">
-                <div class="max-w-3xl mx-auto">
+                <div role="main" class="max-w-3xl mx-auto">
                     
 <style>
     header::before {
@@ -163,11 +156,19 @@
         background: #717885;
     }
 
+    @media(prefers-color-scheme: dark) {
+        header::before {
+            background: rgb(39 39 42 / var(--tw-bg-opacity));
+            border-left: solid 1px rgb(82 82 91 / var(--tw-border-opacity));
+            border-bottom: solid 1px rgb(82 82 91 / var(--tw-border-opacity));
+        }
+    }
+
     @media(max-width: 700px) {
         header::before {
             left: 19px;
             top: -13px;
-            border-top: solid 1px #e5e7eb;
+            border-top: solid 1px rgb(82 82 91 / var(--tw-border-opacity));
             border-bottom: none;
             clip-path: polygon(0 0, 100% 0, 100% 10%, 10% 100%, 0 100%);
         }
@@ -182,34 +183,34 @@
 <!-- <div class="grid items-baseline grid-cols-1 mb-12 md:grid-cols-4"> -->
     <div >
         <div class="flex flex-col items-baseline w-full md:flex-row">
-        <aside data-id="post-meta" class="relative self-stretch w-40 mt-8 text-right text-gray-500 md:px-4 md:mt-0 md:mr-8 md:border-r-2">
+        <aside data-id="post-meta" class="relative self-stretch w-40 mt-8 text-right text-gray-500 md:px-4 md:mt-0 md:mr-8 md:border-r-2 dark:border-gray-600">
         </aside>
-        <article class="relative p-4 mt-4 bg-white border md:w- md:mt-8 md:col-span-3 hover:shadow-lg">
+        <article class="relative p-4 mt-4 bg-white dark:bg-gray-800 border md:mt-8 md:col-span-3 hover:shadow-lg dark:border-gray-600">
             <header>
                 <a href="../2021/sphinx-and-tailwind/">
                     <h2 style="max-width: 33ch" class="mb-4 text-2xl text-green-600">Sphinx & Tailwind: A Very Powerful Combo</h2>
                 </a>
             </header>
-            <div class="prose-sm prose prose-green">
+            <div class="prose-sm prose prose-emerald dark:prose-invert">
                 <div class="ablog-post-excerpt docutils container">
 <p>Write about being able to use <code class="docutils literal notranslate"><span class="pre">..</span> <span class="pre">container::</span></code> and <code class="docutils literal notranslate"><span class="pre">:class:</span></code> to drop in a
 handful of utility classes to create custom “components” when the situation
 calls for it.</p>
 </div>
 
-        
+
             </div>
             <div class="flex flex-col justify-between mt-4 lg:flex-row">
-                <p class="prose-sm prose prose-green"><a href="../2021/sphinx-and-tailwind/">Read More...</a></p>
-        
+                <p class="prose-sm prose prose-emerald dark:prose-invert"><a href="../2021/sphinx-and-tailwind/">Read More...</a></p>
+
                 <ul class="flex flex-wrap space-x-2">
                     <li class="mb-1">
-                        <a href="../tag/sphinx/" class="px-2 text-green-600 border border-green-600 rounded bg-green-50">
+                        <a href="../tag/sphinx/" class="px-2 text-green-600 border border-green-600 rounded bg-green-50 dark:bg-green-600/[.2] dark:text-green-200">
                             #sphinx
                         </a>
                     </li>
                     <li class="mb-1">
-                        <a href="../tag/tailwind/" class="px-2 text-green-600 border border-green-600 rounded bg-green-50">
+                        <a href="../tag/tailwind/" class="px-2 text-green-600 border border-green-600 rounded bg-green-50 dark:bg-green-600/[.2] dark:text-green-200">
                             #tailwind
                         </a>
                     </li>
@@ -224,7 +225,7 @@ calls for it.</p>
                 </div>
             </div>
 
-            <footer class="p-2 mt-8 mb-2 text-sm text-gray-600 border-t">
+            <footer class="p-2 mt-8 mb-2 text-sm text-gray-600 border-t dark:border-gray-600">
                 <div class="flex flex-col justify-between max-w-3xl mx-auto lg:flex-row">
                     <span>
                     </span>
@@ -233,7 +234,7 @@ calls for it.</p>
                 </div>
             </footer>
         </main>
-        
+
     </div>
 <script src="/_static/js/theme.js"></script>
 

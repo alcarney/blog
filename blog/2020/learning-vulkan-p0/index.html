@@ -13,62 +13,55 @@
     
     
     
-    <link rel="stylesheet" type="text/css" href="../../../_static/togglebutton.css" />
-    
-    
     <link rel="stylesheet" type="text/css" href="../../../_static/css/styles.css" />
+    
+    
+    <link id="pygments_dark_css" media="(prefers-color-scheme: dark)" rel="stylesheet" type="text/css" href="../../../_static/pygments_dark.css" />
     
 
     <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
     <script src="../../../_static/jquery.js"></script>
     <script src="../../../_static/underscore.js"></script>
     <script src="../../../_static/doctools.js"></script>
-    <script>let toggleHintShow = 'Click to show';</script>
-    <script>let toggleHintHide = 'Click to hide';</script>
-    <script>let toggleOpenOnPrint = 'true';</script>
-    <script src="../../../_static/togglebutton.js"></script>
-    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
-    <script src="https://unpkg.com/mermaid/dist/mermaid.min.js"></script>
-    <script>mermaid.initialize({startOnLoad:true});</script>
     <link rel="shortcut icon" href="../../../_static/favicon.ico"/>
     <link rel="index" title="Index" href="../../../genindex/" />
     <link rel="search" title="Search" href="../../../search/" /> 
-  </head><body class="flex flex-col justify-between min-h-screen overflow-x-hidden bg-gray-100 ">
+  </head><body class="flex flex-col justify-between min-h-screen overflow-x-hidden bg-gray-100 dark:bg-gray-900">
     <div class="flex flex-grow">
         <input id="menu-state" type="checkbox" class="hidden" />
-        <aside class="flex justify-between flex-shrink-0 transition-all duration-500 bg-white border-r -ml-80 lg:ml-0">
-            <div class="flex flex-col justify-between h-full border-r w-80">
-                <div class="sticky top-0 flex flex-col h-screen"> 
-                    
+        <aside class="flex justify-between flex-shrink-0 transition-all duration-500 bg-white dark:bg-gray-800 -ml-80 lg:ml-0 dark:border-gray-600">
+            <div class="flex flex-col justify-between h-full border-r w-80 dark:border-gray-600">
+                <div class="sticky top-0 flex flex-col h-screen">
+
                     <div id="profile-card" class="full-profile">
     <img class="" src="https://github.com/alcarney.png"/>
     <h2 class=""><a href="/">Alex Carney</a></h2>
 </div>
-                    
+
                     <div id="searchbox" style="display: none" role="search" class="px-4 py-4">
-    <form class="flex justify-between px-2 py-1 bg-gray-100 border-2 rounded search focus-within:border-green-600" action="../../../search/" method="get">
+    <form class="flex justify-between px-2 py-1 bg-gray-100 border-2 rounded search dark:bg-gray-900 focus-within:border-green-600 dark:border-gray-600" action="../../../search/" method="get">
         <label class="mr-2 text-gray-500" for="sbox">
             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="feather feather-search">
                 <circle cx="11" cy="11" r="6" />
                 <path d="m21 21-4.35-4.35" />
             </svg>
         </label>
-        <input id="sbox" class="flex-grow bg-gray-100 focus:outline-none" type="search" name="q" placeholder="Search..." aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" />
+        <input id="sbox" class="flex-grow bg-gray-100 dark:text-white dark:bg-gray-900 focus:outline-none" type="search" name="q" placeholder="Search..." aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" />
     </form>
 </div>
 <script>$('#searchbox').show(0);</script>
+
                     
-                    
-    
+
 <nav class="flex flex-col text-center">
-    <a class="text-green-600 py-1 border-t text-lg hover:bg-gray-50" href="/blog">Blog</a>
-    <a class="text-green-600 py-1 border-t text-lg hover:bg-gray-50" href="/code">Code</a>
-    <a class="text-green-600 py-1 border-t text-lg hover:bg-gray-50" href="/notes">Notes</a>
+    <a class="text-green-600 py-1 border-t text-lg hover:bg-gray-50 dark:border-gray-600 dark:hover:bg-gray-900" href="/blog">Blog</a>
+    <a class="text-green-600 py-1 border-t text-lg hover:bg-gray-50 dark:border-gray-600 dark:hover:bg-gray-900" href="/code">Code</a>
+    <a class="text-green-600 py-1 border-t text-lg hover:bg-gray-50 dark:border-gray-600 dark:hover:bg-gray-900" href="/notes">Notes</a>
 </nav>
-                    
+
                     <div class="flex-shrink overflow-auto">
 
-<div class="grid justify-between p-4 text-gray-500 border-t" style="grid-template-columns: 24px auto">
+<div class="grid justify-between p-4 text-gray-400 border-t dark:border-gray-600" style="grid-template-columns: 24px auto">
     
     <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
@@ -82,33 +75,33 @@
     <ul class="text-right">
         
         <li class="mb-1">
-            <a href="../../tag/c/" class="px-2 my-1 text-green-600 border border-green-600 rounded bg-green-50">
+            <a href="../../tag/graphics/" class="px-2 my-1 text-green-600 border border-green-600 rounded bg-green-50 dark:bg-green-900 dark:text-green-200">
+                #graphics
+            </a>
+        </li>
+        
+        <li class="mb-1">
+            <a href="../../tag/c/" class="px-2 my-1 text-green-600 border border-green-600 rounded bg-green-50 dark:bg-green-900 dark:text-green-200">
                 #c
             </a>
         </li>
         
         <li class="mb-1">
-            <a href="../../tag/vulkan/" class="px-2 my-1 text-green-600 border border-green-600 rounded bg-green-50">
+            <a href="../../tag/vulkan/" class="px-2 my-1 text-green-600 border border-green-600 rounded bg-green-50 dark:bg-green-900 dark:text-green-200">
                 #vulkan
-            </a>
-        </li>
-        
-        <li class="mb-1">
-            <a href="../../tag/graphics/" class="px-2 my-1 text-green-600 border border-green-600 rounded bg-green-50">
-                #graphics
             </a>
         </li>
         
     </ul>
 </div>
-<nav id="localtoc" class="p-4 border-t">
+<nav id="localtoc" class="p-4 border-t dark:text-gray-200 dark:border-gray-600">
     <ul>
 <li><a class="reference internal" href="#">Learning Vulkan: Overview</a></li>
 </ul>
 
 </nav>
                     </div>
-                    
+
                     <footer class="w-full p-4 mt-auto text-white bg-gray-700">
                         <div class="flex justify-between">
     <div></div>
@@ -146,21 +139,21 @@
 </div>
                     </footer>
                 </div>
-            </div>     
+            </div>
         </aside>
-        
+
         <main class="w-full mx-auto lg:pr-0">
-            <div class="sticky top-0 z-50 mt-0 transition-all duration-300 bg-white border-b shadow-md lg:shadow-none lg:relative lg:-mt-16">
+            <div class="sticky top-0 z-50 mt-0 transition-all duration-300 bg-white dark:bg-gray-800 border-b shadow-md lg:shadow-none lg:relative lg:-mt-16 dark:border-gray-600">
                 <label class="flex h-16 text-gray-600 transition" for="menu-state">
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="w-8 h-8 my-auto" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="feather feather-arrow-right"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
                 </label>
-            </div> 
+            </div>
 
             <div id="content" class="mx-2 my-8">
-                <div class="max-w-3xl mx-auto">
+                <div role="main" class="max-w-3xl mx-auto">
                     
 
-<article class="p-4 prose-sm prose bg-white border prose-md prose-green max-w-none">
+<article class="p-4 prose-sm prose bg-white dark:bg-gray-800 border prose-md prose-emerald max-w-none dark:prose-invert dark:border-gray-600">
     <section id="learning-vulkan-overview">
 <h1>Learning Vulkan: Overview<a class="headerlink" href="#learning-vulkan-overview" title="Permalink to this headline">¶</a></h1>
 <p>I have always been interested in graphics and have on numerous occasions tried
@@ -199,7 +192,7 @@ remember to update it that is!</p>
 
 
 
-<div class="mt-8 pt-4 border-t">
+<div class="mt-8 pt-4 border-t dark:border-gray-600">
     <script src="https://giscus.app/client.js"
             data-repo="alcarney/blog"
             data-repo-id="MDEwOlJlcG9zaXRvcnk2Njk3NzM3MQ=="
@@ -208,7 +201,7 @@ remember to update it that is!</p>
             data-mapping="pathname"
             data-reactions-enabled="1"
             data-emit-metadata="0"
-            data-theme="light"
+            data-theme="preferred_color_scheme"
             crossorigin="anonymous"
             async>
     </script>
@@ -219,7 +212,7 @@ remember to update it that is!</p>
                 </div>
             </div>
 
-            <footer class="p-2 mt-8 mb-2 text-sm text-gray-600 border-t">
+            <footer class="p-2 mt-8 mb-2 text-sm text-gray-600 border-t dark:border-gray-600">
                 <div class="flex flex-col justify-between max-w-3xl mx-auto lg:flex-row">
                     <span>
                         <a class="text-green-600" href="../../../_sources/blog/2020/learning-vulkan-p0.rst.txt" rel="nofollow">
@@ -231,7 +224,7 @@ remember to update it that is!</p>
                 </div>
             </footer>
         </main>
-        
+
     </div>
 <script src="/_static/js/theme.js"></script>
 

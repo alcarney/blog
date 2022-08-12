@@ -2,10 +2,10 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
   <id>www.alcarney.me</id>
   <title>Blog</title>
-  <updated>2022-07-25T12:08:39.757777+00:00</updated>
+  <updated>2022-08-12T19:31:47.463408+00:00</updated>
   <link href="www.alcarney.me"/>
   <link href="www.alcarney.me/blog/atom.xml" rel="self"/>
-  <generator uri="https://ablog.readthedocs.org/" version="0.10.26">ABlog</generator>
+  <generator uri="https://ablog.readthedocs.org/" version="0.10.29">ABlog</generator>
   <entry>
     <id>www.alcarney.me/blog/2018/first-article/</id>
     <title>I’ve Started a Blog… Again!</title>
@@ -75,8 +75,8 @@ contribution!Now that stylo seems to be getting to the point that it might me us
 other people wouldn’t it be great if there was a community driven example
 gallery that people could get inspired by? - Well now there is! And it’s
 called Stylo Doodles</summary>
-    <category term="stylo" label="stylo"/>
     <category term="python" label="python"/>
+    <category term="stylo" label="stylo"/>
     <published>2018-10-12T00:00:00+00:00</published>
   </entry>
   <entry>
@@ -93,10 +93,10 @@ called Stylo Doodles</summary>
 </content>
     <link href="www.alcarney.me/blog/2019/til-python-cmd/" rel="alternate"/>
     <summary>Today I Learned that Python’s standard library has a cmd module and it is awesome!</summary>
-    <category term="stylo" label="stylo"/>
-    <category term="python" label="python"/>
-    <category term="til" label="til"/>
     <category term="cli" label="cli"/>
+    <category term="python" label="python"/>
+    <category term="stylo" label="stylo"/>
+    <category term="til" label="til"/>
     <published>2019-01-05T00:00:00+00:00</published>
   </entry>
   <entry>
@@ -143,9 +143,9 @@ functionality using only vanilla JavaScript. Clicking and dragging as a concept
 can apply to many kinds of interactions so in this instance I’m specifically
 referring to clicking on an SVG element moving it around on the page as
 illustrated by the demo above.</summary>
+    <category term="js" label="js"/>
     <category term="svg" label="svg"/>
     <category term="web" label="web"/>
-    <category term="js" label="js"/>
     <published>2019-07-07T00:00:00+00:00</published>
   </entry>
   <entry>
@@ -175,8 +175,8 @@ once I got that far…But that’s (hopefully) about to change! What better excu
 jump back into this world for the 100th time and try to get to all those
 interesting ideas I see people playing with all the time!</summary>
     <category term="c" label="c"/>
-    <category term="vulkan" label="vulkan"/>
     <category term="graphics" label="graphics"/>
+    <category term="vulkan" label="vulkan"/>
     <published>2020-01-01T00:00:00+00:00</published>
   </entry>
   <entry>
@@ -206,8 +206,8 @@ Vulkan to explore various concepts in graphics programming. As mentioned in
 the Overview I don’t necessarily
 know what I’m doing!</summary>
     <category term="c" label="c"/>
-    <category term="vulkan" label="vulkan"/>
     <category term="graphics" label="graphics"/>
+    <category term="vulkan" label="vulkan"/>
     <published>2020-01-08T00:00:00+00:00</published>
   </entry>
   <entry>
@@ -233,11 +233,11 @@ managed to use TinyGo to compile a “Hello, World!” Go program into
 WebAssembly and execute it in the browser. So that I have something to refer
 back to I also describe setting up my development environment as a container
 using LXD.</summary>
+    <category term="containers" label="containers"/>
     <category term="go" label="go"/>
+    <category term="lxd" label="lxd"/>
     <category term="tinygo" label="tinygo"/>
     <category term="wasm" label="wasm"/>
-    <category term="lxd" label="lxd"/>
-    <category term="containers" label="containers"/>
     <published>2020-04-28T00:00:00+00:00</published>
   </entry>
   <entry>
@@ -263,9 +263,9 @@ language in the browser. However before I could even start thinking about parser
 abstract syntax trees and the like I had to be able to pass strings between my
 WebAssembly module and the surrounding JavaScript.Turns out that is much trickier than I expected.</summary>
     <category term="go" label="go"/>
+    <category term="js" label="js"/>
     <category term="tinygo" label="tinygo"/>
     <category term="wasm" label="wasm"/>
-    <category term="js" label="js"/>
     <published>2020-05-06T00:00:00+00:00</published>
   </entry>
   <entry>
@@ -322,8 +322,8 @@ compiler/interpreter. However, while I’m definitely interested in parsing I
 don’t quite feel like tackling that just yet. Instead I’m going to have Python
 be the frontend and embed my toy language into it via a CPython Extension</summary>
     <category term="c" label="c"/>
-    <category term="python" label="python"/>
     <category term="prog-langs" label="prog-langs"/>
+    <category term="python" label="python"/>
     <published>2021-01-13T00:00:00+00:00</published>
   </entry>
   <entry>
@@ -353,8 +353,8 @@ think it does a good job of providing you with completion suggestions for all yo
 roles, directives and cross-references.Anyway with the recent releases of github.dev and vscode.dev I really want to
 see if I can bring Esbonio into the browser version of VSCode. There’s only one
 problem… Esbonio is written in Python! 😬</summary>
-    <category term="lsp" label="lsp"/>
     <category term="esbonio" label="esbonio"/>
+    <category term="lsp" label="lsp"/>
     <category term="vscode" label="vscode"/>
     <published>2021-10-25T00:00:00+00:00</published>
   </entry>
