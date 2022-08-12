@@ -3,9 +3,7 @@
 # This file only contains a selection of the most common options. For a full
 # list see the documentation:
 # https://www.sphinx-doc.org/en/master/usage/configuration.html
-
 # -- Path setup --------------------------------------------------------------
-
 # If extensions (or modules to document with autodoc) are in another directory,
 # add these directories to sys.path here. If the directory is relative to the
 # documentation root, use os.path.abspath to make it absolute, like shown here.
@@ -35,8 +33,6 @@ extensions = [
     "ablog",
     "coderepo",  # see: ./extensions.coderepo.py
     "sphinx.ext.intersphinx",
-    "sphinx_togglebutton",
-    "sphinxcontrib.mermaid",
     "tailwind",  # see: ./extensions/tailwind.py
 ]
 
@@ -73,11 +69,10 @@ html_sidebars = {
     "search": [],
 }
 
-html_theme = "basic"
 html_favicon = "_static/favicon.ico"
 html_static_path = ["_static"]
-
-pygments_style = "pygments.styles.solarized.SolarizedLightStyle"
+html_theme = "mytheme"
+html_theme_path = ["theme"]
 
 
 def pypi_role(name, rawtext, text, lineno, inliner, options={}, content=[]):

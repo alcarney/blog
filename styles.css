@@ -2,18 +2,16 @@
 @tailwind components;
 @tailwind utilities;
 
-
-
 /* --  Menu open/close controls -- */
-#menu-state:checked + aside {
+#menu-state:checked+aside {
     @apply ml-0
 }
 
-#menu-state ~ main label[for='menu-state'] svg {
+#menu-state~main label[for='menu-state'] svg {
     @apply transition
 }
 
-#menu-state:checked ~ main label[for='menu-state'] svg {
+#menu-state:checked~main label[for='menu-state'] svg {
     @apply transform rotate-180
 }
 
@@ -23,38 +21,45 @@ a.headerlink {
     @apply float-right
 }
 
-div.section a.headerlink {
-    @apply text-white
+section a.headerlink {
+    @apply text-white dark:text-gray-800
 }
 
-h1 > a.headerlink::before,
-h2 > a.headerlink::before,
-h3 > a.headerlink::before,
-h4 > a.headerlink::before,
-h5 > a.headerlink::before,
-h6 > a.headerlink::before {
+h1>a.headerlink::before,
+h2>a.headerlink::before,
+h3>a.headerlink::before,
+h4>a.headerlink::before,
+h5>a.headerlink::before,
+h6>a.headerlink::before {
     @apply hidden
 }
 
-h1:hover > a.headerlink::before,
-h2:hover > a.headerlink::before,
-h3:hover > a.headerlink::before,
-h4:hover > a.headerlink::before,
-h5:hover > a.headerlink::before,
-h6:hover > a.headerlink::before {
-    @apply inline-block
+h1:hover>a.headerlink::before,
+h2:hover>a.headerlink::before,
+h3:hover>a.headerlink::before,
+h4:hover>a.headerlink::before,
+h5:hover>a.headerlink::before,
+h6:hover>a.headerlink::before {
+    @apply inline-block dark:text-white
 }
 
-div.section a.headerlink::before {
+section a.headerlink::before {
     content: "";
-    background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="24px" height="24px" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1" /></svg>');
+    background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" viewBox="0 0 24 24"> <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1" /></svg>');
     width: 24px;
     height: 24px;
 }
 
+@media (prefers-color-scheme: dark) {
+
+    section a.headerlink::before {
+        background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" stroke="white" fill="none" viewBox="0 0 24 24"> <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1" /></svg>');
+    }
+}
+
 /* -- Admonitions -- */
 .admonition {
-    @apply px-4 bg-green-50 border
+    @apply px-4 bg-green-50 border dark:bg-green-900 dark:border-gray-600
 }
 
 .admonition-title {
@@ -70,13 +75,18 @@ img[style*="width"] {
     @apply text-center text-gray-500 mt-0
 }
 
+/* -- Code Blocks -- */
+div.highlight {
+    @apply rounded border dark:border-gray-600
+}
+
 /* -- Local table of contents -- */
 
 #localtoc a[href='#'] {
-    @apply font-semibold    
+    @apply font-semibold
 }
 
-#localtoc a[href='#'] + ul {
+#localtoc a[href='#']+ul {
     @apply ml-0
 }
 
@@ -87,7 +97,7 @@ img[style*="width"] {
 /* -- Profile image -- */
 
 .full-profile {
-    @apply flex justify-between p-2 lg:flex-col border-b lg:border-b-0
+    @apply flex justify-between p-2 lg:flex-col border-b lg:border-b-0 dark:border-gray-600
 }
 
 .full-profile img {
@@ -99,7 +109,7 @@ img[style*="width"] {
 }
 
 .small-profile {
-    @apply flex justify-between p-2 border-b
+    @apply flex justify-between p-2 border-b dark:border-gray-600
 }
 
 .small-profile img {
