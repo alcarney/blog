@@ -133,100 +133,6 @@
     
 
     <div data-parent="" class=" border-t dark:border-gray-600"">
-        <label for="README.rst">
-            <div style="padding-left: 4px;" class="flex items-center px-2 py-1 space-x-2 hover:bg-gray-50 hover:dark:bg-gray-700">
-                
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" ><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
-                    <path d="M14 2v6h6M16 13H8M16 17H8M10 9H8"/>
-                </svg>
-                
-
-                <span>README.rst</span>
-            </div>
-        </label>
-
-        
-        <input class="hidden" data-type="file" data-id="README.rst" type="checkbox" id="README.rst" />
-        <div class="overflow-y-auto transition-all max-h-0">
-            <div class="highlight"><pre style="margin: 0"><span></span><span class="gh">Running Locally</span>
-<span class="gh">---------------</span>
-
-It&#39;s possible to test your web extension by serving a local copy that the web
-version of VSCode can then pick up and install.
-
-<span class="m">#.</span> Install dependencies
-
-<span class="p">   ..</span> <span class="ow">code-block</span><span class="p">::</span> console
-
-      $ npm install
-
-<span class="m">#.</span> Compile both the client and server components of the extension with webpack.
-   Using the <span class="s">``watch``</span> script means that webpack will automatically recompile the extension
-   whenever you make changes.
-
-<span class="p">   ..</span> <span class="ow">code-block</span><span class="p">::</span> <span class="k">console</span>
-
-      <span class="gp">$ </span>npm run watch 
-
-<span class="m">#.</span> In a separate terminal, spin up a web server to serve your extension 
-
-<span class="p">   ..</span> <span class="ow">code-block</span><span class="p">::</span> <span class="k">console</span>
-
-      <span class="gp">$ </span>npm run serve 
-
-      <span class="go">&gt; hello-lsp-web@ serve /home/alex/Projects/blog/code/hello-lsp-web</span>
-      <span class="go">&gt; npx serve --cors -l 5000</span>
-
-      <span class="go">npx: installed 88 in 6.613s</span>
-
-      <span class="go">┌──────────────────────────────────────────────────┐</span>
-      <span class="go">│                                                  │</span>
-      <span class="go">│   Serving!                                       │</span>
-      <span class="go">│                                                  │</span>
-      <span class="go">│   - Local:            http://localhost:5000      │</span>
-      <span class="go">│   - On Your Network:  http://192.168.0.31:5000   │</span>
-      <span class="go">│                                                  │</span>
-      <span class="go">│   Copied local address to clipboard!             │</span>
-      <span class="go">│                                                  │</span>
-      <span class="go">└──────────────────────────────────────────────────┘</span>
-
-<span class="m">#.</span> I don&#39;t fully understand this step, but running this command in a third terminal window
-   somehow makes the local web server we spun up in the previous step, visible to the web
-   version of VSCode.
-
-<span class="p">   ..</span> <span class="ow">code-block</span><span class="p">::</span> <span class="k">console</span>
-
-      <span class="gp">$ </span>npm run tunnel
-
-      <span class="go">&gt; hello-lsp-web@ tunnel /home/alex/Projects/blog/code/hello-lsp-web</span>
-      <span class="go">&gt; npx localtunnel -p 5000</span>
-
-      <span class="go">npx: installed 22 in 3.043s</span>
-      <span class="go">your url is: https://xxxx-yyyy-zzzz.loca.lt</span>
-
-<span class="m">#.</span> Actually, before opening up the web version of VSCode, first open the <span class="s">``https://...local.it``</span> 
-   URL from the previous step in your web browser. You should see a web page like this
-
-<span class="p">   ..</span> <span class="ow">figure</span><span class="p">::</span> /code/hello-lsp-web/resources/tunnel_warning.png
-
-   Click the <span class="s">``Click to Continue``</span> button to enable the tunnel.
-
-<span class="m">#.</span> Now open up <span class="s">`VSCode in your browser </span><span class="si">&lt;https://vscode.dev/github/alcarney/blog&gt;</span><span class="s">`_</span> and 
-   once it has loaded. Bring up the command palette with <span class="na">:kbd:</span><span class="nv">`F1`</span> and pick the
-   <span class="na">:guilabel:</span><span class="nv">`Developer: Install Web Extension...`</span> command.
-
-<span class="p">   ..</span> <span class="ow">figure</span><span class="p">::</span> /code/hello-lsp-web/resources/install_extension.png
-
-<span class="m">#.</span> Finally, paste in your <span class="s">``https://...loca.lt``</span> URL and click install. 
-</pre></div>
-
-        </div>
-    </div>
-        
-
-    
-
-    <div data-parent="" class=" border-t dark:border-gray-600"">
         <label for="webpack.config.js">
             <div style="padding-left: 4px;" class="flex items-center px-2 py-1 space-x-2 hover:bg-gray-50 hover:dark:bg-gray-700">
                 
@@ -317,6 +223,69 @@ version of VSCode can then pick up and install.
 <span class="p">}</span><span class="w"></span>
 
 <span class="nx">module</span><span class="p">.</span><span class="nx">exports</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[</span><span class="nx">clientConfig</span><span class="p">,</span><span class="w"> </span><span class="nx">serverConfig</span><span class="p">]</span><span class="w"></span>
+</pre></div>
+
+        </div>
+    </div>
+        
+
+    
+
+    <div data-parent="" class=" border-t dark:border-gray-600"">
+        <label for="resources">
+            <div style="padding-left: 4px;" class="flex items-center px-2 py-1 space-x-2 hover:bg-gray-50 hover:dark:bg-gray-700">
+                
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/>
+                </svg>
+                
+
+                <span>resources</span>
+            </div>
+        </label>
+
+        
+    </div>
+    <input class="hidden" data-type="folder" data-id="resources" type="checkbox" id="resources" />
+        
+
+    
+
+    <div data-parent="" class=" border-t dark:border-gray-600"">
+        <label for="tsconfig.json">
+            <div style="padding-left: 4px;" class="flex items-center px-2 py-1 space-x-2 hover:bg-gray-50 hover:dark:bg-gray-700">
+                
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" ><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+                    <path d="M14 2v6h6M16 13H8M16 17H8M10 9H8"/>
+                </svg>
+                
+
+                <span>tsconfig.json</span>
+            </div>
+        </label>
+
+        
+        <input class="hidden" data-type="file" data-id="tsconfig.json" type="checkbox" id="tsconfig.json" />
+        <div class="overflow-y-auto transition-all max-h-0">
+            <div class="highlight"><pre style="margin: 0"><span></span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="nt">&quot;compilerOptions&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">        </span><span class="nt">&quot;module&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;commonjs&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">        </span><span class="nt">&quot;target&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;es2019&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">        </span><span class="nt">&quot;lib&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w"></span>
+<span class="w">            </span><span class="s2">&quot;ES2019&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">            </span><span class="s2">&quot;WebWorker&quot;</span><span class="w"></span>
+<span class="w">        </span><span class="p">],</span><span class="w"></span>
+<span class="w">        </span><span class="nt">&quot;rootDir&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;src&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">        </span><span class="nt">&quot;outDir&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;dist&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">        </span><span class="nt">&quot;sourceMap&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w"></span>
+<span class="w">    </span><span class="p">},</span><span class="w"></span>
+<span class="w">    </span><span class="nt">&quot;include&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w"></span>
+<span class="w">        </span><span class="s2">&quot;src&quot;</span><span class="w"></span>
+<span class="w">    </span><span class="p">],</span><span class="w"></span>
+<span class="w">    </span><span class="nt">&quot;exclude&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w"></span>
+<span class="w">        </span><span class="s2">&quot;node_modules&quot;</span><span class="w"></span>
+<span class="w">    </span><span class="p">]</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 </pre></div>
 
         </div>
@@ -1594,69 +1563,6 @@ version of VSCode can then pick up and install.
     
 
     <div data-parent="" class=" border-t dark:border-gray-600"">
-        <label for="resources">
-            <div style="padding-left: 4px;" class="flex items-center px-2 py-1 space-x-2 hover:bg-gray-50 hover:dark:bg-gray-700">
-                
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round">
-                    <path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/>
-                </svg>
-                
-
-                <span>resources</span>
-            </div>
-        </label>
-
-        
-    </div>
-    <input class="hidden" data-type="folder" data-id="resources" type="checkbox" id="resources" />
-        
-
-    
-
-    <div data-parent="" class=" border-t dark:border-gray-600"">
-        <label for="tsconfig.json">
-            <div style="padding-left: 4px;" class="flex items-center px-2 py-1 space-x-2 hover:bg-gray-50 hover:dark:bg-gray-700">
-                
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" ><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
-                    <path d="M14 2v6h6M16 13H8M16 17H8M10 9H8"/>
-                </svg>
-                
-
-                <span>tsconfig.json</span>
-            </div>
-        </label>
-
-        
-        <input class="hidden" data-type="file" data-id="tsconfig.json" type="checkbox" id="tsconfig.json" />
-        <div class="overflow-y-auto transition-all max-h-0">
-            <div class="highlight"><pre style="margin: 0"><span></span><span class="p">{</span><span class="w"></span>
-<span class="w">    </span><span class="nt">&quot;compilerOptions&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">        </span><span class="nt">&quot;module&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;commonjs&quot;</span><span class="p">,</span><span class="w"></span>
-<span class="w">        </span><span class="nt">&quot;target&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;es2019&quot;</span><span class="p">,</span><span class="w"></span>
-<span class="w">        </span><span class="nt">&quot;lib&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w"></span>
-<span class="w">            </span><span class="s2">&quot;ES2019&quot;</span><span class="p">,</span><span class="w"></span>
-<span class="w">            </span><span class="s2">&quot;WebWorker&quot;</span><span class="w"></span>
-<span class="w">        </span><span class="p">],</span><span class="w"></span>
-<span class="w">        </span><span class="nt">&quot;rootDir&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;src&quot;</span><span class="p">,</span><span class="w"></span>
-<span class="w">        </span><span class="nt">&quot;outDir&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;dist&quot;</span><span class="p">,</span><span class="w"></span>
-<span class="w">        </span><span class="nt">&quot;sourceMap&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w"></span>
-<span class="w">    </span><span class="p">},</span><span class="w"></span>
-<span class="w">    </span><span class="nt">&quot;include&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w"></span>
-<span class="w">        </span><span class="s2">&quot;src&quot;</span><span class="w"></span>
-<span class="w">    </span><span class="p">],</span><span class="w"></span>
-<span class="w">    </span><span class="nt">&quot;exclude&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w"></span>
-<span class="w">        </span><span class="s2">&quot;node_modules&quot;</span><span class="w"></span>
-<span class="w">    </span><span class="p">]</span><span class="w"></span>
-<span class="p">}</span><span class="w"></span>
-</pre></div>
-
-        </div>
-    </div>
-        
-
-    
-
-    <div data-parent="" class=" border-t dark:border-gray-600"">
         <label for="package.json">
             <div style="padding-left: 4px;" class="flex items-center px-2 py-1 space-x-2 hover:bg-gray-50 hover:dark:bg-gray-700">
                 
@@ -1717,6 +1623,100 @@ version of VSCode can then pick up and install.
     
 
     <div data-parent="" class=" border-t dark:border-gray-600"">
+        <label for="README.rst">
+            <div style="padding-left: 4px;" class="flex items-center px-2 py-1 space-x-2 hover:bg-gray-50 hover:dark:bg-gray-700">
+                
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" ><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+                    <path d="M14 2v6h6M16 13H8M16 17H8M10 9H8"/>
+                </svg>
+                
+
+                <span>README.rst</span>
+            </div>
+        </label>
+
+        
+        <input class="hidden" data-type="file" data-id="README.rst" type="checkbox" id="README.rst" />
+        <div class="overflow-y-auto transition-all max-h-0">
+            <div class="highlight"><pre style="margin: 0"><span></span><span class="gh">Running Locally</span>
+<span class="gh">---------------</span>
+
+It&#39;s possible to test your web extension by serving a local copy that the web
+version of VSCode can then pick up and install.
+
+<span class="m">#.</span> Install dependencies
+
+<span class="p">   ..</span> <span class="ow">code-block</span><span class="p">::</span> console
+
+      $ npm install
+
+<span class="m">#.</span> Compile both the client and server components of the extension with webpack.
+   Using the <span class="s">``watch``</span> script means that webpack will automatically recompile the extension
+   whenever you make changes.
+
+<span class="p">   ..</span> <span class="ow">code-block</span><span class="p">::</span> <span class="k">console</span>
+
+      <span class="gp">$ </span>npm run watch 
+
+<span class="m">#.</span> In a separate terminal, spin up a web server to serve your extension 
+
+<span class="p">   ..</span> <span class="ow">code-block</span><span class="p">::</span> <span class="k">console</span>
+
+      <span class="gp">$ </span>npm run serve 
+
+      <span class="go">&gt; hello-lsp-web@ serve /home/alex/Projects/blog/code/hello-lsp-web</span>
+      <span class="go">&gt; npx serve --cors -l 5000</span>
+
+      <span class="go">npx: installed 88 in 6.613s</span>
+
+      <span class="go">┌──────────────────────────────────────────────────┐</span>
+      <span class="go">│                                                  │</span>
+      <span class="go">│   Serving!                                       │</span>
+      <span class="go">│                                                  │</span>
+      <span class="go">│   - Local:            http://localhost:5000      │</span>
+      <span class="go">│   - On Your Network:  http://192.168.0.31:5000   │</span>
+      <span class="go">│                                                  │</span>
+      <span class="go">│   Copied local address to clipboard!             │</span>
+      <span class="go">│                                                  │</span>
+      <span class="go">└──────────────────────────────────────────────────┘</span>
+
+<span class="m">#.</span> I don&#39;t fully understand this step, but running this command in a third terminal window
+   somehow makes the local web server we spun up in the previous step, visible to the web
+   version of VSCode.
+
+<span class="p">   ..</span> <span class="ow">code-block</span><span class="p">::</span> <span class="k">console</span>
+
+      <span class="gp">$ </span>npm run tunnel
+
+      <span class="go">&gt; hello-lsp-web@ tunnel /home/alex/Projects/blog/code/hello-lsp-web</span>
+      <span class="go">&gt; npx localtunnel -p 5000</span>
+
+      <span class="go">npx: installed 22 in 3.043s</span>
+      <span class="go">your url is: https://xxxx-yyyy-zzzz.loca.lt</span>
+
+<span class="m">#.</span> Actually, before opening up the web version of VSCode, first open the <span class="s">``https://...local.it``</span> 
+   URL from the previous step in your web browser. You should see a web page like this
+
+<span class="p">   ..</span> <span class="ow">figure</span><span class="p">::</span> /code/hello-lsp-web/resources/tunnel_warning.png
+
+   Click the <span class="s">``Click to Continue``</span> button to enable the tunnel.
+
+<span class="m">#.</span> Now open up <span class="s">`VSCode in your browser </span><span class="si">&lt;https://vscode.dev/github/alcarney/blog&gt;</span><span class="s">`_</span> and 
+   once it has loaded. Bring up the command palette with <span class="na">:kbd:</span><span class="nv">`F1`</span> and pick the
+   <span class="na">:guilabel:</span><span class="nv">`Developer: Install Web Extension...`</span> command.
+
+<span class="p">   ..</span> <span class="ow">figure</span><span class="p">::</span> /code/hello-lsp-web/resources/install_extension.png
+
+<span class="m">#.</span> Finally, paste in your <span class="s">``https://...loca.lt``</span> URL and click install. 
+</pre></div>
+
+        </div>
+    </div>
+        
+
+    
+
+    <div data-parent="" class=" border-t dark:border-gray-600"">
         <label for="src">
             <div style="padding-left: 4px;" class="flex items-center px-2 py-1 space-x-2 hover:bg-gray-50 hover:dark:bg-gray-700">
                 
@@ -1732,6 +1732,57 @@ version of VSCode can then pick up and install.
         
     </div>
     <input class="hidden" data-type="folder" data-id="src" type="checkbox" id="src" />
+        
+
+    
+
+    <div data-parent="src" class="max-h-0 transition-all overflow-y-hidden border-t dark:border-gray-600"">
+        <label for="src/client.ts">
+            <div style="padding-left: 20px;" class="flex items-center px-2 py-1 space-x-2 hover:bg-gray-50 hover:dark:bg-gray-700">
+                
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" ><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+                    <path d="M14 2v6h6M16 13H8M16 17H8M10 9H8"/>
+                </svg>
+                
+
+                <span>client.ts</span>
+            </div>
+        </label>
+
+        
+        <input class="hidden" data-type="file" data-id="src/client.ts" type="checkbox" id="src/client.ts" />
+        <div class="overflow-y-auto transition-all max-h-0">
+            <div class="highlight"><pre style="margin: 0"><span></span><span class="k">import</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">ExtensionContext</span><span class="p">,</span><span class="w"> </span><span class="nx">Uri</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="kr">from</span><span class="w"> </span><span class="s2">&quot;vscode&quot;</span><span class="p">;</span><span class="w"></span>
+<span class="k">import</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">LanguageClientOptions</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="kr">from</span><span class="w"> </span><span class="s2">&quot;vscode-languageclient&quot;</span><span class="p">;</span><span class="w"></span>
+
+<span class="c1">// Be sure to use the browser version of the client!</span><span class="w"></span>
+<span class="k">import</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">LanguageClient</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="kr">from</span><span class="w"> </span><span class="s2">&quot;vscode-languageclient/browser&quot;</span><span class="p">;</span><span class="w"></span>
+
+<span class="k">export</span><span class="w"> </span><span class="kd">function</span><span class="w"> </span><span class="nx">activate</span><span class="p">(</span><span class="nx">context</span><span class="o">:</span><span class="w"> </span><span class="kt">ExtensionContext</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+
+<span class="w">    </span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;activating extension&quot;</span><span class="p">)</span><span class="w"></span>
+
+<span class="w">    </span><span class="kd">const</span><span class="w"> </span><span class="nx">clientOptions</span><span class="o">:</span><span class="w"> </span><span class="kt">LanguageClientOptions</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">        </span><span class="nx">documentSelector</span><span class="o">:</span><span class="w"> </span><span class="p">[</span><span class="w"></span>
+<span class="w">            </span><span class="p">{</span><span class="w"> </span><span class="nx">scheme</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;file&quot;</span><span class="p">,</span><span class="w"> </span><span class="nx">language</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;plaintext&quot;</span><span class="w"> </span><span class="p">},</span><span class="w"></span>
+<span class="w">        </span><span class="p">],</span><span class="w"></span>
+<span class="w">        </span><span class="nx">outputChannelName</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;Hello Language Server&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="p">}</span><span class="w"></span>
+
+<span class="w">    </span><span class="kd">const</span><span class="w"> </span><span class="nx">path</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">Uri</span><span class="p">.</span><span class="nx">joinPath</span><span class="p">(</span><span class="nx">context</span><span class="p">.</span><span class="nx">extensionUri</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;dist/server.js&quot;</span><span class="p">)</span><span class="w"></span>
+<span class="w">    </span><span class="kd">const</span><span class="w"> </span><span class="nx">worker</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nx">Worker</span><span class="p">(</span><span class="nx">path</span><span class="p">.</span><span class="nx">toString</span><span class="p">())</span><span class="w"></span>
+
+<span class="w">    </span><span class="kd">const</span><span class="w"> </span><span class="nx">client</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nx">LanguageClient</span><span class="p">(</span><span class="s2">&quot;hello-lsp-web&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;Hello LSP&quot;</span><span class="p">,</span><span class="w"> </span><span class="nx">clientOptions</span><span class="p">,</span><span class="w"> </span><span class="nx">worker</span><span class="p">)</span><span class="w"></span>
+<span class="w">    </span><span class="nx">context</span><span class="p">.</span><span class="nx">subscriptions</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="nx">client</span><span class="p">.</span><span class="nx">start</span><span class="p">())</span><span class="w"></span>
+
+<span class="w">    </span><span class="nx">client</span><span class="p">.</span><span class="nx">onReady</span><span class="p">().</span><span class="nx">then</span><span class="p">(()</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">        </span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;hello-lsp-web server is ready&quot;</span><span class="p">)</span><span class="w"></span>
+<span class="w">    </span><span class="p">})</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
+</pre></div>
+
+        </div>
+    </div>
         
 
     
@@ -1792,69 +1843,8 @@ version of VSCode can then pick up and install.
         
 
     
-
-    <div data-parent="src" class="max-h-0 transition-all overflow-y-hidden border-t dark:border-gray-600"">
-        <label for="src/client.ts">
-            <div style="padding-left: 20px;" class="flex items-center px-2 py-1 space-x-2 hover:bg-gray-50 hover:dark:bg-gray-700">
-                
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" ><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
-                    <path d="M14 2v6h6M16 13H8M16 17H8M10 9H8"/>
-                </svg>
-                
-
-                <span>client.ts</span>
-            </div>
-        </label>
-
-        
-        <input class="hidden" data-type="file" data-id="src/client.ts" type="checkbox" id="src/client.ts" />
-        <div class="overflow-y-auto transition-all max-h-0">
-            <div class="highlight"><pre style="margin: 0"><span></span><span class="k">import</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">ExtensionContext</span><span class="p">,</span><span class="w"> </span><span class="nx">Uri</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="kr">from</span><span class="w"> </span><span class="s2">&quot;vscode&quot;</span><span class="p">;</span><span class="w"></span>
-<span class="k">import</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">LanguageClientOptions</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="kr">from</span><span class="w"> </span><span class="s2">&quot;vscode-languageclient&quot;</span><span class="p">;</span><span class="w"></span>
-
-<span class="c1">// Be sure to use the browser version of the client!</span><span class="w"></span>
-<span class="k">import</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">LanguageClient</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="kr">from</span><span class="w"> </span><span class="s2">&quot;vscode-languageclient/browser&quot;</span><span class="p">;</span><span class="w"></span>
-
-<span class="k">export</span><span class="w"> </span><span class="kd">function</span><span class="w"> </span><span class="nx">activate</span><span class="p">(</span><span class="nx">context</span><span class="o">:</span><span class="w"> </span><span class="kt">ExtensionContext</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-
-<span class="w">    </span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;activating extension&quot;</span><span class="p">)</span><span class="w"></span>
-
-<span class="w">    </span><span class="kd">const</span><span class="w"> </span><span class="nx">clientOptions</span><span class="o">:</span><span class="w"> </span><span class="kt">LanguageClientOptions</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">        </span><span class="nx">documentSelector</span><span class="o">:</span><span class="w"> </span><span class="p">[</span><span class="w"></span>
-<span class="w">            </span><span class="p">{</span><span class="w"> </span><span class="nx">scheme</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;file&quot;</span><span class="p">,</span><span class="w"> </span><span class="nx">language</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;plaintext&quot;</span><span class="w"> </span><span class="p">},</span><span class="w"></span>
-<span class="w">        </span><span class="p">],</span><span class="w"></span>
-<span class="w">        </span><span class="nx">outputChannelName</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;Hello Language Server&quot;</span><span class="p">,</span><span class="w"></span>
-<span class="w">    </span><span class="p">}</span><span class="w"></span>
-
-<span class="w">    </span><span class="kd">const</span><span class="w"> </span><span class="nx">path</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">Uri</span><span class="p">.</span><span class="nx">joinPath</span><span class="p">(</span><span class="nx">context</span><span class="p">.</span><span class="nx">extensionUri</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;dist/server.js&quot;</span><span class="p">)</span><span class="w"></span>
-<span class="w">    </span><span class="kd">const</span><span class="w"> </span><span class="nx">worker</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nx">Worker</span><span class="p">(</span><span class="nx">path</span><span class="p">.</span><span class="nx">toString</span><span class="p">())</span><span class="w"></span>
-
-<span class="w">    </span><span class="kd">const</span><span class="w"> </span><span class="nx">client</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nx">LanguageClient</span><span class="p">(</span><span class="s2">&quot;hello-lsp-web&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;Hello LSP&quot;</span><span class="p">,</span><span class="w"> </span><span class="nx">clientOptions</span><span class="p">,</span><span class="w"> </span><span class="nx">worker</span><span class="p">)</span><span class="w"></span>
-<span class="w">    </span><span class="nx">context</span><span class="p">.</span><span class="nx">subscriptions</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="nx">client</span><span class="p">.</span><span class="nx">start</span><span class="p">())</span><span class="w"></span>
-
-<span class="w">    </span><span class="nx">client</span><span class="p">.</span><span class="nx">onReady</span><span class="p">().</span><span class="nx">then</span><span class="p">(()</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">        </span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;hello-lsp-web server is ready&quot;</span><span class="p">)</span><span class="w"></span>
-<span class="w">    </span><span class="p">})</span><span class="w"></span>
-<span class="p">}</span><span class="w"></span>
-</pre></div>
-
-        </div>
-    </div>
-        
-
-    
 </div>
 <style>
-    
-
-    input[data-id='README.rst']:checked ~ div {
-        max-height: 350px;
-    }
-
-    input[data-id='']:checked ~ div[data-parent='README.rst'] {
-        max-height: 382px;
-    }
-
     
 
     input[data-id='webpack.config.js']:checked ~ div {
@@ -1862,16 +1852,6 @@ version of VSCode can then pick up and install.
     }
 
     input[data-id='']:checked ~ div[data-parent='webpack.config.js'] {
-        max-height: 382px;
-    }
-
-    
-
-    input[data-id='package-lock.json']:checked ~ div {
-        max-height: 350px;
-    }
-
-    input[data-id='']:checked ~ div[data-parent='package-lock.json'] {
         max-height: 382px;
     }
 
@@ -1897,11 +1877,31 @@ version of VSCode can then pick up and install.
 
     
 
+    input[data-id='package-lock.json']:checked ~ div {
+        max-height: 350px;
+    }
+
+    input[data-id='']:checked ~ div[data-parent='package-lock.json'] {
+        max-height: 382px;
+    }
+
+    
+
     input[data-id='package.json']:checked ~ div {
         max-height: 350px;
     }
 
     input[data-id='']:checked ~ div[data-parent='package.json'] {
+        max-height: 382px;
+    }
+
+    
+
+    input[data-id='README.rst']:checked ~ div {
+        max-height: 350px;
+    }
+
+    input[data-id='']:checked ~ div[data-parent='README.rst'] {
         max-height: 382px;
     }
 
@@ -1917,21 +1917,21 @@ version of VSCode can then pick up and install.
 
     
 
-    input[data-id='src/server.ts']:checked ~ div {
-        max-height: 350px;
-    }
-
-    input[data-id='src']:checked ~ div[data-parent='src/server.ts'] {
-        max-height: 382px;
-    }
-
-    
-
     input[data-id='src/client.ts']:checked ~ div {
         max-height: 350px;
     }
 
     input[data-id='src']:checked ~ div[data-parent='src/client.ts'] {
+        max-height: 382px;
+    }
+
+    
+
+    input[data-id='src/server.ts']:checked ~ div {
+        max-height: 350px;
+    }
+
+    input[data-id='src']:checked ~ div[data-parent='src/server.ts'] {
         max-height: 382px;
     }
 
