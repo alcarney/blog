@@ -23,6 +23,8 @@ _static/css/styles.css: styles.css tailwind.config.js $(wildcard _templates/*.ht
 
 html: _static/css/styles.css $(BUILDDIR)/_static/js/theme.js
 	ablog build $(ABLOG_ARGS) -w $(BUILDDIR) -d _build/doctrees
+	mkdir -p $(BUILDDIR)/talks/
+	cp -r talks/introducing-esbonio $(BUILDDIR)/talks/introducing-esbonio
 	patch -N -p1 < searchtools.patch
 
 preview:
