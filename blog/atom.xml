@@ -2,10 +2,10 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
   <id>www.alcarney.me</id>
   <title>Blog</title>
-  <updated>2022-11-12T18:35:34.155183+00:00</updated>
+  <updated>2022-11-17T12:26:00.746464+00:00</updated>
   <link href="www.alcarney.me"/>
   <link href="www.alcarney.me/blog/atom.xml" rel="self"/>
-  <generator uri="https://ablog.readthedocs.org/" version="0.10.29">ABlog</generator>
+  <generator uri="https://ablog.readthedocs.org/" version="0.10.33">ABlog</generator>
   <entry>
     <id>www.alcarney.me/blog/2018/first-article/</id>
     <title>I’ve Started a Blog… Again!</title>

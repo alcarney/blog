@@ -67,6 +67,7 @@
 <li><a class="reference internal" href="#common">Common</a><ul>
 <li><a class="reference internal" href="#keybindings">Keybindings</a></li>
 <li><a class="reference internal" href="#listing-registered-autocmds">Listing Registered <code class="docutils literal notranslate"><span class="pre">autocmds</span></code></a></li>
+<li><a class="reference internal" href="#synced-scrolling">Synced Scrolling</a></li>
 </ul>
 </li>
 <li><a class="reference internal" href="#neovim-only">Neovim Only</a></li>
@@ -186,6 +187,15 @@ packer_load_aucmds  <span class="nb">FileType</span>
     <span class="k">python</span>    <span class="n">lua</span> <span class="n">require</span><span class="p">(</span><span class="s2">&quot;packer.load&quot;</span><span class="p">)({</span><span class="s1">&#39;black&#39;</span><span class="p">},</span> <span class="p">{</span> <span class="n">ft</span> <span class="o">=</span> <span class="s2">&quot;python&quot;</span> <span class="p">},</span> <span class="n">_G</span><span class="o">.</span><span class="n">packer_plugins</span><span class="p">)</span>
 </pre></div>
 </div>
+</section>
+<section id="synced-scrolling">
+<h3>Synced Scrolling<a class="headerlink" href="#synced-scrolling" title="Permalink to this headline">¶</a></h3>
+<p>To have 2 or more windows scroll together, simply <code class="docutils literal notranslate"><span class="pre">:set</span> <span class="pre">scrollbind</span></code> in each window you want to syncronise!</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">:h</span> <span class="pre">scroll-binding</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">:h</span> <span class="pre">scrollbind</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">:h</span> <span class="pre">scrollopt</span></code></p></li>
+</ul>
 </section>
 </section>
 <section id="neovim-only">
