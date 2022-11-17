@@ -40,6 +40,15 @@ Listing Registered ``autocmds``
    packer_load_aucmds  FileType
        python    lua require("packer.load")({'black'}, { ft = "python" }, _G.packer_plugins)
 
+Synced Scrolling
+^^^^^^^^^^^^^^^^
+
+To have 2 or more windows scroll together, simply ``:set scrollbind`` in each window you want to syncronise!
+
+- ``:h scroll-binding``
+- ``:h scrollbind``
+- ``:h scrollopt``
+
 Neovim Only
 -----------
 
