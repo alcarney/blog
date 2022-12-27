@@ -175,6 +175,56 @@
                 <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
 </svg>
+                <span class="ml-4 text-right md:ml-auto">Dec 27, 2022</span>
+            </div>
+        </aside>
+        <article class="relative p-4 mt-4 bg-white dark:bg-gray-800 border md:mt-8 md:col-span-3 hover:shadow-lg dark:border-gray-600">
+            <header>
+                <a href="../../2022/first-steps-with-nix/">
+                    <h2 style="max-width: 33ch" class="mb-4 text-2xl text-green-600">My First Steps with Nix</h2>
+                </a>
+            </header>
+            <div class="prose-sm prose prose-emerald dark:prose-invert">
+                <div class="ablog-post-excerpt docutils container">
+<p>Nix, depending on the context, can refer to a <a class="reference external" href="https://nixos.org/manual/nix/stable/language/index.html">programming language</a>, a <a class="reference external" href="https://nixos.org/manual/nixpkgs/stable/#preface">package manager</a> or a <a class="reference external" href="https://nixos.org/manual/nixos/stable/#sec-installation">Linux Distro</a>.</p>
+<p>Personally, I’m most insterested in the package manager aspect and the promise of it being able to create declarative, reproducable development environments.
+With a configuration file and the <a class="reference external" href="https://nixos.org/manual/nix/stable/command-ref/new-cli/nix3-develop.html">nix develop</a> command you can activate a kind of “virtual environment” that contains not just your Python packages - but <em>any</em> program defined by the configuration!</p>
+<p>I find that idea particuarly exciting when working on a language server like <a class="reference external" href="https://github.com/swyddfa/esbonio/">esbonio</a>, since it needs to be able to work against a variety of Python versions, Sphinx versions, as well as various code editors and all their versions!
+Having the ability to define a particular configuration and have some tool automatically recreate it would be amazing.</p>
+<p>But I’m getting ahead of myself, let’s see if I can get to a point where I can easily test <code class="docutils literal notranslate"><span class="pre">esbonio</span></code> against a range of Python versions.</p>
+</div>
+
+
+            </div>
+            <div class="flex flex-col justify-between mt-4 lg:flex-row">
+                <p class="prose-sm prose prose-emerald dark:prose-invert"><a href="../../2022/first-steps-with-nix/">Read More...</a></p>
+
+                <ul class="flex flex-wrap space-x-2">
+                    <li class="mb-1">
+                        <a href="../nix/" class="px-2 text-green-600 border border-green-600 rounded bg-green-50 dark:bg-green-600/[.2] dark:text-green-200">
+                            #nix
+                        </a>
+                    </li>
+                    <li class="mb-1">
+                        <a href="../esbonio/" class="px-2 text-green-600 border border-green-600 rounded bg-green-50 dark:bg-green-600/[.2] dark:text-green-200">
+                            #esbonio
+                        </a>
+                    </li>
+                    <li class="mb-1">
+                        <a href="#" class="px-2 text-green-600 border border-green-600 rounded bg-green-50 dark:bg-green-600/[.2] dark:text-green-200">
+                            #python
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </article>
+        </div>
+        <div class="flex flex-col items-baseline w-full md:flex-row">
+        <aside data-id="post-meta" class="relative self-stretch w-40 mt-8 text-right text-gray-500 md:px-4 md:mt-0 md:mr-8 md:border-r-2 dark:border-gray-600">
+            <div class="flex md:mt-9">
+                <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+</svg>
                 <span class="ml-4 text-right md:ml-auto">Jan 13, 2021</span>
             </div>
         </aside>
@@ -204,6 +254,11 @@ be the frontend and embed my toy language into it via a <a class="reference exte
 
                 <ul class="flex flex-wrap space-x-2">
                     <li class="mb-1">
+                        <a href="#" class="px-2 text-green-600 border border-green-600 rounded bg-green-50 dark:bg-green-600/[.2] dark:text-green-200">
+                            #python
+                        </a>
+                    </li>
+                    <li class="mb-1">
                         <a href="../prog-langs/" class="px-2 text-green-600 border border-green-600 rounded bg-green-50 dark:bg-green-600/[.2] dark:text-green-200">
                             #prog-langs
                         </a>
@@ -211,11 +266,6 @@ be the frontend and embed my toy language into it via a <a class="reference exte
                     <li class="mb-1">
                         <a href="../c/" class="px-2 text-green-600 border border-green-600 rounded bg-green-50 dark:bg-green-600/[.2] dark:text-green-200">
                             #c
-                        </a>
-                    </li>
-                    <li class="mb-1">
-                        <a href="#" class="px-2 text-green-600 border border-green-600 rounded bg-green-50 dark:bg-green-600/[.2] dark:text-green-200">
-                            #python
                         </a>
                     </li>
                 </ul>
@@ -250,13 +300,13 @@ be the frontend and embed my toy language into it via a <a class="reference exte
 
                 <ul class="flex flex-wrap space-x-2">
                     <li class="mb-1">
-                        <a href="../til/" class="px-2 text-green-600 border border-green-600 rounded bg-green-50 dark:bg-green-600/[.2] dark:text-green-200">
-                            #til
+                        <a href="../stylo/" class="px-2 text-green-600 border border-green-600 rounded bg-green-50 dark:bg-green-600/[.2] dark:text-green-200">
+                            #stylo
                         </a>
                     </li>
                     <li class="mb-1">
-                        <a href="../stylo/" class="px-2 text-green-600 border border-green-600 rounded bg-green-50 dark:bg-green-600/[.2] dark:text-green-200">
-                            #stylo
+                        <a href="#" class="px-2 text-green-600 border border-green-600 rounded bg-green-50 dark:bg-green-600/[.2] dark:text-green-200">
+                            #python
                         </a>
                     </li>
                     <li class="mb-1">
@@ -265,8 +315,8 @@ be the frontend and embed my toy language into it via a <a class="reference exte
                         </a>
                     </li>
                     <li class="mb-1">
-                        <a href="#" class="px-2 text-green-600 border border-green-600 rounded bg-green-50 dark:bg-green-600/[.2] dark:text-green-200">
-                            #python
+                        <a href="../til/" class="px-2 text-green-600 border border-green-600 rounded bg-green-50 dark:bg-green-600/[.2] dark:text-green-200">
+                            #til
                         </a>
                     </li>
                 </ul>

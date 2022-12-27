@@ -483,7 +483,7 @@ Ensure the default browser behavior of the `hidden` attribute.
 .prose :where(ol):not(:where([class~="not-prose"] *)) {
   list-style-type: decimal;
   padding-left: 1.625em;
-  list-style: none;
+  list-style: decimal;
 }
 
 .prose :where(ol[type="A"]):not(:where([class~="not-prose"] *)) {
@@ -1149,12 +1149,12 @@ Ensure the default browser behavior of the `hidden` attribute.
   float: right;
 }
 
-.m-auto {
-  margin: auto;
-}
-
 .m-0 {
   margin: 0px;
+}
+
+.m-auto {
+  margin: auto;
 }
 
 .my-4 {
@@ -1470,6 +1470,11 @@ Ensure the default browser behavior of the `hidden` attribute.
   border-top-width: 0px;
 }
 
+.border-green-300 {
+  --tw-border-opacity: 1;
+  border-color: rgb(110 231 183 / var(--tw-border-opacity));
+}
+
 .border-green-700 {
   --tw-border-opacity: 1;
   border-color: rgb(4 120 87 / var(--tw-border-opacity));
@@ -1485,9 +1490,8 @@ Ensure the default browser behavior of the `hidden` attribute.
   border-color: rgb(5 150 105 / var(--tw-border-opacity));
 }
 
-.bg-green-50 {
-  --tw-bg-opacity: 1;
-  background-color: rgb(236 253 245 / var(--tw-bg-opacity));
+.bg-green-100\/50 {
+  background-color: rgb(209 250 229 / 0.5);
 }
 
 .bg-white {
@@ -1498,6 +1502,11 @@ Ensure the default browser behavior of the `hidden` attribute.
 .bg-amber-500 {
   --tw-bg-opacity: 1;
   background-color: rgb(245 158 11 / var(--tw-bg-opacity));
+}
+
+.bg-green-50 {
+  --tw-bg-opacity: 1;
+  background-color: rgb(236 253 245 / var(--tw-bg-opacity));
 }
 
 .bg-gray-100 {
@@ -1521,6 +1530,11 @@ Ensure the default browser behavior of the `hidden` attribute.
 .px-4 {
   padding-left: 1rem;
   padding-right: 1rem;
+}
+
+.py-2 {
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
 }
 
 .px-2 {
@@ -1573,6 +1587,10 @@ Ensure the default browser behavior of the `hidden` attribute.
 .text-sm {
   font-size: 0.875rem;
   line-height: 1.25rem;
+}
+
+.font-bold {
+  font-weight: 700;
 }
 
 .font-semibold {
@@ -1700,27 +1718,38 @@ section a.headerlink::before {
 /* -- Admonitions -- */
 
 .admonition {
+  border-radius: 0.25rem;
   border-width: 1px;
-  --tw-bg-opacity: 1;
-  background-color: rgb(236 253 245 / var(--tw-bg-opacity));
-  padding-left: 1rem;
-  padding-right: 1rem;
+  --tw-border-opacity: 1;
+  border-color: rgb(110 231 183 / var(--tw-border-opacity));
 }
 
 @media (prefers-color-scheme: dark) {
   .admonition {
     --tw-border-opacity: 1;
-    border-color: rgb(82 82 91 / var(--tw-border-opacity));
-  }
-
-  .admonition {
-    --tw-bg-opacity: 1;
-    background-color: rgb(6 78 59 / var(--tw-bg-opacity));
+    border-color: rgb(5 150 105 / var(--tw-border-opacity));
   }
 }
 
 .admonition-title {
-  font-weight: 600;
+  margin: 0px;
+  background-color: rgb(209 250 229 / 0.5);
+  padding-left: 1rem;
+  padding-right: 1rem;
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
+  font-weight: 700;
+}
+
+@media (prefers-color-scheme: dark) {
+  .admonition-title {
+    background-color: rgb(4 120 87 / 0.25);
+  }
+}
+
+.admonition-title ~ :not(ul) {
+  padding-left: 1rem;
+  padding-right: 1rem;
 }
 
 /* -- Figures -- */
@@ -1914,14 +1943,18 @@ div.highlight {
     --tw-prose-td-borders: var(--tw-prose-invert-td-borders);
   }
 
+  .dark\:border-green-600 {
+    --tw-border-opacity: 1;
+    border-color: rgb(5 150 105 / var(--tw-border-opacity));
+  }
+
   .dark\:border-gray-600 {
     --tw-border-opacity: 1;
     border-color: rgb(82 82 91 / var(--tw-border-opacity));
   }
 
-  .dark\:bg-green-900 {
-    --tw-bg-opacity: 1;
-    background-color: rgb(6 78 59 / var(--tw-bg-opacity));
+  .dark\:bg-green-700\/25 {
+    background-color: rgb(4 120 87 / 0.25);
   }
 
   .dark\:bg-gray-800 {
@@ -1940,6 +1973,11 @@ div.highlight {
   .dark\:bg-gray-900 {
     --tw-bg-opacity: 1;
     background-color: rgb(24 24 27 / var(--tw-bg-opacity));
+  }
+
+  .dark\:bg-green-900 {
+    --tw-bg-opacity: 1;
+    background-color: rgb(6 78 59 / var(--tw-bg-opacity));
   }
 
   .dark\:text-gray-800 {

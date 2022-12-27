@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
   <id>www.alcarney.me</id>
   <title>Blog</title>
-  <updated>2022-11-17T12:26:00.746464+00:00</updated>
+  <updated>2022-12-27T19:43:12.628770+00:00</updated>
   <link href="www.alcarney.me"/>
   <link href="www.alcarney.me/blog/atom.xml" rel="self"/>
   <generator uri="https://ablog.readthedocs.org/" version="0.10.33">ABlog</generator>
@@ -357,5 +357,30 @@ problem… Esbonio is written in Python! 😬</summary>
     <category term="lsp" label="lsp"/>
     <category term="vscode" label="vscode"/>
     <published>2021-10-25T00:00:00+00:00</published>
+  </entry>
+  <entry>
+    <id>www.alcarney.me/blog/2022/first-steps-with-nix/</id>
+    <title>My First Steps with Nix</title>
+    <updated>2022-12-27T00:00:00+00:00</updated>
+    <author>
+      <name>me</name>
+    </author>
+    <content type="html">&lt;div class="ablog-post-excerpt docutils container"&gt;
+&lt;p&gt;Nix, depending on the context, can refer to a &lt;a class="reference external" href="https://nixos.org/manual/nix/stable/language/index.html"&gt;programming language&lt;/a&gt;, a &lt;a class="reference external" href="https://nixos.org/manual/nixpkgs/stable/#preface"&gt;package manager&lt;/a&gt; or a &lt;a class="reference external" href="https://nixos.org/manual/nixos/stable/#sec-installation"&gt;Linux Distro&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;Personally, I’m most insterested in the package manager aspect and the promise of it being able to create declarative, reproducable development environments.
+With a configuration file and the &lt;a class="reference external" href="https://nixos.org/manual/nix/stable/command-ref/new-cli/nix3-develop.html"&gt;nix develop&lt;/a&gt; command you can activate a kind of “virtual environment” that contains not just your Python packages - but &lt;em&gt;any&lt;/em&gt; program defined by the configuration!&lt;/p&gt;
+&lt;p&gt;I find that idea particuarly exciting when working on a language server like &lt;a class="reference external" href="https://github.com/swyddfa/esbonio/"&gt;esbonio&lt;/a&gt;, since it needs to be able to work against a variety of Python versions, Sphinx versions, as well as various code editors and all their versions!
+Having the ability to define a particular configuration and have some tool automatically recreate it would be amazing.&lt;/p&gt;
+&lt;p&gt;But I’m getting ahead of myself, let’s see if I can get to a point where I can easily test &lt;code class="docutils literal notranslate"&gt;&lt;span class="pre"&gt;esbonio&lt;/span&gt;&lt;/code&gt; against a range of Python versions.&lt;/p&gt;
+&lt;/div&gt;
+</content>
+    <link href="www.alcarney.me/blog/2022/first-steps-with-nix/" rel="alternate"/>
+    <summary>Nix, depending on the context, can refer to a programming language, a package manager or a Linux Distro.Personally, I’m most insterested in the package manager aspect and the promise of it being able to create declarative, reproducable development environments.
+With a configuration file and the nix develop command you can activate a kind of “virtual environment” that contains not just your Python packages - but any program defined by the configuration!I find that idea particuarly exciting when working on a language server like esbonio, since it needs to be able to work against a variety of Python versions, Sphinx versions, as well as various code editors and all their versions!
+Having the ability to define a particular configuration and have some tool automatically recreate it would be amazing.But I’m getting ahead of myself, let’s see if I can get to a point where I can easily test esbonio against a range of Python versions.</summary>
+    <category term="esbonio" label="esbonio"/>
+    <category term="nix" label="nix"/>
+    <category term="python" label="python"/>
+    <published>2022-12-27T00:00:00+00:00</published>
   </entry>
 </feed>

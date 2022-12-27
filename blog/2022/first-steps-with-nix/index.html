@@ -1,0 +1,618 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>My First Steps with Nix &#8212; Blog  documentation</title>
+
+    
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css" />
+    
+    
+    
+    <link rel="stylesheet" type="text/css" href="../../../_static/css/styles.css" />
+    
+    
+    <link id="pygments_dark_css" media="(prefers-color-scheme: dark)" rel="stylesheet" type="text/css" href="../../../_static/pygments_dark.css" />
+    
+
+    <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
+    <script src="../../../_static/jquery.js"></script>
+    <script src="../../../_static/underscore.js"></script>
+    <script src="../../../_static/doctools.js"></script>
+    <link rel="shortcut icon" href="../../../_static/favicon.ico"/>
+    <link rel="index" title="Index" href="../../../genindex/" />
+    <link rel="search" title="Search" href="../../../search/" /> 
+  </head><body class="flex flex-col justify-between min-h-screen overflow-x-hidden bg-gray-100 dark:bg-gray-900">
+    <div class="flex flex-grow">
+        <input id="menu-state" type="checkbox" class="hidden" />
+        <aside class="flex justify-between flex-shrink-0 transition-all duration-500 bg-white dark:bg-gray-800 -ml-80 lg:ml-0 dark:border-gray-600">
+            <div class="flex flex-col justify-between h-full border-r w-80 dark:border-gray-600">
+                <div class="sticky top-0 flex flex-col h-screen">
+
+                    <div id="profile-card" class="full-profile">
+    <img class="" src="https://github.com/alcarney.png"/>
+    <h2 class=""><a href="/">Alex Carney</a></h2>
+</div>
+
+                    <div id="searchbox" style="display: none" role="search" class="px-4 py-4">
+    <form class="flex justify-between px-2 py-1 bg-gray-100 border-2 rounded search dark:bg-gray-900 focus-within:border-green-600 dark:border-gray-600" action="../../../search/" method="get">
+        <label class="mr-2 text-gray-500" for="sbox">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="feather feather-search">
+                <circle cx="11" cy="11" r="6" />
+                <path d="m21 21-4.35-4.35" />
+            </svg>
+        </label>
+        <input id="sbox" class="flex-grow bg-gray-100 dark:text-white dark:bg-gray-900 focus:outline-none" type="search" name="q" placeholder="Search..." aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" />
+    </form>
+</div>
+<script>$('#searchbox').show(0);</script>
+
+                    
+
+<nav class="flex flex-col text-center">
+    <a class="text-green-600 py-1 border-t text-lg hover:bg-gray-50 dark:border-gray-600 dark:hover:bg-gray-900" href="/blog">Blog</a>
+    <a class="text-green-600 py-1 border-t text-lg hover:bg-gray-50 dark:border-gray-600 dark:hover:bg-gray-900" href="/code">Code</a>
+    <a class="text-green-600 py-1 border-t text-lg hover:bg-gray-50 dark:border-gray-600 dark:hover:bg-gray-900" href="/notes">Notes</a>
+</nav>
+
+                    <div class="flex-shrink overflow-auto">
+
+<div class="grid justify-between p-4 text-gray-400 border-t dark:border-gray-600" style="grid-template-columns: 24px auto">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+</svg>
+    <span class="ml-2 text-right">Dec 27, 2022</span>
+    
+
+    <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z" />
+</svg>
+    <ul class="text-right">
+        
+        <li class="mb-1">
+            <a href="../../tag/nix/" class="px-2 my-1 text-green-600 border border-green-600 rounded bg-green-50 dark:bg-green-900 dark:text-green-200">
+                #nix
+            </a>
+        </li>
+        
+        <li class="mb-1">
+            <a href="../../tag/esbonio/" class="px-2 my-1 text-green-600 border border-green-600 rounded bg-green-50 dark:bg-green-900 dark:text-green-200">
+                #esbonio
+            </a>
+        </li>
+        
+        <li class="mb-1">
+            <a href="../../tag/python/" class="px-2 my-1 text-green-600 border border-green-600 rounded bg-green-50 dark:bg-green-900 dark:text-green-200">
+                #python
+            </a>
+        </li>
+        
+    </ul>
+</div>
+<nav id="localtoc" class="p-4 border-t dark:text-gray-200 dark:border-gray-600">
+    <ul>
+<li><a class="reference internal" href="#">My First Steps with Nix</a><ul>
+<li><a class="reference internal" href="#intalling-nix">Intalling Nix</a></li>
+<li><a class="reference internal" href="#a-simple-flake">A Simple Flake</a></li>
+<li><a class="reference internal" href="#adding-python-packages">Adding Python Packages</a></li>
+<li><a class="reference internal" href="#multiple-python-versions">Multiple Python Versions</a></li>
+<li><a class="reference internal" href="#next-steps">Next Steps</a></li>
+</ul>
+</li>
+</ul>
+
+</nav>
+                    </div>
+
+                    <footer class="w-full p-4 mt-auto text-white bg-gray-700">
+                        <div class="flex justify-between">
+    <div></div>
+
+    <div class="flex justify-between space-x-4">
+        <a target="_blank" rel="noreferrer noopener" href="https://github.com/alcarney">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="w-8 h-8">
+                <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path>
+            </svg>
+        </a>
+
+        <a target="_blank" rel="noreferrer noopener" href="https://twitter.com/alcarneyme">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="w-8 h-8">
+                <path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"></path>
+            </svg>
+        </a>
+
+        <a target="_blank" rel="noreferrer noopener" href="https://instagram.com/alcarneyme">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="w-8 h-8">
+                <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
+                <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
+                <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
+            </svg>
+        </a>
+
+        <a target="_blank" rel="noreferrer noopener" href="https://www.youtube.com/channel/UC5GPflgRWhnCxA0BllfP5CA">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="w-8 h-8">
+                <path d="M22.54 6.42a2.78 2.78 0 0 0-1.94-2C18.88 4 12 4 12 4s-6.88 0-8.6.46a2.78 2.78 0 0 0-1.94 2A29 29 0 0 0 1 11.75a29 29 0 0 0 .46 5.33A2.78 2.78 0 0 0 3.4 19c1.72.46 8.6.46 8.6.46s6.88 0 8.6-.46a2.78 2.78 0 0 0 1.94-2 29 29 0 0 0 .46-5.25 29 29 0 0 0-.46-5.33z"></path>
+                <polygon points="9.75 15.02 15.5 11.75 9.75 8.48 9.75 15.02"></polygon>
+            </svg>
+        </a>
+    </div>
+
+    <div></div>
+</div>
+                    </footer>
+                </div>
+            </div>
+        </aside>
+
+        <main class="w-full mx-auto lg:pr-0">
+            <div class="sticky top-0 z-50 mt-0 transition-all duration-300 bg-white dark:bg-gray-800 border-b shadow-md lg:shadow-none lg:relative lg:-mt-16 dark:border-gray-600">
+                <label class="flex h-16 text-gray-600 transition" for="menu-state">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="w-8 h-8 my-auto" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="feather feather-arrow-right"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                </label>
+            </div>
+
+            <div id="content" class="mx-2 my-8">
+                <div role="main" class="max-w-3xl mx-auto">
+                    
+
+<article class="p-4 prose-sm prose bg-white dark:bg-gray-800 border prose-md prose-emerald max-w-none dark:prose-invert dark:border-gray-600">
+    <section id="my-first-steps-with-nix">
+<h1>My First Steps with Nix<a class="headerlink" href="#my-first-steps-with-nix" title="Permalink to this headline">¶</a></h1>
+<p>Nix, depending on the context, can refer to a <a class="reference external" href="https://nixos.org/manual/nix/stable/language/index.html">programming language</a>, a <a class="reference external" href="https://nixos.org/manual/nixpkgs/stable/#preface">package manager</a> or a <a class="reference external" href="https://nixos.org/manual/nixos/stable/#sec-installation">Linux Distro</a>.</p>
+<p>Personally, I’m most insterested in the package manager aspect and the promise of it being able to create declarative, reproducable development environments.
+With a configuration file and the <a class="reference external" href="https://nixos.org/manual/nix/stable/command-ref/new-cli/nix3-develop.html">nix develop</a> command you can activate a kind of “virtual environment” that contains not just your Python packages - but <em>any</em> program defined by the configuration!</p>
+<p>I find that idea particuarly exciting when working on a language server like <a class="reference external" href="https://github.com/swyddfa/esbonio/">esbonio</a>, since it needs to be able to work against a variety of Python versions, Sphinx versions, as well as various code editors and all their versions!
+Having the ability to define a particular configuration and have some tool automatically recreate it would be amazing.</p>
+<p>But I’m getting ahead of myself, let’s see if I can get to a point where I can easily test <code class="docutils literal notranslate"><span class="pre">esbonio</span></code> against a range of Python versions.</p>
+<section id="intalling-nix">
+<h2>Intalling Nix<a class="headerlink" href="#intalling-nix" title="Permalink to this headline">¶</a></h2>
+<p>What a nightmare! 😭</p>
+<p>I should say though, my issues aren’t really Nix’s fault.
+Trying to install Nix directly on <a class="reference external" href="https://kinoite.fedoraproject.org/">Fedora Kinoite</a> means dealing with issues caused by SELinux (which the Nix installer does <a class="reference external" href="https://github.com/NixOS/nix/issues/2374">not support</a>) and working around the immutable root filesystem.</p>
+<p>Basically, don’t do as I do! 😄</p>
+<p>If you do find yourself in my situation though, here’s a few things you might find useful</p>
+<ul>
+<li><p><a class="reference external" href="https://gist.github.com/matthewpi/08c3d652e7879e4c4c30bead7021ff73">This guide</a> will get you 90% of the way, I was able to piece together the remaining steps from links in the comments.</p></li>
+<li><p>The Nix installer has been updated since the guide was written to bail if it detects that SELinux has been enabled.
+You will need to patch out the <code class="docutils literal notranslate"><span class="pre">check_selinux</span></code> function in the <code class="docutils literal notranslate"><span class="pre">install-multi-user</span></code> script in the release tarball that the Nix installer downloads.</p></li>
+<li><p>If you get a cryptic</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>error: could not set permissions on &#39;/nix/var/nix/profiles/per-user&#39; to 755: Operation not permitted
+</pre></div>
+</div>
+<p>message whenever you run a nix command, chances are the nix-daemon is not running.
+Use <code class="docutils literal notranslate"><span class="pre">systemctl</span> <span class="pre">status</span> <span class="pre">nix-daemon.service</span></code> to check its status.</p>
+</li>
+<li><p>If you see an error in the output of <code class="docutils literal notranslate"><span class="pre">systemctl</span> <span class="pre">status</span> <span class="pre">nix-daemon.service</span></code> along the lines of:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>nix-daemon.service: Failed to locate executable /nix/store/xdlpraypxdimjyfrr4k06narrv8nmfgh-nix-2.11.1/bin/nix-daemon: Permission denied
+</pre></div>
+</div>
+<p>you need to re-apply the SELinux policies defined in the guide linked above by running <code class="docutils literal notranslate"><span class="pre">sudo</span> <span class="pre">restorecon</span> <span class="pre">-RF</span> <span class="pre">/nix</span></code></p>
+</li>
+</ul>
+</section>
+<section id="a-simple-flake">
+<h2>A Simple Flake<a class="headerlink" href="#a-simple-flake" title="Permalink to this headline">¶</a></h2>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>I’m not the best person to learn how to use Nix from - I’m still trying to figure it out myself!
+Instead here are a few resources that I’ve found useful which go into more detail.</p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://xeiaso.net/blog/nix-flakes-1-2022-02-21">Nix Flakes: An Introduction</a>, part one of a <a class="reference external" href="https://xeiaso.net/blog/series/nix-flakes">series</a> of posts.</p></li>
+<li><p>Jon Ringer’s <a class="reference external" href="https://www.youtube.com/&#64;elitespartan117j27">Youtube Channel</a></p></li>
+</ul>
+</div>
+<p>From what I can gather, <a class="reference external" href="https://nixos.wiki/wiki/Flakes">flakes</a> are a good starting point as they have a well defined structure and seem to be where things are going when it comes to Nix based workflows.</p>
+<p>As mentioned in the intro I’d like to get to the point where I can easily test <code class="docutils literal notranslate"><span class="pre">esbonio</span></code> against a range of Python versions, so let’s start off by writing a <code class="docutils literal notranslate"><span class="pre">flake.nix</span></code> that provides a <code class="docutils literal notranslate"><span class="pre">devShell</span></code> containing Python.</p>
+<div class="highlight-nix notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+  <span class="ss">description =</span> <span class="s2">&quot;The Esbonio language server&quot;</span><span class="p">;</span>
+
+  <span class="ss">inputs =</span> <span class="p">{</span>
+    nixpkgs<span class="o">.</span><span class="ss">url =</span> <span class="s2">&quot;github:NixOS/nixpkgs/nixpkgs-unstable&quot;</span><span class="p">;</span>
+    utils<span class="o">.</span><span class="ss">url =</span> <span class="s2">&quot;github:numtide/flake-utils&quot;</span><span class="p">;</span>
+  <span class="p">};</span>
+
+  <span class="ss">outputs =</span> <span class="p">{</span> self<span class="p">,</span> nixpkgs<span class="p">,</span> utils <span class="p">}:</span>
+    utils<span class="o">.</span>lib<span class="o">.</span>eachDefaultSystem <span class="p">(</span>system<span class="p">:</span>
+      <span class="k">let</span> <span class="ss">pkgs =</span> <span class="nb">import</span> nixpkgs <span class="p">{</span> <span class="k">inherit</span> system<span class="p">;</span> <span class="p">};</span> <span class="k">in</span> <span class="p">{</span>
+
+      <span class="ss">devShell =</span> <span class="k">with</span> pkgs<span class="p">;</span>
+         mkShell <span class="p">{</span>
+            <span class="ss">packages =</span> <span class="p">[</span> python3 <span class="p">];</span>
+         <span class="p">};</span>
+      <span class="p">}</span>
+   <span class="p">);</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Using <code class="docutils literal notranslate"><span class="pre">nix</span> <span class="pre">flake</span> <span class="pre">show</span></code> we can see what outputs are produced by this flake</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>nix flake show
+<span class="go">warning: Git tree &#39;/var/home/alex/Projects/esbonio&#39; is dirty</span>
+<span class="go">error: getting status of &#39;/nix/store/9s8zs1hrqiingklv86fd18x2mbgsfw0w-source/lib/esbonio/flake.nix&#39;: No such file or directory</span>
+</pre></div>
+</div>
+<p>Oh! I always forget, when working with flakes nix will only see a file if it is tracked by git - we don’t need to commit it, but it needs to at least be staged.</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>git add flake.nix
+<span class="gp">$ </span>nix flake show
+<span class="go">warning: Git tree &#39;/var/home/alex/Projects/esbonio&#39; is dirty</span>
+<span class="gp">git+file:///var/home/alex/Projects/esbonio?dir=lib%</span>2fesbonio
+<span class="go">└───devShell</span>
+<span class="go">   ├───aarch64-darwin: development environment &#39;nix-shell&#39;</span>
+<span class="go">   ├───aarch64-linux: development environment &#39;nix-shell&#39;</span>
+<span class="go">   ├───x86_64-darwin: development environment &#39;nix-shell&#39;</span>
+<span class="go">   └───x86_64-linux: development environment &#39;nix-shell&#39;</span>
+</pre></div>
+</div>
+<p>This shows that we’ve already defined development environments for MacOS and Linux on both x86 and Arm platforms!
+To “activate” the correct environment we only need to run <code class="docutils literal notranslate"><span class="pre">nix</span> <span class="pre">develop</span></code>.
+Nix is smart enough to choose the one compatible with our current system and will proceed to setup all the packages required for that environment.</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>nix develop
+<span class="gp gp-VirtualEnv">(nix-shell)</span> <span class="gp">$ </span><span class="nb">command</span> -v python
+<span class="go">/nix/store/qc8rlhdcdxaf6dwbvv0v4k50w937fyzj-python3-3.10.8/bin/python</span>
+
+<span class="gp gp-VirtualEnv">(nix-shell)</span> <span class="gp">$ </span>python
+<span class="go">Python 3.10.8 (main, Oct 11 2022, 11:35:05) [GCC 11.3.0] on linux</span>
+<span class="go">Type &quot;help&quot;, &quot;copyright&quot;, &quot;credits&quot; or &quot;license&quot; for more information.</span>
+<span class="go">&gt;&gt;&gt;</span>
+</pre></div>
+</div>
+<p>Nice!</p>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>See <a class="reference external" href="https://github.com/alcarney/dotfiles/blob/90d90d1d2f67a03a7f8b73803784b13362027e13/bash/20-prompt#L12-L20">here</a> for details on how I configured my bash prompt to detect if I’m in a nix shell or not.</p>
+</div>
+</section>
+<section id="adding-python-packages">
+<h2>Adding Python Packages<a class="headerlink" href="#adding-python-packages" title="Permalink to this headline">¶</a></h2>
+<p>Of course, this environment isn’t that useful at the moment as any of the packages required for <code class="docutils literal notranslate"><span class="pre">esbonio</span></code> and its test suite are not available</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp gp-VirtualEnv">(nix-shell)</span> <span class="gp">$ </span>pytest
+<span class="go">bash: pytest: command not found</span>
+</pre></div>
+</div>
+<p>If we’re lucky, the packages we need are already part of <a class="reference external" href="https://github.com/NixOS/nixpkgs">nixpkgs</a> and we just need to add them to the devShell’s <code class="docutils literal notranslate"><span class="pre">packages</span></code>.</p>
+<div class="highlight-nix notranslate"><div class="highlight"><pre><span></span><span class="ss">devShell =</span> <span class="k">with</span> pkgs<span class="p">;</span>
+  mkShell <span class="p">{</span>
+    <span class="ss">packages =</span> <span class="p">[</span>
+      python3
+
+      <span class="c1"># esbonio&#39;s dependencies</span>
+      python3Packages<span class="o">.</span>appdirs
+      python3Packages<span class="o">.</span>sphinx
+      python3Packages<span class="o">.</span>pygls
+      python3Packages<span class="o">.</span>typing-extensions
+
+      <span class="c1"># test suite dependencies</span>
+      python3Packages<span class="o">.</span>mock
+      python3Packages<span class="o">.</span>pytest
+      python3Packages<span class="o">.</span>pytest-lsp
+      python3Packages<span class="o">.</span>pytest-timeout
+    <span class="p">];</span>
+  <span class="p">};</span>
+</pre></div>
+</div>
+<p>And reactivate the environment</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>nix develop
+<span class="go">warning: Git tree &#39;/var/home/alex/Projects/esbonio&#39; is dirty</span>
+<span class="go">error: attribute &#39;pytest-lsp&#39; missing</span>
+
+<span class="go">      at /nix/store/ll2pir6ii65n4cplan9iykxy7cksw6k8-source/lib/esbonio/flake.nix:27:13:</span>
+
+<span class="go">         26|             python3Packages.pytest</span>
+<span class="go">         27|             python3Packages.pytest-lsp</span>
+<span class="go">           |             ^</span>
+<span class="go">         28|             python3Packages.pytest-timeout</span>
+<span class="gp gp-VirtualEnv">(use &#39;--show-trace&#39; to show detailed location information)</span>
+</pre></div>
+</div>
+<p>Unfortunately, <code class="docutils literal notranslate"><span class="pre">pytest-lsp</span></code> is not available through nixpkgs but since it’s an unknown library I wrote to help test <code class="docutils literal notranslate"><span class="pre">esbonio</span></code> I can’t say I’m surprised! 😄
+It should however, be relatively straightforward to package it ourselves, especially if we use <a class="reference external" href="https://github.com/NixOS/nixpkgs/blob/nixos-unstable/pkgs/development/python-modules/pytest-timeout/default.nix">an example</a> from the nixpkgs repo as a guide.</p>
+<div class="highlight-nix notranslate"><div class="highlight"><pre><span></span><span class="c1"># In ./nix/pytest-lsp.nix</span>
+<span class="p">{</span> pythonPackages <span class="p">}:</span>
+
+pythonPackages<span class="o">.</span>buildPythonPackage <span class="k">rec</span> <span class="p">{</span>
+  <span class="ss">pname =</span> <span class="s2">&quot;pytest-lsp&quot;</span><span class="p">;</span>
+  <span class="ss">version =</span> <span class="s2">&quot;0.1.3&quot;</span><span class="p">;</span>
+
+  <span class="ss">src =</span> pythonPackages<span class="o">.</span>fetchPypi <span class="p">{</span>
+    <span class="k">inherit</span> pname version<span class="p">;</span>
+    <span class="ss">sha256 =</span> <span class="s2">&quot;sha256-WxTh9G3tWyGzYx1uHufkwg3hN6jTbRjlGLKJR1eUNtY=&quot;</span><span class="p">;</span>
+  <span class="p">};</span>
+
+  <span class="ss">buildInputs =</span> <span class="p">[</span>
+    pythonPackages<span class="o">.</span>appdirs
+    pythonPackages<span class="o">.</span>pygls
+    pythonPackages<span class="o">.</span>pytest
+  <span class="p">];</span>
+
+  <span class="ss">propagatedBuildInputs =</span> <span class="p">[</span>
+    pythonPackages<span class="o">.</span>pytest-asyncio
+  <span class="p">];</span>
+
+  <span class="c1"># Disable tests</span>
+  <span class="ss">doCheck =</span> <span class="no">false</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>You probably don’t want to use this as an example of packaging a Python package with Nix, as I don’t fully understand what I’m doing and I’ve taken a few shortcuts (like disabling tests), but here’s a few notes.</p>
+<ul class="simple">
+<li><p>The <code class="docutils literal notranslate"><span class="pre">{</span> <span class="pre">pythonPackages</span> <span class="pre">}</span> <span class="pre">:</span></code> syntax at the top of the file is defining a function that accepts <code class="docutils literal notranslate"><span class="pre">pythonPackages</span></code> as an argument.
+This is what allows this definition to be used with multiple Python versions later on in this blog post.</p></li>
+<li><p>As the name implies, the <code class="docutils literal notranslate"><span class="pre">fetchPypi</span></code> function is used to pull the sources for <code class="docutils literal notranslate"><span class="pre">pytest-lsp</span></code> straight from PyPi.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">propagtedBuildInputs</span></code> are also available for use at runtime, while <code class="docutils literal notranslate"><span class="pre">buildInputs</span></code> are “hidden” from the final runtime environment.</p></li>
+</ul>
+<p>Then, to use this package definition in our <code class="docutils literal notranslate"><span class="pre">flake.nix</span></code> file we use the <code class="docutils literal notranslate"><span class="pre">callPackage</span></code> function and pass it the correct python package set.</p>
+<div class="highlight-nix notranslate"><div class="highlight"><pre><span></span><span class="c1"># In ./flake.nix</span>
+<span class="k">let</span>
+   <span class="ss">pkgs =</span> <span class="nb">import</span> nixpkgs <span class="p">{</span> <span class="k">inherit</span> system<span class="p">;</span> <span class="p">};</span>
+   <span class="ss">pytest-lsp =</span> pkgs<span class="o">.</span>callPackage <span class="o">.</span><span class="l">/nix/pytest-lsp.nix</span> <span class="p">{</span> <span class="ss">pythonPackages =</span> pkgs<span class="o">.</span>python3Packages<span class="p">;</span> <span class="p">};</span>
+<span class="k">in</span> <span class="p">{</span>
+   <span class="ss">devShell =</span> <span class="k">with</span> pkgs<span class="p">;</span>
+     mkShell <span class="p">{</span>
+       <span class="ss">packages =</span> <span class="p">[</span>
+         <span class="c1"># ...</span>
+         pytest-lsp
+       <span class="p">];</span>
+     <span class="p">};</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Hopefully, we now have all we need to run the test suite.</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp gp-VirtualEnv">(nix-shell)</span> <span class="gp">$ </span>pytest
+<span class="go">=========================================================================================================== test session starts ============================================================================================================</span>
+<span class="go">platform linux -- Python 3.10.8, pytest-7.1.3, pluggy-1.0.0</span>
+<span class="go">rootdir: /var/home/alex/Projects/esbonio/lib/esbonio, configfile: pyproject.toml</span>
+<span class="go">plugins: typeguard-2.13.3, lsp-0.1.3, asyncio-0.19.0, timeout-2.1.0</span>
+<span class="go">asyncio: mode=auto</span>
+<span class="go">collected 0 items / 1 error</span>
+
+<span class="go">================================================================================================================== ERRORS ==================================================================================================================</span>
+<span class="go">______________________________________________________________________________________________________ ERROR collecting test session _______________________________________________________________________________________________________</span>
+<span class="go">/nix/store/qc8rlhdcdxaf6dwbvv0v4k50w937fyzj-python3-3.10.8/lib/python3.10/importlib/__init__.py:126: in import_module</span>
+<span class="go">   ...</span>
+<span class="go">tests/sphinx-default/conftest.py:12: in &lt;module&gt;</span>
+<span class="go">   from esbonio.lsp.sphinx import InitializationOptions</span>
+<span class="go">E   ModuleNotFoundError: No module named &#39;esbonio&#39;</span>
+<span class="go">========================================================================================================= short test summary info ==========================================================================================================</span>
+<span class="go">ERROR  - ModuleNotFoundError: No module named &#39;esbonio&#39;</span>
+</pre></div>
+</div>
+<p>Ah… looks like we have to package <code class="docutils literal notranslate"><span class="pre">esbonio</span></code> itself, but we already know how to do that, aside from dependencies the only major difference is where we fetch the sources from.</p>
+<div class="highlight-nix notranslate"><div class="highlight"><pre><span></span><span class="c1"># In ./nix/esbonio.nix</span>
+
+<span class="ss">src =</span> <span class="o">.</span><span class="l">/..</span>
+</pre></div>
+</div>
+<p>Now we should have everything setup correctly! 🤞</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">==================================== test session starts =====================================</span>
+<span class="go">platform linux -- Python 3.10.8, pytest-7.1.3, pluggy-1.0.0</span>
+<span class="go">rootdir: /var/home/alex/Projects/esbonio/lib/esbonio, configfile: pyproject.toml</span>
+<span class="go">plugins: typeguard-2.13.3, lsp-0.1.3, asyncio-0.19.0, timeout-2.1.0</span>
+<span class="go">asyncio: mode=auto</span>
+<span class="go">collected 2487 items</span>
+
+<span class="go">...</span>
+
+<span class="go">=============== 2475 passed, 4 skipped, 8 xfailed in 132.96s (0:02:12) =======================</span>
+</pre></div>
+</div>
+<p>Success!</p>
+</section>
+<section id="multiple-python-versions">
+<h2>Multiple Python Versions<a class="headerlink" href="#multiple-python-versions" title="Permalink to this headline">¶</a></h2>
+<p>Switching to a Nix-ish style of pseudo code for a moment, let’s summarize how our flake is currently defined.
+We defined a function which takes a <code class="docutils literal notranslate"><span class="pre">system</span></code> and produces an attribute set (think Python dictionary) with a <code class="docutils literal notranslate"><span class="pre">devShell</span></code> field</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>f(system) = { devShell = &lt;devShell for system&gt; }
+</pre></div>
+</div>
+<p>We then passed that function to the <code class="docutils literal notranslate"><span class="pre">eachDefaultSystem</span></code> helper from the <a class="reference external" href="https://github.com/numtide/flake-utils">flake-utils</a> repo.
+This calls our function with each of the <a class="reference external" href="https://github.com/numtide/flake-utils/blob/5aed5285a952e0b949eb3ba02c12fa4fcfef535f/default.nix#L3-L8">default system architectures</a> before transforming it into a structure compatible with the flake <a class="reference external" href="https://nixos.wiki/wiki/Flakes#Output_schema">output schema</a></p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>eachDefaultSystem(f) = applyTransform { aarch64-linux = f(aarch64-linux), ... }
+                     = applyTransform { aarch64-linux = { devShell = &lt;devShell for aarch64-linux&gt; }, ... }
+                     = { devShell.aarch64-linux.default = &lt;devShell for aarch64-linux&gt;, ... }
+</pre></div>
+</div>
+<p>Now that we want to support multiple Python versions however, we want to define a function that returns an attribute set with a devShell for each Python version</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>f(system) = { py37 = &lt;py37 devShell for system&gt;, py38 = &lt;py38 devShell for system&gt;, ... }
+</pre></div>
+</div>
+<p>Which we can then pass to a <code class="docutils literal notranslate"><span class="pre">mysteryHelper</span></code> function to perform a similar (but structurally distinct!) transformation on the results of our function <code class="docutils literal notranslate"><span class="pre">f</span></code></p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>devShells = mysteryHelper(f)
+          = applyTransform { aarch64-linux = f(aarch64-linux), ... }
+          = applyTransform {
+                             aarch64-linux  = { py37 = &lt;py37 devShell for aarch64-linux&gt;,
+                                                py38 = &lt;py38 devShell for aarch64-linux&gt;,
+                                                ...
+                                              },
+                             ...,
+                           }
+          = {
+              aarch64-linux.py37 = &lt;py37 devShell for aarch64-linux&gt;,
+              aarch64-linux.py38 = &lt;py38 devShell for aarch64-linux&gt;,
+              ...
+            }
+</pre></div>
+</div>
+<p>That’s the idea at least, now to translate it into real Nix code.</p>
+<p>Thankfully, finding an implementation for <code class="docutils literal notranslate"><span class="pre">mysteryHelper</span></code> isn’t too difficult as the <code class="docutils literal notranslate"><span class="pre">flake-utils</span></code> repo provides <code class="docutils literal notranslate"><span class="pre">eachDefaultSystemMap</span></code> which does precisely what we want.</p>
+<div class="highlight-nix notranslate"><div class="highlight"><pre><span></span><span class="ss">outputs =</span> <span class="p">{</span> self<span class="p">,</span> nixpkgs<span class="p">,</span> utils <span class="p">}:</span>
+  <span class="ss">devShells =</span> utils<span class="o">.</span>lib<span class="o">.</span>eachDefaultSystemMap <span class="p">(</span>system<span class="p">:</span>
+    f system<span class="p">;</span>
+  <span class="p">);</span>
+</pre></div>
+</div>
+<p>Now to replace our imaginary function <code class="docutils literal notranslate"><span class="pre">f</span></code> with an expression that defines our devShells.</p>
+<div class="admonition important">
+<p class="admonition-title">Important</p>
+<p>Notice that we now assign to <code class="docutils literal notranslate"><span class="pre">devShells</span></code>?</p>
+<p>It turns out that <code class="docutils literal notranslate"><span class="pre">nix</span></code> the command line tool does a little
+<a class="reference external" href="https://github.com/NixOS/nix/blob/3dbf9b5af5950b615ec685c1f4155b1c8698bb78/src/nix/flake.cc#L517">transformation</a>
+to turn a <code class="docutils literal notranslate"><span class="pre">devShell</span></code> entry into a valid <code class="docutils literal notranslate"><span class="pre">devShells</span></code> entry.
+Unfortunately, this transformation only works when you define a single shell per system!</p>
+<p>Now that we’re defining multiple shells per system, we have to make sure to use <code class="docutils literal notranslate"><span class="pre">devShells</span></code> - it took me a <em>long</em> time to spot this!</p>
+</div>
+<p>We could simply copy-paste the devShell definition from the previous section a bunch of times and switch out the Python version.</p>
+<p>However, since the definitions for each Python version are going to be so similar, a better approach would be to define our own helper that would map a function over a list of versions and have it build the attribute set for us.</p>
+<p>It turns out that the
+<a class="reference external" href="https://github.com/numtide/flake-utils/blob/5aed5285a952e0b949eb3ba02c12fa4fcfef535f/default.nix#L150">implementation</a>
+of <code class="docutils literal notranslate"><span class="pre">eachDefaultSystemMap</span></code> is almost identical to what we need, so it was easy enough to adapt it to this use case.</p>
+<div class="highlight-nix notranslate"><div class="highlight"><pre><span></span><span class="ss">eachPythonVersion =</span> versions<span class="p">:</span> f<span class="p">:</span> <span class="nb">builtins</span><span class="o">.</span>listToAttrs <span class="p">(</span><span class="nb">builtins</span><span class="o">.</span><span class="nb">map</span> <span class="p">(</span>version<span class="p">:</span> <span class="p">{</span> <span class="ss">name =</span> <span class="s2">&quot;py</span><span class="si">${</span>version<span class="si">}</span><span class="s2">&quot;</span><span class="p">;</span> <span class="ss">value =</span> f version<span class="p">;</span> <span class="p">})</span> versions<span class="p">);</span>
+</pre></div>
+</div>
+<p>Bringing it all together gives us this final flake definition</p>
+<div class="highlight-nix notranslate"><div class="highlight"><pre><span></span><span class="ss">outputs =</span> <span class="p">{</span> self<span class="p">,</span> nixpkgs<span class="p">,</span> utils <span class="p">}:</span>
+
+  <span class="k">let</span>
+    <span class="ss">eachPythonVersion =</span> versions<span class="p">:</span> f<span class="p">:</span> <span class="nb">builtins</span><span class="o">.</span>listToAttrs <span class="p">(</span><span class="nb">builtins</span><span class="o">.</span><span class="nb">map</span> <span class="p">(</span>version<span class="p">:</span> <span class="p">{</span><span class="ss">name =</span> <span class="s2">&quot;py</span><span class="si">${</span>version<span class="si">}</span><span class="s2">&quot;</span><span class="p">;</span> <span class="ss">value =</span> f version<span class="p">;</span> <span class="p">})</span> versions<span class="p">);</span>
+  <span class="k">in</span> <span class="p">{</span>
+
+  <span class="ss">devShells =</span> utils<span class="o">.</span>lib<span class="o">.</span>eachDefaultSystemMap <span class="p">(</span>system<span class="p">:</span>
+    <span class="k">let</span>
+      <span class="ss">pkgs =</span> <span class="nb">import</span> nixpkgs <span class="p">{</span> <span class="k">inherit</span> system<span class="p">;</span> <span class="p">};</span>
+    <span class="k">in</span>
+      eachPythonVersion <span class="p">[</span> <span class="s2">&quot;37&quot;</span> <span class="s2">&quot;38&quot;</span> <span class="s2">&quot;39&quot;</span> <span class="s2">&quot;310&quot;</span> <span class="s2">&quot;311&quot;</span> <span class="p">]</span> <span class="p">(</span>pyVersion<span class="p">:</span>
+        <span class="k">let</span>
+          <span class="ss">pytest-lsp =</span> pkgs<span class="o">.</span>callPackage <span class="o">.</span><span class="l">/nix/pytest-lsp.nix</span> <span class="p">{</span> <span class="ss">pythonPackages =</span> pkgs<span class="o">.</span><span class="s2">&quot;python</span><span class="si">${</span>pyVersion<span class="si">}</span><span class="s2">Packages&quot;</span><span class="p">;</span> <span class="p">};</span>
+          <span class="ss">esbonio =</span> pkgs<span class="o">.</span>callPackage <span class="o">.</span><span class="l">/nix/esbonio.nix</span> <span class="p">{</span> <span class="ss">pythonPackages =</span> pkgs<span class="o">.</span><span class="s2">&quot;python</span><span class="si">${</span>pyVersion<span class="si">}</span><span class="s2">Packages&quot;</span><span class="p">;</span> <span class="p">};</span>
+        <span class="k">in</span>
+
+        <span class="k">with</span> pkgs<span class="p">;</span> mkShell <span class="p">{</span>
+          <span class="ss">name =</span> <span class="s2">&quot;py</span><span class="si">${</span>pyVersion<span class="si">}</span><span class="s2">&quot;</span><span class="p">;</span>
+
+          <span class="ss">packages =</span> <span class="p">[</span>
+            pkgs<span class="o">.</span><span class="s2">&quot;python</span><span class="si">${</span>pyVersion<span class="si">}</span><span class="s2">&quot;</span>
+
+            esbonio
+
+            <span class="c1"># test suite dependencies</span>
+            pkgs<span class="o">.</span><span class="s2">&quot;python</span><span class="si">${</span>pyVersion<span class="si">}</span><span class="s2">Packages&quot;</span><span class="o">.</span>mock
+            pkgs<span class="o">.</span><span class="s2">&quot;python</span><span class="si">${</span>pyVersion<span class="si">}</span><span class="s2">Packages&quot;</span><span class="o">.</span>pytest
+            pytest-lsp
+            pkgs<span class="o">.</span><span class="s2">&quot;python</span><span class="si">${</span>pyVersion<span class="si">}</span><span class="s2">Packages&quot;</span><span class="o">.</span>pytest-timeout
+          <span class="p">];</span>
+        <span class="p">}</span>
+    <span class="p">)</span>
+  <span class="p">);</span>
+<span class="p">};</span>
+</pre></div>
+</div>
+<p>With any luck, we should now see a per-python version devShell appear in the output of <code class="docutils literal notranslate"><span class="pre">nix</span> <span class="pre">flake</span> <span class="pre">show</span></code></p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>nix flake show
+<span class="gp">git+file:///var/home/alex/Projects/esbonio?dir=lib%2fesbonio&amp;ref=refs%2fheads%</span>2fnix<span class="p">&amp;</span><span class="nv">rev</span><span class="o">=</span>4a548327974dff1750099df4d793638a64b663e6
+<span class="go">└───devShells</span>
+<span class="go">    ├───aarch64-darwin</span>
+<span class="go">    │   ├───py310: development environment &#39;py310&#39;</span>
+<span class="go">    │   ├───py311: development environment &#39;py311&#39;</span>
+<span class="go">    │   ├───py37: development environment &#39;py37&#39;</span>
+<span class="go">    │   ├───py38: development environment &#39;py38&#39;</span>
+<span class="go">    │   └───py39: development environment &#39;py39&#39;</span>
+<span class="go">    ├───aarch64-linux</span>
+<span class="go">    │   ├───py310: development environment &#39;py310&#39;</span>
+<span class="go">    │   ├───py311: development environment &#39;py311&#39;</span>
+<span class="go">    │   ├───py37: development environment &#39;py37&#39;</span>
+<span class="go">    │   ├───py38: development environment &#39;py38&#39;</span>
+<span class="go">    │   └───py39: development environment &#39;py39&#39;</span>
+<span class="go">    ├───x86_64-darwin</span>
+<span class="go">    │   ├───py310: development environment &#39;py310&#39;</span>
+<span class="go">    │   ├───py311: development environment &#39;py311&#39;</span>
+<span class="go">    │   ├───py37: development environment &#39;py37&#39;</span>
+<span class="go">    │   ├───py38: development environment &#39;py38&#39;</span>
+<span class="go">    │   └───py39: development environment &#39;py39&#39;</span>
+<span class="go">    └───x86_64-linux</span>
+<span class="go">        ├───py310: development environment &#39;py310&#39;</span>
+<span class="go">        ├───py311: development environment &#39;py311&#39;</span>
+<span class="go">        ├───py37: development environment &#39;py37&#39;</span>
+<span class="go">        ├───py38: development environment &#39;py38&#39;</span>
+<span class="go">        └───py39: development environment &#39;py39&#39;</span>
+</pre></div>
+</div>
+<p>To reference a given environment we’d use the <code class="docutils literal notranslate"><span class="pre">.#&lt;envname&gt;</span></code> syntax when calling <code class="docutils literal notranslate"><span class="pre">nix</span> <span class="pre">develop</span></code>.
+The <code class="docutils literal notranslate"><span class="pre">--command</span></code> flag also allows us to run a command within the named environment without having to activate it first!</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>nix develop .#py310 --command pytest
+<span class="go">=========================== test session starts ================================</span>
+<span class="go">platform linux -- Python 3.10.8, pytest-7.1.3, pluggy-1.0.0</span>
+<span class="go">rootdir: /var/home/alex/Projects/esbonio/lib/esbonio, configfile: pyproject.toml</span>
+<span class="go">plugins: typeguard-2.13.3, lsp-0.1.3, asyncio-0.19.0, timeout-2.1.0</span>
+<span class="go">asyncio: mode=auto</span>
+<span class="go">collected 2508 items</span>
+
+<span class="go">...</span>
+
+<span class="go">======== 2496 passed, 4 skipped, 8 xfailed in 344.10s (0:05:27) ================</span>
+
+<span class="gp">$ </span>nix develop .#py39 --command pytest
+<span class="go">=========================== test session starts ================================</span>
+<span class="go">platform linux -- Python 3.9.15, pytest-7.1.3, pluggy-1.0.0</span>
+<span class="go">rootdir: /var/home/alex/Projects/esbonio/lib/esbonio, configfile: pyproject.toml</span>
+<span class="go">plugins: typeguard-2.13.3, lsp-0.1.3, asyncio-0.19.0, timeout-2.1.0</span>
+<span class="go">asyncio: mode=auto</span>
+<span class="go">collected 2508 items</span>
+
+<span class="go">...</span>
+
+<span class="go">======== 2496 passed, 4 skipped, 8 xfailed in 344.10s (0:05:44) ================</span>
+</pre></div>
+</div>
+<p>Achievement unlocked! 🏆</p>
+</section>
+<section id="next-steps">
+<h2>Next Steps<a class="headerlink" href="#next-steps" title="Permalink to this headline">¶</a></h2>
+<p>This was mainly a “Hello, World” type exercise looking to see if I could get Nix up and running in a real project, but so far I haven’t achieved anything you can’t already do with traditional Python tools like <a class="reference external" href="https://tox.wiki/en/latest/index.html">tox</a>.
+However, this should hopefully serve as a good foundation on which I can explore</p>
+<ul class="simple">
+<li><p>Changing the source where dependent libraries are fetched from (e.g. local vs git vs PyPi)</p></li>
+<li><p>Using overlays (these might help with the previous point?)</p></li>
+<li><p>Defining environments that contain particular text editor configurations.</p></li>
+</ul>
+<p>If you are interested, you can find the final Nix definitions
+<a class="reference external" href="https://github.com/alcarney/esbonio/commit/f62e1d486bb7899d802bfd668f98f21b71702317">here</a>.</p>
+</section>
+</section>
+
+</article>
+
+
+
+
+<div class="mt-8 pt-4 border-t dark:border-gray-600">
+    <script src="https://giscus.app/client.js"
+            data-repo="alcarney/blog"
+            data-repo-id="MDEwOlJlcG9zaXRvcnk2Njk3NzM3MQ=="
+            data-category="Comments"
+            data-category-id="DIC_kwDOA_3-W84B_XOl"
+            data-mapping="pathname"
+            data-reactions-enabled="1"
+            data-emit-metadata="0"
+            data-theme="preferred_color_scheme"
+            crossorigin="anonymous"
+            async>
+    </script>
+</div>
+
+
+
+                </div>
+            </div>
+
+            <footer class="p-2 mt-8 mb-2 text-sm text-gray-600 border-t dark:border-gray-600">
+                <div class="flex flex-col justify-between max-w-3xl mx-auto lg:flex-row">
+                    <span>
+                        <a class="text-green-600" href="../../../_sources/blog/2022/first-steps-with-nix.rst.txt" rel="nofollow">
+                            Page Source
+                        </a>
+                    </span>
+                    <span>Built with <a class="text-green-600" href="https://www.sphinx-doc.org/en/master/">Sphinx</a> v4.5.0</span>
+                    <span>&#169; Copyright 2021, Alex Carney.</span>
+                </div>
+            </footer>
+        </main>
+
+    </div>
+<script src="/_static/js/theme.js"></script>
+
+
+  </body>
+</html>
