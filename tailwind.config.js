@@ -56,7 +56,7 @@ module.exports = {
               lineHeight: '1'
             },
             ol: {
-              listStyle: 'none'
+              listStyle: 'decimal'
             },
             'pre code::before': {
               display: 'none',
