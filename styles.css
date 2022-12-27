@@ -59,11 +59,15 @@ section a.headerlink::before {
 
 /* -- Admonitions -- */
 .admonition {
-    @apply px-4 bg-green-50 border dark:bg-green-900 dark:border-gray-600
+    @apply rounded border border-green-300 dark:border-green-600
 }
 
 .admonition-title {
-    @apply font-semibold
+    @apply m-0 px-4 py-2 font-bold bg-green-100/50 dark:bg-green-700/25
+}
+
+.admonition-title ~ :not(ul) {
+    @apply px-4
 }
 
 /* -- Figures -- */
