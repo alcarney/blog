@@ -2,11 +2,10 @@
     "[html]": {
         "editor.formatOnSave": false
     },
-    "[rst]": {
+    "[restructuredtext]": {
         "editor.tabSize": 3,
-        "editor.rulers": [
-            88
-        ]
+        "editor.wordWrap": "bounded",
+        "editor.wordWrapColumn": 120
     },
     "files.exclude": {
         "**/.git": true,
