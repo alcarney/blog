@@ -73,6 +73,7 @@ html_favicon = "_static/favicon.ico"
 html_static_path = ["_static"]
 html_theme = "mytheme"
 html_theme_path = ["theme"]
+html_title = "Alex Carney"
 
 
 def pypi_role(name, rawtext, text, lineno, inliner, options={}, content=[]):
