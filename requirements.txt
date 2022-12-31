@@ -1,6 +1,0 @@
-ablog
-esbonio
-sphinx
-sphinx-book-theme
-sphinx-togglebutton
-sphinxcontrib-mermaid
