@@ -26,6 +26,7 @@ html: _static/css/styles.css $(BUILDDIR)/_static/js/theme.js
 	mkdir -p $(BUILDDIR)/talks/
 	cp -r talks/introducing-esbonio $(BUILDDIR)/talks/introducing-esbonio
 	patch -N -p1 < searchtools.patch
+	patch -N -p1 < doctools.patch
 
 preview:
 	python -m http.server -d $(BUILDDIR) $(PORT)
