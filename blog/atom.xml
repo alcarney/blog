@@ -1,11 +1,11 @@
 <?xml version='1.0' encoding='UTF-8'?>
-<feed xmlns="http://www.w3.org/2005/Atom">
+<feed xmlns="http://www.w3.org/2005/Atom" xml:lang="en">
   <id>www.alcarney.me</id>
   <title>Blog</title>
-  <updated>2022-12-27T19:43:12.628770+00:00</updated>
+  <updated>2022-12-31T18:14:27.171673+00:00</updated>
   <link href="www.alcarney.me"/>
   <link href="www.alcarney.me/blog/atom.xml" rel="self"/>
-  <generator uri="https://ablog.readthedocs.org/" version="0.10.33">ABlog</generator>
+  <generator uri="https://ablog.readthedocs.org/" version="0.10.29">ABlog</generator>
   <entry>
     <id>www.alcarney.me/blog/2018/first-article/</id>
     <title>I’ve Started a Blog… Again!</title>
