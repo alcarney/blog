@@ -1,0 +1,13 @@
+diff --git a/_build/html/_static/doctools.js.orig b/_build/html/_static/doctools.js
+index c3db08d..9c8af99 100644
+--- a/_build/html/_static/doctools.js.orig
++++ b/_build/html/_static/doctools.js
+@@ -40,7 +40,7 @@ const _highlight = (node, addItems, text, className) => {
+         span = document.createElementNS("http://www.w3.org/2000/svg", "tspan");
+       } else {
+         span = document.createElement("span");
+-        span.classList.add(className);
++        span.className = className;
+       }
+ 
+       span.appendChild(document.createTextNode(val.substr(pos, text.length)));
