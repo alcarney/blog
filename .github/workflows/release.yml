@@ -11,48 +11,25 @@ on:
 jobs:
   blog:
     name: Blog
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-latest
     steps:
-    - uses: 'actions/checkout@v2'
-      with:
-        persist-credentials: false
+    - uses: 'actions/checkout@v3'
 
-    - name: Setup Python
-      uses: actions/setup-python@v1
-      with:
-        python-version: 3.9
+    - uses: cachix/install-nix-action@v18
 
-    - name: Setup Node
-      uses: 'actions/setup-node@v1'
-      with:
-        node-version: 12.x
-
-    - run: |
-        set -e
-
-        python -m pip install --upgrade pip
-        python -m pip install -r requirements.txt
-
-        npm install
-
-      name: Setup Dependencies
-
-    - run: |
-        set -e
-        make html
+    - run: nix develop -c make html
       name: Build
 
     - name: 'Upload Aritfact'
-      uses: 'actions/upload-artifact@v1.0.0'
+      uses: 'actions/upload-artifact@v3'
       with:
         name: 'blog'
         path: '_build/html'
 
-    - name: 'Publish Docs'
-      uses: JamesIves/github-pages-deploy-action@releases/v3
+    - name: 'Publish Site'
+      uses: JamesIves/github-pages-deploy-action@v4
       with:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        BRANCH: gh-pages
-        FOLDER: _build/html
-        CLEAN: true
+        branch: gh-pages
+        folder: _build/html
+        clean: true
       if: success() && startsWith(github.ref, 'refs/heads/release')
