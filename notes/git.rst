@@ -1,6 +1,15 @@
 Notes on Git
 ============
 
+Rebasing
+--------
+
+To include the root commit in a rebase use the ``--root`` flag
+
+.. code-block:: console
+
+   $ git rebase -i --root
+
 Submodules
 ----------
 
@@ -50,5 +59,6 @@ For tags that move (e.g. neovim's ``nightly`` and ``stable`` tags) an additional
 Links & Resources
 -----------------
 
+- `Edit the root commit in git? <https://stackoverflow.com/a/14630424>`_
 - `How to "git clone" including submodules? <https://stackoverflow.com/questions/3796927/how-to-git-clone-including-submodules>`_
 - `How to get rid of "would clobber existing tag" <https://stackoverflow.com/questions/58031165/how-to-get-rid-of-would-clobber-existing-tag>`_
