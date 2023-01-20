@@ -65,6 +65,7 @@
                     <div class="flex-shrink overflow-auto"><nav id="localtoc" class="p-4 border-t dark:text-gray-200 dark:border-gray-600">
     <ul>
 <li><a class="reference internal" href="#">Notes on Git</a><ul>
+<li><a class="reference internal" href="#rebasing">Rebasing</a></li>
 <li><a class="reference internal" href="#submodules">Submodules</a></li>
 <li><a class="reference internal" href="#tags">Tags</a><ul>
 <li><a class="reference internal" href="#updating-tags-from-remote">Updating tags from remote</a></li>
@@ -131,6 +132,13 @@
 <article class="p-4 prose-sm prose bg-white dark:bg-gray-800 border prose-md prose-emerald max-w-none dark:prose-invert dark:border-gray-600">
     <section id="notes-on-git">
 <h1>Notes on Git<a class="headerlink" href="#notes-on-git" title="Permalink to this heading">¶</a></h1>
+<section id="rebasing">
+<h2>Rebasing<a class="headerlink" href="#rebasing" title="Permalink to this heading">¶</a></h2>
+<p>To include the root commit in a rebase use the <code class="docutils literal notranslate"><span class="pre">--root</span></code> flag</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>git rebase -i --root
+</pre></div>
+</div>
+</section>
 <section id="submodules">
 <h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this heading">¶</a></h2>
 <p>To clone a repo that contains submodules we can run the following command</p>
@@ -172,6 +180,7 @@ submodules</p>
 <section id="links-resources">
 <h2>Links &amp; Resources<a class="headerlink" href="#links-resources" title="Permalink to this heading">¶</a></h2>
 <ul class="simple">
+<li><p><a class="reference external" href="https://stackoverflow.com/a/14630424">Edit the root commit in git?</a></p></li>
 <li><p><a class="reference external" href="https://stackoverflow.com/questions/3796927/how-to-git-clone-including-submodules">How to “git clone” including submodules?</a></p></li>
 <li><p><a class="reference external" href="https://stackoverflow.com/questions/58031165/how-to-get-rid-of-would-clobber-existing-tag">How to get rid of “would clobber existing tag”</a></p></li>
 </ul>
