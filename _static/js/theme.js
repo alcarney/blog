@@ -37,7 +37,7 @@ function highlightCurrentSection(tocTree, navRoot, documentSections) {
     let currentId
     const ulHidden = "hidden"
     const ulVisible = "ml-2 border-l"
-    const linkNormal = "pl-2 border-l-4 border-white"
+    const linkNormal = "pl-2 border-l-4 border-white dark:border-gray-800"
     const linkHighlighted = "pl-2 text-green-600 border-l-4 border-green-600"
 
     for (let section of Array.from(documentSections)) {
@@ -48,6 +48,7 @@ function highlightCurrentSection(tocTree, navRoot, documentSections) {
 
         currentId = section.getAttribute("id")
     }
+    console.debug("current section - ", currentId)
 
     const subSections = navRoot.querySelectorAll("ul")
     subSections.forEach(section => section.className = ulHidden)
@@ -90,9 +91,13 @@ if (profileElement) {
 }
 
 const localToc = document.querySelector("#localtoc")
+console.debug("localtoc - ", localToc)
 if (localToc) {
-    const documentSections = document.querySelectorAll("div.section")
+    const documentSections = document.querySelectorAll("section")
     const navRoot = localToc.querySelector("a[href='#'] + ul")
+
+    console.debug("sections - ", documentSections)
+    console.debug("navroot - ", navRoot)
 
     const navTitle = localToc.querySelector("a[href='#']")
     navTitle.innerHTML = "Contents"
@@ -104,8 +109,9 @@ if (localToc) {
 
         let tocTree = new Map()
         buildTocTree(tocTree, navRoot, [])
-        highlightCurrentSection(tocTree, navRoot, documentSections)
+        console.debug("toctree - ", tocTree)
 
+        highlightCurrentSection(tocTree, navRoot, documentSections)
         onScrollCallbacks.push(() => highlightCurrentSection(tocTree, navRoot, documentSections))
     }
 }
@@ -113,4 +119,3 @@ if (localToc) {
 window.addEventListener('scroll', (_) => {
     onScrollCallbacks.forEach(callback => callback())
 })
-

@@ -11,7 +11,7 @@ $(BUILDDIR)/_static/js/theme.js: _static/js/theme.js
 	$(eval ABLOG_ARGS=-a)
 
 # Run tailwind if any styles are changed.
-_static/css/styles.css: styles.css tailwind.config.js $(wildcard _templates/*.html)
+_static/css/styles.css: styles.css tailwind.config.js $(wildcard _templates/*.html) _static/js/theme.js
 	tailwindcss -i styles.css -o _static/css/styles.css
 	$(eval ABLOG_ARGS=-a)
 
