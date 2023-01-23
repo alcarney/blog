@@ -84,6 +84,10 @@ div.highlight {
     @apply rounded border dark:border-gray-600
 }
 
+div.highlight .hll {
+    @apply bg-[#fff] dark:bg-[#000]
+}
+
 /* -- Local table of contents -- */
 
 #localtoc a[href='#'] {
