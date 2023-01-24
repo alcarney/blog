@@ -1,5 +1,20 @@
-Notes on Git
-============
+Git
+===
+
+History
+-------
+
+To search history for commits affecting some file name
+
+.. code-block:: console
+  
+   $ git log --all --full-history -- "**/pattern.*" # or can be an explicit file path
+   
+To show the changes included in a commit for a specific file
+
+.. code-block:: console
+
+   $ git show <sha> -- <filepath>
 
 Rebasing
 --------
@@ -29,8 +44,15 @@ submodules
 Tags
 ----
 
-Updating tags from remote
-^^^^^^^^^^^^^^^^^^^^^^^^^
+To pull the latest tags from a remote.
+
+.. code-block:: console
+
+   $ git fetch <remote> --tags
+   
+If ``<remote>`` is not given it will default to the branch's configured upstream, or fallback to ``origin`` if no upstream is configured.
+   
+Some tags can move (e.g. neovim's ``nightly`` tag), in which case git will not update them
 
 .. code-block:: console
 
@@ -47,7 +69,7 @@ Updating tags from remote
    ! [rejected]            stable                                                  -> stable  (would clobber existing tag)
 
 
-For tags that move (e.g. neovim's ``nightly`` and ``stable`` tags) an additional ``-f`` flag is required.
+Unless you pass an additional ``-f`` flag.
 
 .. code-block:: console
 
@@ -60,5 +82,6 @@ Links & Resources
 -----------------
 
 - `Edit the root commit in git? <https://stackoverflow.com/a/14630424>`_
+- `How to find a deleted file in the project commit history <https://stackoverflow.com/questions/7203515/how-to-find-a-deleted-file-in-the-project-commit-history>`_
 - `How to "git clone" including submodules? <https://stackoverflow.com/questions/3796927/how-to-git-clone-including-submodules>`_
 - `How to get rid of "would clobber existing tag" <https://stackoverflow.com/questions/58031165/how-to-get-rid-of-would-clobber-existing-tag>`_

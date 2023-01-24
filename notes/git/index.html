@@ -6,7 +6,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
 
-    <title>Notes on Git &#8212; Alex Carney</title>
+    <title>Git &#8212; Alex Carney</title>
 
     
     <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
@@ -64,13 +64,11 @@
 
                     <div class="flex-shrink overflow-auto"><nav id="localtoc" class="p-4 border-t dark:text-gray-200 dark:border-gray-600">
     <ul>
-<li><a class="reference internal" href="#">Notes on Git</a><ul>
+<li><a class="reference internal" href="#">Git</a><ul>
+<li><a class="reference internal" href="#history">History</a></li>
 <li><a class="reference internal" href="#rebasing">Rebasing</a></li>
 <li><a class="reference internal" href="#submodules">Submodules</a></li>
-<li><a class="reference internal" href="#tags">Tags</a><ul>
-<li><a class="reference internal" href="#updating-tags-from-remote">Updating tags from remote</a></li>
-</ul>
-</li>
+<li><a class="reference internal" href="#tags">Tags</a></li>
 <li><a class="reference internal" href="#links-resources">Links &amp; Resources</a></li>
 </ul>
 </li>
@@ -130,8 +128,19 @@
                     
 
 <article class="p-4 prose-sm prose bg-white dark:bg-gray-800 border prose-md prose-emerald max-w-none dark:prose-invert dark:border-gray-600">
-    <section id="notes-on-git">
-<h1>Notes on Git<a class="headerlink" href="#notes-on-git" title="Permalink to this heading">¶</a></h1>
+    <section id="git">
+<h1>Git<a class="headerlink" href="#git" title="Permalink to this heading">¶</a></h1>
+<section id="history">
+<h2>History<a class="headerlink" href="#history" title="Permalink to this heading">¶</a></h2>
+<p>To search history for commits affecting some file name</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>git log --all --full-history -- <span class="s2">&quot;**/pattern.*&quot;</span> <span class="c1"># or can be an explicit file path</span>
+</pre></div>
+</div>
+<p>To show the changes included in a commit for a specific file</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>git show &lt;sha&gt; -- &lt;filepath&gt;
+</pre></div>
+</div>
+</section>
 <section id="rebasing">
 <h2>Rebasing<a class="headerlink" href="#rebasing" title="Permalink to this heading">¶</a></h2>
 <p>To include the root commit in a rebase use the <code class="docutils literal notranslate"><span class="pre">--root</span></code> flag</p>
@@ -153,8 +162,12 @@ submodules</p>
 </section>
 <section id="tags">
 <h2>Tags<a class="headerlink" href="#tags" title="Permalink to this heading">¶</a></h2>
-<section id="updating-tags-from-remote">
-<h3>Updating tags from remote<a class="headerlink" href="#updating-tags-from-remote" title="Permalink to this heading">¶</a></h3>
+<p>To pull the latest tags from a remote.</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>git fetch &lt;remote&gt; --tags
+</pre></div>
+</div>
+<p>If <code class="docutils literal notranslate"><span class="pre">&lt;remote&gt;</span></code> is not given it will default to the branch’s configured upstream, or fallback to <code class="docutils literal notranslate"><span class="pre">origin</span></code> if no upstream is configured.</p>
+<p>Some tags can move (e.g. neovim’s <code class="docutils literal notranslate"><span class="pre">nightly</span></code> tag), in which case git will not update them</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>git fetch --tags
 <span class="go">remote: Enumerating objects: 307, done.</span>
 <span class="go">remote: Counting objects: 100% (228/228), done.</span>
@@ -168,7 +181,7 @@ submodules</p>
 <span class="go">! [rejected]            stable                                                  -&gt; stable  (would clobber existing tag)</span>
 </pre></div>
 </div>
-<p>For tags that move (e.g. neovim’s <code class="docutils literal notranslate"><span class="pre">nightly</span></code> and <code class="docutils literal notranslate"><span class="pre">stable</span></code> tags) an additional <code class="docutils literal notranslate"><span class="pre">-f</span></code> flag is required.</p>
+<p>Unless you pass an additional <code class="docutils literal notranslate"><span class="pre">-f</span></code> flag.</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>git fetch --tags -f
 <span class="go">From https://github.com/neovim/neovim</span>
 <span class="go">t [tag update]          nightly    -&gt; nightly</span>
@@ -176,11 +189,11 @@ submodules</p>
 </pre></div>
 </div>
 </section>
-</section>
 <section id="links-resources">
 <h2>Links &amp; Resources<a class="headerlink" href="#links-resources" title="Permalink to this heading">¶</a></h2>
 <ul class="simple">
 <li><p><a class="reference external" href="https://stackoverflow.com/a/14630424">Edit the root commit in git?</a></p></li>
+<li><p><a class="reference external" href="https://stackoverflow.com/questions/7203515/how-to-find-a-deleted-file-in-the-project-commit-history">How to find a deleted file in the project commit history</a></p></li>
 <li><p><a class="reference external" href="https://stackoverflow.com/questions/3796927/how-to-git-clone-including-submodules">How to “git clone” including submodules?</a></p></li>
 <li><p><a class="reference external" href="https://stackoverflow.com/questions/58031165/how-to-get-rid-of-would-clobber-existing-tag">How to get rid of “would clobber existing tag”</a></p></li>
 </ul>
