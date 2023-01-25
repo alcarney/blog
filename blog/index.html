@@ -59,8 +59,15 @@
     <a class="text-green-600 py-1 border-t text-lg hover:bg-gray-50 dark:border-gray-600 dark:hover:bg-gray-900" href="/notes">Notes</a>
 </nav>
 
-                    <div class="flex-shrink overflow-auto"><ul class="flex flex-col p-4 space-y-2 border-t dark:border-gray-600">
+                    <div class="flex-shrink overflow-auto"><ul class="flex flex-col p-4 space-y-2 border-t dark:border-gray-600 text-center">
    
+  <li class="text-md">
+    <a href="2023/">
+        <span class="text-green-600">2023</span>
+        <span class="dark:text-white">(1)</span>
+    </a>
+  </li>
+    
   <li class="text-md">
     <a href="2022/">
         <span class="text-green-600">2022</span>
@@ -206,6 +213,55 @@
 </style>
 <!-- <div class="grid items-baseline grid-cols-1 mb-12 md:grid-cols-4"> -->
     <div >
+        <div class="flex flex-col items-baseline w-full md:flex-row">
+        <aside data-id="post-meta" class="relative self-stretch w-40 mt-8 text-right text-gray-500 md:px-4 md:mt-0 md:mr-8 md:border-r-2 dark:border-gray-600">
+            <div class="flex md:mt-9">
+                <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+</svg>
+                <span class="ml-4 text-right md:ml-auto">Jan 25, 2023</span>
+            </div>
+        </aside>
+        <article class="relative p-4 mt-4 bg-white dark:bg-gray-800 border md:mt-8 md:col-span-3 hover:shadow-lg dark:border-gray-600">
+            <header>
+                <a href="2023/nix-overlays/">
+                    <h2 style="max-width: 33ch" class="mb-4 text-2xl text-green-600">My Next Steps with Nix: Overlays</h2>
+                </a>
+            </header>
+            <div class="prose-sm prose prose-emerald dark:prose-invert">
+                <div class="ablog-post-excerpt docutils container">
+<p><a class="reference internal" href="2022/first-steps-with-nix/"><span class="doc">Last time</span></a>, I experimented with writing a flake that defined development environments for the <a class="reference external" href="https://pypi.org/project/esbonio">esbonio</a> package spanning multiple Python versions.
+During that process I also packaged <a class="reference external" href="https://pypi.org/project/pytest-lsp">pytest-lsp</a> using an ad-hoc nix expression as part of the <code class="docutils literal notranslate"><span class="pre">esbonio</span></code> repo.</p>
+<p>In this post I look into writing a similar flake for the <code class="docutils literal notranslate"><span class="pre">pytest-lsp</span></code> package itself, but this time using overlays to override and extend the nixpkgs package set.</p>
+<p>If you are interested, you can find the final version of the code
+<a class="reference external" href="https://github.com/swyddfa/lsp-devtools/commit/a7b8d545364cc14c1cd054fd56831d0bd3517659">here</a>.</p>
+</div>
+
+
+            </div>
+            <div class="flex flex-col justify-between mt-4 lg:flex-row">
+                <p class="prose-sm prose prose-emerald dark:prose-invert"><a href="2023/nix-overlays/">Read More...</a></p>
+
+                <ul class="flex flex-wrap space-x-2">
+                    <li class="mb-1">
+                        <a href="tag/python/" class="px-2 text-green-600 border border-green-600 rounded bg-green-50 dark:bg-green-600/[.2] dark:text-green-200">
+                            #python
+                        </a>
+                    </li>
+                    <li class="mb-1">
+                        <a href="tag/pytest-lsp/" class="px-2 text-green-600 border border-green-600 rounded bg-green-50 dark:bg-green-600/[.2] dark:text-green-200">
+                            #pytest-lsp
+                        </a>
+                    </li>
+                    <li class="mb-1">
+                        <a href="tag/nix/" class="px-2 text-green-600 border border-green-600 rounded bg-green-50 dark:bg-green-600/[.2] dark:text-green-200">
+                            #nix
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </article>
+        </div>
         <div class="flex flex-col items-baseline w-full md:flex-row">
         <aside data-id="post-meta" class="relative self-stretch w-40 mt-8 text-right text-gray-500 md:px-4 md:mt-0 md:mr-8 md:border-r-2 dark:border-gray-600">
             <div class="flex md:mt-9">
@@ -848,7 +904,6 @@ discovery in search of the ultimate static site generator.</p>
                     <span>
                     </span>
                     <span>Built with <a class="text-green-600" href="https://www.sphinx-doc.org/en/master/">Sphinx</a> v5.1.1</span>
-                    <span>&#169; Copyright 1980, Alex Carney.</span>
                 </div>
             </footer>
         </main>

@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom" xml:lang="en">
   <id>www.alcarney.me</id>
   <title>Blog</title>
-  <updated>2023-01-24T17:24:56.797220+00:00</updated>
+  <updated>2023-01-25T00:51:05.097433+00:00</updated>
   <link href="www.alcarney.me"/>
   <link href="www.alcarney.me/blog/atom.xml" rel="self"/>
   <generator uri="https://ablog.readthedocs.org/" version="0.10.29">ABlog</generator>
@@ -382,5 +382,29 @@ Having the ability to define a particular configuration and have some tool autom
     <category term="nix" label="nix"/>
     <category term="python" label="python"/>
     <published>2022-12-27T00:00:00+00:00</published>
+  </entry>
+  <entry>
+    <id>www.alcarney.me/blog/2023/nix-overlays/</id>
+    <title>My Next Steps with Nix: Overlays</title>
+    <updated>2023-01-25T00:00:00+00:00</updated>
+    <author>
+      <name>me</name>
+    </author>
+    <content type="html">&lt;div class="ablog-post-excerpt docutils container"&gt;
+&lt;p&gt;&lt;a class="reference internal" href="2022/first-steps-with-nix/"&gt;&lt;span class="doc"&gt;Last time&lt;/span&gt;&lt;/a&gt;, I experimented with writing a flake that defined development environments for the &lt;a class="reference external" href="https://pypi.org/project/esbonio"&gt;esbonio&lt;/a&gt; package spanning multiple Python versions.
+During that process I also packaged &lt;a class="reference external" href="https://pypi.org/project/pytest-lsp"&gt;pytest-lsp&lt;/a&gt; using an ad-hoc nix expression as part of the &lt;code class="docutils literal notranslate"&gt;&lt;span class="pre"&gt;esbonio&lt;/span&gt;&lt;/code&gt; repo.&lt;/p&gt;
+&lt;p&gt;In this post I look into writing a similar flake for the &lt;code class="docutils literal notranslate"&gt;&lt;span class="pre"&gt;pytest-lsp&lt;/span&gt;&lt;/code&gt; package itself, but this time using overlays to override and extend the nixpkgs package set.&lt;/p&gt;
+&lt;p&gt;If you are interested, you can find the final version of the code
+&lt;a class="reference external" href="https://github.com/swyddfa/lsp-devtools/commit/a7b8d545364cc14c1cd054fd56831d0bd3517659"&gt;here&lt;/a&gt;.&lt;/p&gt;
+&lt;/div&gt;
+</content>
+    <link href="www.alcarney.me/blog/2023/nix-overlays/" rel="alternate"/>
+    <summary>Last time, I experimented with writing a flake that defined development environments for the esbonio package spanning multiple Python versions.
+During that process I also packaged pytest-lsp using an ad-hoc nix expression as part of the esbonio repo.In this post I look into writing a similar flake for the pytest-lsp package itself, but this time using overlays to override and extend the nixpkgs package set.If you are interested, you can find the final version of the code
+here.</summary>
+    <category term="nix" label="nix"/>
+    <category term="pytest-lsp" label="pytest-lsp"/>
+    <category term="python" label="python"/>
+    <published>2023-01-25T00:00:00+00:00</published>
   </entry>
 </feed>

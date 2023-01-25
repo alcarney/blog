@@ -345,7 +345,7 @@ This is what allows this definition to be used with multiple Python versions lat
 <li><p><code class="docutils literal notranslate"><span class="pre">propagtedBuildInputs</span></code> are also available for use at runtime, while <code class="docutils literal notranslate"><span class="pre">buildInputs</span></code> are “hidden” from the final runtime environment.</p></li>
 </ul>
 <p>Then, to use this package definition in our <code class="docutils literal notranslate"><span class="pre">flake.nix</span></code> file we use the <code class="docutils literal notranslate"><span class="pre">callPackage</span></code> function and pass it the correct python package set.</p>
-<div class="highlight-nix notranslate"><div class="highlight"><pre><span></span><span class="c1"># In ./flake.nix</span>
+<div class="highlight-nix notranslate" id="first-steps-nix-call-pytest-lsp"><div class="highlight"><pre><span></span><span class="c1"># In ./flake.nix</span>
 <span class="k">let</span>
    <span class="ss">pkgs =</span> <span class="nb">import</span> nixpkgs <span class="p">{</span> <span class="k">inherit</span> system<span class="p">;</span> <span class="p">};</span>
    <span class="ss">pytest-lsp =</span> pkgs<span class="o">.</span>callPackage <span class="o">.</span><span class="l">/nix/pytest-lsp.nix</span> <span class="p">{</span> <span class="ss">pythonPackages =</span> pkgs<span class="o">.</span>python3Packages<span class="p">;</span> <span class="p">};</span>
@@ -402,7 +402,7 @@ This is what allows this definition to be used with multiple Python versions lat
 <p>Success!</p>
 </section>
 <section id="multiple-python-versions">
-<h2>Multiple Python Versions<a class="headerlink" href="#multiple-python-versions" title="Permalink to this heading">¶</a></h2>
+<span id="first-steps-nix-multiple-python-versions"></span><h2>Multiple Python Versions<a class="headerlink" href="#multiple-python-versions" title="Permalink to this heading">¶</a></h2>
 <p>Switching to a Nix-ish style of pseudo code for a moment, let’s summarize how our flake is currently defined.
 We defined a function which takes a <code class="docutils literal notranslate"><span class="pre">system</span></code> and produces an attribute set (think Python dictionary) with a <code class="docutils literal notranslate"><span class="pre">devShell</span></code> field</p>
 <div class="highlight-none notranslate"><div class="highlight"><pre><span></span>f(system) = { devShell = &lt;devShell for system&gt; }
@@ -605,7 +605,6 @@ However, this should hopefully serve as a good foundation on which I can explore
                         </a>
                     </span>
                     <span>Built with <a class="text-green-600" href="https://www.sphinx-doc.org/en/master/">Sphinx</a> v5.1.1</span>
-                    <span>&#169; Copyright 1980, Alex Carney.</span>
                 </div>
             </footer>
         </main>
