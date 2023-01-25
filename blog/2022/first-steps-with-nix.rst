@@ -222,6 +222,8 @@ You probably don't want to use this as an example of packaging a Python package 
 
 Then, to use this package definition in our ``flake.nix`` file we use the ``callPackage`` function and pass it the correct python package set.
 
+.. _first-steps-nix-call-pytest-lsp:
+
 .. code-block:: nix
 
    # In ./flake.nix
@@ -284,6 +286,8 @@ Now we should have everything setup correctly! 🤞
    =============== 2475 passed, 4 skipped, 8 xfailed in 132.96s (0:02:12) =======================
 
 Success!
+
+.. _first-steps-nix-multiple-python-versions:
 
 Multiple Python Versions
 ------------------------
