@@ -2,13 +2,14 @@ const colors = require('tailwindcss/colors')
 
 module.exports = {
   content: [
-    "./styles.css",
     "./**/*.rst",
+    "./_templates/**/*.html",
+    "./_static/**/*.js",
+    "./code/**/*.js",
+    "./extensions/**/*.html",
     "./landing.html",
     "./searchtools.patch",
-    "./_templates/**/*.html",
-    "./extensions/**/*.html",
-    "./code/**/*.js"
+    "./styles.css",
   ],
   plugins: [
     require('@tailwindcss/typography')
