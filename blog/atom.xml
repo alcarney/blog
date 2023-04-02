@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom" xml:lang="en">
   <id>www.alcarney.me</id>
   <title>Blog</title>
-  <updated>2023-04-02T19:16:48.557184+00:00</updated>
+  <updated>2023-04-02T19:20:33.621298+00:00</updated>
   <link href="www.alcarney.me"/>
   <link href="www.alcarney.me/blog/atom.xml" rel="self"/>
   <generator uri="https://ablog.readthedocs.org/" version="0.10.29">ABlog</generator>
@@ -410,7 +410,7 @@ here.</summary>
   <entry>
     <id>www.alcarney.me/blog/2023/nix-overlays-p2/</id>
     <title>Nix Overlays: A follow up</title>
-    <updated>2023-03-31T00:00:00+00:00</updated>
+    <updated>2023-04-02T00:00:00+00:00</updated>
     <author>
       <name>me</name>
     </author>
@@ -432,6 +432,6 @@ esbonio.</summary>
     <category term="nix" label="nix"/>
     <category term="pytest-lsp" label="pytest-lsp"/>
     <category term="python" label="python"/>
-    <published>2023-03-31T00:00:00+00:00</published>
+    <published>2023-04-02T00:00:00+00:00</published>
   </entry>
 </feed>
