@@ -380,6 +380,8 @@ function.
 
 Now we should have successfully overriden pygls' version across all supported Python versions!
 
+.. _nix-overlays-sharing:
+
 Sharing Overlays
 ----------------
 
