@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom" xml:lang="en">
   <id>www.alcarney.me</id>
   <title>Blog</title>
-  <updated>2023-03-14T19:06:15.395403+00:00</updated>
+  <updated>2023-04-02T19:16:48.557184+00:00</updated>
   <link href="www.alcarney.me"/>
   <link href="www.alcarney.me/blog/atom.xml" rel="self"/>
   <generator uri="https://ablog.readthedocs.org/" version="0.10.29">ABlog</generator>
@@ -406,5 +406,32 @@ here.</summary>
     <category term="pytest-lsp" label="pytest-lsp"/>
     <category term="python" label="python"/>
     <published>2023-01-25T00:00:00+00:00</published>
+  </entry>
+  <entry>
+    <id>www.alcarney.me/blog/2023/nix-overlays-p2/</id>
+    <title>Nix Overlays: A follow up</title>
+    <updated>2023-03-31T00:00:00+00:00</updated>
+    <author>
+      <name>me</name>
+    </author>
+    <content type="html">&lt;div class="ablog-post-excerpt docutils container"&gt;
+&lt;p&gt;It turns out there were a few issues with the setup I put together in my &lt;a class="reference internal" href="2023/nix-overlays/"&gt;&lt;span class="doc"&gt;previous post&lt;/span&gt;&lt;/a&gt;.
+This time I try and resolve them and get to the point where I have working overlays for both
+&lt;a class="reference external" href="https://github.com/swyddfa/lsp-devtools/tree/develop/lib/pytest-lsp"&gt;pytest-lsp&lt;/a&gt;
+and
+&lt;a class="reference external" href="https://github.com/swyddfa/esbonio"&gt;esbonio&lt;/a&gt;.&lt;/p&gt;
+&lt;/div&gt;
+</content>
+    <link href="www.alcarney.me/blog/2023/nix-overlays-p2/" rel="alternate"/>
+    <summary>It turns out there were a few issues with the setup I put together in my previous post.
+This time I try and resolve them and get to the point where I have working overlays for both
+pytest-lsp
+and
+esbonio.</summary>
+    <category term="esbonio" label="esbonio"/>
+    <category term="nix" label="nix"/>
+    <category term="pytest-lsp" label="pytest-lsp"/>
+    <category term="python" label="python"/>
+    <published>2023-03-31T00:00:00+00:00</published>
   </entry>
 </feed>

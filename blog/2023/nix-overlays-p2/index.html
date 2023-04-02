@@ -1,0 +1,617 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
+
+    <title>Nix Overlays: A follow up &#8212; Alex Carney</title>
+
+    
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css" />
+    
+    
+    
+    <link rel="stylesheet" type="text/css" href="../../../_static/css/styles.css" />
+    
+    
+    <link id="pygments_dark_css" media="(prefers-color-scheme: dark)" rel="stylesheet" type="text/css" href="../../../_static/pygments_dark.css" />
+    
+
+    <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
+    <script src="../../../_static/jquery.js"></script>
+    <script src="../../../_static/underscore.js"></script>
+    <script src="../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../../../_static/doctools.js"></script>
+    <link rel="shortcut icon" href="../../../_static/favicon.ico"/>
+    <link rel="index" title="Index" href="../../../genindex/" />
+    <link rel="search" title="Search" href="../../../search/" /> 
+  </head><body class="flex flex-col justify-between min-h-screen overflow-x-hidden bg-gray-100 dark:bg-gray-900">
+    <div class="flex flex-grow">
+        <input id="menu-state" type="checkbox" class="hidden" />
+        <aside class="flex justify-between flex-shrink-0 transition-all duration-500 bg-white dark:bg-gray-800 -ml-80 lg:ml-0 dark:border-gray-600">
+            <div class="flex flex-col justify-between h-full border-r w-80 dark:border-gray-600">
+                <div class="sticky top-0 flex flex-col h-screen">
+
+                    <div id="profile-card" class="full-profile">
+    <img class="" src="/_static/avatar.jpg"/>
+    <h2 class=""><a href="/">Alex Carney</a></h2>
+</div>
+
+                    <div id="searchbox" style="display: none" role="search" class="px-4 py-4">
+    <form class="flex justify-between px-2 py-1 bg-gray-100 border-2 rounded search dark:bg-gray-900 focus-within:border-green-600 dark:border-gray-600" action="../../../search/" method="get">
+        <label class="mr-2 text-gray-500" for="sbox">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="feather feather-search">
+                <circle cx="11" cy="11" r="6" />
+                <path d="m21 21-4.35-4.35" />
+            </svg>
+        </label>
+        <input id="sbox" class="flex-grow bg-gray-100 dark:text-white dark:bg-gray-900 focus:outline-none" type="search" name="q" placeholder="Search..." aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" />
+    </form>
+</div>
+<script>$('#searchbox').show(0);</script>
+
+                    
+
+<nav class="flex flex-col text-center">
+    <a class="text-green-600 py-1 border-t text-lg hover:bg-gray-50 dark:border-gray-600 dark:hover:bg-gray-900" href="/blog">Blog</a>
+    <a class="text-green-600 py-1 border-t text-lg hover:bg-gray-50 dark:border-gray-600 dark:hover:bg-gray-900" href="/code">Code</a>
+    <a class="text-green-600 py-1 border-t text-lg hover:bg-gray-50 dark:border-gray-600 dark:hover:bg-gray-900" href="/notes">Notes</a>
+</nav>
+
+                    <div class="flex-shrink overflow-auto">
+
+<div class="grid justify-between p-4 text-gray-400 border-t dark:border-gray-600" style="grid-template-columns: 24px auto">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+</svg>
+    <span class="ml-2 text-right">Mar 31, 2023</span>
+    
+
+    <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z" />
+</svg>
+    <ul class="text-right">
+        
+        <li class="mb-1">
+            <a href="../../tag/python/" class="px-2 my-1 text-green-600 border border-green-600 rounded bg-green-50 dark:bg-green-900 dark:text-green-200">
+                #python
+            </a>
+        </li>
+        
+        <li class="mb-1">
+            <a href="../../tag/pytest-lsp/" class="px-2 my-1 text-green-600 border border-green-600 rounded bg-green-50 dark:bg-green-900 dark:text-green-200">
+                #pytest-lsp
+            </a>
+        </li>
+        
+        <li class="mb-1">
+            <a href="../../tag/nix/" class="px-2 my-1 text-green-600 border border-green-600 rounded bg-green-50 dark:bg-green-900 dark:text-green-200">
+                #nix
+            </a>
+        </li>
+        
+        <li class="mb-1">
+            <a href="../../tag/esbonio/" class="px-2 my-1 text-green-600 border border-green-600 rounded bg-green-50 dark:bg-green-900 dark:text-green-200">
+                #esbonio
+            </a>
+        </li>
+        
+    </ul>
+</div>
+<nav id="localtoc" class="p-4 border-t dark:text-gray-200 dark:border-gray-600">
+    <ul>
+<li><a class="reference internal" href="#">Nix Overlays: A follow up</a><ul>
+<li><a class="reference internal" href="#dependency-is-not-of-valid-type"><code class="docutils literal notranslate"><span class="pre">Dependency</span> <span class="pre">is</span> <span class="pre">not</span> <span class="pre">of</span> <span class="pre">valid</span> <span class="pre">type</span></code></a></li>
+<li><a class="reference internal" href="#conflicting-overlays">Conflicting Overlays</a></li>
+<li><a class="reference internal" href="#use-the-source-luke">Use the Source Luke</a></li>
+<li><a class="reference internal" href="#the-problem">The Problem</a></li>
+<li><a class="reference internal" href="#the-solution">The Solution</a></li>
+<li><a class="reference internal" href="#disabling-tests">Disabling Tests</a></li>
+<li><a class="reference internal" href="#conclusion">Conclusion</a></li>
+</ul>
+</li>
+</ul>
+
+</nav>
+                    </div>
+
+                    <footer class="w-full p-4 mt-auto text-white bg-gray-700">
+                        <div class="flex justify-between">
+    <div></div>
+
+    <div class="flex justify-between space-x-4">
+        <a target="_blank" rel="noreferrer noopener" href="https://github.com/alcarney">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-8 h-8">
+            <path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/>
+          </svg>
+        </a>
+
+        <a target="_blank" rel="noreferrer noopener me" href="https://fosstodon.org/@alcarney">
+          <svg role="img" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" class="w-8 h-8" fill="currentColor">
+            <title>Mastodon</title>
+            <path d="M23.268 5.313c-.35-2.578-2.617-4.61-5.304-5.004C17.51.242 15.792 0 11.813 0h-.03c-3.98 0-4.835.242-5.288.309C3.882.692 1.496 2.518.917 5.127.64 6.412.61 7.837.661 9.143c.074 1.874.088 3.745.26 5.611.118 1.24.325 2.47.62 3.68.55 2.237 2.777 4.098 4.96 4.857 2.336.792 4.849.923 7.256.38.265-.061.527-.132.786-.213.585-.184 1.27-.39 1.774-.753a.057.057 0 0 0 .023-.043v-1.809a.052.052 0 0 0-.02-.041.053.053 0 0 0-.046-.01 20.282 20.282 0 0 1-4.709.545c-2.73 0-3.463-1.284-3.674-1.818a5.593 5.593 0 0 1-.319-1.433.053.053 0 0 1 .066-.054c1.517.363 3.072.546 4.632.546.376 0 .75 0 1.125-.01 1.57-.044 3.224-.124 4.768-.422.038-.008.077-.015.11-.024 2.435-.464 4.753-1.92 4.989-5.604.008-.145.03-1.52.03-1.67.002-.512.167-3.63-.024-5.545zm-3.748 9.195h-2.561V8.29c0-1.309-.55-1.976-1.67-1.976-1.23 0-1.846.79-1.846 2.35v3.403h-2.546V8.663c0-1.56-.617-2.35-1.848-2.35-1.112 0-1.668.668-1.67 1.977v6.218H4.822V8.102c0-1.31.337-2.35 1.011-3.12.696-.77 1.608-1.164 2.74-1.164 1.311 0 2.302.5 2.962 1.498l.638 1.06.638-1.06c.66-.999 1.65-1.498 2.96-1.498 1.13 0 2.043.395 2.74 1.164.675.77 1.012 1.81 1.012 3.12z"/>
+          </svg>
+        </a>
+
+        <a target="_blank" rel="noreferrer noopener" href="https://instagram.com/alcarneyme">
+          <svg role="img" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" class="w-8 h-8" fill="currentColor">
+            <title>Instagram</title>
+            <path d="M12 0C8.74 0 8.333.015 7.053.072 5.775.132 4.905.333 4.14.63c-.789.306-1.459.717-2.126 1.384S.935 3.35.63 4.14C.333 4.905.131 5.775.072 7.053.012 8.333 0 8.74 0 12s.015 3.667.072 4.947c.06 1.277.261 2.148.558 2.913.306.788.717 1.459 1.384 2.126.667.666 1.336 1.079 2.126 1.384.766.296 1.636.499 2.913.558C8.333 23.988 8.74 24 12 24s3.667-.015 4.947-.072c1.277-.06 2.148-.262 2.913-.558.788-.306 1.459-.718 2.126-1.384.666-.667 1.079-1.335 1.384-2.126.296-.765.499-1.636.558-2.913.06-1.28.072-1.687.072-4.947s-.015-3.667-.072-4.947c-.06-1.277-.262-2.149-.558-2.913-.306-.789-.718-1.459-1.384-2.126C21.319 1.347 20.651.935 19.86.63c-.765-.297-1.636-.499-2.913-.558C15.667.012 15.26 0 12 0zm0 2.16c3.203 0 3.585.016 4.85.071 1.17.055 1.805.249 2.227.415.562.217.96.477 1.382.896.419.42.679.819.896 1.381.164.422.36 1.057.413 2.227.057 1.266.07 1.646.07 4.85s-.015 3.585-.074 4.85c-.061 1.17-.256 1.805-.421 2.227-.224.562-.479.96-.899 1.382-.419.419-.824.679-1.38.896-.42.164-1.065.36-2.235.413-1.274.057-1.649.07-4.859.07-3.211 0-3.586-.015-4.859-.074-1.171-.061-1.816-.256-2.236-.421-.569-.224-.96-.479-1.379-.899-.421-.419-.69-.824-.9-1.38-.165-.42-.359-1.065-.42-2.235-.045-1.26-.061-1.649-.061-4.844 0-3.196.016-3.586.061-4.861.061-1.17.255-1.814.42-2.234.21-.57.479-.96.9-1.381.419-.419.81-.689 1.379-.898.42-.166 1.051-.361 2.221-.421 1.275-.045 1.65-.06 4.859-.06l.045.03zm0 3.678c-3.405 0-6.162 2.76-6.162 6.162 0 3.405 2.76 6.162 6.162 6.162 3.405 0 6.162-2.76 6.162-6.162 0-3.405-2.76-6.162-6.162-6.162zM12 16c-2.21 0-4-1.79-4-4s1.79-4 4-4 4 1.79 4 4-1.79 4-4 4zm7.846-10.405c0 .795-.646 1.44-1.44 1.44-.795 0-1.44-.646-1.44-1.44 0-.794.646-1.439 1.44-1.439.793-.001 1.44.645 1.44 1.439z"/>
+          </svg>
+        </a>
+
+        <a target="_blank" rel="noreferrer noopener" href="https://www.youtube.com/channel/UC5GPflgRWhnCxA0BllfP5CA">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="w-8 h-8" fill="currentColor">
+            <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
+          </svg>
+        </a>
+    </div>
+
+    <div></div>
+</div>
+                    </footer>
+                </div>
+            </div>
+        </aside>
+
+        <main class="w-full mx-auto lg:pr-0">
+            <div class="sticky top-0 z-50 mt-0 transition-all duration-300 bg-white dark:bg-gray-800 border-b shadow-md lg:shadow-none lg:relative lg:-mt-16 dark:border-gray-600">
+                <label class="flex h-16 text-gray-600 transition" for="menu-state">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="w-8 h-8 my-auto" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="feather feather-arrow-right"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                </label>
+            </div>
+
+            <div id="content" class="mx-2 my-8">
+                <div role="main" class="max-w-3xl mx-auto">
+                    
+
+<article class="p-4 prose-sm prose bg-white dark:bg-gray-800 border prose-md prose-emerald max-w-none dark:prose-invert dark:border-gray-600">
+    <section id="nix-overlays-a-follow-up">
+<h1>Nix Overlays: A follow up<a class="headerlink" href="#nix-overlays-a-follow-up" title="Permalink to this heading">¶</a></h1>
+<p>It turns out there were a few issues with the setup I put together in my <a class="reference internal" href="../nix-overlays/"><span class="doc">previous post</span></a>.
+This time I try and resolve them and get to the point where I have working overlays for both
+<a class="reference external" href="https://github.com/swyddfa/lsp-devtools/tree/develop/lib/pytest-lsp">pytest-lsp</a>
+and
+<a class="reference external" href="https://github.com/swyddfa/esbonio">esbonio</a>.</p>
+<section id="dependency-is-not-of-valid-type">
+<h2><code class="docutils literal notranslate"><span class="pre">Dependency</span> <span class="pre">is</span> <span class="pre">not</span> <span class="pre">of</span> <span class="pre">valid</span> <span class="pre">type</span></code><a class="headerlink" href="#dependency-is-not-of-valid-type" title="Permalink to this heading">¶</a></h2>
+<p>At the end of the previous post, I was left scratching my head after encountering a cryptic error message</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>nix develop .#py310
+<span class="go">error: Dependency is not of a valid type: element 4 of nativeBuildInputs for py310</span>
+<span class="gp gp-VirtualEnv">(use &#39;--show-trace&#39; to show detailed location information)</span>
+</pre></div>
+</div>
+<p>Which was coming from the following <code class="docutils literal notranslate"><span class="pre">flake.nix</span></code></p>
+<div class="highlight-nix notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+  <span class="ss">description =</span> <span class="s2">&quot;The Esbonio language server&quot;</span><span class="p">;</span>
+
+  <span class="ss">inputs =</span> <span class="p">{</span>
+    nixpkgs<span class="o">.</span><span class="ss">url =</span> <span class="s2">&quot;github:NixOS/nixpkgs/nixpkgs-unstable&quot;</span><span class="p">;</span>
+<span class="hll">    pytest-lsp<span class="o">.</span><span class="ss">url =</span> <span class="s2">&quot;github:swyddfa/lsp-devtools?dir=lib/pytest-lsp&quot;</span><span class="p">;</span>
+</span>    utils<span class="o">.</span><span class="ss">url =</span> <span class="s2">&quot;github:numtide/flake-utils&quot;</span><span class="p">;</span>
+  <span class="p">};</span>
+
+<span class="hll">  <span class="ss">outputs =</span> <span class="p">{</span> self<span class="p">,</span> nixpkgs<span class="p">,</span> pytest-lsp<span class="p">,</span> utils <span class="p">}:</span>
+</span>
+    <span class="k">let</span>
+      <span class="ss">esbonio-overlay =</span> <span class="nb">import</span> <span class="o">.</span><span class="l">/nix/esbonio-overlay.nix</span><span class="p">;</span>
+      <span class="ss">eachPythonVersion =</span> versions<span class="p">:</span> f<span class="p">:</span>
+        <span class="nb">builtins</span><span class="o">.</span>listToAttrs <span class="p">(</span><span class="nb">builtins</span><span class="o">.</span><span class="nb">map</span> <span class="p">(</span>version<span class="p">:</span> <span class="p">{</span><span class="ss">name =</span> <span class="s2">&quot;py</span><span class="si">${</span>version<span class="si">}</span><span class="s2">&quot;</span><span class="p">;</span> <span class="ss">value =</span> f version<span class="p">;</span> <span class="p">})</span> versions<span class="p">);</span>
+    <span class="k">in</span> <span class="p">{</span>
+
+    overlays<span class="o">.</span><span class="ss">default =</span> esbonio-overlay<span class="p">;</span>
+
+    <span class="ss">devShells =</span> utils<span class="o">.</span>lib<span class="o">.</span>eachDefaultSystemMap <span class="p">(</span>system<span class="p">:</span>
+      <span class="k">let</span>
+        <span class="ss">pkgs =</span> <span class="nb">import</span> nixpkgs <span class="p">{</span>
+          <span class="k">inherit</span> system<span class="p">;</span>
+          <span class="ss">overlays =</span> <span class="p">[</span> pytest-lsp<span class="o">.</span>overlays<span class="o">.</span>pytest-lsp esbonio-overlay <span class="p">];</span>
+        <span class="p">};</span>
+      <span class="k">in</span>
+        eachPythonVersion <span class="p">[</span> <span class="s2">&quot;38&quot;</span> <span class="s2">&quot;39&quot;</span> <span class="s2">&quot;310&quot;</span> <span class="s2">&quot;311&quot;</span> <span class="p">]</span> <span class="p">(</span>pyVersion<span class="p">:</span>
+          <span class="k">with</span> pkgs<span class="p">;</span> mkShell <span class="p">{</span>
+            <span class="ss">name =</span> <span class="s2">&quot;py</span><span class="si">${</span>pyVersion<span class="si">}</span><span class="s2">&quot;</span><span class="p">;</span>
+            <span class="ss">packages =</span> <span class="k">with</span> pkgs<span class="o">.</span><span class="s2">&quot;python</span><span class="si">${</span>pyVersion<span class="si">}</span><span class="s2">Packages&quot;</span><span class="p">;</span> <span class="p">[</span>
+              esbonio
+              mock
+              pytest
+<span class="hll">              pytest-lsp
+</span>              pytest-timeout
+            <span class="p">];</span>
+          <span class="p">}</span>
+      <span class="p">)</span>
+    <span class="p">);</span>
+  <span class="p">};</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Originally, I thought this was caused by naming conflicts introduced by using <code class="docutils literal notranslate"><span class="pre">pytest-lsp</span></code> to reference both <code class="docutils literal notranslate"><span class="pre">pytest-lsp</span></code> the flake, and <code class="docutils literal notranslate"><span class="pre">pytest-lsp</span></code> the Python package.
+Indeed, changing the name of the flake input to <code class="docutils literal notranslate"><span class="pre">pytestlsp</span></code> seemed to at least change the error message I was seeing…</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>nix develop .#py310
+<span class="go">error: undefined variable &#39;pytest-lsp&#39;</span>
+
+<span class="go">       at /nix/store/dihmz79kgwxj1v5mqvxrj0f3ifgvpm9f-source/lib/esbonio/flake.nix:38:15:</span>
+
+<span class="go">           37|               pytest</span>
+<span class="go">           38|               pytest-lsp</span>
+<span class="go">             |               ^</span>
+<span class="go">           39|               pytest-timeout</span>
+<span class="gp gp-VirtualEnv">(use &#39;--show-trace&#39; to show detailed location information)</span>
+</pre></div>
+</div>
+<p>How can that be?!</p>
+</section>
+<section id="conflicting-overlays">
+<h2>Conflicting Overlays<a class="headerlink" href="#conflicting-overlays" title="Permalink to this heading">¶</a></h2>
+<p>It turns out that the overlays <code class="docutils literal notranslate"><span class="pre">pytestlsp.overlays.pytest-lsp</span></code> and <code class="docutils literal notranslate"><span class="pre">esbonio-overlay</span></code> conflict with each other!
+I am not sure what originally led me to try it, but by reversing their order in the array passed to <code class="docutils literal notranslate"><span class="pre">nixpkgs</span></code> I could produce a similar error for the <code class="docutils literal notranslate"><span class="pre">esbonio</span></code> package.</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>nix develop .#py310
+<span class="go">error: undefined variable &#39;esbonio&#39;</span>
+
+<span class="go">       at /nix/store/vqff8bn03r11m1fg4f0b7ixnj731g9br-source/lib/esbonio/flake.nix:34:15:</span>
+
+<span class="go">           33|             packages = with pkgs.&quot;python${pyVersion}Packages&quot;; [</span>
+<span class="go">           34|               esbonio</span>
+<span class="go">             |               ^</span>
+<span class="go">           35|</span>
+<span class="gp gp-VirtualEnv">(use &#39;--show-trace&#39; to show detailed location information)</span>
+</pre></div>
+</div>
+<p>But why? 🤔
+I thought the whole point of overlays were so that they could be… well, overlayed on an underlying package set without conflicting with each other??</p>
+</section>
+<section id="use-the-source-luke">
+<h2>Use the Source Luke<a class="headerlink" href="#use-the-source-luke" title="Permalink to this heading">¶</a></h2>
+<p>To find the answer, I had to remind myself that Nix is <strong>not</strong> magic (although it can appear to be!) and instead, at it’s core, Nix is a programming language.
+Which means this concept of “overlays” must be implemented in code <em>somewhere</em> and we can look for ourselves to see how they are handled.
+Sure enough, after some splunking through the <code class="docutils literal notranslate"><span class="pre">nixpkgs</span></code> repo I was able to track down
+<a class="reference external" href="https://github.com/NixOS/nixpkgs/commit/f5dfe78a1eb5ff8dfcc7ab37cfc132c5f31d3cef">the commit</a>
+introducing the concept.</p>
+<p>The majority of that commit appears to be just passing the <code class="docutils literal notranslate"><span class="pre">overlays</span></code> array through to all the places that require it and updating the documentation.
+The interesting part is where the overlays are actually applied at the bottom of
+<a class="reference external" href="https://github.com/NixOS/nixpkgs/blob/f5dfe78a1eb5ff8dfcc7ab37cfc132c5f31d3cef/pkgs/top-level/stage.nix#L84-L96">pkgs/top-level/stage.nix</a></p>
+<div class="highlight-nix notranslate"><div class="highlight"><pre><span></span><span class="k">let</span>
+  <span class="c1"># The complete chain of package set builders, applied from top to bottom</span>
+  <span class="ss">toFix =</span> lib<span class="o">.</span>foldl&#39; <span class="p">(</span>lib<span class="o">.</span>flip lib<span class="o">.</span>extends<span class="p">)</span> <span class="p">(</span>self<span class="p">:</span> <span class="p">{})</span> <span class="p">([</span>
+    stdenvBootstappingAndPlatforms
+    stdenvAdapters
+    trivialBuilders
+    allPackages
+    aliases
+    stdenvOverrides
+    configOverrides
+    <span class="p">]</span> <span class="o">++</span> overlays<span class="p">);</span>
+<span class="k">in</span>
+  <span class="c1"># Return the complete set of packages.</span>
+  lib<span class="o">.</span>fix toFix
+</pre></div>
+</div>
+<p>From what I understand</p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://github.com/NixOS/nixpkgs/blob/f5dfe78a1eb5ff8dfcc7ab37cfc132c5f31d3cef/lib/lists.nix#L61">lib.foldl’</a>
+applies some combination function - <code class="docutils literal notranslate"><span class="pre">(lib.flip</span> <span class="pre">lib.extends)</span></code> in this case, to a list resulting in a single aggregated value.</p></li>
+<li><p><a class="reference external" href="https://github.com/NixOS/nixpkgs/blob/f5dfe78a1eb5ff8dfcc7ab37cfc132c5f31d3cef/lib/trivial.nix#L82">lib.flip</a>
+switches the order of the arguments given to <code class="docutils literal notranslate"><span class="pre">lib.extends</span></code></p></li>
+<li><p><a class="reference external" href="https://github.com/NixOS/nixpkgs/blob/f5dfe78a1eb5ff8dfcc7ab37cfc132c5f31d3cef/lib/trivial.nix#L54">lib.extends</a>
+is the function we’re actually interested in as it is responsible for applying the overlays.</p></li>
+<li><p><a class="reference external" href="https://github.com/NixOS/nixpkgs/blob/f5dfe78a1eb5ff8dfcc7ab37cfc132c5f31d3cef/lib/trivial.nix#L29">lib.fix</a>
+appears to resolve all references to <code class="docutils literal notranslate"><span class="pre">self</span></code> in <code class="docutils literal notranslate"><span class="pre">toFix</span></code> to a “proper” value, but I’m not entirely sure how.</p></li>
+</ul>
+<p>Here is the implementation of <code class="docutils literal notranslate"><span class="pre">lib.extends</span></code> as of the commit introducing overlays</p>
+<div class="highlight-nix notranslate"><div class="highlight"><pre><span></span><span class="ss">extends =</span> f<span class="p">:</span> rattrs<span class="p">:</span> self<span class="p">:</span> <span class="k">let</span> <span class="ss">super =</span> rattrs self<span class="p">;</span> <span class="k">in</span> super <span class="o">//</span> f self super<span class="p">;</span>
+</pre></div>
+</div>
+<p>As with most things in Nix, I don’t really understand the fine details but it’s interesting to see that it uses the <code class="docutils literal notranslate"><span class="pre">//</span></code> operator to merge the result of an overlay (<code class="docutils literal notranslate"><span class="pre">f</span> <span class="pre">self</span> <span class="pre">super</span></code>) with the current state of the package set (<code class="docutils literal notranslate"><span class="pre">super</span></code>).
+One thing that’s interesting to note, when combining attribute sets with the <code class="docutils literal notranslate"><span class="pre">//</span></code> operator, if both sets contain the same key, then the value from the original set is replaced with the value provided by the second.</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>nix repl
+<span class="go">Welcome to Nix 2.11.1. Type :? for help.</span>
+
+<span class="go">nix-repl&gt; x = {a = 1 ; b = 2; c = 3;}</span>
+
+<span class="go">nix-repl&gt; y = {d = 4; c = 5;}</span>
+
+<span class="go">nix-repl&gt; x // y</span>
+<span class="go">{ a = 1; b = 2; c = 5; d = 4; }</span>
+</pre></div>
+</div>
+<p><em>Foreshadowing…</em></p>
+</section>
+<section id="the-problem">
+<h2>The Problem<a class="headerlink" href="#the-problem" title="Permalink to this heading">¶</a></h2>
+<p>Armed with my new found knowledge I had another look at the definitions of the problematic overlays.</p>
+<div class="flex flex-col md:flex-row justify-between gap-4 docutils container">
+<div class="overflow-x-auto highlight-nix notranslate"><div class="highlight"><pre><span></span><span class="c1"># pytest-lsp-overlay.nix</span>
+<span class="k">let</span>
+  <span class="ss">eachPythonVersion =</span> <span class="o">...</span>
+<span class="k">in</span>
+
+self<span class="p">:</span> super<span class="p">:</span>
+
+eachPythonVersion <span class="p">[</span> <span class="s2">&quot;38&quot;</span> <span class="s2">&quot;39&quot;</span> <span class="s2">&quot;310&quot;</span> <span class="s2">&quot;311&quot;</span> <span class="p">]</span> <span class="p">(</span>pyVersion<span class="p">:</span>
+<span class="hll">  super<span class="o">.</span><span class="s2">&quot;python</span><span class="si">${</span>pyVersion<span class="si">}</span><span class="s2">&quot;</span><span class="o">.</span>override <span class="p">{</span>
+</span>    <span class="ss">packageOverrides =</span> pyself<span class="p">:</span> pysuper<span class="p">:</span> <span class="p">{</span>
+      <span class="ss">pytest-lsp =</span> pysuper<span class="o">.</span>buildPythonPackage <span class="p">{</span> <span class="o">...</span> <span class="p">};</span>
+    <span class="p">};</span>
+<span class="p">})</span>
+</pre></div>
+</div>
+<div class="overflow-x-auto highlight-nix notranslate"><div class="highlight"><pre><span></span><span class="c1"># esbonio-overlay.nix</span>
+<span class="k">let</span>
+  <span class="ss">eachPythonVersion =</span> <span class="o">...</span>
+<span class="k">in</span>
+
+self<span class="p">:</span> super<span class="p">:</span>
+
+eachPythonVersion <span class="p">[</span> <span class="s2">&quot;38&quot;</span> <span class="s2">&quot;39&quot;</span> <span class="s2">&quot;310&quot;</span> <span class="s2">&quot;311&quot;</span> <span class="p">]</span> <span class="p">(</span>pyVersion<span class="p">:</span>
+<span class="hll">  super<span class="o">.</span><span class="s2">&quot;python</span><span class="si">${</span>pyVersion<span class="si">}</span><span class="s2">&quot;</span><span class="o">.</span>override <span class="p">{</span>
+</span>    <span class="ss">packageOverrides =</span> pyself<span class="p">:</span> pysuper<span class="p">:</span> <span class="p">{</span>
+      <span class="ss">esbonio =</span> pysuper<span class="o">.</span>buildPythonPackage <span class="p">{</span> <span class="o">...</span> <span class="p">};</span>
+    <span class="p">};</span>
+<span class="p">})</span>
+</pre></div>
+</div>
+</div>
+<p>Well no wonder they conflict with each other, they’re overriding the base <code class="docutils literal notranslate"><span class="pre">pythonXY</span></code> package directly!
+Any <code class="docutils literal notranslate"><span class="pre">packageOverrides</span></code> provided by the first overlay would be wiped out when the second is applied.
+Surely then there must be a better way to provide your own Python package definitions 🤔</p>
+</section>
+<section id="the-solution">
+<h2>The Solution<a class="headerlink" href="#the-solution" title="Permalink to this heading">¶</a></h2>
+<p>Somewhat buried on the <a class="reference external" href="https://nixos.org/manual/nixpkgs/stable/#python">Python page</a> in the Nixpkgs manual is this handy FAQ question</p>
+<blockquote class="pull-quote">
+<div><p>17.27.3.9. How to override a Python package for all Python versions using extensions?</p>
+<p>The following overlay overrides the call to buildPythonPackage for the foo package for all interpreters by appending a Python extension to the pythonPackagesExtensions list of extensions.</p>
+<div class="highlight-nix notranslate"><div class="highlight"><pre><span></span>final<span class="p">:</span> prev<span class="p">:</span> <span class="p">{</span>
+  <span class="ss">pythonPackagesExtensions =</span> prev<span class="o">.</span>pythonPackagesExtensions <span class="o">++</span> <span class="p">[</span>
+    <span class="p">(</span>
+       python-final<span class="p">:</span> python-prev<span class="p">:</span> <span class="p">{</span>
+         <span class="ss">foo =</span> python-prev<span class="o">.</span>foo<span class="o">.</span>overridePythonAttrs <span class="p">(</span>oldAttrs<span class="p">:</span> <span class="p">{</span> <span class="o">...</span> <span class="p">});</span>
+       <span class="p">}</span>
+    <span class="p">)</span>
+  <span class="p">];</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div></blockquote>
+<p>This might be just what we need!
+Not only do we avoid messing with the base Python package, we also get our packages automatically added to each Python version without the need to roll our own <code class="docutils literal notranslate"><span class="pre">eachPythonVerison</span></code> helper!</p>
+<p>Converting my <a class="reference internal" href="../nix-overlays/#nix-overlays-sharing"><span class="std std-ref">previous overlay attempts</span></a> to the above approach results in overlay definitions that are a lot more straight forward.
+Notice that I was even able to enable tests for them now!</p>
+<div class="flex flex-col md:flex-row justify-between gap-4 docutils container">
+<div class="overflow-x-auto highlight-nix notranslate"><div class="highlight"><pre><span></span><span class="c1"># pytest-lsp-overlay.nix</span>
+final<span class="p">:</span> prev<span class="p">:</span> <span class="p">{</span>
+  <span class="ss">pythonPackagesExtensions =</span> prev<span class="o">.</span>pythonPackagesExtensions <span class="o">++</span> <span class="p">[(</span>
+    python-final<span class="p">:</span> python-prev<span class="p">:</span> <span class="p">{</span>
+      <span class="ss">pytest-lsp =</span> python-prev<span class="o">.</span>buildPythonPackage <span class="p">{</span>
+        <span class="ss">pname =</span> <span class="s2">&quot;pytest-lsp&quot;</span><span class="p">;</span>
+        <span class="ss">version =</span> <span class="s2">&quot;0.2.1&quot;</span><span class="p">;</span>
+
+        <span class="ss">src =</span> <span class="o">.</span><span class="l">/..</span><span class="p">;</span>
+
+        <span class="ss">propagatedBuildInputs =</span> <span class="k">with</span> python-prev<span class="p">;</span> <span class="p">[</span>
+          pygls
+          pytest
+          pytest-asyncio
+        <span class="p">];</span>
+
+        <span class="ss">doCheck =</span> <span class="no">true</span><span class="p">;</span>
+
+        <span class="ss">nativeCheckInputs =</span> <span class="k">with</span> python-prev<span class="p">;</span> <span class="p">[</span>
+          pytestCheckHook
+        <span class="p">];</span>
+
+        <span class="ss">pythonImportsCheck =</span> <span class="p">[</span> <span class="s2">&quot;pytest_lsp&quot;</span> <span class="p">];</span>
+      <span class="p">};</span>
+    <span class="p">}</span>
+  <span class="p">)];</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<div class="overflow-x-auto highlight-nix notranslate"><div class="highlight"><pre><span></span><span class="c1"># esbonio-overlay.nix</span>
+final<span class="p">:</span> prev<span class="p">:</span> <span class="p">{</span>
+  <span class="ss">pythonPackagesExtensions =</span> prev<span class="o">.</span>pythonPackagesExtensions <span class="o">++</span> <span class="p">[(</span>
+    python-final<span class="p">:</span> python-prev<span class="p">:</span> <span class="p">{</span>
+      <span class="ss">esbonio =</span> python-prev<span class="o">.</span>buildPythonPackage <span class="p">{</span>
+        <span class="ss">pname =</span> <span class="s2">&quot;esbonio&quot;</span><span class="p">;</span>
+        <span class="ss">version =</span> <span class="s2">&quot;0.16.1&quot;</span><span class="p">;</span>
+
+        <span class="ss">src =</span> <span class="o">.</span><span class="l">/..</span><span class="p">;</span>
+
+        <span class="ss">propagatedBuildInputs =</span> <span class="k">with</span> python-prev<span class="p">;</span> <span class="p">[</span>
+          appdirs
+          pygls
+          pyspellchecker
+          sphinx
+          <span class="c1"># typing-extensions; only required for Python 3.7</span>
+        <span class="p">];</span>
+
+        <span class="ss">doCheck =</span> <span class="no">true</span><span class="p">;</span>
+
+        <span class="ss">nativeCheckInputs =</span> <span class="k">with</span> python-prev<span class="p">;</span> <span class="p">[</span>
+          mock
+          pytest-lsp
+          pytest-timeout
+          pytestCheckHook
+        <span class="p">];</span>
+
+        <span class="ss">pythonImportsCheck =</span> <span class="p">[</span> <span class="s2">&quot;esbonio.lsp&quot;</span> <span class="p">];</span>
+      <span class="p">};</span>
+    <span class="p">}</span>
+  <span class="p">)];</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<p>All that is left to do is to try and enter the <code class="docutils literal notranslate"><span class="pre">devShell</span></code> for esbonio again</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>nix develop .#py310
+<span class="go">error: builder for &#39;/nix/store/027wakjv9wvws6190c66nf5gxc6smc54-python3.10-esbonio-0.16.1.drv&#39; failed with exit code 2;</span>
+<span class="go">       last 10 log lines:</span>
+<span class="go">       &gt; /nix/store/l69b9xl4pnqqgdx9vp1yg1cbckgcjsfx-python3.10-pytest-7.2.0/lib/python3.10/site-packages/_pytest/assertion/rewrite.py:168: in exec_module</span>
+<span class="go">       &gt;     exec(co, module.__dict__)</span>
+<span class="go">       &gt; tests/sphinx-default/conftest.py:53: in &lt;module&gt;</span>
+<span class="go">       &gt;     ClientServerConfig(</span>
+<span class="go">       &gt; E   TypeError: ClientServerConfig.__init__() got an unexpected keyword argument &#39;client&#39;</span>
+<span class="go">       &gt; =========================== short test summary info ============================</span>
+<span class="go">       &gt; ERROR  - TypeError: ClientServerConfig.__init__() got an unexpected keyword argument...</span>
+<span class="go">       &gt; !!!!!!!!!!!!!!!!!!!! Interrupted: 1 error during collection !!!!!!!!!!!!!!!!!!!!</span>
+<span class="go">       &gt; =============================== 1 error in 0.60s ===============================</span>
+<span class="go">       &gt; /nix/store/3yfs41f4b60jya2gk6xikx4s97zsxjr0-stdenv-linux/setup: line 1573: pop_var_context: head of shell_variables not a function context</span>
+<span class="go">For full logs, run &#39;nix log /nix/store/027wakjv9wvws6190c66nf5gxc6smc54-python3.10-esbonio-0.16.1.drv&#39;.</span>
+<span class="go">error: 1 dependencies of derivation &#39;/nix/store/nms3hs5pz1fmyki4k547gfs1281klgl3-py310-env.drv&#39; failed to build</span>
+</pre></div>
+</div>
+<p>Hey! At least the Nix part is finally working!</p>
+</section>
+<section id="disabling-tests">
+<h2>Disabling Tests<a class="headerlink" href="#disabling-tests" title="Permalink to this heading">¶</a></h2>
+<p>There’s one final detail left to clear up.</p>
+<p>Of course, if you are consuming a package (like how <code class="docutils literal notranslate"><span class="pre">esbonio</span></code> is pulling in <code class="docutils literal notranslate"><span class="pre">pytest-lsp</span></code>) it’s good to have the tests run so that you can verify everything is working as expected.
+However, when you are setting up a <code class="docutils literal notranslate"><span class="pre">devShell</span></code> to work on a package, you don’t really want the tests to run since they will prevent you entering the shell if they fail - as is the case here.</p>
+<p>Thankfully, it should just be a case of setting the <code class="docutils literal notranslate"><span class="pre">doCheck</span></code> flag for esbonio to <code class="docutils literal notranslate"><span class="pre">false</span></code> when using it within the flake’s <code class="docutils literal notranslate"><span class="pre">devShell</span></code> definition.</p>
+<div class="highlight-nix notranslate"><div class="highlight"><pre><span></span><span class="ss">devShells =</span> utils<span class="o">.</span>lib<span class="o">.</span>eachDefaultSystemMap <span class="p">(</span>system<span class="p">:</span>
+  <span class="k">let</span>
+    <span class="ss">pkgs =</span> <span class="nb">import</span> nixpkgs <span class="p">{</span>
+      <span class="k">inherit</span> system<span class="p">;</span>
+      <span class="ss">overlays =</span> <span class="p">[</span> pytest-lsp-overlay esbonio-overlay <span class="p">];</span>
+    <span class="p">};</span>
+  <span class="k">in</span>
+    eachPythonVersion <span class="p">[</span> <span class="s2">&quot;38&quot;</span> <span class="s2">&quot;39&quot;</span> <span class="s2">&quot;310&quot;</span> <span class="s2">&quot;311&quot;</span> <span class="p">]</span> <span class="p">(</span>pyVersion<span class="p">:</span>
+      pkgs<span class="o">.</span>mkShell <span class="p">{</span>
+        <span class="ss">name =</span> <span class="s2">&quot;py</span><span class="si">${</span>pyVersion<span class="si">}</span><span class="s2">&quot;</span><span class="p">;</span>
+
+        <span class="ss">packages =</span> <span class="k">with</span> pkgs<span class="o">.</span><span class="s2">&quot;python</span><span class="si">${</span>pyVersion<span class="si">}</span><span class="s2">Packages&quot;</span><span class="p">;</span> <span class="p">[</span>
+          esbonio<span class="o">.</span>overridePythonAttrs <span class="p">(</span>_<span class="p">:</span> <span class="p">{</span> <span class="ss">doCheck =</span> <span class="no">false</span><span class="p">;</span> <span class="p">})</span>
+
+          mock
+          <span class="c1"># Still necessary to avoid a naming conflict with pytest-lsp, the flake</span>
+          pkgs<span class="o">.</span><span class="s2">&quot;python</span><span class="si">${</span>pyVersion<span class="si">}</span><span class="s2">Packages&quot;</span><span class="o">.</span>pytest-lsp
+          pytest-timeout
+        <span class="p">];</span>
+      <span class="p">}</span>
+  <span class="p">)</span>
+<span class="p">);</span>
+</pre></div>
+</div>
+<p>And activating the shell as normal.</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>nix develop .#py310
+<span class="go">error: Dependency is not of a valid type: element 1 of nativeBuildInputs for py310</span>
+<span class="gp gp-VirtualEnv">(use &#39;--show-trace&#39; to show detailed location information)</span>
+</pre></div>
+</div>
+<p>No! Not again! 😭</p>
+<p>To be honest, I nearly gave up on the whole idea then and there but in a last ditch attempt I moved the overriden <code class="docutils literal notranslate"><span class="pre">esbonio</span></code> package out into a <code class="docutils literal notranslate"><span class="pre">let</span></code> binding.</p>
+<div class="highlight-nix notranslate"><div class="highlight"><pre><span></span><span class="ss">devShells =</span> utils<span class="o">.</span>lib<span class="o">.</span>eachDefaultSystemMap <span class="p">(</span>system<span class="p">:</span>
+   <span class="k">let</span>
+     <span class="ss">pkgs =</span> <span class="nb">import</span> nixpkgs <span class="p">{</span>
+       <span class="k">inherit</span> system<span class="p">;</span>
+       <span class="ss">overlays =</span> <span class="p">[</span> pytest-lsp-overlay esbonio-overlay <span class="p">];</span>
+     <span class="p">};</span>
+   <span class="k">in</span>
+     eachPythonVersion <span class="p">[</span> <span class="s2">&quot;38&quot;</span> <span class="s2">&quot;39&quot;</span> <span class="s2">&quot;310&quot;</span> <span class="s2">&quot;311&quot;</span> <span class="p">]</span> <span class="p">(</span>pyVersion<span class="p">:</span>
+
+       <span class="k">let</span>
+<span class="hll">         <span class="ss">esbonio =</span> pkgs<span class="o">.</span><span class="s2">&quot;python</span><span class="si">${</span>pyVersion<span class="si">}</span><span class="s2">Packages&quot;</span><span class="o">.</span>esbonio<span class="o">.</span>overridePythonAttrs <span class="p">(</span>_<span class="p">:</span> <span class="p">{</span> <span class="ss">doCheck =</span> <span class="no">false</span><span class="p">;</span> <span class="p">});</span>
+</span>       <span class="k">in</span>
+
+       pkgs<span class="o">.</span>mkShell <span class="p">{</span>
+         <span class="ss">name =</span> <span class="s2">&quot;py</span><span class="si">${</span>pyVersion<span class="si">}</span><span class="s2">&quot;</span><span class="p">;</span>
+
+         <span class="ss">packages =</span> <span class="k">with</span> pkgs<span class="o">.</span><span class="s2">&quot;python</span><span class="si">${</span>pyVersion<span class="si">}</span><span class="s2">Packages&quot;</span><span class="p">;</span> <span class="p">[</span>
+           esbonio
+
+           mock
+           pkgs<span class="o">.</span><span class="s2">&quot;python</span><span class="si">${</span>pyVersion<span class="si">}</span><span class="s2">Packages&quot;</span><span class="o">.</span>pytest-lsp
+           pytest-timeout
+         <span class="p">];</span>
+       <span class="p">}</span>
+   <span class="p">)</span>
+ <span class="p">);</span>
+</pre></div>
+</div>
+<p>And tried again</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>nix develop .#py310 -L  <span class="c1"># -L = enable verbose logging, useful to actually see what the builds are doing.</span>
+<span class="go">python3.10-esbonio&gt; Sourcing python-remove-tests-dir-hook</span>
+<span class="go">python3.10-esbonio&gt; Sourcing python-catch-conflicts-hook.sh</span>
+<span class="go">python3.10-esbonio&gt; Sourcing python-remove-bin-bytecode-hook.sh</span>
+<span class="go">python3.10-esbonio&gt; Sourcing setuptools-build-hook</span>
+<span class="go">python3.10-esbonio&gt; Using setuptoolsBuildPhase</span>
+<span class="go">python3.10-esbonio&gt; Using setuptoolsShellHook</span>
+<span class="go">python3.10-esbonio&gt; Sourcing pip-install-hook</span>
+<span class="go">python3.10-esbonio&gt; Using pipInstallPhase</span>
+<span class="go">...</span>
+<span class="go">python3.10-esbonio&gt; patching script interpreter paths in /nix/store/a9xjjxv1zh3dmhfaxgph8kq0zaxl92g3-python3.10-esbonio-0.16.1-dist</span>
+<span class="go">python3.10-esbonio&gt; Rewriting #!/nix/store/sp5x6s8n36gjlwck74xhj1i61p66vcpa-python3-3.10.9/bin/python3.10 to #!/nix/store/sp5x6s8n36gjlwck74xhj1i61p66vcpa-python3-3.10.9</span>
+<span class="go">python3.10-esbonio&gt; wrapping `/nix/store/91b7mh7ib0fxwn2kgv47v0sdpl05xqh1-python3.10-esbonio-0.16.1/bin/esbonio&#39;...</span>
+<span class="go">python3.10-esbonio&gt; Rewriting #!/nix/store/sp5x6s8n36gjlwck74xhj1i61p66vcpa-python3-3.10.9/bin/python3.10 to #!/nix/store/sp5x6s8n36gjlwck74xhj1i61p66vcpa-python3-3.10.9</span>
+<span class="go">python3.10-esbonio&gt; wrapping `/nix/store/91b7mh7ib0fxwn2kgv47v0sdpl05xqh1-python3.10-esbonio-0.16.1/bin/esbonio-sphinx&#39;...</span>
+<span class="go">python3.10-esbonio&gt; Executing pythonRemoveTestsDir</span>
+<span class="go">python3.10-esbonio&gt; Finished executing pythonRemoveTestsDir</span>
+<span class="go">python3.10-esbonio&gt; pythonCatchConflictsPhase</span>
+<span class="go">python3.10-esbonio&gt; pythonRemoveBinBytecodePhase</span>
+<span class="go">python3.10-esbonio&gt; pythonImportsCheckPhase</span>
+<span class="go">python3.10-esbonio&gt; Executing pythonImportsCheckPhase</span>
+<span class="go">python3.10-esbonio&gt; Check whether the following modules can be imported: esbonio.lsp</span>
+
+<span class="gp gp-VirtualEnv">(nix-shell)</span> <span class="gp">$</span>
+</pre></div>
+</div>
+<p>And it actually worked! 🤯</p>
+</section>
+<section id="conclusion">
+<h2>Conclusion<a class="headerlink" href="#conclusion" title="Permalink to this heading">¶</a></h2>
+<p>I have no idea why Nix needed me to move the <code class="docutils literal notranslate"><span class="pre">overridePythonAttrs</span></code> call out into a separate <code class="docutils literal notranslate"><span class="pre">let</span></code> binding, but hey it works!</p>
+<p>I’ve finally managed to recreate the setup I had in my <a class="reference internal" href="../../2022/first-steps-with-nix/"><span class="doc">original</span></a> blog post, spinning up <code class="docutils literal notranslate"><span class="pre">devShells</span></code> in order to test <code class="docutils literal notranslate"><span class="pre">esbonio</span></code> against a range of Python versions - just with the added flexibility that working with overlays can bring.</p>
+<p>If you’re interested you can find the final version of all my <code class="docutils literal notranslate"><span class="pre">*.nix</span></code> files
+<a class="reference external" href="https://github.com/swyddfa/lsp-devtools/commit/6ae80a24b55d2b6943b9d30805cf02440ebbaf5c">here (pytest-lsp)</a>
+and
+<a class="reference external" href="https://github.com/alcarney/esbonio/commit/6830a5fd0fe4c4f197d591d35d189a17fc561146">here (esbonio)</a>.
+Hopefully next time we can build on this and finally use Nix for something you can’t get out of standard Python tooling! 😅</p>
+</section>
+</section>
+
+</article>
+
+
+
+
+<div class="mt-8 pt-4 border-t dark:border-gray-600">
+    <script src="https://giscus.app/client.js"
+            data-repo="alcarney/blog"
+            data-repo-id="MDEwOlJlcG9zaXRvcnk2Njk3NzM3MQ=="
+            data-category="Comments"
+            data-category-id="DIC_kwDOA_3-W84B_XOl"
+            data-mapping="pathname"
+            data-reactions-enabled="1"
+            data-emit-metadata="0"
+            data-theme="preferred_color_scheme"
+            crossorigin="anonymous"
+            async>
+    </script>
+</div>
+
+
+
+                </div>
+            </div>
+
+            <footer class="p-2 mt-8 mb-2 text-sm text-gray-600 border-t dark:border-gray-600">
+                <div class="flex flex-col justify-between max-w-3xl mx-auto lg:flex-row">
+                    <span>
+                        <a class="text-green-600" href="../../../_sources/blog/2023/nix-overlays-p2.rst.txt" rel="nofollow">
+                            Page Source
+                        </a>
+                    </span>
+                    <span>Built with <a class="text-green-600" href="https://www.sphinx-doc.org/en/master/">Sphinx</a> v5.1.1</span>
+                </div>
+            </footer>
+        </main>
+
+    </div>
+<script src="/_static/js/theme.js"></script>
+
+
+  </body>
+</html>
