@@ -3,16 +3,22 @@
 Current Features:
 
 - Fixing Tailwind class names that get corrupted by the reStructuredText parser.
-  e.g ``lg:m-4`` is parsed as ``lg-m-4``. 
+  e.g ``lg:m-4`` is parsed as ``lg-m-4``.
 """
 from sphinx.application import Sphinx
+
+PREFIXES = {
+    "md",
+    "lg",
+}
 
 
 def fix_class(class_name):
     """Fixes any Tailwind CSS class that's been corrupted by the rst parser"""
 
-    if class_name.startswith("lg-"):
-        class_name = class_name.replace("lg-", "lg:")
+    for prefix in PREFIXES:
+        if class_name.startswith(f"{prefix}-"):
+            class_name = class_name.replace(f"{prefix}-", f"{prefix}:")
 
     if class_name.endswith("1-2"):
         class_name = class_name.replace("1-2", "1/2")
