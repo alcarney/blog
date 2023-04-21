@@ -70,13 +70,21 @@ section a.headerlink::before {
     @apply px-4
 }
 
+.admonition ol {
+    @apply mx-4
+}
+
 /* -- Figures -- */
 img[style*="width"] {
     @apply m-auto
 }
 
-.caption {
-    @apply text-center text-gray-500 mt-0
+figure.align-center figcaption {
+    @apply text-center
+}
+
+.caption-text {
+    @apply text-gray-500 mt-0
 }
 
 /* -- Code Blocks -- */
