@@ -16,6 +16,7 @@
         pkgs.nodejs
         pkgs.nodePackages.tailwindcss
         pkgs.nodePackages."@tailwindcss/typography"
+        pkgs.python310Packages.sphinx-design
       ];
     };
   };
