@@ -1287,6 +1287,11 @@ video {
   margin-bottom: 1rem;
 }
 
+.mx-4 {
+  margin-left: 1rem;
+  margin-right: 1rem;
+}
+
 .mx-auto {
   margin-left: auto;
   margin-right: auto;
@@ -1926,15 +1931,23 @@ section a.headerlink::before {
   padding-right: 1rem;
 }
 
+.admonition ol {
+  margin-left: 1rem;
+  margin-right: 1rem;
+}
+
 /* -- Figures -- */
 
 img[style*="width"] {
   margin: auto;
 }
 
-.caption {
-  margin-top: 0px;
+figure.align-center figcaption {
   text-align: center;
+}
+
+.caption-text {
+  margin-top: 0px;
   --tw-text-opacity: 1;
   color: rgb(113 113 122 / var(--tw-text-opacity));
 }

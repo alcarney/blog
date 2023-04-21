@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom" xml:lang="en">
   <id>www.alcarney.me</id>
   <title>Blog</title>
-  <updated>2023-04-02T19:20:33.621298+00:00</updated>
+  <updated>2023-04-21T21:58:57.210150+00:00</updated>
   <link href="www.alcarney.me"/>
   <link href="www.alcarney.me/blog/atom.xml" rel="self"/>
   <generator uri="https://ablog.readthedocs.org/" version="0.10.29">ABlog</generator>
@@ -433,5 +433,29 @@ esbonio.</summary>
     <category term="pytest-lsp" label="pytest-lsp"/>
     <category term="python" label="python"/>
     <published>2023-04-02T00:00:00+00:00</published>
+  </entry>
+  <entry>
+    <id>www.alcarney.me/blog/2023/integrate-esboino-nvim-with-nix/</id>
+    <title>Integrating Esbonio with Neovim Using Nix</title>
+    <updated>2023-04-21T00:00:00+00:00</updated>
+    <author>
+      <name>me</name>
+    </author>
+    <content type="html">&lt;div class="ablog-post-excerpt docutils container"&gt;
+&lt;p&gt;So far I’ve been learning how to use Nix by trying to package and define development shells for &lt;a class="reference external" href="https://github.com/swyddfa/esbonio"&gt;esbonio&lt;/a&gt; (see &lt;a class="reference internal" href="tag/nix/" title="nix"&gt;&lt;span class="xref std std-ref"&gt;here&lt;/span&gt;&lt;/a&gt; if you are interested).
+While useful, the end result is not too dissimilar to what you can get with standard Python tooling.
+Indeed, the main reason I started looking into Nix was the promise of it being able to manage more than just Python libraries.&lt;/p&gt;
+&lt;p&gt;Since &lt;code class="docutils literal notranslate"&gt;&lt;span class="pre"&gt;esbonio&lt;/span&gt;&lt;/code&gt; is a language server, it would be useful for Nix to create standardised environments where the language server is pre-configured for a given editor - great for debugging and demos!&lt;/p&gt;
+&lt;p&gt;In this blog post I try to define an environment in which Neovim is installed and configured to use the &lt;code class="docutils literal notranslate"&gt;&lt;span class="pre"&gt;esbonio&lt;/span&gt;&lt;/code&gt; language server for reStructuredText files.&lt;/p&gt;
+&lt;/div&gt;
+</content>
+    <link href="www.alcarney.me/blog/2023/integrate-esboino-nvim-with-nix/" rel="alternate"/>
+    <summary>So far I’ve been learning how to use Nix by trying to package and define development shells for esbonio (see here if you are interested).
+While useful, the end result is not too dissimilar to what you can get with standard Python tooling.
+Indeed, the main reason I started looking into Nix was the promise of it being able to manage more than just Python libraries.Since esbonio is a language server, it would be useful for Nix to create standardised environments where the language server is pre-configured for a given editor - great for debugging and demos!In this blog post I try to define an environment in which Neovim is installed and configured to use the esbonio language server for reStructuredText files.</summary>
+    <category term="esbonio" label="esbonio"/>
+    <category term="nix" label="nix"/>
+    <category term="python" label="python"/>
+    <published>2023-04-21T00:00:00+00:00</published>
   </entry>
 </feed>
