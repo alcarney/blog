@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom" xml:lang="en">
   <id>www.alcarney.me</id>
   <title>Blog</title>
-  <updated>2023-07-13T19:23:01.715829+00:00</updated>
+  <updated>2023-07-27T23:17:07.635697+00:00</updated>
   <link href="www.alcarney.me"/>
   <link href="www.alcarney.me/blog/atom.xml" rel="self"/>
   <generator uri="https://ablog.readthedocs.org/" version="0.10.29">ABlog</generator>
@@ -457,5 +457,25 @@ Indeed, the main reason I started looking into Nix was the promise of it being a
     <category term="nix" label="nix"/>
     <category term="python" label="python"/>
     <published>2023-04-21T00:00:00+00:00</published>
+  </entry>
+  <entry>
+    <id>www.alcarney.me/blog/2023/nix-day-to-day/</id>
+    <title>Nix: Day to Day Usage</title>
+    <updated>2023-07-27T00:00:00+00:00</updated>
+    <author>
+      <name>me</name>
+    </author>
+    <content type="html">&lt;div class="ablog-post-excerpt docutils container"&gt;
+&lt;p&gt;This blog post marks a change in my usage of Nix, I’m (just!) past the point of trying to get &lt;em&gt;something&lt;/em&gt; to work and now starting to incorporate it into some of my regular workflows.
+So instead of trying to accomplish some major task, this post is a small collection of things I’ve learned over the past few weeks.&lt;/p&gt;
+&lt;/div&gt;
+</content>
+    <link href="www.alcarney.me/blog/2023/nix-day-to-day/" rel="alternate"/>
+    <summary>This blog post marks a change in my usage of Nix, I’m (just!) past the point of trying to get something to work and now starting to incorporate it into some of my regular workflows.
+So instead of trying to accomplish some major task, this post is a small collection of things I’ve learned over the past few weeks.</summary>
+    <category term="esbonio" label="esbonio"/>
+    <category term="nix" label="nix"/>
+    <category term="python" label="python"/>
+    <published>2023-07-27T00:00:00+00:00</published>
   </entry>
 </feed>

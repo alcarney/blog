@@ -470,7 +470,7 @@ final<span class="p">:</span> prev<span class="p">:</span> <span class="p">{</sp
 <p>Hey! At least the Nix part is finally working!</p>
 </section>
 <section id="disabling-tests">
-<h2>Disabling Tests<a class="headerlink" href="#disabling-tests" title="Permalink to this heading">¶</a></h2>
+<span id="nix-overlays-disable-tests"></span><h2>Disabling Tests<a class="headerlink" href="#disabling-tests" title="Permalink to this heading">¶</a></h2>
 <p>There’s one final detail left to clear up.</p>
 <p>Of course, if you are consuming a package (like how <code class="docutils literal notranslate"><span class="pre">esbonio</span></code> is pulling in <code class="docutils literal notranslate"><span class="pre">pytest-lsp</span></code>) it’s good to have the tests run so that you can verify everything is working as expected.
 However, when you are setting up a <code class="docutils literal notranslate"><span class="pre">devShell</span></code> to work on a package, you don’t really want the tests to run since they will prevent you entering the shell if they fail - as is the case here.</p>

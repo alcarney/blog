@@ -345,6 +345,8 @@ All that is left to do is to try and enter the ``devShell`` for esbonio again
 
 Hey! At least the Nix part is finally working!
 
+.. _nix-overlays-disable-tests:
+
 Disabling Tests
 ---------------
 
