@@ -16,7 +16,7 @@
     <link id="pygments_dark_css" media="(prefers-color-scheme: dark)" rel="stylesheet" type="text/css" href="../../_static/pygments_dark.css" />
     
     
-    <link rel="stylesheet" type="text/css" href="../../_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css" />
     
     
     <link rel="stylesheet" type="text/css" href="../../_static/css/styles.css" />
@@ -27,6 +27,7 @@
     <script src="../../_static/underscore.js"></script>
     <script src="../../_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/sphinx_highlight.js"></script>
     <script src="../../_static/design-tabs.js"></script>
     <link rel="shortcut icon" href="../../_static/favicon.ico"/>
     <link rel="index" title="Index" href="../../genindex/" />
@@ -137,42 +138,42 @@
 <section id="history">
 <h2>History<a class="headerlink" href="#history" title="Permalink to this heading">¶</a></h2>
 <p>To search history for commits affecting some file name</p>
-<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>git log --all --full-history -- <span class="s2">&quot;**/pattern.*&quot;</span> <span class="c1"># or can be an explicit file path</span>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>git<span class="w"> </span>log<span class="w"> </span>--all<span class="w"> </span>--full-history<span class="w"> </span>--<span class="w"> </span><span class="s2">&quot;**/pattern.*&quot;</span><span class="w"> </span><span class="c1"># or can be an explicit file path</span>
 </pre></div>
 </div>
 <p>To show the changes included in a commit for a specific file</p>
-<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>git show &lt;sha&gt; -- &lt;filepath&gt;
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>git<span class="w"> </span>show<span class="w"> </span>&lt;sha&gt;<span class="w"> </span>--<span class="w"> </span>&lt;filepath&gt;
 </pre></div>
 </div>
 </section>
 <section id="rebasing">
 <h2>Rebasing<a class="headerlink" href="#rebasing" title="Permalink to this heading">¶</a></h2>
 <p>To include the root commit in a rebase use the <code class="docutils literal notranslate"><span class="pre">--root</span></code> flag</p>
-<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>git rebase -i --root
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>git<span class="w"> </span>rebase<span class="w"> </span>-i<span class="w"> </span>--root
 </pre></div>
 </div>
 </section>
 <section id="submodules">
 <h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this heading">¶</a></h2>
 <p>To clone a repo that contains submodules we can run the following command</p>
-<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>git clone --recurse-submodules &lt;repo-url&gt;
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>git<span class="w"> </span>clone<span class="w"> </span>--recurse-submodules<span class="w"> </span>&lt;repo-url&gt;
 </pre></div>
 </div>
 <p>Or if you’ve already cloned a repo only to later discover that it contained
 submodules</p>
-<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>git submodule update --init --recursive
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>git<span class="w"> </span>submodule<span class="w"> </span>update<span class="w"> </span>--init<span class="w"> </span>--recursive
 </pre></div>
 </div>
 </section>
 <section id="tags">
 <h2>Tags<a class="headerlink" href="#tags" title="Permalink to this heading">¶</a></h2>
 <p>To pull the latest tags from a remote.</p>
-<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>git fetch &lt;remote&gt; --tags
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>git<span class="w"> </span>fetch<span class="w"> </span>&lt;remote&gt;<span class="w"> </span>--tags
 </pre></div>
 </div>
 <p>If <code class="docutils literal notranslate"><span class="pre">&lt;remote&gt;</span></code> is not given it will default to the branch’s configured upstream, or fallback to <code class="docutils literal notranslate"><span class="pre">origin</span></code> if no upstream is configured.</p>
 <p>Some tags can move (e.g. neovim’s <code class="docutils literal notranslate"><span class="pre">nightly</span></code> tag), in which case git will not update them</p>
-<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>git fetch --tags
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>git<span class="w"> </span>fetch<span class="w"> </span>--tags
 <span class="go">remote: Enumerating objects: 307, done.</span>
 <span class="go">remote: Counting objects: 100% (228/228), done.</span>
 <span class="go">remote: Total 307 (delta 228), reused 228 (delta 228), pack-reused 79</span>
@@ -186,7 +187,7 @@ submodules</p>
 </pre></div>
 </div>
 <p>Unless you pass an additional <code class="docutils literal notranslate"><span class="pre">-f</span></code> flag.</p>
-<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>git fetch --tags -f
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>git<span class="w"> </span>fetch<span class="w"> </span>--tags<span class="w"> </span>-f
 <span class="go">From https://github.com/neovim/neovim</span>
 <span class="go">t [tag update]          nightly    -&gt; nightly</span>
 <span class="go">t [tag update]          stable     -&gt; stable</span>
@@ -245,7 +246,7 @@ submodules</p>
                             Page Source
                         </a>
                     </span>
-                    <span>Built with <a class="text-green-600" href="https://www.sphinx-doc.org/en/master/">Sphinx</a> v5.1.1</span>
+                    <span>Built with <a class="text-green-600" href="https://www.sphinx-doc.org/en/master/">Sphinx</a> v5.3.0</span>
                 </div>
             </footer>
         </main>

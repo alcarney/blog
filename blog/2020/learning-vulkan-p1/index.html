@@ -16,7 +16,7 @@
     <link id="pygments_dark_css" media="(prefers-color-scheme: dark)" rel="stylesheet" type="text/css" href="../../../_static/pygments_dark.css" />
     
     
-    <link rel="stylesheet" type="text/css" href="../../../_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css" />
     
     
     <link rel="stylesheet" type="text/css" href="../../../_static/css/styles.css" />
@@ -27,6 +27,7 @@
     <script src="../../../_static/underscore.js"></script>
     <script src="../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="../../../_static/doctools.js"></script>
+    <script src="../../../_static/sphinx_highlight.js"></script>
     <script src="../../../_static/design-tabs.js"></script>
     <link rel="shortcut icon" href="../../../_static/favicon.ico"/>
     <link rel="index" title="Index" href="../../../genindex/" />
@@ -203,7 +204,7 @@ across multiple systems is not a huge concern of mine right now. But here is a r
 overview of what is required to build this project…</p>
 <p>I’m running Arch Linux with <code class="docutils literal notranslate"><span class="pre">gcc</span></code> and <code class="docutils literal notranslate"><span class="pre">make</span></code> installed along with the following
 Vulkan related packages</p>
-<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>pacman -Q <span class="p">|</span> grep vulkan
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>pacman<span class="w"> </span>-Q<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>vulkan
 <span class="go">vulkan-extra-layers 1.1.130+10614+a70d5d17e-1</span>
 <span class="go">vulkan-headers 1:1.1.130-1</span>
 <span class="go">vulkan-html-docs 1:1.1.130-1</span>
@@ -222,7 +223,7 @@ post.</p>
 examples/utilities and since the API  has a reputation of being verbose I’ll be looking
 to reuse as much code as I can! So with that in mind I have opted for the following
 project structure</p>
-<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>tree -a --dirsfirst
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>tree<span class="w"> </span>-a<span class="w"> </span>--dirsfirst
 <span class="go">.</span>
 <span class="go">├── bin</span>
 <span class="go">│   └── vkdevice</span>
@@ -243,31 +244,31 @@ thing.</p>
 probably preferable to a plain Makefile since they can be used to abstract over some
 differences between platforms. However since I’m not familiar with them and want to
 focus on learning Vulkan I’m opting for a simpler approach to start out with.</p>
-<div class="highlight-make notranslate"><div class="highlight"><pre><span></span><span class="nv">CC</span> <span class="o">=</span> gcc
-<span class="nv">CFLAGS</span> <span class="o">=</span> -Wall -Wextra
-<span class="nv">LDFLAGS</span> <span class="o">=</span> -lvulkan
+<div class="highlight-make notranslate"><div class="highlight"><pre><span></span><span class="nv">CC</span><span class="w"> </span><span class="o">=</span><span class="w"> </span>gcc
+<span class="nv">CFLAGS</span><span class="w"> </span><span class="o">=</span><span class="w"> </span>-Wall<span class="w"> </span>-Wextra
+<span class="nv">LDFLAGS</span><span class="w"> </span><span class="o">=</span><span class="w"> </span>-lvulkan
 </pre></div>
 </div>
 <p>Here I’m declaring that I’m using the <code class="docutils literal notranslate"><span class="pre">gcc</span></code> compiler, the <code class="docutils literal notranslate"><span class="pre">CFLAGS</span></code> variable contains any
 flags that should passed to compile steps (at the moment this just enables some compiler
 warnings). Finally <code class="docutils literal notranslate"><span class="pre">LDFLAGS</span></code> contains any flags related to linking, <code class="docutils literal notranslate"><span class="pre">-lvulkan</span></code> tells the
 linker to link our program against the Vulkan SDK.</p>
-<div class="highlight-make notranslate"><div class="highlight"><pre><span></span><span class="nf">.PHONY</span><span class="o">:</span> <span class="n">default</span> <span class="n">clean</span>
-<span class="nf">default</span><span class="o">:</span> <span class="n">vkdevice</span>
+<div class="highlight-make notranslate"><div class="highlight"><pre><span></span><span class="nf">.PHONY</span><span class="o">:</span><span class="w"> </span><span class="n">default</span> <span class="n">clean</span>
+<span class="nf">default</span><span class="o">:</span><span class="w"> </span><span class="n">vkdevice</span>
 <span class="nf">clean</span><span class="o">:</span>
-   rm src/*.o bin/*
+<span class="w">   </span>rm<span class="w"> </span>src/*.o<span class="w"> </span>bin/*
 </pre></div>
 </div>
 <p>Next I define the <code class="docutils literal notranslate"><span class="pre">default</span></code> target to be <code class="docutils literal notranslate"><span class="pre">vkdevice</span></code> so that I can just run <code class="docutils literal notranslate"><span class="pre">make</span></code> and
 have it build the project. Then there’s a <code class="docutils literal notranslate"><span class="pre">clean</span></code> target so that it’s easy to recompile
 everything from scratch. Declaring both <code class="docutils literal notranslate"><span class="pre">default</span></code> and <code class="docutils literal notranslate"><span class="pre">clean</span></code> to be <a class="reference external" href="https://www.gnu.org/software/make/manual/make.html#Phony-Targets">phony targets</a> I
 think means we’re telling <code class="docutils literal notranslate"><span class="pre">make</span></code> not to look for matching files on the filesystem.</p>
-<div class="highlight-make notranslate"><div class="highlight"><pre><span></span><span class="nf">%.o</span><span class="o">:</span> %.<span class="n">c</span>
-   <span class="k">$(</span>CC<span class="k">)</span> -c <span class="k">$(</span>CFLAGS<span class="k">)</span> $&lt; <span class="nv">$@</span>
+<div class="highlight-make notranslate"><div class="highlight"><pre><span></span><span class="nf">%.o</span><span class="o">:</span><span class="w"> </span>%.<span class="n">c</span>
+<span class="w">   </span><span class="k">$(</span>CC<span class="k">)</span><span class="w"> </span>-c<span class="w"> </span><span class="k">$(</span>CFLAGS<span class="k">)</span><span class="w"> </span>$&lt;<span class="w"> </span><span class="nv">$@</span>
 
-<span class="nv">VKDEVICE</span> <span class="o">=</span> src/vkdevice.o
+<span class="nv">VKDEVICE</span><span class="w"> </span><span class="o">=</span><span class="w"> </span>src/vkdevice.o
 <span class="nf">vkdevice</span><span class="o">:</span>
-   <span class="k">$(</span>CC<span class="k">)</span> <span class="k">$(</span>LDFLAGS<span class="k">)</span> <span class="k">$(</span>VKDEVICE<span class="k">)</span> -o bin/vkdevice
+<span class="w">   </span><span class="k">$(</span>CC<span class="k">)</span><span class="w"> </span><span class="k">$(</span>LDFLAGS<span class="k">)</span><span class="w"> </span><span class="k">$(</span>VKDEVICE<span class="k">)</span><span class="w"> </span>-o<span class="w"> </span>bin/vkdevice
 </pre></div>
 </div>
 <p>Last but not least we get to the main part of the <code class="docutils literal notranslate"><span class="pre">Makefile</span></code>. First there is a generic
@@ -288,49 +289,49 @@ links the relevant object files (as defined by <code class="docutils literal not
 <h2>Creating an instance<a class="headerlink" href="#creating-an-instance" title="Permalink to this heading">¶</a></h2>
 <p>With all the housekeeping out of the way, time to dive into the code which starts in
 a fairly standard way with us including all the header files we need.</p>
-<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;stdio.h&gt;</span><span class="cp"></span>
-<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;stdlib.h&gt;</span><span class="cp"></span>
-<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;vulkan/vulkan.h&gt;</span><span class="cp"></span>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;stdio.h&gt;</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;stdlib.h&gt;</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;vulkan/vulkan.h&gt;</span>
 
-<span class="kt">int</span><span class="w"> </span><span class="nf">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="kt">int</span><span class="w"> </span><span class="nf">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
 <span class="w">   </span><span class="c1">// Insert code...</span>
-<span class="p">}</span><span class="w"></span>
+<span class="p">}</span>
 </pre></div>
 </div>
 <p>Then we start by filling out the <code class="docutils literal notranslate"><span class="pre">VkApplicationInfo</span></code> and <code class="docutils literal notranslate"><span class="pre">VkInstanceCreateInfo</span></code> structs.
 Unsurprisingly the first is used to provide information about our application such as
 the version of the API we wish to use. The application name and version fields are
 arbitrary and can be set to whatever we like.</p>
-<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="n">VkApplicationInfo</span><span class="w"> </span><span class="n">app_info</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">   </span><span class="p">.</span><span class="n">sType</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">VK_STRUCTURE_TYPE_APPLICATION_INFO</span><span class="p">,</span><span class="w"></span>
-<span class="w">   </span><span class="p">.</span><span class="n">pApplicationName</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;vkDevice Info&quot;</span><span class="p">,</span><span class="w"></span>
-<span class="w">   </span><span class="p">.</span><span class="n">applicationVersion</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">VK_MAKE_VERSION</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">),</span><span class="w"></span>
-<span class="w">   </span><span class="p">.</span><span class="n">apiVersion</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">VK_API_VERSION_1_1</span><span class="p">,</span><span class="w"></span>
-<span class="p">};</span><span class="w"></span>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="n">VkApplicationInfo</span><span class="w"> </span><span class="n">app_info</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span>
+<span class="w">   </span><span class="p">.</span><span class="n">sType</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">VK_STRUCTURE_TYPE_APPLICATION_INFO</span><span class="p">,</span>
+<span class="w">   </span><span class="p">.</span><span class="n">pApplicationName</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;vkDevice Info&quot;</span><span class="p">,</span>
+<span class="w">   </span><span class="p">.</span><span class="n">applicationVersion</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">VK_MAKE_VERSION</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">),</span>
+<span class="w">   </span><span class="p">.</span><span class="n">apiVersion</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">VK_API_VERSION_1_1</span><span class="p">,</span>
+<span class="p">};</span>
 
-<span class="n">VkInstanceCreateInfo</span><span class="w"> </span><span class="n">vk_info</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">   </span><span class="p">.</span><span class="n">sType</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">VK_STRUCTURE_TYPE_INSTANCE_CREATE_INFO</span><span class="p">,</span><span class="w"></span>
-<span class="w">   </span><span class="p">.</span><span class="n">pApplicationInfo</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">&amp;</span><span class="n">app_info</span><span class="p">,</span><span class="w"></span>
-<span class="p">};</span><span class="w"></span>
+<span class="n">VkInstanceCreateInfo</span><span class="w"> </span><span class="n">vk_info</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span>
+<span class="w">   </span><span class="p">.</span><span class="n">sType</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">VK_STRUCTURE_TYPE_INSTANCE_CREATE_INFO</span><span class="p">,</span>
+<span class="w">   </span><span class="p">.</span><span class="n">pApplicationInfo</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">&amp;</span><span class="n">app_info</span><span class="p">,</span>
+<span class="p">};</span>
 </pre></div>
 </div>
 <p>The <code class="docutils literal notranslate"><span class="pre">vk_info</span></code> struct is then be used to create the instance.</p>
-<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="n">VkInstance</span><span class="w"> </span><span class="n">vk</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">NULL</span><span class="p">;</span><span class="w"></span>
-<span class="n">VkResult</span><span class="w"> </span><span class="n">res</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">vkCreateInstance</span><span class="p">(</span><span class="o">&amp;</span><span class="n">vk_info</span><span class="p">,</span><span class="w"> </span><span class="nb">NULL</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">vk</span><span class="p">);</span><span class="w"></span>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="n">VkInstance</span><span class="w"> </span><span class="n">vk</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">NULL</span><span class="p">;</span>
+<span class="n">VkResult</span><span class="w"> </span><span class="n">res</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">vkCreateInstance</span><span class="p">(</span><span class="o">&amp;</span><span class="n">vk_info</span><span class="p">,</span><span class="w"> </span><span class="nb">NULL</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">vk</span><span class="p">);</span>
 
-<span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">res</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="n">VK_SUCCESS</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">   </span><span class="n">fprintf</span><span class="p">(</span><span class="n">stderr</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;Unable to create VkInstance!</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">);</span><span class="w"></span>
-<span class="w">   </span><span class="k">return</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"></span>
-<span class="p">}</span><span class="w"></span>
+<span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">res</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="n">VK_SUCCESS</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">   </span><span class="n">fprintf</span><span class="p">(</span><span class="n">stderr</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;Unable to create VkInstance!</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">);</span>
+<span class="w">   </span><span class="k">return</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
 </pre></div>
 </div>
 <p>We also have to be sure to destroy the instance once we have finished with it</p>
 <div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="c1">// Code omitted...</span>
 
-<span class="nl">cleanup_instance</span><span class="p">:</span><span class="w"></span>
-<span class="w">   </span><span class="n">vkDestroyInstance</span><span class="p">(</span><span class="n">vk</span><span class="p">,</span><span class="w"> </span><span class="nb">NULL</span><span class="p">);</span><span class="w"></span>
+<span class="nl">cleanup_instance</span><span class="p">:</span>
+<span class="w">   </span><span class="n">vkDestroyInstance</span><span class="p">(</span><span class="n">vk</span><span class="p">,</span><span class="w"> </span><span class="nb">NULL</span><span class="p">);</span>
 
-<span class="k">return</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"></span>
+<span class="k">return</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
 </pre></div>
 </div>
 <p>This is me attempting to apply <a class="reference external" href="https://www.kernel.org/doc/html/v4.10/process/coding-style.html#centralized-exiting-of-functions">this</a> rule from the Linux kernel style
@@ -345,39 +346,39 @@ pointer, it will then mutate the <cite>count</cite> variable that we give to be 
 of available devices.</p>
 <p>Note that we skip straight to the <code class="docutils literal notranslate"><span class="pre">cleanup_instance</span></code> label we defined earlier if this
 step fails.</p>
-<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="kt">uint32_t</span><span class="w"> </span><span class="n">count</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"></span>
-<span class="n">res</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">vkEnumeratePhysicalDevices</span><span class="p">(</span><span class="n">vk</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">count</span><span class="p">,</span><span class="w"> </span><span class="nb">NULL</span><span class="p">);</span><span class="w"></span>
-<span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">res</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="n">VK_SUCCESS</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">   </span><span class="n">fprintf</span><span class="p">(</span><span class="n">stderr</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;Unable to enumerate physical devices</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">);</span><span class="w"></span>
-<span class="w">   </span><span class="k">goto</span><span class="w"> </span><span class="n">cleanup_instance</span><span class="p">;</span><span class="w"></span>
-<span class="p">}</span><span class="w"></span>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="kt">uint32_t</span><span class="w"> </span><span class="n">count</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="n">res</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">vkEnumeratePhysicalDevices</span><span class="p">(</span><span class="n">vk</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">count</span><span class="p">,</span><span class="w"> </span><span class="nb">NULL</span><span class="p">);</span>
+<span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">res</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="n">VK_SUCCESS</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">   </span><span class="n">fprintf</span><span class="p">(</span><span class="n">stderr</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;Unable to enumerate physical devices</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">);</span>
+<span class="w">   </span><span class="k">goto</span><span class="w"> </span><span class="n">cleanup_instance</span><span class="p">;</span>
+<span class="p">}</span>
 </pre></div>
 </div>
 <p>Next we attempt to allocate enough memory to store each of the devices in an array.</p>
-<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="n">VkPhysicalDevice</span><span class="o">*</span><span class="w"> </span><span class="n">physical_devices</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">malloc</span><span class="p">(</span><span class="n">count</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">sizeof</span><span class="p">(</span><span class="n">VkPhysicalDevice</span><span class="p">));</span><span class="w"></span>
-<span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">physical_devices</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="nb">NULL</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">   </span><span class="n">fprintf</span><span class="p">(</span><span class="n">stderr</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;Unable to enumerate physical devices</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">);</span><span class="w"></span>
-<span class="w">   </span><span class="k">goto</span><span class="w"> </span><span class="n">cleanup_instance</span><span class="p">;</span><span class="w"></span>
-<span class="p">}</span><span class="w"></span>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="n">VkPhysicalDevice</span><span class="o">*</span><span class="w"> </span><span class="n">physical_devices</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">malloc</span><span class="p">(</span><span class="n">count</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">sizeof</span><span class="p">(</span><span class="n">VkPhysicalDevice</span><span class="p">));</span>
+<span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">physical_devices</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="nb">NULL</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">   </span><span class="n">fprintf</span><span class="p">(</span><span class="n">stderr</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;Unable to enumerate physical devices</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">);</span>
+<span class="w">   </span><span class="k">goto</span><span class="w"> </span><span class="n">cleanup_instance</span><span class="p">;</span>
+<span class="p">}</span>
 </pre></div>
 </div>
 <p>Finally with the array allocated we can call <code class="docutils literal notranslate"><span class="pre">vkEnumeratePhysicalDevices</span></code> a second time
 to populate it. Notice how this time the error path has to jump to the <code class="docutils literal notranslate"><span class="pre">cleanup_devices</span></code>
 label so that we can be sure to <code class="docutils literal notranslate"><span class="pre">free</span></code> the newly allocated memory.</p>
-<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="n">res</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">vkEnumeratePhysicalDevices</span><span class="p">(</span><span class="n">vk</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">count</span><span class="p">,</span><span class="w"> </span><span class="n">physical_devices</span><span class="p">);</span><span class="w"></span>
-<span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">res</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="n">VK_SUCCESS</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">   </span><span class="n">fprintf</span><span class="p">(</span><span class="n">stderr</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;Unable to enumerate physical devices</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">);</span><span class="w"></span>
-<span class="w">   </span><span class="k">goto</span><span class="w"> </span><span class="n">cleanup_devices</span><span class="p">;</span><span class="w"></span>
-<span class="p">}</span><span class="w"></span>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="n">res</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">vkEnumeratePhysicalDevices</span><span class="p">(</span><span class="n">vk</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">count</span><span class="p">,</span><span class="w"> </span><span class="n">physical_devices</span><span class="p">);</span>
+<span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">res</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="n">VK_SUCCESS</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">   </span><span class="n">fprintf</span><span class="p">(</span><span class="n">stderr</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;Unable to enumerate physical devices</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">);</span>
+<span class="w">   </span><span class="k">goto</span><span class="w"> </span><span class="n">cleanup_devices</span><span class="p">;</span>
+<span class="p">}</span>
 
 <span class="c1">// Code omitted...</span>
 
-<span class="nl">cleanup_devices</span><span class="p">:</span><span class="w"></span>
-<span class="w">   </span><span class="n">free</span><span class="p">(</span><span class="n">physical_devices</span><span class="p">);</span><span class="w"></span>
-<span class="w">   </span><span class="n">physical_devices</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">NULL</span><span class="p">;</span><span class="w"></span>
+<span class="nl">cleanup_devices</span><span class="p">:</span>
+<span class="w">   </span><span class="n">free</span><span class="p">(</span><span class="n">physical_devices</span><span class="p">);</span>
+<span class="w">   </span><span class="n">physical_devices</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">NULL</span><span class="p">;</span>
 
-<span class="nl">cleanup_instance</span><span class="p">:</span><span class="w"></span>
-<span class="w">   </span><span class="n">vkDestroyInstance</span><span class="p">(</span><span class="n">vk</span><span class="p">,</span><span class="w"> </span><span class="nb">NULL</span><span class="p">);</span><span class="w"></span>
+<span class="nl">cleanup_instance</span><span class="p">:</span>
+<span class="w">   </span><span class="n">vkDestroyInstance</span><span class="p">(</span><span class="n">vk</span><span class="p">,</span><span class="w"> </span><span class="nb">NULL</span><span class="p">);</span>
 </pre></div>
 </div>
 <div class="admonition-editor-s-note admonition">
@@ -385,9 +386,9 @@ label so that we can be sure to <code class="docutils literal notranslate"><span
 <p>As I was writing this post I looked up the <a class="reference external" href="https://www.khronos.org/registry/vulkan/specs/1.1-extensions/man/html/vkEnumeratePhysicalDevices.html">documentation</a>
 for <code class="docutils literal notranslate"><span class="pre">vkEnumeratePhysicalDevices</span></code> and noticed that there is a different way to
 approach this section. We could’ve instead decided on a fixed size array</p>
-<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="kt">uint32_t</span><span class="w"> </span><span class="n">MAX_DEVICES</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">4</span><span class="p">;</span><span class="w"></span>
-<span class="n">VkPhysicalDevice</span><span class="w"> </span><span class="n">physical_devices</span><span class="p">[</span><span class="n">MAX_DEVICES</span><span class="p">];</span><span class="w"></span>
-<span class="n">res</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">vkEnumeratePhysicalDevices</span><span class="p">(</span><span class="n">vk</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">MAX_DEVICES</span><span class="p">,</span><span class="w"> </span><span class="n">physical_devices</span><span class="p">);</span><span class="w"></span>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="kt">uint32_t</span><span class="w"> </span><span class="n">MAX_DEVICES</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">4</span><span class="p">;</span>
+<span class="n">VkPhysicalDevice</span><span class="w"> </span><span class="n">physical_devices</span><span class="p">[</span><span class="n">MAX_DEVICES</span><span class="p">];</span>
+<span class="n">res</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">vkEnumeratePhysicalDevices</span><span class="p">(</span><span class="n">vk</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">MAX_DEVICES</span><span class="p">,</span><span class="w"> </span><span class="n">physical_devices</span><span class="p">);</span>
 </pre></div>
 </div>
 <p>In this situation the function will return up to <code class="docutils literal notranslate"><span class="pre">MAX_DEVICES</span></code> and if there more
@@ -412,31 +413,31 @@ information about support for features that matter to you to help decide which d
 is best suited to your use case. However for this toy program we’re only going to call
 <code class="docutils literal notranslate"><span class="pre">vkGetPhysicalDeviceProperties</span></code> for each device which will give us information such as
 its name.</p>
-<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">uint32_t</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">count</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="o">++</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">   </span><span class="n">VkPhysicalDeviceProperties</span><span class="w"> </span><span class="n">properties</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{};</span><span class="w"></span>
-<span class="w">   </span><span class="n">vkGetPhysicalDeviceProperties</span><span class="p">(</span><span class="n">physical_devices</span><span class="p">[</span><span class="n">i</span><span class="p">],</span><span class="w"> </span><span class="o">&amp;</span><span class="n">properties</span><span class="p">);</span><span class="w"></span>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">uint32_t</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">count</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="o">++</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">   </span><span class="n">VkPhysicalDeviceProperties</span><span class="w"> </span><span class="n">properties</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{};</span>
+<span class="w">   </span><span class="n">vkGetPhysicalDeviceProperties</span><span class="p">(</span><span class="n">physical_devices</span><span class="p">[</span><span class="n">i</span><span class="p">],</span><span class="w"> </span><span class="o">&amp;</span><span class="n">properties</span><span class="p">);</span>
 </pre></div>
 </div>
 <p>Version numbers (<code class="docutils literal notranslate"><span class="pre">MAJOR.MINOR.PATCH</span></code>) in the Vulkan API are encoded into a single 32bit
 integer as defined in the <a class="reference external" href="https://www.khronos.org/registry/vulkan/specs/1.1-extensions/html/vkspec.html#extendingvulkan-coreversions-versionnumbers">specification</a>. Thankfully the spec also defines a number of
 macros that make decoding them nice and easy for us.</p>
-<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="kt">uint32_t</span><span class="w"> </span><span class="n">vk_major</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">VK_VERSION_MAJOR</span><span class="p">(</span><span class="n">properties</span><span class="p">.</span><span class="n">apiVersion</span><span class="p">);</span><span class="w"></span>
-<span class="kt">uint32_t</span><span class="w"> </span><span class="n">vk_minor</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">VK_VERSION_MINOR</span><span class="p">(</span><span class="n">properties</span><span class="p">.</span><span class="n">apiVersion</span><span class="p">);</span><span class="w"></span>
-<span class="kt">uint32_t</span><span class="w"> </span><span class="n">vk_patch</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">VK_VERSION_PATCH</span><span class="p">(</span><span class="n">properties</span><span class="p">.</span><span class="n">apiVersion</span><span class="p">);</span><span class="w"></span>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="kt">uint32_t</span><span class="w"> </span><span class="n">vk_major</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">VK_VERSION_MAJOR</span><span class="p">(</span><span class="n">properties</span><span class="p">.</span><span class="n">apiVersion</span><span class="p">);</span>
+<span class="kt">uint32_t</span><span class="w"> </span><span class="n">vk_minor</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">VK_VERSION_MINOR</span><span class="p">(</span><span class="n">properties</span><span class="p">.</span><span class="n">apiVersion</span><span class="p">);</span>
+<span class="kt">uint32_t</span><span class="w"> </span><span class="n">vk_patch</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">VK_VERSION_PATCH</span><span class="p">(</span><span class="n">properties</span><span class="p">.</span><span class="n">apiVersion</span><span class="p">);</span>
 
-<span class="kt">uint32_t</span><span class="w"> </span><span class="n">driver_major</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">VK_VERSION_MAJOR</span><span class="p">(</span><span class="n">properties</span><span class="p">.</span><span class="n">driverVersion</span><span class="p">);</span><span class="w"></span>
-<span class="kt">uint32_t</span><span class="w"> </span><span class="n">driver_minor</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">VK_VERSION_MINOR</span><span class="p">(</span><span class="n">properties</span><span class="p">.</span><span class="n">driverVersion</span><span class="p">);</span><span class="w"></span>
-<span class="kt">uint32_t</span><span class="w"> </span><span class="n">driver_patch</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">VK_VERSION_PATCH</span><span class="p">(</span><span class="n">properties</span><span class="p">.</span><span class="n">driverVersion</span><span class="p">);</span><span class="w"></span>
+<span class="kt">uint32_t</span><span class="w"> </span><span class="n">driver_major</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">VK_VERSION_MAJOR</span><span class="p">(</span><span class="n">properties</span><span class="p">.</span><span class="n">driverVersion</span><span class="p">);</span>
+<span class="kt">uint32_t</span><span class="w"> </span><span class="n">driver_minor</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">VK_VERSION_MINOR</span><span class="p">(</span><span class="n">properties</span><span class="p">.</span><span class="n">driverVersion</span><span class="p">);</span>
+<span class="kt">uint32_t</span><span class="w"> </span><span class="n">driver_patch</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">VK_VERSION_PATCH</span><span class="p">(</span><span class="n">properties</span><span class="p">.</span><span class="n">driverVersion</span><span class="p">);</span>
 </pre></div>
 </div>
 <p>All that’s left to do is to print out the information we have gathered.</p>
-<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="w">   </span><span class="n">printf</span><span class="p">(</span><span class="s">&quot;Device Name:     </span><span class="se">\t</span><span class="s">%s</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">properties</span><span class="p">.</span><span class="n">deviceName</span><span class="p">);</span><span class="w"></span>
-<span class="w">   </span><span class="n">printf</span><span class="p">(</span><span class="s">&quot;  Type:          </span><span class="se">\t</span><span class="s">%s</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">vkPhysicalDeviceType_as_string</span><span class="p">(</span><span class="n">properties</span><span class="p">.</span><span class="n">deviceType</span><span class="p">));</span><span class="w"></span>
-<span class="w">   </span><span class="n">printf</span><span class="p">(</span><span class="s">&quot;  Vendor ID:     </span><span class="se">\t</span><span class="s">%d</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">properties</span><span class="p">.</span><span class="n">vendorID</span><span class="p">);</span><span class="w"></span>
-<span class="w">   </span><span class="n">printf</span><span class="p">(</span><span class="s">&quot;  Device ID:     </span><span class="se">\t</span><span class="s">%d</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">properties</span><span class="p">.</span><span class="n">deviceID</span><span class="p">);</span><span class="w"></span>
-<span class="w">   </span><span class="n">printf</span><span class="p">(</span><span class="s">&quot;  API Version:   </span><span class="se">\t</span><span class="s">v%d.%d.%d</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">vk_major</span><span class="p">,</span><span class="w"> </span><span class="n">vk_minor</span><span class="p">,</span><span class="w"> </span><span class="n">vk_patch</span><span class="p">);</span><span class="w"></span>
-<span class="w">   </span><span class="n">printf</span><span class="p">(</span><span class="s">&quot;  Driver Version:</span><span class="se">\t</span><span class="s">v%d.%d.%d</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">driver_major</span><span class="p">,</span><span class="w"> </span><span class="n">driver_minor</span><span class="p">,</span><span class="w"> </span><span class="n">driver_patch</span><span class="p">);</span><span class="w"></span>
-<span class="p">}</span><span class="w"></span>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="w">   </span><span class="n">printf</span><span class="p">(</span><span class="s">&quot;Device Name:     </span><span class="se">\t</span><span class="s">%s</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">properties</span><span class="p">.</span><span class="n">deviceName</span><span class="p">);</span>
+<span class="w">   </span><span class="n">printf</span><span class="p">(</span><span class="s">&quot;  Type:          </span><span class="se">\t</span><span class="s">%s</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">vkPhysicalDeviceType_as_string</span><span class="p">(</span><span class="n">properties</span><span class="p">.</span><span class="n">deviceType</span><span class="p">));</span>
+<span class="w">   </span><span class="n">printf</span><span class="p">(</span><span class="s">&quot;  Vendor ID:     </span><span class="se">\t</span><span class="s">%d</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">properties</span><span class="p">.</span><span class="n">vendorID</span><span class="p">);</span>
+<span class="w">   </span><span class="n">printf</span><span class="p">(</span><span class="s">&quot;  Device ID:     </span><span class="se">\t</span><span class="s">%d</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">properties</span><span class="p">.</span><span class="n">deviceID</span><span class="p">);</span>
+<span class="w">   </span><span class="n">printf</span><span class="p">(</span><span class="s">&quot;  API Version:   </span><span class="se">\t</span><span class="s">v%d.%d.%d</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">vk_major</span><span class="p">,</span><span class="w"> </span><span class="n">vk_minor</span><span class="p">,</span><span class="w"> </span><span class="n">vk_patch</span><span class="p">);</span>
+<span class="w">   </span><span class="n">printf</span><span class="p">(</span><span class="s">&quot;  Driver Version:</span><span class="se">\t</span><span class="s">v%d.%d.%d</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">driver_major</span><span class="p">,</span><span class="w"> </span><span class="n">driver_minor</span><span class="p">,</span><span class="w"> </span><span class="n">driver_patch</span><span class="p">);</span>
+<span class="p">}</span>
 </pre></div>
 </div>
 <p>I should also note that <code class="docutils literal notranslate"><span class="pre">vkPhysicalDeviceType_as_string</span></code> is a helper function I
@@ -484,7 +485,7 @@ next one.</p>
                             Page Source
                         </a>
                     </span>
-                    <span>Built with <a class="text-green-600" href="https://www.sphinx-doc.org/en/master/">Sphinx</a> v5.1.1</span>
+                    <span>Built with <a class="text-green-600" href="https://www.sphinx-doc.org/en/master/">Sphinx</a> v5.3.0</span>
                 </div>
             </footer>
         </main>

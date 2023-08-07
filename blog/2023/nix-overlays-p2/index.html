@@ -16,7 +16,7 @@
     <link id="pygments_dark_css" media="(prefers-color-scheme: dark)" rel="stylesheet" type="text/css" href="../../../_static/pygments_dark.css" />
     
     
-    <link rel="stylesheet" type="text/css" href="../../../_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css" />
     
     
     <link rel="stylesheet" type="text/css" href="../../../_static/css/styles.css" />
@@ -27,6 +27,7 @@
     <script src="../../../_static/underscore.js"></script>
     <script src="../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="../../../_static/doctools.js"></script>
+    <script src="../../../_static/sphinx_highlight.js"></script>
     <script src="../../../_static/design-tabs.js"></script>
     <link rel="shortcut icon" href="../../../_static/favicon.ico"/>
     <link rel="index" title="Index" href="../../../genindex/" />
@@ -183,7 +184,7 @@ and
 <section id="dependency-is-not-of-valid-type">
 <h2><code class="docutils literal notranslate"><span class="pre">Dependency</span> <span class="pre">is</span> <span class="pre">not</span> <span class="pre">of</span> <span class="pre">valid</span> <span class="pre">type</span></code><a class="headerlink" href="#dependency-is-not-of-valid-type" title="Permalink to this heading">¶</a></h2>
 <p>At the end of the previous post, I was left scratching my head after encountering a cryptic error message</p>
-<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>nix develop .#py310
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>nix<span class="w"> </span>develop<span class="w"> </span>.#py310
 <span class="go">error: Dependency is not of a valid type: element 4 of nativeBuildInputs for py310</span>
 <span class="gp gp-VirtualEnv">(use &#39;--show-trace&#39; to show detailed location information)</span>
 </pre></div>
@@ -234,7 +235,7 @@ and
 </div>
 <p>Originally, I thought this was caused by naming conflicts introduced by using <code class="docutils literal notranslate"><span class="pre">pytest-lsp</span></code> to reference both <code class="docutils literal notranslate"><span class="pre">pytest-lsp</span></code> the flake, and <code class="docutils literal notranslate"><span class="pre">pytest-lsp</span></code> the Python package.
 Indeed, changing the name of the flake input to <code class="docutils literal notranslate"><span class="pre">pytestlsp</span></code> seemed to at least change the error message I was seeing…</p>
-<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>nix develop .#py310
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>nix<span class="w"> </span>develop<span class="w"> </span>.#py310
 <span class="go">error: undefined variable &#39;pytest-lsp&#39;</span>
 
 <span class="go">       at /nix/store/dihmz79kgwxj1v5mqvxrj0f3ifgvpm9f-source/lib/esbonio/flake.nix:38:15:</span>
@@ -252,7 +253,7 @@ Indeed, changing the name of the flake input to <code class="docutils literal no
 <h2>Conflicting Overlays<a class="headerlink" href="#conflicting-overlays" title="Permalink to this heading">¶</a></h2>
 <p>It turns out that the overlays <code class="docutils literal notranslate"><span class="pre">pytestlsp.overlays.pytest-lsp</span></code> and <code class="docutils literal notranslate"><span class="pre">esbonio-overlay</span></code> conflict with each other!
 I am not sure what originally led me to try it, but by reversing their order in the array passed to <code class="docutils literal notranslate"><span class="pre">nixpkgs</span></code> I could produce a similar error for the <code class="docutils literal notranslate"><span class="pre">esbonio</span></code> package.</p>
-<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>nix develop .#py310
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>nix<span class="w"> </span>develop<span class="w"> </span>.#py310
 <span class="go">error: undefined variable &#39;esbonio&#39;</span>
 
 <span class="go">       at /nix/store/vqff8bn03r11m1fg4f0b7ixnj731g9br-source/lib/esbonio/flake.nix:34:15:</span>
@@ -310,7 +311,7 @@ appears to resolve all references to <code class="docutils literal notranslate">
 </div>
 <p>As with most things in Nix, I don’t really understand the fine details but it’s interesting to see that it uses the <code class="docutils literal notranslate"><span class="pre">//</span></code> operator to merge the result of an overlay (<code class="docutils literal notranslate"><span class="pre">f</span> <span class="pre">self</span> <span class="pre">super</span></code>) with the current state of the package set (<code class="docutils literal notranslate"><span class="pre">super</span></code>).
 One thing that’s interesting to note, when combining attribute sets with the <code class="docutils literal notranslate"><span class="pre">//</span></code> operator, if both sets contain the same key, then the value from the original set is replaced with the value provided by the second.</p>
-<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>nix repl
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>nix<span class="w"> </span>repl
 <span class="go">Welcome to Nix 2.11.1. Type :? for help.</span>
 
 <span class="go">nix-repl&gt; x = {a = 1 ; b = 2; c = 3;}</span>
@@ -450,7 +451,7 @@ final<span class="p">:</span> prev<span class="p">:</span> <span class="p">{</sp
 </div>
 </div>
 <p>All that is left to do is to try and enter the <code class="docutils literal notranslate"><span class="pre">devShell</span></code> for esbonio again</p>
-<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>nix develop .#py310
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>nix<span class="w"> </span>develop<span class="w"> </span>.#py310
 <span class="go">error: builder for &#39;/nix/store/027wakjv9wvws6190c66nf5gxc6smc54-python3.10-esbonio-0.16.1.drv&#39; failed with exit code 2;</span>
 <span class="go">       last 10 log lines:</span>
 <span class="go">       &gt; /nix/store/l69b9xl4pnqqgdx9vp1yg1cbckgcjsfx-python3.10-pytest-7.2.0/lib/python3.10/site-packages/_pytest/assertion/rewrite.py:168: in exec_module</span>
@@ -500,7 +501,7 @@ However, when you are setting up a <code class="docutils literal notranslate"><s
 </pre></div>
 </div>
 <p>And activating the shell as normal.</p>
-<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>nix develop .#py310
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>nix<span class="w"> </span>develop<span class="w"> </span>.#py310
 <span class="go">error: Dependency is not of a valid type: element 1 of nativeBuildInputs for py310</span>
 <span class="gp gp-VirtualEnv">(use &#39;--show-trace&#39; to show detailed location information)</span>
 </pre></div>
@@ -536,7 +537,7 @@ However, when you are setting up a <code class="docutils literal notranslate"><s
 </pre></div>
 </div>
 <p>And tried again</p>
-<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>nix develop .#py310 -L  <span class="c1"># -L = enable verbose logging, useful to actually see what the builds are doing.</span>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>nix<span class="w"> </span>develop<span class="w"> </span>.#py310<span class="w"> </span>-L<span class="w">  </span><span class="c1"># -L = enable verbose logging, useful to actually see what the builds are doing.</span>
 <span class="go">python3.10-esbonio&gt; Sourcing python-remove-tests-dir-hook</span>
 <span class="go">python3.10-esbonio&gt; Sourcing python-catch-conflicts-hook.sh</span>
 <span class="go">python3.10-esbonio&gt; Sourcing python-remove-bin-bytecode-hook.sh</span>
@@ -608,7 +609,7 @@ Hopefully next time we can build on this and finally use Nix for something you c
                             Page Source
                         </a>
                     </span>
-                    <span>Built with <a class="text-green-600" href="https://www.sphinx-doc.org/en/master/">Sphinx</a> v5.1.1</span>
+                    <span>Built with <a class="text-green-600" href="https://www.sphinx-doc.org/en/master/">Sphinx</a> v5.3.0</span>
                 </div>
             </footer>
         </main>

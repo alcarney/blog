@@ -16,7 +16,7 @@
     <link id="pygments_dark_css" media="(prefers-color-scheme: dark)" rel="stylesheet" type="text/css" href="../../../_static/pygments_dark.css" />
     
     
-    <link rel="stylesheet" type="text/css" href="../../../_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css" />
     
     
     <link rel="stylesheet" type="text/css" href="../../../_static/css/styles.css" />
@@ -27,6 +27,7 @@
     <script src="../../../_static/underscore.js"></script>
     <script src="../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="../../../_static/doctools.js"></script>
+    <script src="../../../_static/sphinx_highlight.js"></script>
     <script src="../../../_static/design-tabs.js"></script>
     <link rel="shortcut icon" href="../../../_static/favicon.ico"/>
     <link rel="index" title="Index" href="../../../genindex/" />
@@ -226,23 +227,23 @@ to the user.</p>
 <h2>Passing strings from TinyGo to JavaScript<a class="headerlink" href="#passing-strings-from-tinygo-to-javascript" title="Permalink to this heading">¶</a></h2>
 <p>To achieve this we first need a JavaScript function which takes some text and appends it
 to the “log” <code class="docutils literal notranslate"><span class="pre">textarea</span></code> element on screen.</p>
-<div class="highlight-js notranslate"><div class="highlight"><pre><span></span><span class="kd">const</span><span class="w"> </span><span class="nx">log</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="s1">&#39;log&#39;</span><span class="p">)</span><span class="w"></span>
+<div class="highlight-js notranslate"><div class="highlight"><pre><span></span><span class="kd">const</span><span class="w"> </span><span class="nx">log</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="s1">&#39;log&#39;</span><span class="p">)</span>
 
-<span class="kd">function</span><span class="w"> </span><span class="nx">logText</span><span class="p">(</span><span class="nx">text</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">   </span><span class="nx">log</span><span class="p">.</span><span class="nx">value</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="nx">text</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="s1">&#39;\n&#39;</span><span class="w"></span>
-<span class="p">}</span><span class="w"></span>
+<span class="kd">function</span><span class="w"> </span><span class="nx">logText</span><span class="p">(</span><span class="nx">text</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">   </span><span class="nx">log</span><span class="p">.</span><span class="nx">value</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="nx">text</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="s1">&#39;\n&#39;</span>
+<span class="p">}</span>
 </pre></div>
 </div>
 <p>Next we need some way to reference such a function from our go code. If we define a
 function but not implement it TinyGo will recognise it as an external function whose
 implementation should be provided by the surrounding JavaScript.</p>
-<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kn">package</span><span class="w"> </span><span class="nx">main</span><span class="w"></span>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kn">package</span><span class="w"> </span><span class="nx">main</span>
 
-<span class="kd">func</span><span class="w"> </span><span class="nx">log</span><span class="p">(</span><span class="nx">message</span><span class="w"> </span><span class="kt">string</span><span class="p">)</span><span class="w"></span>
+<span class="kd">func</span><span class="w"> </span><span class="nx">log</span><span class="p">(</span><span class="nx">message</span><span class="w"> </span><span class="kt">string</span><span class="p">)</span>
 
-<span class="kd">func</span><span class="w"> </span><span class="nx">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">   </span><span class="nx">log</span><span class="p">(</span><span class="s">&quot;Hello, World!&quot;</span><span class="p">)</span><span class="w"></span>
-<span class="p">}</span><span class="w"></span>
+<span class="kd">func</span><span class="w"> </span><span class="nx">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">   </span><span class="nx">log</span><span class="p">(</span><span class="s">&quot;Hello, World!&quot;</span><span class="p">)</span>
+<span class="p">}</span>
 </pre></div>
 </div>
 <div class="admonition note">
@@ -253,21 +254,21 @@ implementation should be provided by the surrounding JavaScript.</p>
 <p>Lastly all we have to do is adjust our wrapping JavaScript code to pass in the
 implementation for the <code class="docutils literal notranslate"><span class="pre">log</span></code> function to the module’s environment. While we’re at we
 might as well wire up that “Run” button.</p>
-<div class="highlight-js notranslate"><div class="highlight"><pre><span></span><span class="p">...</span><span class="w"></span>
+<div class="highlight-js notranslate"><div class="highlight"><pre><span></span><span class="p">...</span>
 
-<span class="kd">function</span><span class="w"> </span><span class="nx">onRun</span><span class="p">(</span><span class="nx">runner</span><span class="p">,</span><span class="w"> </span><span class="nx">wasm</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">   </span><span class="k">return</span><span class="w"> </span><span class="p">(</span><span class="nx">event</span><span class="p">)</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="nx">runner</span><span class="p">.</span><span class="nx">run</span><span class="p">(</span><span class="nx">wasm</span><span class="p">)</span><span class="w"></span>
-<span class="p">}</span><span class="w"></span>
+<span class="kd">function</span><span class="w"> </span><span class="nx">onRun</span><span class="p">(</span><span class="nx">runner</span><span class="p">,</span><span class="w"> </span><span class="nx">wasm</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">   </span><span class="k">return</span><span class="w"> </span><span class="p">(</span><span class="nx">event</span><span class="p">)</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="nx">runner</span><span class="p">.</span><span class="nx">run</span><span class="p">(</span><span class="nx">wasm</span><span class="p">)</span>
+<span class="p">}</span>
 
-<span class="nx">go</span><span class="p">.</span><span class="nx">importObject</span><span class="p">[</span><span class="s2">&quot;main.go.log&quot;</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">logText</span><span class="w"></span>
+<span class="nx">go</span><span class="p">.</span><span class="nx">importObject</span><span class="p">[</span><span class="s2">&quot;main.go.log&quot;</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">logText</span>
 
-<span class="nx">WebAssembly</span><span class="p">.</span><span class="nx">instantiateStreaming</span><span class="p">(</span><span class="nx">fetch</span><span class="p">(</span><span class="s2">&quot;/js/wisp.wasm&quot;</span><span class="p">),</span><span class="w"> </span><span class="nx">go</span><span class="p">.</span><span class="nx">importObject</span><span class="p">)</span><span class="w"></span>
-<span class="w">   </span><span class="p">.</span><span class="nx">then</span><span class="p">(</span><span class="nx">module</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">      </span><span class="kd">let</span><span class="w"> </span><span class="nx">wasm</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">module</span><span class="p">.</span><span class="nx">instance</span><span class="w"></span>
+<span class="nx">WebAssembly</span><span class="p">.</span><span class="nx">instantiateStreaming</span><span class="p">(</span><span class="nx">fetch</span><span class="p">(</span><span class="s2">&quot;/js/wisp.wasm&quot;</span><span class="p">),</span><span class="w"> </span><span class="nx">go</span><span class="p">.</span><span class="nx">importObject</span><span class="p">)</span>
+<span class="w">   </span><span class="p">.</span><span class="nx">then</span><span class="p">(</span><span class="nx">module</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="kd">let</span><span class="w"> </span><span class="nx">wasm</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">module</span><span class="p">.</span><span class="nx">instance</span>
 
-<span class="w">      </span><span class="nx">runButton</span><span class="p">.</span><span class="nx">disabled</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">false</span><span class="w"></span>
-<span class="w">      </span><span class="nx">runButton</span><span class="p">.</span><span class="nx">addEventListener</span><span class="p">(</span><span class="s1">&#39;click&#39;</span><span class="p">,</span><span class="w"> </span><span class="nx">onRun</span><span class="p">(</span><span class="nx">go</span><span class="p">,</span><span class="w"> </span><span class="nx">wasm</span><span class="p">))</span><span class="w"></span>
-<span class="w">   </span><span class="p">})</span><span class="w"></span>
+<span class="w">      </span><span class="nx">runButton</span><span class="p">.</span><span class="nx">disabled</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">false</span>
+<span class="w">      </span><span class="nx">runButton</span><span class="p">.</span><span class="nx">addEventListener</span><span class="p">(</span><span class="s1">&#39;click&#39;</span><span class="p">,</span><span class="w"> </span><span class="nx">onRun</span><span class="p">(</span><span class="nx">go</span><span class="p">,</span><span class="w"> </span><span class="nx">wasm</span><span class="p">))</span>
+<span class="w">   </span><span class="p">})</span>
 </pre></div>
 </div>
 <p>That should be everything connected up, time to give it a whirl!</p>
@@ -302,15 +303,15 @@ able to extract a string from it?</p>
 <p>After some more research I discovered that TinyGo is using the <a class="reference external" href="https://llvm.org/">LLVM</a> compiler
 toolchain and that you can ask it for the <a class="reference external" href="https://llvm.org/docs/LangRef.html#abstract">intermediate representation</a> which it
 passes to LLVM in order to generate the WebAssembly code.</p>
-<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>tinygo build -no-debug -target wasm -printir -o public/js/wisp.wasm main.go &gt; debug.txt
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>tinygo<span class="w"> </span>build<span class="w"> </span>-no-debug<span class="w"> </span>-target<span class="w"> </span>wasm<span class="w"> </span>-printir<span class="w"> </span>-o<span class="w"> </span>public/js/wisp.wasm<span class="w"> </span>main.go<span class="w"> </span>&gt;<span class="w"> </span>debug.txt
 </pre></div>
 </div>
 <p>Now, there is a <em>lot</em> going on (20,000+ lines) in this file as it includes not just our
 simple program but the Go runtime required to execute it. Thankfully with <kbd class="kbd compound docutils literal notranslate"><kbd class="kbd docutils literal notranslate">Ctrl</kbd>-<kbd class="kbd docutils literal notranslate">F</kbd></kbd> to
 the rescue, it’s easy enough to track down where our “Hello, World!” string is defined</p>
-<div class="highlight-llvm notranslate"><div class="highlight"><pre><span></span><span class="p">...</span><span class="w"></span>
-<span class="vg">@&quot;main.go.main$string&quot;</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="k">internal</span><span class="w"> </span><span class="k">unnamed_addr</span><span class="w"> </span><span class="k">constant</span><span class="w"> </span><span class="p">[</span><span class="m">13</span><span class="w"> </span><span class="k">x</span><span class="w"> </span><span class="kt">i8</span><span class="p">]</span><span class="w"> </span><span class="k">c</span><span class="s">&quot;Hello, World!&quot;</span><span class="w"></span>
-<span class="p">...</span><span class="w"></span>
+<div class="highlight-llvm notranslate"><div class="highlight"><pre><span></span><span class="p">...</span>
+<span class="vg">@&quot;main.go.main$string&quot;</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="k">internal</span><span class="w"> </span><span class="k">unnamed_addr</span><span class="w"> </span><span class="k">constant</span><span class="w"> </span><span class="p">[</span><span class="m">13</span><span class="w"> </span><span class="k">x</span><span class="w"> </span><span class="kt">i8</span><span class="p">]</span><span class="w"> </span><span class="k">c</span><span class="s">&quot;Hello, World!&quot;</span>
+<span class="p">...</span>
 </pre></div>
 </div>
 <p>I don’t know the first thing when it comes to LLVM’s IR representation of code but after
@@ -319,24 +320,24 @@ that our string is represented by an array of 13, 8-bit integers.</p>
 <p>Awesome, we now know how to interpret the values we see in the WebAssembly module’s
 <code class="docutils literal notranslate"><span class="pre">ArrayBuffer</span></code>, but how will we know how many values to look for?</p>
 <p>Let’s try and find our <code class="docutils literal notranslate"><span class="pre">log</span></code> function…</p>
-<div class="highlight-llvm notranslate"><div class="highlight"><pre><span></span><span class="k">declare</span><span class="w"> </span><span class="k">void</span><span class="w"> </span><span class="vg">@main.go.log</span><span class="p">(</span><span class="kt">i8</span><span class="p">*,</span><span class="w"> </span><span class="kt">i32</span><span class="p">,</span><span class="w"> </span><span class="kt">i8</span><span class="p">*,</span><span class="w"> </span><span class="kt">i8</span><span class="p">*)</span><span class="w"></span>
+<div class="highlight-llvm notranslate"><div class="highlight"><pre><span></span><span class="k">declare</span><span class="w"> </span><span class="k">void</span><span class="w"> </span><span class="vg">@main.go.log</span><span class="p">(</span><span class="kt">i8</span><span class="p">*,</span><span class="w"> </span><span class="kt">i32</span><span class="p">,</span><span class="w"> </span><span class="kt">i8</span><span class="p">*,</span><span class="w"> </span><span class="kt">i8</span><span class="p">*)</span>
 </pre></div>
 </div>
 <p>Ah, just like the <code class="docutils literal notranslate"><span class="pre">log</span></code> function in our go code it has no implementation since this is
 to be provided by the JavaScript wrapper. However instead of a single argument it now
 takes 4! Interesting… let’s track down our main function and see how it is used.</p>
-<div class="highlight-llvm notranslate"><div class="highlight"><pre><span></span><span class="k">define</span><span class="w"> </span><span class="k">dso_local</span><span class="w"> </span><span class="k">void</span><span class="w"> </span><span class="vg">@main.go.main</span><span class="p">(</span><span class="kt">i8</span><span class="p">*</span><span class="w"> </span><span class="nv">%context</span><span class="p">,</span><span class="w"> </span><span class="kt">i8</span><span class="p">*</span><span class="w"> </span><span class="nv">%parentHandle</span><span class="p">)</span><span class="w"> </span><span class="k">unnamed_addr</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="nl">entry:</span><span class="w"></span>
-<span class="k">call</span><span class="w"> </span><span class="k">void</span><span class="w"> </span><span class="vg">@main.go.log</span><span class="p">(</span><span class="kt">i8</span><span class="p">*</span><span class="w"> </span><span class="k">getelementptr</span><span class="w"> </span><span class="k">inbounds</span><span class="w"> </span><span class="p">([</span><span class="m">13</span><span class="w"> </span><span class="k">x</span><span class="w"> </span><span class="kt">i8</span><span class="p">],</span><span class="w"> </span><span class="p">[</span><span class="m">13</span><span class="w"> </span><span class="k">x</span><span class="w"> </span><span class="kt">i8</span><span class="p">]*</span><span class="w"> </span><span class="vg">@&quot;main.go.main$string&quot;</span><span class="p">,</span><span class="w"> </span><span class="kt">i32</span><span class="w"> </span><span class="m">0</span><span class="p">,</span><span class="w"> </span><span class="kt">i32</span><span class="w"> </span><span class="m">0</span><span class="p">),</span><span class="w"> </span><span class="kt">i32</span><span class="w"> </span><span class="m">13</span><span class="p">,</span><span class="w"> </span><span class="kt">i8</span><span class="p">*</span><span class="w"> </span><span class="k">undef</span><span class="p">,</span><span class="w"> </span><span class="kt">i8</span><span class="p">*</span><span class="w"> </span><span class="k">undef</span><span class="p">)</span><span class="w"></span>
-<span class="w">   </span><span class="k">ret</span><span class="w"> </span><span class="k">void</span><span class="w"></span>
-<span class="p">}</span><span class="w"></span>
+<div class="highlight-llvm notranslate"><div class="highlight"><pre><span></span><span class="k">define</span><span class="w"> </span><span class="k">dso_local</span><span class="w"> </span><span class="k">void</span><span class="w"> </span><span class="vg">@main.go.main</span><span class="p">(</span><span class="kt">i8</span><span class="p">*</span><span class="w"> </span><span class="nv">%context</span><span class="p">,</span><span class="w"> </span><span class="kt">i8</span><span class="p">*</span><span class="w"> </span><span class="nv">%parentHandle</span><span class="p">)</span><span class="w"> </span><span class="k">unnamed_addr</span><span class="w"> </span><span class="p">{</span>
+<span class="nl">entry:</span>
+<span class="k">call</span><span class="w"> </span><span class="k">void</span><span class="w"> </span><span class="vg">@main.go.log</span><span class="p">(</span><span class="kt">i8</span><span class="p">*</span><span class="w"> </span><span class="k">getelementptr</span><span class="w"> </span><span class="k">inbounds</span><span class="w"> </span><span class="p">([</span><span class="m">13</span><span class="w"> </span><span class="k">x</span><span class="w"> </span><span class="kt">i8</span><span class="p">],</span><span class="w"> </span><span class="p">[</span><span class="m">13</span><span class="w"> </span><span class="k">x</span><span class="w"> </span><span class="kt">i8</span><span class="p">]*</span><span class="w"> </span><span class="vg">@&quot;main.go.main$string&quot;</span><span class="p">,</span><span class="w"> </span><span class="kt">i32</span><span class="w"> </span><span class="m">0</span><span class="p">,</span><span class="w"> </span><span class="kt">i32</span><span class="w"> </span><span class="m">0</span><span class="p">),</span><span class="w"> </span><span class="kt">i32</span><span class="w"> </span><span class="m">13</span><span class="p">,</span><span class="w"> </span><span class="kt">i8</span><span class="p">*</span><span class="w"> </span><span class="k">undef</span><span class="p">,</span><span class="w"> </span><span class="kt">i8</span><span class="p">*</span><span class="w"> </span><span class="k">undef</span><span class="p">)</span>
+<span class="w">   </span><span class="k">ret</span><span class="w"> </span><span class="k">void</span>
+<span class="p">}</span>
 </pre></div>
 </div>
 <p>Wow. Umm… there’s a lot going on here… what if we try “squinting” at this code a bit</p>
-<div class="highlight-llvm notranslate"><div class="highlight"><pre><span></span><span class="k">define</span><span class="w"> </span><span class="k">void</span><span class="w"> </span><span class="vg">@main.go.main</span><span class="p">(...)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="k">call</span><span class="w"> </span><span class="vg">@main.go.log</span><span class="p">(</span><span class="kt">i8</span><span class="p">*</span><span class="w"> </span><span class="k">getelementptr</span><span class="w"> </span><span class="p">(...</span><span class="w"> </span><span class="vg">@&quot;main.go.main$string&quot;</span><span class="p">,...),</span><span class="w"> </span><span class="kt">i32</span><span class="w"> </span><span class="m">13</span><span class="p">,</span><span class="w"> </span><span class="p">...)</span><span class="w"></span>
-<span class="w">   </span><span class="k">ret</span><span class="w"> </span><span class="k">void</span><span class="w"></span>
-<span class="p">}</span><span class="w"></span>
+<div class="highlight-llvm notranslate"><div class="highlight"><pre><span></span><span class="k">define</span><span class="w"> </span><span class="k">void</span><span class="w"> </span><span class="vg">@main.go.main</span><span class="p">(...)</span><span class="w"> </span><span class="p">{</span>
+<span class="k">call</span><span class="w"> </span><span class="vg">@main.go.log</span><span class="p">(</span><span class="kt">i8</span><span class="p">*</span><span class="w"> </span><span class="k">getelementptr</span><span class="w"> </span><span class="p">(...</span><span class="w"> </span><span class="vg">@&quot;main.go.main$string&quot;</span><span class="p">,...),</span><span class="w"> </span><span class="kt">i32</span><span class="w"> </span><span class="m">13</span><span class="p">,</span><span class="w"> </span><span class="p">...)</span>
+<span class="w">   </span><span class="k">ret</span><span class="w"> </span><span class="k">void</span>
+<span class="p">}</span>
 </pre></div>
 </div>
 <p>Ok, so it looks like there’s a call being made to our log function and
@@ -346,9 +347,9 @@ length! I have no idea what the other arguments are supposed to represent so let
 ignore those for now! 😃</p>
 <p>Instead why don’t we tweak our <code class="docutils literal notranslate"><span class="pre">logText</span></code> implementation of this function to take a
 second argument and see what happens</p>
-<div class="highlight-js notranslate"><div class="highlight"><pre><span></span><span class="kd">function</span><span class="w"> </span><span class="nx">logText</span><span class="p">(</span><span class="nx">addr</span><span class="p">,</span><span class="w"> </span><span class="nx">length</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">   </span><span class="nx">log</span><span class="p">.</span><span class="nx">value</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="nx">addr</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="s2">&quot; &quot;</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="nx">length</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="s1">&#39;\n&#39;</span><span class="w"></span>
-<span class="p">}</span><span class="w"></span>
+<div class="highlight-js notranslate"><div class="highlight"><pre><span></span><span class="kd">function</span><span class="w"> </span><span class="nx">logText</span><span class="p">(</span><span class="nx">addr</span><span class="p">,</span><span class="w"> </span><span class="nx">length</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">   </span><span class="nx">log</span><span class="p">.</span><span class="nx">value</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="nx">addr</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="s2">&quot; &quot;</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="nx">length</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="s1">&#39;\n&#39;</span>
+<span class="p">}</span>
 </pre></div>
 </div>
 <figure class="align-center" id="id3">
@@ -364,13 +365,13 @@ second argument and see what happens</p>
 order to extract the string from the WebAssembly module’s memory. <code class="docutils literal notranslate"><span class="pre">ArrayBuffer</span></code> objects
 in JavaScript don’t seem to be the most intuitive to work with but I was eventually able
 to come up with this.</p>
-<div class="highlight-js notranslate"><div class="highlight"><pre><span></span><span class="kd">function</span><span class="w"> </span><span class="nx">logText</span><span class="p">(</span><span class="nx">addr</span><span class="p">,</span><span class="w"> </span><span class="nx">length</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">   </span><span class="kd">let</span><span class="w"> </span><span class="nx">memory</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">wasm</span><span class="p">.</span><span class="nx">exports</span><span class="p">.</span><span class="nx">memory</span><span class="w"></span>
-<span class="w">   </span><span class="kd">let</span><span class="w"> </span><span class="nx">bytes</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">memory</span><span class="p">.</span><span class="nx">buffer</span><span class="p">.</span><span class="nx">slice</span><span class="p">(</span><span class="nx">addr</span><span class="p">,</span><span class="w"> </span><span class="nx">addr</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="nx">length</span><span class="p">)</span><span class="w"></span>
-<span class="w">   </span><span class="kd">let</span><span class="w"> </span><span class="nx">text</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">String</span><span class="p">.</span><span class="nx">fromCharCode</span><span class="p">.</span><span class="nx">apply</span><span class="p">(</span><span class="kc">null</span><span class="p">,</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nb">Int8Array</span><span class="p">(</span><span class="nx">bytes</span><span class="p">))</span><span class="w"></span>
+<div class="highlight-js notranslate"><div class="highlight"><pre><span></span><span class="kd">function</span><span class="w"> </span><span class="nx">logText</span><span class="p">(</span><span class="nx">addr</span><span class="p">,</span><span class="w"> </span><span class="nx">length</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">   </span><span class="kd">let</span><span class="w"> </span><span class="nx">memory</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">wasm</span><span class="p">.</span><span class="nx">exports</span><span class="p">.</span><span class="nx">memory</span>
+<span class="w">   </span><span class="kd">let</span><span class="w"> </span><span class="nx">bytes</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">memory</span><span class="p">.</span><span class="nx">buffer</span><span class="p">.</span><span class="nx">slice</span><span class="p">(</span><span class="nx">addr</span><span class="p">,</span><span class="w"> </span><span class="nx">addr</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="nx">length</span><span class="p">)</span>
+<span class="w">   </span><span class="kd">let</span><span class="w"> </span><span class="nx">text</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">String</span><span class="p">.</span><span class="nx">fromCharCode</span><span class="p">.</span><span class="nx">apply</span><span class="p">(</span><span class="kc">null</span><span class="p">,</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nb">Int8Array</span><span class="p">(</span><span class="nx">bytes</span><span class="p">))</span>
 
-<span class="w">   </span><span class="nx">log</span><span class="p">.</span><span class="nx">value</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="nx">text</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="s1">&#39;\n&#39;</span><span class="w"></span>
-<span class="p">}</span><span class="w"></span>
+<span class="w">   </span><span class="nx">log</span><span class="p">.</span><span class="nx">value</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="nx">text</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="s1">&#39;\n&#39;</span>
+<span class="p">}</span>
 </pre></div>
 </div>
 <p>After getting the reference to the <code class="docutils literal notranslate"><span class="pre">memory</span></code> object we use the <a class="reference external" href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/ArrayBuffer/slice">slice</a> method to obtain
@@ -390,17 +391,17 @@ the log area</p>
 <p>This did require a slight tweak to the way we load the module so that we have a global
 <code class="docutils literal notranslate"><span class="pre">wasm</span></code> reference that our <code class="docutils literal notranslate"><span class="pre">logText</span></code> function is able to use to access the module
 instance directly.</p>
-<div class="highlight-js notranslate"><div class="highlight"><pre><span></span><span class="kd">let</span><span class="w"> </span><span class="nx">wasm</span><span class="w"></span>
+<div class="highlight-js notranslate"><div class="highlight"><pre><span></span><span class="kd">let</span><span class="w"> </span><span class="nx">wasm</span>
 
-<span class="p">...</span><span class="w"></span>
+<span class="p">...</span>
 
-<span class="nx">WebAssembly</span><span class="p">.</span><span class="nx">instantiateStreaming</span><span class="p">(</span><span class="nx">fetch</span><span class="p">(</span><span class="s2">&quot;/js/wisp.wasm&quot;</span><span class="p">),</span><span class="w"> </span><span class="nx">go</span><span class="p">.</span><span class="nx">importObject</span><span class="p">)</span><span class="w"></span>
-<span class="w">   </span><span class="p">.</span><span class="nx">then</span><span class="p">(</span><span class="nx">module</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">      </span><span class="nx">wasm</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">module</span><span class="p">.</span><span class="nx">instance</span><span class="w"></span>
+<span class="nx">WebAssembly</span><span class="p">.</span><span class="nx">instantiateStreaming</span><span class="p">(</span><span class="nx">fetch</span><span class="p">(</span><span class="s2">&quot;/js/wisp.wasm&quot;</span><span class="p">),</span><span class="w"> </span><span class="nx">go</span><span class="p">.</span><span class="nx">importObject</span><span class="p">)</span>
+<span class="w">   </span><span class="p">.</span><span class="nx">then</span><span class="p">(</span><span class="nx">module</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="nx">wasm</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">module</span><span class="p">.</span><span class="nx">instance</span>
 
-<span class="w">      </span><span class="nx">runButton</span><span class="p">.</span><span class="nx">disabled</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">false</span><span class="w"></span>
-<span class="w">      </span><span class="nx">runButton</span><span class="p">.</span><span class="nx">addEventListener</span><span class="p">(</span><span class="s1">&#39;click&#39;</span><span class="p">,</span><span class="w"> </span><span class="nx">onRun</span><span class="p">(</span><span class="nx">go</span><span class="p">,</span><span class="w"> </span><span class="nx">wasm</span><span class="p">))</span><span class="w"></span>
-<span class="w">   </span><span class="p">})</span><span class="w"></span>
+<span class="w">      </span><span class="nx">runButton</span><span class="p">.</span><span class="nx">disabled</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">false</span>
+<span class="w">      </span><span class="nx">runButton</span><span class="p">.</span><span class="nx">addEventListener</span><span class="p">(</span><span class="s1">&#39;click&#39;</span><span class="p">,</span><span class="w"> </span><span class="nx">onRun</span><span class="p">(</span><span class="nx">go</span><span class="p">,</span><span class="w"> </span><span class="nx">wasm</span><span class="p">))</span>
+<span class="w">   </span><span class="p">})</span>
 </pre></div>
 </div>
 </section>
@@ -411,10 +412,10 @@ instance directly.</p>
 together it’s “just” a matter of doing the inverse process to pass a string from our
 JavaScript code into our WebAssembly module. As a proof of concept let’s create an
 <code class="docutils literal notranslate"><span class="pre">echo</span></code> function in TinyGo that will simply log whatever text it receives.</p>
-<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="c1">//go:export echo</span><span class="w"></span>
-<span class="kd">func</span><span class="w"> </span><span class="nx">echo</span><span class="p">(</span><span class="nx">message</span><span class="w"> </span><span class="kt">string</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">   </span><span class="nx">log</span><span class="p">(</span><span class="nx">message</span><span class="p">)</span><span class="w"></span>
-<span class="p">}</span><span class="w"></span>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="c1">//go:export echo</span>
+<span class="kd">func</span><span class="w"> </span><span class="nx">echo</span><span class="p">(</span><span class="nx">message</span><span class="w"> </span><span class="kt">string</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">   </span><span class="nx">log</span><span class="p">(</span><span class="nx">message</span><span class="p">)</span>
+<span class="p">}</span>
 </pre></div>
 </div>
 <p>In order to actually pass a string to this function, we need to insert the string into
@@ -429,12 +430,12 @@ having two competing codebases manipulate the same memory layout seems to be ask
 for trouble…</p>
 <p>Thankfully I came across <a class="reference external" href="https://github.com/tinygo-org/tinygo/issues/411#issuecomment-503066868">this comment</a> on an issue in the TinyGo project
 which provides a way we can work around this.</p>
-<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">var</span><span class="w"> </span><span class="nx">buf</span><span class="w"> </span><span class="p">[</span><span class="mi">1024</span><span class="p">]</span><span class="kt">byte</span><span class="w"></span>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">var</span><span class="w"> </span><span class="nx">buf</span><span class="w"> </span><span class="p">[</span><span class="mi">1024</span><span class="p">]</span><span class="kt">byte</span>
 
-<span class="c1">//go:export getBuffer</span><span class="w"></span>
-<span class="kd">func</span><span class="w"> </span><span class="nx">getBuffer</span><span class="p">()</span><span class="w"> </span><span class="o">*</span><span class="kt">byte</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">   </span><span class="k">return</span><span class="w"> </span><span class="o">&amp;</span><span class="nx">buf</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="w"></span>
-<span class="p">}</span><span class="w"></span>
+<span class="c1">//go:export getBuffer</span>
+<span class="kd">func</span><span class="w"> </span><span class="nx">getBuffer</span><span class="p">()</span><span class="w"> </span><span class="o">*</span><span class="kt">byte</span><span class="w"> </span><span class="p">{</span>
+<span class="w">   </span><span class="k">return</span><span class="w"> </span><span class="o">&amp;</span><span class="nx">buf</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+<span class="p">}</span>
 </pre></div>
 </div>
 <p>If we declare an array of bytes in the module, the TinyGo compiler will allocate space
@@ -444,22 +445,22 @@ for it. This region of memory should then be safe for us to write to from JavaSc
 <strong>provided our go code only reads from this array</strong></p>
 <p>Now with some reserved memory to use we can write a function that takes a string and
 inserts it into the module’s memory.</p>
-<div class="highlight-js notranslate"><div class="highlight"><pre><span></span><span class="kd">function</span><span class="w"> </span><span class="nx">insertText</span><span class="p">(</span><span class="nx">text</span><span class="p">,</span><span class="w"> </span><span class="nx">module</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<div class="highlight-js notranslate"><div class="highlight"><pre><span></span><span class="kd">function</span><span class="w"> </span><span class="nx">insertText</span><span class="p">(</span><span class="nx">text</span><span class="p">,</span><span class="w"> </span><span class="nx">module</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
 
-<span class="w">   </span><span class="c1">// Get the address of the writable memory.</span><span class="w"></span>
-<span class="w">   </span><span class="kd">let</span><span class="w"> </span><span class="nx">addr</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">module</span><span class="p">.</span><span class="nx">exports</span><span class="p">.</span><span class="nx">getBuffer</span><span class="p">()</span><span class="w"></span>
-<span class="w">   </span><span class="kd">let</span><span class="w"> </span><span class="nx">buffer</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">module</span><span class="p">.</span><span class="nx">exports</span><span class="p">.</span><span class="nx">memory</span><span class="p">.</span><span class="nx">buffer</span><span class="w"></span>
+<span class="w">   </span><span class="c1">// Get the address of the writable memory.</span>
+<span class="w">   </span><span class="kd">let</span><span class="w"> </span><span class="nx">addr</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">module</span><span class="p">.</span><span class="nx">exports</span><span class="p">.</span><span class="nx">getBuffer</span><span class="p">()</span>
+<span class="w">   </span><span class="kd">let</span><span class="w"> </span><span class="nx">buffer</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">module</span><span class="p">.</span><span class="nx">exports</span><span class="p">.</span><span class="nx">memory</span><span class="p">.</span><span class="nx">buffer</span>
 
-<span class="w">   </span><span class="kd">let</span><span class="w"> </span><span class="nx">mem</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nb">Int8Array</span><span class="p">(</span><span class="nx">buffer</span><span class="p">)</span><span class="w"></span>
-<span class="w">   </span><span class="kd">let</span><span class="w"> </span><span class="nx">view</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">mem</span><span class="p">.</span><span class="nx">subarray</span><span class="p">(</span><span class="nx">addr</span><span class="p">,</span><span class="w"> </span><span class="nx">addr</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="nx">text</span><span class="p">.</span><span class="nx">length</span><span class="p">)</span><span class="w"></span>
+<span class="w">   </span><span class="kd">let</span><span class="w"> </span><span class="nx">mem</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nb">Int8Array</span><span class="p">(</span><span class="nx">buffer</span><span class="p">)</span>
+<span class="w">   </span><span class="kd">let</span><span class="w"> </span><span class="nx">view</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">mem</span><span class="p">.</span><span class="nx">subarray</span><span class="p">(</span><span class="nx">addr</span><span class="p">,</span><span class="w"> </span><span class="nx">addr</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="nx">text</span><span class="p">.</span><span class="nx">length</span><span class="p">)</span>
 
-<span class="w">   </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kd">let</span><span class="w"> </span><span class="nx">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">0</span><span class="p">;</span><span class="w"> </span><span class="nx">i</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="nx">text</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span><span class="w"> </span><span class="nx">i</span><span class="o">++</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">      </span><span class="nx">view</span><span class="p">[</span><span class="nx">i</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">text</span><span class="p">.</span><span class="nx">charCodeAt</span><span class="p">(</span><span class="nx">i</span><span class="p">)</span><span class="w"></span>
-<span class="w">   </span><span class="p">}</span><span class="w"></span>
+<span class="w">   </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kd">let</span><span class="w"> </span><span class="nx">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">0</span><span class="p">;</span><span class="w"> </span><span class="nx">i</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="nx">text</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span><span class="w"> </span><span class="nx">i</span><span class="o">++</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="nx">view</span><span class="p">[</span><span class="nx">i</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">text</span><span class="p">.</span><span class="nx">charCodeAt</span><span class="p">(</span><span class="nx">i</span><span class="p">)</span>
+<span class="w">   </span><span class="p">}</span>
 
-<span class="w">   </span><span class="c1">// Return the address we started at.</span><span class="w"></span>
-<span class="w">   </span><span class="k">return</span><span class="w"> </span><span class="nx">addr</span><span class="w"></span>
-<span class="p">}</span><span class="w"></span>
+<span class="w">   </span><span class="c1">// Return the address we started at.</span>
+<span class="w">   </span><span class="k">return</span><span class="w"> </span><span class="nx">addr</span>
+<span class="p">}</span>
 </pre></div>
 </div>
 <p>As with the earlier case, we need to create an <code class="docutils literal notranslate"><span class="pre">Int8Array</span></code> in order to attach meaning to
@@ -473,20 +474,20 @@ modifying the original array and not a copy.</p>
 be in a position to call the <code class="docutils literal notranslate"><span class="pre">echo</span></code> function passing the starting address and length
 of the string we want it to echo. However instead of hardcoding the string this time why
 don’t we take it from the input <code class="docutils literal notranslate"><span class="pre">textarea</span></code> we have on the page.</p>
-<div class="highlight-js notranslate"><div class="highlight"><pre><span></span><span class="kd">const</span><span class="w"> </span><span class="nx">input</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="s1">&#39;input&#39;</span><span class="p">)</span><span class="w"></span>
+<div class="highlight-js notranslate"><div class="highlight"><pre><span></span><span class="kd">const</span><span class="w"> </span><span class="nx">input</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="s1">&#39;input&#39;</span><span class="p">)</span>
 
-<span class="kd">function</span><span class="w"> </span><span class="nx">onRun</span><span class="p">(</span><span class="nx">runner</span><span class="p">,</span><span class="w"> </span><span class="nx">module</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">   </span><span class="k">return</span><span class="w"> </span><span class="p">(</span><span class="nx">event</span><span class="p">)</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">      </span><span class="c1">// First, we need to run the module in order to define everything.</span><span class="w"></span>
-<span class="w">      </span><span class="nx">runner</span><span class="p">.</span><span class="nx">run</span><span class="p">(</span><span class="nx">module</span><span class="p">)</span><span class="w"></span>
+<span class="kd">function</span><span class="w"> </span><span class="nx">onRun</span><span class="p">(</span><span class="nx">runner</span><span class="p">,</span><span class="w"> </span><span class="nx">module</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">   </span><span class="k">return</span><span class="w"> </span><span class="p">(</span><span class="nx">event</span><span class="p">)</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="c1">// First, we need to run the module in order to define everything.</span>
+<span class="w">      </span><span class="nx">runner</span><span class="p">.</span><span class="nx">run</span><span class="p">(</span><span class="nx">module</span><span class="p">)</span>
 
-<span class="w">      </span><span class="kd">let</span><span class="w"> </span><span class="nx">inputText</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">input</span><span class="p">.</span><span class="nx">value</span><span class="w"></span>
-<span class="w">      </span><span class="kd">let</span><span class="w"> </span><span class="nx">addr</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">insertText</span><span class="p">(</span><span class="nx">inputText</span><span class="p">,</span><span class="w"> </span><span class="nx">module</span><span class="p">)</span><span class="w"></span>
+<span class="w">      </span><span class="kd">let</span><span class="w"> </span><span class="nx">inputText</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">input</span><span class="p">.</span><span class="nx">value</span>
+<span class="w">      </span><span class="kd">let</span><span class="w"> </span><span class="nx">addr</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">insertText</span><span class="p">(</span><span class="nx">inputText</span><span class="p">,</span><span class="w"> </span><span class="nx">module</span><span class="p">)</span>
 
-<span class="w">      </span><span class="c1">// Now just pass the memory location to the relevant function.</span><span class="w"></span>
-<span class="w">      </span><span class="nx">module</span><span class="p">.</span><span class="nx">exports</span><span class="p">.</span><span class="nx">echo</span><span class="p">(</span><span class="nx">addr</span><span class="p">,</span><span class="w"> </span><span class="nx">inputText</span><span class="p">.</span><span class="nx">length</span><span class="p">)</span><span class="w"></span>
-<span class="w">   </span><span class="p">}</span><span class="w"></span>
-<span class="p">}</span><span class="w"></span>
+<span class="w">      </span><span class="c1">// Now just pass the memory location to the relevant function.</span>
+<span class="w">      </span><span class="nx">module</span><span class="p">.</span><span class="nx">exports</span><span class="p">.</span><span class="nx">echo</span><span class="p">(</span><span class="nx">addr</span><span class="p">,</span><span class="w"> </span><span class="nx">inputText</span><span class="p">.</span><span class="nx">length</span><span class="p">)</span>
+<span class="w">   </span><span class="p">}</span>
+<span class="p">}</span>
 </pre></div>
 </div>
 <figure class="align-center">
@@ -552,7 +553,7 @@ Perhaps I’m just using it wrong 🤔</p>
                             Page Source
                         </a>
                     </span>
-                    <span>Built with <a class="text-green-600" href="https://www.sphinx-doc.org/en/master/">Sphinx</a> v5.1.1</span>
+                    <span>Built with <a class="text-green-600" href="https://www.sphinx-doc.org/en/master/">Sphinx</a> v5.3.0</span>
                 </div>
             </footer>
         </main>

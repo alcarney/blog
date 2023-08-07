@@ -16,7 +16,7 @@
     <link id="pygments_dark_css" media="(prefers-color-scheme: dark)" rel="stylesheet" type="text/css" href="../../../_static/pygments_dark.css" />
     
     
-    <link rel="stylesheet" type="text/css" href="../../../_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css" />
     
     
     <link rel="stylesheet" type="text/css" href="../../../_static/css/styles.css" />
@@ -27,6 +27,7 @@
     <script src="../../../_static/underscore.js"></script>
     <script src="../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="../../../_static/doctools.js"></script>
+    <script src="../../../_static/sphinx_highlight.js"></script>
     <script src="../../../_static/design-tabs.js"></script>
     <link rel="shortcut icon" href="../../../_static/favicon.ico"/>
     <link rel="index" title="Index" href="../../../genindex/" />
@@ -203,23 +204,23 @@ of how that program happens to be written down.</p>
 <span id="ast-simple-eval-ast-repr"></span><h2>Representing an AST<a class="headerlink" href="#representing-an-ast" title="Permalink to this heading">¶</a></h2>
 <p>For no particular reason other I fancied trying it, I decided to use C to
 represent my AST where each node is represented by the following struct.</p>
-<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="k">typedef</span><span class="w"> </span><span class="k">struct</span><span class="w"> </span><span class="nc">_ast</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="k">typedef</span><span class="w"> </span><span class="k">struct</span><span class="w"> </span><span class="nc">_ast</span><span class="w"> </span><span class="p">{</span>
 <span class="w">    </span><span class="cm">/* The type of node this represents e.g.</span>
-<span class="cm">       a literal, an operator etc. */</span><span class="w"></span>
-<span class="w">    </span><span class="n">AstNodeType</span><span class="w"> </span><span class="n">type</span><span class="p">;</span><span class="w"></span>
+<span class="cm">       a literal, an operator etc. */</span>
+<span class="w">    </span><span class="n">AstNodeType</span><span class="w"> </span><span class="n">type</span><span class="p">;</span>
 
 <span class="w">    </span><span class="cm">/* In the case of a literal value, this field</span>
-<span class="cm">       holds the actual value */</span><span class="w"></span>
-<span class="w">    </span><span class="kt">float</span><span class="w"> </span><span class="n">value</span><span class="p">;</span><span class="w"></span>
+<span class="cm">       holds the actual value */</span>
+<span class="w">    </span><span class="kt">float</span><span class="w"> </span><span class="n">value</span><span class="p">;</span>
 
 <span class="w">    </span><span class="cm">/* In the case of an operator, this pointer</span>
-<span class="cm">       refers to the left child node */</span><span class="w"></span>
-<span class="w">    </span><span class="k">struct</span><span class="w"> </span><span class="nc">_ast</span><span class="w"> </span><span class="o">*</span><span class="n">left</span><span class="p">;</span><span class="w"></span>
+<span class="cm">       refers to the left child node */</span>
+<span class="w">    </span><span class="k">struct</span><span class="w"> </span><span class="nc">_ast</span><span class="w"> </span><span class="o">*</span><span class="n">left</span><span class="p">;</span>
 
 <span class="w">    </span><span class="cm">/* In the case of an operator, this pointer</span>
-<span class="cm">       refers to the right child node */</span><span class="w"></span>
-<span class="w">    </span><span class="k">struct</span><span class="w"> </span><span class="nc">_ast</span><span class="w"> </span><span class="o">*</span><span class="n">right</span><span class="p">;</span><span class="w"></span>
-<span class="p">}</span><span class="w"> </span><span class="n">AstNode</span><span class="p">;</span><span class="w"></span>
+<span class="cm">       refers to the right child node */</span>
+<span class="w">    </span><span class="k">struct</span><span class="w"> </span><span class="nc">_ast</span><span class="w"> </span><span class="o">*</span><span class="n">right</span><span class="p">;</span>
+<span class="p">}</span><span class="w"> </span><span class="n">AstNode</span><span class="p">;</span>
 </pre></div>
 </div>
 <p>Although the <code class="docutils literal notranslate"><span class="pre">typedef</span></code> will let us refer to this struct using the name <code class="docutils literal notranslate"><span class="pre">AstNode</span></code>
@@ -228,24 +229,24 @@ definition itself. In order to have the struct hold pointers to other instances
 of the same type it’s necessary to also name the struct definition <code class="docutils literal notranslate"><span class="pre">_ast</span></code></p>
 <p>In order to express the example trees above we only need to specify a few node
 types</p>
-<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="k">typedef</span><span class="w"> </span><span class="k">enum</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">    </span><span class="n">AST_LITERAL</span><span class="p">,</span><span class="w"></span>
-<span class="w">    </span><span class="n">AST_PLUS</span><span class="p">,</span><span class="w"></span>
-<span class="w">    </span><span class="n">AST_MULTIPLY</span><span class="p">,</span><span class="w"></span>
-<span class="p">}</span><span class="w"> </span><span class="n">AstNodeType</span><span class="p">;</span><span class="w"></span>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="k">typedef</span><span class="w"> </span><span class="k">enum</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">AST_LITERAL</span><span class="p">,</span>
+<span class="w">    </span><span class="n">AST_PLUS</span><span class="p">,</span>
+<span class="w">    </span><span class="n">AST_MULTIPLY</span><span class="p">,</span>
+<span class="p">}</span><span class="w"> </span><span class="n">AstNodeType</span><span class="p">;</span>
 </pre></div>
 </div>
 <p>With our AST node representation defined, it’s easy enough to construct a tree
 for the two examples we outlined earlier</p>
-<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="n">AstNode</span><span class="w"> </span><span class="n">one</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="p">.</span><span class="n">type</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">AST_LITERAL</span><span class="p">,</span><span class="w"> </span><span class="p">.</span><span class="n">value</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">1.0f</span><span class="w"> </span><span class="p">};</span><span class="w"></span>
-<span class="n">AstNode</span><span class="w"> </span><span class="n">two</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="p">.</span><span class="n">type</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">AST_LITERAL</span><span class="p">,</span><span class="w"> </span><span class="p">.</span><span class="n">value</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">2.0f</span><span class="w"> </span><span class="p">};</span><span class="w"></span>
-<span class="n">AstNode</span><span class="w"> </span><span class="n">three</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="p">.</span><span class="n">type</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">AST_LITERAL</span><span class="p">,</span><span class="w"> </span><span class="p">.</span><span class="n">value</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">3.0f</span><span class="w"> </span><span class="p">};</span><span class="w"></span>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="n">AstNode</span><span class="w"> </span><span class="n">one</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="p">.</span><span class="n">type</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">AST_LITERAL</span><span class="p">,</span><span class="w"> </span><span class="p">.</span><span class="n">value</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">1.0f</span><span class="w"> </span><span class="p">};</span>
+<span class="n">AstNode</span><span class="w"> </span><span class="n">two</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="p">.</span><span class="n">type</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">AST_LITERAL</span><span class="p">,</span><span class="w"> </span><span class="p">.</span><span class="n">value</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">2.0f</span><span class="w"> </span><span class="p">};</span>
+<span class="n">AstNode</span><span class="w"> </span><span class="n">three</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="p">.</span><span class="n">type</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">AST_LITERAL</span><span class="p">,</span><span class="w"> </span><span class="p">.</span><span class="n">value</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">3.0f</span><span class="w"> </span><span class="p">};</span>
 
-<span class="n">AstNode</span><span class="w"> </span><span class="n">plus1</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="p">.</span><span class="n">type</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">AST_PLUS</span><span class="p">,</span><span class="w"> </span><span class="p">.</span><span class="n">left</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">&amp;</span><span class="n">one</span><span class="p">,</span><span class="w"> </span><span class="p">.</span><span class="n">right</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">&amp;</span><span class="n">two</span><span class="p">};</span><span class="w"></span>
-<span class="n">AstNode</span><span class="w"> </span><span class="n">example1</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="p">.</span><span class="n">type</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">AST_MULTIPLY</span><span class="p">,</span><span class="w"> </span><span class="p">.</span><span class="n">left</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">&amp;</span><span class="n">plus1</span><span class="p">,</span><span class="w"> </span><span class="p">.</span><span class="n">right</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">&amp;</span><span class="n">three</span><span class="p">};</span><span class="w"></span>
+<span class="n">AstNode</span><span class="w"> </span><span class="n">plus1</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="p">.</span><span class="n">type</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">AST_PLUS</span><span class="p">,</span><span class="w"> </span><span class="p">.</span><span class="n">left</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">&amp;</span><span class="n">one</span><span class="p">,</span><span class="w"> </span><span class="p">.</span><span class="n">right</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">&amp;</span><span class="n">two</span><span class="p">};</span>
+<span class="n">AstNode</span><span class="w"> </span><span class="n">example1</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="p">.</span><span class="n">type</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">AST_MULTIPLY</span><span class="p">,</span><span class="w"> </span><span class="p">.</span><span class="n">left</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">&amp;</span><span class="n">plus1</span><span class="p">,</span><span class="w"> </span><span class="p">.</span><span class="n">right</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">&amp;</span><span class="n">three</span><span class="p">};</span>
 
-<span class="n">AstNode</span><span class="w"> </span><span class="n">mul1</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="p">.</span><span class="n">type</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">AST_MULTIPLY</span><span class="p">,</span><span class="w"> </span><span class="p">.</span><span class="n">left</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">&amp;</span><span class="n">two</span><span class="p">,</span><span class="w"> </span><span class="p">.</span><span class="n">right</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">&amp;</span><span class="n">three</span><span class="p">};</span><span class="w"></span>
-<span class="n">AstNode</span><span class="w"> </span><span class="n">example2</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="p">.</span><span class="n">type</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">AST_PLUS</span><span class="p">,</span><span class="w"> </span><span class="p">.</span><span class="n">left</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">&amp;</span><span class="n">one</span><span class="p">,</span><span class="w"> </span><span class="p">.</span><span class="n">right</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">&amp;</span><span class="n">mul1</span><span class="p">};</span><span class="w"></span>
+<span class="n">AstNode</span><span class="w"> </span><span class="n">mul1</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="p">.</span><span class="n">type</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">AST_MULTIPLY</span><span class="p">,</span><span class="w"> </span><span class="p">.</span><span class="n">left</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">&amp;</span><span class="n">two</span><span class="p">,</span><span class="w"> </span><span class="p">.</span><span class="n">right</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">&amp;</span><span class="n">three</span><span class="p">};</span>
+<span class="n">AstNode</span><span class="w"> </span><span class="n">example2</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="p">.</span><span class="n">type</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">AST_PLUS</span><span class="p">,</span><span class="w"> </span><span class="p">.</span><span class="n">left</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">&amp;</span><span class="n">one</span><span class="p">,</span><span class="w"> </span><span class="p">.</span><span class="n">right</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">&amp;</span><span class="n">mul1</span><span class="p">};</span>
 </pre></div>
 </div>
 </section>
@@ -255,12 +256,12 @@ for the two examples we outlined earlier</p>
 <ul>
 <li><p>If the node we are evaluating is an <code class="docutils literal notranslate"><span class="pre">AST_LITERAL</span></code> then all we have to do is
 return the value stored in that node</p>
-<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="kt">float</span><span class="w"></span>
-<span class="nf">ast_evaluate</span><span class="p">(</span><span class="n">AstNode</span><span class="w"> </span><span class="o">*</span><span class="n">ast</span><span class="p">)</span><span class="w"></span>
-<span class="p">{</span><span class="w"></span>
-<span class="w">    </span><span class="k">switch</span><span class="p">(</span><span class="n">ast</span><span class="o">-&gt;</span><span class="n">type</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">    </span><span class="k">case</span><span class="w"> </span><span class="no">AST_LITERAL</span><span class="p">:</span><span class="w"></span>
-<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">ast</span><span class="o">-&gt;</span><span class="n">value</span><span class="p">;</span><span class="w"></span>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="kt">float</span>
+<span class="nf">ast_evaluate</span><span class="p">(</span><span class="n">AstNode</span><span class="w"> </span><span class="o">*</span><span class="n">ast</span><span class="p">)</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="k">switch</span><span class="p">(</span><span class="n">ast</span><span class="o">-&gt;</span><span class="n">type</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">case</span><span class="w"> </span><span class="no">AST_LITERAL</span><span class="p">:</span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">ast</span><span class="o">-&gt;</span><span class="n">value</span><span class="p">;</span>
 
 </pre></div>
 </div>
@@ -268,24 +269,24 @@ return the value stored in that node</p>
 <li><p>In the case of <code class="docutils literal notranslate"><span class="pre">AST_PLUS</span></code>, we recursively call <code class="docutils literal notranslate"><span class="pre">ast_evaluate</span></code> on
 both the left and right branches of the tree and then add the resulting values
 together</p>
-<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="w">    </span><span class="k">case</span><span class="w"> </span><span class="no">AST_PLUS</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">        </span><span class="kt">float</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ast_evaluate</span><span class="p">(</span><span class="n">ast</span><span class="o">-&gt;</span><span class="n">left</span><span class="p">);</span><span class="w"></span>
-<span class="w">        </span><span class="kt">float</span><span class="w"> </span><span class="n">b</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ast_evaluate</span><span class="p">(</span><span class="n">ast</span><span class="o">-&gt;</span><span class="n">right</span><span class="p">);</span><span class="w"></span>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="w">    </span><span class="k">case</span><span class="w"> </span><span class="no">AST_PLUS</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="kt">float</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ast_evaluate</span><span class="p">(</span><span class="n">ast</span><span class="o">-&gt;</span><span class="n">left</span><span class="p">);</span>
+<span class="w">        </span><span class="kt">float</span><span class="w"> </span><span class="n">b</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ast_evaluate</span><span class="p">(</span><span class="n">ast</span><span class="o">-&gt;</span><span class="n">right</span><span class="p">);</span>
 
-<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">b</span><span class="p">;</span><span class="w"></span>
-<span class="w">    </span><span class="p">}</span><span class="w"></span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">b</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
 </pre></div>
 </div>
 </li>
 <li><p>Simiarly for <code class="docutils literal notranslate"><span class="pre">AST_MULTIPLY</span></code>, but returing <code class="docutils literal notranslate"><span class="pre">a</span> <span class="pre">*</span> <span class="pre">b</span></code> in this case.</p>
-<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="w">    </span><span class="k">case</span><span class="w"> </span><span class="no">AST_MULTIPLY</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">        </span><span class="kt">float</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ast_evaluate</span><span class="p">(</span><span class="n">ast</span><span class="o">-&gt;</span><span class="n">left</span><span class="p">);</span><span class="w"></span>
-<span class="w">        </span><span class="kt">float</span><span class="w"> </span><span class="n">b</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ast_evaluate</span><span class="p">(</span><span class="n">ast</span><span class="o">-&gt;</span><span class="n">right</span><span class="p">);</span><span class="w"></span>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="w">    </span><span class="k">case</span><span class="w"> </span><span class="no">AST_MULTIPLY</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="kt">float</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ast_evaluate</span><span class="p">(</span><span class="n">ast</span><span class="o">-&gt;</span><span class="n">left</span><span class="p">);</span>
+<span class="w">        </span><span class="kt">float</span><span class="w"> </span><span class="n">b</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ast_evaluate</span><span class="p">(</span><span class="n">ast</span><span class="o">-&gt;</span><span class="n">right</span><span class="p">);</span>
 
-<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">b</span><span class="p">;</span><span class="w"></span>
-<span class="w">    </span><span class="p">}</span><span class="w"></span>
-<span class="w">    </span><span class="p">}</span><span class="w"></span>
-<span class="p">}</span><span class="w"></span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">b</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">}</span>
 
 </pre></div>
 </div>
@@ -334,7 +335,7 @@ floats! 😃 If you want to see the entire source file you can find it here.</p>
                             Page Source
                         </a>
                     </span>
-                    <span>Built with <a class="text-green-600" href="https://www.sphinx-doc.org/en/master/">Sphinx</a> v5.1.1</span>
+                    <span>Built with <a class="text-green-600" href="https://www.sphinx-doc.org/en/master/">Sphinx</a> v5.3.0</span>
                 </div>
             </footer>
         </main>

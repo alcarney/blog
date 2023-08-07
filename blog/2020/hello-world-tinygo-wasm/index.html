@@ -16,7 +16,7 @@
     <link id="pygments_dark_css" media="(prefers-color-scheme: dark)" rel="stylesheet" type="text/css" href="../../../_static/pygments_dark.css" />
     
     
-    <link rel="stylesheet" type="text/css" href="../../../_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css" />
     
     
     <link rel="stylesheet" type="text/css" href="../../../_static/css/styles.css" />
@@ -27,6 +27,7 @@
     <script src="../../../_static/underscore.js"></script>
     <script src="../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="../../../_static/doctools.js"></script>
+    <script src="../../../_static/sphinx_highlight.js"></script>
     <script src="../../../_static/design-tabs.js"></script>
     <link rel="shortcut icon" href="../../../_static/favicon.ico"/>
     <link rel="index" title="Index" href="../../../genindex/" />
@@ -211,15 +212,15 @@ my code.</p>
 <h3>Spinning up Arch Linux<a class="headerlink" href="#spinning-up-arch-linux" title="Permalink to this heading">¶</a></h3>
 <p>Following this`_ article it was easy enough to pull down and
 launch an Arch Linux image from the community <a class="reference external" href="https://uk.images.linuxcontainers.org/">repository</a></p>
-<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>snap install lxd
-<span class="gp">$ </span>lxd init                                 <span class="c1"># ... and picking all the defaults</span>
-<span class="gp">$ </span>lxd launch image:archlinux/amd64 tinygo  <span class="c1"># &#39;tinygo&#39; is the name I&#39;ve given my container</span>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>snap<span class="w"> </span>install<span class="w"> </span>lxd
+<span class="gp">$ </span>lxd<span class="w"> </span>init<span class="w">                                 </span><span class="c1"># ... and picking all the defaults</span>
+<span class="gp">$ </span>lxd<span class="w"> </span>launch<span class="w"> </span>image:archlinux/amd64<span class="w"> </span>tinygo<span class="w">  </span><span class="c1"># &#39;tinygo&#39; is the name I&#39;ve given my container</span>
 </pre></div>
 </div>
 <p>Once the container has started it’s easy enough to open a bash shell and start
 installing what we need</p>
-<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>lxc <span class="nb">exec</span> tinygo -- /bin/bash
-<span class="gp">[root@tinygo] $ </span>pacman -S tinygo llvm lld
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>lxc<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>tinygo<span class="w"> </span>--<span class="w"> </span>/bin/bash
+<span class="gp">[root@tinygo] $ </span>pacman<span class="w"> </span>-S<span class="w"> </span>tinygo<span class="w"> </span>llvm<span class="w"> </span>lld
 </pre></div>
 </div>
 </section>
@@ -228,16 +229,16 @@ installing what we need</p>
 <p>Even in an unprivileged container (which is what I think LXD uses by default?) its
 probably not the best idea to run programs as root so we should create a normal user
 account and set a password</p>
-<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">[root@tinygo] $ </span>useradd -m alex
-<span class="gp">[root@tinygo] $ </span>passwd alex
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">[root@tinygo] $ </span>useradd<span class="w"> </span>-m<span class="w"> </span>alex
+<span class="gp">[root@tinygo] $ </span>passwd<span class="w"> </span>alex
 </pre></div>
 </div>
 <p>Then its time to share the project folder with the container so that the tools inside
 are able to work with it.</p>
-<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>mkdir hello-world
-<span class="gp">$ </span>lxc config device add tinygo workdir disk <span class="nv">source</span><span class="o">=</span>/host/path/to/hello-world/ <span class="nv">path</span><span class="o">=</span>/home/alex/hello-world/
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>mkdir<span class="w"> </span>hello-world
+<span class="gp">$ </span>lxc<span class="w"> </span>config<span class="w"> </span>device<span class="w"> </span>add<span class="w"> </span>tinygo<span class="w"> </span>workdir<span class="w"> </span>disk<span class="w"> </span><span class="nv">source</span><span class="o">=</span>/host/path/to/hello-world/<span class="w"> </span><span class="nv">path</span><span class="o">=</span>/home/alex/hello-world/
 
-<span class="gp">[root@tinygo] $ </span>ls /home/alex
+<span class="gp">[root@tinygo] $ </span>ls<span class="w"> </span>/home/alex
 <span class="go">hello-world</span>
 </pre></div>
 </div>
@@ -260,18 +261,18 @@ extension dedicated to containers it appears that it’s hard wired to work with
 which isn’t much use in this case… but since each LXC container is assigned a local
 IP address I decided to try the SSH method.</p>
 <p>This means we need to enable ssh access from within the container itself.</p>
-<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">[root@tinygo] $ </span>pacman -S openssh
-<span class="gp">[root@tinygo] $ </span>systemctl <span class="nb">enable</span> --now sshd.service
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">[root@tinygo] $ </span>pacman<span class="w"> </span>-S<span class="w"> </span>openssh
+<span class="gp">[root@tinygo] $ </span>systemctl<span class="w"> </span><span class="nb">enable</span><span class="w"> </span>--now<span class="w"> </span>sshd.service
 </pre></div>
 </div>
 <p>Then for all the Go related tooling in VSCode to function I also had to install the main
 Go implementation.</p>
-<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">[root@tinygo] $ </span>pacman -S go
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">[root@tinygo] $ </span>pacman<span class="w"> </span>-S<span class="w"> </span>go
 </pre></div>
 </div>
 <p>Finally we can discover the IP address of the container using the <code class="docutils literal notranslate"><span class="pre">lxc</span> <span class="pre">list</span></code> command and
 try to connect VSCode to the container logging in as the <cite>alex</cite> user we created earlier.</p>
-<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>lxc list
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>lxc<span class="w"> </span>list
 <span class="go">+--------+---------+---------------------+-----------------------------------------------+-----------+-----------+</span>
 <span class="go">|  NAME  |  STATE  |        IPV4         |                     IPV6                      |   TYPE    | SNAPSHOTS |</span>
 <span class="go">+--------+---------+---------------------+-----------------------------------------------+-----------+-----------+</span>
@@ -290,12 +291,12 @@ write files back to the host…</p>
 containers but from what I can gather LXD needs to reuse the ID of my user account on the
 host as the ID of the user within the container?..</p>
 <p>Anyway according to <a class="reference external" href="https://tribaal.io/nicer-mounting-home-in-lxd.html">this post</a> the incantations needed are</p>
-<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span><span class="nb">echo</span> <span class="s2">&quot;root:</span><span class="nv">$UID</span><span class="s2">:1&quot;</span> <span class="p">|</span> sudo tee -a /etc/subuid /etc/subgid
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;root:</span><span class="nv">$UID</span><span class="s2">:1&quot;</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>sudo<span class="w"> </span>tee<span class="w"> </span>-a<span class="w"> </span>/etc/subuid<span class="w"> </span>/etc/subgid
 </pre></div>
 </div>
 <p>which is a one time setup allowing my user ID on the host to be reused. Then on a
 per-container basis we also need to tell LXD to reuse my ID within a given container</p>
-<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>lxc config <span class="nb">set</span> tinygo raw.idmap <span class="s2">&quot;both </span><span class="nv">$UID</span><span class="s2"> 1000&quot;</span>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>lxc<span class="w"> </span>config<span class="w"> </span><span class="nb">set</span><span class="w"> </span>tinygo<span class="w"> </span>raw.idmap<span class="w"> </span><span class="s2">&quot;both </span><span class="nv">$UID</span><span class="s2"> 1000&quot;</span>
 </pre></div>
 </div>
 <p>Phew! I think, finally, we’re in a position to crack on with the program itself. Was all
@@ -306,19 +307,19 @@ the effort? Well, I guess only time will tell…</p>
 <section id="tinygo">
 <span id="hello-world-tinygo-wasm-tinygo"></span><h2>TinyGo<a class="headerlink" href="#tinygo" title="Permalink to this heading">¶</a></h2>
 <p>With the setup out of the way time to write our “Hello, World!” program in Go</p>
-<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kn">package</span><span class="w"> </span><span class="nx">main</span><span class="w"></span>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kn">package</span><span class="w"> </span><span class="nx">main</span>
 
-<span class="c1">//go:export main</span><span class="w"></span>
-<span class="kd">func</span><span class="w"> </span><span class="nx">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">   </span><span class="nb">println</span><span class="p">(</span><span class="s">&quot;Hello, World!&quot;</span><span class="p">)</span><span class="w"></span>
-<span class="p">}</span><span class="w"></span>
+<span class="c1">//go:export main</span>
+<span class="kd">func</span><span class="w"> </span><span class="nx">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">   </span><span class="nb">println</span><span class="p">(</span><span class="s">&quot;Hello, World!&quot;</span><span class="p">)</span>
+<span class="p">}</span>
 </pre></div>
 </div>
 <p>Notice the <code class="docutils literal notranslate"><span class="pre">//go:export</span> <span class="pre">main</span></code> comment. Using comments like these is how we tell TinyGo
 which functions we want to be callable from the JavaScript code that will wrap our
 WebAssembly module. This is then compiled with the following TinyGo command.</p>
-<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>mkdir public/
-<span class="gp">$ </span>tinygo build -o public/hello.wasm -target wasm main.go
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>mkdir<span class="w"> </span>public/
+<span class="gp">$ </span>tinygo<span class="w"> </span>build<span class="w"> </span>-o<span class="w"> </span>public/hello.wasm<span class="w"> </span>-target<span class="w"> </span>wasm<span class="w"> </span>main.go
 </pre></div>
 </div>
 <div class="admonition-why-tinygo admonition">
@@ -344,14 +345,14 @@ execute it.</p>
 <span class="p">&lt;/</span><span class="nt">head</span><span class="p">&gt;</span>
 <span class="p">&lt;</span><span class="nt">body</span><span class="p">&gt;</span>
    <span class="p">&lt;</span><span class="nt">script</span> <span class="na">src</span><span class="o">=</span><span class="s">&quot;wasm_exec.js&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
-   <span class="p">&lt;</span><span class="nt">script</span><span class="p">&gt;</span><span class="w"></span>
-<span class="w">      </span><span class="kd">const</span><span class="w"> </span><span class="nx">go</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nx">Go</span><span class="p">()</span><span class="w"></span>
+   <span class="p">&lt;</span><span class="nt">script</span><span class="p">&gt;</span>
+<span class="w">      </span><span class="kd">const</span><span class="w"> </span><span class="nx">go</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nx">Go</span><span class="p">()</span>
 
-<span class="w">      </span><span class="nx">WebAssembly</span><span class="p">.</span><span class="nx">instantiateStreaming</span><span class="p">(</span><span class="nx">fetch</span><span class="p">(</span><span class="s2">&quot;hello.wasm&quot;</span><span class="p">),</span><span class="w"> </span><span class="nx">go</span><span class="p">.</span><span class="nx">importObject</span><span class="p">)</span><span class="w"></span>
-<span class="w">            </span><span class="p">.</span><span class="nx">then</span><span class="p">(</span><span class="nx">module</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">               </span><span class="kd">let</span><span class="w"> </span><span class="nx">wasm</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">module</span><span class="p">.</span><span class="nx">instance</span><span class="w"></span>
-<span class="w">               </span><span class="nx">go</span><span class="p">.</span><span class="nx">run</span><span class="p">(</span><span class="nx">wasm</span><span class="p">)</span><span class="w"></span>
-<span class="w">            </span><span class="p">})</span><span class="w"></span>
+<span class="w">      </span><span class="nx">WebAssembly</span><span class="p">.</span><span class="nx">instantiateStreaming</span><span class="p">(</span><span class="nx">fetch</span><span class="p">(</span><span class="s2">&quot;hello.wasm&quot;</span><span class="p">),</span><span class="w"> </span><span class="nx">go</span><span class="p">.</span><span class="nx">importObject</span><span class="p">)</span>
+<span class="w">            </span><span class="p">.</span><span class="nx">then</span><span class="p">(</span><span class="nx">module</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">{</span>
+<span class="w">               </span><span class="kd">let</span><span class="w"> </span><span class="nx">wasm</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">module</span><span class="p">.</span><span class="nx">instance</span>
+<span class="w">               </span><span class="nx">go</span><span class="p">.</span><span class="nx">run</span><span class="p">(</span><span class="nx">wasm</span><span class="p">)</span>
+<span class="w">            </span><span class="p">})</span>
 <span class="w">   </span><span class="p">&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
 <span class="p">&lt;/</span><span class="nt">body</span><span class="p">&gt;</span>
 <span class="p">&lt;/</span><span class="nt">html</span><span class="p">&gt;</span>
@@ -411,7 +412,7 @@ and see the message “Hello, World!” written to the console!</p>
                             Page Source
                         </a>
                     </span>
-                    <span>Built with <a class="text-green-600" href="https://www.sphinx-doc.org/en/master/">Sphinx</a> v5.1.1</span>
+                    <span>Built with <a class="text-green-600" href="https://www.sphinx-doc.org/en/master/">Sphinx</a> v5.3.0</span>
                 </div>
             </footer>
         </main>

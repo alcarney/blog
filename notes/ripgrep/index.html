@@ -16,7 +16,7 @@
     <link id="pygments_dark_css" media="(prefers-color-scheme: dark)" rel="stylesheet" type="text/css" href="../../_static/pygments_dark.css" />
     
     
-    <link rel="stylesheet" type="text/css" href="../../_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css" />
     
     
     <link rel="stylesheet" type="text/css" href="../../_static/css/styles.css" />
@@ -27,6 +27,7 @@
     <script src="../../_static/underscore.js"></script>
     <script src="../../_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/sphinx_highlight.js"></script>
     <script src="../../_static/design-tabs.js"></script>
     <link rel="shortcut icon" href="../../_static/favicon.ico"/>
     <link rel="index" title="Index" href="../../genindex/" />
@@ -135,11 +136,11 @@
 <h2>Searching code in Jupyter Notebooks<a class="headerlink" href="#searching-code-in-jupyter-notebooks" title="Permalink to this heading">¶</a></h2>
 <p>ripgrep’s <code class="docutils literal notranslate"><span class="pre">--pre</span> <span class="pre">&lt;command&gt;</span></code> flag can be used to search the output of <code class="docutils literal notranslate"><span class="pre">&lt;command&gt;</span> <span class="pre">filename</span></code> instead of the contents of <code class="docutils literal notranslate"><span class="pre">filename</span></code> directly.</p>
 <p>We can pair this with <code class="docutils literal notranslate"><span class="pre">jq</span></code> to extract just the source code contained in a jupyter notebook.</p>
-<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>cat nbcat
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>cat<span class="w"> </span>nbcat
 <span class="gp">#</span>!/bin/bash
 <span class="go">jq -j &#39;.cells | map(select(.cell_type == &quot;code&quot;)) | .[].source | join(&quot;&quot;)&#39; $1</span>
 
-<span class="gp">$ </span>rg --pre nbcat &lt;pattern&gt; example.ipynb
+<span class="gp">$ </span>rg<span class="w"> </span>--pre<span class="w"> </span>nbcat<span class="w"> </span>&lt;pattern&gt;<span class="w"> </span>example.ipynb
 </pre></div>
 </div>
 </section>
@@ -147,7 +148,7 @@
 <h2>Searching code in Python packages<a class="headerlink" href="#searching-code-in-python-packages" title="Permalink to this heading">¶</a></h2>
 <p>Something I find myself wanting to do quite often is to search for a particular object within a Python package.</p>
 <p>A nice trick is to use a tool like <code class="docutils literal notranslate"><span class="pre">fd</span></code> to gather all the relevant filepaths and pass them to <code class="docutils literal notranslate"><span class="pre">rg</span></code> for us</p>
-<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>fd -e py . <span class="s2">&quot;</span><span class="si">${</span><span class="nv">VIRTUAL_ENV</span><span class="si">}</span><span class="s2">/lib/python3.10/site-packages/&lt;package&gt;&quot;</span> -X rg &lt;pattern&gt;
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>fd<span class="w"> </span>-e<span class="w"> </span>py<span class="w"> </span>.<span class="w"> </span><span class="s2">&quot;</span><span class="si">${</span><span class="nv">VIRTUAL_ENV</span><span class="si">}</span><span class="s2">/lib/python3.10/site-packages/&lt;package&gt;&quot;</span><span class="w"> </span>-X<span class="w"> </span>rg<span class="w"> </span>&lt;pattern&gt;
 </pre></div>
 </div>
 </section>
@@ -194,7 +195,7 @@
                             Page Source
                         </a>
                     </span>
-                    <span>Built with <a class="text-green-600" href="https://www.sphinx-doc.org/en/master/">Sphinx</a> v5.1.1</span>
+                    <span>Built with <a class="text-green-600" href="https://www.sphinx-doc.org/en/master/">Sphinx</a> v5.3.0</span>
                 </div>
             </footer>
         </main>

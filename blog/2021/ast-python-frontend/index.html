@@ -16,7 +16,7 @@
     <link id="pygments_dark_css" media="(prefers-color-scheme: dark)" rel="stylesheet" type="text/css" href="../../../_static/pygments_dark.css" />
     
     
-    <link rel="stylesheet" type="text/css" href="../../../_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css" />
     
     
     <link rel="stylesheet" type="text/css" href="../../../_static/css/styles.css" />
@@ -27,6 +27,7 @@
     <script src="../../../_static/underscore.js"></script>
     <script src="../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="../../../_static/doctools.js"></script>
+    <script src="../../../_static/sphinx_highlight.js"></script>
     <script src="../../../_static/design-tabs.js"></script>
     <link rel="shortcut icon" href="../../../_static/favicon.ico"/>
     <link rel="index" title="Index" href="../../../genindex/" />
@@ -332,21 +333,21 @@ structure</p>
 section and <code class="docutils literal notranslate"><span class="pre">ccalcmodule.c</span></code> contains the boilerplate needed to define a Python
 module</p>
 <div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="cp">#define PY_SSIZE_T_CLEAN</span>
-<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;Python.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;Python.h&gt;</span>
 
-<span class="k">static</span><span class="w"> </span><span class="k">struct</span><span class="w"> </span><span class="nc">PyModuleDef</span><span class="w"> </span><span class="n">ccalcmodule</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">   </span><span class="n">PyModuleDef_HEAD_INIT</span><span class="p">,</span><span class="w"></span>
-<span class="w">   </span><span class="s">&quot;_ccalc&quot;</span><span class="p">,</span><span class="w"></span>
-<span class="w">   </span><span class="s">&quot;Simple calculator implemented in C&quot;</span><span class="p">,</span><span class="w"></span>
-<span class="w">   </span><span class="mi">-1</span><span class="p">,</span><span class="w"></span>
-<span class="w">   </span><span class="n">ccalc_methods</span><span class="w"></span>
-<span class="p">};</span><span class="w"></span>
+<span class="k">static</span><span class="w"> </span><span class="k">struct</span><span class="w"> </span><span class="nc">PyModuleDef</span><span class="w"> </span><span class="n">ccalcmodule</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span>
+<span class="w">   </span><span class="n">PyModuleDef_HEAD_INIT</span><span class="p">,</span>
+<span class="w">   </span><span class="s">&quot;_ccalc&quot;</span><span class="p">,</span>
+<span class="w">   </span><span class="s">&quot;Simple calculator implemented in C&quot;</span><span class="p">,</span>
+<span class="w">   </span><span class="mi">-1</span><span class="p">,</span>
+<span class="w">   </span><span class="n">ccalc_methods</span>
+<span class="p">};</span>
 
-<span class="n">PyMODINIT_FUNC</span><span class="w"></span>
-<span class="nf">PyInit__ccalc</span><span class="p">()</span><span class="w"></span>
-<span class="p">{</span><span class="w"></span>
-<span class="w">   </span><span class="k">return</span><span class="w"> </span><span class="n">PyModule_Create</span><span class="p">(</span><span class="o">&amp;</span><span class="n">ccalcmodule</span><span class="p">);</span><span class="w"></span>
-<span class="p">}</span><span class="w"></span>
+<span class="n">PyMODINIT_FUNC</span>
+<span class="nf">PyInit__ccalc</span><span class="p">()</span>
+<span class="p">{</span>
+<span class="w">   </span><span class="k">return</span><span class="w"> </span><span class="n">PyModule_Create</span><span class="p">(</span><span class="o">&amp;</span><span class="n">ccalcmodule</span><span class="p">);</span>
+<span class="p">}</span>
 </pre></div>
 </div>
 <p>The <code class="docutils literal notranslate"><span class="pre">PyModuleDef</span></code> struct as the name implies, defines some basic information
@@ -364,11 +365,11 @@ match the name we gave the module in <code class="docutils literal notranslate">
 <code class="docutils literal notranslate"><span class="pre">_ccalc</span></code> I needed an additional <code class="docutils literal notranslate"><span class="pre">_</span></code> character in the name so that the module can
 be registered correctly.</p>
 <p>The methods declared in the <code class="docutils literal notranslate"><span class="pre">ccalc_methods</span></code> array follow a similar pattern</p>
-<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="k">static</span><span class="w"> </span><span class="n">PyMethodDef</span><span class="w"> </span><span class="n">ccalc_methods</span><span class="p">[]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">   </span><span class="p">{</span><span class="s">&quot;hello_world&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">method_hello_world</span><span class="p">,</span><span class="w"> </span><span class="n">METH_VARARGS</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;Print &#39;Hello, World!&#39;.&quot;</span><span class="p">},</span><span class="w"></span>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="k">static</span><span class="w"> </span><span class="n">PyMethodDef</span><span class="w"> </span><span class="n">ccalc_methods</span><span class="p">[]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span>
+<span class="w">   </span><span class="p">{</span><span class="s">&quot;hello_world&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">method_hello_world</span><span class="p">,</span><span class="w"> </span><span class="n">METH_VARARGS</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;Print &#39;Hello, World!&#39;.&quot;</span><span class="p">},</span>
 <span class="w">   </span><span class="p">{</span><span class="nb">NULL</span><span class="p">,</span><span class="w"> </span><span class="nb">NULL</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="nb">NULL</span><span class="p">}</span><span class="w"> </span><span class="c1">// I think this is required so that Python knows when</span>
 <span class="w">                         </span><span class="c1">// it&#39;s reached the end of the array</span>
-<span class="p">};</span><span class="w"></span>
+<span class="p">};</span>
 </pre></div>
 </div>
 <ul class="simple">
@@ -380,12 +381,12 @@ called with. Check out the <a class="reference external" href="https://docs.pyth
 <li><p>The final parameter sets the docstring for the function</p></li>
 </ul>
 <p>Finally we need the the actual method definition itself.</p>
-<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="k">static</span><span class="w"> </span><span class="n">PyObject</span><span class="o">*</span><span class="w"></span>
-<span class="nf">method_hello_world</span><span class="p">(</span><span class="n">PyObject</span><span class="w"> </span><span class="o">*</span><span class="n">self</span><span class="p">,</span><span class="w"> </span><span class="n">PyObject</span><span class="w"> </span><span class="o">*</span><span class="n">args</span><span class="p">)</span><span class="w"></span>
-<span class="p">{</span><span class="w"></span>
-<span class="w">   </span><span class="n">printf</span><span class="p">(</span><span class="s">&quot;Hello, World!</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">);</span><span class="w"></span>
-<span class="w">   </span><span class="n">Py_RETURN_NONE</span><span class="p">;</span><span class="w"></span>
-<span class="p">}</span><span class="w"></span>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="k">static</span><span class="w"> </span><span class="n">PyObject</span><span class="o">*</span>
+<span class="nf">method_hello_world</span><span class="p">(</span><span class="n">PyObject</span><span class="w"> </span><span class="o">*</span><span class="n">self</span><span class="p">,</span><span class="w"> </span><span class="n">PyObject</span><span class="w"> </span><span class="o">*</span><span class="n">args</span><span class="p">)</span>
+<span class="p">{</span>
+<span class="w">   </span><span class="n">printf</span><span class="p">(</span><span class="s">&quot;Hello, World!</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">);</span>
+<span class="w">   </span><span class="n">Py_RETURN_NONE</span><span class="p">;</span>
+<span class="p">}</span>
 </pre></div>
 </div>
 <section id="building-the-extension">
@@ -480,17 +481,17 @@ functions from it just as we would with any other module.</p>
 <code class="docutils literal notranslate"><span class="pre">method_eval_ast</span></code> that takes a Python representation of the AST and converts it
 into our C representation before executing it and passing the result back up to
 Python.</p>
-<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="k">static</span><span class="w"> </span><span class="n">PyObject</span><span class="o">*</span><span class="w"></span>
-<span class="nf">method_eval_ast</span><span class="p">(</span><span class="n">PyObject</span><span class="w"> </span><span class="o">*</span><span class="n">self</span><span class="p">,</span><span class="w"> </span><span class="n">PyObject</span><span class="w"> </span><span class="o">*</span><span class="n">args</span><span class="p">)</span><span class="w"></span>
-<span class="p">{</span><span class="w"></span>
-<span class="w">   </span><span class="p">...</span><span class="w"></span>
-<span class="p">}</span><span class="w"></span>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="k">static</span><span class="w"> </span><span class="n">PyObject</span><span class="o">*</span>
+<span class="nf">method_eval_ast</span><span class="p">(</span><span class="n">PyObject</span><span class="w"> </span><span class="o">*</span><span class="n">self</span><span class="p">,</span><span class="w"> </span><span class="n">PyObject</span><span class="w"> </span><span class="o">*</span><span class="n">args</span><span class="p">)</span>
+<span class="p">{</span>
+<span class="w">   </span><span class="p">...</span>
+<span class="p">}</span>
 
 <span class="c1">// Be sure to expose the new method to the module</span>
-<span class="k">static</span><span class="w"> </span><span class="n">PyMethodDef</span><span class="w"> </span><span class="n">ccalc_methods</span><span class="p">[]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">   </span><span class="p">{</span><span class="s">&quot;eval_ast&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">method_eval_ast</span><span class="p">,</span><span class="w"> </span><span class="n">METH_VARARGS</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;Evaluate the given ast.&quot;</span><span class="p">},</span><span class="w"></span>
-<span class="w">   </span><span class="p">...</span><span class="w"></span>
-<span class="p">}</span><span class="w"></span>
+<span class="k">static</span><span class="w"> </span><span class="n">PyMethodDef</span><span class="w"> </span><span class="n">ccalc_methods</span><span class="p">[]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span>
+<span class="w">   </span><span class="p">{</span><span class="s">&quot;eval_ast&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">method_eval_ast</span><span class="p">,</span><span class="w"> </span><span class="n">METH_VARARGS</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;Evaluate the given ast.&quot;</span><span class="p">},</span>
+<span class="w">   </span><span class="p">...</span>
+<span class="p">}</span>
 </pre></div>
 </div>
 <p>This can be broken down into a three step process</p>
@@ -508,11 +509,11 @@ our function.</p>
 <p>As the contents of this tuple can be arbitrary it’s up to our code to correctly
 interpret the values that have been given to it. Thankfully Python provides a
 handy function <code class="docutils literal notranslate"><span class="pre">PyArg_ParseTuple</span></code> that can take care of this for us.</p>
-<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="n">PyObject</span><span class="w"> </span><span class="o">*</span><span class="n">obj</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">NULL</span><span class="p">;</span><span class="w"></span>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="n">PyObject</span><span class="w"> </span><span class="o">*</span><span class="n">obj</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">NULL</span><span class="p">;</span>
 
-<span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="o">!</span><span class="n">PyArg_ParseTuple</span><span class="p">(</span><span class="n">args</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;O&quot;</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">obj</span><span class="p">))</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">   </span><span class="k">return</span><span class="w"> </span><span class="nb">NULL</span><span class="p">;</span><span class="w"></span>
-<span class="p">}</span><span class="w"></span>
+<span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="o">!</span><span class="n">PyArg_ParseTuple</span><span class="p">(</span><span class="n">args</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;O&quot;</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">obj</span><span class="p">))</span><span class="w"> </span><span class="p">{</span>
+<span class="w">   </span><span class="k">return</span><span class="w"> </span><span class="nb">NULL</span><span class="p">;</span>
+<span class="p">}</span>
 </pre></div>
 </div>
 <p>This function takes a <a class="reference external" href="https://docs.python.org/3/c-api/arg.html#parsing-arguments">format string</a> that specifies the
@@ -531,10 +532,10 @@ there was an error. See the documentation on <a class="reference external" href=
 it’s time to do the conversion into our C representation. To do this we’ll write
 a function dedicated to handling the conversion and call it from
 <code class="docutils literal notranslate"><span class="pre">method_eval_ast</span></code></p>
-<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="n">AstNode</span><span class="w"> </span><span class="o">*</span><span class="n">ast</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">AstTree_FromPyObject</span><span class="p">(</span><span class="n">obj</span><span class="p">);</span><span class="w"></span>
-<span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">ast</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="nb">NULL</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">   </span><span class="k">return</span><span class="w"> </span><span class="nb">NULL</span><span class="p">;</span><span class="w"></span>
-<span class="p">};</span><span class="w"></span>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="n">AstNode</span><span class="w"> </span><span class="o">*</span><span class="n">ast</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">AstTree_FromPyObject</span><span class="p">(</span><span class="n">obj</span><span class="p">);</span>
+<span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">ast</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="nb">NULL</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">   </span><span class="k">return</span><span class="w"> </span><span class="nb">NULL</span><span class="p">;</span>
+<span class="p">};</span>
 </pre></div>
 </div>
 <p>The first step is to dynamically allocate enough memory to store the C
@@ -549,21 +550,21 @@ tree itself how big it is by calling <code class="docutils literal notranslate">
 <p>After a quick trip to the documentation I discover that <code class="docutils literal notranslate"><span class="pre">len</span></code> is “spelt”
 <code class="docutils literal notranslate"><span class="pre">PyObject_Length</span></code> in the C API, add some of the required book keeping and we
 should be able to allocate enough space</p>
-<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="k">static</span><span class="w"> </span><span class="n">AstNode</span><span class="o">*</span><span class="w"></span>
-<span class="nf">AstTree_FromPyObject</span><span class="p">(</span><span class="n">PyObject</span><span class="w"> </span><span class="o">*</span><span class="n">obj</span><span class="p">)</span><span class="w"></span>
-<span class="p">{</span><span class="w"></span>
-<span class="w">   </span><span class="n">Py_ssize_t</span><span class="w"> </span><span class="n">num_nodes</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">PyObject_Length</span><span class="p">(</span><span class="n">obj</span><span class="p">);</span><span class="w"></span>
-<span class="w">   </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">num_nodes</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">-1</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">      </span><span class="k">return</span><span class="w"> </span><span class="nb">NULL</span><span class="p">;</span><span class="w"></span>
-<span class="w">   </span><span class="p">}</span><span class="w"></span>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="k">static</span><span class="w"> </span><span class="n">AstNode</span><span class="o">*</span>
+<span class="nf">AstTree_FromPyObject</span><span class="p">(</span><span class="n">PyObject</span><span class="w"> </span><span class="o">*</span><span class="n">obj</span><span class="p">)</span>
+<span class="p">{</span>
+<span class="w">   </span><span class="n">Py_ssize_t</span><span class="w"> </span><span class="n">num_nodes</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">PyObject_Length</span><span class="p">(</span><span class="n">obj</span><span class="p">);</span>
+<span class="w">   </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">num_nodes</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">-1</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="k">return</span><span class="w"> </span><span class="nb">NULL</span><span class="p">;</span>
+<span class="w">   </span><span class="p">}</span>
 
-<span class="w">   </span><span class="n">AstNode</span><span class="w"> </span><span class="o">*</span><span class="n">ast</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">malloc</span><span class="p">(</span><span class="n">num_nodes</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">sizeof</span><span class="p">(</span><span class="n">AstNode</span><span class="p">));</span><span class="w"></span>
-<span class="w">   </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">ast</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="nb">NULL</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">      </span><span class="k">return</span><span class="w"> </span><span class="nb">NULL</span><span class="p">;</span><span class="w"></span>
-<span class="w">   </span><span class="p">}</span><span class="w"></span>
+<span class="w">   </span><span class="n">AstNode</span><span class="w"> </span><span class="o">*</span><span class="n">ast</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">malloc</span><span class="p">(</span><span class="n">num_nodes</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">sizeof</span><span class="p">(</span><span class="n">AstNode</span><span class="p">));</span>
+<span class="w">   </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">ast</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="nb">NULL</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="k">return</span><span class="w"> </span><span class="nb">NULL</span><span class="p">;</span>
+<span class="w">   </span><span class="p">}</span>
 
 <span class="w">   </span><span class="c1">// ...</span>
-<span class="p">}</span><span class="w"></span>
+<span class="p">}</span>
 </pre></div>
 </div>
 <p>Something important to note here, up until now we’ve been calling into the
@@ -582,11 +583,11 @@ know that an error had occured but not be able to tell the user what was wrong.<
 </div>
 <p>Instead we also need to call <code class="docutils literal notranslate"><span class="pre">PyErr_SetString</span></code> to raise the appropriate
 exception that describes our error.</p>
-<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="n">AstNode</span><span class="w"> </span><span class="o">*</span><span class="n">ast</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">malloc</span><span class="p">(</span><span class="n">num_nodes</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">sizeof</span><span class="p">(</span><span class="n">AstNode</span><span class="p">));</span><span class="w"></span>
-<span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">ast</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="nb">NULL</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">   </span><span class="n">PyErr_SetString</span><span class="p">(</span><span class="n">PyExc_MemoryError</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;Unable to allocate memory for the AST.&quot;</span><span class="p">);</span><span class="w"></span>
-<span class="w">   </span><span class="k">return</span><span class="w"> </span><span class="nb">NULL</span><span class="p">;</span><span class="w"></span>
-<span class="p">}</span><span class="w"></span>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="n">AstNode</span><span class="w"> </span><span class="o">*</span><span class="n">ast</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">malloc</span><span class="p">(</span><span class="n">num_nodes</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">sizeof</span><span class="p">(</span><span class="n">AstNode</span><span class="p">));</span>
+<span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">ast</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="nb">NULL</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">   </span><span class="n">PyErr_SetString</span><span class="p">(</span><span class="n">PyExc_MemoryError</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;Unable to allocate memory for the AST.&quot;</span><span class="p">);</span>
+<span class="w">   </span><span class="k">return</span><span class="w"> </span><span class="nb">NULL</span><span class="p">;</span>
+<span class="p">}</span>
 </pre></div>
 </div>
 <p>With the information set, Python is able to report a much better error
@@ -619,23 +620,23 @@ that we can recursively call whenever we need to descend down a branch. This
 function will take a reference <code class="docutils literal notranslate"><span class="pre">obj</span></code> to the Python representation of the node
 we’re currently converting, another reference <cite>ast</cite> to the memory we allocated
 and finally an <code class="docutils literal notranslate"><span class="pre">index</span></code> into the array that we should write the node to.</p>
-<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="k">static</span><span class="w"> </span><span class="kt">int</span><span class="w"></span>
-<span class="nf">AstNode_FromPyObject</span><span class="p">(</span><span class="n">PyObject</span><span class="w"> </span><span class="o">*</span><span class="n">obj</span><span class="p">,</span><span class="w"> </span><span class="n">AstNode</span><span class="w"> </span><span class="o">*</span><span class="n">ast</span><span class="p">,</span><span class="w"> </span><span class="n">Py_ssize_t</span><span class="w"> </span><span class="n">index</span><span class="p">)</span><span class="w"></span>
-<span class="p">{</span><span class="w"></span>
-<span class="w">   </span><span class="n">AstNode</span><span class="w"> </span><span class="o">*</span><span class="n">node</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">&amp;</span><span class="n">astindex</span><span class="p">];</span><span class="w"></span>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="k">static</span><span class="w"> </span><span class="kt">int</span>
+<span class="nf">AstNode_FromPyObject</span><span class="p">(</span><span class="n">PyObject</span><span class="w"> </span><span class="o">*</span><span class="n">obj</span><span class="p">,</span><span class="w"> </span><span class="n">AstNode</span><span class="w"> </span><span class="o">*</span><span class="n">ast</span><span class="p">,</span><span class="w"> </span><span class="n">Py_ssize_t</span><span class="w"> </span><span class="n">index</span><span class="p">)</span>
+<span class="p">{</span>
+<span class="w">   </span><span class="n">AstNode</span><span class="w"> </span><span class="o">*</span><span class="n">node</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">&amp;</span><span class="n">astindex</span><span class="p">];</span>
 <span class="w">   </span><span class="c1">// ...</span>
-<span class="p">}</span><span class="w"></span>
+<span class="p">}</span>
 </pre></div>
 </div>
 <p>The first step in the process is to determine the type of node we are
 converting, which we can do by inspecting the value of the <code class="docutils literal notranslate"><span class="pre">type</span></code> field.</p>
-<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="n">PyObject</span><span class="w"> </span><span class="o">*</span><span class="n">type</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">PyObject_GetAttrString</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;type&quot;</span><span class="p">);</span><span class="w"></span>
-<span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">type</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="nb">NULL</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">   </span><span class="k">return</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"></span>
-<span class="p">}</span><span class="w"></span>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="n">PyObject</span><span class="w"> </span><span class="o">*</span><span class="n">type</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">PyObject_GetAttrString</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;type&quot;</span><span class="p">);</span>
+<span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">type</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="nb">NULL</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">   </span><span class="k">return</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
 
-<span class="kt">long</span><span class="w"> </span><span class="n">node_type</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">PyLong_AsLong</span><span class="p">(</span><span class="n">type</span><span class="p">);</span><span class="w"></span>
-<span class="n">Py_DECREF</span><span class="p">(</span><span class="n">type</span><span class="p">);</span><span class="w"></span>
+<span class="kt">long</span><span class="w"> </span><span class="n">node_type</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">PyLong_AsLong</span><span class="p">(</span><span class="n">type</span><span class="p">);</span>
+<span class="n">Py_DECREF</span><span class="p">(</span><span class="n">type</span><span class="p">);</span>
 </pre></div>
 </div>
 <p>The call to <code class="docutils literal notranslate"><span class="pre">PyObject_GetAttrString</span></code> is equivalent to <code class="docutils literal notranslate"><span class="pre">obj.type</span></code> in Python and
@@ -657,31 +658,31 @@ think should be done based on what I found in the documentation on <a class="ref
 <p>Now that we have an integer <code class="docutils literal notranslate"><span class="pre">node_type</span></code> that corresponds with one of the
 <code class="docutils literal notranslate"><span class="pre">AstNodeType</span></code> enum entries we can use a <code class="docutils literal notranslate"><span class="pre">switch</span></code> statement and start writing the
 conversion code for each type in turn.</p>
-<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="k">switch</span><span class="p">(</span><span class="n">node_type</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="k">case</span><span class="w"> </span><span class="no">AST_LITERAL</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="k">switch</span><span class="p">(</span><span class="n">node_type</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="k">case</span><span class="w"> </span><span class="no">AST_LITERAL</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
 
-<span class="w">   </span><span class="n">PyObject</span><span class="w"> </span><span class="o">*</span><span class="n">value</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">PyObject_GetAttrString</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;value&quot;</span><span class="p">);</span><span class="w"></span>
-<span class="w">   </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">value</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="nb">NULL</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">      </span><span class="k">return</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"></span>
-<span class="w">   </span><span class="p">}</span><span class="w"></span>
+<span class="w">   </span><span class="n">PyObject</span><span class="w"> </span><span class="o">*</span><span class="n">value</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">PyObject_GetAttrString</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;value&quot;</span><span class="p">);</span>
+<span class="w">   </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">value</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="nb">NULL</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="k">return</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="w">   </span><span class="p">}</span>
 
-<span class="w">   </span><span class="kt">double</span><span class="w"> </span><span class="n">v</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">PyFloat_AsDouble</span><span class="p">(</span><span class="n">value</span><span class="p">);</span><span class="w"></span>
-<span class="w">   </span><span class="n">Py_DECREF</span><span class="p">(</span><span class="n">value</span><span class="p">);</span><span class="w"></span>
+<span class="w">   </span><span class="kt">double</span><span class="w"> </span><span class="n">v</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">PyFloat_AsDouble</span><span class="p">(</span><span class="n">value</span><span class="p">);</span>
+<span class="w">   </span><span class="n">Py_DECREF</span><span class="p">(</span><span class="n">value</span><span class="p">);</span>
 
 <span class="w">   </span><span class="c1">// ...</span>
-<span class="p">}</span><span class="w"></span>
-<span class="p">}</span><span class="w"></span>
+<span class="p">}</span>
+<span class="p">}</span>
 </pre></div>
 </div>
 <p>Considering the <code class="docutils literal notranslate"><span class="pre">Literal</span></code> node types first, we can follow a very similar process
 to the previous section to extract the <code class="docutils literal notranslate"><span class="pre">value</span></code> field from the node giving us
 enough information to fill out our first <code class="docutils literal notranslate"><span class="pre">AstNode</span></code> instance!</p>
-<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="n">node</span><span class="o">-&gt;</span><span class="n">type</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">AST_LITERAL</span><span class="p">;</span><span class="w"></span>
-<span class="n">node</span><span class="o">-&gt;</span><span class="n">value</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">v</span><span class="p">;</span><span class="w"></span>
-<span class="n">node</span><span class="o">-&gt;</span><span class="n">left</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">NULL</span><span class="p">;</span><span class="w"></span>
-<span class="n">node</span><span class="o">-&gt;</span><span class="w"> </span><span class="n">right</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">NULL</span><span class="p">;</span><span class="w"></span>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="n">node</span><span class="o">-&gt;</span><span class="n">type</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">AST_LITERAL</span><span class="p">;</span>
+<span class="n">node</span><span class="o">-&gt;</span><span class="n">value</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">v</span><span class="p">;</span>
+<span class="n">node</span><span class="o">-&gt;</span><span class="n">left</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">NULL</span><span class="p">;</span>
+<span class="n">node</span><span class="o">-&gt;</span><span class="w"> </span><span class="n">right</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">NULL</span><span class="p">;</span>
 
-<span class="k">return</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span><span class="w"></span>
+<span class="k">return</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span>
 </pre></div>
 </div>
 <p>As this node type has no children there’s no further work to do and we can
@@ -694,44 +695,44 @@ things aren’t as straightforward…</p>
 identical we can handle their differences in the <code class="docutils literal notranslate"><span class="pre">switch</span></code> statement and then use
 the remainder of the function to handle recursing down both the <code class="docutils literal notranslate"><span class="pre">left</span></code> and
 <code class="docutils literal notranslate"><span class="pre">right</span></code> branches.</p>
-<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="k">case</span><span class="w"> </span><span class="no">AST_PLUS</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">   </span><span class="n">node</span><span class="o">-&gt;</span><span class="n">type</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">AST_PLUS</span><span class="p">;</span><span class="w"></span>
-<span class="w">   </span><span class="k">break</span><span class="p">;</span><span class="w"></span>
-<span class="p">}</span><span class="w"></span>
-<span class="k">case</span><span class="w"> </span><span class="no">AST_MULTIPLY</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">   </span><span class="n">node</span><span class="o">-&gt;</span><span class="n">type</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">AST_MULTIPLY</span><span class="p">;</span><span class="w"></span>
-<span class="w">   </span><span class="k">break</span><span class="p">;</span><span class="w"></span>
-<span class="p">}</span><span class="w"></span>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="k">case</span><span class="w"> </span><span class="no">AST_PLUS</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">   </span><span class="n">node</span><span class="o">-&gt;</span><span class="n">type</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">AST_PLUS</span><span class="p">;</span>
+<span class="w">   </span><span class="k">break</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="k">case</span><span class="w"> </span><span class="no">AST_MULTIPLY</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">   </span><span class="n">node</span><span class="o">-&gt;</span><span class="n">type</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">AST_MULTIPLY</span><span class="p">;</span>
+<span class="w">   </span><span class="k">break</span><span class="p">;</span>
+<span class="p">}</span>
 </pre></div>
 </div>
 <p>We can then get references to the child nodes in the same way we’ve been
 referencing all the other fields so far</p>
-<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="n">PyObject</span><span class="w"> </span><span class="o">*</span><span class="n">left</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">PyObject_GetAttrString</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;left&quot;</span><span class="p">);</span><span class="w"></span>
-<span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">left</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="nb">NULL</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">   </span><span class="k">return</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"></span>
-<span class="p">}</span><span class="w"></span>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="n">PyObject</span><span class="w"> </span><span class="o">*</span><span class="n">left</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">PyObject_GetAttrString</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;left&quot;</span><span class="p">);</span>
+<span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">left</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="nb">NULL</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">   </span><span class="k">return</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
 
-<span class="n">PyObject</span><span class="w"> </span><span class="o">*</span><span class="n">right</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">PyObject_GetAttrString</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;right&quot;</span><span class="p">);</span><span class="w"></span>
-<span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">right</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="nb">NULL</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">   </span><span class="k">return</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"></span>
-<span class="p">}</span><span class="w"></span>
+<span class="n">PyObject</span><span class="w"> </span><span class="o">*</span><span class="n">right</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">PyObject_GetAttrString</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;right&quot;</span><span class="p">);</span>
+<span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">right</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="nb">NULL</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">   </span><span class="k">return</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
 </pre></div>
 </div>
 <p>Then “all” that is left to do is set the <code class="docutils literal notranslate"><span class="pre">left</span></code> and <code class="docutils literal notranslate"><span class="pre">right</span></code> pointers on the
 <code class="docutils literal notranslate"><span class="pre">AstNode</span></code> struct and call <code class="docutils literal notranslate"><span class="pre">AstNode_FromPyObject</span></code> on each branch - remembering to
 adjust the <code class="docutils literal notranslate"><span class="pre">index</span></code> value accordingly.</p>
-<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="n">node</span><span class="o">-&gt;</span><span class="n">left</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">&amp;</span><span class="n">ast</span><span class="p">[</span><span class="n">index</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="p">];</span><span class="w"></span>
-<span class="n">node</span><span class="o">-&gt;</span><span class="n">right</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">&amp;</span><span class="n">ast</span><span class="p">[</span><span class="n">index</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">2</span><span class="p">];</span><span class="w"></span>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="n">node</span><span class="o">-&gt;</span><span class="n">left</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">&amp;</span><span class="n">ast</span><span class="p">[</span><span class="n">index</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="p">];</span>
+<span class="n">node</span><span class="o">-&gt;</span><span class="n">right</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">&amp;</span><span class="n">ast</span><span class="p">[</span><span class="n">index</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">2</span><span class="p">];</span>
 
-<span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="o">!</span><span class="n">AstNode_FromPyObject</span><span class="p">(</span><span class="n">left</span><span class="p">,</span><span class="w"> </span><span class="n">ast</span><span class="p">,</span><span class="w"> </span><span class="n">index</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="p">))</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">   </span><span class="k">return</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"></span>
-<span class="p">}</span><span class="w"></span>
+<span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="o">!</span><span class="n">AstNode_FromPyObject</span><span class="p">(</span><span class="n">left</span><span class="p">,</span><span class="w"> </span><span class="n">ast</span><span class="p">,</span><span class="w"> </span><span class="n">index</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="p">))</span><span class="w"> </span><span class="p">{</span>
+<span class="w">   </span><span class="k">return</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
 
-<span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="o">!</span><span class="n">AstNode_FromPyObject</span><span class="p">(</span><span class="n">right</span><span class="p">,</span><span class="w"> </span><span class="n">ast</span><span class="p">,</span><span class="w"> </span><span class="n">index</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">2</span><span class="p">))</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">   </span><span class="k">return</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"></span>
-<span class="p">}</span><span class="w"></span>
+<span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="o">!</span><span class="n">AstNode_FromPyObject</span><span class="p">(</span><span class="n">right</span><span class="p">,</span><span class="w"> </span><span class="n">ast</span><span class="p">,</span><span class="w"> </span><span class="n">index</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">2</span><span class="p">))</span><span class="w"> </span><span class="p">{</span>
+<span class="w">   </span><span class="k">return</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
 
-<span class="k">return</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span><span class="w"></span>
+<span class="k">return</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span>
 </pre></div>
 </div>
 <p>At least… that’s what I wanted to do initially, unfortunately this solution
@@ -744,32 +745,32 @@ to compute the correct offset for the <code class="docutils literal notranslate"
 <code class="docutils literal notranslate"><span class="pre">Py_ssize_t</span></code> to a pointer to one. This allows recursive calls to increment the
 index as needed and by the time execution returns to the top level function, the
 value referenced by the pointer is automatically the correct value.</p>
-<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="o">*</span><span class="n">index</span><span class="p">)</span><span class="o">++</span><span class="p">;</span><span class="w"></span>
-<span class="n">node</span><span class="o">-&gt;</span><span class="n">left</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">&amp;</span><span class="n">ast</span><span class="p">[</span><span class="o">*</span><span class="n">index</span><span class="p">];</span><span class="w"></span>
-<span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="o">!</span><span class="n">AstNode_FromPyObject</span><span class="p">(</span><span class="n">left</span><span class="p">,</span><span class="w"> </span><span class="n">ast</span><span class="p">,</span><span class="w"> </span><span class="n">index</span><span class="p">))</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">   </span><span class="k">return</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"></span>
-<span class="p">}</span><span class="w"></span>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="o">*</span><span class="n">index</span><span class="p">)</span><span class="o">++</span><span class="p">;</span>
+<span class="n">node</span><span class="o">-&gt;</span><span class="n">left</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">&amp;</span><span class="n">ast</span><span class="p">[</span><span class="o">*</span><span class="n">index</span><span class="p">];</span>
+<span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="o">!</span><span class="n">AstNode_FromPyObject</span><span class="p">(</span><span class="n">left</span><span class="p">,</span><span class="w"> </span><span class="n">ast</span><span class="p">,</span><span class="w"> </span><span class="n">index</span><span class="p">))</span><span class="w"> </span><span class="p">{</span>
+<span class="w">   </span><span class="k">return</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
 
-<span class="p">(</span><span class="o">*</span><span class="n">index</span><span class="p">)</span><span class="o">++</span><span class="p">;</span><span class="w"></span>
-<span class="n">node</span><span class="o">-&gt;</span><span class="n">right</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">&amp;</span><span class="n">ast</span><span class="p">[</span><span class="o">*</span><span class="n">index</span><span class="p">];</span><span class="w"></span>
-<span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="o">!</span><span class="n">AstNode_FromPyObject</span><span class="p">(</span><span class="n">right</span><span class="p">,</span><span class="w"> </span><span class="n">ast</span><span class="p">,</span><span class="w"> </span><span class="n">index</span><span class="p">))</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">   </span><span class="k">return</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"></span>
-<span class="p">}</span><span class="w"></span>
+<span class="p">(</span><span class="o">*</span><span class="n">index</span><span class="p">)</span><span class="o">++</span><span class="p">;</span>
+<span class="n">node</span><span class="o">-&gt;</span><span class="n">right</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">&amp;</span><span class="n">ast</span><span class="p">[</span><span class="o">*</span><span class="n">index</span><span class="p">];</span>
+<span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="o">!</span><span class="n">AstNode_FromPyObject</span><span class="p">(</span><span class="n">right</span><span class="p">,</span><span class="w"> </span><span class="n">ast</span><span class="p">,</span><span class="w"> </span><span class="n">index</span><span class="p">))</span><span class="w"> </span><span class="p">{</span>
+<span class="w">   </span><span class="k">return</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
 
-<span class="k">return</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span><span class="w"></span>
+<span class="k">return</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span>
 </pre></div>
 </div>
 <p>I have no idea if this is a terrible idea for real world scenarios, but it seems
 to work well enough for this at least.</p>
 <p>To complete the conversion code, all that remains is to make the initial call to
 <code class="docutils literal notranslate"><span class="pre">AstNode_FromPyObject</span></code> from our main <code class="docutils literal notranslate"><span class="pre">AstTree_FromPyObject</span></code>  function</p>
-<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="n">Py_ssize_t</span><span class="w"> </span><span class="n">index</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"></span>
-<span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="o">!</span><span class="n">AstTree_FromPyObject</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span><span class="w"> </span><span class="n">ast</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">index</span><span class="p">))</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">   </span><span class="n">free</span><span class="p">(</span><span class="n">ast</span><span class="p">);</span><span class="w"></span>
-<span class="w">   </span><span class="k">return</span><span class="w"> </span><span class="nb">NULL</span><span class="p">;</span><span class="w"></span>
-<span class="p">}</span><span class="w"></span>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="n">Py_ssize_t</span><span class="w"> </span><span class="n">index</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="o">!</span><span class="n">AstTree_FromPyObject</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span><span class="w"> </span><span class="n">ast</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">index</span><span class="p">))</span><span class="w"> </span><span class="p">{</span>
+<span class="w">   </span><span class="n">free</span><span class="p">(</span><span class="n">ast</span><span class="p">);</span>
+<span class="w">   </span><span class="k">return</span><span class="w"> </span><span class="nb">NULL</span><span class="p">;</span>
+<span class="p">}</span>
 
-<span class="k">return</span><span class="w"> </span><span class="n">ast</span><span class="p">;</span><span class="w"></span>
+<span class="k">return</span><span class="w"> </span><span class="n">ast</span><span class="p">;</span>
 </pre></div>
 </div>
 </section>
@@ -778,9 +779,9 @@ to work well enough for this at least.</p>
 <p>Phew! That was a lot of work but we’re almost there. We just need to add a few
 more lines to <code class="docutils literal notranslate"><span class="pre">method_eval_ast</span></code> that takes the newly constructed AST and
 evaluates it, before converting the result into a Python float and returning it.</p>
-<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="kt">double</span><span class="w"> </span><span class="n">result</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ast_evaluate</span><span class="p">(</span><span class="n">ast</span><span class="p">);</span><span class="w"></span>
-<span class="n">free</span><span class="p">(</span><span class="n">ast</span><span class="p">);</span><span class="w"></span>
-<span class="k">return</span><span class="w"> </span><span class="n">PyFloat_FromDouble</span><span class="p">(</span><span class="n">result</span><span class="p">);</span><span class="w"></span>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="kt">double</span><span class="w"> </span><span class="n">result</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ast_evaluate</span><span class="p">(</span><span class="n">ast</span><span class="p">);</span>
+<span class="n">free</span><span class="p">(</span><span class="n">ast</span><span class="p">);</span>
+<span class="k">return</span><span class="w"> </span><span class="n">PyFloat_FromDouble</span><span class="p">(</span><span class="n">result</span><span class="p">);</span>
 </pre></div>
 </div>
 <p>That’s the C Extension finished, the only thing we could do is import the
@@ -870,7 +871,7 @@ I’ll see you in the next one!</p>
                             Page Source
                         </a>
                     </span>
-                    <span>Built with <a class="text-green-600" href="https://www.sphinx-doc.org/en/master/">Sphinx</a> v5.1.1</span>
+                    <span>Built with <a class="text-green-600" href="https://www.sphinx-doc.org/en/master/">Sphinx</a> v5.3.0</span>
                 </div>
             </footer>
         </main>

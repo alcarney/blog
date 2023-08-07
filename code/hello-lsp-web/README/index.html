@@ -16,7 +16,7 @@
     <link id="pygments_dark_css" media="(prefers-color-scheme: dark)" rel="stylesheet" type="text/css" href="../../../_static/pygments_dark.css" />
     
     
-    <link rel="stylesheet" type="text/css" href="../../../_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css" />
     
     
     <link rel="stylesheet" type="text/css" href="../../../_static/css/styles.css" />
@@ -27,6 +27,7 @@
     <script src="../../../_static/underscore.js"></script>
     <script src="../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="../../../_static/doctools.js"></script>
+    <script src="../../../_static/sphinx_highlight.js"></script>
     <script src="../../../_static/design-tabs.js"></script>
     <link rel="shortcut icon" href="../../../_static/favicon.ico"/>
     <link rel="index" title="Index" href="../../../genindex/" />
@@ -147,19 +148,19 @@
 version of VSCode can then pick up and install.</p>
 <ol class="arabic">
 <li><p>Install dependencies</p>
-<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>npm install
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>npm<span class="w"> </span>install
 </pre></div>
 </div>
 </li>
 <li><p>Compile both the client and server components of the extension with webpack.
 Using the <code class="docutils literal notranslate"><span class="pre">watch</span></code> script means that webpack will automatically recompile the extension
 whenever you make changes.</p>
-<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>npm run watch
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>npm<span class="w"> </span>run<span class="w"> </span>watch
 </pre></div>
 </div>
 </li>
 <li><p>In a separate terminal, spin up a web server to serve your extension</p>
-<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>npm run serve
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>npm<span class="w"> </span>run<span class="w"> </span>serve
 
 <span class="go">&gt; hello-lsp-web@ serve /home/alex/Projects/blog/code/hello-lsp-web</span>
 <span class="go">&gt; npx serve --cors -l 5000</span>
@@ -182,7 +183,7 @@ whenever you make changes.</p>
 <li><p>I don’t fully understand this step, but running this command in a third terminal window
 somehow makes the local web server we spun up in the previous step, visible to the web
 version of VSCode.</p>
-<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>npm run tunnel
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>npm<span class="w"> </span>run<span class="w"> </span>tunnel
 
 <span class="go">&gt; hello-lsp-web@ tunnel /home/alex/Projects/blog/code/hello-lsp-web</span>
 <span class="go">&gt; npx localtunnel -p 5000</span>
@@ -227,7 +228,7 @@ once it has loaded. Bring up the command palette with <kbd class="kbd docutils l
                             Page Source
                         </a>
                     </span>
-                    <span>Built with <a class="text-green-600" href="https://www.sphinx-doc.org/en/master/">Sphinx</a> v5.1.1</span>
+                    <span>Built with <a class="text-green-600" href="https://www.sphinx-doc.org/en/master/">Sphinx</a> v5.3.0</span>
                 </div>
             </footer>
         </main>

@@ -16,7 +16,7 @@
     <link id="pygments_dark_css" media="(prefers-color-scheme: dark)" rel="stylesheet" type="text/css" href="../../_static/pygments_dark.css" />
     
     
-    <link rel="stylesheet" type="text/css" href="../../_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css" />
     
     
     <link rel="stylesheet" type="text/css" href="../../_static/css/styles.css" />
@@ -27,6 +27,7 @@
     <script src="../../_static/underscore.js"></script>
     <script src="../../_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/sphinx_highlight.js"></script>
     <script src="../../_static/design-tabs.js"></script>
     <link rel="shortcut icon" href="../../_static/favicon.ico"/>
     <link rel="index" title="Index" href="../../genindex/" />
@@ -156,7 +157,7 @@ accumlated a bunch of features that simply don’t exist in Python 2.x</p>
 <p>The <code class="docutils literal notranslate"><span class="pre">enum</span></code> module was added in Python 3.4. In order to make use of this module
 in versions of Python older than this we can install the <a class="reference external" href="https://pypi.org/project/enum34">enum34</a> package from
 PyPi.</p>
-<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>pip install enum34
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>pip<span class="w"> </span>install<span class="w"> </span>enum34
 </pre></div>
 </div>
 <p>Code that uses the standard <code class="docutils literal notranslate"><span class="pre">enum</span></code> module should now work as is.</p>
@@ -170,7 +171,7 @@ recent change being in 2016 at the time of writing.</p>
 <h3>No <code class="docutils literal notranslate"><span class="pre">pathlib</span></code> module<a class="headerlink" href="#no-pathlib-module" title="Permalink to this heading">¶</a></h3>
 <p>The <code class="docutils literal notranslate"><span class="pre">pathlib</span></code> module was added in Python 3.4. In order to make use of this
 module in older versions of Python we can install the <a class="reference external" href="https://pypi.org/project/pathlib2">pathlib2</a> package on PyPi</p>
-<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>pip install pathlib2
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>pip<span class="w"> </span>install<span class="w"> </span>pathlib2
 </pre></div>
 </div>
 <p>Then code written for the standard <code class="docutils literal notranslate"><span class="pre">pathlib</span></code> module should work as expected.</p>
@@ -196,7 +197,7 @@ compatible with older interpreters anymore</p>
 struggling to see if there are any functional differences between the two
 versions but there is a actively maintained <a class="reference external" href="https://pypi.org/project/configparser">configparser</a> package available which
 has apparently backported a number of changes to older versions of Python</p>
-<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>pip install configparser
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>pip<span class="w"> </span>install<span class="w"> </span>configparser
 </pre></div>
 </div>
 <p>In theory code using the standard <code class="docutils literal notranslate"><span class="pre">configparser</span></code> module will “just work”.</p>
@@ -244,7 +245,7 @@ support for unicode character encodings. This means that the <code class="docuti
 Python 2.x is <strong>not</strong> equivalent to the <code class="docutils literal notranslate"><span class="pre">str</span></code> type in Python 3.x</p>
 <p>So if you want to check that some value is an instance of the type <code class="docutils literal notranslate"><span class="pre">str</span></code> the
 best way is to make use the <a class="reference external" href="https://pypi.org/project/six">six</a> compatibility package</p>
-<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>pip install six
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>pip<span class="w"> </span>install<span class="w"> </span>six
 </pre></div>
 </div>
 <p>And to use the following code</p>
@@ -299,7 +300,7 @@ best way is to make use the <a class="reference external" href="https://pypi.org
                             Page Source
                         </a>
                     </span>
-                    <span>Built with <a class="text-green-600" href="https://www.sphinx-doc.org/en/master/">Sphinx</a> v5.1.1</span>
+                    <span>Built with <a class="text-green-600" href="https://www.sphinx-doc.org/en/master/">Sphinx</a> v5.3.0</span>
                 </div>
             </footer>
         </main>

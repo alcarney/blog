@@ -57,14 +57,14 @@ const _removeChildren = (element) => {
 const _escapeRegExp = (string) =>
   string.replace(/[.*+\-?^${}()|[\]\\]/g, "\\$&"); // $& means the whole matched string
 
-const _displayItem = (item, highlightTerms, searchTerms) => {
+const _displayItem = (item, searchTerms) => {
   const docBuilder = DOCUMENTATION_OPTIONS.BUILDER;
   const docUrlRoot = DOCUMENTATION_OPTIONS.URL_ROOT;
   const docFileSuffix = DOCUMENTATION_OPTIONS.FILE_SUFFIX;
   const docLinkSuffix = DOCUMENTATION_OPTIONS.LINK_SUFFIX;
   const showSearchSummary = DOCUMENTATION_OPTIONS.SHOW_SEARCH_SUMMARY;
 
-  const [docName, title, anchor, descr] = item;
+  const [docName, title, anchor, descr, score, _filename] = item;
 
   let listItem = document.createElement("li");
   listItem.className = "p-4 mt-4 bg-white dark:bg-gray-800 border dark:border-gray-600"
@@ -83,10 +83,9 @@ const _displayItem = (item, highlightTerms, searchTerms) => {
     requestUrl = docUrlRoot + docName + docFileSuffix;
     linkUrl = docName + docLinkSuffix;
   }
-  const params = new URLSearchParams();
-  params.set("highlight", [...highlightTerms].join(" "));
   let linkEl = listItem.appendChild(document.createElement("a"));
-  linkEl.href = linkUrl + "?" + params.toString() + anchor;
+  linkEl.href = linkUrl + anchor;
+  linkEl.dataset.score = score;
   linkEl.innerHTML = title;
   linkEl.className = "text-green-600"
   if (descr)
@@ -98,7 +97,7 @@ const _displayItem = (item, highlightTerms, searchTerms) => {
       .then((data) => {
         if (data)
           listItem.appendChild(
-            Search.makeSearchSummary(data, searchTerms, highlightTerms)
+            Search.makeSearchSummary(data, searchTerms)
           );
       });
   Search.output.appendChild(listItem);
@@ -118,15 +117,14 @@ const _finishSearch = (resultCount) => {
 const _displayNextItem = (
   results,
   resultCount,
-  highlightTerms,
   searchTerms
 ) => {
   // results left, load the summary and display it
   // this is intended to be dynamic (don't sub resultsCount)
   if (results.length) {
-    _displayItem(results.pop(), highlightTerms, searchTerms);
+    _displayItem(results.pop(), searchTerms);
     setTimeout(
-      () => _displayNextItem(results, resultCount, highlightTerms, searchTerms),
+      () => _displayNextItem(results, resultCount, searchTerms),
       5
     );
   }
@@ -213,10 +211,10 @@ const Search = {
     searchText.textContent = _("Searching");
     searchText.className = "text-3xl text-green-600"
     const searchSummary = document.createElement("p");
-    searchSummary.className = "dark:text-white my-4";
+    searchSummary.className = "dark:text-white my-4"
     searchSummary.innerText = "";
     const searchList = document.createElement("ul");
-    searchList.className = "m-0";
+    searchList.className = "m-0"
 
     const out = document.getElementById("search-results");
     Search.title = out.appendChild(searchText);
@@ -240,6 +238,12 @@ const Search = {
    * execute search (requires search index to be loaded)
    */
   query: (query) => {
+    const filenames = Search._index.filenames;
+    const docNames = Search._index.docnames;
+    const titles = Search._index.titles;
+    const allTitles = Search._index.alltitles;
+    const indexEntries = Search._index.indexentries;
+
     // stem the search terms and add them to the correct list
     const stemmer = new Stemmer();
     const searchTerms = new Set();
@@ -267,6 +271,10 @@ const Search = {
       }
     });
 
+    if (SPHINX_HIGHLIGHT_ENABLED) {  // set in sphinx_highlight.js
+      localStorage.setItem("sphinx_highlight_terms", [...highlightTerms].join(" "))
+    }
+
     // console.debug("SEARCH: searching for:");
     // console.info("required: ", [...searchTerms]);
     // console.info("excluded: ", [...excludedTerms]);
@@ -274,6 +282,40 @@ const Search = {
     // array of [docname, title, anchor, descr, score, filename]
     let results = [];
     _removeChildren(document.getElementById("search-progress"));
+
+    const queryLower = query.toLowerCase();
+    for (const [title, foundTitles] of Object.entries(allTitles)) {
+      if (title.toLowerCase().includes(queryLower) && (queryLower.length >= title.length/2)) {
+        for (const [file, id] of foundTitles) {
+          let score = Math.round(100 * queryLower.length / title.length)
+          results.push([
+            docNames[file],
+            titles[file] !== title ? `${titles[file]} > ${title}` : title,
+            id !== null ? "#" + id : "",
+            null,
+            score,
+            filenames[file],
+          ]);
+        }
+      }
+    }
+
+    // search for explicit entries in index directives
+    for (const [entry, foundEntries] of Object.entries(indexEntries)) {
+      if (entry.includes(queryLower) && (queryLower.length >= entry.length/2)) {
+        for (const [file, id] of foundEntries) {
+          let score = Math.round(100 * queryLower.length / entry.length)
+          results.push([
+            docNames[file],
+            titles[file],
+            id ? "#" + id : "",
+            null,
+            score,
+            filenames[file],
+          ]);
+        }
+      }
+    }
 
     // lookup as object
     objectTerms.forEach((term) =>
@@ -321,7 +363,7 @@ const Search = {
     // console.info("search results:", Search.lastresults);
 
     // print the results
-    _displayNextItem(results, results.length, highlightTerms, searchTerms);
+    _displayNextItem(results, results.length, searchTerms);
   },
 
   /**
@@ -402,8 +444,8 @@ const Search = {
     // prepare search
     const terms = Search._index.terms;
     const titleTerms = Search._index.titleterms;
-    const docNames = Search._index.docnames;
     const filenames = Search._index.filenames;
+    const docNames = Search._index.docnames;
     const titles = Search._index.titles;
 
     const scoreMap = new Map();
@@ -500,11 +542,9 @@ const Search = {
   /**
    * helper function to return a node containing the
    * search summary for a given text. keywords is a list
-   * of stemmed words, highlightWords is the list of normal, unstemmed
-   * words. the first one is used to find the occurrence, the
-   * latter for highlighting it.
+   * of stemmed words.
    */
-  makeSearchSummary: (htmlText, keywords, highlightWords) => {
+  makeSearchSummary: (htmlText, keywords) => {
     const text = Search.htmlToText(htmlText);
     if (text === "") return null;
 
@@ -521,10 +561,6 @@ const Search = {
     let summary = document.createElement("p");
     summary.classList.add("dark:text-white");
     summary.textContent = top + text.substr(startWithContext, 240).trim() + tail;
-
-    highlightWords.forEach((highlightWord) =>
-        _highlightText(summary, highlightWord, "px-2 border border-amber-500 bg-amber-500 dark:bg-amber-500/[0.2] dark:text-amber-200 rounded")
-    );
 
     return summary;
   },

@@ -16,7 +16,7 @@
     <link id="pygments_dark_css" media="(prefers-color-scheme: dark)" rel="stylesheet" type="text/css" href="../../../_static/pygments_dark.css" />
     
     
-    <link rel="stylesheet" type="text/css" href="../../../_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css" />
     
     
     <link rel="stylesheet" type="text/css" href="../../../_static/css/styles.css" />
@@ -27,6 +27,7 @@
     <script src="../../../_static/underscore.js"></script>
     <script src="../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="../../../_static/doctools.js"></script>
+    <script src="../../../_static/sphinx_highlight.js"></script>
     <script src="../../../_static/design-tabs.js"></script>
     <link rel="shortcut icon" href="../../../_static/favicon.ico"/>
     <link rel="index" title="Index" href="../../../genindex/" />
@@ -234,14 +235,14 @@ Instead here are a few resources that I’ve found useful which go into more det
 </pre></div>
 </div>
 <p>Using <code class="docutils literal notranslate"><span class="pre">nix</span> <span class="pre">flake</span> <span class="pre">show</span></code> we can see what outputs are produced by this flake</p>
-<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>nix flake show
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>nix<span class="w"> </span>flake<span class="w"> </span>show
 <span class="go">warning: Git tree &#39;/var/home/alex/Projects/esbonio&#39; is dirty</span>
 <span class="go">error: getting status of &#39;/nix/store/9s8zs1hrqiingklv86fd18x2mbgsfw0w-source/lib/esbonio/flake.nix&#39;: No such file or directory</span>
 </pre></div>
 </div>
 <p>Oh! I always forget, when working with flakes nix will only see a file if it is tracked by git - we don’t need to commit it, but it needs to at least be staged.</p>
-<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>git add flake.nix
-<span class="gp">$ </span>nix flake show
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>git<span class="w"> </span>add<span class="w"> </span>flake.nix
+<span class="gp">$ </span>nix<span class="w"> </span>flake<span class="w"> </span>show
 <span class="go">warning: Git tree &#39;/var/home/alex/Projects/esbonio&#39; is dirty</span>
 <span class="gp">git+file:///var/home/alex/Projects/esbonio?dir=lib%</span>2fesbonio
 <span class="go">└───devShell</span>
@@ -254,8 +255,8 @@ Instead here are a few resources that I’ve found useful which go into more det
 <p>This shows that we’ve already defined development environments for MacOS and Linux on both x86 and Arm platforms!
 To “activate” the correct environment we only need to run <code class="docutils literal notranslate"><span class="pre">nix</span> <span class="pre">develop</span></code>.
 Nix is smart enough to choose the one compatible with our current system and will proceed to setup all the packages required for that environment.</p>
-<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>nix develop
-<span class="gp gp-VirtualEnv">(nix-shell)</span> <span class="gp">$ </span><span class="nb">command</span> -v python
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>nix<span class="w"> </span>develop
+<span class="gp gp-VirtualEnv">(nix-shell)</span> <span class="gp">$ </span><span class="nb">command</span><span class="w"> </span>-v<span class="w"> </span>python
 <span class="go">/nix/store/qc8rlhdcdxaf6dwbvv0v4k50w937fyzj-python3-3.10.8/bin/python</span>
 
 <span class="gp gp-VirtualEnv">(nix-shell)</span> <span class="gp">$ </span>python
@@ -299,7 +300,7 @@ Nix is smart enough to choose the one compatible with our current system and wil
 </pre></div>
 </div>
 <p>And reactivate the environment</p>
-<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>nix develop
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>nix<span class="w"> </span>develop
 <span class="go">warning: Git tree &#39;/var/home/alex/Projects/esbonio&#39; is dirty</span>
 <span class="go">error: attribute &#39;pytest-lsp&#39; missing</span>
 
@@ -504,7 +505,7 @@ of <code class="docutils literal notranslate"><span class="pre">eachDefaultSyste
 </pre></div>
 </div>
 <p>With any luck, we should now see a per-python version devShell appear in the output of <code class="docutils literal notranslate"><span class="pre">nix</span> <span class="pre">flake</span> <span class="pre">show</span></code></p>
-<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>nix flake show
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>nix<span class="w"> </span>flake<span class="w"> </span>show
 <span class="gp">git+file:///var/home/alex/Projects/esbonio?dir=lib%2fesbonio&amp;ref=refs%2fheads%</span>2fnix<span class="p">&amp;</span><span class="nv">rev</span><span class="o">=</span>4a548327974dff1750099df4d793638a64b663e6
 <span class="go">└───devShells</span>
 <span class="go">    ├───aarch64-darwin</span>
@@ -535,7 +536,7 @@ of <code class="docutils literal notranslate"><span class="pre">eachDefaultSyste
 </div>
 <p>To reference a given environment we’d use the <code class="docutils literal notranslate"><span class="pre">.#&lt;envname&gt;</span></code> syntax when calling <code class="docutils literal notranslate"><span class="pre">nix</span> <span class="pre">develop</span></code>.
 The <code class="docutils literal notranslate"><span class="pre">--command</span></code> flag also allows us to run a command within the named environment without having to activate it first!</p>
-<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>nix develop .#py310 --command pytest
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>nix<span class="w"> </span>develop<span class="w"> </span>.#py310<span class="w"> </span>--command<span class="w"> </span>pytest
 <span class="go">=========================== test session starts ================================</span>
 <span class="go">platform linux -- Python 3.10.8, pytest-7.1.3, pluggy-1.0.0</span>
 <span class="go">rootdir: /var/home/alex/Projects/esbonio/lib/esbonio, configfile: pyproject.toml</span>
@@ -547,7 +548,7 @@ The <code class="docutils literal notranslate"><span class="pre">--command</span
 
 <span class="go">======== 2496 passed, 4 skipped, 8 xfailed in 344.10s (0:05:27) ================</span>
 
-<span class="gp">$ </span>nix develop .#py39 --command pytest
+<span class="gp">$ </span>nix<span class="w"> </span>develop<span class="w"> </span>.#py39<span class="w"> </span>--command<span class="w"> </span>pytest
 <span class="go">=========================== test session starts ================================</span>
 <span class="go">platform linux -- Python 3.9.15, pytest-7.1.3, pluggy-1.0.0</span>
 <span class="go">rootdir: /var/home/alex/Projects/esbonio/lib/esbonio, configfile: pyproject.toml</span>
@@ -608,7 +609,7 @@ However, this should hopefully serve as a good foundation on which I can explore
                             Page Source
                         </a>
                     </span>
-                    <span>Built with <a class="text-green-600" href="https://www.sphinx-doc.org/en/master/">Sphinx</a> v5.1.1</span>
+                    <span>Built with <a class="text-green-600" href="https://www.sphinx-doc.org/en/master/">Sphinx</a> v5.3.0</span>
                 </div>
             </footer>
         </main>

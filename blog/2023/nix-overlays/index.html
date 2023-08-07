@@ -16,7 +16,7 @@
     <link id="pygments_dark_css" media="(prefers-color-scheme: dark)" rel="stylesheet" type="text/css" href="../../../_static/pygments_dark.css" />
     
     
-    <link rel="stylesheet" type="text/css" href="../../../_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css" />
     
     
     <link rel="stylesheet" type="text/css" href="../../../_static/css/styles.css" />
@@ -27,6 +27,7 @@
     <script src="../../../_static/underscore.js"></script>
     <script src="../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="../../../_static/doctools.js"></script>
+    <script src="../../../_static/sphinx_highlight.js"></script>
     <script src="../../../_static/design-tabs.js"></script>
     <link rel="shortcut icon" href="../../../_static/favicon.ico"/>
     <link rel="index" title="Index" href="../../../genindex/" />
@@ -181,7 +182,7 @@ file and using the
 <a class="reference external" href="https://github.com/alcarney/esbonio/commit/f62e1d486bb7899d802bfd668f98f21b71702317#diff-592a771a0632b893c90066d07d7b260e4847eff70e8b47e9dcd0806014dcfc6d">package definition</a>
 from the previous post, it’s easy enough to sketch out a flake that should give us a <code class="docutils literal notranslate"><span class="pre">devShell</span></code> to work on the <code class="docutils literal notranslate"><span class="pre">pytest-lsp</span></code> package.</p>
 <p>However, trying to activate one we encounter a problem.</p>
-<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>nix develop -c .#py310
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>nix<span class="w"> </span>develop<span class="w"> </span>-c<span class="w"> </span>.#py310
 <span class="go">error: builder for &#39;/nix/store/dfd5bixdgkvfcnfa7f9z0ibp4m5zlhkz-python3.10-pytest-lsp-0.2.1.drv&#39; failed with exit code 1;</span>
 <span class="go">       last 10 log lines:</span>
 <span class="go">       &gt; installing</span>
@@ -265,7 +266,7 @@ Instead, here are some resources you might useful which go into more detail.</p>
 </pre></div>
 </div>
 <p>With some luck, running <code class="docutils literal notranslate"><span class="pre">nix</span> <span class="pre">develop</span></code> this time should bring in the latest <code class="docutils literal notranslate"><span class="pre">pygls</span></code> version</p>
-<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>nix develop -c .#py310
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>nix<span class="w"> </span>develop<span class="w"> </span>-c<span class="w"> </span>.#py310
 <span class="go">error: builder for &#39;/nix/store/1sha5j0dfyn2g4z82rpk4yqv32awmjfr-python3.10-pytest-lsp-0.2.1.drv&#39; failed with exit code 1;</span>
 <span class="go">       ...</span>
 <span class="go">       &gt; ERROR: No matching distribution found for pygls&gt;=1.0.0</span>
@@ -288,7 +289,7 @@ self<span class="p">:</span> super<span class="p">:</span> <span class="k">rec</
 </pre></div>
 </div>
 <p>And try again</p>
-<div class="highlight-console notranslate" id="nix-overlays-build-pygls-output"><div class="highlight"><pre><span></span><span class="gp">$ </span>nix develop .#py310
+<div class="highlight-console notranslate" id="nix-overlays-build-pygls-output"><div class="highlight"><pre><span></span><span class="gp">$ </span>nix<span class="w"> </span>develop<span class="w"> </span>.#py310
 <span class="go">error: builder for &#39;/nix/store/jl23ai588n2b6amaicy5532bdxjiciyy-python3.10-pygls-0.13.0.drv&#39; failed with exit code 1;</span>
 <span class="go">       last 10 log lines:</span>
 <span class="go">       &gt; removing build/bdist.linux-x86_64/wheel</span>
@@ -389,7 +390,7 @@ But the build is not taking place in a git repo… so nix must be setting that v
 </pre></div>
 </div>
 <p>Now if we try activating that devShell?</p>
-<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>nix develop .#py310
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>nix<span class="w"> </span>develop<span class="w"> </span>.#py310
 <span class="gp gp-VirtualEnv">(nix-shell)</span> <span class="gp">$ </span>pytest
 <span class="go">================================== test session starts =================================</span>
 <span class="go">platform linux -- Python 3.10.9, pytest-7.2.0, pluggy-1.0.0</span>
@@ -410,7 +411,7 @@ But the build is not taking place in a git repo… so nix must be setting that v
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>I’m not 100% sure if I’ve overriden the pygls’ version number correctly, since inspecting the <code class="docutils literal notranslate"><span class="pre">PYTHONPATH</span></code> the devShell is using shows that the version number of the nix package is <em>still</em> <code class="docutils literal notranslate"><span class="pre">0.13.0</span></code>!</p>
-<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp gp-VirtualEnv">(nix-shell)</span> <span class="gp">$ </span><span class="nb">echo</span> <span class="nv">$PYTHONPATH</span> <span class="p">|</span> tr <span class="s1">&#39;:&#39;</span> <span class="s1">&#39;\n&#39;</span> <span class="p">|</span> grep pygls
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp gp-VirtualEnv">(nix-shell)</span> <span class="gp">$ </span><span class="nb">echo</span><span class="w"> </span><span class="nv">$PYTHONPATH</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>tr<span class="w"> </span><span class="s1">&#39;:&#39;</span><span class="w"> </span><span class="s1">&#39;\n&#39;</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>pygls
 <span class="go">/nix/store/s5jh5s9m5f1163hxzj8768jc5li7cdfg-python3.10-pygls-0.13.0/lib/python3.10/site-packages</span>
 </pre></div>
 </div>
@@ -558,7 +559,7 @@ eachPythonVersion <span class="p">[</span> <span class="s2">&quot;37&quot;</span
 </pre></div>
 </div>
 <p>Finally, we should be able to activate a devShell for <code class="docutils literal notranslate"><span class="pre">esbonio</span></code> as before.</p>
-<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>nix develop .#py310
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>nix<span class="w"> </span>develop<span class="w"> </span>.#py310
 <span class="go">error: Dependency is not of a valid type: element 5 of nativeBuildInputs for py310</span>
 <span class="gp gp-VirtualEnv">(use &#39;--show-trace&#39; to show detailed location information)</span>
 </pre></div>
@@ -599,7 +600,7 @@ eachPythonVersion <span class="p">[</span> <span class="s2">&quot;37&quot;</span
                             Page Source
                         </a>
                     </span>
-                    <span>Built with <a class="text-green-600" href="https://www.sphinx-doc.org/en/master/">Sphinx</a> v5.1.1</span>
+                    <span>Built with <a class="text-green-600" href="https://www.sphinx-doc.org/en/master/">Sphinx</a> v5.3.0</span>
                 </div>
             </footer>
         </main>

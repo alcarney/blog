@@ -16,7 +16,7 @@
     <link id="pygments_dark_css" media="(prefers-color-scheme: dark)" rel="stylesheet" type="text/css" href="../../../_static/pygments_dark.css" />
     
     
-    <link rel="stylesheet" type="text/css" href="../../../_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css" />
     
     
     <link rel="stylesheet" type="text/css" href="../../../_static/css/styles.css" />
@@ -27,6 +27,7 @@
     <script src="../../../_static/underscore.js"></script>
     <script src="../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="../../../_static/doctools.js"></script>
+    <script src="../../../_static/sphinx_highlight.js"></script>
     <script src="../../../_static/design-tabs.js"></script>
     <link rel="shortcut icon" href="../../../_static/favicon.ico"/>
     <link rel="index" title="Index" href="../../../genindex/" />
@@ -210,15 +211,15 @@ loading the code we write.</p>
 </div>
 <p>Then the first step is to create our SVG image element to act as our “canvas”
 that we can draw on.</p>
-<div class="highlight-js notranslate"><div class="highlight"><pre><span></span><span class="kd">const</span><span class="w"> </span><span class="nx">svgns</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;http://www.w3.org/2000/svg&quot;</span><span class="w"></span>
-<span class="kd">const</span><span class="w"> </span><span class="nx">main</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="s2">&quot;main&quot;</span><span class="p">)</span><span class="w"></span>
+<div class="highlight-js notranslate"><div class="highlight"><pre><span></span><span class="kd">const</span><span class="w"> </span><span class="nx">svgns</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;http://www.w3.org/2000/svg&quot;</span>
+<span class="kd">const</span><span class="w"> </span><span class="nx">main</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="s2">&quot;main&quot;</span><span class="p">)</span>
 
-<span class="kd">const</span><span class="w"> </span><span class="nx">canvas</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">document</span><span class="p">.</span><span class="nx">createElementNS</span><span class="p">(</span><span class="nx">svgns</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;svg&quot;</span><span class="p">)</span><span class="w"></span>
-<span class="nx">canvas</span><span class="p">.</span><span class="nx">setAttribute</span><span class="p">(</span><span class="s2">&quot;width&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;100%&quot;</span><span class="p">)</span><span class="w"></span>
-<span class="nx">canvas</span><span class="p">.</span><span class="nx">setAttribute</span><span class="p">(</span><span class="s2">&quot;height&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;100%&quot;</span><span class="p">)</span><span class="w"></span>
-<span class="nx">canvas</span><span class="p">.</span><span class="nx">style</span><span class="p">.</span><span class="nx">border</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;solid 2px #242930&quot;</span><span class="w"></span>
+<span class="kd">const</span><span class="w"> </span><span class="nx">canvas</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">document</span><span class="p">.</span><span class="nx">createElementNS</span><span class="p">(</span><span class="nx">svgns</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;svg&quot;</span><span class="p">)</span>
+<span class="nx">canvas</span><span class="p">.</span><span class="nx">setAttribute</span><span class="p">(</span><span class="s2">&quot;width&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;100%&quot;</span><span class="p">)</span>
+<span class="nx">canvas</span><span class="p">.</span><span class="nx">setAttribute</span><span class="p">(</span><span class="s2">&quot;height&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;100%&quot;</span><span class="p">)</span>
+<span class="nx">canvas</span><span class="p">.</span><span class="nx">style</span><span class="p">.</span><span class="nx">border</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;solid 2px #242930&quot;</span>
 
-<span class="nx">main</span><span class="p">.</span><span class="nx">appendChild</span><span class="p">(</span><span class="nx">canvas</span><span class="p">)</span><span class="w"></span>
+<span class="nx">main</span><span class="p">.</span><span class="nx">appendChild</span><span class="p">(</span><span class="nx">canvas</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>A few things to note:</p>
@@ -247,33 +248,33 @@ accurately track the cursor, either racing away from or lagging behind it.</p>
 our <code class="docutils literal notranslate"><span class="pre">&lt;svg&gt;</span></code> element - so how can we know its proportions? Thankfully once the
 <code class="docutils literal notranslate"><span class="pre">&lt;svg&gt;</span></code> as been added to the page we can ask the browser for the bounding box
 around the element.</p>
-<div class="highlight-js notranslate"><div class="highlight"><pre><span></span><span class="kd">let</span><span class="w"> </span><span class="nx">bbox</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">canvas</span><span class="p">.</span><span class="nx">getBoundingClientRect</span><span class="p">()</span><span class="w"></span>
+<div class="highlight-js notranslate"><div class="highlight"><pre><span></span><span class="kd">let</span><span class="w"> </span><span class="nx">bbox</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">canvas</span><span class="p">.</span><span class="nx">getBoundingClientRect</span><span class="p">()</span>
 </pre></div>
 </div>
 <p>Among other properties that are outlined on <a class="reference external" href="https://developer.mozilla.org/en-US/docs/Web/API/Element/getBoundingClientRect">this</a> page we can get the width and
 height of the rendered image in pixels from which its easy to calculate the
 aspect ratio.</p>
-<div class="highlight-js notranslate"><div class="highlight"><pre><span></span><span class="kd">const</span><span class="w"> </span><span class="nx">aspectRatio</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">bbox</span><span class="p">.</span><span class="nx">width</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="nx">bbox</span><span class="p">.</span><span class="nx">height</span><span class="w"></span>
+<div class="highlight-js notranslate"><div class="highlight"><pre><span></span><span class="kd">const</span><span class="w"> </span><span class="nx">aspectRatio</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">bbox</span><span class="p">.</span><span class="nx">width</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="nx">bbox</span><span class="p">.</span><span class="nx">height</span>
 </pre></div>
 </div>
 <p>We’re free to choose whichever scale we want for the vertical height of the
 <code class="docutils literal notranslate"><span class="pre">viewBox</span></code> into the <code class="docutils literal notranslate"><span class="pre">&lt;svg&gt;</span></code> element. I have chosen <code class="docutils literal notranslate"><span class="pre">100</span></code> simply because it feels
 like a nice round number. Once we’ve decided on a scale for the height, it’s
 easy enough to calculate the corresponding width from our aspect ratio.</p>
-<div class="highlight-js notranslate"><div class="highlight"><pre><span></span><span class="kd">const</span><span class="w"> </span><span class="nx">height</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">100</span><span class="w"></span>
-<span class="kd">const</span><span class="w"> </span><span class="nx">width</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">height</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="nx">aspectRatio</span><span class="w"></span>
+<div class="highlight-js notranslate"><div class="highlight"><pre><span></span><span class="kd">const</span><span class="w"> </span><span class="nx">height</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">100</span>
+<span class="kd">const</span><span class="w"> </span><span class="nx">width</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">height</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="nx">aspectRatio</span>
 </pre></div>
 </div>
 <p>With the dimensions of the <code class="docutils literal notranslate"><span class="pre">viewBox</span></code> taken care of all that is left to do is
 decide on the coordinates to assign to the top left corner of the <code class="docutils literal notranslate"><span class="pre">&lt;svg&gt;</span></code>
 element and assign the view box to our canvas.</p>
-<div class="highlight-js notranslate"><div class="highlight"><pre><span></span><span class="kd">const</span><span class="w"> </span><span class="nx">viewBox</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="nx">minX</span><span class="o">:</span><span class="w"> </span><span class="mf">0</span><span class="p">,</span><span class="w"> </span><span class="nx">minY</span><span class="o">:</span><span class="w"> </span><span class="mf">0</span><span class="p">,</span><span class="w"> </span><span class="nx">width</span><span class="o">:</span><span class="w"> </span><span class="nx">width</span><span class="p">,</span><span class="w"> </span><span class="nx">height</span><span class="o">:</span><span class="w"> </span><span class="nx">height</span><span class="p">}</span><span class="w"></span>
+<div class="highlight-js notranslate"><div class="highlight"><pre><span></span><span class="kd">const</span><span class="w"> </span><span class="nx">viewBox</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="nx">minX</span><span class="o">:</span><span class="w"> </span><span class="mf">0</span><span class="p">,</span><span class="w"> </span><span class="nx">minY</span><span class="o">:</span><span class="w"> </span><span class="mf">0</span><span class="p">,</span><span class="w"> </span><span class="nx">width</span><span class="o">:</span><span class="w"> </span><span class="nx">width</span><span class="p">,</span><span class="w"> </span><span class="nx">height</span><span class="o">:</span><span class="w"> </span><span class="nx">height</span><span class="p">}</span>
 
-<span class="kd">const</span><span class="w"> </span><span class="nx">viewBoxStr</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[</span><span class="w"></span>
-<span class="w">  </span><span class="nx">viewBox</span><span class="p">.</span><span class="nx">minX</span><span class="p">,</span><span class="w"> </span><span class="nx">viewBox</span><span class="p">.</span><span class="nx">minY</span><span class="p">,</span><span class="w"> </span><span class="nx">viewBox</span><span class="p">.</span><span class="nx">width</span><span class="p">,</span><span class="w"> </span><span class="nx">viewBox</span><span class="p">.</span><span class="nx">height</span><span class="w"></span>
-<span class="p">].</span><span class="nx">join</span><span class="p">(</span><span class="s2">&quot; &quot;</span><span class="p">)</span><span class="w"></span>
+<span class="kd">const</span><span class="w"> </span><span class="nx">viewBoxStr</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[</span>
+<span class="w">  </span><span class="nx">viewBox</span><span class="p">.</span><span class="nx">minX</span><span class="p">,</span><span class="w"> </span><span class="nx">viewBox</span><span class="p">.</span><span class="nx">minY</span><span class="p">,</span><span class="w"> </span><span class="nx">viewBox</span><span class="p">.</span><span class="nx">width</span><span class="p">,</span><span class="w"> </span><span class="nx">viewBox</span><span class="p">.</span><span class="nx">height</span>
+<span class="p">].</span><span class="nx">join</span><span class="p">(</span><span class="s2">&quot; &quot;</span><span class="p">)</span>
 
-<span class="nx">canvas</span><span class="p">.</span><span class="nx">setAttribute</span><span class="p">(</span><span class="s2">&quot;viewBox&quot;</span><span class="p">,</span><span class="w"> </span><span class="nx">viewBoxStr</span><span class="p">)</span><span class="w"></span>
+<span class="nx">canvas</span><span class="p">.</span><span class="nx">setAttribute</span><span class="p">(</span><span class="s2">&quot;viewBox&quot;</span><span class="p">,</span><span class="w"> </span><span class="nx">viewBoxStr</span><span class="p">)</span>
 </pre></div>
 </div>
 </section>
@@ -283,13 +284,13 @@ element and assign the view box to our canvas.</p>
 something for us to interact with. To keep things simple I will stick to a <code class="docutils literal notranslate"><span class="pre">&lt;circle&gt;</span></code>
 element, though the method we use here should apply to any SVG element (or any
 collection of elements under a <code class="docutils literal notranslate"><span class="pre">&lt;g&gt;</span></code> tag).</p>
-<div class="highlight-js notranslate"><div class="highlight"><pre><span></span><span class="kd">const</span><span class="w"> </span><span class="nx">circle</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">document</span><span class="p">.</span><span class="nx">createElementNS</span><span class="p">(</span><span class="nx">svgns</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;circle&quot;</span><span class="p">)</span><span class="w"></span>
-<span class="nx">circle</span><span class="p">.</span><span class="nx">setAttribute</span><span class="p">(</span><span class="s2">&quot;cx&quot;</span><span class="p">,</span><span class="w"> </span><span class="nx">viewBox</span><span class="p">.</span><span class="nx">width</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="mf">2</span><span class="p">)</span><span class="w"></span>
-<span class="nx">circle</span><span class="p">.</span><span class="nx">setAttribute</span><span class="p">(</span><span class="s2">&quot;cy&quot;</span><span class="p">,</span><span class="w"> </span><span class="nx">viewBox</span><span class="p">.</span><span class="nx">height</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="mf">2</span><span class="p">)</span><span class="w"></span>
-<span class="nx">circle</span><span class="p">.</span><span class="nx">setAttribute</span><span class="p">(</span><span class="s2">&quot;r&quot;</span><span class="p">,</span><span class="w"> </span><span class="mf">15</span><span class="p">)</span><span class="w"></span>
-<span class="nx">circle</span><span class="p">.</span><span class="nx">setAttribute</span><span class="p">(</span><span class="s2">&quot;fill&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;#57cc8a&quot;</span><span class="p">)</span><span class="w"></span>
+<div class="highlight-js notranslate"><div class="highlight"><pre><span></span><span class="kd">const</span><span class="w"> </span><span class="nx">circle</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">document</span><span class="p">.</span><span class="nx">createElementNS</span><span class="p">(</span><span class="nx">svgns</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;circle&quot;</span><span class="p">)</span>
+<span class="nx">circle</span><span class="p">.</span><span class="nx">setAttribute</span><span class="p">(</span><span class="s2">&quot;cx&quot;</span><span class="p">,</span><span class="w"> </span><span class="nx">viewBox</span><span class="p">.</span><span class="nx">width</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="mf">2</span><span class="p">)</span>
+<span class="nx">circle</span><span class="p">.</span><span class="nx">setAttribute</span><span class="p">(</span><span class="s2">&quot;cy&quot;</span><span class="p">,</span><span class="w"> </span><span class="nx">viewBox</span><span class="p">.</span><span class="nx">height</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="mf">2</span><span class="p">)</span>
+<span class="nx">circle</span><span class="p">.</span><span class="nx">setAttribute</span><span class="p">(</span><span class="s2">&quot;r&quot;</span><span class="p">,</span><span class="w"> </span><span class="mf">15</span><span class="p">)</span>
+<span class="nx">circle</span><span class="p">.</span><span class="nx">setAttribute</span><span class="p">(</span><span class="s2">&quot;fill&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;#57cc8a&quot;</span><span class="p">)</span>
 
-<span class="nx">canvas</span><span class="p">.</span><span class="nx">appendChild</span><span class="p">(</span><span class="nx">circle</span><span class="p">)</span><span class="w"></span>
+<span class="nx">canvas</span><span class="p">.</span><span class="nx">appendChild</span><span class="p">(</span><span class="nx">circle</span><span class="p">)</span>
 </pre></div>
 </div>
 <div class="admonition note">
@@ -302,9 +303,9 @@ will depend on the element you have chosen.</p>
 <h2>Implementing the Drag<a class="headerlink" href="#implementing-the-drag" title="Permalink to this heading">¶</a></h2>
 <p>We will create an event handler for the <code class="docutils literal notranslate"><span class="pre">mousemove</span></code> event and attach it to
 our canvas.</p>
-<div class="highlight-js notranslate"><div class="highlight"><pre><span></span><span class="nx">canvas</span><span class="p">.</span><span class="nx">addEventListener</span><span class="p">(</span><span class="s2">&quot;mousemove&quot;</span><span class="p">,</span><span class="w"> </span><span class="p">(</span><span class="nx">event</span><span class="p">)</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">  </span><span class="c1">// Do something clever here...</span><span class="w"></span>
-<span class="p">})</span><span class="w"></span>
+<div class="highlight-js notranslate"><div class="highlight"><pre><span></span><span class="nx">canvas</span><span class="p">.</span><span class="nx">addEventListener</span><span class="p">(</span><span class="s2">&quot;mousemove&quot;</span><span class="p">,</span><span class="w"> </span><span class="p">(</span><span class="nx">event</span><span class="p">)</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="c1">// Do something clever here...</span>
+<span class="p">})</span>
 </pre></div>
 </div>
 <p>The function we write will be called every time the cursor moves regardless of
@@ -313,7 +314,7 @@ to cope with two situations, the cursor moving when the user has clicked and the
 cursor moving when the user has not clicked.</p>
 <p>To do this we will declare a variable called <code class="docutils literal notranslate"><span class="pre">clicked</span></code> outside the scope of our
 function.</p>
-<div class="highlight-js notranslate"><div class="highlight"><pre><span></span><span class="kd">let</span><span class="w"> </span><span class="nx">clicked</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">false</span><span class="w"></span>
+<div class="highlight-js notranslate"><div class="highlight"><pre><span></span><span class="kd">let</span><span class="w"> </span><span class="nx">clicked</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">false</span>
 </pre></div>
 </div>
 <p>For the moment we will ignore the details around how this variable is updated
@@ -325,9 +326,9 @@ cursor is moving about the page</p>
 <p>When the mouse is moving but the user has not clicked, then there is nothing for
 us to do! We can simply check the value of the <code class="docutils literal notranslate"><span class="pre">clicked</span></code> variable and stop the
 function if it meets the criteria.</p>
-<div class="highlight-js notranslate"><div class="highlight"><pre><span></span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="o">!</span><span class="nx">clicked</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">  </span><span class="k">return</span><span class="w"></span>
-<span class="p">}</span><span class="w"></span>
+<div class="highlight-js notranslate"><div class="highlight"><pre><span></span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="o">!</span><span class="nx">clicked</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="k">return</span>
+<span class="p">}</span>
 </pre></div>
 </div>
 </section>
@@ -353,8 +354,8 @@ simple as that.</p>
 <p>Below you should see 2 boxes, the bigger one on the left is our canvas. The
 smaller box on the right contains a smaller circle that represents the
 calculated position of the cursor based on the <code class="docutils literal notranslate"><span class="pre">offset&lt;XY&gt;</span></code> properties like so.</p>
-<div class="highlight-js notranslate"><div class="highlight"><pre><span></span><span class="kd">const</span><span class="w"> </span><span class="nx">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">event</span><span class="p">.</span><span class="nx">offsetX</span><span class="w"></span>
-<span class="kd">const</span><span class="w"> </span><span class="nx">y</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">event</span><span class="p">.</span><span class="nx">offsetY</span><span class="w"></span>
+<div class="highlight-js notranslate"><div class="highlight"><pre><span></span><span class="kd">const</span><span class="w"> </span><span class="nx">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">event</span><span class="p">.</span><span class="nx">offsetX</span>
+<span class="kd">const</span><span class="w"> </span><span class="nx">y</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">event</span><span class="p">.</span><span class="nx">offsetY</span>
 </pre></div>
 </div>
 <p>Try moving the mouse across the canvas and keep an eye on the calculated
@@ -400,10 +401,10 @@ corner of the canvas relative to the user’s current view of the document -
 exactly the same coordinate system used by the <code class="docutils literal notranslate"><span class="pre">client&lt;XY&gt;</span></code> properties! From
 those two pieces of information it’s easy enough to recover the <code class="docutils literal notranslate"><span class="pre">offset&lt;XY&gt;</span></code>
 values ourselves.</p>
-<div class="highlight-js notranslate"><div class="highlight"><pre><span></span><span class="nx">bbox</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">canvas</span><span class="p">.</span><span class="nx">getBoundingClientRect</span><span class="p">()</span><span class="w"></span>
+<div class="highlight-js notranslate"><div class="highlight"><pre><span></span><span class="nx">bbox</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">canvas</span><span class="p">.</span><span class="nx">getBoundingClientRect</span><span class="p">()</span>
 
-<span class="kd">const</span><span class="w"> </span><span class="nx">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">event</span><span class="p">.</span><span class="nx">clientX</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="nx">bbox</span><span class="p">.</span><span class="nx">left</span><span class="w"></span>
-<span class="kd">const</span><span class="w"> </span><span class="nx">y</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">event</span><span class="p">.</span><span class="nx">clientY</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="nx">bbox</span><span class="p">.</span><span class="nx">top</span><span class="w"></span>
+<span class="kd">const</span><span class="w"> </span><span class="nx">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">event</span><span class="p">.</span><span class="nx">clientX</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="nx">bbox</span><span class="p">.</span><span class="nx">left</span>
+<span class="kd">const</span><span class="w"> </span><span class="nx">y</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">event</span><span class="p">.</span><span class="nx">clientY</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="nx">bbox</span><span class="p">.</span><span class="nx">top</span>
 </pre></div>
 </div>
 <p>By calculating the coordinates using values that are independent of the element
@@ -468,33 +469,33 @@ case this would mean setting <code class="docutils literal notranslate"><span cl
 <p>We can adopt this approach by using the <cite>width</cite> and <cite>height</cite> information
 returned as part of the bounding box to modify our calculation to produce a
 percentage rather than an absolute value.</p>
-<div class="highlight-js notranslate"><div class="highlight"><pre><span></span><span class="kd">const</span><span class="w"> </span><span class="nx">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="nx">event</span><span class="p">.</span><span class="nx">clientX</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="nx">bbox</span><span class="p">.</span><span class="nx">left</span><span class="p">)</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="nx">bbox</span><span class="p">.</span><span class="nx">width</span><span class="w"></span>
-<span class="kd">const</span><span class="w"> </span><span class="nx">y</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="nx">event</span><span class="p">.</span><span class="nx">clientY</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="nx">bbox</span><span class="p">.</span><span class="nx">top</span><span class="p">)</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="nx">bbox</span><span class="p">.</span><span class="nx">height</span><span class="w"></span>
+<div class="highlight-js notranslate"><div class="highlight"><pre><span></span><span class="kd">const</span><span class="w"> </span><span class="nx">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="nx">event</span><span class="p">.</span><span class="nx">clientX</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="nx">bbox</span><span class="p">.</span><span class="nx">left</span><span class="p">)</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="nx">bbox</span><span class="p">.</span><span class="nx">width</span>
+<span class="kd">const</span><span class="w"> </span><span class="nx">y</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="nx">event</span><span class="p">.</span><span class="nx">clientY</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="nx">bbox</span><span class="p">.</span><span class="nx">top</span><span class="p">)</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="nx">bbox</span><span class="p">.</span><span class="nx">height</span>
 </pre></div>
 </div>
 <p>To then convert this percentage into its corresponding value in the SVG
 coordinate system all we have to do is multiply it by the width and height of
 that system and assign the result to our circle’s position!</p>
-<div class="highlight-js notranslate"><div class="highlight"><pre><span></span><span class="nx">circle</span><span class="p">.</span><span class="nx">setAttriubte</span><span class="p">(</span><span class="s2">&quot;cx&quot;</span><span class="p">,</span><span class="w"> </span><span class="nx">x</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="nx">viewBox</span><span class="p">.</span><span class="nx">width</span><span class="p">)</span><span class="w"></span>
-<span class="nx">circle</span><span class="p">.</span><span class="nx">setAttribute</span><span class="p">(</span><span class="s2">&quot;cy&quot;</span><span class="p">,</span><span class="w"> </span><span class="nx">y</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="nx">viewBox</span><span class="p">.</span><span class="nx">height</span><span class="p">)</span><span class="w"></span>
+<div class="highlight-js notranslate"><div class="highlight"><pre><span></span><span class="nx">circle</span><span class="p">.</span><span class="nx">setAttriubte</span><span class="p">(</span><span class="s2">&quot;cx&quot;</span><span class="p">,</span><span class="w"> </span><span class="nx">x</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="nx">viewBox</span><span class="p">.</span><span class="nx">width</span><span class="p">)</span>
+<span class="nx">circle</span><span class="p">.</span><span class="nx">setAttribute</span><span class="p">(</span><span class="s2">&quot;cy&quot;</span><span class="p">,</span><span class="w"> </span><span class="nx">y</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="nx">viewBox</span><span class="p">.</span><span class="nx">height</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>Bringing all that together we end up with the following implementation of our
 <code class="docutils literal notranslate"><span class="pre">mousemove</span></code> event handler.</p>
-<div class="highlight-js notranslate"><div class="highlight"><pre><span></span><span class="nx">canvas</span><span class="p">.</span><span class="nx">addEventListener</span><span class="p">(</span><span class="s2">&quot;mousemove&quot;</span><span class="p">,</span><span class="w"> </span><span class="p">(</span><span class="nx">event</span><span class="p">)</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<div class="highlight-js notranslate"><div class="highlight"><pre><span></span><span class="nx">canvas</span><span class="p">.</span><span class="nx">addEventListener</span><span class="p">(</span><span class="s2">&quot;mousemove&quot;</span><span class="p">,</span><span class="w"> </span><span class="p">(</span><span class="nx">event</span><span class="p">)</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">{</span>
 
-<span class="w">   </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="o">!</span><span class="nx">clicked</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">      </span><span class="k">return</span><span class="w"></span>
-<span class="w">   </span><span class="p">}</span><span class="w"></span>
+<span class="w">   </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="o">!</span><span class="nx">clicked</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="k">return</span>
+<span class="w">   </span><span class="p">}</span>
 
-<span class="w">   </span><span class="nx">bbox</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">canvas</span><span class="p">.</span><span class="nx">getBoundingClientRect</span><span class="p">()</span><span class="w"></span>
+<span class="w">   </span><span class="nx">bbox</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">canvas</span><span class="p">.</span><span class="nx">getBoundingClientRect</span><span class="p">()</span>
 
-<span class="w">   </span><span class="kd">const</span><span class="w"> </span><span class="nx">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="nx">event</span><span class="p">.</span><span class="nx">clientX</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="nx">bbox</span><span class="p">.</span><span class="nx">left</span><span class="p">)</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="nx">bbox</span><span class="p">.</span><span class="nx">width</span><span class="w"></span>
-<span class="w">   </span><span class="kd">const</span><span class="w"> </span><span class="nx">y</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="nx">event</span><span class="p">.</span><span class="nx">clientY</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="nx">bbox</span><span class="p">.</span><span class="nx">top</span><span class="p">)</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="nx">bbox</span><span class="p">.</span><span class="nx">height</span><span class="w"></span>
+<span class="w">   </span><span class="kd">const</span><span class="w"> </span><span class="nx">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="nx">event</span><span class="p">.</span><span class="nx">clientX</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="nx">bbox</span><span class="p">.</span><span class="nx">left</span><span class="p">)</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="nx">bbox</span><span class="p">.</span><span class="nx">width</span>
+<span class="w">   </span><span class="kd">const</span><span class="w"> </span><span class="nx">y</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="nx">event</span><span class="p">.</span><span class="nx">clientY</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="nx">bbox</span><span class="p">.</span><span class="nx">top</span><span class="p">)</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="nx">bbox</span><span class="p">.</span><span class="nx">height</span>
 
-<span class="w">   </span><span class="nx">circle</span><span class="p">.</span><span class="nx">setAttribute</span><span class="p">(</span><span class="s2">&quot;cx&quot;</span><span class="p">,</span><span class="w"> </span><span class="nx">x</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="nx">viewBox</span><span class="p">.</span><span class="nx">width</span><span class="p">)</span><span class="w"></span>
-<span class="w">   </span><span class="nx">circle</span><span class="p">.</span><span class="nx">setAttribute</span><span class="p">(</span><span class="s2">&quot;cy&quot;</span><span class="p">,</span><span class="w"> </span><span class="nx">y</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="nx">viewBox</span><span class="p">.</span><span class="nx">height</span><span class="p">)</span><span class="w"></span>
-<span class="p">})</span><span class="w"></span>
+<span class="w">   </span><span class="nx">circle</span><span class="p">.</span><span class="nx">setAttribute</span><span class="p">(</span><span class="s2">&quot;cx&quot;</span><span class="p">,</span><span class="w"> </span><span class="nx">x</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="nx">viewBox</span><span class="p">.</span><span class="nx">width</span><span class="p">)</span>
+<span class="w">   </span><span class="nx">circle</span><span class="p">.</span><span class="nx">setAttribute</span><span class="p">(</span><span class="s2">&quot;cy&quot;</span><span class="p">,</span><span class="w"> </span><span class="nx">y</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="nx">viewBox</span><span class="p">.</span><span class="nx">height</span><span class="p">)</span>
+<span class="p">})</span>
 </pre></div>
 </div>
 <p>Nearly there! The only thing left to do is decide on how we want to update the
@@ -511,15 +512,15 @@ simple I will go with a fairly simple interaction model</p>
 <li><p>If the mouse is over the circle and the user clicks then start dragging</p></li>
 <li><p>If the user releases the mouse button then stop dragging</p></li>
 </ul>
-<div class="highlight-js notranslate"><div class="highlight"><pre><span></span><span class="nx">circle</span><span class="p">.</span><span class="nx">addEventListener</span><span class="p">(</span><span class="s2">&quot;mousedown&quot;</span><span class="p">,</span><span class="w">  </span><span class="p">(</span><span class="nx">_</span><span class="p">)</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">clicked</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">true</span><span class="w"> </span><span class="p">})</span><span class="w"></span>
-<span class="nx">circle</span><span class="p">.</span><span class="nx">addEventListener</span><span class="p">(</span><span class="s2">&quot;mouseup&quot;</span><span class="p">,</span><span class="w"> </span><span class="p">(</span><span class="nx">_</span><span class="p">)</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">clicked</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">false</span><span class="w"> </span><span class="p">})</span><span class="w"></span>
+<div class="highlight-js notranslate"><div class="highlight"><pre><span></span><span class="nx">circle</span><span class="p">.</span><span class="nx">addEventListener</span><span class="p">(</span><span class="s2">&quot;mousedown&quot;</span><span class="p">,</span><span class="w">  </span><span class="p">(</span><span class="nx">_</span><span class="p">)</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">clicked</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">true</span><span class="w"> </span><span class="p">})</span>
+<span class="nx">circle</span><span class="p">.</span><span class="nx">addEventListener</span><span class="p">(</span><span class="s2">&quot;mouseup&quot;</span><span class="p">,</span><span class="w"> </span><span class="p">(</span><span class="nx">_</span><span class="p">)</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">clicked</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">false</span><span class="w"> </span><span class="p">})</span>
 </pre></div>
 </div>
 <p>Additionally I will impose one final condition</p>
 <ul class="simple">
 <li><p>If the mouse leaves the bounds of the canvas then stop dragging.</p></li>
 </ul>
-<div class="highlight-js notranslate"><div class="highlight"><pre><span></span><span class="nx">canvas</span><span class="p">.</span><span class="nx">addEventListener</span><span class="p">(</span><span class="s2">&quot;mouseleave&quot;</span><span class="p">,</span><span class="w"> </span><span class="p">(</span><span class="nx">_</span><span class="p">)</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">clicked</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">false</span><span class="w"> </span><span class="p">})</span><span class="w"></span>
+<div class="highlight-js notranslate"><div class="highlight"><pre><span></span><span class="nx">canvas</span><span class="p">.</span><span class="nx">addEventListener</span><span class="p">(</span><span class="s2">&quot;mouseleave&quot;</span><span class="p">,</span><span class="w"> </span><span class="p">(</span><span class="nx">_</span><span class="p">)</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">clicked</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">false</span><span class="w"> </span><span class="p">})</span>
 </pre></div>
 </div>
 <p>This last point is to work around an issue that arises when the user moves the
@@ -590,8 +591,8 @@ canvas itself then the chances are our <code class="docutils literal notranslate
 <code class="docutils literal notranslate"><span class="pre">(0,</span> <span class="pre">0)</span></code> and we would have to include an offset in our calculations to reflect
 this. This means for the general case our code should probably look something
 like this</p>
-<div class="highlight-js notranslate"><div class="highlight"><pre><span></span><span class="nx">circle</span><span class="p">.</span><span class="nx">setAttribute</span><span class="p">(</span><span class="s2">&quot;cx&quot;</span><span class="p">,</span><span class="w"> </span><span class="p">(</span><span class="nx">x</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="nx">viewBox</span><span class="p">.</span><span class="nx">width</span><span class="p">)</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="nx">viewBox</span><span class="p">.</span><span class="nx">minX</span><span class="p">)</span><span class="w"></span>
-<span class="nx">circle</span><span class="p">.</span><span class="nx">setAttribute</span><span class="p">(</span><span class="s2">&quot;cy&quot;</span><span class="p">,</span><span class="w"> </span><span class="p">(</span><span class="nx">y</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="nx">viewBox</span><span class="p">.</span><span class="nx">height</span><span class="p">)</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="nx">viewBox</span><span class="p">.</span><span class="nx">minY</span><span class="p">)</span><span class="w"></span>
+<div class="highlight-js notranslate"><div class="highlight"><pre><span></span><span class="nx">circle</span><span class="p">.</span><span class="nx">setAttribute</span><span class="p">(</span><span class="s2">&quot;cx&quot;</span><span class="p">,</span><span class="w"> </span><span class="p">(</span><span class="nx">x</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="nx">viewBox</span><span class="p">.</span><span class="nx">width</span><span class="p">)</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="nx">viewBox</span><span class="p">.</span><span class="nx">minX</span><span class="p">)</span>
+<span class="nx">circle</span><span class="p">.</span><span class="nx">setAttribute</span><span class="p">(</span><span class="s2">&quot;cy&quot;</span><span class="p">,</span><span class="w"> </span><span class="p">(</span><span class="nx">y</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="nx">viewBox</span><span class="p">.</span><span class="nx">height</span><span class="p">)</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="nx">viewBox</span><span class="p">.</span><span class="nx">minY</span><span class="p">)</span>
 </pre></div>
 </div>
 </li>
@@ -637,7 +638,7 @@ you found this useful and I’ll see you in the next one!</p>
                             Page Source
                         </a>
                     </span>
-                    <span>Built with <a class="text-green-600" href="https://www.sphinx-doc.org/en/master/">Sphinx</a> v5.1.1</span>
+                    <span>Built with <a class="text-green-600" href="https://www.sphinx-doc.org/en/master/">Sphinx</a> v5.3.0</span>
                 </div>
             </footer>
         </main>

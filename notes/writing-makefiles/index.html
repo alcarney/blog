@@ -16,7 +16,7 @@
     <link id="pygments_dark_css" media="(prefers-color-scheme: dark)" rel="stylesheet" type="text/css" href="../../_static/pygments_dark.css" />
     
     
-    <link rel="stylesheet" type="text/css" href="../../_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css" />
     
     
     <link rel="stylesheet" type="text/css" href="../../_static/css/styles.css" />
@@ -27,6 +27,7 @@
     <script src="../../_static/underscore.js"></script>
     <script src="../../_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/sphinx_highlight.js"></script>
     <script src="../../_static/design-tabs.js"></script>
     <link rel="shortcut icon" href="../../_static/favicon.ico"/>
     <link rel="index" title="Index" href="../../genindex/" />
@@ -136,8 +137,8 @@
 <p>A pattern rule can be used to define a generic recipe for turning a file of type
 X into a file a type Y for example, compiling <code class="docutils literal notranslate"><span class="pre">program.c</span></code> into <code class="docutils literal notranslate"><span class="pre">program.o</span></code>. A
 pattern rule can be defined as follows</p>
-<div class="highlight-make notranslate"><div class="highlight"><pre><span></span><span class="nf">%.o</span><span class="o">:</span> %.<span class="n">c</span>
-        <span class="k">$(</span>CC<span class="k">)</span> -c <span class="k">$(</span>CFLAGS<span class="k">)</span> $&lt; -o <span class="nv">$@</span>
+<div class="highlight-make notranslate"><div class="highlight"><pre><span></span><span class="nf">%.o</span><span class="o">:</span><span class="w"> </span>%.<span class="n">c</span>
+<span class="w">        </span><span class="k">$(</span>CC<span class="k">)</span><span class="w"> </span>-c<span class="w"> </span><span class="k">$(</span>CFLAGS<span class="k">)</span><span class="w"> </span>$&lt;<span class="w"> </span>-o<span class="w"> </span><span class="nv">$@</span>
 </pre></div>
 </div>
 <dl class="simple">
@@ -153,20 +154,20 @@ pattern rule can be defined as follows</p>
 <h2>Examples<a class="headerlink" href="#examples" title="Permalink to this heading">¶</a></h2>
 <div class="highlight-make notranslate"><div class="highlight"><pre><span></span><span class="nf">.POSIX</span><span class="o">:</span>
 
-<span class="nv">CC</span> <span class="o">=</span> gcc
-<span class="nv">CFLAGS</span> <span class="o">=</span> -Wall <span class="k">$(</span>shell pkg-config --cflags xcb-image<span class="k">)</span>
-<span class="nv">LDLIBS</span> <span class="o">=</span> <span class="k">$(</span>shell pkg-config --libs xcb-image<span class="k">)</span>
+<span class="nv">CC</span><span class="w"> </span><span class="o">=</span><span class="w"> </span>gcc
+<span class="nv">CFLAGS</span><span class="w"> </span><span class="o">=</span><span class="w"> </span>-Wall<span class="w"> </span><span class="k">$(</span>shell<span class="w"> </span>pkg-config<span class="w"> </span>--cflags<span class="w"> </span>xcb-image<span class="k">)</span>
+<span class="nv">LDLIBS</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">$(</span>shell<span class="w"> </span>pkg-config<span class="w"> </span>--libs<span class="w"> </span>xcb-image<span class="k">)</span>
 
-<span class="nf">default</span><span class="o">:</span> <span class="n">main</span>
+<span class="nf">default</span><span class="o">:</span><span class="w"> </span><span class="n">main</span>
 
-<span class="nf">debug</span><span class="o">:</span> <span class="n">CFLAGS</span> += -<span class="n">g</span>
-<span class="nf">debug</span><span class="o">:</span> <span class="n">main</span>
+<span class="nf">debug</span><span class="o">:</span><span class="w"> </span><span class="n">CFLAGS</span> += -<span class="n">g</span>
+<span class="nf">debug</span><span class="o">:</span><span class="w"> </span><span class="n">main</span>
 
-<span class="nf">main</span><span class="o">:</span> <span class="n">main</span>.<span class="n">o</span>
-   <span class="k">$(</span>CC<span class="k">)</span> $&lt; -o <span class="nv">$@</span> <span class="k">$(</span>LDLIBS<span class="k">)</span>
+<span class="nf">main</span><span class="o">:</span><span class="w"> </span><span class="n">main</span>.<span class="n">o</span>
+<span class="w">   </span><span class="k">$(</span>CC<span class="k">)</span><span class="w"> </span>$&lt;<span class="w"> </span>-o<span class="w"> </span><span class="nv">$@</span><span class="w"> </span><span class="k">$(</span>LDLIBS<span class="k">)</span>
 
-<span class="nf">%.o</span><span class="o">:</span> %.<span class="n">c</span>
-   <span class="k">$(</span>CC<span class="k">)</span> -c <span class="k">$(</span>CFLAGS<span class="k">)</span> $&lt; -o <span class="nv">$@</span>
+<span class="nf">%.o</span><span class="o">:</span><span class="w"> </span>%.<span class="n">c</span>
+<span class="w">   </span><span class="k">$(</span>CC<span class="k">)</span><span class="w"> </span>-c<span class="w"> </span><span class="k">$(</span>CFLAGS<span class="k">)</span><span class="w"> </span>$&lt;<span class="w"> </span>-o<span class="w"> </span><span class="nv">$@</span>
 </pre></div>
 </div>
 </section>
@@ -214,7 +215,7 @@ pattern rule can be defined as follows</p>
                             Page Source
                         </a>
                     </span>
-                    <span>Built with <a class="text-green-600" href="https://www.sphinx-doc.org/en/master/">Sphinx</a> v5.1.1</span>
+                    <span>Built with <a class="text-green-600" href="https://www.sphinx-doc.org/en/master/">Sphinx</a> v5.3.0</span>
                 </div>
             </footer>
         </main>

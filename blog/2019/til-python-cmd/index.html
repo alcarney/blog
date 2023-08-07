@@ -16,7 +16,7 @@
     <link id="pygments_dark_css" media="(prefers-color-scheme: dark)" rel="stylesheet" type="text/css" href="../../../_static/pygments_dark.css" />
     
     
-    <link rel="stylesheet" type="text/css" href="../../../_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css" />
     
     
     <link rel="stylesheet" type="text/css" href="../../../_static/css/styles.css" />
@@ -27,6 +27,7 @@
     <script src="../../../_static/underscore.js"></script>
     <script src="../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="../../../_static/doctools.js"></script>
+    <script src="../../../_static/sphinx_highlight.js"></script>
     <script src="../../../_static/design-tabs.js"></script>
     <link rel="shortcut icon" href="../../../_static/favicon.ico"/>
     <link rel="index" title="Index" href="../../../genindex/" />
@@ -206,9 +207,9 @@ about it I will point you in the direction of the <a class="reference external" 
 into it. This will also install <code class="docutils literal notranslate"><span class="pre">matplotlib</span></code> which we will be using later on.
 I’m using Python 3.7 but this application should work on all versions of Python
 ≥ 3.5.</p>
-<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>python -m venv env
-<span class="gp">$ </span><span class="nb">source</span> env/bin/activate
-<span class="gp gp-VirtualEnv">(env)</span> <span class="gp">$ </span>pip install stylo
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>python<span class="w"> </span>-m<span class="w"> </span>venv<span class="w"> </span>env
+<span class="gp">$ </span><span class="nb">source</span><span class="w"> </span>env/bin/activate
+<span class="gp gp-VirtualEnv">(env)</span> <span class="gp">$ </span>pip<span class="w"> </span>install<span class="w"> </span>stylo
 </pre></div>
 </div>
 <p><strong>Note:</strong> The <code class="docutils literal notranslate"><span class="pre">cmd</span></code> module is available for <a class="reference external" href="https://docs.python.org/2.7/library/cmd.html">even older</a> versions of
@@ -331,7 +332,7 @@ circle reset save square
 <p>Thankfully the default help system doesn’t require much to get started, all we
 have to do is add docstrings to our <code class="docutils literal notranslate"><span class="pre">do_*</span></code> methods!</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">do_circle</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">args</span><span class="p">):</span>
-   <span class="sd">&quot;&quot;&quot;usage: circle &lt;x&gt; &lt;y&gt; &lt;r&gt; &lt;color&gt;</span>
+<span class="w">   </span><span class="sd">&quot;&quot;&quot;usage: circle &lt;x&gt; &lt;y&gt; &lt;r&gt; &lt;color&gt;</span>
 
 <span class="sd">   This command will draw a circle centered at the coordinates (&lt;x&gt;, &lt;y&gt;)</span>
 <span class="sd">   with radius given by &lt;r&gt;. The &lt;color&gt; argument is a 6 digit hex</span>
@@ -455,7 +456,7 @@ message.</p>
 <span class="kn">from</span> <span class="nn">stylo</span> <span class="kn">import</span> <span class="n">__version__</span>
 
 <span class="n">intro_text</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;</span><span class="se">\</span>
-<span class="s2">Interactive Shell for Stylo v</span><span class="si">{}</span><span class="s2"></span>
+<span class="s2">Interactive Shell for Stylo v</span><span class="si">{}</span>
 <span class="s2">----------------------------------</span>
 
 <span class="s2">Type `q` or `Ctrl-D` to quit.</span>
@@ -528,7 +529,7 @@ real results - Our entire application is only 155 lines of code!</p>
                             Page Source
                         </a>
                     </span>
-                    <span>Built with <a class="text-green-600" href="https://www.sphinx-doc.org/en/master/">Sphinx</a> v5.1.1</span>
+                    <span>Built with <a class="text-green-600" href="https://www.sphinx-doc.org/en/master/">Sphinx</a> v5.3.0</span>
                 </div>
             </footer>
         </main>
