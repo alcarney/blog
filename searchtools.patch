@@ -1,49 +1,44 @@
 diff --git a/_build/html/_static/searchtools.js.orig b/_build/html/_static/searchtools.js
-index 0a44e85..a495cb0 100644
+index e89e34d..89c16eb 100644
 --- a/_build/html/_static/searchtools.js.orig
 +++ b/_build/html/_static/searchtools.js
-@@ -67,6 +67,7 @@
-   const [docName, title, anchor, descr] = item;
+@@ -67,6 +67,7 @@ const _displayItem = (item, searchTerms) => {
+   const [docName, title, anchor, descr, score, _filename] = item;
  
    let listItem = document.createElement("li");
 +  listItem.className = "p-4 mt-4 bg-white dark:bg-gray-800 border dark:border-gray-600"
    let requestUrl;
    let linkUrl;
    if (docBuilder === "dirhtml") {
-@@ -87,6 +88,7 @@
-   let linkEl = listItem.appendChild(document.createElement("a"));
-   linkEl.href = linkUrl + "?" + params.toString() + anchor;
+@@ -86,6 +87,7 @@ const _displayItem = (item, searchTerms) => {
+   linkEl.href = linkUrl + anchor;
+   linkEl.dataset.score = score;
    linkEl.innerHTML = title;
 +  linkEl.className = "text-green-600"
    if (descr)
      listItem.appendChild(document.createElement("span")).innerHTML =
        " (" + descr + ")";
-@@ -209,11 +211,12 @@
+@@ -207,11 +209,12 @@ const Search = {
      // create the required interface elements
      const searchText = document.createElement("h2");
      searchText.textContent = _("Searching");
 +    searchText.className = "text-3xl text-green-600"
      const searchSummary = document.createElement("p");
 -    searchSummary.classList.add("search-summary");
-+    searchSummary.className = "dark:text-white my-4";
++    searchSummary.className = "dark:text-white my-4"
      searchSummary.innerText = "";
      const searchList = document.createElement("ul");
 -    searchList.classList.add("search");
-+    searchList.className = "m-0";
++    searchList.className = "m-0"
  
      const out = document.getElementById("search-results");
      Search.title = out.appendChild(searchText);
-@@ -516,11 +519,11 @@
+@@ -556,7 +559,7 @@ const Search = {
      const tail = startWithContext + 240 < text.length ? "..." : "";
  
      let summary = document.createElement("p");
 -    summary.classList.add("context");
 +    summary.classList.add("dark:text-white");
      summary.textContent = top + text.substr(startWithContext, 240).trim() + tail;
- 
-     highlightWords.forEach((highlightWord) =>
--      _highlightText(summary, highlightWord, "highlighted")
-+        _highlightText(summary, highlightWord, "px-2 border border-amber-500 bg-amber-500 dark:bg-amber-500/[0.2] dark:text-amber-200 rounded")
-     );
  
      return summary;
