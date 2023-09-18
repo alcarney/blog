@@ -1,0 +1,626 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
+
+    <title>Setting up a Python WASI Environment with Nix &#8212; Alex Carney</title>
+
+    
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css" />
+    
+    
+    
+    <link id="pygments_dark_css" media="(prefers-color-scheme: dark)" rel="stylesheet" type="text/css" href="../../../_static/pygments_dark.css" />
+    
+    
+    <link rel="stylesheet" type="text/css" href="../../../_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css" />
+    
+    
+    <link rel="stylesheet" type="text/css" href="../../../_static/css/styles.css" />
+    
+
+    <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
+    <script src="../../../_static/jquery.js"></script>
+    <script src="../../../_static/underscore.js"></script>
+    <script src="../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../../../_static/doctools.js"></script>
+    <script src="../../../_static/sphinx_highlight.js"></script>
+    <script src="../../../_static/design-tabs.js"></script>
+    <link rel="shortcut icon" href="../../../_static/favicon.ico"/>
+    <link rel="index" title="Index" href="../../../genindex/" />
+    <link rel="search" title="Search" href="../../../search/" /> 
+  </head><body class="flex flex-col justify-between min-h-screen overflow-x-hidden bg-gray-100 dark:bg-gray-900">
+    <div class="flex flex-grow">
+        <input id="menu-state" type="checkbox" class="hidden" />
+        <aside class="flex justify-between flex-shrink-0 transition-all duration-500 bg-white dark:bg-gray-800 -ml-80 lg:ml-0 dark:border-gray-600">
+            <div class="flex flex-col justify-between h-full border-r w-80 dark:border-gray-600">
+                <div class="sticky top-0 flex flex-col h-screen">
+
+                    <div id="profile-card" class="full-profile">
+    <img class="" src="/_static/avatar.jpg"/>
+    <h2 class=""><a href="/">Alex Carney</a></h2>
+</div>
+
+                    <div id="searchbox" style="display: none" role="search" class="px-4 py-4">
+    <form class="flex justify-between px-2 py-1 bg-gray-100 border-2 rounded search dark:bg-gray-900 focus-within:border-green-600 dark:border-gray-600" action="../../../search/" method="get">
+        <label class="mr-2 text-gray-500" for="sbox">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="feather feather-search">
+                <circle cx="11" cy="11" r="6" />
+                <path d="m21 21-4.35-4.35" />
+            </svg>
+        </label>
+        <input id="sbox" class="flex-grow bg-gray-100 dark:text-white dark:bg-gray-900 focus:outline-none" type="search" name="q" placeholder="Search..." aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" />
+    </form>
+</div>
+<script>$('#searchbox').show(0);</script>
+
+                    
+
+<nav class="flex flex-col text-center">
+    <a class="text-green-600 py-1 border-t text-lg hover:bg-gray-50 dark:border-gray-600 dark:hover:bg-gray-900" href="/blog">Blog</a>
+    <a class="text-green-600 py-1 border-t text-lg hover:bg-gray-50 dark:border-gray-600 dark:hover:bg-gray-900" href="/code">Code</a>
+    <a class="text-green-600 py-1 border-t text-lg hover:bg-gray-50 dark:border-gray-600 dark:hover:bg-gray-900" href="/notes">Notes</a>
+</nav>
+
+                    <div class="flex-shrink overflow-auto">
+
+<div class="grid justify-between p-4 text-gray-400 border-t dark:border-gray-600" style="grid-template-columns: 24px auto">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+</svg>
+    <span class="ml-2 text-right">Sep 18, 2023</span>
+    
+
+    <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z" />
+</svg>
+    <ul class="text-right">
+        
+        <li class="mb-1">
+            <a href="../../tag/python/" class="px-2 my-1 text-green-600 border border-green-600 rounded bg-green-50 dark:bg-green-900 dark:text-green-200">
+                #python
+            </a>
+        </li>
+        
+        <li class="mb-1">
+            <a href="../../tag/nix/" class="px-2 my-1 text-green-600 border border-green-600 rounded bg-green-50 dark:bg-green-900 dark:text-green-200">
+                #nix
+            </a>
+        </li>
+        
+        <li class="mb-1">
+            <a href="../../tag/wasm/" class="px-2 my-1 text-green-600 border border-green-600 rounded bg-green-50 dark:bg-green-900 dark:text-green-200">
+                #wasm
+            </a>
+        </li>
+        
+    </ul>
+</div>
+<nav id="localtoc" class="p-4 border-t dark:text-gray-200 dark:border-gray-600">
+    <ul>
+<li><a class="reference internal" href="#">Setting up a Python WASI Environment with Nix</a><ul>
+<li><a class="reference internal" href="#why">Why?</a></li>
+<li><a class="reference internal" href="#ok-but-why-use-nix">Ok, but why use Nix?</a></li>
+<li><a class="reference internal" href="#building-python">“Building” Python</a></li>
+<li><a class="reference internal" href="#making-it-work">Making it work</a></li>
+<li><a class="reference internal" href="#creating-a-wrapper">Creating a Wrapper</a></li>
+<li><a class="reference internal" href="#installing-packages">Installing packages</a><ul>
+<li><a class="reference internal" href="#gathering-dependencies">Gathering Dependencies</a></li>
+<li><a class="reference internal" href="#setting-pythonpath">Setting <code class="docutils literal notranslate"><span class="pre">PYTHONPATH</span></code></a></li>
+<li><a class="reference internal" href="#mkpythonwasishell"><code class="docutils literal notranslate"><span class="pre">mkPythonWASIShell</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#next-steps">Next steps</a></li>
+</ul>
+</li>
+</ul>
+
+</nav>
+                    </div>
+
+                    <footer class="w-full p-4 mt-auto text-white bg-gray-700">
+                        <div class="flex justify-between">
+    <div></div>
+
+    <div class="flex justify-between space-x-4">
+        <a target="_blank" rel="noreferrer noopener" href="https://github.com/alcarney">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-8 h-8">
+            <path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/>
+          </svg>
+        </a>
+
+        <a target="_blank" rel="noreferrer noopener me" href="https://fosstodon.org/@alcarney">
+          <svg role="img" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" class="w-8 h-8" fill="currentColor">
+            <title>Mastodon</title>
+            <path d="M23.268 5.313c-.35-2.578-2.617-4.61-5.304-5.004C17.51.242 15.792 0 11.813 0h-.03c-3.98 0-4.835.242-5.288.309C3.882.692 1.496 2.518.917 5.127.64 6.412.61 7.837.661 9.143c.074 1.874.088 3.745.26 5.611.118 1.24.325 2.47.62 3.68.55 2.237 2.777 4.098 4.96 4.857 2.336.792 4.849.923 7.256.38.265-.061.527-.132.786-.213.585-.184 1.27-.39 1.774-.753a.057.057 0 0 0 .023-.043v-1.809a.052.052 0 0 0-.02-.041.053.053 0 0 0-.046-.01 20.282 20.282 0 0 1-4.709.545c-2.73 0-3.463-1.284-3.674-1.818a5.593 5.593 0 0 1-.319-1.433.053.053 0 0 1 .066-.054c1.517.363 3.072.546 4.632.546.376 0 .75 0 1.125-.01 1.57-.044 3.224-.124 4.768-.422.038-.008.077-.015.11-.024 2.435-.464 4.753-1.92 4.989-5.604.008-.145.03-1.52.03-1.67.002-.512.167-3.63-.024-5.545zm-3.748 9.195h-2.561V8.29c0-1.309-.55-1.976-1.67-1.976-1.23 0-1.846.79-1.846 2.35v3.403h-2.546V8.663c0-1.56-.617-2.35-1.848-2.35-1.112 0-1.668.668-1.67 1.977v6.218H4.822V8.102c0-1.31.337-2.35 1.011-3.12.696-.77 1.608-1.164 2.74-1.164 1.311 0 2.302.5 2.962 1.498l.638 1.06.638-1.06c.66-.999 1.65-1.498 2.96-1.498 1.13 0 2.043.395 2.74 1.164.675.77 1.012 1.81 1.012 3.12z"/>
+          </svg>
+        </a>
+
+        <a target="_blank" rel="noreferrer noopener" href="https://instagram.com/alcarneyme">
+          <svg role="img" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" class="w-8 h-8" fill="currentColor">
+            <title>Instagram</title>
+            <path d="M12 0C8.74 0 8.333.015 7.053.072 5.775.132 4.905.333 4.14.63c-.789.306-1.459.717-2.126 1.384S.935 3.35.63 4.14C.333 4.905.131 5.775.072 7.053.012 8.333 0 8.74 0 12s.015 3.667.072 4.947c.06 1.277.261 2.148.558 2.913.306.788.717 1.459 1.384 2.126.667.666 1.336 1.079 2.126 1.384.766.296 1.636.499 2.913.558C8.333 23.988 8.74 24 12 24s3.667-.015 4.947-.072c1.277-.06 2.148-.262 2.913-.558.788-.306 1.459-.718 2.126-1.384.666-.667 1.079-1.335 1.384-2.126.296-.765.499-1.636.558-2.913.06-1.28.072-1.687.072-4.947s-.015-3.667-.072-4.947c-.06-1.277-.262-2.149-.558-2.913-.306-.789-.718-1.459-1.384-2.126C21.319 1.347 20.651.935 19.86.63c-.765-.297-1.636-.499-2.913-.558C15.667.012 15.26 0 12 0zm0 2.16c3.203 0 3.585.016 4.85.071 1.17.055 1.805.249 2.227.415.562.217.96.477 1.382.896.419.42.679.819.896 1.381.164.422.36 1.057.413 2.227.057 1.266.07 1.646.07 4.85s-.015 3.585-.074 4.85c-.061 1.17-.256 1.805-.421 2.227-.224.562-.479.96-.899 1.382-.419.419-.824.679-1.38.896-.42.164-1.065.36-2.235.413-1.274.057-1.649.07-4.859.07-3.211 0-3.586-.015-4.859-.074-1.171-.061-1.816-.256-2.236-.421-.569-.224-.96-.479-1.379-.899-.421-.419-.69-.824-.9-1.38-.165-.42-.359-1.065-.42-2.235-.045-1.26-.061-1.649-.061-4.844 0-3.196.016-3.586.061-4.861.061-1.17.255-1.814.42-2.234.21-.57.479-.96.9-1.381.419-.419.81-.689 1.379-.898.42-.166 1.051-.361 2.221-.421 1.275-.045 1.65-.06 4.859-.06l.045.03zm0 3.678c-3.405 0-6.162 2.76-6.162 6.162 0 3.405 2.76 6.162 6.162 6.162 3.405 0 6.162-2.76 6.162-6.162 0-3.405-2.76-6.162-6.162-6.162zM12 16c-2.21 0-4-1.79-4-4s1.79-4 4-4 4 1.79 4 4-1.79 4-4 4zm7.846-10.405c0 .795-.646 1.44-1.44 1.44-.795 0-1.44-.646-1.44-1.44 0-.794.646-1.439 1.44-1.439.793-.001 1.44.645 1.44 1.439z"/>
+          </svg>
+        </a>
+
+        <a target="_blank" rel="noreferrer noopener" href="https://www.youtube.com/channel/UC5GPflgRWhnCxA0BllfP5CA">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="w-8 h-8" fill="currentColor">
+            <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
+          </svg>
+        </a>
+    </div>
+
+    <div></div>
+</div>
+                    </footer>
+                </div>
+            </div>
+        </aside>
+
+        <main class="w-full mx-auto lg:pr-0">
+            <div class="sticky top-0 z-50 mt-0 transition-all duration-300 bg-white dark:bg-gray-800 border-b shadow-md lg:shadow-none lg:relative lg:-mt-16 dark:border-gray-600">
+                <label class="flex h-16 text-gray-600 transition" for="menu-state">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="w-8 h-8 my-auto" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="feather feather-arrow-right"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                </label>
+            </div>
+
+            <div id="content" class="mx-2 my-8">
+                <div role="main" class="max-w-3xl mx-auto">
+                    
+
+<article class="p-4 prose-sm prose bg-white dark:bg-gray-800 border prose-md prose-emerald max-w-none dark:prose-invert dark:border-gray-600">
+    <section id="setting-up-a-python-wasi-environment-with-nix">
+<h1>Setting up a Python WASI Environment with Nix<a class="headerlink" href="#setting-up-a-python-wasi-environment-with-nix" title="Permalink to this heading">¶</a></h1>
+<p>In this blog post I look at setting up a local development environment for the <a class="reference external" href="https://github.com/brettcannon/cpython-wasi-build">WASI build of Python</a>  using Nix.
+You can see the final result <a class="reference external" href="https://github.com/alcarney/python-wasi-nix">here</a></p>
+<section id="why">
+<h2>Why?<a class="headerlink" href="#why" title="Permalink to this heading">¶</a></h2>
+<div class="admonition-wasm-and-pyodide-and-wasi-oh-my admonition">
+<p class="admonition-title">WASM and Pyodide and WASI, Oh My!</p>
+<p>See Brett Cannon’s <a class="reference external" href="https://snarky.ca/webassembly-and-its-platform-targets/">blog post</a> for a good overview of the different flavours of WebAssembly platforms.</p>
+</div>
+<p>Some <a class="reference internal" href="../../2021/bringing-esbonio-to-the-browser/"><span class="doc">time ago</span></a> now, I stated that I wanted to get the <a class="reference external" href="https://github.com/swyddfa/esbonio">esbonio</a> language server running in <a class="reference external" href="https://vscode.dev">vscode.dev</a>.
+While there
+<a class="reference external" href="https://github.com/swyddfa/esbonio/pull/438">has been</a>
+some
+<a class="reference external" href="https://github.com/swyddfa/esbonio/commit/046d63d8ca07d647498d800fb88f76792bd88ee8">progress</a>
+towards this goal it’s been little more than proof of concepts.</p>
+<p>One of the biggest challenges has been sharing the contents of the workspace with the <a class="reference external" href="https://pyodide.org/en/stable/">pyodide</a> runtime I was using to host the language server.
+But now that the VSCode team are turning <a class="reference external" href="https://code.visualstudio.com/blogs/2023/06/05/vscode-wasm-wasi">VSCode into a WASI runtime</a> it might finally be possible to port <code class="docutils literal notranslate"><span class="pre">esbonio</span></code> to the web!</p>
+<p>As a bonus, since <a class="reference external" href="https://wasi.dev">WASI</a> is a standard, I can use <a class="reference external" href="https://wasmtime.dev">wasmtime</a> as the host when working on the port locally.
+Which brings us to the topic of this blog post.</p>
+</section>
+<section id="ok-but-why-use-nix">
+<h2>Ok, but why use Nix?<a class="headerlink" href="#ok-but-why-use-nix" title="Permalink to this heading">¶</a></h2>
+<p>I’m sure you could achieve everything that I do here with a bash script but I’ve been playing with Nix <a class="reference internal" href="../../tag/nix/" title="nix"><span class="xref std std-ref">a lot</span></a> recently and I think it’s cool!</p>
+<p>If you want Python + WASI without the Nix see <a class="reference external" href="https://snarky.ca/testing-a-project-using-the-wasi-build-of-cpython-with-pytest/">this blog post</a>, which I used as the basis for figuring this out.</p>
+</section>
+<section id="building-python">
+<h2>“Building” Python<a class="headerlink" href="#building-python" title="Permalink to this heading">¶</a></h2>
+<p>As an initial step, let’s see if we can get to the point where we can launch a <code class="docutils literal notranslate"><span class="pre">devShell</span></code> in which we can run the WASI version of Python.</p>
+<p>To get the WASM build of Python onto our machine we’ll write a derivation that “builds” it by downloading the release artifact from GitHub and copying it to the output folder</p>
+<div class="admonition-this-is-wrong admonition">
+<p class="admonition-title">This is “wrong”</p>
+<p>To do this the “right” way, I should be using Nix to build the WASI version of Python from source.
+But since Brett Cannon is <a class="reference external" href="https://github.com/brettcannon/cpython-wasi-build">publishing builds</a> on GitHub I’m going to leave that as an exercise for the reader.</p>
+</div>
+<div class="highlight-nix notranslate"><div class="highlight"><pre><span></span><span class="c1"># In ./nix/python-wasi.nix</span>
+<span class="p">{</span> fetchzip<span class="p">,</span> stdenv <span class="p">}:</span>
+
+stdenv<span class="o">.</span>mkDerivation <span class="p">{</span>
+  <span class="ss">pname =</span> <span class="s2">&quot;python-wasi&quot;</span><span class="p">;</span>
+  <span class="ss">version =</span> <span class="s2">&quot;3.11.4&quot;</span><span class="p">;</span>
+
+  <span class="ss">src =</span> fetchzip <span class="p">{</span>
+    <span class="ss">url =</span> <span class="s2">&quot;https://github.com/brettcannon/cpython-wasi-build/releases/download/v3.11.4/python-3.11.4-wasi_sdk-16.zip&quot;</span><span class="p">;</span>
+    <span class="ss">stripRoot =</span> <span class="no">false</span><span class="p">;</span>
+    <span class="ss">sha256 =</span> <span class="s2">&quot;sha256-AZGdgpRvHcu6FY/a7capldjDhTpkfhGkqYnm127nAN8=&quot;</span><span class="p">;</span>
+  <span class="p">};</span>
+
+  <span class="ss">buildCommand =</span> <span class="s1">&#39;&#39;</span>
+<span class="s1">   mkdir $out</span>
+<span class="s1">   cp -r $src/* $out</span>
+<span class="s1">  &#39;&#39;</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>In a corresponding <code class="docutils literal notranslate"><span class="pre">flake.nix</span></code> file we can define a <code class="docutils literal notranslate"><span class="pre">devShell</span></code> containing both the WASI build of Python and the <code class="docutils literal notranslate"><span class="pre">wasmtime</span></code> program required to execute it</p>
+<div class="highlight-nix notranslate"><div class="highlight"><pre><span></span><span class="c1"># In ./flake.nix</span>
+utils<span class="o">.</span>lib<span class="o">.</span>eachDefaultSystem<span class="p">(</span>system<span class="p">:</span>
+  <span class="k">let</span>
+    <span class="ss">pkgs =</span> <span class="nb">import</span> nixpkgs <span class="p">{</span> <span class="k">inherit</span> system<span class="p">;</span> <span class="p">};</span>
+    <span class="ss">python-wasi =</span> pkgs<span class="o">.</span>callPackage <span class="o">.</span><span class="l">/nix/python-wasi.nix</span> <span class="p">{};</span>
+  <span class="k">in</span> <span class="p">{</span>
+
+    devShells<span class="o">.</span><span class="ss">default =</span> pkgs<span class="o">.</span>mkShell <span class="p">{</span>
+      <span class="ss">name =</span> <span class="s2">&quot;wasi&quot;</span><span class="p">;</span>
+      <span class="ss">shellHook =</span> <span class="s1">&#39;&#39;</span>
+<span class="s1">         export PYTHON_WASI=</span><span class="si">${</span>python-wasi<span class="si">}</span>
+<span class="s1">      &#39;&#39;</span><span class="p">;</span>
+      <span class="ss">packages =</span> <span class="k">with</span> pkgs<span class="p">;</span> <span class="p">[</span> wasmtime <span class="p">];</span>
+    <span class="p">};</span>
+  <span class="p">}</span>
+<span class="p">);</span>
+</pre></div>
+</div>
+<p>Which will be enough to give an an environment where we can try to run a simple Python script:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>(nix-shell) $ wasmtime run $PYTHON_WASI/python.wasm -- -c &quot;import sys;print(sys.platform)&quot;
+Could not find platform independent libraries &lt;prefix&gt;
+Could not find platform dependent libraries &lt;exec_prefix&gt;
+Python path configuration:
+  PYTHONHOME = (not set)
+  PYTHONPATH = (not set)
+  program name = &#39;python.wasm&#39;
+  isolated = 0
+  environment = 1
+  user site = 1
+  safe_path = 0
+  import site = 1
+  is in build tree = 0
+  stdlib dir = &#39;/usr/local/lib/python3.11&#39;
+  sys._base_executable = &#39;&#39;
+  sys.base_prefix = &#39;/usr/local&#39;
+  sys.base_exec_prefix = &#39;/usr/local&#39;
+  sys.platlibdir = &#39;lib&#39;
+  sys.executable = &#39;&#39;
+  sys.prefix = &#39;/usr/local&#39;
+  sys.exec_prefix = &#39;/usr/local&#39;
+  sys.path = [
+    &#39;/usr/local/lib/python311.zip&#39;,
+    &#39;/usr/local/lib/python3.11&#39;,
+    &#39;/usr/local/lib/python3.11/lib-dynload&#39;,
+  ]
+Fatal Python error: init_fs_encoding: failed to get the Python codec of the filesystem encoding
+Python runtime state: core initialized
+ModuleNotFoundError: No module named &#39;encodings&#39;
+
+Current thread 0x00000000 (most recent call first):
+  &lt;no Python frame&gt;
+</pre></div>
+</div>
+<p>Well, that was the plan at least! 😅</p>
+</section>
+<section id="making-it-work">
+<h2>Making it work<a class="headerlink" href="#making-it-work" title="Permalink to this heading">¶</a></h2>
+<p>Of course… introducing Nix is going to bring its own set of challenges.
+Looking at the error message above we can see that Python assumes it has been installed on a traditional Linux operating system and is looking for its standard library under <code class="docutils literal notranslate"><span class="pre">/usr/local</span></code>.
+However, looking at the <code class="docutils literal notranslate"><span class="pre">PYTHON_WASI</span></code> environment variable we can see this is not the case:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>(nix-shell) $ echo $PYTHON_WASI
+/nix/store/5n0m7jxcnksmnp52maxa4li1q91gwq2v-python-wasi-3.11.4
+
+(nix-shell) $ ls $PYTHON_WASI
+lib/  python.wasm*
+</pre></div>
+</div>
+<p>Thankfully, it’s easy enough to fix with the <a class="reference external" href="https://docs.python.org/3/using/cmdline.html#envvar-PYTHONHOME">PYTHONHOME</a> environment variable, we can rename <code class="docutils literal notranslate"><span class="pre">PYTHON_WASI</span></code> to <code class="docutils literal notranslate"><span class="pre">PYTHONHOME</span></code> in the shell’s <code class="docutils literal notranslate"><span class="pre">shellHook</span></code></p>
+<div class="highlight-nix notranslate"><div class="highlight"><pre><span></span><span class="ss">shellHook =</span> <span class="s1">&#39;&#39;</span>
+<span class="s1">    export PYTHONHOME=</span><span class="si">${</span>python-wasi<span class="si">}</span>
+<span class="se">&#39;&#39;</span>
+</pre></div>
+</div>
+<p>However, since <code class="docutils literal notranslate"><span class="pre">wasmtime</span></code> implements a <a class="reference external" href="https://en.wikipedia.org/wiki/Capability-based_security">capability security model</a>
+we also have to grant access to the both the environment variable <strong>and</strong> the folder it points to:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ wasmtime run $PYTHONHOME/python.wasm --env PYTHONHOME=$PYTHONHOME --dir $PYTHONHOME -- -c &quot;import sys; print(sys.platform)&quot;
+wasi
+</pre></div>
+</div>
+<p>Success!</p>
+</section>
+<section id="creating-a-wrapper">
+<h2>Creating a Wrapper<a class="headerlink" href="#creating-a-wrapper" title="Permalink to this heading">¶</a></h2>
+<p>While we can now run the WASI Python build, the command to invoke it is rather unwieldy… and we’re not doing anything interesting yet!
+Thankfully, we can also use Nix to hide some of these details for us.</p>
+<p>A common pattern you will see in <a class="reference external" href="https://github.com/NixOS/nixpkgs">nixpkgs</a> is to have a <code class="docutils literal notranslate"><span class="pre">&lt;program-name&gt;-unwrapped</span></code> package whose job it is to build said program into a folder in the nix store.
+Then a second <code class="docutils literal notranslate"><span class="pre">&lt;program-name&gt;</span></code> package containing a bash script that handles the details of invoking the program from within the <code class="docutils literal notranslate"><span class="pre">/nix/store</span></code>.</p>
+<p>So let’s do the same here!</p>
+<div class="highlight-nix notranslate"><div class="highlight"><pre><span></span><span class="c1"># In ./nix/python.nix</span>
+<span class="p">{</span> wasmtime<span class="p">,</span> python-wasi<span class="p">,</span> writeShellScriptBin <span class="p">}:</span>
+
+writeShellScriptBin <span class="s2">&quot;python&quot;</span> <span class="s1">&#39;&#39;</span>
+<span class="s1">   </span><span class="si">${</span>wasmtime<span class="si">}</span><span class="s1">/bin/wasmtime run </span><span class="si">${</span>python-wasi<span class="si">}</span><span class="s1">/python.wasm \</span>
+<span class="s1">     --env PYTHONHOME=</span><span class="si">${</span>python-wasi<span class="si">}</span><span class="s1"> \</span>
+<span class="s1">     --dir </span><span class="si">${</span>python-wasi<span class="si">}</span><span class="s1"> \</span>
+<span class="s1">     -- &quot;$@&quot;</span>
+<span class="se">&#39;&#39;</span>
+</pre></div>
+</div>
+<p>Which allows us to update our <code class="docutils literal notranslate"><span class="pre">devShell</span></code> definition to the following.</p>
+<div class="highlight-nix notranslate"><div class="highlight"><pre><span></span>utils<span class="o">.</span>lib<span class="o">.</span>eachDefaultSystem<span class="p">(</span>system<span class="p">:</span>
+  <span class="k">let</span>
+    <span class="ss">pkgs =</span> <span class="nb">import</span> nixpkgs <span class="p">{</span> <span class="k">inherit</span> system<span class="p">;</span> <span class="p">};</span>
+    <span class="ss">python-wasi =</span> pkgs<span class="o">.</span>callPackage <span class="o">.</span><span class="l">/nix/python-wasi.nix</span> <span class="p">{};</span>
+    <span class="ss">python =</span> pkgs<span class="o">.</span>callPackage <span class="o">.</span><span class="l">/nix/python.nix</span> <span class="p">{</span> <span class="ss">python-wasi =</span> python-wasi<span class="p">;</span> <span class="p">};</span>
+  <span class="k">in</span> <span class="p">{</span>
+
+    devShells<span class="o">.</span><span class="ss">default =</span> pkgs<span class="o">.</span>mkShell <span class="p">{</span>
+      <span class="ss">name =</span> <span class="s2">&quot;wasi&quot;</span><span class="p">;</span>
+      <span class="ss">packages =</span> <span class="p">[</span> python <span class="p">];</span>
+    <span class="p">};</span>
+  <span class="p">}</span>
+ <span class="p">);</span>
+</pre></div>
+</div>
+<p>Notice how we don’t even need to reference <code class="docutils literal notranslate"><span class="pre">wasmtime</span></code> here anymore?
+In fact (assuming the <code class="docutils literal notranslate"><span class="pre">devShell</span></code> is active), we can call Python as we would normally!:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ python -c &quot;import sys; print(sys.platform)&quot;
+linux
+
+$ nix develop
+(nix-shell) $ python -c &quot;import sys; print(sys.platform)&quot;
+wasi
+</pre></div>
+</div>
+<p>🤯</p>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>You can see the contents of the wrapper script we generated by running:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>(nix-shell) $ cat $(command -v python)
+#!/nix/store/ir0j7zqlw9dc49grmwplppc7gh0s40yf-bash-5.2-p15/bin/bash
+/nix/store/kv8y59aqkz8havf9whvvknm7z05by2dk-wasmtime-11.0.1/bin/wasmtime run /nix/store/5n0m7jxcnksmnp52maxa4li1q91gwq2v-python-wasi-3.11.4/python.wasm \
+  --env PYTHONHOME=/nix/store/5n0m7jxcnksmnp52maxa4li1q91gwq2v-python-wasi-3.11.4 \
+  --dir /nix/store/5n0m7jxcnksmnp52maxa4li1q91gwq2v-python-wasi-3.11.4 \
+  -- &quot;$@&quot;
+</pre></div>
+</div>
+</div>
+<p>But we’re not done yet!
+Our Python process does not have access to any files outside of the stdlib</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">Python</span> <span class="mf">3.11.4</span> <span class="p">(</span><span class="n">tags</span><span class="o">/</span><span class="n">v3</span><span class="mf">.11.4</span><span class="o">-</span><span class="n">dirty</span><span class="p">:</span><span class="n">d2340ef</span><span class="p">,</span> <span class="n">Jun</span>  <span class="mi">8</span> <span class="mi">2023</span><span class="p">,</span> <span class="mi">00</span><span class="p">:</span><span class="mi">39</span><span class="p">:</span><span class="mi">32</span><span class="p">)</span> <span class="p">[</span><span class="n">Clang</span> <span class="mf">14.0.4</span> <span class="p">(</span><span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">github</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="n">llvm</span><span class="o">/</span><span class="n">llvm</span><span class="o">-</span><span class="n">project</span> <span class="mi">29</span><span class="n">f1039a7285a5c3a9c353d05414</span> <span class="n">on</span> <span class="n">wasi</span>
+<span class="n">Type</span> <span class="s2">&quot;help&quot;</span><span class="p">,</span> <span class="s2">&quot;copyright&quot;</span><span class="p">,</span> <span class="s2">&quot;credits&quot;</span> <span class="ow">or</span> <span class="s2">&quot;license&quot;</span> <span class="k">for</span> <span class="n">more</span> <span class="n">information</span><span class="o">.</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="kn">import</span> <span class="nn">os</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">os</span><span class="o">.</span><span class="n">listdir</span><span class="p">(</span><span class="s1">&#39;.&#39;</span><span class="p">)</span>
+<span class="n">Traceback</span> <span class="p">(</span><span class="n">most</span> <span class="n">recent</span> <span class="n">call</span> <span class="n">last</span><span class="p">):</span>
+  <span class="n">File</span> <span class="s2">&quot;&lt;stdin&gt;&quot;</span><span class="p">,</span> <span class="n">line</span> <span class="mi">1</span><span class="p">,</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
+<span class="ne">PermissionError</span><span class="p">:</span> <span class="p">[</span><span class="n">Errno</span> <span class="mi">76</span><span class="p">]</span> <span class="n">Capabilities</span> <span class="n">insufficient</span><span class="p">:</span> <span class="s1">&#39;.&#39;</span>
+</pre></div>
+</div>
+<p>But passing an additional <code class="docutils literal notranslate"><span class="pre">--dir</span> <span class="pre">.</span></code> argument to <code class="docutils literal notranslate"><span class="pre">wasmtime</span></code> will solve that for us.
+The more challenging issue to solve is passing through third party libraries</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">Python</span> <span class="mf">3.11.4</span> <span class="p">(</span><span class="n">tags</span><span class="o">/</span><span class="n">v3</span><span class="mf">.11.4</span><span class="o">-</span><span class="n">dirty</span><span class="p">:</span><span class="n">d2340ef</span><span class="p">,</span> <span class="n">Jun</span>  <span class="mi">8</span> <span class="mi">2023</span><span class="p">,</span> <span class="mi">00</span><span class="p">:</span><span class="mi">39</span><span class="p">:</span><span class="mi">32</span><span class="p">)</span> <span class="p">[</span><span class="n">Clang</span> <span class="mf">14.0.4</span> <span class="p">(</span><span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">github</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="n">llvm</span><span class="o">/</span><span class="n">llvm</span><span class="o">-</span><span class="n">project</span> <span class="mi">29</span><span class="n">f1039a7285a5c3a9c353d05414</span> <span class="n">on</span> <span class="n">wasi</span>
+<span class="n">Type</span> <span class="s2">&quot;help&quot;</span><span class="p">,</span> <span class="s2">&quot;copyright&quot;</span><span class="p">,</span> <span class="s2">&quot;credits&quot;</span> <span class="ow">or</span> <span class="s2">&quot;license&quot;</span> <span class="k">for</span> <span class="n">more</span> <span class="n">information</span><span class="o">.</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="kn">import</span> <span class="nn">attrs</span>
+<span class="n">Traceback</span> <span class="p">(</span><span class="n">most</span> <span class="n">recent</span> <span class="n">call</span> <span class="n">last</span><span class="p">):</span>
+  <span class="n">File</span> <span class="s2">&quot;&lt;stdin&gt;&quot;</span><span class="p">,</span> <span class="n">line</span> <span class="mi">1</span><span class="p">,</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
+<span class="ne">ModuleNotFoundError</span><span class="p">:</span> <span class="n">No</span> <span class="n">module</span> <span class="n">named</span> <span class="s1">&#39;attrs&#39;</span>
+</pre></div>
+</div>
+</section>
+<section id="installing-packages">
+<h2>Installing packages<a class="headerlink" href="#installing-packages" title="Permalink to this heading">¶</a></h2>
+<p>Here is where I’m going to take another shortcut, to do this “correctly” I should probably look at overriding the base Python derivation so that it (and everything that depends on it) uses the WASI build of Python.
+This would trigger Nix to (lazily) rebuild all of the Python packages in <code class="docutils literal notranslate"><span class="pre">nixpkgs</span></code> against that version of Python.</p>
+<p>However, there’s a strong chance that a lot of builds will break and in reality all we really need is a folder full of Python files to import.</p>
+<div class="admonition-what-about-packages-like-numpy admonition">
+<p class="admonition-title">What about packages like <code class="docutils literal notranslate"><span class="pre">numpy</span></code>?</p>
+<p>While I think there are some moves towards enabling support for packages like <code class="docutils literal notranslate"><span class="pre">numpy</span></code> (via the WASM Component Model?),
+if you want to use packages that contain native code in WebAssembly, <a class="reference external" href="https://pyodide.org/en/stable/">pyodide</a>  is probably the best bet for the time being, especially for data science libraries.</p>
+<p>This however, is beyond the scope of this blog post.</p>
+</div>
+<p>So why not reuse the packages already in <code class="docutils literal notranslate"><span class="pre">nixpkgs</span></code>?</p>
+<p>We can take a list of Python package derivations and construct a string to set as the <a class="reference external" href="https://docs.python.org/3/using/cmdline.html#envvar-PYTHONPATH">PYTHONPATH</a> environment variable - making all of the required dependencies available to the interpreter.</p>
+<section id="gathering-dependencies">
+<h3>Gathering Dependencies<a class="headerlink" href="#gathering-dependencies" title="Permalink to this heading">¶</a></h3>
+<p>The first thing we need to do is to figure out when given a Python package, is what all of its dependencies are.
+Thankfully, to help us figure it out we can use the Nix REPL allowing us to inspect derivations and evaluate expressions:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ nix repl
+Welcome to Nix 2.11.1. Type :? for help.
+
+nix-repl&gt; :lf .    # Load the flake located in the current directory
+Added 9 variables.
+</pre></div>
+</div>
+<p>First let’s locate a package that we’re interested in, note that the <code class="docutils literal notranslate"><span class="pre">inputs</span></code> variable corresponds to the <code class="docutils literal notranslate"><span class="pre">inputs</span></code> attribute set we declared in our <code class="docutils literal notranslate"><span class="pre">flake.nix</span></code> file:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>nix-repl&gt; pkgs = inputs.nixpkgs.legacyPackages.x86_64-linux.python311Packages
+nix-repl&gt; pkgs.attrs
+«derivation /nix/store/bcgw61xp6ss6vaad5ghwqfbm2m795a2g-python3.11-attrs-22.2.0.drv»
+</pre></div>
+</div>
+<p>To find out what attributes this derivation has we can type <code class="docutils literal notranslate"><span class="pre">pkgs.attrs.</span></code> and then hit <kbd class="kbd docutils literal notranslate">Tab</kbd>:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">nix</span><span class="o">-</span><span class="n">repl</span><span class="o">&gt;</span> <span class="n">pkgs</span><span class="o">.</span><span class="n">attrs</span><span class="o">.</span>
+<span class="n">pkgs</span><span class="o">.</span><span class="n">attrs</span><span class="o">.</span><span class="n">LANG</span>                         <span class="n">pkgs</span><span class="o">.</span><span class="n">attrs</span><span class="o">.</span><span class="n">outPath</span>
+<span class="n">pkgs</span><span class="o">.</span><span class="n">attrs</span><span class="o">.</span><span class="n">__ignoreNulls</span>                <span class="n">pkgs</span><span class="o">.</span><span class="n">attrs</span><span class="o">.</span><span class="n">outputName</span>
+<span class="n">pkgs</span><span class="o">.</span><span class="n">attrs</span><span class="o">.</span><span class="n">__structuredAttrs</span>            <span class="n">pkgs</span><span class="o">.</span><span class="n">attrs</span><span class="o">.</span><span class="n">outputs</span>
+<span class="n">pkgs</span><span class="o">.</span><span class="n">attrs</span><span class="o">.</span><span class="n">all</span>                          <span class="n">pkgs</span><span class="o">.</span><span class="n">attrs</span><span class="o">.</span><span class="n">override</span>
+<span class="n">pkgs</span><span class="o">.</span><span class="n">attrs</span><span class="o">.</span><span class="n">args</span>                         <span class="n">pkgs</span><span class="o">.</span><span class="n">attrs</span><span class="o">.</span><span class="n">overrideAttrs</span>
+<span class="n">pkgs</span><span class="o">.</span><span class="n">attrs</span><span class="o">.</span><span class="n">buildInputs</span>                  <span class="n">pkgs</span><span class="o">.</span><span class="n">attrs</span><span class="o">.</span><span class="n">overrideDerivation</span>
+<span class="n">pkgs</span><span class="o">.</span><span class="n">attrs</span><span class="o">.</span><span class="n">builder</span>                      <span class="n">pkgs</span><span class="o">.</span><span class="n">attrs</span><span class="o">.</span><span class="n">overridePythonAttrs</span>
+<span class="n">pkgs</span><span class="o">.</span><span class="n">attrs</span><span class="o">.</span><span class="n">cmakeFlags</span>                   <span class="n">pkgs</span><span class="o">.</span><span class="n">attrs</span><span class="o">.</span><span class="n">passthru</span>
+<span class="n">pkgs</span><span class="o">.</span><span class="n">attrs</span><span class="o">.</span><span class="n">configureFlags</span>               <span class="n">pkgs</span><span class="o">.</span><span class="n">attrs</span><span class="o">.</span><span class="n">patches</span>
+<span class="n">pkgs</span><span class="o">.</span><span class="n">attrs</span><span class="o">.</span><span class="n">depsBuildBuild</span>               <span class="n">pkgs</span><span class="o">.</span><span class="n">attrs</span><span class="o">.</span><span class="n">pname</span>
+<span class="n">pkgs</span><span class="o">.</span><span class="n">attrs</span><span class="o">.</span><span class="n">depsBuildBuildPropagated</span>     <span class="n">pkgs</span><span class="o">.</span><span class="n">attrs</span><span class="o">.</span><span class="n">postFixup</span>
+<span class="n">pkgs</span><span class="o">.</span><span class="n">attrs</span><span class="o">.</span><span class="n">depsBuildTarget</span>              <span class="n">pkgs</span><span class="o">.</span><span class="n">attrs</span><span class="o">.</span><span class="n">postInstall</span>
+<span class="n">pkgs</span><span class="o">.</span><span class="n">attrs</span><span class="o">.</span><span class="n">depsBuildTargetPropagated</span>    <span class="n">pkgs</span><span class="o">.</span><span class="n">attrs</span><span class="o">.</span><span class="n">propagatedBuildInputs</span>
+<span class="n">pkgs</span><span class="o">.</span><span class="n">attrs</span><span class="o">.</span><span class="n">depsHostHost</span>                 <span class="n">pkgs</span><span class="o">.</span><span class="n">attrs</span><span class="o">.</span><span class="n">propagatedNativeBuildInputs</span>
+<span class="n">pkgs</span><span class="o">.</span><span class="n">attrs</span><span class="o">.</span><span class="n">depsHostHostPropagated</span>       <span class="n">pkgs</span><span class="o">.</span><span class="n">attrs</span><span class="o">.</span><span class="n">pythonImportsCheck</span>
+<span class="n">pkgs</span><span class="o">.</span><span class="n">attrs</span><span class="o">.</span><span class="n">depsTargetTarget</span>             <span class="n">pkgs</span><span class="o">.</span><span class="n">attrs</span><span class="o">.</span><span class="n">pythonModule</span>
+<span class="n">pkgs</span><span class="o">.</span><span class="n">attrs</span><span class="o">.</span><span class="n">depsTargetTargetPropagated</span>   <span class="n">pkgs</span><span class="o">.</span><span class="n">attrs</span><span class="o">.</span><span class="n">pythonPath</span>
+<span class="n">pkgs</span><span class="o">.</span><span class="n">attrs</span><span class="o">.</span><span class="n">disallowedReferences</span>         <span class="n">pkgs</span><span class="o">.</span><span class="n">attrs</span><span class="o">.</span><span class="n">requiredPythonModules</span>
+<span class="n">pkgs</span><span class="o">.</span><span class="n">attrs</span><span class="o">.</span><span class="n">dist</span>                         <span class="n">pkgs</span><span class="o">.</span><span class="n">attrs</span><span class="o">.</span><span class="n">src</span>
+<span class="n">pkgs</span><span class="o">.</span><span class="n">attrs</span><span class="o">.</span><span class="n">doCheck</span>                      <span class="n">pkgs</span><span class="o">.</span><span class="n">attrs</span><span class="o">.</span><span class="n">stdenv</span>
+<span class="n">pkgs</span><span class="o">.</span><span class="n">attrs</span><span class="o">.</span><span class="n">doInstallCheck</span>               <span class="n">pkgs</span><span class="o">.</span><span class="n">attrs</span><span class="o">.</span><span class="n">strictDeps</span>
+<span class="n">pkgs</span><span class="o">.</span><span class="n">attrs</span><span class="o">.</span><span class="n">drvAttrs</span>                     <span class="n">pkgs</span><span class="o">.</span><span class="n">attrs</span><span class="o">.</span><span class="n">system</span>
+<span class="n">pkgs</span><span class="o">.</span><span class="n">attrs</span><span class="o">.</span><span class="n">drvPath</span>                      <span class="n">pkgs</span><span class="o">.</span><span class="n">attrs</span><span class="o">.</span><span class="n">testout</span>
+<span class="n">pkgs</span><span class="o">.</span><span class="n">attrs</span><span class="o">.</span><span class="n">inputDerivation</span>              <span class="n">pkgs</span><span class="o">.</span><span class="n">attrs</span><span class="o">.</span><span class="n">tests</span>
+<span class="n">pkgs</span><span class="o">.</span><span class="n">attrs</span><span class="o">.</span><span class="n">mesonFlags</span>                   <span class="n">pkgs</span><span class="o">.</span><span class="n">attrs</span><span class="o">.</span><span class="n">type</span>
+<span class="n">pkgs</span><span class="o">.</span><span class="n">attrs</span><span class="o">.</span><span class="n">meta</span>                         <span class="n">pkgs</span><span class="o">.</span><span class="n">attrs</span><span class="o">.</span><span class="n">updateScript</span>
+<span class="n">pkgs</span><span class="o">.</span><span class="n">attrs</span><span class="o">.</span><span class="n">name</span>                         <span class="n">pkgs</span><span class="o">.</span><span class="n">attrs</span><span class="o">.</span><span class="n">userHook</span>
+<span class="n">pkgs</span><span class="o">.</span><span class="n">attrs</span><span class="o">.</span><span class="n">nativeBuildInputs</span>            <span class="n">pkgs</span><span class="o">.</span><span class="n">attrs</span><span class="o">.</span><span class="n">version</span>
+<span class="n">pkgs</span><span class="o">.</span><span class="n">attrs</span><span class="o">.</span><span class="n">out</span>
+</pre></div>
+</div>
+<p>Well <code class="docutils literal notranslate"><span class="pre">requiredPythonModules</span></code> looks interesting:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>nix-repl&gt; pkgs.attrs.requiredPythonModules
+[ «derivation /nix/store/2dml7fbspshiwb1j896jd3ajrsq81nl5-python3-3.11.4.drv» ]
+</pre></div>
+</div>
+<p>I guess the only dependencies <code class="docutils literal notranslate"><span class="pre">attrs</span></code> has is Python itself, that’s good to know as we will have to drop that from the list of dependencies:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>nix-repl&gt; lib = inputs.nixpkgs.lib
+nix-repl&gt; python = inputs.nixpkgs.legacyPackages.x86_64-linux.python311
+nix-repl&gt; python
+«derivation /nix/store/2dml7fbspshiwb1j896jd3ajrsq81nl5-python3-3.11.4.drv»
+
+nix-repl&gt; lib.remove python pkgs.attrs.requiredPythonModules
+[ ]
+</pre></div>
+</div>
+<p>Now, how about another package?:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>nix-repl&gt; lib.remove python pkgs.pygls.requiredPythonModules
+[
+  «derivation /nix/store/dsx8aalkf97pi0ja8xs9mlss5lk4bzhv-python3.11-lsprotocol-2023.0.0a2.drv»
+  «derivation /nix/store/86933r4czjpmyq3ikz5444f1k1q9rij6-python3.11-typeguard-2.13.3.drv»
+  «derivation /nix/store/bcgw61xp6ss6vaad5ghwqfbm2m795a2g-python3.11-attrs-22.2.0.drv»
+  «derivation /nix/store/f19ymrh2zv9hzh00wjvjv73v529n3ds4-python3.11-cattrs-23.1.2.drv»
+]
+</pre></div>
+</div>
+<p>Based on some experiments I think <code class="docutils literal notranslate"><span class="pre">requiredPythonModules</span></code> automatically handles transitive dependencies for us!</p>
+</section>
+<section id="setting-pythonpath">
+<h3>Setting <code class="docutils literal notranslate"><span class="pre">PYTHONPATH</span></code><a class="headerlink" href="#setting-pythonpath" title="Permalink to this heading">¶</a></h3>
+<p>I’ll spare you the trial and error and skip to the following lines of nix code which take a list of <code class="docutils literal notranslate"><span class="pre">pyPackages</span></code> and converts it into a value we can use with <code class="docutils literal notranslate"><span class="pre">PYTHONPATH</span></code></p>
+<div class="highlight-nix notranslate"><div class="highlight"><pre><span></span><span class="ss">pyDeps =</span> lib<span class="o">.</span>concatMap <span class="p">(</span>pkg<span class="p">:</span> lib<span class="o">.</span>remove pkg<span class="o">.</span>pythonModule pkg<span class="o">.</span>requiredPythonModules<span class="p">)</span> pyPackages<span class="p">;</span>
+<span class="ss">allPackages =</span> lib<span class="o">.</span>unique <span class="p">(</span>pyPackages <span class="o">++</span> pyDeps<span class="p">);</span>
+<span class="ss">pythonPath =</span> lib<span class="o">.</span>concatMapStringsSep <span class="s2">&quot;:&quot;</span> <span class="p">(</span>pkg<span class="p">:</span> <span class="s2">&quot;</span><span class="si">${</span>pkg<span class="si">}</span><span class="s2">/lib/python3.11/site-packages&quot;</span><span class="p">)</span> allPackages<span class="p">;</span>
+</pre></div>
+</div>
+<p>Don’t forget we will also have to grant the process access to each of the folders we add to the <code class="docutils literal notranslate"><span class="pre">PYTHONPATH</span></code></p>
+<div class="highlight-nix notranslate"><div class="highlight"><pre><span></span>lib<span class="o">.</span>concatMapStringsSep <span class="s2">&quot;</span><span class="se">\\\</span><span class="s2">n  &quot;</span> <span class="p">(</span>pkg<span class="p">:</span> <span class="s2">&quot;--dir &#39;</span><span class="si">${</span>pkg<span class="si">}</span><span class="s2">/lib/python3.11/site-packages&#39; &quot;</span><span class="p">)</span> allPackages
+</pre></div>
+</div>
+</section>
+<section id="mkpythonwasishell">
+<h3><code class="docutils literal notranslate"><span class="pre">mkPythonWASIShell</span></code><a class="headerlink" href="#mkpythonwasishell" title="Permalink to this heading">¶</a></h3>
+<p>We now have everything we need to rewrite our <code class="docutils literal notranslate"><span class="pre">./nix/python.nix</span></code> file to define a helper function  which takes a list of Python packages and creates a <code class="docutils literal notranslate"><span class="pre">devShell</span></code> containing the WASI build of Python and all of our declared dependencies.</p>
+<div class="highlight-nix notranslate"><div class="highlight"><pre><span></span><span class="c1"># In ./nix/python.nix</span>
+
+<span class="c1"># Dependencies for our function (mostly) coming from `nixpkgs`</span>
+<span class="p">{</span> lib
+<span class="p">,</span> python-wasi
+<span class="p">,</span> mkShell
+<span class="p">,</span> stdenv
+<span class="p">,</span> wasmtime
+<span class="p">,</span> writeShellScriptBin
+<span class="p">}:</span>
+
+<span class="c1"># Arguments the user can set when invoking the function</span>
+<span class="p">{</span> pyPackages <span class="o">?</span> <span class="p">[]</span>
+<span class="p">}:</span>
+
+<span class="c1"># Implementation details</span>
+<span class="k">let</span>
+  <span class="ss">pyDeps =</span> lib<span class="o">.</span>concatMap <span class="p">(</span>pkg<span class="p">:</span> lib<span class="o">.</span>remove pkg<span class="o">.</span>pythonModule pkg<span class="o">.</span>requiredPythonModules<span class="p">)</span> pyPackages<span class="p">;</span>
+  <span class="ss">allPackages =</span> lib<span class="o">.</span>unique <span class="p">(</span>pyPackages <span class="o">++</span> pyDeps<span class="p">);</span>
+  <span class="ss">pythonPath =</span> lib<span class="o">.</span>concatMapStringsSep <span class="s2">&quot;:&quot;</span> <span class="p">(</span>pkg<span class="p">:</span> <span class="s2">&quot;</span><span class="si">${</span>pkg<span class="si">}</span><span class="s2">/lib/python3.11/site-packages&quot;</span><span class="p">)</span> allPackages<span class="p">;</span>
+
+  <span class="c1"># This should look familiar...</span>
+  <span class="ss">python =</span> writeShellScriptBin <span class="s2">&quot;python&quot;</span> <span class="s1">&#39;&#39;</span>
+<span class="s1">   </span><span class="si">${</span>wasmtime<span class="si">}</span><span class="s1">/bin/wasmtime run </span><span class="si">${</span>python-wasi<span class="si">}</span><span class="s1">/python.wasm \</span>
+<span class="s1">     --env PYTHONHOME=</span><span class="si">${</span>python-wasi<span class="si">}</span><span class="s1"> \</span>
+<span class="s1">     --env PYTHONPATH=&#39;.:</span><span class="si">${</span>pythonPath<span class="si">}</span><span class="s1">&#39; \</span>
+<span class="s1">     --dir </span><span class="si">${</span>python-wasi<span class="si">}</span><span class="s1"> \</span>
+<span class="s1">     </span><span class="si">${</span>lib<span class="o">.</span>concatMapStringsSep <span class="s2">&quot;</span><span class="se">\\\</span><span class="s2">n  &quot;</span> <span class="p">(</span>pkg<span class="p">:</span> <span class="s2">&quot;--dir &#39;</span><span class="si">${</span>pkg<span class="si">}</span><span class="s2">/lib/python3.11/site-packages&#39; &quot;</span><span class="p">)</span> allPackages<span class="si">}</span><span class="s1"> \</span>
+<span class="s1">     --dir . \</span>
+<span class="s1">     -- &quot;$@&quot;</span>
+<span class="s1">  &#39;&#39;</span><span class="p">;</span>
+
+<span class="k">in</span>
+<span class="c1"># Our function&#39;s return value</span>
+mkShell <span class="p">{</span>
+  <span class="ss">name =</span> <span class="s2">&quot;python-wasi&quot;</span><span class="p">;</span>
+  <span class="ss">packages =</span> <span class="p">[</span> python <span class="p">];</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>The function only gets a name when we import it into the top-level <code class="docutils literal notranslate"><span class="pre">flake.nix</span></code> file</p>
+<div class="highlight-nix notranslate"><div class="highlight"><pre><span></span><span class="ss">pkgs =</span> <span class="nb">import</span> nixpkgs <span class="p">{</span> <span class="k">inherit</span> system<span class="p">;</span> <span class="p">};</span>
+<span class="ss">python-wasi =</span> pkgs<span class="o">.</span>callPackage <span class="o">.</span><span class="l">/nix/python-wasi.nix</span> <span class="p">{};</span>
+<span class="ss">mkPythonWASIShell =</span> pkgs<span class="o">.</span>callPackage <span class="o">.</span><span class="l">/nix/python.nix</span> <span class="p">{</span> <span class="ss">python-wasi =</span> python-wasi<span class="p">;</span> <span class="p">};</span>
+</pre></div>
+</div>
+<p>The <code class="docutils literal notranslate"><span class="pre">callPackage</span></code> function uses some kind of ✨magic✨ to automatically pass through all the dependencies (like <code class="docutils literal notranslate"><span class="pre">wasmtime</span></code>) we declared in <code class="docutils literal notranslate"><span class="pre">./nix/python.nix</span></code> - except for <code class="docutils literal notranslate"><span class="pre">python-wasi</span></code> which we pass through by hand.</p>
+<p>Defining an environment based on <code class="docutils literal notranslate"><span class="pre">mkPythonWASIShell</span></code> would then look something like the following</p>
+<div class="highlight-nix notranslate"><div class="highlight"><pre><span></span>devShells<span class="o">.</span><span class="ss">default =</span> mkPythonWASIShell <span class="p">{</span>
+  <span class="ss">pyPackages =</span> <span class="k">with</span> pkgs<span class="o">.</span>python311Packages<span class="p">;</span> <span class="p">[</span>
+    pygls
+  <span class="p">];</span>
+<span class="p">};</span>
+</pre></div>
+</div>
+<p>Which we can now try to develop with:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ nix develop
+(nix-shell) $ python
+Python 3.11.4 (tags/v3.11.4-dirty:d2340ef, Jun  8 2023, 00:39:32) [Clang 14.0.4 (https://github.com/llvm/llvm-project 29f1039a7285a5c3a9c353d05414 on wasi
+Type &quot;help&quot;, &quot;copyright&quot;, &quot;credits&quot; or &quot;license&quot; for more information.
+&gt;&gt;&gt; from pygls.server import LanguageServer
+Traceback (most recent call last):
+  File &quot;&lt;stdin&gt;&quot;, line 1, in &lt;module&gt;
+  File &quot;/nix/store/g4p26w5gh74nndclnskypc74ni37jqm6-python3.11-pygls-1.0.1/lib/python3.11/site-packages/pygls/server.py&quot;, line 42, in &lt;module&gt;
+    from multiprocessing.pool import ThreadPool
+ModuleNotFoundError: No module named &#39;multiprocessing&#39;
+&gt;&gt;&gt;
+</pre></div>
+</div>
+<p>Assuming the packages support the WASI runtime that is! 😅</p>
+</section>
+</section>
+<section id="next-steps">
+<h2>Next steps<a class="headerlink" href="#next-steps" title="Permalink to this heading">¶</a></h2>
+<p>If you are interested you can find the final version of the code <a class="reference external" href="https://github.com/alcarney/python-wasi-nix">here</a>.
+I’m not really sure where it will go from here, as it’s now “good enough” for me to start hacking on the WASI runtime, but there’s certainly plenty that could be improved.</p>
+<ul class="simple">
+<li><p>Building Python WASI from source</p></li>
+<li><p>Automatically choosing the right Python package set to use with <code class="docutils literal notranslate"><span class="pre">mkPythonWASIShell</span></code>, like <code class="docutils literal notranslate"><span class="pre">python.withPackages</span></code></p></li>
+<li><p>Extending <code class="docutils literal notranslate"><span class="pre">mkPythonWASIShell</span></code> to allow the user to set the permissions for the Python process</p></li>
+<li><p>Overriding a base <code class="docutils literal notranslate"><span class="pre">python</span></code> derivation so that packages are built against this version of Python.</p></li>
+<li><p>Extending this to work with packages that contain native modules?</p></li>
+</ul>
+</section>
+</section>
+
+</article>
+
+
+
+
+<div class="mt-8 pt-4 border-t dark:border-gray-600">
+    <script src="https://giscus.app/client.js"
+            data-repo="alcarney/blog"
+            data-repo-id="MDEwOlJlcG9zaXRvcnk2Njk3NzM3MQ=="
+            data-category="Comments"
+            data-category-id="DIC_kwDOA_3-W84B_XOl"
+            data-mapping="pathname"
+            data-reactions-enabled="1"
+            data-emit-metadata="0"
+            data-theme="preferred_color_scheme"
+            crossorigin="anonymous"
+            async>
+    </script>
+</div>
+
+
+
+                </div>
+            </div>
+
+            <footer class="p-2 mt-8 mb-2 text-sm text-gray-600 border-t dark:border-gray-600">
+                <div class="flex flex-col justify-between max-w-3xl mx-auto lg:flex-row">
+                    <span>
+                        <a class="text-green-600" href="../../../_sources/blog/2023/python-wasi-nix.rst.txt" rel="nofollow">
+                            Page Source
+                        </a>
+                    </span>
+                    <span>Built with <a class="text-green-600" href="https://www.sphinx-doc.org/en/master/">Sphinx</a> v5.3.0</span>
+                </div>
+            </footer>
+        </main>
+
+    </div>
+<script src="/_static/js/theme.js"></script>
+
+
+  </body>
+</html>

@@ -1698,6 +1698,11 @@ video {
   padding: 1rem;
 }
 
+.px-1 {
+  padding-left: 0.25rem;
+  padding-right: 0.25rem;
+}
+
 .px-2 {
   padding-left: 0.5rem;
   padding-right: 0.5rem;
@@ -1795,6 +1800,10 @@ video {
 .text-white {
   --tw-text-opacity: 1;
   color: rgb(255 255 255 / var(--tw-text-opacity));
+}
+
+.line-through {
+  text-decoration-line: line-through;
 }
 
 .shadow-md {
@@ -1989,6 +1998,12 @@ div.highlight .hll {
   }
 }
 
+/* -- Search -- */
+
+#sbox {
+  width: 100%;
+}
+
 /* -- Local table of contents -- */
 
 #localtoc a[href='#'] {
@@ -2001,6 +2016,22 @@ div.highlight .hll {
 
 #localtoc ul {
   list-style-type: none;
+}
+
+/* -- Strikethrough -- */
+
+.strike {
+  text-decoration-line: line-through;
+}
+
+/* -- Kbd -- */
+
+kbd {
+  display: inline-block;
+  border-radius: 0.25rem;
+  border-width: 1px;
+  padding-left: 0.25rem;
+  padding-right: 0.25rem;
 }
 
 /* -- Profile image -- */

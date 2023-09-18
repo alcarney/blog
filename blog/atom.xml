@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom" xml:lang="en">
   <id>www.alcarney.me</id>
   <title>Blog</title>
-  <updated>2023-08-07T18:41:23.532707+00:00</updated>
+  <updated>2023-09-18T22:47:04.465430+00:00</updated>
   <link href="www.alcarney.me"/>
   <link href="www.alcarney.me/blog/atom.xml" rel="self"/>
   <generator uri="https://ablog.readthedocs.org/" version="0.10.33.post1">ABlog</generator>
@@ -477,5 +477,25 @@ So instead of trying to accomplish some major task, this post is a small collect
     <category term="nix" label="nix"/>
     <category term="python" label="python"/>
     <published>2023-07-27T00:00:00+00:00</published>
+  </entry>
+  <entry>
+    <id>www.alcarney.me/blog/2023/python-wasi-nix/</id>
+    <title>Setting up a Python WASI Environment with Nix</title>
+    <updated>2023-09-18T00:00:00+00:00</updated>
+    <author>
+      <name>me</name>
+    </author>
+    <content type="html">&lt;div class="ablog-post-excerpt docutils container"&gt;
+&lt;p&gt;In this blog post I look at setting up a local development environment for the &lt;a class="reference external" href="https://github.com/brettcannon/cpython-wasi-build"&gt;WASI build of Python&lt;/a&gt;  using Nix.
+You can see the final result &lt;a class="reference external" href="https://github.com/alcarney/python-wasi-nix"&gt;here&lt;/a&gt;&lt;/p&gt;
+&lt;/div&gt;
+</content>
+    <link href="www.alcarney.me/blog/2023/python-wasi-nix/" rel="alternate"/>
+    <summary>In this blog post I look at setting up a local development environment for the WASI build of Python  using Nix.
+You can see the final result here</summary>
+    <category term="nix" label="nix"/>
+    <category term="python" label="python"/>
+    <category term="wasm" label="wasm"/>
+    <published>2023-09-18T00:00:00+00:00</published>
   </entry>
 </feed>
