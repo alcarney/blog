@@ -115,6 +115,16 @@ div.highlight .hll {
     @apply list-none
 }
 
+/* -- Strikethrough -- */
+.strike {
+    @apply line-through
+}
+
+/* -- Kbd -- */
+kbd {
+    @apply px-1 inline-block border rounded
+}
+
 /* -- Profile image -- */
 
 .full-profile {
