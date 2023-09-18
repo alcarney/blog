@@ -96,6 +96,11 @@ div.highlight .hll {
     @apply bg-[#fff] dark:bg-[#000]
 }
 
+/* -- Search -- */
+#sbox {
+    @apply w-full
+}
+
 /* -- Local table of contents -- */
 
 #localtoc a[href='#'] {
