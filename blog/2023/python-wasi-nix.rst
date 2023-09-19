@@ -1,6 +1,6 @@
 .. post:: 2023-09-18
    :tags: nix, python, wasm
-   :author: me
+   :author: Alex Carney
    :language: en
    :excerpt: 1
 

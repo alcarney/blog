@@ -1,6 +1,6 @@
 .. post:: 2023-04-02
    :tags: nix, python, pytest-lsp, esbonio
-   :author: me
+   :author: Alex Carney
    :language: en
    :excerpt: 1
 

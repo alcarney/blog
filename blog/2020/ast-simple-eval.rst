@@ -1,6 +1,6 @@
 .. post:: 2020-12-17
    :tags: c, prog-langs
-   :author: me
+   :author: Alex Carney
    :language: en
 
 .. code:

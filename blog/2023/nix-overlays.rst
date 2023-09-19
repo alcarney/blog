@@ -1,6 +1,6 @@
 .. post:: 2023-01-25
    :tags: nix, pytest-lsp, python
-   :author: me
+   :author: Alex Carney
    :language: en
    :excerpt: 3
 

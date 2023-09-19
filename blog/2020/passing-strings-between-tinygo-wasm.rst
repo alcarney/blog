@@ -1,6 +1,6 @@
 .. post:: 2020-05-06
    :tags: go, tinygo, wasm, js
-   :author: me
+   :author: Alex Carney
    :language: en
    :excerpt: 2
 

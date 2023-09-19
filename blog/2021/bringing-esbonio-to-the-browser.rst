@@ -2,7 +2,7 @@
    :tags: lsp, esbonio, vscode
    :excerpt: 2
    :image: 1
-   :author: me
+   :author: Alex Carney
    :language: en
 
 Bringing Esbonio to the Browser
