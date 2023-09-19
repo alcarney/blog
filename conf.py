@@ -20,7 +20,7 @@ from sphinx.application import Sphinx
 # -- Project information -----------------------------------------------------
 
 project = "Blog"
-copyright = "2021, Alex Carney"
+copyright = "2023, Alex Carney"
 author = "Alex Carney"
 
 
@@ -46,7 +46,7 @@ templates_path = ["_templates"]
 exclude_patterns = ["_build", "Thumbs.db", ".DS_Store", ".env", "talks"]
 
 # -- Options for ABlog extension ---------------------------------------------
-blog_baseurl = "www.alcarney.me"
+blog_baseurl = "https://www.alcarney.me"
 post_date_format = "%b %d, %Y"
 
 # -- Options for InterSphinx extension ---------------------------------------------
