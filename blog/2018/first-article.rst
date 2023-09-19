@@ -1,6 +1,6 @@
 .. post:: 2018-09-22
    :tags: blogging
-   :author: me
+   :author: Alex Carney
    :language: en
    :excerpt: 4
 

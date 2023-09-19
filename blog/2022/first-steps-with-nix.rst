@@ -1,6 +1,6 @@
 .. post:: 2022-12-27
    :tags: nix, esbonio, python
-   :author: me
+   :author: Alex Carney
    :language: en
    :excerpt: 4
 

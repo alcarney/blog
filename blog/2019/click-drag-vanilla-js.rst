@@ -1,6 +1,6 @@
 .. post:: 2019-07-07
    :tags: svg, web, js
-   :author: me
+   :author: Alex Carney
    :language: en
    :image: 1
    :excerpt: 4

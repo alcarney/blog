@@ -1,6 +1,6 @@
 .. post:: 2020-01-08
    :tags: c, vulkan, graphics
-   :author: me
+   :author: Alex Carney
    :language: en
    :excerpt: 2
 
