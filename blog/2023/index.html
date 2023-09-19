@@ -234,10 +234,9 @@
                 </a>
             </header>
             <div class="prose-sm prose prose-emerald dark:prose-invert">
-                <div class="ablog-post-excerpt docutils container">
-<p>In this blog post I look at setting up a local development environment for the <a class="reference external" href="https://github.com/brettcannon/cpython-wasi-build">WASI build of Python</a>  using Nix.
+                <p class="ablog-post-excerpt"><p>In this blog post I look at setting up a local development environment for the <a class="reference external" href="https://github.com/brettcannon/cpython-wasi-build">WASI build of Python</a>  using Nix.
 You can see the final result <a class="reference external" href="https://github.com/alcarney/python-wasi-nix">here</a></p>
-</div>
+</p>
 
 
             </div>
@@ -280,10 +279,9 @@ You can see the final result <a class="reference external" href="https://github.
                 </a>
             </header>
             <div class="prose-sm prose prose-emerald dark:prose-invert">
-                <div class="ablog-post-excerpt docutils container">
-<p>This blog post marks a change in my usage of Nix, I’m (just!) past the point of trying to get <em>something</em> to work and now starting to incorporate it into some of my regular workflows.
+                <p class="ablog-post-excerpt"><p>This blog post marks a change in my usage of Nix, I’m (just!) past the point of trying to get <em>something</em> to work and now starting to incorporate it into some of my regular workflows.
 So instead of trying to accomplish some major task, this post is a small collection of things I’ve learned over the past few weeks.</p>
-</div>
+</p>
 
 
             </div>
@@ -326,13 +324,12 @@ So instead of trying to accomplish some major task, this post is a small collect
                 </a>
             </header>
             <div class="prose-sm prose prose-emerald dark:prose-invert">
-                <div class="ablog-post-excerpt docutils container">
-<p>So far I’ve been learning how to use Nix by trying to package and define development shells for <a class="reference external" href="https://github.com/swyddfa/esbonio">esbonio</a> (see <a class="reference internal" href="../tag/nix/" title="nix"><span class="xref std std-ref">here</span></a> if you are interested).
+                <p class="ablog-post-excerpt"><p>So far I’ve been learning how to use Nix by trying to package and define development shells for <a class="reference external" href="https://github.com/swyddfa/esbonio">esbonio</a> (see <a class="reference internal" href="../tag/nix/" title="nix"><span class="xref std std-ref">here</span></a> if you are interested).
 While useful, the end result is not too dissimilar to what you can get with standard Python tooling.
 Indeed, the main reason I started looking into Nix was the promise of it being able to manage more than just Python libraries.</p>
 <p>Since <code class="docutils literal notranslate"><span class="pre">esbonio</span></code> is a language server, it would be useful for Nix to create standardised environments where the language server is pre-configured for a given editor - great for debugging and demos!</p>
 <p>In this blog post I try to define an environment in which Neovim is installed and configured to use the <code class="docutils literal notranslate"><span class="pre">esbonio</span></code> language server for reStructuredText files.</p>
-</div>
+</p>
 
 
             </div>
@@ -375,13 +372,12 @@ Indeed, the main reason I started looking into Nix was the promise of it being a
                 </a>
             </header>
             <div class="prose-sm prose prose-emerald dark:prose-invert">
-                <div class="ablog-post-excerpt docutils container">
-<p>It turns out there were a few issues with the setup I put together in my <a class="reference internal" href="nix-overlays/"><span class="doc">previous post</span></a>.
+                <p class="ablog-post-excerpt"><p>It turns out there were a few issues with the setup I put together in my <a class="reference internal" href="nix-overlays/"><span class="doc">previous post</span></a>.
 This time I try and resolve them and get to the point where I have working overlays for both
 <a class="reference external" href="https://github.com/swyddfa/lsp-devtools/tree/develop/lib/pytest-lsp">pytest-lsp</a>
 and
 <a class="reference external" href="https://github.com/swyddfa/esbonio">esbonio</a>.</p>
-</div>
+</p>
 
 
             </div>
@@ -429,13 +425,12 @@ and
                 </a>
             </header>
             <div class="prose-sm prose prose-emerald dark:prose-invert">
-                <div class="ablog-post-excerpt docutils container">
-<p><a class="reference internal" href="../2022/first-steps-with-nix/"><span class="doc">Last time</span></a>, I experimented with writing a flake that defined development environments for the <a class="reference external" href="https://pypi.org/project/esbonio">esbonio</a> package spanning multiple Python versions.
+                <p class="ablog-post-excerpt"><p><a class="reference internal" href="../2022/first-steps-with-nix/"><span class="doc">Last time</span></a>, I experimented with writing a flake that defined development environments for the <a class="reference external" href="https://pypi.org/project/esbonio">esbonio</a> package spanning multiple Python versions.
 During that process I also packaged <a class="reference external" href="https://pypi.org/project/pytest-lsp">pytest-lsp</a> using an ad-hoc nix expression as part of the <code class="docutils literal notranslate"><span class="pre">esbonio</span></code> repo.</p>
 <p>In this post I look into writing a similar flake for the <code class="docutils literal notranslate"><span class="pre">pytest-lsp</span></code> package itself, but this time using overlays to override and extend the nixpkgs package set.</p>
 <p>If you are interested, you can find the final version of the code
 <a class="reference external" href="https://github.com/swyddfa/lsp-devtools/commit/a7b8d545364cc14c1cd054fd56831d0bd3517659">here</a>.</p>
-</div>
+</p>
 
 
             </div>

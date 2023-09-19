@@ -1,6 +1,6 @@
 .. post:: 2019-01-05
    :tags: stylo, python, til, cli
-   :author: me
+   :author: Alex Carney
    :language: en
    :excerpt: 1
    :image: 1

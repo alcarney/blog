@@ -1,113 +1,355 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <feed xmlns="http://www.w3.org/2005/Atom" xml:lang="en">
-  <id>www.alcarney.me</id>
+  <id>https://www.alcarney.me</id>
   <title>Blog</title>
-  <updated>2023-09-18T22:47:04.465430+00:00</updated>
-  <link href="www.alcarney.me"/>
-  <link href="www.alcarney.me/blog/atom.xml" rel="self"/>
-  <generator uri="https://ablog.readthedocs.org/" version="0.10.33.post1">ABlog</generator>
+  <updated>2023-09-19T22:11:03.829220+00:00</updated>
+  <link href="https://www.alcarney.me"/>
+  <link href="https://www.alcarney.me/blog/atom.xml" rel="self"/>
+  <generator uri="https://ablog.readthedocs.io/" version="0.11.4.post1">ABlog</generator>
   <entry>
-    <id>www.alcarney.me/blog/2018/first-article/</id>
-    <title>I’ve Started a Blog… Again!</title>
-    <updated>2018-09-22T00:00:00+00:00</updated>
+    <id>https://www.alcarney.me/blog/2023/python-wasi-nix/</id>
+    <title>Setting up a Python WASI Environment with Nix</title>
+    <updated>2023-09-18T00:00:00+00:00</updated>
     <author>
-      <name>me</name>
+      <name>Alex Carney</name>
     </author>
-    <content type="html">&lt;div class="ablog-post-excerpt docutils container"&gt;
-&lt;p&gt;Not that you would have known it, but I’ve had a blog since 2014.  Well 2015 if
-you’re feeling generous, the first (and only) post went up in the last few
-hours of New Year’s Eve. It was a look back on some of the projects I had
-worked on that year and I announced my intentions to start blogging.&lt;/p&gt;
-&lt;p&gt;Fast forward nearly 4 years and here I am announcing my intentions to start
-blogging - &lt;strong&gt;again&lt;/strong&gt;. So I guess you are wondering what happened?&lt;/p&gt;
-&lt;p&gt;I got lost.&lt;/p&gt;
-&lt;p&gt;My first attempt at running a blog was using &lt;a class="reference external" href="https://jekyllrb.com"&gt;Jekyll&lt;/a&gt; and for some mystical reason
-(It’s been so long I can’t actually remember why), I decided that it was not the
-static site generator I was looking for. So I promptly set off on a voyage of
-discovery in search of the ultimate static site generator.&lt;/p&gt;
-&lt;/div&gt;
+    <content type="html">&lt;p class="ablog-post-excerpt"&gt;&lt;p&gt;In this blog post I look at setting up a local development environment for the &lt;a class="reference external" href="https://github.com/brettcannon/cpython-wasi-build"&gt;WASI build of Python&lt;/a&gt;  using Nix.
+You can see the final result &lt;a class="reference external" href="https://github.com/alcarney/python-wasi-nix"&gt;here&lt;/a&gt;&lt;/p&gt;
+&lt;/p&gt;
 </content>
-    <link href="www.alcarney.me/blog/2018/first-article/" rel="alternate"/>
-    <summary>Not that you would have known it, but I’ve had a blog since 2014.  Well 2015 if
-you’re feeling generous, the first (and only) post went up in the last few
-hours of New Year’s Eve. It was a look back on some of the projects I had
-worked on that year and I announced my intentions to start blogging.Fast forward nearly 4 years and here I am announcing my intentions to start
-blogging - again. So I guess you are wondering what happened?I got lost.My first attempt at running a blog was using Jekyll and for some mystical reason
-(It’s been so long I can’t actually remember why), I decided that it was not the
-static site generator I was looking for. So I promptly set off on a voyage of
-discovery in search of the ultimate static site generator.</summary>
-    <category term="blogging" label="blogging"/>
-    <published>2018-09-22T00:00:00+00:00</published>
-  </entry>
-  <entry>
-    <id>www.alcarney.me/blog/2018/introducing-stylo-doodles/</id>
-    <title>Introducing Stylo Doodles!</title>
-    <updated>2018-10-12T00:00:00+00:00</updated>
-    <author>
-      <name>me</name>
-    </author>
-    <content type="html">&lt;div class="ablog-post-excerpt docutils container"&gt;
-&lt;p&gt;A few weeks back at &lt;a class="reference external" href="https://2018.pyconuk.org/"&gt;PyConUK&lt;/a&gt; I gave my first &lt;a class="reference external" href="https://youtu.be/F5jSUJVymXk?t=3480"&gt;lighting talk&lt;/a&gt;
-at a conference. During that talk I spoke publically about &lt;a class="reference external" href="https://github.com/alcarney/stylo"&gt;stylo&lt;/a&gt; for
-the first time. Stylo is a Python library that I have been working on for just
-over a year and a half and it aims to make the creation of images easier by
-bringing together ideas from programming and mathematics.&lt;/p&gt;
-&lt;p&gt;Version &lt;a class="reference external" href="https://alcarney.github.io/stylo/changes.html"&gt;0.6.0&lt;/a&gt; was recently released which included the first feature
-that wasn’t written by me! It’s very exciting not only to see other people
-starting to take an interest in the project but taking the time to make a
-contribution!&lt;/p&gt;
-&lt;p&gt;Now that stylo seems to be getting to the point that it might me useful to
-other people wouldn’t it be great if there was a community driven example
-gallery that people could get inspired by? - Well now there is! And it’s
-called &lt;a class="reference external" href="https://alcarney.github.io/stylo-doodles"&gt;Stylo Doodles&lt;/a&gt;&lt;/p&gt;
-&lt;img alt="../_images/stylo-doodles.png" src="../_images/stylo-doodles.png" /&gt;
-&lt;/div&gt;
-</content>
-    <link href="www.alcarney.me/blog/2018/introducing-stylo-doodles/" rel="alternate"/>
-    <summary>A few weeks back at PyConUK I gave my first lighting talk
-at a conference. During that talk I spoke publically about stylo for
-the first time. Stylo is a Python library that I have been working on for just
-over a year and a half and it aims to make the creation of images easier by
-bringing together ideas from programming and mathematics.Version 0.6.0 was recently released which included the first feature
-that wasn’t written by me! It’s very exciting not only to see other people
-starting to take an interest in the project but taking the time to make a
-contribution!Now that stylo seems to be getting to the point that it might me useful to
-other people wouldn’t it be great if there was a community driven example
-gallery that people could get inspired by? - Well now there is! And it’s
-called Stylo Doodles</summary>
+    <link href="https://www.alcarney.me/blog/2023/python-wasi-nix/" rel="alternate"/>
+    <summary>In this blog post I look at setting up a local development environment for the WASI build of Python  using Nix.
+You can see the final result here</summary>
+    <category term="nix" label="nix"/>
     <category term="python" label="python"/>
-    <category term="stylo" label="stylo"/>
-    <published>2018-10-12T00:00:00+00:00</published>
+    <category term="wasm" label="wasm"/>
+    <published>2023-09-18T00:00:00+00:00</published>
   </entry>
   <entry>
-    <id>www.alcarney.me/blog/2019/til-python-cmd/</id>
-    <title>TIL: Python has a cmd module</title>
-    <updated>2019-01-05T00:00:00+00:00</updated>
+    <id>https://www.alcarney.me/blog/2023/nix-day-to-day/</id>
+    <title>Nix: Day to Day Usage</title>
+    <updated>2023-07-27T00:00:00+00:00</updated>
     <author>
-      <name>me</name>
+      <name>Alex Carney</name>
     </author>
-    <content type="html">&lt;div class="ablog-post-excerpt docutils container"&gt;
-&lt;p&gt;Today I Learned that Python’s standard library has a &lt;a class="reference external" href="https://docs.python.org/3/library/cmd.html"&gt;cmd&lt;/a&gt; module and it is &lt;em&gt;awesome!&lt;/em&gt;&lt;/p&gt;
-&lt;img alt="../_images/cmd_python.gif" src="../_images/cmd_python.gif" /&gt;
-&lt;/div&gt;
+    <content type="html">&lt;p class="ablog-post-excerpt"&gt;&lt;p&gt;This blog post marks a change in my usage of Nix, I’m (just!) past the point of trying to get &lt;em&gt;something&lt;/em&gt; to work and now starting to incorporate it into some of my regular workflows.
+So instead of trying to accomplish some major task, this post is a small collection of things I’ve learned over the past few weeks.&lt;/p&gt;
+&lt;/p&gt;
 </content>
-    <link href="www.alcarney.me/blog/2019/til-python-cmd/" rel="alternate"/>
-    <summary>Today I Learned that Python’s standard library has a cmd module and it is awesome!</summary>
-    <category term="cli" label="cli"/>
+    <link href="https://www.alcarney.me/blog/2023/nix-day-to-day/" rel="alternate"/>
+    <summary>This blog post marks a change in my usage of Nix, I’m (just!) past the point of trying to get something to work and now starting to incorporate it into some of my regular workflows.
+So instead of trying to accomplish some major task, this post is a small collection of things I’ve learned over the past few weeks.</summary>
+    <category term="esbonio" label="esbonio"/>
+    <category term="nix" label="nix"/>
     <category term="python" label="python"/>
-    <category term="stylo" label="stylo"/>
-    <category term="til" label="til"/>
-    <published>2019-01-05T00:00:00+00:00</published>
+    <published>2023-07-27T00:00:00+00:00</published>
   </entry>
   <entry>
-    <id>www.alcarney.me/blog/2019/click-drag-vanilla-js/</id>
+    <id>https://www.alcarney.me/blog/2023/integrate-esboino-nvim-with-nix/</id>
+    <title>Integrating Esbonio with Neovim Using Nix</title>
+    <updated>2023-04-21T00:00:00+00:00</updated>
+    <author>
+      <name>Alex Carney</name>
+    </author>
+    <content type="html">&lt;p class="ablog-post-excerpt"&gt;&lt;p&gt;So far I’ve been learning how to use Nix by trying to package and define development shells for &lt;a class="reference external" href="https://github.com/swyddfa/esbonio"&gt;esbonio&lt;/a&gt; (see &lt;a class="reference internal" href="tag/nix/" title="nix"&gt;&lt;span class="xref std std-ref"&gt;here&lt;/span&gt;&lt;/a&gt; if you are interested).
+While useful, the end result is not too dissimilar to what you can get with standard Python tooling.
+Indeed, the main reason I started looking into Nix was the promise of it being able to manage more than just Python libraries.&lt;/p&gt;
+&lt;p&gt;Since &lt;code class="docutils literal notranslate"&gt;&lt;span class="pre"&gt;esbonio&lt;/span&gt;&lt;/code&gt; is a language server, it would be useful for Nix to create standardised environments where the language server is pre-configured for a given editor - great for debugging and demos!&lt;/p&gt;
+&lt;p&gt;In this blog post I try to define an environment in which Neovim is installed and configured to use the &lt;code class="docutils literal notranslate"&gt;&lt;span class="pre"&gt;esbonio&lt;/span&gt;&lt;/code&gt; language server for reStructuredText files.&lt;/p&gt;
+&lt;/p&gt;
+</content>
+    <link href="https://www.alcarney.me/blog/2023/integrate-esboino-nvim-with-nix/" rel="alternate"/>
+    <summary>So far I’ve been learning how to use Nix by trying to package and define development shells for esbonio (see here if you are interested).
+While useful, the end result is not too dissimilar to what you can get with standard Python tooling.
+Indeed, the main reason I started looking into Nix was the promise of it being able to manage more than just Python libraries.Since esbonio is a language server, it would be useful for Nix to create standardised environments where the language server is pre-configured for a given editor - great for debugging and demos!In this blog post I try to define an environment in which Neovim is installed and configured to use the esbonio language server for reStructuredText files.</summary>
+    <category term="esbonio" label="esbonio"/>
+    <category term="nix" label="nix"/>
+    <category term="python" label="python"/>
+    <published>2023-04-21T00:00:00+00:00</published>
+  </entry>
+  <entry>
+    <id>https://www.alcarney.me/blog/2023/nix-overlays-p2/</id>
+    <title>Nix Overlays: A follow up</title>
+    <updated>2023-04-02T00:00:00+00:00</updated>
+    <author>
+      <name>Alex Carney</name>
+    </author>
+    <content type="html">&lt;p class="ablog-post-excerpt"&gt;&lt;p&gt;It turns out there were a few issues with the setup I put together in my &lt;a class="reference internal" href="2023/nix-overlays/"&gt;&lt;span class="doc"&gt;previous post&lt;/span&gt;&lt;/a&gt;.
+This time I try and resolve them and get to the point where I have working overlays for both
+&lt;a class="reference external" href="https://github.com/swyddfa/lsp-devtools/tree/develop/lib/pytest-lsp"&gt;pytest-lsp&lt;/a&gt;
+and
+&lt;a class="reference external" href="https://github.com/swyddfa/esbonio"&gt;esbonio&lt;/a&gt;.&lt;/p&gt;
+&lt;/p&gt;
+</content>
+    <link href="https://www.alcarney.me/blog/2023/nix-overlays-p2/" rel="alternate"/>
+    <summary>It turns out there were a few issues with the setup I put together in my previous post.
+This time I try and resolve them and get to the point where I have working overlays for both
+pytest-lsp
+and
+esbonio.</summary>
+    <category term="esbonio" label="esbonio"/>
+    <category term="nix" label="nix"/>
+    <category term="pytest-lsp" label="pytest-lsp"/>
+    <category term="python" label="python"/>
+    <published>2023-04-02T00:00:00+00:00</published>
+  </entry>
+  <entry>
+    <id>https://www.alcarney.me/blog/2023/nix-overlays/</id>
+    <title>My Next Steps with Nix: Overlays</title>
+    <updated>2023-01-25T00:00:00+00:00</updated>
+    <author>
+      <name>Alex Carney</name>
+    </author>
+    <content type="html">&lt;p class="ablog-post-excerpt"&gt;&lt;p&gt;&lt;a class="reference internal" href="2022/first-steps-with-nix/"&gt;&lt;span class="doc"&gt;Last time&lt;/span&gt;&lt;/a&gt;, I experimented with writing a flake that defined development environments for the &lt;a class="reference external" href="https://pypi.org/project/esbonio"&gt;esbonio&lt;/a&gt; package spanning multiple Python versions.
+During that process I also packaged &lt;a class="reference external" href="https://pypi.org/project/pytest-lsp"&gt;pytest-lsp&lt;/a&gt; using an ad-hoc nix expression as part of the &lt;code class="docutils literal notranslate"&gt;&lt;span class="pre"&gt;esbonio&lt;/span&gt;&lt;/code&gt; repo.&lt;/p&gt;
+&lt;p&gt;In this post I look into writing a similar flake for the &lt;code class="docutils literal notranslate"&gt;&lt;span class="pre"&gt;pytest-lsp&lt;/span&gt;&lt;/code&gt; package itself, but this time using overlays to override and extend the nixpkgs package set.&lt;/p&gt;
+&lt;p&gt;If you are interested, you can find the final version of the code
+&lt;a class="reference external" href="https://github.com/swyddfa/lsp-devtools/commit/a7b8d545364cc14c1cd054fd56831d0bd3517659"&gt;here&lt;/a&gt;.&lt;/p&gt;
+&lt;/p&gt;
+</content>
+    <link href="https://www.alcarney.me/blog/2023/nix-overlays/" rel="alternate"/>
+    <summary>Last time, I experimented with writing a flake that defined development environments for the esbonio package spanning multiple Python versions.
+During that process I also packaged pytest-lsp using an ad-hoc nix expression as part of the esbonio repo.In this post I look into writing a similar flake for the pytest-lsp package itself, but this time using overlays to override and extend the nixpkgs package set.If you are interested, you can find the final version of the code
+here.</summary>
+    <category term="nix" label="nix"/>
+    <category term="pytest-lsp" label="pytest-lsp"/>
+    <category term="python" label="python"/>
+    <published>2023-01-25T00:00:00+00:00</published>
+  </entry>
+  <entry>
+    <id>https://www.alcarney.me/blog/2022/first-steps-with-nix/</id>
+    <title>My First Steps with Nix</title>
+    <updated>2022-12-27T00:00:00+00:00</updated>
+    <author>
+      <name>Alex Carney</name>
+    </author>
+    <content type="html">&lt;p class="ablog-post-excerpt"&gt;&lt;p&gt;Nix, depending on the context, can refer to a &lt;a class="reference external" href="https://nixos.org/manual/nix/stable/language/index.html"&gt;programming language&lt;/a&gt;, a &lt;a class="reference external" href="https://nixos.org/manual/nixpkgs/stable/#preface"&gt;package manager&lt;/a&gt; or a &lt;a class="reference external" href="https://nixos.org/manual/nixos/stable/#sec-installation"&gt;Linux Distro&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;Personally, I’m most insterested in the package manager aspect and the promise of it being able to create declarative, reproducable development environments.
+With a configuration file and the &lt;a class="reference external" href="https://nixos.org/manual/nix/stable/command-ref/new-cli/nix3-develop.html"&gt;nix develop&lt;/a&gt; command you can activate a kind of “virtual environment” that contains not just your Python packages - but &lt;em&gt;any&lt;/em&gt; program defined by the configuration!&lt;/p&gt;
+&lt;p&gt;I find that idea particuarly exciting when working on a language server like &lt;a class="reference external" href="https://github.com/swyddfa/esbonio/"&gt;esbonio&lt;/a&gt;, since it needs to be able to work against a variety of Python versions, Sphinx versions, as well as various code editors and all their versions!
+Having the ability to define a particular configuration and have some tool automatically recreate it would be amazing.&lt;/p&gt;
+&lt;p&gt;But I’m getting ahead of myself, let’s see if I can get to a point where I can easily test &lt;code class="docutils literal notranslate"&gt;&lt;span class="pre"&gt;esbonio&lt;/span&gt;&lt;/code&gt; against a range of Python versions.&lt;/p&gt;
+&lt;/p&gt;
+</content>
+    <link href="https://www.alcarney.me/blog/2022/first-steps-with-nix/" rel="alternate"/>
+    <summary>Nix, depending on the context, can refer to a programming language, a package manager or a Linux Distro.Personally, I’m most insterested in the package manager aspect and the promise of it being able to create declarative, reproducable development environments.
+With a configuration file and the nix develop command you can activate a kind of “virtual environment” that contains not just your Python packages - but any program defined by the configuration!I find that idea particuarly exciting when working on a language server like esbonio, since it needs to be able to work against a variety of Python versions, Sphinx versions, as well as various code editors and all their versions!
+Having the ability to define a particular configuration and have some tool automatically recreate it would be amazing.But I’m getting ahead of myself, let’s see if I can get to a point where I can easily test esbonio against a range of Python versions.</summary>
+    <category term="esbonio" label="esbonio"/>
+    <category term="nix" label="nix"/>
+    <category term="python" label="python"/>
+    <published>2022-12-27T00:00:00+00:00</published>
+  </entry>
+  <entry>
+    <id>https://www.alcarney.me/blog/2021/bringing-esbonio-to-the-browser/</id>
+    <title>Bringing Esbonio to the Browser</title>
+    <updated>2021-10-25T00:00:00+00:00</updated>
+    <author>
+      <name>Alex Carney</name>
+    </author>
+    <content type="html">&lt;p class="ablog-post-excerpt"&gt;&lt;p&gt;For the past year or so I’ve been working on a language server called &lt;a class="reference external" href="https://github.com/swyddfa/esbonio"&gt;Esbonio&lt;/a&gt;.
+It’s a language server designed to streamline the process of working with your
+&lt;a class="reference external" href="https://www.sphinx-doc.org/en/master/"&gt;Sphinx&lt;/a&gt; documentation projects. Currently its feature set is quite limited, but I
+think it does a good job of providing you with completion suggestions for all your
+roles, directives and cross-references.&lt;/p&gt;
+&lt;p&gt;Anyway with the recent releases of &lt;a class="reference external" href="https://github.com/github/dev"&gt;github.dev&lt;/a&gt; and &lt;a class="reference external" href="https://code.visualstudio.com/blogs/2021/10/20/vscode-dev"&gt;vscode.dev&lt;/a&gt; I really want to
+see if I can bring Esbonio into the browser version of VSCode. There’s only one
+problem… Esbonio is written in Python! 😬&lt;/p&gt;
+&lt;img alt="https://github.com/swyddfa/esbonio/raw/develop/resources/images/completion-demo.gif" src="https://github.com/swyddfa/esbonio/raw/develop/resources/images/completion-demo.gif" style="width: 80%;" /&gt;&lt;/p&gt;
+</content>
+    <link href="https://www.alcarney.me/blog/2021/bringing-esbonio-to-the-browser/" rel="alternate"/>
+    <summary>For the past year or so I’ve been working on a language server called Esbonio.
+It’s a language server designed to streamline the process of working with your
+Sphinx documentation projects. Currently its feature set is quite limited, but I
+think it does a good job of providing you with completion suggestions for all your
+roles, directives and cross-references.Anyway with the recent releases of github.dev and vscode.dev I really want to
+see if I can bring Esbonio into the browser version of VSCode. There’s only one
+problem… Esbonio is written in Python! 😬</summary>
+    <category term="esbonio" label="esbonio"/>
+    <category term="lsp" label="lsp"/>
+    <category term="vscode" label="vscode"/>
+    <published>2021-10-25T00:00:00+00:00</published>
+  </entry>
+  <entry>
+    <id>https://www.alcarney.me/blog/2021/ast-python-frontend/</id>
+    <title>Creating a CPython Extension</title>
+    <updated>2021-01-13T00:00:00+00:00</updated>
+    <author>
+      <name>Alex Carney</name>
+    </author>
+    <content type="html">&lt;p class="ablog-post-excerpt"&gt;&lt;p&gt;&lt;a class="reference internal" href="2020/ast-simple-eval/"&gt;&lt;span class="doc"&gt;Previously&lt;/span&gt;&lt;/a&gt;, as part of my exploration
+into how programming languages are implemented, I wrote a very simple AST
+evaluator that knew how to add and multiply floats together. Since constructing
+these ASTs by hand is quite painful I thought it would be fun to come up with a
+frontend to my “programming language” which could do it for me.&lt;/p&gt;
+&lt;p&gt;Now your typical frontend would be some kind of parser built into the
+compiler/interpreter. However, while I’m definitely interested in parsing I
+don’t quite feel like tackling that just yet. Instead I’m going to have Python
+be the frontend and embed my toy language into it via a &lt;a class="reference external" href="https://docs.python.org/3/extending/extending.html"&gt;CPython Extension&lt;/a&gt;&lt;/p&gt;
+&lt;/p&gt;
+</content>
+    <link href="https://www.alcarney.me/blog/2021/ast-python-frontend/" rel="alternate"/>
+    <summary>Previously, as part of my exploration
+into how programming languages are implemented, I wrote a very simple AST
+evaluator that knew how to add and multiply floats together. Since constructing
+these ASTs by hand is quite painful I thought it would be fun to come up with a
+frontend to my “programming language” which could do it for me.Now your typical frontend would be some kind of parser built into the
+compiler/interpreter. However, while I’m definitely interested in parsing I
+don’t quite feel like tackling that just yet. Instead I’m going to have Python
+be the frontend and embed my toy language into it via a CPython Extension</summary>
+    <category term="c" label="c"/>
+    <category term="prog-langs" label="prog-langs"/>
+    <category term="python" label="python"/>
+    <published>2021-01-13T00:00:00+00:00</published>
+  </entry>
+  <entry>
+    <id>https://www.alcarney.me/blog/2020/ast-simple-eval/</id>
+    <title>Evaluating a Simple Abstract Syntax Tree</title>
+    <updated>2020-12-17T00:00:00+00:00</updated>
+    <author>
+      <name>Alex Carney</name>
+    </author>
+    <content type="html">&lt;p class="ablog-post-excerpt"&gt;&lt;p&gt;Programming languages and their implementation is a topic I’ve been interested
+in for a long time and I thought it would be worth trying to get a bit more
+hands on and play with some of the ideas in this space. Choosing a topic
+somewhat at random I’ve chosen to take a look at implementing an Abstract Syntax
+Tree (AST).&lt;/p&gt;
+&lt;/p&gt;
+</content>
+    <link href="https://www.alcarney.me/blog/2020/ast-simple-eval/" rel="alternate"/>
+    <summary>Programming languages and their implementation is a topic I’ve been interested
+in for a long time and I thought it would be worth trying to get a bit more
+hands on and play with some of the ideas in this space. Choosing a topic
+somewhat at random I’ve chosen to take a look at implementing an Abstract Syntax
+Tree (AST).</summary>
+    <category term="c" label="c"/>
+    <category term="prog-langs" label="prog-langs"/>
+    <published>2020-12-17T00:00:00+00:00</published>
+  </entry>
+  <entry>
+    <id>https://www.alcarney.me/blog/2020/passing-strings-between-tinygo-wasm/</id>
+    <title>Passing strings between TinyGo and JavaScript</title>
+    <updated>2020-05-06T00:00:00+00:00</updated>
+    <author>
+      <name>Alex Carney</name>
+    </author>
+    <content type="html">&lt;p class="ablog-post-excerpt"&gt;&lt;p&gt;After getting a &lt;a class="reference internal" href="2020/hello-world-tinygo-wasm/"&gt;&lt;span class="doc"&gt;“Hello, World!”&lt;/span&gt;&lt;/a&gt; WebAssembly
+application working I thought it would be fun to try and implement a toy programming
+language in the browser. However before I could even start thinking about parsers,
+abstract syntax trees and the like I had to be able to pass strings between my
+WebAssembly module and the surrounding JavaScript.&lt;/p&gt;
+&lt;p&gt;Turns out that is much trickier than I expected.&lt;/p&gt;
+&lt;/p&gt;
+</content>
+    <link href="https://www.alcarney.me/blog/2020/passing-strings-between-tinygo-wasm/" rel="alternate"/>
+    <summary>After getting a “Hello, World!” WebAssembly
+application working I thought it would be fun to try and implement a toy programming
+language in the browser. However before I could even start thinking about parsers,
+abstract syntax trees and the like I had to be able to pass strings between my
+WebAssembly module and the surrounding JavaScript.Turns out that is much trickier than I expected.</summary>
+    <category term="go" label="go"/>
+    <category term="js" label="js"/>
+    <category term="tinygo" label="tinygo"/>
+    <category term="wasm" label="wasm"/>
+    <published>2020-05-06T00:00:00+00:00</published>
+  </entry>
+  <entry>
+    <id>https://www.alcarney.me/blog/2020/hello-world-tinygo-wasm/</id>
+    <title>Saying ‘Hello, World!’ with TinyGo and WebAssembly</title>
+    <updated>2020-04-28T00:00:00+00:00</updated>
+    <author>
+      <name>Alex Carney</name>
+    </author>
+    <content type="html">&lt;p class="ablog-post-excerpt"&gt;&lt;p&gt;WebAssembly is something I’ve wanted to play with for quite a while now and
+I’ve finally got around to taking a look at it. In this post I describe how I
+managed to use &lt;a class="reference external" href="https://tinygo.org/"&gt;TinyGo&lt;/a&gt; to compile a “Hello, World!” Go program into
+WebAssembly and execute it in the browser. So that I have something to refer
+back to I also describe setting up my development environment as a container
+using &lt;a class="reference external" href="https://linuxcontainers.org/"&gt;LXD&lt;/a&gt;.&lt;/p&gt;
+&lt;/p&gt;
+</content>
+    <link href="https://www.alcarney.me/blog/2020/hello-world-tinygo-wasm/" rel="alternate"/>
+    <summary>WebAssembly is something I’ve wanted to play with for quite a while now and
+I’ve finally got around to taking a look at it. In this post I describe how I
+managed to use TinyGo to compile a “Hello, World!” Go program into
+WebAssembly and execute it in the browser. So that I have something to refer
+back to I also describe setting up my development environment as a container
+using LXD.</summary>
+    <category term="containers" label="containers"/>
+    <category term="go" label="go"/>
+    <category term="lxd" label="lxd"/>
+    <category term="tinygo" label="tinygo"/>
+    <category term="wasm" label="wasm"/>
+    <published>2020-04-28T00:00:00+00:00</published>
+  </entry>
+  <entry>
+    <id>https://www.alcarney.me/blog/2020/learning-vulkan-p1/</id>
+    <title>Learning Vulkan: Enumerating Physical Devices</title>
+    <updated>2020-01-08T00:00:00+00:00</updated>
+    <author>
+      <name>Alex Carney</name>
+    </author>
+    <content type="html">&lt;p class="ablog-post-excerpt"&gt;&lt;p&gt;Being an API for talking to GPUs and other compute devices every Vulkan
+program starts off by looking for an appropriate &lt;a class="reference external" href="https://www.khronos.org/registry/vulkan/specs/1.1-extensions/man/html/VkPhysicalDevice.html"&gt;physical device&lt;/a&gt;
+to use. In this post I write a little C program that initialises the Vulkan
+API and lists out the available devices in the system.&lt;/p&gt;
+&lt;p&gt;This is part of my “Learning Vulkan” series where I try to figure how to use
+Vulkan to explore various concepts in graphics programming. As mentioned in
+the &lt;a class="reference internal" href="2020/learning-vulkan-p0/"&gt;&lt;span class="doc"&gt;Overview&lt;/span&gt;&lt;/a&gt; I don’t necessarily
+know what I’m doing!&lt;/p&gt;
+&lt;/p&gt;
+</content>
+    <link href="https://www.alcarney.me/blog/2020/learning-vulkan-p1/" rel="alternate"/>
+    <summary>Being an API for talking to GPUs and other compute devices every Vulkan
+program starts off by looking for an appropriate physical device
+to use. In this post I write a little C program that initialises the Vulkan
+API and lists out the available devices in the system.This is part of my “Learning Vulkan” series where I try to figure how to use
+Vulkan to explore various concepts in graphics programming. As mentioned in
+the Overview I don’t necessarily
+know what I’m doing!</summary>
+    <category term="c" label="c"/>
+    <category term="graphics" label="graphics"/>
+    <category term="vulkan" label="vulkan"/>
+    <published>2020-01-08T00:00:00+00:00</published>
+  </entry>
+  <entry>
+    <id>https://www.alcarney.me/blog/2020/learning-vulkan-p0/</id>
+    <title>Learning Vulkan: Overview</title>
+    <updated>2020-01-01T00:00:00+00:00</updated>
+    <author>
+      <name>Alex Carney</name>
+    </author>
+    <content type="html">&lt;p class="ablog-post-excerpt"&gt;&lt;p&gt;I have always been interested in graphics and have on numerous occasions tried
+to dip my toe into the world of OpenGL and more recently Vulkan. However I have
+never been able to get past the “Hello, World” of these technologies - drawing a
+triangle on screen, I think mostly becuase I never really had a goal in mind
+once I got that far…&lt;/p&gt;
+&lt;p&gt;But that’s (hopefully) about to change! What better excuse than a new decade to
+jump back into this world for the 100th time and try to get to all those
+interesting ideas I see people playing with all the time!&lt;/p&gt;
+&lt;/p&gt;
+</content>
+    <link href="https://www.alcarney.me/blog/2020/learning-vulkan-p0/" rel="alternate"/>
+    <summary>I have always been interested in graphics and have on numerous occasions tried
+to dip my toe into the world of OpenGL and more recently Vulkan. However I have
+never been able to get past the “Hello, World” of these technologies - drawing a
+triangle on screen, I think mostly becuase I never really had a goal in mind
+once I got that far…But that’s (hopefully) about to change! What better excuse than a new decade to
+jump back into this world for the 100th time and try to get to all those
+interesting ideas I see people playing with all the time!</summary>
+    <category term="c" label="c"/>
+    <category term="graphics" label="graphics"/>
+    <category term="vulkan" label="vulkan"/>
+    <published>2020-01-01T00:00:00+00:00</published>
+  </entry>
+  <entry>
+    <id>https://www.alcarney.me/blog/2019/click-drag-vanilla-js/</id>
     <title>Implementing Click &amp; Drag with Vanilla JS</title>
     <updated>2019-07-07T00:00:00+00:00</updated>
     <author>
-      <name>me</name>
+      <name>Alex Carney</name>
     </author>
-    <content type="html">&lt;div class="ablog-post-excerpt docutils container"&gt;
-&lt;p&gt;This post makes use of a number of interactive elements to help illustrate a few
+    <content type="html">&lt;p class="ablog-post-excerpt"&gt;&lt;p&gt;This post makes use of a number of interactive elements to help illustrate a few
 concepts. Unfortunately these do not yet work on mobile devices - sorry mobile
 users!&lt;/p&gt;
 &lt;p&gt;I have for quite some time now wanted to play around with web development some
@@ -125,9 +367,9 @@ functionality using only vanilla JavaScript. Clicking and dragging as a concept
 can apply to many kinds of interactions so in this instance I’m specifically
 referring to clicking on an SVG element moving it around on the page as
 illustrated by the demo above.&lt;/p&gt;
-&lt;/div&gt;
+&lt;/p&gt;
 </content>
-    <link href="www.alcarney.me/blog/2019/click-drag-vanilla-js/" rel="alternate"/>
+    <link href="https://www.alcarney.me/blog/2019/click-drag-vanilla-js/" rel="alternate"/>
     <summary>This post makes use of a number of interactive elements to help illustrate a few
 concepts. Unfortunately these do not yet work on mobile devices - sorry mobile
 users!I have for quite some time now wanted to play around with web development some
@@ -149,353 +391,91 @@ illustrated by the demo above.</summary>
     <published>2019-07-07T00:00:00+00:00</published>
   </entry>
   <entry>
-    <id>www.alcarney.me/blog/2020/learning-vulkan-p0/</id>
-    <title>Learning Vulkan: Overview</title>
-    <updated>2020-01-01T00:00:00+00:00</updated>
+    <id>https://www.alcarney.me/blog/2019/til-python-cmd/</id>
+    <title>TIL: Python has a cmd module</title>
+    <updated>2019-01-05T00:00:00+00:00</updated>
     <author>
-      <name>me</name>
+      <name>Alex Carney</name>
     </author>
-    <content type="html">&lt;div class="ablog-post-excerpt docutils container"&gt;
-&lt;p&gt;I have always been interested in graphics and have on numerous occasions tried
-to dip my toe into the world of OpenGL and more recently Vulkan. However I have
-never been able to get past the “Hello, World” of these technologies - drawing a
-triangle on screen, I think mostly becuase I never really had a goal in mind
-once I got that far…&lt;/p&gt;
-&lt;p&gt;But that’s (hopefully) about to change! What better excuse than a new decade to
-jump back into this world for the 100th time and try to get to all those
-interesting ideas I see people playing with all the time!&lt;/p&gt;
-&lt;/div&gt;
+    <content type="html">&lt;p class="ablog-post-excerpt"&gt;&lt;p&gt;Today I Learned that Python’s standard library has a &lt;a class="reference external" href="https://docs.python.org/3/library/cmd.html"&gt;cmd&lt;/a&gt; module and it is &lt;em&gt;awesome!&lt;/em&gt;&lt;/p&gt;
+&lt;img alt="https://www.alcarney.me/_images/cmd_python.gif" src="https://www.alcarney.me/_images/cmd_python.gif" /&gt;&lt;/p&gt;
 </content>
-    <link href="www.alcarney.me/blog/2020/learning-vulkan-p0/" rel="alternate"/>
-    <summary>I have always been interested in graphics and have on numerous occasions tried
-to dip my toe into the world of OpenGL and more recently Vulkan. However I have
-never been able to get past the “Hello, World” of these technologies - drawing a
-triangle on screen, I think mostly becuase I never really had a goal in mind
-once I got that far…But that’s (hopefully) about to change! What better excuse than a new decade to
-jump back into this world for the 100th time and try to get to all those
-interesting ideas I see people playing with all the time!</summary>
-    <category term="c" label="c"/>
-    <category term="graphics" label="graphics"/>
-    <category term="vulkan" label="vulkan"/>
-    <published>2020-01-01T00:00:00+00:00</published>
-  </entry>
-  <entry>
-    <id>www.alcarney.me/blog/2020/learning-vulkan-p1/</id>
-    <title>Learning Vulkan: Enumerating Physical Devices</title>
-    <updated>2020-01-08T00:00:00+00:00</updated>
-    <author>
-      <name>me</name>
-    </author>
-    <content type="html">&lt;div class="ablog-post-excerpt docutils container"&gt;
-&lt;p&gt;Being an API for talking to GPUs and other compute devices every Vulkan
-program starts off by looking for an appropriate &lt;a class="reference external" href="https://www.khronos.org/registry/vulkan/specs/1.1-extensions/man/html/VkPhysicalDevice.html"&gt;physical device&lt;/a&gt;
-to use. In this post I write a little C program that initialises the Vulkan
-API and lists out the available devices in the system.&lt;/p&gt;
-&lt;p&gt;This is part of my “Learning Vulkan” series where I try to figure how to use
-Vulkan to explore various concepts in graphics programming. As mentioned in
-the &lt;a class="reference internal" href="2020/learning-vulkan-p0/"&gt;&lt;span class="doc"&gt;Overview&lt;/span&gt;&lt;/a&gt; I don’t necessarily
-know what I’m doing!&lt;/p&gt;
-&lt;/div&gt;
-</content>
-    <link href="www.alcarney.me/blog/2020/learning-vulkan-p1/" rel="alternate"/>
-    <summary>Being an API for talking to GPUs and other compute devices every Vulkan
-program starts off by looking for an appropriate physical device
-to use. In this post I write a little C program that initialises the Vulkan
-API and lists out the available devices in the system.This is part of my “Learning Vulkan” series where I try to figure how to use
-Vulkan to explore various concepts in graphics programming. As mentioned in
-the Overview I don’t necessarily
-know what I’m doing!</summary>
-    <category term="c" label="c"/>
-    <category term="graphics" label="graphics"/>
-    <category term="vulkan" label="vulkan"/>
-    <published>2020-01-08T00:00:00+00:00</published>
-  </entry>
-  <entry>
-    <id>www.alcarney.me/blog/2020/hello-world-tinygo-wasm/</id>
-    <title>Saying ‘Hello, World!’ with TinyGo and WebAssembly</title>
-    <updated>2020-04-28T00:00:00+00:00</updated>
-    <author>
-      <name>me</name>
-    </author>
-    <content type="html">&lt;div class="ablog-post-excerpt docutils container"&gt;
-&lt;p&gt;WebAssembly is something I’ve wanted to play with for quite a while now and
-I’ve finally got around to taking a look at it. In this post I describe how I
-managed to use &lt;a class="reference external" href="https://tinygo.org/"&gt;TinyGo&lt;/a&gt; to compile a “Hello, World!” Go program into
-WebAssembly and execute it in the browser. So that I have something to refer
-back to I also describe setting up my development environment as a container
-using &lt;a class="reference external" href="https://linuxcontainers.org/"&gt;LXD&lt;/a&gt;.&lt;/p&gt;
-&lt;/div&gt;
-</content>
-    <link href="www.alcarney.me/blog/2020/hello-world-tinygo-wasm/" rel="alternate"/>
-    <summary>WebAssembly is something I’ve wanted to play with for quite a while now and
-I’ve finally got around to taking a look at it. In this post I describe how I
-managed to use TinyGo to compile a “Hello, World!” Go program into
-WebAssembly and execute it in the browser. So that I have something to refer
-back to I also describe setting up my development environment as a container
-using LXD.</summary>
-    <category term="containers" label="containers"/>
-    <category term="go" label="go"/>
-    <category term="lxd" label="lxd"/>
-    <category term="tinygo" label="tinygo"/>
-    <category term="wasm" label="wasm"/>
-    <published>2020-04-28T00:00:00+00:00</published>
-  </entry>
-  <entry>
-    <id>www.alcarney.me/blog/2020/passing-strings-between-tinygo-wasm/</id>
-    <title>Passing strings between TinyGo and JavaScript</title>
-    <updated>2020-05-06T00:00:00+00:00</updated>
-    <author>
-      <name>me</name>
-    </author>
-    <content type="html">&lt;div class="ablog-post-excerpt docutils container"&gt;
-&lt;p&gt;After getting a &lt;a class="reference internal" href="2020/hello-world-tinygo-wasm/"&gt;&lt;span class="doc"&gt;“Hello, World!”&lt;/span&gt;&lt;/a&gt; WebAssembly
-application working I thought it would be fun to try and implement a toy programming
-language in the browser. However before I could even start thinking about parsers,
-abstract syntax trees and the like I had to be able to pass strings between my
-WebAssembly module and the surrounding JavaScript.&lt;/p&gt;
-&lt;p&gt;Turns out that is much trickier than I expected.&lt;/p&gt;
-&lt;/div&gt;
-</content>
-    <link href="www.alcarney.me/blog/2020/passing-strings-between-tinygo-wasm/" rel="alternate"/>
-    <summary>After getting a “Hello, World!” WebAssembly
-application working I thought it would be fun to try and implement a toy programming
-language in the browser. However before I could even start thinking about parsers,
-abstract syntax trees and the like I had to be able to pass strings between my
-WebAssembly module and the surrounding JavaScript.Turns out that is much trickier than I expected.</summary>
-    <category term="go" label="go"/>
-    <category term="js" label="js"/>
-    <category term="tinygo" label="tinygo"/>
-    <category term="wasm" label="wasm"/>
-    <published>2020-05-06T00:00:00+00:00</published>
-  </entry>
-  <entry>
-    <id>www.alcarney.me/blog/2020/ast-simple-eval/</id>
-    <title>Evaluating a Simple Abstract Syntax Tree</title>
-    <updated>2020-12-17T00:00:00+00:00</updated>
-    <author>
-      <name>me</name>
-    </author>
-    <content type="html">&lt;div class="ablog-post-excerpt docutils container"&gt;
-&lt;p&gt;Programming languages and their implementation is a topic I’ve been interested
-in for a long time and I thought it would be worth trying to get a bit more
-hands on and play with some of the ideas in this space. Choosing a topic
-somewhat at random I’ve chosen to take a look at implementing an Abstract Syntax
-Tree (AST).&lt;/p&gt;
-&lt;/div&gt;
-</content>
-    <link href="www.alcarney.me/blog/2020/ast-simple-eval/" rel="alternate"/>
-    <summary>Programming languages and their implementation is a topic I’ve been interested
-in for a long time and I thought it would be worth trying to get a bit more
-hands on and play with some of the ideas in this space. Choosing a topic
-somewhat at random I’ve chosen to take a look at implementing an Abstract Syntax
-Tree (AST).</summary>
-    <category term="c" label="c"/>
-    <category term="prog-langs" label="prog-langs"/>
-    <published>2020-12-17T00:00:00+00:00</published>
-  </entry>
-  <entry>
-    <id>www.alcarney.me/blog/2021/ast-python-frontend/</id>
-    <title>Creating a CPython Extension</title>
-    <updated>2021-01-13T00:00:00+00:00</updated>
-    <author>
-      <name>me</name>
-    </author>
-    <content type="html">&lt;div class="ablog-post-excerpt docutils container"&gt;
-&lt;p&gt;&lt;a class="reference internal" href="2020/ast-simple-eval/"&gt;&lt;span class="doc"&gt;Previously&lt;/span&gt;&lt;/a&gt;, as part of my exploration
-into how programming languages are implemented, I wrote a very simple AST
-evaluator that knew how to add and multiply floats together. Since constructing
-these ASTs by hand is quite painful I thought it would be fun to come up with a
-frontend to my “programming language” which could do it for me.&lt;/p&gt;
-&lt;p&gt;Now your typical frontend would be some kind of parser built into the
-compiler/interpreter. However, while I’m definitely interested in parsing I
-don’t quite feel like tackling that just yet. Instead I’m going to have Python
-be the frontend and embed my toy language into it via a &lt;a class="reference external" href="https://docs.python.org/3/extending/extending.html"&gt;CPython Extension&lt;/a&gt;&lt;/p&gt;
-&lt;/div&gt;
-</content>
-    <link href="www.alcarney.me/blog/2021/ast-python-frontend/" rel="alternate"/>
-    <summary>Previously, as part of my exploration
-into how programming languages are implemented, I wrote a very simple AST
-evaluator that knew how to add and multiply floats together. Since constructing
-these ASTs by hand is quite painful I thought it would be fun to come up with a
-frontend to my “programming language” which could do it for me.Now your typical frontend would be some kind of parser built into the
-compiler/interpreter. However, while I’m definitely interested in parsing I
-don’t quite feel like tackling that just yet. Instead I’m going to have Python
-be the frontend and embed my toy language into it via a CPython Extension</summary>
-    <category term="c" label="c"/>
-    <category term="prog-langs" label="prog-langs"/>
+    <link href="https://www.alcarney.me/blog/2019/til-python-cmd/" rel="alternate"/>
+    <summary>Today I Learned that Python’s standard library has a cmd module and it is awesome!</summary>
+    <category term="cli" label="cli"/>
     <category term="python" label="python"/>
-    <published>2021-01-13T00:00:00+00:00</published>
+    <category term="stylo" label="stylo"/>
+    <category term="til" label="til"/>
+    <published>2019-01-05T00:00:00+00:00</published>
   </entry>
   <entry>
-    <id>www.alcarney.me/blog/2021/bringing-esbonio-to-the-browser/</id>
-    <title>Bringing Esbonio to the Browser</title>
-    <updated>2021-10-25T00:00:00+00:00</updated>
+    <id>https://www.alcarney.me/blog/2018/introducing-stylo-doodles/</id>
+    <title>Introducing Stylo Doodles!</title>
+    <updated>2018-10-12T00:00:00+00:00</updated>
     <author>
-      <name>me</name>
+      <name>Alex Carney</name>
     </author>
-    <content type="html">&lt;div class="ablog-post-excerpt docutils container"&gt;
-&lt;p&gt;For the past year or so I’ve been working on a language server called &lt;a class="reference external" href="https://github.com/swyddfa/esbonio"&gt;Esbonio&lt;/a&gt;.
-It’s a language server designed to streamline the process of working with your
-&lt;a class="reference external" href="https://www.sphinx-doc.org/en/master/"&gt;Sphinx&lt;/a&gt; documentation projects. Currently its feature set is quite limited, but I
-think it does a good job of providing you with completion suggestions for all your
-roles, directives and cross-references.&lt;/p&gt;
-&lt;p&gt;Anyway with the recent releases of &lt;a class="reference external" href="https://github.com/github/dev"&gt;github.dev&lt;/a&gt; and &lt;a class="reference external" href="https://code.visualstudio.com/blogs/2021/10/20/vscode-dev"&gt;vscode.dev&lt;/a&gt; I really want to
-see if I can bring Esbonio into the browser version of VSCode. There’s only one
-problem… Esbonio is written in Python! 😬&lt;/p&gt;
-&lt;img alt="https://github.com/swyddfa/esbonio/raw/develop/resources/images/completion-demo.gif" src="https://github.com/swyddfa/esbonio/raw/develop/resources/images/completion-demo.gif" style="width: 80%;" /&gt;
-&lt;/div&gt;
+    <content type="html">&lt;p class="ablog-post-excerpt"&gt;&lt;p&gt;A few weeks back at &lt;a class="reference external" href="https://2018.pyconuk.org/"&gt;PyConUK&lt;/a&gt; I gave my first &lt;a class="reference external" href="https://youtu.be/F5jSUJVymXk?t=3480"&gt;lighting talk&lt;/a&gt;
+at a conference. During that talk I spoke publically about &lt;a class="reference external" href="https://github.com/alcarney/stylo"&gt;stylo&lt;/a&gt; for
+the first time. Stylo is a Python library that I have been working on for just
+over a year and a half and it aims to make the creation of images easier by
+bringing together ideas from programming and mathematics.&lt;/p&gt;
+&lt;p&gt;Version &lt;a class="reference external" href="https://alcarney.github.io/stylo/changes.html"&gt;0.6.0&lt;/a&gt; was recently released which included the first feature
+that wasn’t written by me! It’s very exciting not only to see other people
+starting to take an interest in the project but taking the time to make a
+contribution!&lt;/p&gt;
+&lt;p&gt;Now that stylo seems to be getting to the point that it might me useful to
+other people wouldn’t it be great if there was a community driven example
+gallery that people could get inspired by? - Well now there is! And it’s
+called &lt;a class="reference external" href="https://alcarney.github.io/stylo-doodles"&gt;Stylo Doodles&lt;/a&gt;&lt;/p&gt;
+&lt;img alt="https://www.alcarney.me/_images/stylo-doodles.png" src="https://www.alcarney.me/_images/stylo-doodles.png" /&gt;&lt;/p&gt;
 </content>
-    <link href="www.alcarney.me/blog/2021/bringing-esbonio-to-the-browser/" rel="alternate"/>
-    <summary>For the past year or so I’ve been working on a language server called Esbonio.
-It’s a language server designed to streamline the process of working with your
-Sphinx documentation projects. Currently its feature set is quite limited, but I
-think it does a good job of providing you with completion suggestions for all your
-roles, directives and cross-references.Anyway with the recent releases of github.dev and vscode.dev I really want to
-see if I can bring Esbonio into the browser version of VSCode. There’s only one
-problem… Esbonio is written in Python! 😬</summary>
-    <category term="esbonio" label="esbonio"/>
-    <category term="lsp" label="lsp"/>
-    <category term="vscode" label="vscode"/>
-    <published>2021-10-25T00:00:00+00:00</published>
-  </entry>
-  <entry>
-    <id>www.alcarney.me/blog/2022/first-steps-with-nix/</id>
-    <title>My First Steps with Nix</title>
-    <updated>2022-12-27T00:00:00+00:00</updated>
-    <author>
-      <name>me</name>
-    </author>
-    <content type="html">&lt;div class="ablog-post-excerpt docutils container"&gt;
-&lt;p&gt;Nix, depending on the context, can refer to a &lt;a class="reference external" href="https://nixos.org/manual/nix/stable/language/index.html"&gt;programming language&lt;/a&gt;, a &lt;a class="reference external" href="https://nixos.org/manual/nixpkgs/stable/#preface"&gt;package manager&lt;/a&gt; or a &lt;a class="reference external" href="https://nixos.org/manual/nixos/stable/#sec-installation"&gt;Linux Distro&lt;/a&gt;.&lt;/p&gt;
-&lt;p&gt;Personally, I’m most insterested in the package manager aspect and the promise of it being able to create declarative, reproducable development environments.
-With a configuration file and the &lt;a class="reference external" href="https://nixos.org/manual/nix/stable/command-ref/new-cli/nix3-develop.html"&gt;nix develop&lt;/a&gt; command you can activate a kind of “virtual environment” that contains not just your Python packages - but &lt;em&gt;any&lt;/em&gt; program defined by the configuration!&lt;/p&gt;
-&lt;p&gt;I find that idea particuarly exciting when working on a language server like &lt;a class="reference external" href="https://github.com/swyddfa/esbonio/"&gt;esbonio&lt;/a&gt;, since it needs to be able to work against a variety of Python versions, Sphinx versions, as well as various code editors and all their versions!
-Having the ability to define a particular configuration and have some tool automatically recreate it would be amazing.&lt;/p&gt;
-&lt;p&gt;But I’m getting ahead of myself, let’s see if I can get to a point where I can easily test &lt;code class="docutils literal notranslate"&gt;&lt;span class="pre"&gt;esbonio&lt;/span&gt;&lt;/code&gt; against a range of Python versions.&lt;/p&gt;
-&lt;/div&gt;
-</content>
-    <link href="www.alcarney.me/blog/2022/first-steps-with-nix/" rel="alternate"/>
-    <summary>Nix, depending on the context, can refer to a programming language, a package manager or a Linux Distro.Personally, I’m most insterested in the package manager aspect and the promise of it being able to create declarative, reproducable development environments.
-With a configuration file and the nix develop command you can activate a kind of “virtual environment” that contains not just your Python packages - but any program defined by the configuration!I find that idea particuarly exciting when working on a language server like esbonio, since it needs to be able to work against a variety of Python versions, Sphinx versions, as well as various code editors and all their versions!
-Having the ability to define a particular configuration and have some tool automatically recreate it would be amazing.But I’m getting ahead of myself, let’s see if I can get to a point where I can easily test esbonio against a range of Python versions.</summary>
-    <category term="esbonio" label="esbonio"/>
-    <category term="nix" label="nix"/>
+    <link href="https://www.alcarney.me/blog/2018/introducing-stylo-doodles/" rel="alternate"/>
+    <summary>A few weeks back at PyConUK I gave my first lighting talk
+at a conference. During that talk I spoke publically about stylo for
+the first time. Stylo is a Python library that I have been working on for just
+over a year and a half and it aims to make the creation of images easier by
+bringing together ideas from programming and mathematics.Version 0.6.0 was recently released which included the first feature
+that wasn’t written by me! It’s very exciting not only to see other people
+starting to take an interest in the project but taking the time to make a
+contribution!Now that stylo seems to be getting to the point that it might me useful to
+other people wouldn’t it be great if there was a community driven example
+gallery that people could get inspired by? - Well now there is! And it’s
+called Stylo Doodles</summary>
     <category term="python" label="python"/>
-    <published>2022-12-27T00:00:00+00:00</published>
+    <category term="stylo" label="stylo"/>
+    <published>2018-10-12T00:00:00+00:00</published>
   </entry>
   <entry>
-    <id>www.alcarney.me/blog/2023/nix-overlays/</id>
-    <title>My Next Steps with Nix: Overlays</title>
-    <updated>2023-01-25T00:00:00+00:00</updated>
+    <id>https://www.alcarney.me/blog/2018/first-article/</id>
+    <title>I’ve Started a Blog… Again!</title>
+    <updated>2018-09-22T00:00:00+00:00</updated>
     <author>
-      <name>me</name>
+      <name>Alex Carney</name>
     </author>
-    <content type="html">&lt;div class="ablog-post-excerpt docutils container"&gt;
-&lt;p&gt;&lt;a class="reference internal" href="2022/first-steps-with-nix/"&gt;&lt;span class="doc"&gt;Last time&lt;/span&gt;&lt;/a&gt;, I experimented with writing a flake that defined development environments for the &lt;a class="reference external" href="https://pypi.org/project/esbonio"&gt;esbonio&lt;/a&gt; package spanning multiple Python versions.
-During that process I also packaged &lt;a class="reference external" href="https://pypi.org/project/pytest-lsp"&gt;pytest-lsp&lt;/a&gt; using an ad-hoc nix expression as part of the &lt;code class="docutils literal notranslate"&gt;&lt;span class="pre"&gt;esbonio&lt;/span&gt;&lt;/code&gt; repo.&lt;/p&gt;
-&lt;p&gt;In this post I look into writing a similar flake for the &lt;code class="docutils literal notranslate"&gt;&lt;span class="pre"&gt;pytest-lsp&lt;/span&gt;&lt;/code&gt; package itself, but this time using overlays to override and extend the nixpkgs package set.&lt;/p&gt;
-&lt;p&gt;If you are interested, you can find the final version of the code
-&lt;a class="reference external" href="https://github.com/swyddfa/lsp-devtools/commit/a7b8d545364cc14c1cd054fd56831d0bd3517659"&gt;here&lt;/a&gt;.&lt;/p&gt;
-&lt;/div&gt;
+    <content type="html">&lt;p class="ablog-post-excerpt"&gt;&lt;p&gt;Not that you would have known it, but I’ve had a blog since 2014.  Well 2015 if
+you’re feeling generous, the first (and only) post went up in the last few
+hours of New Year’s Eve. It was a look back on some of the projects I had
+worked on that year and I announced my intentions to start blogging.&lt;/p&gt;
+&lt;p&gt;Fast forward nearly 4 years and here I am announcing my intentions to start
+blogging - &lt;strong&gt;again&lt;/strong&gt;. So I guess you are wondering what happened?&lt;/p&gt;
+&lt;p&gt;I got lost.&lt;/p&gt;
+&lt;p&gt;My first attempt at running a blog was using &lt;a class="reference external" href="https://jekyllrb.com"&gt;Jekyll&lt;/a&gt; and for some mystical reason
+(It’s been so long I can’t actually remember why), I decided that it was not the
+static site generator I was looking for. So I promptly set off on a voyage of
+discovery in search of the ultimate static site generator.&lt;/p&gt;
+&lt;/p&gt;
 </content>
-    <link href="www.alcarney.me/blog/2023/nix-overlays/" rel="alternate"/>
-    <summary>Last time, I experimented with writing a flake that defined development environments for the esbonio package spanning multiple Python versions.
-During that process I also packaged pytest-lsp using an ad-hoc nix expression as part of the esbonio repo.In this post I look into writing a similar flake for the pytest-lsp package itself, but this time using overlays to override and extend the nixpkgs package set.If you are interested, you can find the final version of the code
-here.</summary>
-    <category term="nix" label="nix"/>
-    <category term="pytest-lsp" label="pytest-lsp"/>
-    <category term="python" label="python"/>
-    <published>2023-01-25T00:00:00+00:00</published>
-  </entry>
-  <entry>
-    <id>www.alcarney.me/blog/2023/nix-overlays-p2/</id>
-    <title>Nix Overlays: A follow up</title>
-    <updated>2023-04-02T00:00:00+00:00</updated>
-    <author>
-      <name>me</name>
-    </author>
-    <content type="html">&lt;div class="ablog-post-excerpt docutils container"&gt;
-&lt;p&gt;It turns out there were a few issues with the setup I put together in my &lt;a class="reference internal" href="2023/nix-overlays/"&gt;&lt;span class="doc"&gt;previous post&lt;/span&gt;&lt;/a&gt;.
-This time I try and resolve them and get to the point where I have working overlays for both
-&lt;a class="reference external" href="https://github.com/swyddfa/lsp-devtools/tree/develop/lib/pytest-lsp"&gt;pytest-lsp&lt;/a&gt;
-and
-&lt;a class="reference external" href="https://github.com/swyddfa/esbonio"&gt;esbonio&lt;/a&gt;.&lt;/p&gt;
-&lt;/div&gt;
-</content>
-    <link href="www.alcarney.me/blog/2023/nix-overlays-p2/" rel="alternate"/>
-    <summary>It turns out there were a few issues with the setup I put together in my previous post.
-This time I try and resolve them and get to the point where I have working overlays for both
-pytest-lsp
-and
-esbonio.</summary>
-    <category term="esbonio" label="esbonio"/>
-    <category term="nix" label="nix"/>
-    <category term="pytest-lsp" label="pytest-lsp"/>
-    <category term="python" label="python"/>
-    <published>2023-04-02T00:00:00+00:00</published>
-  </entry>
-  <entry>
-    <id>www.alcarney.me/blog/2023/integrate-esboino-nvim-with-nix/</id>
-    <title>Integrating Esbonio with Neovim Using Nix</title>
-    <updated>2023-04-21T00:00:00+00:00</updated>
-    <author>
-      <name>me</name>
-    </author>
-    <content type="html">&lt;div class="ablog-post-excerpt docutils container"&gt;
-&lt;p&gt;So far I’ve been learning how to use Nix by trying to package and define development shells for &lt;a class="reference external" href="https://github.com/swyddfa/esbonio"&gt;esbonio&lt;/a&gt; (see &lt;a class="reference internal" href="tag/nix/" title="nix"&gt;&lt;span class="xref std std-ref"&gt;here&lt;/span&gt;&lt;/a&gt; if you are interested).
-While useful, the end result is not too dissimilar to what you can get with standard Python tooling.
-Indeed, the main reason I started looking into Nix was the promise of it being able to manage more than just Python libraries.&lt;/p&gt;
-&lt;p&gt;Since &lt;code class="docutils literal notranslate"&gt;&lt;span class="pre"&gt;esbonio&lt;/span&gt;&lt;/code&gt; is a language server, it would be useful for Nix to create standardised environments where the language server is pre-configured for a given editor - great for debugging and demos!&lt;/p&gt;
-&lt;p&gt;In this blog post I try to define an environment in which Neovim is installed and configured to use the &lt;code class="docutils literal notranslate"&gt;&lt;span class="pre"&gt;esbonio&lt;/span&gt;&lt;/code&gt; language server for reStructuredText files.&lt;/p&gt;
-&lt;/div&gt;
-</content>
-    <link href="www.alcarney.me/blog/2023/integrate-esboino-nvim-with-nix/" rel="alternate"/>
-    <summary>So far I’ve been learning how to use Nix by trying to package and define development shells for esbonio (see here if you are interested).
-While useful, the end result is not too dissimilar to what you can get with standard Python tooling.
-Indeed, the main reason I started looking into Nix was the promise of it being able to manage more than just Python libraries.Since esbonio is a language server, it would be useful for Nix to create standardised environments where the language server is pre-configured for a given editor - great for debugging and demos!In this blog post I try to define an environment in which Neovim is installed and configured to use the esbonio language server for reStructuredText files.</summary>
-    <category term="esbonio" label="esbonio"/>
-    <category term="nix" label="nix"/>
-    <category term="python" label="python"/>
-    <published>2023-04-21T00:00:00+00:00</published>
-  </entry>
-  <entry>
-    <id>www.alcarney.me/blog/2023/nix-day-to-day/</id>
-    <title>Nix: Day to Day Usage</title>
-    <updated>2023-07-27T00:00:00+00:00</updated>
-    <author>
-      <name>me</name>
-    </author>
-    <content type="html">&lt;div class="ablog-post-excerpt docutils container"&gt;
-&lt;p&gt;This blog post marks a change in my usage of Nix, I’m (just!) past the point of trying to get &lt;em&gt;something&lt;/em&gt; to work and now starting to incorporate it into some of my regular workflows.
-So instead of trying to accomplish some major task, this post is a small collection of things I’ve learned over the past few weeks.&lt;/p&gt;
-&lt;/div&gt;
-</content>
-    <link href="www.alcarney.me/blog/2023/nix-day-to-day/" rel="alternate"/>
-    <summary>This blog post marks a change in my usage of Nix, I’m (just!) past the point of trying to get something to work and now starting to incorporate it into some of my regular workflows.
-So instead of trying to accomplish some major task, this post is a small collection of things I’ve learned over the past few weeks.</summary>
-    <category term="esbonio" label="esbonio"/>
-    <category term="nix" label="nix"/>
-    <category term="python" label="python"/>
-    <published>2023-07-27T00:00:00+00:00</published>
-  </entry>
-  <entry>
-    <id>www.alcarney.me/blog/2023/python-wasi-nix/</id>
-    <title>Setting up a Python WASI Environment with Nix</title>
-    <updated>2023-09-18T00:00:00+00:00</updated>
-    <author>
-      <name>me</name>
-    </author>
-    <content type="html">&lt;div class="ablog-post-excerpt docutils container"&gt;
-&lt;p&gt;In this blog post I look at setting up a local development environment for the &lt;a class="reference external" href="https://github.com/brettcannon/cpython-wasi-build"&gt;WASI build of Python&lt;/a&gt;  using Nix.
-You can see the final result &lt;a class="reference external" href="https://github.com/alcarney/python-wasi-nix"&gt;here&lt;/a&gt;&lt;/p&gt;
-&lt;/div&gt;
-</content>
-    <link href="www.alcarney.me/blog/2023/python-wasi-nix/" rel="alternate"/>
-    <summary>In this blog post I look at setting up a local development environment for the WASI build of Python  using Nix.
-You can see the final result here</summary>
-    <category term="nix" label="nix"/>
-    <category term="python" label="python"/>
-    <category term="wasm" label="wasm"/>
-    <published>2023-09-18T00:00:00+00:00</published>
+    <link href="https://www.alcarney.me/blog/2018/first-article/" rel="alternate"/>
+    <summary>Not that you would have known it, but I’ve had a blog since 2014.  Well 2015 if
+you’re feeling generous, the first (and only) post went up in the last few
+hours of New Year’s Eve. It was a look back on some of the projects I had
+worked on that year and I announced my intentions to start blogging.Fast forward nearly 4 years and here I am announcing my intentions to start
+blogging - again. So I guess you are wondering what happened?I got lost.My first attempt at running a blog was using Jekyll and for some mystical reason
+(It’s been so long I can’t actually remember why), I decided that it was not the
+static site generator I was looking for. So I promptly set off on a voyage of
+discovery in search of the ultimate static site generator.</summary>
+    <category term="blogging" label="blogging"/>
+    <published>2018-09-22T00:00:00+00:00</published>
   </entry>
 </feed>

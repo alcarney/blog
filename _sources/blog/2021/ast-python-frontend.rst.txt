@@ -1,6 +1,6 @@
 .. post:: 2021-01-13
    :tags: c, python, prog-langs
-   :author: me
+   :author: Alex Carney
    :language: en
    :excerpt: 2
 
