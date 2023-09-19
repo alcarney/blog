@@ -1,6 +1,6 @@
 .. post:: 2018-10-12
    :tags: stylo, python
-   :author: me
+   :author: Alex Carney
    :language: en
    :excerpt: 3
    :image: 1
