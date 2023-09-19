@@ -47,6 +47,8 @@ exclude_patterns = ["_build", "Thumbs.db", ".DS_Store", ".env", "talks"]
 
 # -- Options for ABlog extension ---------------------------------------------
 blog_baseurl = "https://www.alcarney.me"
+blog_feed_fulltext = True
+blog_title = "Alex Carney | Blog"
 post_date_format = "%b %d, %Y"
 
 # -- Options for InterSphinx extension ---------------------------------------------
