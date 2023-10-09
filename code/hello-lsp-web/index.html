@@ -145,21 +145,203 @@
     
 
     <div data-parent="" class=" border-t dark:border-gray-600"">
-        <label for="resources">
+        <label for="package.json">
             <div style="padding-left: 4px;" class="flex items-center px-2 py-1 space-x-2 hover:bg-gray-50 hover:dark:bg-gray-700">
                 
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round">
-                    <path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/>
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" ><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+                    <path d="M14 2v6h6M16 13H8M16 17H8M10 9H8"/>
                 </svg>
                 
 
-                <span>resources</span>
+                <span>package.json</span>
             </div>
         </label>
 
         
+        <input class="hidden" data-type="file" data-id="package.json" type="checkbox" id="package.json" />
+        <div class="overflow-y-auto transition-all max-h-0">
+            <div class="highlight"><pre style="margin: 0"><span></span><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;hello-lsp-web&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;description&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Proof of concept web based lsp extension for VSCode&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;private&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;author&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Alex Carney&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;publisher&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;swyddfa&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;categories&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">        </span><span class="s2">&quot;Other&quot;</span>
+<span class="w">    </span><span class="p">],</span>
+<span class="w">    </span><span class="nt">&quot;version&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;0.1.0&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;license&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;MIT&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;activationEvents&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">        </span><span class="s2">&quot;onLanguage:plaintext&quot;</span>
+<span class="w">    </span><span class="p">],</span>
+<span class="w">    </span><span class="nt">&quot;engines&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="nt">&quot;vscode&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;^1.61.0&quot;</span>
+<span class="w">    </span><span class="p">},</span>
+<span class="w">    </span><span class="nt">&quot;browser&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;./dist/client&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;scripts&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="nt">&quot;compile&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;webpack&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">&quot;watch&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;webpack --watch&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">&quot;serve&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;npx serve --cors -l 5000&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">&quot;tunnel&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;npx localtunnel -p 5000&quot;</span>
+<span class="w">    </span><span class="p">},</span>
+<span class="w">    </span><span class="nt">&quot;dependencies&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="nt">&quot;vscode-languageclient&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;^7.0.0&quot;</span>
+<span class="w">    </span><span class="p">},</span>
+<span class="w">    </span><span class="nt">&quot;devDependencies&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="nt">&quot;@types/vscode&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;^1.61.0&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">&quot;path-browserify&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;^1.0.1&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">&quot;ts-loader&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;^9.2.6&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">&quot;typescript&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;^4.4.4&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">&quot;webpack&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;^5.76.0&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">&quot;webpack-cli&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;^4.9.1&quot;</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+
+        </div>
     </div>
-    <input class="hidden" data-type="folder" data-id="resources" type="checkbox" id="resources" />
+        
+
+    
+
+    <div data-parent="" class=" border-t dark:border-gray-600"">
+        <label for="tsconfig.json">
+            <div style="padding-left: 4px;" class="flex items-center px-2 py-1 space-x-2 hover:bg-gray-50 hover:dark:bg-gray-700">
+                
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" ><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+                    <path d="M14 2v6h6M16 13H8M16 17H8M10 9H8"/>
+                </svg>
+                
+
+                <span>tsconfig.json</span>
+            </div>
+        </label>
+
+        
+        <input class="hidden" data-type="file" data-id="tsconfig.json" type="checkbox" id="tsconfig.json" />
+        <div class="overflow-y-auto transition-all max-h-0">
+            <div class="highlight"><pre style="margin: 0"><span></span><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;compilerOptions&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="nt">&quot;module&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;commonjs&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">&quot;target&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;es2019&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">&quot;lib&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">            </span><span class="s2">&quot;ES2019&quot;</span><span class="p">,</span>
+<span class="w">            </span><span class="s2">&quot;WebWorker&quot;</span>
+<span class="w">        </span><span class="p">],</span>
+<span class="w">        </span><span class="nt">&quot;rootDir&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;src&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">&quot;outDir&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;dist&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">&quot;sourceMap&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span>
+<span class="w">    </span><span class="p">},</span>
+<span class="w">    </span><span class="nt">&quot;include&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">        </span><span class="s2">&quot;src&quot;</span>
+<span class="w">    </span><span class="p">],</span>
+<span class="w">    </span><span class="nt">&quot;exclude&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">        </span><span class="s2">&quot;node_modules&quot;</span>
+<span class="w">    </span><span class="p">]</span>
+<span class="p">}</span>
+</pre></div>
+
+        </div>
+    </div>
+        
+
+    
+
+    <div data-parent="" class=" border-t dark:border-gray-600"">
+        <label for="webpack.config.js">
+            <div style="padding-left: 4px;" class="flex items-center px-2 py-1 space-x-2 hover:bg-gray-50 hover:dark:bg-gray-700">
+                
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" ><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+                    <path d="M14 2v6h6M16 13H8M16 17H8M10 9H8"/>
+                </svg>
+                
+
+                <span>webpack.config.js</span>
+            </div>
+        </label>
+
+        
+        <input class="hidden" data-type="file" data-id="webpack.config.js" type="checkbox" id="webpack.config.js" />
+        <div class="overflow-y-auto transition-all max-h-0">
+            <div class="highlight"><pre style="margin: 0"><span></span><span class="kd">const</span><span class="w"> </span><span class="nx">path</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">require</span><span class="p">(</span><span class="s1">&#39;path&#39;</span><span class="p">)</span>
+
+<span class="kd">const</span><span class="w"> </span><span class="nx">clientConfig</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nx">mode</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;none&#39;</span><span class="p">,</span>
+<span class="w">    </span><span class="nx">target</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;webworker&#39;</span><span class="p">,</span>
+<span class="w">    </span><span class="nx">entry</span><span class="o">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="nx">client</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;./src/client.ts&#39;</span>
+<span class="w">    </span><span class="p">},</span>
+<span class="w">    </span><span class="nx">output</span><span class="o">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="nx">filename</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;[name].js&#39;</span><span class="p">,</span>
+<span class="w">        </span><span class="nx">path</span><span class="o">:</span><span class="w"> </span><span class="nx">path</span><span class="p">.</span><span class="nx">join</span><span class="p">(</span><span class="nx">__dirname</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;dist&quot;</span><span class="p">),</span>
+<span class="w">        </span><span class="nx">libraryTarget</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;commonjs&#39;</span>
+<span class="w">    </span><span class="p">},</span>
+<span class="w">    </span><span class="nx">resolve</span><span class="o">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="nx">mainFields</span><span class="o">:</span><span class="w"> </span><span class="p">[</span><span class="s1">&#39;module&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;main&#39;</span><span class="p">],</span>
+<span class="w">        </span><span class="nx">extensions</span><span class="o">:</span><span class="w"> </span><span class="p">[</span><span class="s1">&#39;.ts&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;.js&#39;</span><span class="p">],</span>
+<span class="w">        </span><span class="nx">alias</span><span class="o">:</span><span class="w"> </span><span class="p">{},</span>
+<span class="w">        </span><span class="nx">fallback</span><span class="o">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="nx">path</span><span class="o">:</span><span class="w"> </span><span class="nx">require</span><span class="p">.</span><span class="nx">resolve</span><span class="p">(</span><span class="s1">&#39;path-browserify&#39;</span><span class="p">)</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">    </span><span class="p">},</span>
+<span class="w">    </span><span class="nx">module</span><span class="o">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="nx">rules</span><span class="o">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">            </span><span class="p">{</span>
+<span class="w">                </span><span class="nx">test</span><span class="o">:</span><span class="w"> </span><span class="sr">/.ts$/</span><span class="p">,</span>
+<span class="w">                </span><span class="nx">exclude</span><span class="o">:</span><span class="w"> </span><span class="sr">/node_modules/</span><span class="p">,</span>
+<span class="w">                </span><span class="nx">use</span><span class="o">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">                    </span><span class="p">{</span>
+<span class="w">                        </span><span class="nx">loader</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;ts-loader&#39;</span>
+<span class="w">                    </span><span class="p">}</span>
+<span class="w">                </span><span class="p">]</span>
+<span class="w">            </span><span class="p">}</span>
+<span class="w">        </span><span class="p">]</span>
+<span class="w">    </span><span class="p">},</span>
+<span class="w">    </span><span class="nx">externals</span><span class="o">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="nx">vscode</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;commonjs vscode&#39;</span>
+<span class="w">    </span><span class="p">},</span>
+<span class="w">    </span><span class="nx">devtool</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;source-map&#39;</span>
+<span class="p">}</span>
+
+<span class="kd">const</span><span class="w"> </span><span class="nx">serverConfig</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nx">mode</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;none&#39;</span><span class="p">,</span>
+<span class="w">    </span><span class="nx">target</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;webworker&#39;</span><span class="p">,</span>
+<span class="w">    </span><span class="nx">entry</span><span class="o">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="nx">server</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;./src/server&#39;</span>
+<span class="w">    </span><span class="p">},</span>
+<span class="w">    </span><span class="nx">output</span><span class="o">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="nx">filename</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;[name].js&#39;</span><span class="p">,</span>
+<span class="w">        </span><span class="nx">path</span><span class="o">:</span><span class="w"> </span><span class="nx">path</span><span class="p">.</span><span class="nx">join</span><span class="p">(</span><span class="nx">__dirname</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;dist&#39;</span><span class="p">),</span>
+<span class="w">        </span><span class="nx">libraryTarget</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;var&#39;</span><span class="p">,</span>
+<span class="w">        </span><span class="nx">library</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;serverExportVar&#39;</span>
+<span class="w">    </span><span class="p">},</span>
+<span class="w">    </span><span class="nx">resolve</span><span class="o">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="nx">mainFields</span><span class="o">:</span><span class="w"> </span><span class="p">[</span><span class="s1">&#39;module&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;main&#39;</span><span class="p">],</span>
+<span class="w">        </span><span class="nx">extensions</span><span class="o">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;.ts&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;.js&quot;</span><span class="p">],</span>
+<span class="w">        </span><span class="nx">alias</span><span class="o">:</span><span class="w"> </span><span class="p">{},</span>
+<span class="w">        </span><span class="nx">fallback</span><span class="o">:</span><span class="w"> </span><span class="p">{}</span>
+<span class="w">    </span><span class="p">},</span>
+<span class="w">    </span><span class="nx">module</span><span class="o">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="nx">rules</span><span class="o">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">            </span><span class="p">{</span>
+<span class="w">                </span><span class="nx">test</span><span class="o">:</span><span class="w"> </span><span class="sr">/.ts$/</span><span class="p">,</span>
+<span class="w">                </span><span class="nx">exclude</span><span class="o">:</span><span class="w"> </span><span class="sr">/node_modules/</span><span class="p">,</span>
+<span class="w">                </span><span class="nx">use</span><span class="o">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">                    </span><span class="p">{</span>
+<span class="w">                        </span><span class="nx">loader</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;ts-loader&#39;</span>
+<span class="w">                    </span><span class="p">}</span>
+<span class="w">                </span><span class="p">]</span>
+<span class="w">            </span><span class="p">}</span>
+<span class="w">        </span><span class="p">]</span>
+<span class="w">    </span><span class="p">},</span>
+<span class="w">    </span><span class="nx">devtool</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;source-map&#39;</span>
+<span class="p">}</span>
+
+<span class="nx">module</span><span class="p">.</span><span class="nx">exports</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[</span><span class="nx">clientConfig</span><span class="p">,</span><span class="w"> </span><span class="nx">serverConfig</span><span class="p">]</span>
+</pre></div>
+
+        </div>
+    </div>
         
 
     
@@ -293,100 +475,21 @@
     
 
     <div data-parent="" class=" border-t dark:border-gray-600"">
-        <label for="webpack.config.js">
+        <label for="resources">
             <div style="padding-left: 4px;" class="flex items-center px-2 py-1 space-x-2 hover:bg-gray-50 hover:dark:bg-gray-700">
                 
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" ><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
-                    <path d="M14 2v6h6M16 13H8M16 17H8M10 9H8"/>
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/>
                 </svg>
                 
 
-                <span>webpack.config.js</span>
+                <span>resources</span>
             </div>
         </label>
 
         
-        <input class="hidden" data-type="file" data-id="webpack.config.js" type="checkbox" id="webpack.config.js" />
-        <div class="overflow-y-auto transition-all max-h-0">
-            <div class="highlight"><pre style="margin: 0"><span></span><span class="kd">const</span><span class="w"> </span><span class="nx">path</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">require</span><span class="p">(</span><span class="s1">&#39;path&#39;</span><span class="p">)</span>
-
-<span class="kd">const</span><span class="w"> </span><span class="nx">clientConfig</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="nx">mode</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;none&#39;</span><span class="p">,</span>
-<span class="w">    </span><span class="nx">target</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;webworker&#39;</span><span class="p">,</span>
-<span class="w">    </span><span class="nx">entry</span><span class="o">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">        </span><span class="nx">client</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;./src/client.ts&#39;</span>
-<span class="w">    </span><span class="p">},</span>
-<span class="w">    </span><span class="nx">output</span><span class="o">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">        </span><span class="nx">filename</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;[name].js&#39;</span><span class="p">,</span>
-<span class="w">        </span><span class="nx">path</span><span class="o">:</span><span class="w"> </span><span class="nx">path</span><span class="p">.</span><span class="nx">join</span><span class="p">(</span><span class="nx">__dirname</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;dist&quot;</span><span class="p">),</span>
-<span class="w">        </span><span class="nx">libraryTarget</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;commonjs&#39;</span>
-<span class="w">    </span><span class="p">},</span>
-<span class="w">    </span><span class="nx">resolve</span><span class="o">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">        </span><span class="nx">mainFields</span><span class="o">:</span><span class="w"> </span><span class="p">[</span><span class="s1">&#39;module&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;main&#39;</span><span class="p">],</span>
-<span class="w">        </span><span class="nx">extensions</span><span class="o">:</span><span class="w"> </span><span class="p">[</span><span class="s1">&#39;.ts&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;.js&#39;</span><span class="p">],</span>
-<span class="w">        </span><span class="nx">alias</span><span class="o">:</span><span class="w"> </span><span class="p">{},</span>
-<span class="w">        </span><span class="nx">fallback</span><span class="o">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">            </span><span class="nx">path</span><span class="o">:</span><span class="w"> </span><span class="nx">require</span><span class="p">.</span><span class="nx">resolve</span><span class="p">(</span><span class="s1">&#39;path-browserify&#39;</span><span class="p">)</span>
-<span class="w">        </span><span class="p">}</span>
-<span class="w">    </span><span class="p">},</span>
-<span class="w">    </span><span class="nx">module</span><span class="o">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">        </span><span class="nx">rules</span><span class="o">:</span><span class="w"> </span><span class="p">[</span>
-<span class="w">            </span><span class="p">{</span>
-<span class="w">                </span><span class="nx">test</span><span class="o">:</span><span class="w"> </span><span class="sr">/.ts$/</span><span class="p">,</span>
-<span class="w">                </span><span class="nx">exclude</span><span class="o">:</span><span class="w"> </span><span class="sr">/node_modules/</span><span class="p">,</span>
-<span class="w">                </span><span class="nx">use</span><span class="o">:</span><span class="w"> </span><span class="p">[</span>
-<span class="w">                    </span><span class="p">{</span>
-<span class="w">                        </span><span class="nx">loader</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;ts-loader&#39;</span>
-<span class="w">                    </span><span class="p">}</span>
-<span class="w">                </span><span class="p">]</span>
-<span class="w">            </span><span class="p">}</span>
-<span class="w">        </span><span class="p">]</span>
-<span class="w">    </span><span class="p">},</span>
-<span class="w">    </span><span class="nx">externals</span><span class="o">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">        </span><span class="nx">vscode</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;commonjs vscode&#39;</span>
-<span class="w">    </span><span class="p">},</span>
-<span class="w">    </span><span class="nx">devtool</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;source-map&#39;</span>
-<span class="p">}</span>
-
-<span class="kd">const</span><span class="w"> </span><span class="nx">serverConfig</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="nx">mode</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;none&#39;</span><span class="p">,</span>
-<span class="w">    </span><span class="nx">target</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;webworker&#39;</span><span class="p">,</span>
-<span class="w">    </span><span class="nx">entry</span><span class="o">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">        </span><span class="nx">server</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;./src/server&#39;</span>
-<span class="w">    </span><span class="p">},</span>
-<span class="w">    </span><span class="nx">output</span><span class="o">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">        </span><span class="nx">filename</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;[name].js&#39;</span><span class="p">,</span>
-<span class="w">        </span><span class="nx">path</span><span class="o">:</span><span class="w"> </span><span class="nx">path</span><span class="p">.</span><span class="nx">join</span><span class="p">(</span><span class="nx">__dirname</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;dist&#39;</span><span class="p">),</span>
-<span class="w">        </span><span class="nx">libraryTarget</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;var&#39;</span><span class="p">,</span>
-<span class="w">        </span><span class="nx">library</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;serverExportVar&#39;</span>
-<span class="w">    </span><span class="p">},</span>
-<span class="w">    </span><span class="nx">resolve</span><span class="o">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">        </span><span class="nx">mainFields</span><span class="o">:</span><span class="w"> </span><span class="p">[</span><span class="s1">&#39;module&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;main&#39;</span><span class="p">],</span>
-<span class="w">        </span><span class="nx">extensions</span><span class="o">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;.ts&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;.js&quot;</span><span class="p">],</span>
-<span class="w">        </span><span class="nx">alias</span><span class="o">:</span><span class="w"> </span><span class="p">{},</span>
-<span class="w">        </span><span class="nx">fallback</span><span class="o">:</span><span class="w"> </span><span class="p">{}</span>
-<span class="w">    </span><span class="p">},</span>
-<span class="w">    </span><span class="nx">module</span><span class="o">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">        </span><span class="nx">rules</span><span class="o">:</span><span class="w"> </span><span class="p">[</span>
-<span class="w">            </span><span class="p">{</span>
-<span class="w">                </span><span class="nx">test</span><span class="o">:</span><span class="w"> </span><span class="sr">/.ts$/</span><span class="p">,</span>
-<span class="w">                </span><span class="nx">exclude</span><span class="o">:</span><span class="w"> </span><span class="sr">/node_modules/</span><span class="p">,</span>
-<span class="w">                </span><span class="nx">use</span><span class="o">:</span><span class="w"> </span><span class="p">[</span>
-<span class="w">                    </span><span class="p">{</span>
-<span class="w">                        </span><span class="nx">loader</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;ts-loader&#39;</span>
-<span class="w">                    </span><span class="p">}</span>
-<span class="w">                </span><span class="p">]</span>
-<span class="w">            </span><span class="p">}</span>
-<span class="w">        </span><span class="p">]</span>
-<span class="w">    </span><span class="p">},</span>
-<span class="w">    </span><span class="nx">devtool</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;source-map&#39;</span>
-<span class="p">}</span>
-
-<span class="nx">module</span><span class="p">.</span><span class="nx">exports</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[</span><span class="nx">clientConfig</span><span class="p">,</span><span class="w"> </span><span class="nx">serverConfig</span><span class="p">]</span>
-</pre></div>
-
-        </div>
     </div>
+    <input class="hidden" data-type="folder" data-id="resources" type="checkbox" id="resources" />
         
 
     
@@ -477,109 +580,6 @@ version of VSCode can then pick up and install.
 <span class="p">   ..</span> <span class="ow">figure</span><span class="p">::</span> /code/hello-lsp-web/resources/install_extension.png
 
 <span class="m">#.</span> Finally, paste in your <span class="s">``https://...loca.lt``</span> URL and click install. 
-</pre></div>
-
-        </div>
-    </div>
-        
-
-    
-
-    <div data-parent="" class=" border-t dark:border-gray-600"">
-        <label for="package.json">
-            <div style="padding-left: 4px;" class="flex items-center px-2 py-1 space-x-2 hover:bg-gray-50 hover:dark:bg-gray-700">
-                
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" ><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
-                    <path d="M14 2v6h6M16 13H8M16 17H8M10 9H8"/>
-                </svg>
-                
-
-                <span>package.json</span>
-            </div>
-        </label>
-
-        
-        <input class="hidden" data-type="file" data-id="package.json" type="checkbox" id="package.json" />
-        <div class="overflow-y-auto transition-all max-h-0">
-            <div class="highlight"><pre style="margin: 0"><span></span><span class="p">{</span>
-<span class="w">    </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;hello-lsp-web&quot;</span><span class="p">,</span>
-<span class="w">    </span><span class="nt">&quot;description&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Proof of concept web based lsp extension for VSCode&quot;</span><span class="p">,</span>
-<span class="w">    </span><span class="nt">&quot;private&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span>
-<span class="w">    </span><span class="nt">&quot;author&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Alex Carney&quot;</span><span class="p">,</span>
-<span class="w">    </span><span class="nt">&quot;publisher&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;swyddfa&quot;</span><span class="p">,</span>
-<span class="w">    </span><span class="nt">&quot;categories&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
-<span class="w">        </span><span class="s2">&quot;Other&quot;</span>
-<span class="w">    </span><span class="p">],</span>
-<span class="w">    </span><span class="nt">&quot;version&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;0.1.0&quot;</span><span class="p">,</span>
-<span class="w">    </span><span class="nt">&quot;license&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;MIT&quot;</span><span class="p">,</span>
-<span class="w">    </span><span class="nt">&quot;activationEvents&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
-<span class="w">        </span><span class="s2">&quot;onLanguage:plaintext&quot;</span>
-<span class="w">    </span><span class="p">],</span>
-<span class="w">    </span><span class="nt">&quot;engines&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">        </span><span class="nt">&quot;vscode&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;^1.61.0&quot;</span>
-<span class="w">    </span><span class="p">},</span>
-<span class="w">    </span><span class="nt">&quot;browser&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;./dist/client&quot;</span><span class="p">,</span>
-<span class="w">    </span><span class="nt">&quot;scripts&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">        </span><span class="nt">&quot;compile&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;webpack&quot;</span><span class="p">,</span>
-<span class="w">        </span><span class="nt">&quot;watch&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;webpack --watch&quot;</span><span class="p">,</span>
-<span class="w">        </span><span class="nt">&quot;serve&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;npx serve --cors -l 5000&quot;</span><span class="p">,</span>
-<span class="w">        </span><span class="nt">&quot;tunnel&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;npx localtunnel -p 5000&quot;</span>
-<span class="w">    </span><span class="p">},</span>
-<span class="w">    </span><span class="nt">&quot;dependencies&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">        </span><span class="nt">&quot;vscode-languageclient&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;^7.0.0&quot;</span>
-<span class="w">    </span><span class="p">},</span>
-<span class="w">    </span><span class="nt">&quot;devDependencies&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">        </span><span class="nt">&quot;@types/vscode&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;^1.61.0&quot;</span><span class="p">,</span>
-<span class="w">        </span><span class="nt">&quot;path-browserify&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;^1.0.1&quot;</span><span class="p">,</span>
-<span class="w">        </span><span class="nt">&quot;ts-loader&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;^9.2.6&quot;</span><span class="p">,</span>
-<span class="w">        </span><span class="nt">&quot;typescript&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;^4.4.4&quot;</span><span class="p">,</span>
-<span class="w">        </span><span class="nt">&quot;webpack&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;^5.76.0&quot;</span><span class="p">,</span>
-<span class="w">        </span><span class="nt">&quot;webpack-cli&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;^4.9.1&quot;</span>
-<span class="w">    </span><span class="p">}</span>
-<span class="p">}</span>
-</pre></div>
-
-        </div>
-    </div>
-        
-
-    
-
-    <div data-parent="" class=" border-t dark:border-gray-600"">
-        <label for="tsconfig.json">
-            <div style="padding-left: 4px;" class="flex items-center px-2 py-1 space-x-2 hover:bg-gray-50 hover:dark:bg-gray-700">
-                
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" ><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
-                    <path d="M14 2v6h6M16 13H8M16 17H8M10 9H8"/>
-                </svg>
-                
-
-                <span>tsconfig.json</span>
-            </div>
-        </label>
-
-        
-        <input class="hidden" data-type="file" data-id="tsconfig.json" type="checkbox" id="tsconfig.json" />
-        <div class="overflow-y-auto transition-all max-h-0">
-            <div class="highlight"><pre style="margin: 0"><span></span><span class="p">{</span>
-<span class="w">    </span><span class="nt">&quot;compilerOptions&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">        </span><span class="nt">&quot;module&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;commonjs&quot;</span><span class="p">,</span>
-<span class="w">        </span><span class="nt">&quot;target&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;es2019&quot;</span><span class="p">,</span>
-<span class="w">        </span><span class="nt">&quot;lib&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
-<span class="w">            </span><span class="s2">&quot;ES2019&quot;</span><span class="p">,</span>
-<span class="w">            </span><span class="s2">&quot;WebWorker&quot;</span>
-<span class="w">        </span><span class="p">],</span>
-<span class="w">        </span><span class="nt">&quot;rootDir&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;src&quot;</span><span class="p">,</span>
-<span class="w">        </span><span class="nt">&quot;outDir&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;dist&quot;</span><span class="p">,</span>
-<span class="w">        </span><span class="nt">&quot;sourceMap&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span>
-<span class="w">    </span><span class="p">},</span>
-<span class="w">    </span><span class="nt">&quot;include&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
-<span class="w">        </span><span class="s2">&quot;src&quot;</span>
-<span class="w">    </span><span class="p">],</span>
-<span class="w">    </span><span class="nt">&quot;exclude&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
-<span class="w">        </span><span class="s2">&quot;node_modules&quot;</span>
-<span class="w">    </span><span class="p">]</span>
-<span class="p">}</span>
 </pre></div>
 
         </div>
@@ -1870,11 +1870,31 @@ version of VSCode can then pick up and install.
 <style>
     
 
-    input[data-id='resources']:checked ~ div {
+    input[data-id='package.json']:checked ~ div {
         max-height: 350px;
     }
 
-    input[data-id='']:checked ~ div[data-parent='resources'] {
+    input[data-id='']:checked ~ div[data-parent='package.json'] {
+        max-height: 382px;
+    }
+
+    
+
+    input[data-id='tsconfig.json']:checked ~ div {
+        max-height: 350px;
+    }
+
+    input[data-id='']:checked ~ div[data-parent='tsconfig.json'] {
+        max-height: 382px;
+    }
+
+    
+
+    input[data-id='webpack.config.js']:checked ~ div {
+        max-height: 350px;
+    }
+
+    input[data-id='']:checked ~ div[data-parent='webpack.config.js'] {
         max-height: 382px;
     }
 
@@ -1910,11 +1930,11 @@ version of VSCode can then pick up and install.
 
     
 
-    input[data-id='webpack.config.js']:checked ~ div {
+    input[data-id='resources']:checked ~ div {
         max-height: 350px;
     }
 
-    input[data-id='']:checked ~ div[data-parent='webpack.config.js'] {
+    input[data-id='']:checked ~ div[data-parent='resources'] {
         max-height: 382px;
     }
 
@@ -1925,26 +1945,6 @@ version of VSCode can then pick up and install.
     }
 
     input[data-id='']:checked ~ div[data-parent='README.rst'] {
-        max-height: 382px;
-    }
-
-    
-
-    input[data-id='package.json']:checked ~ div {
-        max-height: 350px;
-    }
-
-    input[data-id='']:checked ~ div[data-parent='package.json'] {
-        max-height: 382px;
-    }
-
-    
-
-    input[data-id='tsconfig.json']:checked ~ div {
-        max-height: 350px;
-    }
-
-    input[data-id='']:checked ~ div[data-parent='tsconfig.json'] {
         max-height: 382px;
     }
 
