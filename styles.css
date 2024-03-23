@@ -97,8 +97,8 @@ div.highlight .hll {
 }
 
 /* -- Search -- */
-#sbox {
-    @apply w-full
+.highlight-link {
+    @apply dark:text-white
 }
 
 /* -- Local table of contents -- */

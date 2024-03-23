@@ -10,12 +10,12 @@ index e89e34d..89c16eb 100644
    let requestUrl;
    let linkUrl;
    if (docBuilder === "dirhtml") {
-@@ -86,6 +87,7 @@ const _displayItem = (item, searchTerms) => {
+@@ -88,6 +88,7 @@ const _displayItem = (item, searchTerms, highlightTerms) => {
    linkEl.href = linkUrl + anchor;
    linkEl.dataset.score = score;
    linkEl.innerHTML = title;
 +  linkEl.className = "text-green-600"
-   if (descr)
+   if (descr) {
      listItem.appendChild(document.createElement("span")).innerHTML =
        " (" + descr + ")";
 @@ -207,11 +209,12 @@ const Search = {
