@@ -8,7 +8,7 @@ Setting up a Python WASI Environment with Nix
 =============================================
 
 In this blog post I look at setting up a local development environment for the `WASI build of Python <https://github.com/brettcannon/cpython-wasi-build>`_  using Nix.
-You can see the final result `here <https://github.com/alcarney/python-wasi-nix>`__
+You can see the final result `here <https://github.com/alcarney/python-wasi-nix/tree/setup-wasi-env>`__
 
 Why?
 ----
@@ -48,6 +48,8 @@ To get the WASM build of Python onto our machine we'll write a derivation that "
 
    To do this the "right" way, I should be using Nix to build the WASI version of Python from source.
    But since Brett Cannon is `publishing builds <https://github.com/brettcannon/cpython-wasi-build>`_ on GitHub I'm going to leave that as an exercise for the reader.
+
+   **Update 2024-03-29:** I have now built the WASI version of Python with Nix, see :doc:`this post </blog/2024/python-wasi-build>` for details.
 
 .. code-block:: nix
 
@@ -446,7 +448,7 @@ Assuming the packages support the WASI runtime that is! 😅
 Next steps
 ----------
 
-If you are interested you can find the final version of the code `here <https://github.com/alcarney/python-wasi-nix>`__.
+If you are interested you can find the final version of the code `here <https://github.com/alcarney/python-wasi-nix/tree/setup-wasi-env>`__.
 I'm not really sure where it will go from here, as it's now "good enough" for me to start hacking on the WASI runtime, but there's certainly plenty that could be improved.
 
 - Building Python WASI from source

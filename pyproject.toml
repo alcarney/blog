@@ -1,0 +1,2 @@
+[esbonio.sphinx]
+pythonCommand = ["nix", "develop", "-c", "python"]
