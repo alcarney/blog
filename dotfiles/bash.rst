@@ -8,7 +8,7 @@ Bash configuration
 
    .PHONY: bash
    bash:
-   	test -f $(HOME)/.bashrc || ln -s bashrc $(HOME)/.bashrc
+   	test -L $(HOME)/.bashrc || ln -s $(shell pwd)/bashrc $(HOME)/.bashrc
 
 Aliases
 -------
@@ -30,7 +30,7 @@ I set the following options
 
    shopt -s autocd         # If no command found, but matches a directory, cd into it
    shopt -s checkjobs      # Warn about background jobs before exiting
-              shopt -s checkwinsize   # Update the COLUMNS and LINES environment variables between each command
+   shopt -s checkwinsize   # Update the COLUMNS and LINES environment variables between each command
    shopt -s extglob        # Enable extended pattern matching features
    shopt -s globstar       # Enable recursive globbing i.e `./**/*.py`
 
@@ -49,7 +49,7 @@ Environment Variables
 .. pull-quote::
 
    The search path for the cd command.
-   This is a colon separated list of directories in which the shell looks for destination directories specified by the cd command.
+   This is a colon separated list of directories in which the shell looks for destination directories specified by the cd command. -- man(1) bash
 
 This means I can ``cd`` into a project folder from anywhere on my system!
 
