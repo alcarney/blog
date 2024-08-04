@@ -30,11 +30,15 @@ author = "Alex Carney"
 # extensions coming with Sphinx (named 'sphinx.ext.*') or your custom
 # ones.
 extensions = [
-    "ablog",
-    "coderepo",  # see: ./extensions.coderepo.py
+    # Builtin extensions
     "sphinx.ext.intersphinx",
+    # Third party extensions
+    "ablog",
+    "awdur",
     "sphinx_design",
-    "tailwind",  # see: ./extensions/tailwind.py
+    # Local extensions: see `./extensions`
+    "coderepo",
+    "tailwind",
 ]
 
 # Add any paths that contain templates here, relative to this directory.
@@ -66,6 +70,8 @@ html_sidebars = {
     "blog/20*/*": ["postcard.html", "localtoc.html"],
     "code": [],
     "code/*": ["localtoc.html"],
+    "dotfiles": [],
+    "dotfiles/*": ["localtoc.html"],
     "index": [],
     "notes": [],
     "notes/*": ["localtoc.html"],
