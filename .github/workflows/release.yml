@@ -15,10 +15,12 @@ jobs:
     steps:
     - uses: 'actions/checkout@v3'
 
-    - uses: cachix/install-nix-action@v18
-
-    - run: nix develop -c make html
-      name: Build
+    - name: Build
+      uses: devcontainers/ci@v0.3
+      with:
+        cacheFrom: ghcr.io/alcarney/blog-devenv
+        push: never
+        runCmd: make html
 
     - name: 'Upload Aritfact'
       uses: 'actions/upload-artifact@v3'
