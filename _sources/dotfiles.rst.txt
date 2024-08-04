@@ -1,0 +1,22 @@
+Dotfiles
+========
+
+Some of my dotfiles.
+
+.. grid:: 1 2 2 2
+   :gutter: 2
+
+   .. grid-item-card:: :octicon:`terminal` Bash
+      :link: /dotfiles/bash
+      :link-type: doc
+
+   .. grid-item-card:: :octicon:`git-branch` Git
+      :link: /dotfiles/git
+      :link-type: doc
+
+
+.. toctree::
+   :glob:
+   :hidden:
+
+   dotfiles/*

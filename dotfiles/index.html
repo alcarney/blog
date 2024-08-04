@@ -1,32 +1,35 @@
 <!DOCTYPE html>
 
-<html lang="en" data-content_root="../../../">
+<html lang="en" data-content_root="../">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Posts tagged containers &#8212; Alex Carney</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Dotfiles &#8212; Alex Carney</title>
 
     
-    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=92c9d732" />
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=92c9d732" />
     
     
     
-    <link id="pygments_dark_css" media="(prefers-color-scheme: dark)" rel="stylesheet" type="text/css" href="../../../_static/pygments_dark.css?v=8f9ffe49" />
+    <link id="pygments_dark_css" media="(prefers-color-scheme: dark)" rel="stylesheet" type="text/css" href="../_static/pygments_dark.css?v=8f9ffe49" />
     
     
-    <link rel="stylesheet" type="text/css" href="../../../_static/sphinx-design.min.css?v=95c83b7e" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
     
     
-    <link rel="stylesheet" type="text/css" href="../../../_static/css/styles.css?v=c5c4c77e" />
+    <link rel="stylesheet" type="text/css" href="../_static/css/styles.css?v=c5c4c77e" />
     
 
-    <script src="../../../_static/documentation_options.js?v=187304be"></script>
-    <script src="../../../_static/doctools.js?v=9a2dae69"></script>
-    <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
-    <script src="../../../_static/design-tabs.js?v=f930bc37"></script>
-    <link rel="icon" href="../../../_static/favicon.ico"/>
-    <link rel="index" title="Index" href="../../../genindex/" />
-    <link rel="search" title="Search" href="../../../search/" /> 
+    <script src="../_static/documentation_options.js?v=187304be"></script>
+    <script src="../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/design-tabs.js?v=f930bc37"></script>
+    <link rel="icon" href="../_static/favicon.ico"/>
+    <link rel="index" title="Index" href="../genindex/" />
+    <link rel="search" title="Search" href="../search/" />
+    <link rel="next" title="Bash" href="bash/" />
+    <link rel="prev" title="Simple AST" href="../code/simple-ast/" /> 
   </head><body class="flex flex-col justify-between min-h-screen overflow-x-hidden bg-gray-100 dark:bg-gray-900">
     <div class="flex flex-grow">
         <input id="menu-state" type="checkbox" class="hidden" />
@@ -41,7 +44,7 @@
 
                     
 <div id="searchbox" style="display: none" role="search" class="px-4 py-4">
-  <form class="flex justify-between px-2 py-1 bg-gray-100 border-2 rounded search dark:bg-gray-900 focus-within:border-green-600 dark:border-gray-600" action="../../../search/" method="get">
+  <form class="flex justify-between px-2 py-1 bg-gray-100 border-2 rounded search dark:bg-gray-900 focus-within:border-green-600 dark:border-gray-600" action="../search/" method="get">
     <label class="mr-2 text-gray-500" for="sbox">
       <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="feather feather-search">
         <circle cx="11" cy="11" r="6" />
@@ -130,125 +133,64 @@
             <div id="content" class="mx-2 my-8">
                 <div role="main" class="max-w-3xl mx-auto">
                     
-<style>
-    header::before {
-        position: absolute;
-        top: 4px;
-        left: -13px;
-        display: block;
-        content: '';
-        width: 25px;
-        height: 25px;
-        background: white;
-        transform: rotate(45deg);
-        border-left: solid 1px #e5e7eb;
-        border-bottom: solid 1px #e5e7eb;
 
-    }
+<article class="p-4 prose-sm prose bg-white dark:bg-gray-800 border prose-md prose-emerald max-w-none dark:prose-invert dark:border-gray-600">
+    <section id="dotfiles">
+<h1>Dotfiles<a class="headerlink" href="#dotfiles" title="Link to this heading">¶</a></h1>
+<p>Some of my dotfiles.</p>
+<div class="sd-container-fluid sd-sphinx-override sd-mb-4 docutils">
+<div class="sd-row sd-row-cols-1 sd-row-cols-xs-1 sd-row-cols-sm-2 sd-row-cols-md-2 sd-row-cols-lg-2 sd-g-2 sd-g-xs-2 sd-g-sm-2 sd-g-md-2 sd-g-lg-2 docutils">
+<div class="sd-col sd-d-flex-row docutils">
+<div class="sd-card sd-sphinx-override sd-w-100 sd-shadow-sm sd-card-hover docutils">
+<div class="sd-card-body docutils">
+<div class="sd-card-title sd-font-weight-bold docutils">
+<svg version="1.1" width="1.0em" height="1.0em" class="sd-octicon sd-octicon-terminal" viewBox="0 0 16 16" aria-hidden="true"><path d="M0 2.75C0 1.784.784 1 1.75 1h12.5c.966 0 1.75.784 1.75 1.75v10.5A1.75 1.75 0 0 1 14.25 15H1.75A1.75 1.75 0 0 1 0 13.25Zm1.75-.25a.25.25 0 0 0-.25.25v10.5c0 .138.112.25.25.25h12.5a.25.25 0 0 0 .25-.25V2.75a.25.25 0 0 0-.25-.25ZM7.25 8a.749.749 0 0 1-.22.53l-2.25 2.25a.749.749 0 0 1-1.275-.326.749.749 0 0 1 .215-.734L5.44 8 3.72 6.28a.749.749 0 0 1 .326-1.275.749.749 0 0 1 .734.215l2.25 2.25c.141.14.22.331.22.53Zm1.5 1.5h3a.75.75 0 0 1 0 1.5h-3a.75.75 0 0 1 0-1.5Z"></path></svg> Bash</div>
+</div>
+<a class="sd-stretched-link sd-hide-link-text reference internal" href="bash/"><span class="doc">Bash</span></a></div>
+</div>
+<div class="sd-col sd-d-flex-row docutils">
+<div class="sd-card sd-sphinx-override sd-w-100 sd-shadow-sm sd-card-hover docutils">
+<div class="sd-card-body docutils">
+<div class="sd-card-title sd-font-weight-bold docutils">
+<svg version="1.1" width="1.0em" height="1.0em" class="sd-octicon sd-octicon-git-branch" viewBox="0 0 16 16" aria-hidden="true"><path d="M9.5 3.25a2.25 2.25 0 1 1 3 2.122V6A2.5 2.5 0 0 1 10 8.5H6a1 1 0 0 0-1 1v1.128a2.251 2.251 0 1 1-1.5 0V5.372a2.25 2.25 0 1 1 1.5 0v1.836A2.493 2.493 0 0 1 6 7h4a1 1 0 0 0 1-1v-.628A2.25 2.25 0 0 1 9.5 3.25Zm-6 0a.75.75 0 1 0 1.5 0 .75.75 0 0 0-1.5 0Zm8.25-.75a.75.75 0 1 0 0 1.5.75.75 0 0 0 0-1.5ZM4.25 12a.75.75 0 1 0 0 1.5.75.75 0 0 0 0-1.5Z"></path></svg> Git</div>
+</div>
+<a class="sd-stretched-link sd-hide-link-text reference internal" href="git/"><span class="doc">Git</span></a></div>
+</div>
+</div>
+</div>
+<div class="toctree-wrapper compound">
+</div>
+</section>
 
-    header h2 {
-        margin-top: -16px;
-    }
-
-    aside[data-id='post-meta']::after {
-        position: absolute;
-        top: 45px;
-        right: -5px;
-        display: block;
-        content: '';
-        width: 8px;
-        height: 8px;
-        border-radius: 100%;
-        background: #717885;
-    }
-
-    @media(prefers-color-scheme: dark) {
-        header::before {
-            background: rgb(39 39 42 / var(--tw-bg-opacity));
-            border-left: solid 1px rgb(82 82 91 / var(--tw-border-opacity));
-            border-bottom: solid 1px rgb(82 82 91 / var(--tw-border-opacity));
-        }
-    }
-
-    @media(max-width: 700px) {
-        header::before {
-            left: 19px;
-            top: -13px;
-            border-top: solid 1px rgb(82 82 91 / var(--tw-border-opacity));
-            border-bottom: none;
-            clip-path: polygon(0 0, 100% 0, 100% 10%, 10% 100%, 0 100%);
-        }
-
-        aside[data-id='post-meta']::after {
-            top: 10px;
-            left: 28px;
-        }
-
-    }
-</style>
-<!-- <div class="grid items-baseline grid-cols-1 mb-12 md:grid-cols-4"> -->
-    <div >
-        <div class="flex flex-col items-baseline w-full md:flex-row">
-        <aside data-id="post-meta" class="relative self-stretch w-40 mt-8 text-right text-gray-500 md:px-4 md:mt-0 md:mr-8 md:border-r-2 dark:border-gray-600">
-            <div class="flex md:mt-9">
-                <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
-</svg>
-                <span class="ml-4 text-right md:ml-auto">Apr 28, 2020</span>
-            </div>
-        </aside>
-        <article class="relative p-4 mt-4 bg-white dark:bg-gray-800 border md:mt-8 md:col-span-3 hover:shadow-lg dark:border-gray-600">
-            <header>
-                <a href="../../2020/hello-world-tinygo-wasm/">
-                    <h2 style="max-width: 33ch" class="mb-4 text-2xl text-green-600">Saying ‘Hello, World!’ with TinyGo and WebAssembly</h2>
-                </a>
-            </header>
-            <div class="prose-sm prose prose-emerald dark:prose-invert">
-                <p class="ablog-post-excerpt"><p>WebAssembly is something I’ve wanted to play with for quite a while now and
-I’ve finally got around to taking a look at it. In this post I describe how I
-managed to use <a class="reference external" href="https://tinygo.org/">TinyGo</a> to compile a “Hello, World!” Go program into
-WebAssembly and execute it in the browser. So that I have something to refer
-back to I also describe setting up my development environment as a container
-using <a class="reference external" href="https://linuxcontainers.org/">LXD</a>.</p>
-</p>
+</article>
 
 
-            </div>
-            <div class="flex flex-col justify-between mt-4 lg:flex-row">
-                <p class="prose-sm prose prose-emerald dark:prose-invert"><a href="../../2020/hello-world-tinygo-wasm/">Read More...</a></p>
+<nav class="mt-8">
+    <ul class="flex flex-row justify-between">
 
-                <ul class="flex flex-wrap space-x-2">
-                    <li class="mb-1">
-                        <a href="../go/" class="px-2 text-green-600 border border-green-600 rounded bg-green-50 dark:bg-green-600/[.2] dark:text-green-200">
-                            #go
-                        </a>
-                    </li>
-                    <li class="mb-1">
-                        <a href="../tinygo/" class="px-2 text-green-600 border border-green-600 rounded bg-green-50 dark:bg-green-600/[.2] dark:text-green-200">
-                            #tinygo
-                        </a>
-                    </li>
-                    <li class="mb-1">
-                        <a href="../wasm/" class="px-2 text-green-600 border border-green-600 rounded bg-green-50 dark:bg-green-600/[.2] dark:text-green-200">
-                            #wasm
-                        </a>
-                    </li>
-                    <li class="mb-1">
-                        <a href="../lxd/" class="px-2 text-green-600 border border-green-600 rounded bg-green-50 dark:bg-green-600/[.2] dark:text-green-200">
-                            #lxd
-                        </a>
-                    </li>
-                    <li class="mb-1">
-                        <a href="#" class="px-2 text-green-600 border border-green-600 rounded bg-green-50 dark:bg-green-600/[.2] dark:text-green-200">
-                            #containers
-                        </a>
-                    </li>
-                </ul>
-            </div>
-        </article>
-        </div>
-    </div>
-<!-- </div> -->
+        
+        <li  class="w-1/2 p-4 mr-2 bg-white dark:bg-gray-800 border hover:shadow-lg dark:border-gray-600" >
+            
+            <a class="flex items-center justify-between h-full" href="../code/simple-ast/">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="flex-shrink-0 w-8 h-8" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg>
+                <p class="ml-4 text-green-600">Simple AST</p>
+            </a>
+            
+        </li>
+        
+        <li class="w-1/2 p-4 ml-2 bg-white dark:bg-gray-800 border hover:shadow-lg dark:border-gray-600">
+            <a class="flex items-center justify-between h-full" href="bash/">
+                <p class="text-green-600">Bash</p>
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="flex-shrink-0 w-8 h-8 ml-4" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg>
+            </a>
+        </li>
+        
+    </ul>
+
+</nav>
+
+
+
 
 
                 </div>
@@ -257,6 +199,9 @@ using <a class="reference external" href="https://linuxcontainers.org/">LXD</a>.
             <footer class="p-2 mt-8 mb-2 text-sm text-gray-600 border-t dark:border-gray-600">
                 <div class="flex flex-col justify-between max-w-3xl mx-auto lg:flex-row">
                     <span>
+                        <a class="text-green-600" href="../_sources/dotfiles.rst.txt" rel="nofollow">
+                            Page Source
+                        </a>
                     </span>
                     <span>Built with <a class="text-green-600" href="https://www.sphinx-doc.org/en/master/">Sphinx</a> v8.0.2</span>
                 </div>
