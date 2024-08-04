@@ -1,0 +1,12 @@
+[tool.hatch.envs.blog]
+installer = "uv"
+python = '3.10'
+skip-install = true
+dependencies = [
+  "ablog",
+  "sphinx",
+  "sphinx-design",
+]
+
+[tool.hatch.envs.blog.scripts]
+build = "ablog build -w _build/html -d _build/doctrees"
