@@ -1,35 +1,31 @@
-
 <!DOCTYPE html>
 
-<html lang="en">
+<html lang="en" data-content_root="../../../">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
     <title>Nix: Day to Day Usage &#8212; Alex Carney</title>
 
     
-    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=92c9d732" />
     
     
     
-    <link id="pygments_dark_css" media="(prefers-color-scheme: dark)" rel="stylesheet" type="text/css" href="../../../_static/pygments_dark.css" />
+    <link id="pygments_dark_css" media="(prefers-color-scheme: dark)" rel="stylesheet" type="text/css" href="../../../_static/pygments_dark.css?v=8f9ffe49" />
     
     
-    <link rel="stylesheet" type="text/css" href="../../../_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/sphinx-design.min.css?v=95c83b7e" />
     
     
-    <link rel="stylesheet" type="text/css" href="../../../_static/css/styles.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/css/styles.css?v=7c0862aa" />
     
 
-    <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
-    <script src="../../../_static/jquery.js"></script>
-    <script src="../../../_static/underscore.js"></script>
-    <script src="../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
-    <script src="../../../_static/doctools.js"></script>
-    <script src="../../../_static/sphinx_highlight.js"></script>
-    <script src="../../../_static/design-tabs.js"></script>
-    <link rel="shortcut icon" href="../../../_static/favicon.ico"/>
+    <script src="../../../_static/documentation_options.js?v=187304be"></script>
+    <script src="../../../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../../_static/design-tabs.js?v=f930bc37"></script>
+    <link rel="icon" href="../../../_static/favicon.ico"/>
     <link rel="index" title="Index" href="../../../genindex/" />
     <link rel="search" title="Search" href="../../../search/" /> 
   </head><body class="flex flex-col justify-between min-h-screen overflow-x-hidden bg-gray-100 dark:bg-gray-900">
@@ -44,18 +40,28 @@
     <h2 class=""><a href="/">Alex Carney</a></h2>
 </div>
 
-                    <div id="searchbox" style="display: none" role="search" class="px-4 py-4">
-    <form class="flex justify-between px-2 py-1 bg-gray-100 border-2 rounded search dark:bg-gray-900 focus-within:border-green-600 dark:border-gray-600" action="../../../search/" method="get">
-        <label class="mr-2 text-gray-500" for="sbox">
-            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="feather feather-search">
-                <circle cx="11" cy="11" r="6" />
-                <path d="m21 21-4.35-4.35" />
-            </svg>
-        </label>
-        <input id="sbox" class="flex-grow bg-gray-100 dark:text-white dark:bg-gray-900 focus:outline-none" type="search" name="q" placeholder="Search..." aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" />
-    </form>
+                    
+<div id="searchbox" style="display: none" role="search" class="px-4 py-4">
+  <form class="flex justify-between px-2 py-1 bg-gray-100 border-2 rounded search dark:bg-gray-900 focus-within:border-green-600 dark:border-gray-600" action="../../../search/" method="get">
+    <label class="mr-2 text-gray-500" for="sbox">
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="feather feather-search">
+        <circle cx="11" cy="11" r="6" />
+        <path d="m21 21-4.35-4.35" />
+      </svg>
+    </label>
+    <input class="flex-grow bg-gray-100 w-full dark:text-white dark:bg-gray-900 focus:outline-none"
+           type="search"
+           name="q"
+           aria-labelledby="searchlabel"
+           autocomplete="off"
+           autocorrect="off"
+           autocapitalize="off"
+           spellcheck="false"
+           placeholder="Search"
+           />
+  </form>
 </div>
-<script>$('#searchbox').show(0);</script>
+<script>document.getElementById('searchbox').style.display = "block"</script>
 
                     
 
@@ -81,14 +87,14 @@
     <ul class="text-right">
         
         <li class="mb-1">
-            <a href="../../tag/python/" class="px-2 my-1 text-green-600 border border-green-600 rounded bg-green-50 dark:bg-green-900 dark:text-green-200">
-                #python
+            <a href="../../tag/nix/" class="px-2 my-1 text-green-600 border border-green-600 rounded bg-green-50 dark:bg-green-900 dark:text-green-200">
+                #nix
             </a>
         </li>
         
         <li class="mb-1">
-            <a href="../../tag/nix/" class="px-2 my-1 text-green-600 border border-green-600 rounded bg-green-50 dark:bg-green-900 dark:text-green-200">
-                #nix
+            <a href="../../tag/python/" class="px-2 my-1 text-green-600 border border-green-600 rounded bg-green-50 dark:bg-green-900 dark:text-green-200">
+                #python
             </a>
         </li>
         
@@ -172,11 +178,11 @@
 
 <article class="p-4 prose-sm prose bg-white dark:bg-gray-800 border prose-md prose-emerald max-w-none dark:prose-invert dark:border-gray-600">
     <section id="nix-day-to-day-usage">
-<h1>Nix: Day to Day Usage<a class="headerlink" href="#nix-day-to-day-usage" title="Permalink to this heading">¶</a></h1>
+<h1>Nix: Day to Day Usage<a class="headerlink" href="#nix-day-to-day-usage" title="Link to this heading">¶</a></h1>
 <p>This blog post marks a change in my usage of Nix, I’m (just!) past the point of trying to get <em>something</em> to work and now starting to incorporate it into some of my regular workflows.
 So instead of trying to accomplish some major task, this post is a small collection of things I’ve learned over the past few weeks.</p>
 <section id="a-better-devshell-definition">
-<h2>A better <code class="docutils literal notranslate"><span class="pre">devShell</span></code> definition<a class="headerlink" href="#a-better-devshell-definition" title="Permalink to this heading">¶</a></h2>
+<h2>A better <code class="docutils literal notranslate"><span class="pre">devShell</span></code> definition<a class="headerlink" href="#a-better-devshell-definition" title="Link to this heading">¶</a></h2>
 <p>The original issue I’m trying to solve dates back to my <a class="reference internal" href="../../2022/first-steps-with-nix/"><span class="doc">first post</span></a> on using Nix.
 That is, defining a <code class="docutils literal notranslate"><span class="pre">devShell</span></code> containing the dependencies of a local Python package doesn’t mean that the local package itself is importable when the <code class="docutils literal notranslate"><span class="pre">devShell</span></code> is activated.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ nix develop .#py310
@@ -241,18 +247,18 @@ Not only does this fill your <code class="docutils literal notranslate"><span cl
 <p>Now the <code class="docutils literal notranslate"><span class="pre">devShell</span></code> behaves like an <a class="reference external" href="https://pip.pypa.io/en/stable/topics/local-project-installs/#editable-installs">editable install</a> of a Python package - no rebuilds required!</p>
 </section>
 <section id="defining-a-build-matrix">
-<h2>Defining a build matrix<a class="headerlink" href="#defining-a-build-matrix" title="Permalink to this heading">¶</a></h2>
+<h2>Defining a build matrix<a class="headerlink" href="#defining-a-build-matrix" title="Link to this heading">¶</a></h2>
 <p>So far, all my <code class="docutils literal notranslate"><span class="pre">devShell</span></code> definitions have been making use of a function I wrote called <code class="docutils literal notranslate"><span class="pre">eachPythonVersion</span></code> (see <a class="reference internal" href="../../2022/first-steps-with-nix/#first-steps-nix-multiple-python-versions"><span class="std std-ref">this section</span></a> for more details) which would let me define a <code class="docutils literal notranslate"><span class="pre">devShell</span></code> once, but reuse it across multiple Python versions</p>
-<div class="highlight-nix notranslate"><div class="highlight"><pre><span></span><span class="ss">devShells =</span> utils<span class="o">.</span>lib<span class="o">.</span>eachDefaultSystemMap <span class="p">(</span>system<span class="p">:</span>
+<div class="highlight-nix notranslate"><div class="highlight"><pre><span></span><span class="ss">devShells</span> <span class="o">=</span> utils<span class="o">.</span>lib<span class="o">.</span>eachDefaultSystemMap <span class="p">(</span>system<span class="p">:</span>
     eachPythonVersion <span class="p">[</span> <span class="s2">&quot;38&quot;</span> <span class="s2">&quot;39&quot;</span> <span class="s2">&quot;310&quot;</span> <span class="s2">&quot;311&quot;</span> <span class="p">]</span> <span class="p">(</span>pyVersion<span class="p">:</span>
       <span class="k">with</span> pkgs<span class="p">;</span> mkShell <span class="p">{</span>
-        <span class="ss">name =</span> <span class="s2">&quot;py</span><span class="si">${</span>pyVersion<span class="si">}</span><span class="s2">&quot;</span><span class="p">;</span>
+        <span class="ss">name</span> <span class="o">=</span> <span class="s2">&quot;py</span><span class="si">${</span>pyVersion<span class="si">}</span><span class="s2">&quot;</span><span class="p">;</span>
 
-        <span class="ss">shellHook =</span> <span class="s1">&#39;&#39;</span>
-<span class="s1">          export PYTHONPATH=&quot;./:$PYTHONPATH&quot;</span>
-<span class="s1">        &#39;&#39;</span><span class="p">;</span>
+        <span class="ss">shellHook</span> <span class="o">=</span> <span class="s s-Multiline">&#39;&#39;</span>
+<span class="s s-Multiline">          export PYTHONPATH=&quot;./:$PYTHONPATH&quot;</span>
+<span class="s s-Multiline">        &#39;&#39;</span><span class="p">;</span>
 
-        <span class="ss">packages =</span> <span class="k">with</span> pkgs<span class="o">.</span><span class="s2">&quot;python</span><span class="si">${</span>pyVersion<span class="si">}</span><span class="s2">Packages&quot;</span><span class="p">;</span> <span class="p">[</span>
+        <span class="ss">packages</span> <span class="o">=</span> <span class="k">with</span> pkgs<span class="o">.</span><span class="s2">&quot;python</span><span class="si">${</span>pyVersion<span class="si">}</span><span class="s2">Packages&quot;</span><span class="p">;</span> <span class="p">[</span>
           pygls
           pytest
           pytest-asyncio
@@ -263,8 +269,8 @@ Not only does this fill your <code class="docutils literal notranslate"><span cl
 </pre></div>
 </div>
 <p>However, if you look at the implementation of <code class="docutils literal notranslate"><span class="pre">eachPythonVersion</span></code></p>
-<div class="highlight-nix notranslate"><div class="highlight"><pre><span></span><span class="ss">eachPythonVersion =</span> versions<span class="p">:</span> f<span class="p">:</span>
-  <span class="nb">builtins</span><span class="o">.</span>listToAttrs <span class="p">(</span><span class="nb">builtins</span><span class="o">.</span><span class="nb">map</span> <span class="p">(</span>version<span class="p">:</span> <span class="p">{</span><span class="ss">name =</span> <span class="s2">&quot;py</span><span class="si">${</span>version<span class="si">}</span><span class="s2">&quot;</span><span class="p">;</span> <span class="ss">value =</span> f version<span class="p">;</span> <span class="p">})</span> versions<span class="p">);</span>
+<div class="highlight-nix notranslate"><div class="highlight"><pre><span></span><span class="ss">eachPythonVersion</span> <span class="o">=</span> versions<span class="p">:</span> f<span class="p">:</span>
+  <span class="nb">builtins</span><span class="o">.</span>listToAttrs <span class="p">(</span><span class="nb">builtins</span><span class="o">.</span><span class="nb">map</span> <span class="p">(</span>version<span class="p">:</span> <span class="p">{</span><span class="ss">name</span> <span class="o">=</span> <span class="s2">&quot;py</span><span class="si">${</span>version<span class="si">}</span><span class="s2">&quot;</span><span class="p">;</span> <span class="ss">value</span> <span class="o">=</span> f version<span class="p">;</span> <span class="p">})</span> versions<span class="p">);</span>
 </pre></div>
 </div>
 <p>it</p>
@@ -275,14 +281,14 @@ Not only does this fill your <code class="docutils literal notranslate"><span cl
 </ul>
 <p>Currently I’m working on the next major version of <a class="reference external" href="https://github.com/swyddfa/esbonio">esbonio</a> and need to be able to define multiple <code class="docutils literal notranslate"><span class="pre">devShells</span></code> per Python version each containing a different version of Sphinx.</p>
 <p>So ideally, I’d want to be able to define my build matrix</p>
-<div class="highlight-nix notranslate"><div class="highlight"><pre><span></span><span class="ss">buildMatrix =</span> <span class="p">{</span>
-  <span class="ss">py =</span> <span class="p">[</span> <span class="s2">&quot;38&quot;</span> <span class="s2">&quot;39&quot;</span> <span class="s2">&quot;310&quot;</span> <span class="s2">&quot;311&quot;</span> <span class="p">];</span>
-  <span class="ss">sphinx =</span> <span class="p">[</span> <span class="s2">&quot;5&quot;</span> <span class="s2">&quot;6&quot;</span> <span class="s2">&quot;7&quot;</span> <span class="p">];</span>
+<div class="highlight-nix notranslate"><div class="highlight"><pre><span></span><span class="ss">buildMatrix</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="ss">py</span> <span class="o">=</span> <span class="p">[</span> <span class="s2">&quot;38&quot;</span> <span class="s2">&quot;39&quot;</span> <span class="s2">&quot;310&quot;</span> <span class="s2">&quot;311&quot;</span> <span class="p">];</span>
+  <span class="ss">sphinx</span> <span class="o">=</span> <span class="p">[</span> <span class="s2">&quot;5&quot;</span> <span class="s2">&quot;6&quot;</span> <span class="s2">&quot;7&quot;</span> <span class="p">];</span>
 <span class="p">};</span>
 </pre></div>
 </div>
 <p>and then apply it over some function to get definitions for all combinations of supported versions</p>
-<div class="highlight-nix notranslate"><div class="highlight"><pre><span></span><span class="ss">devShells =</span> utils<span class="o">.</span>lib<span class="o">.</span>eachDefaultSystemMap <span class="p">(</span>system<span class="p">:</span>
+<div class="highlight-nix notranslate"><div class="highlight"><pre><span></span><span class="ss">devShells</span> <span class="o">=</span> utils<span class="o">.</span>lib<span class="o">.</span>eachDefaultSystemMap <span class="p">(</span>system<span class="p">:</span>
   applyMatrix buildMatrix <span class="p">({</span> py<span class="p">,</span> sphinx<span class="p">,</span> <span class="o">...</span><span class="p">}:</span> <span class="p">{</span>
     <span class="s2">&quot;py</span><span class="si">${</span>py<span class="si">}</span><span class="s2">-esbonio&quot;</span> <span class="o">=</span> pkgs<span class="o">.</span>mkShell <span class="p">{</span> <span class="p">};</span>          <span class="c1"># A shell without sphinx avaialable at all</span>
     <span class="s2">&quot;py</span><span class="si">${</span>py<span class="si">}</span><span class="s2">-sphinx</span><span class="si">${</span>sphinx<span class="si">}</span><span class="s2">&quot;</span> <span class="o">=</span> pkgs<span class="o">.</span>mkShell <span class="p">{</span> <span class="p">};</span>  <span class="c1"># A shell containing the given sphinx verison</span>
@@ -292,11 +298,7 @@ Not only does this fill your <code class="docutils literal notranslate"><span cl
 </div>
 <details class="sd-sphinx-override sd-dropdown sd-card sd-mb-3">
 <summary class="sd-summary-title sd-card-header">
-Which expands into a lot of devShells!<div class="sd-summary-down docutils">
-<svg version="1.1" width="1.5em" height="1.5em" class="sd-octicon sd-octicon-chevron-down" viewBox="0 0 24 24" aria-hidden="true"><path fill-rule="evenodd" d="M5.22 8.72a.75.75 0 000 1.06l6.25 6.25a.75.75 0 001.06 0l6.25-6.25a.75.75 0 00-1.06-1.06L12 14.44 6.28 8.72a.75.75 0 00-1.06 0z"></path></svg></div>
-<div class="sd-summary-up docutils">
-<svg version="1.1" width="1.5em" height="1.5em" class="sd-octicon sd-octicon-chevron-up" viewBox="0 0 24 24" aria-hidden="true"><path fill-rule="evenodd" d="M18.78 15.28a.75.75 0 000-1.06l-6.25-6.25a.75.75 0 00-1.06 0l-6.25 6.25a.75.75 0 101.06 1.06L12 9.56l5.72 5.72a.75.75 0 001.06 0z"></path></svg></div>
-</summary><div class="sd-summary-content sd-card-body docutils">
+<span class="sd-summary-text">Which expands into a lot of devShells!</span><span class="sd-summary-state-marker sd-summary-chevron-right"><svg version="1.1" width="1.5em" height="1.5em" class="sd-octicon sd-octicon-chevron-right" viewBox="0 0 24 24" aria-hidden="true"><path d="M8.72 18.78a.75.75 0 0 1 0-1.06L14.44 12 8.72 6.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018l6.25 6.25a.75.75 0 0 1 0 1.06l-6.25 6.25a.75.75 0 0 1-1.06 0Z"></path></svg></span></summary><div class="sd-summary-content sd-card-body docutils">
 <div class="highlight-none notranslate"><div class="highlight"><pre><span></span>$ nix flake show
 git+file:///var/home/alex/Projects/esbonio-beta?dir=lib%2fesbonio
 ├───devShells
@@ -434,14 +436,14 @@ git+file:///var/home/alex/Projects/esbonio-beta?dir=lib%2fesbonio
 </pre></div>
 </div>
 <p>Bringing it all together results in a surprisingly compact function definition!</p>
-<div class="highlight-nix notranslate"><div class="highlight"><pre><span></span><span class="ss">applyMatrix =</span> matrix<span class="p">:</span> f<span class="p">:</span>
+<div class="highlight-nix notranslate"><div class="highlight"><pre><span></span><span class="ss">applyMatrix</span> <span class="o">=</span> matrix<span class="p">:</span> f<span class="p">:</span>
   <span class="nb">builtins</span><span class="o">.</span>foldl&#39; <span class="p">(</span>x<span class="p">:</span> y<span class="p">:</span> x <span class="o">//</span> y<span class="p">)</span> <span class="p">{}</span>
     <span class="p">(</span><span class="nb">builtins</span><span class="o">.</span><span class="nb">map</span> f <span class="p">(</span>nixpkgs<span class="o">.</span>lib<span class="o">.</span>cartesianProductOfSets matrix<span class="p">));</span>
 </pre></div>
 </div>
 </section>
 <section id="flakes-and-monorepos">
-<h2>Flakes and Monorepos<a class="headerlink" href="#flakes-and-monorepos" title="Permalink to this heading">¶</a></h2>
+<h2>Flakes and Monorepos<a class="headerlink" href="#flakes-and-monorepos" title="Link to this heading">¶</a></h2>
 <p><a class="reference internal" href="../integrate-esboino-nvim-with-nix/"><span class="doc">Previously</span></a> I tried adding a “top-level” <code class="docutils literal notranslate"><span class="pre">flake.nix</span></code> to the git repository for the <a class="reference external" href="https://github.com/swyddfa/esbonio">esbonio</a> language server that depended on another <code class="docutils literal notranslate"><span class="pre">flake.nix</span></code> within a sub directory of the same repository.</p>
 <p>It… <a class="reference external" href="https://github.com/swyddfa/esbonio/issues/570">didn’t work</a>.</p>
 <p>I’m still trying to figure out the best way to approach this but I’m currently leaning towards keeping the multiple <code class="docutils literal notranslate"><span class="pre">flake.nix</span></code> files where</p>
@@ -486,7 +488,7 @@ git+file:///var/home/alex/Projects/esbonio-beta?dir=lib%2fesbonio
                             Page Source
                         </a>
                     </span>
-                    <span>Built with <a class="text-green-600" href="https://www.sphinx-doc.org/en/master/">Sphinx</a> v5.3.0</span>
+                    <span>Built with <a class="text-green-600" href="https://www.sphinx-doc.org/en/master/">Sphinx</a> v8.0.2</span>
                 </div>
             </footer>
         </main>

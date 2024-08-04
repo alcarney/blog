@@ -1,35 +1,31 @@
-
 <!DOCTYPE html>
 
-<html lang="en">
+<html lang="en" data-content_root="../../../">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
     <title>My Next Steps with Nix: Overlays &#8212; Alex Carney</title>
 
     
-    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=92c9d732" />
     
     
     
-    <link id="pygments_dark_css" media="(prefers-color-scheme: dark)" rel="stylesheet" type="text/css" href="../../../_static/pygments_dark.css" />
+    <link id="pygments_dark_css" media="(prefers-color-scheme: dark)" rel="stylesheet" type="text/css" href="../../../_static/pygments_dark.css?v=8f9ffe49" />
     
     
-    <link rel="stylesheet" type="text/css" href="../../../_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/sphinx-design.min.css?v=95c83b7e" />
     
     
-    <link rel="stylesheet" type="text/css" href="../../../_static/css/styles.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/css/styles.css?v=7c0862aa" />
     
 
-    <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
-    <script src="../../../_static/jquery.js"></script>
-    <script src="../../../_static/underscore.js"></script>
-    <script src="../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
-    <script src="../../../_static/doctools.js"></script>
-    <script src="../../../_static/sphinx_highlight.js"></script>
-    <script src="../../../_static/design-tabs.js"></script>
-    <link rel="shortcut icon" href="../../../_static/favicon.ico"/>
+    <script src="../../../_static/documentation_options.js?v=187304be"></script>
+    <script src="../../../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../../_static/design-tabs.js?v=f930bc37"></script>
+    <link rel="icon" href="../../../_static/favicon.ico"/>
     <link rel="index" title="Index" href="../../../genindex/" />
     <link rel="search" title="Search" href="../../../search/" /> 
   </head><body class="flex flex-col justify-between min-h-screen overflow-x-hidden bg-gray-100 dark:bg-gray-900">
@@ -44,18 +40,28 @@
     <h2 class=""><a href="/">Alex Carney</a></h2>
 </div>
 
-                    <div id="searchbox" style="display: none" role="search" class="px-4 py-4">
-    <form class="flex justify-between px-2 py-1 bg-gray-100 border-2 rounded search dark:bg-gray-900 focus-within:border-green-600 dark:border-gray-600" action="../../../search/" method="get">
-        <label class="mr-2 text-gray-500" for="sbox">
-            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="feather feather-search">
-                <circle cx="11" cy="11" r="6" />
-                <path d="m21 21-4.35-4.35" />
-            </svg>
-        </label>
-        <input id="sbox" class="flex-grow bg-gray-100 dark:text-white dark:bg-gray-900 focus:outline-none" type="search" name="q" placeholder="Search..." aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" />
-    </form>
+                    
+<div id="searchbox" style="display: none" role="search" class="px-4 py-4">
+  <form class="flex justify-between px-2 py-1 bg-gray-100 border-2 rounded search dark:bg-gray-900 focus-within:border-green-600 dark:border-gray-600" action="../../../search/" method="get">
+    <label class="mr-2 text-gray-500" for="sbox">
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="feather feather-search">
+        <circle cx="11" cy="11" r="6" />
+        <path d="m21 21-4.35-4.35" />
+      </svg>
+    </label>
+    <input class="flex-grow bg-gray-100 w-full dark:text-white dark:bg-gray-900 focus:outline-none"
+           type="search"
+           name="q"
+           aria-labelledby="searchlabel"
+           autocomplete="off"
+           autocorrect="off"
+           autocapitalize="off"
+           spellcheck="false"
+           placeholder="Search"
+           />
+  </form>
 </div>
-<script>$('#searchbox').show(0);</script>
+<script>document.getElementById('searchbox').style.display = "block"</script>
 
                     
 
@@ -81,8 +87,8 @@
     <ul class="text-right">
         
         <li class="mb-1">
-            <a href="../../tag/python/" class="px-2 my-1 text-green-600 border border-green-600 rounded bg-green-50 dark:bg-green-900 dark:text-green-200">
-                #python
+            <a href="../../tag/nix/" class="px-2 my-1 text-green-600 border border-green-600 rounded bg-green-50 dark:bg-green-900 dark:text-green-200">
+                #nix
             </a>
         </li>
         
@@ -93,8 +99,8 @@
         </li>
         
         <li class="mb-1">
-            <a href="../../tag/nix/" class="px-2 my-1 text-green-600 border border-green-600 rounded bg-green-50 dark:bg-green-900 dark:text-green-200">
-                #nix
+            <a href="../../tag/python/" class="px-2 my-1 text-green-600 border border-green-600 rounded bg-green-50 dark:bg-green-900 dark:text-green-200">
+                #python
             </a>
         </li>
         
@@ -175,14 +181,14 @@
 
 <article class="p-4 prose-sm prose bg-white dark:bg-gray-800 border prose-md prose-emerald max-w-none dark:prose-invert dark:border-gray-600">
     <section id="my-next-steps-with-nix-overlays">
-<h1>My Next Steps with Nix: Overlays<a class="headerlink" href="#my-next-steps-with-nix-overlays" title="Permalink to this heading">¶</a></h1>
+<h1>My Next Steps with Nix: Overlays<a class="headerlink" href="#my-next-steps-with-nix-overlays" title="Link to this heading">¶</a></h1>
 <p><a class="reference internal" href="../../2022/first-steps-with-nix/"><span class="doc">Last time</span></a>, I experimented with writing a flake that defined development environments for the <a class="reference external" href="https://pypi.org/project/esbonio">esbonio</a> package spanning multiple Python versions.
 During that process I also packaged <a class="reference external" href="https://pypi.org/project/pytest-lsp">pytest-lsp</a> using an ad-hoc nix expression as part of the <code class="docutils literal notranslate"><span class="pre">esbonio</span></code> repo.</p>
 <p>In this post I look into writing a similar flake for the <code class="docutils literal notranslate"><span class="pre">pytest-lsp</span></code> package itself, but this time using overlays to override and extend the nixpkgs package set.</p>
 <p>If you are interested, you can find the final version of the code
 <a class="reference external" href="https://github.com/swyddfa/lsp-devtools/commit/a7b8d545364cc14c1cd054fd56831d0bd3517659">here</a>.</p>
 <section id="packaging-pytest-lsp">
-<h2>Packaging <code class="docutils literal notranslate"><span class="pre">pytest-lsp</span></code><a class="headerlink" href="#packaging-pytest-lsp" title="Permalink to this heading">¶</a></h2>
+<h2>Packaging <code class="docutils literal notranslate"><span class="pre">pytest-lsp</span></code><a class="headerlink" href="#packaging-pytest-lsp" title="Link to this heading">¶</a></h2>
 <p>Adapting the
 <a class="reference external" href="https://github.com/alcarney/esbonio/commit/f62e1d486bb7899d802bfd668f98f21b71702317#diff-12d8883e85761c056008578af1202737eabc12dbdb4cee164b96cdb77a8be96b">flake.nix</a>
 file and using the
@@ -212,7 +218,7 @@ The version available through nixpkgs however, is still the previous release.</p
 <p>That said, we don’t have to wait for nixpkgs but can instead use an overlay to update it just for this project.</p>
 </section>
 <section id="overriding-pygls-version">
-<h2>Overriding pygls’ version<a class="headerlink" href="#overriding-pygls-version" title="Permalink to this heading">¶</a></h2>
+<h2>Overriding pygls’ version<a class="headerlink" href="#overriding-pygls-version" title="Link to this heading">¶</a></h2>
 <p>Overlays can be used to override sections of an existing package definition.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
@@ -234,41 +240,41 @@ Instead, here are some resources you might useful which go into more detail.</p>
 <div class="highlight-nix notranslate"><div class="highlight"><pre><span></span> <span class="c1"># In ./nix/pygls-overlay.nix</span>
  self<span class="p">:</span> super<span class="p">:</span> <span class="k">rec</span> <span class="p">{</span>
 
-   <span class="ss">python3 =</span> super<span class="o">.</span>python3<span class="o">.</span>override <span class="p">{</span>
-     <span class="ss">packageOverrides =</span> pyself<span class="p">:</span> pysuper<span class="p">:</span> <span class="p">{</span>
+   <span class="ss">python3</span> <span class="o">=</span> super<span class="o">.</span>python3<span class="o">.</span>override <span class="p">{</span>
+     <span class="ss">packageOverrides</span> <span class="o">=</span> pyself<span class="p">:</span> pysuper<span class="p">:</span> <span class="p">{</span>
 
-       <span class="ss">pygls =</span> pysuper<span class="o">.</span>pygls<span class="o">.</span>overrideAttrs <span class="p">(</span>old<span class="p">:</span> <span class="k">rec</span> <span class="p">{</span>
-         <span class="ss">version =</span> <span class="s2">&quot;1.0.0&quot;</span><span class="p">;</span>
-         <span class="ss">src =</span> super<span class="o">.</span>fetchFromGitHub <span class="p">{</span>
-           <span class="ss">owner =</span> <span class="s2">&quot;openlawlibrary&quot;</span><span class="p">;</span>
-           <span class="ss">repo =</span> <span class="s2">&quot;pygls&quot;</span><span class="p">;</span>
-           <span class="ss">rev =</span> <span class="s2">&quot;v</span><span class="si">${</span>version<span class="si">}</span><span class="s2">&quot;</span><span class="p">;</span>
-           <span class="ss">hash =</span> <span class="s2">&quot;sha256-31J4+giK1RDBS52Q/Ia3Y/Zak7fp7gRVTQ7US/eFjtM=&quot;</span><span class="p">;</span>
+       <span class="ss">pygls</span> <span class="o">=</span> pysuper<span class="o">.</span>pygls<span class="o">.</span>overrideAttrs <span class="p">(</span>old<span class="p">:</span> <span class="k">rec</span> <span class="p">{</span>
+         <span class="ss">version</span> <span class="o">=</span> <span class="s2">&quot;1.0.0&quot;</span><span class="p">;</span>
+         <span class="ss">src</span> <span class="o">=</span> super<span class="o">.</span>fetchFromGitHub <span class="p">{</span>
+           <span class="ss">owner</span> <span class="o">=</span> <span class="s2">&quot;openlawlibrary&quot;</span><span class="p">;</span>
+           <span class="ss">repo</span> <span class="o">=</span> <span class="s2">&quot;pygls&quot;</span><span class="p">;</span>
+           <span class="ss">rev</span> <span class="o">=</span> <span class="s2">&quot;v</span><span class="si">${</span>version<span class="si">}</span><span class="s2">&quot;</span><span class="p">;</span>
+           <span class="ss">hash</span> <span class="o">=</span> <span class="s2">&quot;sha256-31J4+giK1RDBS52Q/Ia3Y/Zak7fp7gRVTQ7US/eFjtM=&quot;</span><span class="p">;</span>
          <span class="p">};</span>
        <span class="p">});</span>
      <span class="p">};</span>
   <span class="p">};</span>
 
-  <span class="ss">python3Packages =</span> python3<span class="o">.</span>pkgs<span class="p">;</span>
+  <span class="ss">python3Packages</span> <span class="o">=</span> python3<span class="o">.</span>pkgs<span class="p">;</span>
 <span class="p">}</span>
 </pre></div>
 </div>
 <p>Using this in the flake is a matter of importing it and passing it to the <code class="docutils literal notranslate"><span class="pre">overlays</span></code> attribute when importing nixpkgs</p>
 <div class="highlight-nix notranslate"><div class="highlight"><pre><span></span><span class="c1"># In flake.nix</span>
-<span class="ss">outputs =</span> <span class="p">{</span> self<span class="p">,</span> nixpkgs<span class="p">,</span> utils <span class="p">}:</span>
+<span class="ss">outputs</span> <span class="o">=</span> <span class="p">{</span> self<span class="p">,</span> nixpkgs<span class="p">,</span> utils <span class="p">}:</span>
 
  <span class="k">let</span>
-<span class="hll">   <span class="ss">pygls-overlay =</span> <span class="nb">import</span> <span class="o">.</span><span class="l">/nix/pygls-overlay.nix</span><span class="p">;</span>
-</span>   <span class="ss">eachPythonVersion =</span> <span class="o">...</span>
+<span class="hll">   <span class="ss">pygls-overlay</span> <span class="o">=</span> <span class="nb">import</span> <span class="l">./nix/pygls-overlay.nix</span><span class="p">;</span>
+</span>   <span class="ss">eachPythonVersion</span> <span class="o">=</span> <span class="o">...</span>
  <span class="k">in</span> <span class="p">{</span>
 
- <span class="ss">devShells =</span> utils<span class="o">.</span>lib<span class="o">.</span>eachDefaultSystemMap <span class="p">(</span>system<span class="p">:</span>
+ <span class="ss">devShells</span> <span class="o">=</span> utils<span class="o">.</span>lib<span class="o">.</span>eachDefaultSystemMap <span class="p">(</span>system<span class="p">:</span>
    <span class="k">let</span>
-<span class="hll">     <span class="ss">pkgs =</span> <span class="nb">import</span> nixpkgs <span class="p">{</span> <span class="k">inherit</span> system<span class="p">;</span> <span class="ss">overlays =</span> <span class="p">[</span> pygls-overlay <span class="p">];</span> <span class="p">};</span>
+<span class="hll">     <span class="ss">pkgs</span> <span class="o">=</span> <span class="nb">import</span> nixpkgs <span class="p">{</span> <span class="k">inherit</span> system<span class="p">;</span> <span class="ss">overlays</span> <span class="o">=</span> <span class="p">[</span> pygls-overlay <span class="p">];</span> <span class="p">};</span>
 </span>   <span class="k">in</span>
      eachPythonVersion <span class="p">[</span> <span class="s2">&quot;37&quot;</span> <span class="s2">&quot;38&quot;</span> <span class="s2">&quot;39&quot;</span> <span class="s2">&quot;310&quot;</span> <span class="s2">&quot;311&quot;</span> <span class="p">]</span> <span class="p">(</span>pyVersion<span class="p">:</span>
        <span class="k">let</span>
-         <span class="ss">pytest-lsp =</span> pkgs<span class="o">.</span>callPackage <span class="o">.</span><span class="l">/nix/pytest-lsp.nix</span> <span class="p">{</span> <span class="ss">pythonPackages =</span> pkgs<span class="o">.</span><span class="s2">&quot;python</span><span class="si">${</span>pyVersion<span class="si">}</span><span class="s2">Packages&quot;</span><span class="p">;</span> <span class="p">};</span>
+         <span class="ss">pytest-lsp</span> <span class="o">=</span> pkgs<span class="o">.</span>callPackage <span class="l">./nix/pytest-lsp.nix</span> <span class="p">{</span> <span class="ss">pythonPackages</span> <span class="o">=</span> pkgs<span class="o">.</span><span class="s2">&quot;python</span><span class="si">${</span>pyVersion<span class="si">}</span><span class="s2">Packages&quot;</span><span class="p">;</span> <span class="p">};</span>
        <span class="k">in</span>
 </pre></div>
 </div>
@@ -281,8 +287,8 @@ Instead, here are some resources you might useful which go into more detail.</p>
 </div>
 <p>Huh, same error… 🤔</p>
 <p>Let’s take a closer look at where we pull in the <code class="docutils literal notranslate"><span class="pre">pytest-lsp</span></code> package definition in the flake…</p>
-<div class="highlight-nix notranslate"><div class="highlight"><pre><span></span><span class="ss">pytest-lsp =</span> pkgs<span class="o">.</span>callPackage <span class="o">.</span><span class="l">/nix/pytest-lsp.nix</span> <span class="p">{</span>
-  <span class="ss">pythonPackages =</span> pkgs<span class="o">.</span><span class="s2">&quot;python</span><span class="si">${</span>pyVersion<span class="si">}</span><span class="s2">Packages&quot;</span><span class="p">;</span>
+<div class="highlight-nix notranslate"><div class="highlight"><pre><span></span><span class="ss">pytest-lsp</span> <span class="o">=</span> pkgs<span class="o">.</span>callPackage <span class="l">./nix/pytest-lsp.nix</span> <span class="p">{</span>
+  <span class="ss">pythonPackages</span> <span class="o">=</span> pkgs<span class="o">.</span><span class="s2">&quot;python</span><span class="si">${</span>pyVersion<span class="si">}</span><span class="s2">Packages&quot;</span><span class="p">;</span>
 <span class="p">};</span>
 </pre></div>
 </div>
@@ -290,8 +296,8 @@ Instead, here are some resources you might useful which go into more detail.</p>
 But in the overlay, we’re overriding the <code class="docutils literal notranslate"><span class="pre">python3Packages</span></code> package set, I wonder if we change the overlay to match the flake…</p>
 <div class="highlight-nix notranslate"><div class="highlight"><pre><span></span><span class="c1"># In ./nix/pygls-overlay.nix</span>
 self<span class="p">:</span> super<span class="p">:</span> <span class="k">rec</span> <span class="p">{</span>
-  <span class="ss">python310 =</span> super<span class="o">.</span>python310<span class="o">.</span>override <span class="p">{</span> <span class="o">...</span> <span class="p">};</span>
-  <span class="ss">python310Packages =</span> python310<span class="o">.</span>pkgs<span class="p">;</span>
+  <span class="ss">python310</span> <span class="o">=</span> super<span class="o">.</span>python310<span class="o">.</span>override <span class="p">{</span> <span class="o">...</span> <span class="p">};</span>
+  <span class="ss">python310Packages</span> <span class="o">=</span> python310<span class="o">.</span>pkgs<span class="p">;</span>
 <span class="p">}</span>
 </pre></div>
 </div>
@@ -317,42 +323,42 @@ self<span class="p">:</span> super<span class="p">:</span> <span class="k">rec</
 <p>Progress!</p>
 </section>
 <section id="packaging-lsprotocol">
-<h2>Packaging <code class="docutils literal notranslate"><span class="pre">lsprotocol</span></code><a class="headerlink" href="#packaging-lsprotocol" title="Permalink to this heading">¶</a></h2>
+<h2>Packaging <code class="docutils literal notranslate"><span class="pre">lsprotocol</span></code><a class="headerlink" href="#packaging-lsprotocol" title="Link to this heading">¶</a></h2>
 <p>pygls is failing to build as the package definition in nixpkgs is missing the new <code class="docutils literal notranslate"><span class="pre">lsprotcol</span></code> dependency, easy enough to fix - if it was available in nixpkgs.
 Thankfully, overlays can do more than just override attributes on existing packages, they can be used to extend a package set with entirely new definitions!</p>
 <p>We just need to know how to package <code class="docutils literal notranslate"><span class="pre">lsprotocol</span></code> itself and thanks to the PR linked above we get to cheat a little.</p>
 <div class="highlight-nix notranslate"><div class="highlight"><pre><span></span><span class="c1"># In ./nix/pygls-overlay.nix</span>
-<span class="ss">lsprotocol =</span> pysuper<span class="o">.</span>buildPythonPackage <span class="k">rec</span> <span class="p">{</span>
-  <span class="ss">pname =</span> <span class="s2">&quot;lsprotocol&quot;</span><span class="p">;</span>
-  <span class="ss">version =</span> <span class="s2">&quot;2022.0.0a9&quot;</span><span class="p">;</span>
-  <span class="ss">format =</span> <span class="s2">&quot;pyproject&quot;</span><span class="p">;</span>
+<span class="ss">lsprotocol</span> <span class="o">=</span> pysuper<span class="o">.</span>buildPythonPackage <span class="k">rec</span> <span class="p">{</span>
+  <span class="ss">pname</span> <span class="o">=</span> <span class="s2">&quot;lsprotocol&quot;</span><span class="p">;</span>
+  <span class="ss">version</span> <span class="o">=</span> <span class="s2">&quot;2022.0.0a9&quot;</span><span class="p">;</span>
+  <span class="ss">format</span> <span class="o">=</span> <span class="s2">&quot;pyproject&quot;</span><span class="p">;</span>
 
-  <span class="ss">src =</span> super<span class="o">.</span>fetchFromGitHub <span class="p">{</span>
-    <span class="ss">owner =</span> <span class="s2">&quot;microsoft&quot;</span><span class="p">;</span>
-    <span class="ss">repo =</span> pname<span class="p">;</span>
-    <span class="ss">rev =</span> version<span class="p">;</span>
-    <span class="ss">hash =</span> <span class="s2">&quot;sha256-6XecPKuBhwtkmZrGozzO+VEryI5wwy9hlvWE1oV6ajk=&quot;</span><span class="p">;</span>
+  <span class="ss">src</span> <span class="o">=</span> super<span class="o">.</span>fetchFromGitHub <span class="p">{</span>
+    <span class="ss">owner</span> <span class="o">=</span> <span class="s2">&quot;microsoft&quot;</span><span class="p">;</span>
+    <span class="ss">repo</span> <span class="o">=</span> pname<span class="p">;</span>
+    <span class="ss">rev</span> <span class="o">=</span> version<span class="p">;</span>
+    <span class="ss">hash</span> <span class="o">=</span> <span class="s2">&quot;sha256-6XecPKuBhwtkmZrGozzO+VEryI5wwy9hlvWE1oV6ajk=&quot;</span><span class="p">;</span>
   <span class="p">};</span>
 
-  <span class="ss">nativeBuildInputs =</span> <span class="k">with</span> super<span class="o">.</span>python310Packages<span class="p">;</span> <span class="p">[</span>
+  <span class="ss">nativeBuildInputs</span> <span class="o">=</span> <span class="k">with</span> super<span class="o">.</span>python310Packages<span class="p">;</span> <span class="p">[</span>
     flit-core
   <span class="p">];</span>
 
-  <span class="ss">propagatedBuildInputs =</span> <span class="k">with</span> super<span class="o">.</span>python310Packages<span class="p">;</span> <span class="p">[</span>
+  <span class="ss">propagatedBuildInputs</span> <span class="o">=</span> <span class="k">with</span> super<span class="o">.</span>python310Packages<span class="p">;</span> <span class="p">[</span>
     cattrs
     attrs
   <span class="p">];</span>
 
   <span class="c1"># Disable tests</span>
-  <span class="ss">doCheck =</span> <span class="no">false</span><span class="p">;</span>
+  <span class="ss">doCheck</span> <span class="o">=</span> <span class="no">false</span><span class="p">;</span>
 <span class="p">};</span>
 </pre></div>
 </div>
 <p>Note that I’ve cut some corners by disabling any tests, but it allows me to dodge packaging anything else 😅</p>
 <p>Then we can also override pygls’ dependencies and reference the newly created <code class="docutils literal notranslate"><span class="pre">lsprotocol</span></code> package from the modified version of the <code class="docutils literal notranslate"><span class="pre">python310Packages</span></code> set.</p>
-<div class="highlight-nix notranslate"><div class="highlight"><pre><span></span><span class="ss">pygls =</span> pysuper<span class="o">.</span>pygls<span class="o">.</span>overrideAttrs <span class="p">(</span>_<span class="p">:</span> <span class="k">rec</span> <span class="p">{</span>
+<div class="highlight-nix notranslate"><div class="highlight"><pre><span></span><span class="ss">pygls</span> <span class="o">=</span> pysuper<span class="o">.</span>pygls<span class="o">.</span>overrideAttrs <span class="p">(</span>_<span class="p">:</span> <span class="k">rec</span> <span class="p">{</span>
   <span class="o">...</span>
-  <span class="ss">propagatedBuildInputs =</span> <span class="k">with</span> self<span class="o">.</span>python310Packages<span class="p">;</span> <span class="p">[</span>
+  <span class="ss">propagatedBuildInputs</span> <span class="o">=</span> <span class="k">with</span> self<span class="o">.</span>python310Packages<span class="p">;</span> <span class="p">[</span>
     lsprotocol
     typeguard
   <span class="p">];</span>
@@ -362,7 +368,7 @@ Thankfully, overlays can do more than just override attributes on existing packa
 <p>With that taken care of, we should be good to go right?</p>
 </section>
 <section id="unlucky-0-13">
-<h2>Unlucky <code class="docutils literal notranslate"><span class="pre">0.13</span></code><a class="headerlink" href="#unlucky-0-13" title="Permalink to this heading">¶</a></h2>
+<h2>Unlucky <code class="docutils literal notranslate"><span class="pre">0.13</span></code><a class="headerlink" href="#unlucky-0-13" title="Link to this heading">¶</a></h2>
 <p>Attempting to enter the devShell yet again we encounter a familiar error message</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">error: builder for &#39;/nix/store/s5xp7fr2r9faxgqw7rvs6ffah10f2fz7-python3.10-pytest-lsp-0.2.1.drv&#39; failed with exit code 1;</span>
 <span class="go">       last 10 log lines:</span>
@@ -389,9 +395,9 @@ Thankfully, overlays can do more than just override attributes on existing packa
 But the build is not taking place in a git repo… so nix must be setting that version somehow right?</p>
 <p>Yep. A quick trip to the actual file containing pygls’ package definition on nixpkgs (and not just the diff view in the PR!) reveals an additional attribute that needed to be overriden</p>
 <div class="highlight-nix notranslate"><div class="highlight"><pre><span></span><span class="c1"># In ./nix/pygls-overlay.nix</span>
-<span class="ss">pygls =</span> pysuper<span class="o">.</span>pygls<span class="o">.</span>overrideAttrs <span class="p">(</span>_<span class="p">:</span> <span class="k">rec</span> <span class="p">{</span>
-     <span class="ss">version =</span> <span class="s2">&quot;1.0.0&quot;</span><span class="p">;</span>
-     <span class="ss">SETUPTOOLS_SCM_PRETEND_VERSION =</span> version<span class="p">;</span>
+<span class="ss">pygls</span> <span class="o">=</span> pysuper<span class="o">.</span>pygls<span class="o">.</span>overrideAttrs <span class="p">(</span>_<span class="p">:</span> <span class="k">rec</span> <span class="p">{</span>
+     <span class="ss">version</span> <span class="o">=</span> <span class="s2">&quot;1.0.0&quot;</span><span class="p">;</span>
+     <span class="ss">SETUPTOOLS_SCM_PRETEND_VERSION</span> <span class="o">=</span> version<span class="p">;</span>
      <span class="o">...</span>
 <span class="p">});</span>
 </pre></div>
@@ -426,7 +432,7 @@ But the build is not taking place in a git repo… so nix must be setting that v
 </div>
 </section>
 <section id="mutliple-python-versions">
-<h2>Mutliple Python Versions<a class="headerlink" href="#mutliple-python-versions" title="Permalink to this heading">¶</a></h2>
+<h2>Mutliple Python Versions<a class="headerlink" href="#mutliple-python-versions" title="Link to this heading">¶</a></h2>
 <p>Now that we’ve got it working for Python 3.10, we need to generalise the overlay so that we can use it with any of the Python versions supported by <code class="docutils literal notranslate"><span class="pre">pytest-lsp</span></code>.</p>
 <p>Ideally, what we’d want is to write an expression like the following</p>
 <div class="highlight-nix notranslate"><div class="highlight"><pre><span></span><span class="c1"># In ./nix/pygls-overlay.nix</span>
@@ -434,23 +440,23 @@ self<span class="p">:</span> super<span class="p">:</span>
 
 eachPythonVersion <span class="p">[</span><span class="s2">&quot;37&quot;</span> <span class="s2">&quot;38&quot;</span> <span class="s2">&quot;39&quot;</span> <span class="s2">&quot;310&quot;</span> <span class="s2">&quot;311&quot;</span><span class="p">]</span> <span class="p">(</span>pyVersion<span class="p">:</span>
   super<span class="o">.</span><span class="s2">&quot;python</span><span class="si">${</span>pyVersion<span class="si">}</span><span class="s2">&quot;</span><span class="o">.</span>override <span class="p">{</span>
-    <span class="ss">packageOverrides =</span> pyself<span class="p">:</span> pysuper<span class="p">:</span> <span class="p">{</span>
+    <span class="ss">packageOverrides</span> <span class="o">=</span> pyself<span class="p">:</span> pysuper<span class="p">:</span> <span class="p">{</span>
 
-       <span class="ss">lsprotocol =</span> pysuper<span class="o">.</span>buildPythonPackage <span class="k">rec</span> <span class="p">{</span>
+       <span class="ss">lsprotocol</span> <span class="o">=</span> pysuper<span class="o">.</span>buildPythonPackage <span class="k">rec</span> <span class="p">{</span>
          <span class="o">...</span>
-         <span class="ss">nativeBuildInputs =</span> <span class="k">with</span> super<span class="o">.</span><span class="s2">&quot;python</span><span class="si">${</span>pyVersion<span class="si">}</span><span class="s2">Packages&quot;</span><span class="p">;</span> <span class="p">[</span>
+         <span class="ss">nativeBuildInputs</span> <span class="o">=</span> <span class="k">with</span> super<span class="o">.</span><span class="s2">&quot;python</span><span class="si">${</span>pyVersion<span class="si">}</span><span class="s2">Packages&quot;</span><span class="p">;</span> <span class="p">[</span>
            flit-core
          <span class="p">];</span>
 
-         <span class="ss">propagatedBuildInputs =</span> <span class="k">with</span> super<span class="o">.</span><span class="s2">&quot;python</span><span class="si">${</span>pyVersion<span class="si">}</span><span class="s2">Packages&quot;</span><span class="p">;</span> <span class="p">[</span>
+         <span class="ss">propagatedBuildInputs</span> <span class="o">=</span> <span class="k">with</span> super<span class="o">.</span><span class="s2">&quot;python</span><span class="si">${</span>pyVersion<span class="si">}</span><span class="s2">Packages&quot;</span><span class="p">;</span> <span class="p">[</span>
            cattrs
            attrs
          <span class="p">];</span>
        <span class="p">};</span>
 
-       <span class="ss">pygls =</span> pysuper<span class="o">.</span>pygls<span class="o">.</span>overrideAttrs <span class="p">(</span>_<span class="p">:</span> <span class="k">rec</span> <span class="p">{</span>
+       <span class="ss">pygls</span> <span class="o">=</span> pysuper<span class="o">.</span>pygls<span class="o">.</span>overrideAttrs <span class="p">(</span>_<span class="p">:</span> <span class="k">rec</span> <span class="p">{</span>
          <span class="o">...</span>
-         <span class="ss">propagatedBuildInputs =</span> <span class="k">with</span> self<span class="o">.</span><span class="s2">&quot;python</span><span class="si">${</span>pyVersion<span class="si">}</span><span class="s2">Packages&quot;</span><span class="p">;</span> <span class="p">[</span>
+         <span class="ss">propagatedBuildInputs</span> <span class="o">=</span> <span class="k">with</span> self<span class="o">.</span><span class="s2">&quot;python</span><span class="si">${</span>pyVersion<span class="si">}</span><span class="s2">Packages&quot;</span><span class="p">;</span> <span class="p">[</span>
            lsprotocol
            typeguard
          <span class="p">];</span>
@@ -470,38 +476,38 @@ It should take a <code class="docutils literal notranslate"><span class="pre">ve
 However, you can use the
 <a class="reference external" href="https://nixos.org/manual/nix/stable/language/builtins.html#builtins-listToAttrs">builtins.listToAttrs</a>
 function to build an attribute set from a list of <code class="docutils literal notranslate"><span class="pre">{</span> <span class="pre">name</span> <span class="pre">=</span> <span class="pre">&quot;xxx&quot;;</span> <span class="pre">value</span> <span class="pre">=</span> <span class="pre">123;</span> <span class="pre">}</span></code> attribute sets, which allows us to define <code class="docutils literal notranslate"><span class="pre">doPythonOverride</span></code> as follows.</p>
-<div class="highlight-nix notranslate"><div class="highlight"><pre><span></span><span class="ss">doPythonOverride =</span> version<span class="p">:</span> f<span class="p">:</span>
+<div class="highlight-nix notranslate"><div class="highlight"><pre><span></span><span class="ss">doPythonOverride</span> <span class="o">=</span> version<span class="p">:</span> f<span class="p">:</span>
   <span class="k">let</span>
-    <span class="ss">overridenPython =</span> f version<span class="p">;</span>
+    <span class="ss">overridenPython</span> <span class="o">=</span> f version<span class="p">;</span>
   <span class="k">in</span>
-    <span class="nb">builtins</span><span class="o">.</span>listToAttrs <span class="p">[</span> <span class="p">{</span><span class="ss">name =</span> <span class="s2">&quot;python</span><span class="si">${</span>version<span class="si">}</span><span class="s2">&quot;</span><span class="p">;</span> <span class="ss">value =</span> overridenPython<span class="p">;</span> <span class="p">}</span>
-                           <span class="p">{</span><span class="ss">name =</span> <span class="s2">&quot;python</span><span class="si">${</span>version<span class="si">}</span><span class="s2">Packages&quot;</span><span class="p">;</span> <span class="ss">value =</span> overridenPython<span class="o">.</span>pkgs<span class="p">;</span> <span class="p">}];</span>
+    <span class="nb">builtins</span><span class="o">.</span>listToAttrs <span class="p">[</span> <span class="p">{</span><span class="ss">name</span> <span class="o">=</span> <span class="s2">&quot;python</span><span class="si">${</span>version<span class="si">}</span><span class="s2">&quot;</span><span class="p">;</span> <span class="ss">value</span> <span class="o">=</span> overridenPython<span class="p">;</span> <span class="p">}</span>
+                           <span class="p">{</span><span class="ss">name</span> <span class="o">=</span> <span class="s2">&quot;python</span><span class="si">${</span>version<span class="si">}</span><span class="s2">Packages&quot;</span><span class="p">;</span> <span class="ss">value</span> <span class="o">=</span> overridenPython<span class="o">.</span>pkgs<span class="p">;</span> <span class="p">}];</span>
 </pre></div>
 </div>
 <p>From there, we can define <code class="docutils literal notranslate"><span class="pre">eachPythonVersion</span></code> to map the <code class="docutils literal notranslate"><span class="pre">doPythonOverride</span></code> helper across each of the given Python versions and merge the results into a single attribute set using the
 <a class="reference external" href="https://nixos.org/manual/nix/stable/language/builtins.html#builtins-foldl'">foldl’</a>
 function.</p>
-<div class="highlight-nix notranslate"><div class="highlight"><pre><span></span><span class="ss">eachPythonVersion =</span> versions<span class="p">:</span> f<span class="p">:</span> <span class="nb">builtins</span><span class="o">.</span>foldl&#39; <span class="p">(</span>a<span class="p">:</span> b<span class="p">:</span> a <span class="o">//</span> b<span class="p">)</span> <span class="p">{}</span>
+<div class="highlight-nix notranslate"><div class="highlight"><pre><span></span><span class="ss">eachPythonVersion</span> <span class="o">=</span> versions<span class="p">:</span> f<span class="p">:</span> <span class="nb">builtins</span><span class="o">.</span>foldl&#39; <span class="p">(</span>a<span class="p">:</span> b<span class="p">:</span> a <span class="o">//</span> b<span class="p">)</span> <span class="p">{}</span>
   <span class="p">(</span><span class="nb">builtins</span><span class="o">.</span><span class="nb">map</span> <span class="p">(</span>version<span class="p">:</span> doPythonOverride version f<span class="p">)</span> versions<span class="p">);</span>
 </pre></div>
 </div>
 <p>Now we should have successfully overriden pygls’ version across all supported Python versions!</p>
 </section>
 <section id="sharing-overlays">
-<span id="nix-overlays-sharing"></span><h2>Sharing Overlays<a class="headerlink" href="#sharing-overlays" title="Permalink to this heading">¶</a></h2>
+<span id="nix-overlays-sharing"></span><h2>Sharing Overlays<a class="headerlink" href="#sharing-overlays" title="Link to this heading">¶</a></h2>
 <p>Up until now, I’ve been mostly focusing on the <code class="docutils literal notranslate"><span class="pre">devShells</span></code> output of a flake.
 There are, however, <a class="reference external" href="https://nixos.wiki/wiki/Flakes#Output_schema">many other</a> items that can be exported from a flake - including overlays.
 Following the same pattern as the previous section it’s easy enough to convert the <code class="docutils literal notranslate"><span class="pre">pytest-lsp</span></code> package definition into an overlay</p>
 <div class="highlight-nix notranslate"><div class="highlight"><pre><span></span><span class="c1"># In ./nix/pytest-lsp-overlay.nix</span>
 <span class="k">let</span>
-  <span class="ss">doPythonOverride =</span> version<span class="p">:</span> f<span class="p">:</span>
+  <span class="ss">doPythonOverride</span> <span class="o">=</span> version<span class="p">:</span> f<span class="p">:</span>
     <span class="k">let</span>
-      <span class="ss">overridenPython =</span> f version<span class="p">;</span>
+      <span class="ss">overridenPython</span> <span class="o">=</span> f version<span class="p">;</span>
     <span class="k">in</span>
-      <span class="nb">builtins</span><span class="o">.</span>listToAttrs <span class="p">[</span> <span class="p">{</span><span class="ss">name =</span> <span class="s2">&quot;python</span><span class="si">${</span>version<span class="si">}</span><span class="s2">&quot;</span> <span class="p">;</span> <span class="ss">value =</span> overridenPython <span class="p">;</span> <span class="p">}</span>
-                             <span class="p">{</span><span class="ss">name =</span> <span class="s2">&quot;python</span><span class="si">${</span>version<span class="si">}</span><span class="s2">Packages&quot;</span> <span class="p">;</span> <span class="ss">value =</span> overridenPython<span class="o">.</span>pkgs <span class="p">;</span> <span class="p">}];</span>
+      <span class="nb">builtins</span><span class="o">.</span>listToAttrs <span class="p">[</span> <span class="p">{</span><span class="ss">name</span> <span class="o">=</span> <span class="s2">&quot;python</span><span class="si">${</span>version<span class="si">}</span><span class="s2">&quot;</span> <span class="p">;</span> <span class="ss">value</span> <span class="o">=</span> overridenPython <span class="p">;</span> <span class="p">}</span>
+                             <span class="p">{</span><span class="ss">name</span> <span class="o">=</span> <span class="s2">&quot;python</span><span class="si">${</span>version<span class="si">}</span><span class="s2">Packages&quot;</span> <span class="p">;</span> <span class="ss">value</span> <span class="o">=</span> overridenPython<span class="o">.</span>pkgs <span class="p">;</span> <span class="p">}];</span>
 
-  <span class="ss">eachPythonVersion =</span> versions<span class="p">:</span> f<span class="p">:</span> <span class="nb">builtins</span><span class="o">.</span>foldl&#39; <span class="p">(</span>a<span class="p">:</span> b<span class="p">:</span> a <span class="o">//</span> b<span class="p">)</span> <span class="p">{}</span>
+  <span class="ss">eachPythonVersion</span> <span class="o">=</span> versions<span class="p">:</span> f<span class="p">:</span> <span class="nb">builtins</span><span class="o">.</span>foldl&#39; <span class="p">(</span>a<span class="p">:</span> b<span class="p">:</span> a <span class="o">//</span> b<span class="p">)</span> <span class="p">{}</span>
     <span class="p">(</span><span class="nb">builtins</span><span class="o">.</span><span class="nb">map</span> <span class="p">(</span>version<span class="p">:</span> doPythonOverride version f<span class="p">)</span> versions<span class="p">);</span>
 <span class="k">in</span>
 
@@ -509,13 +515,13 @@ self<span class="p">:</span> super<span class="p">:</span>
 
 eachPythonVersion <span class="p">[</span> <span class="s2">&quot;37&quot;</span> <span class="s2">&quot;38&quot;</span> <span class="s2">&quot;39&quot;</span> <span class="s2">&quot;310&quot;</span> <span class="s2">&quot;311&quot;</span> <span class="p">]</span> <span class="p">(</span>pyVersion<span class="p">:</span>
   super<span class="o">.</span><span class="s2">&quot;python</span><span class="si">${</span>pyVersion<span class="si">}</span><span class="s2">&quot;</span><span class="o">.</span>override <span class="p">{</span>
-    <span class="ss">packageOverrides =</span> pyself<span class="p">:</span> pysuper<span class="p">:</span> <span class="p">{</span>
+    <span class="ss">packageOverrides</span> <span class="o">=</span> pyself<span class="p">:</span> pysuper<span class="p">:</span> <span class="p">{</span>
 
-      <span class="ss">pytest-lsp =</span> pysuper<span class="o">.</span>buildPythonPackage <span class="p">{</span>
-        <span class="ss">pname =</span> <span class="s2">&quot;pytest-lsp&quot;</span><span class="p">;</span>
-        <span class="ss">version =</span> <span class="s2">&quot;0.2.1&quot;</span><span class="p">;</span>
-        <span class="ss">src =</span> <span class="o">.</span><span class="l">/..</span><span class="p">;</span>
-        <span class="ss">propagatedBuildInputs =</span> <span class="k">with</span> super<span class="o">.</span><span class="s2">&quot;python</span><span class="si">${</span>pyVersion<span class="si">}</span><span class="s2">Packages&quot;</span><span class="p">;</span> <span class="p">[</span>
+      <span class="ss">pytest-lsp</span> <span class="o">=</span> pysuper<span class="o">.</span>buildPythonPackage <span class="p">{</span>
+        <span class="ss">pname</span> <span class="o">=</span> <span class="s2">&quot;pytest-lsp&quot;</span><span class="p">;</span>
+        <span class="ss">version</span> <span class="o">=</span> <span class="s2">&quot;0.2.1&quot;</span><span class="p">;</span>
+        <span class="ss">src</span> <span class="o">=</span> <span class="l">./..</span><span class="p">;</span>
+        <span class="ss">propagatedBuildInputs</span> <span class="o">=</span> <span class="k">with</span> super<span class="o">.</span><span class="s2">&quot;python</span><span class="si">${</span>pyVersion<span class="si">}</span><span class="s2">Packages&quot;</span><span class="p">;</span> <span class="p">[</span>
           pygls
           pytest
           pytest-asyncio
@@ -527,18 +533,18 @@ eachPythonVersion <span class="p">[</span> <span class="s2">&quot;37&quot;</span
 </div>
 <p>We can then include it in the main <code class="docutils literal notranslate"><span class="pre">flake.nix</span></code> file just as we did with the pygls overlay, but also assign it to the <code class="docutils literal notranslate"><span class="pre">overlays</span></code> output to make it available to other projects.</p>
 <div class="highlight-nix notranslate"><div class="highlight"><pre><span></span><span class="c1"># In flake.nix</span>
-<span class="ss">outputs =</span> <span class="p">{</span> self<span class="p">,</span> nixpkgs<span class="p">,</span> utils <span class="p">}:</span>
+<span class="ss">outputs</span> <span class="o">=</span> <span class="p">{</span> self<span class="p">,</span> nixpkgs<span class="p">,</span> utils <span class="p">}:</span>
 
   <span class="k">let</span>
-   <span class="ss">pygls-overlay =</span> <span class="nb">import</span> <span class="o">.</span><span class="l">/nix/pygls-overlay.nix</span><span class="p">;</span>
-<span class="hll">   <span class="ss">pytest-lsp-overlay =</span> <span class="nb">import</span> <span class="o">.</span><span class="l">/nix/pytest-lsp-overlay.nix</span><span class="p">;</span>
+   <span class="ss">pygls-overlay</span> <span class="o">=</span> <span class="nb">import</span> <span class="l">./nix/pygls-overlay.nix</span><span class="p">;</span>
+<span class="hll">   <span class="ss">pytest-lsp-overlay</span> <span class="o">=</span> <span class="nb">import</span> <span class="l">./nix/pytest-lsp-overlay.nix</span><span class="p">;</span>
 </span> <span class="k">in</span> <span class="p">{</span>
 
-<span class="hll"> overlays<span class="o">.</span><span class="ss">pytest-lsp =</span> pytest-lsp-overlay<span class="p">;</span>
+<span class="hll"> overlays<span class="o">.</span><span class="ss">pytest-lsp</span> <span class="o">=</span> pytest-lsp-overlay<span class="p">;</span>
 </span>
- <span class="ss">devShells =</span> utils<span class="o">.</span>lib<span class="o">.</span>eachDefaultSystemMap <span class="p">(</span>system<span class="p">:</span>
+ <span class="ss">devShells</span> <span class="o">=</span> utils<span class="o">.</span>lib<span class="o">.</span>eachDefaultSystemMap <span class="p">(</span>system<span class="p">:</span>
    <span class="k">let</span>
-<span class="hll">     <span class="ss">pkgs =</span> <span class="nb">import</span> nixpkgs <span class="p">{</span> <span class="k">inherit</span> system<span class="p">;</span> <span class="ss">overlays =</span> <span class="p">[</span> pygls-overlay pytest-lsp-overlay <span class="p">];</span> <span class="p">};</span>
+<span class="hll">     <span class="ss">pkgs</span> <span class="o">=</span> <span class="nb">import</span> nixpkgs <span class="p">{</span> <span class="k">inherit</span> system<span class="p">;</span> <span class="ss">overlays</span> <span class="o">=</span> <span class="p">[</span> pygls-overlay pytest-lsp-overlay <span class="p">];</span> <span class="p">};</span>
 </span>   <span class="k">in</span>
      <span class="o">...</span>
 </pre></div>
@@ -546,21 +552,21 @@ eachPythonVersion <span class="p">[</span> <span class="s2">&quot;37&quot;</span
 <p>In theory, we can update the flake we previously wrote for <code class="docutils literal notranslate"><span class="pre">esbonio</span></code> to use this overlay to provide the <code class="docutils literal notranslate"><span class="pre">pytest-lsp</span></code> package definition</p>
 <div class="highlight-nix notranslate"><div class="highlight"><pre><span></span><span class="c1"># In esbonio/flake.nix</span>
 
-<span class="ss">inputs =</span> <span class="p">{</span>
-  nixpkgs<span class="o">.</span><span class="ss">url =</span> <span class="s2">&quot;github:NixOS/nixpkgs/nixpkgs-unstable&quot;</span><span class="p">;</span>
-<span class="hll">  pytest-lsp<span class="o">.</span><span class="ss">url =</span> <span class="s2">&quot;github:swyddfa/lsp-devtools?dir=lib/pytest-lsp&quot;</span><span class="p">;</span>
-</span>  utils<span class="o">.</span><span class="ss">url =</span> <span class="s2">&quot;github:numtide/flake-utils&quot;</span><span class="p">;</span>
+<span class="ss">inputs</span> <span class="o">=</span> <span class="p">{</span>
+  nixpkgs<span class="o">.</span><span class="ss">url</span> <span class="o">=</span> <span class="s2">&quot;github:NixOS/nixpkgs/nixpkgs-unstable&quot;</span><span class="p">;</span>
+<span class="hll">  pytest-lsp<span class="o">.</span><span class="ss">url</span> <span class="o">=</span> <span class="s2">&quot;github:swyddfa/lsp-devtools?dir=lib/pytest-lsp&quot;</span><span class="p">;</span>
+</span>  utils<span class="o">.</span><span class="ss">url</span> <span class="o">=</span> <span class="s2">&quot;github:numtide/flake-utils&quot;</span><span class="p">;</span>
 <span class="p">};</span>
 
-<span class="ss">outputs =</span> <span class="p">{</span> self<span class="p">,</span> nixpkgs<span class="p">,</span> pytest-lsp<span class="p">,</span> utils <span class="p">}:</span>
+<span class="ss">outputs</span> <span class="o">=</span> <span class="p">{</span> self<span class="p">,</span> nixpkgs<span class="p">,</span> pytest-lsp<span class="p">,</span> utils <span class="p">}:</span>
 
   <span class="k">let</span>
-    <span class="ss">pygls-overlay =</span> <span class="nb">import</span> <span class="o">.</span><span class="l">/nix/pygls-overlay.nix</span><span class="p">;</span>
+    <span class="ss">pygls-overlay</span> <span class="o">=</span> <span class="nb">import</span> <span class="l">./nix/pygls-overlay.nix</span><span class="p">;</span>
   <span class="k">in</span> <span class="p">{</span>
 
-  <span class="ss">devShells =</span> utils<span class="o">.</span>lib<span class="o">.</span>eachDefaultSystemMap <span class="p">(</span>system<span class="p">:</span>
+  <span class="ss">devShells</span> <span class="o">=</span> utils<span class="o">.</span>lib<span class="o">.</span>eachDefaultSystemMap <span class="p">(</span>system<span class="p">:</span>
     <span class="k">let</span>
-<span class="hll">      <span class="ss">pkgs =</span> <span class="nb">import</span> nixpkgs <span class="p">{</span> <span class="k">inherit</span> system<span class="p">;</span> <span class="ss">overlays =</span> <span class="p">[</span> pygls-overlay pytest-lsp<span class="o">.</span>overlays<span class="o">.</span>pytest-lsp <span class="p">];</span> <span class="p">};</span>
+<span class="hll">      <span class="ss">pkgs</span> <span class="o">=</span> <span class="nb">import</span> nixpkgs <span class="p">{</span> <span class="k">inherit</span> system<span class="p">;</span> <span class="ss">overlays</span> <span class="o">=</span> <span class="p">[</span> pygls-overlay pytest-lsp<span class="o">.</span>overlays<span class="o">.</span>pytest-lsp <span class="p">];</span> <span class="p">};</span>
 </span>    <span class="k">in</span>
       <span class="o">...</span>
 </pre></div>
@@ -607,7 +613,7 @@ eachPythonVersion <span class="p">[</span> <span class="s2">&quot;37&quot;</span
                             Page Source
                         </a>
                     </span>
-                    <span>Built with <a class="text-green-600" href="https://www.sphinx-doc.org/en/master/">Sphinx</a> v5.3.0</span>
+                    <span>Built with <a class="text-green-600" href="https://www.sphinx-doc.org/en/master/">Sphinx</a> v8.0.2</span>
                 </div>
             </footer>
         </main>

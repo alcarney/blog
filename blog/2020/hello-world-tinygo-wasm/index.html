@@ -1,35 +1,31 @@
-
 <!DOCTYPE html>
 
-<html lang="en">
+<html lang="en" data-content_root="../../../">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
     <title>Saying ‘Hello, World!’ with TinyGo and WebAssembly &#8212; Alex Carney</title>
 
     
-    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=92c9d732" />
     
     
     
-    <link id="pygments_dark_css" media="(prefers-color-scheme: dark)" rel="stylesheet" type="text/css" href="../../../_static/pygments_dark.css" />
+    <link id="pygments_dark_css" media="(prefers-color-scheme: dark)" rel="stylesheet" type="text/css" href="../../../_static/pygments_dark.css?v=8f9ffe49" />
     
     
-    <link rel="stylesheet" type="text/css" href="../../../_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/sphinx-design.min.css?v=95c83b7e" />
     
     
-    <link rel="stylesheet" type="text/css" href="../../../_static/css/styles.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/css/styles.css?v=7c0862aa" />
     
 
-    <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
-    <script src="../../../_static/jquery.js"></script>
-    <script src="../../../_static/underscore.js"></script>
-    <script src="../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
-    <script src="../../../_static/doctools.js"></script>
-    <script src="../../../_static/sphinx_highlight.js"></script>
-    <script src="../../../_static/design-tabs.js"></script>
-    <link rel="shortcut icon" href="../../../_static/favicon.ico"/>
+    <script src="../../../_static/documentation_options.js?v=187304be"></script>
+    <script src="../../../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../../_static/design-tabs.js?v=f930bc37"></script>
+    <link rel="icon" href="../../../_static/favicon.ico"/>
     <link rel="index" title="Index" href="../../../genindex/" />
     <link rel="search" title="Search" href="../../../search/" /> 
   </head><body class="flex flex-col justify-between min-h-screen overflow-x-hidden bg-gray-100 dark:bg-gray-900">
@@ -44,18 +40,28 @@
     <h2 class=""><a href="/">Alex Carney</a></h2>
 </div>
 
-                    <div id="searchbox" style="display: none" role="search" class="px-4 py-4">
-    <form class="flex justify-between px-2 py-1 bg-gray-100 border-2 rounded search dark:bg-gray-900 focus-within:border-green-600 dark:border-gray-600" action="../../../search/" method="get">
-        <label class="mr-2 text-gray-500" for="sbox">
-            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="feather feather-search">
-                <circle cx="11" cy="11" r="6" />
-                <path d="m21 21-4.35-4.35" />
-            </svg>
-        </label>
-        <input id="sbox" class="flex-grow bg-gray-100 dark:text-white dark:bg-gray-900 focus:outline-none" type="search" name="q" placeholder="Search..." aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" />
-    </form>
+                    
+<div id="searchbox" style="display: none" role="search" class="px-4 py-4">
+  <form class="flex justify-between px-2 py-1 bg-gray-100 border-2 rounded search dark:bg-gray-900 focus-within:border-green-600 dark:border-gray-600" action="../../../search/" method="get">
+    <label class="mr-2 text-gray-500" for="sbox">
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="feather feather-search">
+        <circle cx="11" cy="11" r="6" />
+        <path d="m21 21-4.35-4.35" />
+      </svg>
+    </label>
+    <input class="flex-grow bg-gray-100 w-full dark:text-white dark:bg-gray-900 focus:outline-none"
+           type="search"
+           name="q"
+           aria-labelledby="searchlabel"
+           autocomplete="off"
+           autocorrect="off"
+           autocapitalize="off"
+           spellcheck="false"
+           placeholder="Search"
+           />
+  </form>
 </div>
-<script>$('#searchbox').show(0);</script>
+<script>document.getElementById('searchbox').style.display = "block"</script>
 
                     
 
@@ -81,14 +87,14 @@
     <ul class="text-right">
         
         <li class="mb-1">
-            <a href="../../tag/tinygo/" class="px-2 my-1 text-green-600 border border-green-600 rounded bg-green-50 dark:bg-green-900 dark:text-green-200">
-                #tinygo
+            <a href="../../tag/go/" class="px-2 my-1 text-green-600 border border-green-600 rounded bg-green-50 dark:bg-green-900 dark:text-green-200">
+                #go
             </a>
         </li>
         
         <li class="mb-1">
-            <a href="../../tag/go/" class="px-2 my-1 text-green-600 border border-green-600 rounded bg-green-50 dark:bg-green-900 dark:text-green-200">
-                #go
+            <a href="../../tag/tinygo/" class="px-2 my-1 text-green-600 border border-green-600 rounded bg-green-50 dark:bg-green-900 dark:text-green-200">
+                #tinygo
             </a>
         </li>
         
@@ -190,7 +196,7 @@
 
 <article class="p-4 prose-sm prose bg-white dark:bg-gray-800 border prose-md prose-emerald max-w-none dark:prose-invert dark:border-gray-600">
     <section id="saying-hello-world-with-tinygo-and-webassembly">
-<h1>Saying ‘Hello, World!’ with TinyGo and WebAssembly<a class="headerlink" href="#saying-hello-world-with-tinygo-and-webassembly" title="Permalink to this heading">¶</a></h1>
+<h1>Saying ‘Hello, World!’ with TinyGo and WebAssembly<a class="headerlink" href="#saying-hello-world-with-tinygo-and-webassembly" title="Link to this heading">¶</a></h1>
 <p>WebAssembly is something I’ve wanted to play with for quite a while now and
 I’ve finally got around to taking a look at it. In this post I describe how I
 managed to use <a class="reference external" href="https://tinygo.org/">TinyGo</a> to compile a “Hello, World!” Go program into
@@ -198,7 +204,7 @@ WebAssembly and execute it in the browser. So that I have something to refer
 back to I also describe setting up my development environment as a container
 using <a class="reference external" href="https://linuxcontainers.org/">LXD</a>.</p>
 <section id="setting-up">
-<h2>Setting Up<a class="headerlink" href="#setting-up" title="Permalink to this heading">¶</a></h2>
+<h2>Setting Up<a class="headerlink" href="#setting-up" title="Link to this heading">¶</a></h2>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>What I describe here is definitely <em>not</em> a requirement in order to use TinyGo,
@@ -216,7 +222,7 @@ interface it provides around the native container technology built into Linux I 
 able to spin up an Arch Linux container with all the tools I needed to edit and run
 my code.</p>
 <section id="spinning-up-arch-linux">
-<h3>Spinning up Arch Linux<a class="headerlink" href="#spinning-up-arch-linux" title="Permalink to this heading">¶</a></h3>
+<h3>Spinning up Arch Linux<a class="headerlink" href="#spinning-up-arch-linux" title="Link to this heading">¶</a></h3>
 <p>Following this`_ article it was easy enough to pull down and
 launch an Arch Linux image from the community <a class="reference external" href="https://uk.images.linuxcontainers.org/">repository</a></p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>snap<span class="w"> </span>install<span class="w"> </span>lxd
@@ -232,7 +238,7 @@ installing what we need</p>
 </div>
 </section>
 <section id="users-and-project-data">
-<h3>Users and Project Data<a class="headerlink" href="#users-and-project-data" title="Permalink to this heading">¶</a></h3>
+<h3>Users and Project Data<a class="headerlink" href="#users-and-project-data" title="Link to this heading">¶</a></h3>
 <p>Even in an unprivileged container (which is what I think LXD uses by default?) its
 probably not the best idea to run programs as root so we should create a normal user
 account and set a password</p>
@@ -251,11 +257,11 @@ are able to work with it.</p>
 </div>
 </section>
 <section id="vscode">
-<h3>VSCode<a class="headerlink" href="#vscode" title="Permalink to this heading">¶</a></h3>
+<h3>VSCode<a class="headerlink" href="#vscode" title="Link to this heading">¶</a></h3>
 <figure class="align-center" id="id2">
 <img alt="../../../_images/vscode-remote.gif" src="../../../_images/vscode-remote.gif" />
 <figcaption>
-<p><span class="caption-text">Attaching VSCode to ‘tinygo’ container.</span><a class="headerlink" href="#id2" title="Permalink to this image">¶</a></p>
+<p><span class="caption-text">Attaching VSCode to ‘tinygo’ container.</span><a class="headerlink" href="#id2" title="Link to this image">¶</a></p>
 </figcaption>
 </figure>
 <p>Just because the development tools we’re using are isolated in their own container
@@ -289,7 +295,7 @@ try to connect VSCode to the container logging in as the <cite>alex</cite> user 
 </div>
 </section>
 <section id="access-denied">
-<h3>Access Denied!!<a class="headerlink" href="#access-denied" title="Permalink to this heading">¶</a></h3>
+<h3>Access Denied!!<a class="headerlink" href="#access-denied" title="Link to this heading">¶</a></h3>
 <p>Once I started to create the files necessary for the project I very quickly realised that
 the project folder we passed into the container was mounted as read-only! It turns
 out there is some extra wizardry required to give the <code class="docutils literal notranslate"><span class="pre">alex&#64;tinygo</span></code> user permission to
@@ -312,7 +318,7 @@ the effort? Well, I guess only time will tell…</p>
 </section>
 </section>
 <section id="tinygo">
-<span id="hello-world-tinygo-wasm-tinygo"></span><h2>TinyGo<a class="headerlink" href="#tinygo" title="Permalink to this heading">¶</a></h2>
+<span id="hello-world-tinygo-wasm-tinygo"></span><h2>TinyGo<a class="headerlink" href="#tinygo" title="Link to this heading">¶</a></h2>
 <p>With the setup out of the way time to write our “Hello, World!” program in Go</p>
 <div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kn">package</span><span class="w"> </span><span class="nx">main</span>
 
@@ -340,7 +346,7 @@ the expense of <a class="reference external" href="https://tinygo.org/lang-suppo
 </div>
 </section>
 <section id="webassembly">
-<h2>WebAssembly<a class="headerlink" href="#webassembly" title="Permalink to this heading">¶</a></h2>
+<h2>WebAssembly<a class="headerlink" href="#webassembly" title="Link to this heading">¶</a></h2>
 <p>With our WebAssembly binary ready to go it’s time to load it into the browser and
 execute it.</p>
 <div class="highlight-html notranslate"><div class="highlight"><pre><span></span><span class="cp">&lt;!DOCTYPE html&gt;</span>
@@ -379,7 +385,7 @@ of your TinyGo install, mine was located in <code class="docutils literal notran
 <figure class="align-center" id="id3">
 <img alt="../../../_images/wasm-hello-world.png" src="../../../_images/wasm-hello-world.png" />
 <figcaption>
-<p><span class="caption-text">This is probably my most convoluted ‘Hello, World!’ program to date!</span><a class="headerlink" href="#id3" title="Permalink to this image">¶</a></p>
+<p><span class="caption-text">This is probably my most convoluted ‘Hello, World!’ program to date!</span><a class="headerlink" href="#id3" title="Link to this image">¶</a></p>
 </figcaption>
 </figure>
 <p>All being well, you should be able to open your browser to the webpage we created above
@@ -419,7 +425,7 @@ and see the message “Hello, World!” written to the console!</p>
                             Page Source
                         </a>
                     </span>
-                    <span>Built with <a class="text-green-600" href="https://www.sphinx-doc.org/en/master/">Sphinx</a> v5.3.0</span>
+                    <span>Built with <a class="text-green-600" href="https://www.sphinx-doc.org/en/master/">Sphinx</a> v8.0.2</span>
                 </div>
             </footer>
         </main>

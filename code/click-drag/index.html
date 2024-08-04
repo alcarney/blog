@@ -1,35 +1,31 @@
-
 <!DOCTYPE html>
 
-<html lang="en">
+<html lang="en" data-content_root="../../">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
     <title>Click Drag &#8212; Alex Carney</title>
 
     
-    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=92c9d732" />
     
     
     
-    <link id="pygments_dark_css" media="(prefers-color-scheme: dark)" rel="stylesheet" type="text/css" href="../../_static/pygments_dark.css" />
+    <link id="pygments_dark_css" media="(prefers-color-scheme: dark)" rel="stylesheet" type="text/css" href="../../_static/pygments_dark.css?v=8f9ffe49" />
     
     
-    <link rel="stylesheet" type="text/css" href="../../_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-design.min.css?v=95c83b7e" />
     
     
-    <link rel="stylesheet" type="text/css" href="../../_static/css/styles.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/css/styles.css?v=7c0862aa" />
     
 
-    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
-    <script src="../../_static/jquery.js"></script>
-    <script src="../../_static/underscore.js"></script>
-    <script src="../../_static/_sphinx_javascript_frameworks_compat.js"></script>
-    <script src="../../_static/doctools.js"></script>
-    <script src="../../_static/sphinx_highlight.js"></script>
-    <script src="../../_static/design-tabs.js"></script>
-    <link rel="shortcut icon" href="../../_static/favicon.ico"/>
+    <script src="../../_static/documentation_options.js?v=187304be"></script>
+    <script src="../../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../_static/design-tabs.js?v=f930bc37"></script>
+    <link rel="icon" href="../../_static/favicon.ico"/>
     <link rel="index" title="Index" href="../../genindex/" />
     <link rel="search" title="Search" href="../../search/" />
     <link rel="next" title="Hello LSP Web" href="../hello-lsp-web/" />
@@ -46,18 +42,28 @@
     <h2 class=""><a href="/">Alex Carney</a></h2>
 </div>
 
-                    <div id="searchbox" style="display: none" role="search" class="px-4 py-4">
-    <form class="flex justify-between px-2 py-1 bg-gray-100 border-2 rounded search dark:bg-gray-900 focus-within:border-green-600 dark:border-gray-600" action="../../search/" method="get">
-        <label class="mr-2 text-gray-500" for="sbox">
-            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="feather feather-search">
-                <circle cx="11" cy="11" r="6" />
-                <path d="m21 21-4.35-4.35" />
-            </svg>
-        </label>
-        <input id="sbox" class="flex-grow bg-gray-100 dark:text-white dark:bg-gray-900 focus:outline-none" type="search" name="q" placeholder="Search..." aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" />
-    </form>
+                    
+<div id="searchbox" style="display: none" role="search" class="px-4 py-4">
+  <form class="flex justify-between px-2 py-1 bg-gray-100 border-2 rounded search dark:bg-gray-900 focus-within:border-green-600 dark:border-gray-600" action="../../search/" method="get">
+    <label class="mr-2 text-gray-500" for="sbox">
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="feather feather-search">
+        <circle cx="11" cy="11" r="6" />
+        <path d="m21 21-4.35-4.35" />
+      </svg>
+    </label>
+    <input class="flex-grow bg-gray-100 w-full dark:text-white dark:bg-gray-900 focus:outline-none"
+           type="search"
+           name="q"
+           aria-labelledby="searchlabel"
+           autocomplete="off"
+           autocorrect="off"
+           autocapitalize="off"
+           spellcheck="false"
+           placeholder="Search"
+           />
+  </form>
 </div>
-<script>$('#searchbox').show(0);</script>
+<script>document.getElementById('searchbox').style.display = "block"</script>
 
                     
 
@@ -137,8 +143,33 @@
 
 <article class="p-4 prose-sm prose bg-white dark:bg-gray-800 border prose-md prose-emerald max-w-none dark:prose-invert dark:border-gray-600">
     <section id="click-drag">
-<h1>Click Drag<a class="headerlink" href="#click-drag" title="Permalink to this heading">¶</a></h1>
+<h1>Click Drag<a class="headerlink" href="#click-drag" title="Link to this heading">¶</a></h1>
 <div class="my-4 border border-t-0 dark:border-gray-600">
+    
+
+    <div data-parent="" class=" border-t dark:border-gray-600"">
+        <label for="README.rst">
+            <div style="padding-left: 4px;" class="flex items-center px-2 py-1 space-x-2 hover:bg-gray-50 hover:dark:bg-gray-700">
+                
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" ><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+                    <path d="M14 2v6h6M16 13H8M16 17H8M10 9H8"/>
+                </svg>
+                
+
+                <span>README.rst</span>
+            </div>
+        </label>
+
+        
+        <input class="hidden" data-type="file" data-id="README.rst" type="checkbox" id="README.rst" />
+        <div class="overflow-y-auto transition-all max-h-0">
+            <div class="highlight"><pre style="margin: 0"><span></span>Click and drag of an SVG element implemented with vanilla JavaScript
+</pre></div>
+
+        </div>
+    </div>
+        
+
     
 
     <div data-parent="" class=" border-t dark:border-gray-600"">
@@ -218,43 +249,8 @@
         
 
     
-
-    <div data-parent="" class=" border-t dark:border-gray-600"">
-        <label for="README.rst">
-            <div style="padding-left: 4px;" class="flex items-center px-2 py-1 space-x-2 hover:bg-gray-50 hover:dark:bg-gray-700">
-                
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" ><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
-                    <path d="M14 2v6h6M16 13H8M16 17H8M10 9H8"/>
-                </svg>
-                
-
-                <span>README.rst</span>
-            </div>
-        </label>
-
-        
-        <input class="hidden" data-type="file" data-id="README.rst" type="checkbox" id="README.rst" />
-        <div class="overflow-y-auto transition-all max-h-0">
-            <div class="highlight"><pre style="margin: 0"><span></span>Click and drag of an SVG element implemented with vanilla JavaScript
-</pre></div>
-
-        </div>
-    </div>
-        
-
-    
 </div>
 <style>
-    
-
-    input[data-id='click-drag.js']:checked ~ div {
-        max-height: 350px;
-    }
-
-    input[data-id='']:checked ~ div[data-parent='click-drag.js'] {
-        max-height: 382px;
-    }
-
     
 
     input[data-id='README.rst']:checked ~ div {
@@ -266,8 +262,18 @@
     }
 
     
+
+    input[data-id='click-drag.js']:checked ~ div {
+        max-height: 350px;
+    }
+
+    input[data-id='']:checked ~ div[data-parent='click-drag.js'] {
+        max-height: 382px;
+    }
+
+    
 </style><section id="readme">
-<h2>README<a class="headerlink" href="#readme" title="Permalink to this heading">¶</a></h2>
+<h2>README<a class="headerlink" href="#readme" title="Link to this heading">¶</a></h2>
 <p>Click and drag of an SVG element implemented with vanilla JavaScript</p>
 </section>
 </section>
@@ -313,7 +319,7 @@
                             Page Source
                         </a>
                     </span>
-                    <span>Built with <a class="text-green-600" href="https://www.sphinx-doc.org/en/master/">Sphinx</a> v5.3.0</span>
+                    <span>Built with <a class="text-green-600" href="https://www.sphinx-doc.org/en/master/">Sphinx</a> v8.0.2</span>
                 </div>
             </footer>
         </main>

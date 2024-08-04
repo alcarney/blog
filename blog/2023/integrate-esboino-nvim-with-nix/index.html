@@ -1,35 +1,31 @@
-
 <!DOCTYPE html>
 
-<html lang="en">
+<html lang="en" data-content_root="../../../">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
     <title>Integrating Esbonio with Neovim Using Nix &#8212; Alex Carney</title>
 
     
-    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=92c9d732" />
     
     
     
-    <link id="pygments_dark_css" media="(prefers-color-scheme: dark)" rel="stylesheet" type="text/css" href="../../../_static/pygments_dark.css" />
+    <link id="pygments_dark_css" media="(prefers-color-scheme: dark)" rel="stylesheet" type="text/css" href="../../../_static/pygments_dark.css?v=8f9ffe49" />
     
     
-    <link rel="stylesheet" type="text/css" href="../../../_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/sphinx-design.min.css?v=95c83b7e" />
     
     
-    <link rel="stylesheet" type="text/css" href="../../../_static/css/styles.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/css/styles.css?v=7c0862aa" />
     
 
-    <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
-    <script src="../../../_static/jquery.js"></script>
-    <script src="../../../_static/underscore.js"></script>
-    <script src="../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
-    <script src="../../../_static/doctools.js"></script>
-    <script src="../../../_static/sphinx_highlight.js"></script>
-    <script src="../../../_static/design-tabs.js"></script>
-    <link rel="shortcut icon" href="../../../_static/favicon.ico"/>
+    <script src="../../../_static/documentation_options.js?v=187304be"></script>
+    <script src="../../../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../../_static/design-tabs.js?v=f930bc37"></script>
+    <link rel="icon" href="../../../_static/favicon.ico"/>
     <link rel="index" title="Index" href="../../../genindex/" />
     <link rel="search" title="Search" href="../../../search/" /> 
   </head><body class="flex flex-col justify-between min-h-screen overflow-x-hidden bg-gray-100 dark:bg-gray-900">
@@ -44,18 +40,28 @@
     <h2 class=""><a href="/">Alex Carney</a></h2>
 </div>
 
-                    <div id="searchbox" style="display: none" role="search" class="px-4 py-4">
-    <form class="flex justify-between px-2 py-1 bg-gray-100 border-2 rounded search dark:bg-gray-900 focus-within:border-green-600 dark:border-gray-600" action="../../../search/" method="get">
-        <label class="mr-2 text-gray-500" for="sbox">
-            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="feather feather-search">
-                <circle cx="11" cy="11" r="6" />
-                <path d="m21 21-4.35-4.35" />
-            </svg>
-        </label>
-        <input id="sbox" class="flex-grow bg-gray-100 dark:text-white dark:bg-gray-900 focus:outline-none" type="search" name="q" placeholder="Search..." aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" />
-    </form>
+                    
+<div id="searchbox" style="display: none" role="search" class="px-4 py-4">
+  <form class="flex justify-between px-2 py-1 bg-gray-100 border-2 rounded search dark:bg-gray-900 focus-within:border-green-600 dark:border-gray-600" action="../../../search/" method="get">
+    <label class="mr-2 text-gray-500" for="sbox">
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="feather feather-search">
+        <circle cx="11" cy="11" r="6" />
+        <path d="m21 21-4.35-4.35" />
+      </svg>
+    </label>
+    <input class="flex-grow bg-gray-100 w-full dark:text-white dark:bg-gray-900 focus:outline-none"
+           type="search"
+           name="q"
+           aria-labelledby="searchlabel"
+           autocomplete="off"
+           autocorrect="off"
+           autocapitalize="off"
+           spellcheck="false"
+           placeholder="Search"
+           />
+  </form>
 </div>
-<script>$('#searchbox').show(0);</script>
+<script>document.getElementById('searchbox').style.display = "block"</script>
 
                     
 
@@ -81,14 +87,14 @@
     <ul class="text-right">
         
         <li class="mb-1">
-            <a href="../../tag/python/" class="px-2 my-1 text-green-600 border border-green-600 rounded bg-green-50 dark:bg-green-900 dark:text-green-200">
-                #python
+            <a href="../../tag/nix/" class="px-2 my-1 text-green-600 border border-green-600 rounded bg-green-50 dark:bg-green-900 dark:text-green-200">
+                #nix
             </a>
         </li>
         
         <li class="mb-1">
-            <a href="../../tag/nix/" class="px-2 my-1 text-green-600 border border-green-600 rounded bg-green-50 dark:bg-green-900 dark:text-green-200">
-                #nix
+            <a href="../../tag/python/" class="px-2 my-1 text-green-600 border border-green-600 rounded bg-green-50 dark:bg-green-900 dark:text-green-200">
+                #python
             </a>
         </li>
         
@@ -181,7 +187,7 @@
 
 <article class="p-4 prose-sm prose bg-white dark:bg-gray-800 border prose-md prose-emerald max-w-none dark:prose-invert dark:border-gray-600">
     <section id="integrating-esbonio-with-neovim-using-nix">
-<h1>Integrating Esbonio with Neovim Using Nix<a class="headerlink" href="#integrating-esbonio-with-neovim-using-nix" title="Permalink to this heading">¶</a></h1>
+<h1>Integrating Esbonio with Neovim Using Nix<a class="headerlink" href="#integrating-esbonio-with-neovim-using-nix" title="Link to this heading">¶</a></h1>
 <p>So far I’ve been learning how to use Nix by trying to package and define development shells for <a class="reference external" href="https://github.com/swyddfa/esbonio">esbonio</a> (see <a class="reference internal" href="../../tag/nix/" title="nix"><span class="xref std std-ref">here</span></a> if you are interested).
 While useful, the end result is not too dissimilar to what you can get with standard Python tooling.
 Indeed, the main reason I started looking into Nix was the promise of it being able to manage more than just Python libraries.</p>
@@ -198,22 +204,22 @@ Assuming you have nix installed</p>
 Let me know if you run into any issues!</p>
 </div>
 <section id="defining-applications">
-<h2>Defining Applications<a class="headerlink" href="#defining-applications" title="Permalink to this heading">¶</a></h2>
+<h2>Defining Applications<a class="headerlink" href="#defining-applications" title="Link to this heading">¶</a></h2>
 <p>One of the <a class="reference external" href="https://nixos.wiki/wiki/Flakes#Output_schema">defined flake outputs</a> is <code class="docutils literal notranslate"><span class="pre">apps.&lt;system&gt;.&lt;name&gt;</span></code> which as the name suggests allows you to export applications from a flake.</p>
 <div class="highlight-nix notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
-  <span class="ss">description =</span> <span class="s2">&quot;Esbonio&quot;</span><span class="p">;</span>
+  <span class="ss">description</span> <span class="o">=</span> <span class="s2">&quot;Esbonio&quot;</span><span class="p">;</span>
 
-  <span class="ss">inputs =</span> <span class="p">{</span>
-    nixpkgs<span class="o">.</span><span class="ss">url =</span> <span class="s2">&quot;github:NixOS/nixpkgs/nixpkgs-unstable&quot;</span><span class="p">;</span>
-    utils<span class="o">.</span><span class="ss">url =</span> <span class="s2">&quot;github:numtide/flake-utils&quot;</span><span class="p">;</span>
+  <span class="ss">inputs</span> <span class="o">=</span> <span class="p">{</span>
+    nixpkgs<span class="o">.</span><span class="ss">url</span> <span class="o">=</span> <span class="s2">&quot;github:NixOS/nixpkgs/nixpkgs-unstable&quot;</span><span class="p">;</span>
+    utils<span class="o">.</span><span class="ss">url</span> <span class="o">=</span> <span class="s2">&quot;github:numtide/flake-utils&quot;</span><span class="p">;</span>
   <span class="p">};</span>
 
-  <span class="ss">outputs =</span> <span class="p">{</span> self<span class="p">,</span> nixpkgs<span class="p">,</span> utils <span class="p">}:</span>
+  <span class="ss">outputs</span> <span class="o">=</span> <span class="p">{</span> self<span class="p">,</span> nixpkgs<span class="p">,</span> utils <span class="p">}:</span>
     utils<span class="o">.</span>lib<span class="o">.</span>eachDefaultSystem <span class="p">(</span>system<span class="p">:</span>
       <span class="k">let</span>
-        <span class="ss">pkgs =</span> <span class="nb">import</span> nixpkgs <span class="p">{</span> <span class="k">inherit</span> system<span class="p">;</span> <span class="p">};</span>
+        <span class="ss">pkgs</span> <span class="o">=</span> <span class="nb">import</span> nixpkgs <span class="p">{</span> <span class="k">inherit</span> system<span class="p">;</span> <span class="p">};</span>
       <span class="k">in</span> <span class="p">{</span>
-        apps<span class="o">.</span><span class="ss">default =</span> <span class="p">{</span> <span class="ss">type =</span> <span class="s2">&quot;app&quot;</span><span class="p">;</span> <span class="ss">program =</span> <span class="s2">&quot;</span><span class="si">${</span>pkgs<span class="o">.</span>neovim<span class="si">}</span><span class="s2">/bin/nvim&quot;</span><span class="p">;</span> <span class="p">};</span>
+        apps<span class="o">.</span><span class="ss">default</span> <span class="o">=</span> <span class="p">{</span> <span class="ss">type</span> <span class="o">=</span> <span class="s2">&quot;app&quot;</span><span class="p">;</span> <span class="ss">program</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="si">${</span>pkgs<span class="o">.</span>neovim<span class="si">}</span><span class="s2">/bin/nvim&quot;</span><span class="p">;</span> <span class="p">};</span>
       <span class="p">}</span>
     <span class="p">);</span>
 <span class="p">}</span>
@@ -221,27 +227,28 @@ Let me know if you run into any issues!</p>
 </div>
 <p>This simple <code class="docutils literal notranslate"><span class="pre">flake.nix</span></code> exports neovim as an application which we can launch by running <code class="docutils literal notranslate"><span class="pre">nix</span> <span class="pre">run</span> <span class="pre">.</span></code> from the folder containing this flake.</p>
 <figure class="align-center">
-<a class="reference internal image-reference" href="../../../_images/nix-nvim-myconfig.png"><img alt="../../../_images/nix-nvim-myconfig.png" src="../../../_images/nix-nvim-myconfig.png" style="width: 50%;" /></a>
+<a class="reference internal image-reference" href="../../../_images/nix-nvim-myconfig.png"><img alt="../../../_images/nix-nvim-myconfig.png" src="../../../_images/nix-nvim-myconfig.png" style="width: 50%;" />
+</a>
 </figure>
 <p>Which works as expected however, it’s also picking up my personal config - not so useful when you’re trying to create a standard, isolated environment.</p>
 </section>
 <section id="isolated-configuration">
-<h2>Isolated Configuration<a class="headerlink" href="#isolated-configuration" title="Permalink to this heading">¶</a></h2>
+<h2>Isolated Configuration<a class="headerlink" href="#isolated-configuration" title="Link to this heading">¶</a></h2>
 <p>As with most things in Nix, the neovim package definition allows for certain fields to be overridden - including the config.
 Let’s start by trying provide an empty <code class="docutils literal notranslate"><span class="pre">init.vim</span></code> file.</p>
 <div class="highlight-nix notranslate"><div class="highlight"><pre><span></span>utils<span class="o">.</span>lib<span class="o">.</span>eachDefaultSystem <span class="p">(</span>system<span class="p">:</span>
    <span class="k">let</span>
-     <span class="ss">pkgs =</span> <span class="nb">import</span> nixpkgs <span class="p">{</span> <span class="k">inherit</span> system<span class="p">;</span> <span class="p">};</span>
-     <span class="ss">neovim =</span> pkgs<span class="o">.</span>neovim<span class="o">.</span>override <span class="p">{</span>
-       <span class="ss">configure =</span> <span class="p">{</span>
-         <span class="ss">customRC =</span> <span class="s1">&#39;&#39;</span>
-<span class="s1">         &#39;&#39;</span><span class="p">;</span>
+     <span class="ss">pkgs</span> <span class="o">=</span> <span class="nb">import</span> nixpkgs <span class="p">{</span> <span class="k">inherit</span> system<span class="p">;</span> <span class="p">};</span>
+     <span class="ss">neovim</span> <span class="o">=</span> pkgs<span class="o">.</span>neovim<span class="o">.</span>override <span class="p">{</span>
+       <span class="ss">configure</span> <span class="o">=</span> <span class="p">{</span>
+         <span class="ss">customRC</span> <span class="o">=</span> <span class="s s-Multiline">&#39;&#39;</span>
+<span class="s s-Multiline">         &#39;&#39;</span><span class="p">;</span>
        <span class="p">};</span>
      <span class="p">};</span>
    <span class="k">in</span> <span class="p">{</span>
-     apps<span class="o">.</span><span class="ss">default =</span> <span class="p">{</span>
-       <span class="ss">type =</span> <span class="s2">&quot;app&quot;</span><span class="p">;</span>
-       <span class="ss">program =</span> <span class="s2">&quot;</span><span class="si">${</span>neovim<span class="si">}</span><span class="s2">/bin/nvim&quot;</span><span class="p">;</span>
+     apps<span class="o">.</span><span class="ss">default</span> <span class="o">=</span> <span class="p">{</span>
+       <span class="ss">type</span> <span class="o">=</span> <span class="s2">&quot;app&quot;</span><span class="p">;</span>
+       <span class="ss">program</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="si">${</span>neovim<span class="si">}</span><span class="s2">/bin/nvim&quot;</span><span class="p">;</span>
      <span class="p">};</span>
    <span class="p">}</span>
  <span class="p">);</span>
@@ -249,7 +256,8 @@ Let’s start by trying provide an empty <code class="docutils literal notransla
 </div>
 <p>And try <code class="docutils literal notranslate"><span class="pre">nix</span> <span class="pre">run</span> <span class="pre">.</span></code> again</p>
 <figure class="align-center">
-<a class="reference internal image-reference" href="../../../_images/nix-nvim-emptyconfig.png"><img alt="../../../_images/nix-nvim-emptyconfig.png" src="../../../_images/nix-nvim-emptyconfig.png" style="width: 50%;" /></a>
+<a class="reference internal image-reference" href="../../../_images/nix-nvim-emptyconfig.png"><img alt="../../../_images/nix-nvim-emptyconfig.png" src="../../../_images/nix-nvim-emptyconfig.png" style="width: 50%;" />
+</a>
 </figure>
 <p>Which worked! Sort of… well… not really. 😕</p>
 <p>It worked in the sense that it loaded the empty <code class="docutils literal notranslate"><span class="pre">init.vim</span></code> file we specified (notice that the screenshot above has no line numbers).
@@ -265,7 +273,7 @@ into a buffer.</p>
 </div>
 <p>So how can we exclude them?</p>
 <section id="nvim-clean">
-<h3><code class="docutils literal notranslate"><span class="pre">nvim</span> <span class="pre">--clean</span></code><a class="headerlink" href="#nvim-clean" title="Permalink to this heading">¶</a></h3>
+<h3><code class="docutils literal notranslate"><span class="pre">nvim</span> <span class="pre">--clean</span></code><a class="headerlink" href="#nvim-clean" title="Link to this heading">¶</a></h3>
 <p>Reading through <a class="reference external" href="https://neovim.io/doc/user/options.html#'runtimepath'">:h ‘runtimepath’</a> there’s a lot of detail around which paths are searched by default and in what order.
 But right at the end there’s a little note</p>
 <blockquote class="pull-quote">
@@ -283,11 +291,7 @@ which converts the given config into a shell script.
 This shell script pulls together various components from <code class="docutils literal notranslate"><span class="pre">/nix/store</span></code>, before ultimately launching our isolated instance of neovim.</p>
 <details class="sd-sphinx-override sd-dropdown sd-card sd-mb-3 admonition info">
 <summary class="sd-summary-title sd-card-header admonition-title">
-Example wrapper script<div class="sd-summary-down docutils">
-<svg version="1.1" width="1.5em" height="1.5em" class="sd-octicon sd-octicon-chevron-down" viewBox="0 0 24 24" aria-hidden="true"><path fill-rule="evenodd" d="M5.22 8.72a.75.75 0 000 1.06l6.25 6.25a.75.75 0 001.06 0l6.25-6.25a.75.75 0 00-1.06-1.06L12 14.44 6.28 8.72a.75.75 0 00-1.06 0z"></path></svg></div>
-<div class="sd-summary-up docutils">
-<svg version="1.1" width="1.5em" height="1.5em" class="sd-octicon sd-octicon-chevron-up" viewBox="0 0 24 24" aria-hidden="true"><path fill-rule="evenodd" d="M18.78 15.28a.75.75 0 000-1.06l-6.25-6.25a.75.75 0 00-1.06 0l-6.25 6.25a.75.75 0 101.06 1.06L12 9.56l5.72 5.72a.75.75 0 001.06 0z"></path></svg></div>
-</summary><div class="sd-summary-content sd-card-body docutils">
+<span class="sd-summary-text">Example wrapper script</span><span class="sd-summary-state-marker sd-summary-chevron-right"><svg version="1.1" width="1.5em" height="1.5em" class="sd-octicon sd-octicon-chevron-right" viewBox="0 0 24 24" aria-hidden="true"><path d="M8.72 18.78a.75.75 0 0 1 0-1.06L14.44 12 8.72 6.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018l6.25 6.25a.75.75 0 0 1 0 1.06l-6.25 6.25a.75.75 0 0 1-1.06 0Z"></path></svg></span></summary><div class="sd-summary-content sd-card-body docutils">
 <p class="sd-card-text">Here is an example of a wrapper script generated by nix.</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="ch">#! /nix/store/0hx32wk55ml88jrb1qxwg5c5yazfm6gf-bash-5.2-p15/bin/bash -e</span>
 <span class="nb">export</span><span class="w"> </span><span class="nv">NVIM_SYSTEM_RPLUGIN_MANIFEST</span><span class="o">=</span><span class="s1">&#39;/nix/store/jjl5fy7dc5cxvc7mi781vxbk8ag89ih0-neovim-0.8.3-esbonio/rplugin.vim&#39;</span>
@@ -324,26 +328,26 @@ Example wrapper script<div class="sd-summary-down docutils">
 </details><p>After some trial and error I was able to put together the following</p>
 <div class="highlight-nix notranslate"><div class="highlight"><pre><span></span>utils<span class="o">.</span>lib<span class="o">.</span>eachDefaultSystem <span class="p">(</span>system<span class="p">:</span>
   <span class="k">let</span>
-    <span class="ss">pkgs =</span> <span class="nb">import</span> nixpkgs <span class="p">{</span> <span class="k">inherit</span> system<span class="p">;</span> <span class="p">};</span>
-    <span class="ss">nvim-cfg =</span> pkgs<span class="o">.</span>neovimUtils<span class="o">.</span>makeNeovimConfig <span class="p">{</span>
-      <span class="ss">extraName =</span> <span class="s2">&quot;-esbonio&quot;</span><span class="p">;</span>
-      <span class="ss">customRC =</span> <span class="s1">&#39;&#39;</span>
-<span class="s1">        set number</span>
-<span class="s1">      &#39;&#39;</span><span class="p">;</span>
+    <span class="ss">pkgs</span> <span class="o">=</span> <span class="nb">import</span> nixpkgs <span class="p">{</span> <span class="k">inherit</span> system<span class="p">;</span> <span class="p">};</span>
+    <span class="ss">nvim-cfg</span> <span class="o">=</span> pkgs<span class="o">.</span>neovimUtils<span class="o">.</span>makeNeovimConfig <span class="p">{</span>
+      <span class="ss">extraName</span> <span class="o">=</span> <span class="s2">&quot;-esbonio&quot;</span><span class="p">;</span>
+      <span class="ss">customRC</span> <span class="o">=</span> <span class="s s-Multiline">&#39;&#39;</span>
+<span class="s s-Multiline">        set number</span>
+<span class="s s-Multiline">      &#39;&#39;</span><span class="p">;</span>
     <span class="p">};</span>
-    <span class="ss">neovim-config =</span> pkgs<span class="o">.</span>lib<span class="o">.</span>attrsets<span class="o">.</span>updateManyAttrsByPath <span class="p">[</span>
+    <span class="ss">neovim-config</span> <span class="o">=</span> pkgs<span class="o">.</span>lib<span class="o">.</span>attrsets<span class="o">.</span>updateManyAttrsByPath <span class="p">[</span>
       <span class="p">{</span>
-        <span class="ss">path =</span> <span class="p">[</span><span class="s2">&quot;wrapperArgs&quot;</span><span class="p">];</span>
-        <span class="ss">update =</span> old<span class="p">:</span> old <span class="o">++</span> <span class="p">[</span>
+        <span class="ss">path</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;wrapperArgs&quot;</span><span class="p">];</span>
+        <span class="ss">update</span> <span class="o">=</span> old<span class="p">:</span> old <span class="o">++</span> <span class="p">[</span>
           <span class="s2">&quot;--add-flags&quot;</span> <span class="s2">&quot;--clean&quot;</span>
         <span class="p">];</span>
       <span class="p">}</span>
     <span class="p">]</span> nvim-cfg<span class="p">;</span>
-    <span class="ss">neovim =</span> pkgs<span class="o">.</span>wrapNeovimUnstable pkgs<span class="o">.</span>neovim-unwrapped neovim-config<span class="p">;</span>
+    <span class="ss">neovim</span> <span class="o">=</span> pkgs<span class="o">.</span>wrapNeovimUnstable pkgs<span class="o">.</span>neovim-unwrapped neovim-config<span class="p">;</span>
   <span class="k">in</span> <span class="p">{</span>
-    apps<span class="o">.</span><span class="ss">default =</span> <span class="p">{</span>
-      <span class="ss">type =</span> <span class="s2">&quot;app&quot;</span><span class="p">;</span>
-      <span class="ss">program =</span> <span class="s2">&quot;</span><span class="si">${</span>neovim<span class="si">}</span><span class="s2">/bin/nvim&quot;</span><span class="p">;</span>
+    apps<span class="o">.</span><span class="ss">default</span> <span class="o">=</span> <span class="p">{</span>
+      <span class="ss">type</span> <span class="o">=</span> <span class="s2">&quot;app&quot;</span><span class="p">;</span>
+      <span class="ss">program</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="si">${</span>neovim<span class="si">}</span><span class="s2">/bin/nvim&quot;</span><span class="p">;</span>
     <span class="p">};</span>
   <span class="p">}</span>
 <span class="p">);</span>
@@ -363,9 +367,10 @@ This is why I’m appending <code class="docutils literal notranslate"><span cla
 </ul>
 <p>Unfortunately, after all that I still didn’t end up with the result I was looking for</p>
 <figure class="align-center" id="id1">
-<a class="reference internal image-reference" href="../../../_images/nix-nvim-clean.png"><img alt="../../../_images/nix-nvim-clean.png" src="../../../_images/nix-nvim-clean.png" style="width: 50%;" /></a>
+<a class="reference internal image-reference" href="../../../_images/nix-nvim-clean.png"><img alt="../../../_images/nix-nvim-clean.png" src="../../../_images/nix-nvim-clean.png" style="width: 50%;" />
+</a>
 <figcaption>
-<p><span class="caption-text">No plugins, but also note no line numbers 😢</span><a class="headerlink" href="#id1" title="Permalink to this image">¶</a></p>
+<p><span class="caption-text">No plugins, but also note no line numbers 😢</span><a class="headerlink" href="#id1" title="Link to this image">¶</a></p>
 </figcaption>
 </figure>
 <p>Not only does the <code class="docutils literal notranslate"><span class="pre">--clean</span></code> flag prevent neovim from loading the plugins in my home folder, it also stopped neovim from loading the contents of my <code class="docutils literal notranslate"><span class="pre">customRC</span></code> - something I would’ve found out if I’d actually read the help text for <code class="docutils literal notranslate"><span class="pre">--clean</span></code> itself</p>
@@ -424,7 +429,7 @@ Using the nix repl you can load your flake and inspect the values it contains.</
 The store path for the <code class="docutils literal notranslate"><span class="pre">init.vim</span></code> file is only generated in the depths of the <code class="docutils literal notranslate"><span class="pre">wrapNeovimUnstable</span></code> as it is written to disk and trying to manipulate <code class="docutils literal notranslate"><span class="pre">wrapperArgs</span></code> to extract it isn’t something I’m willing to attempt in Nix just yet!</p>
 </section>
 <section id="a-new-approach">
-<h3>A New Approach<a class="headerlink" href="#a-new-approach" title="Permalink to this heading">¶</a></h3>
+<h3>A New Approach<a class="headerlink" href="#a-new-approach" title="Link to this heading">¶</a></h3>
 <p>It was at this point I started looking around to see what other people have come up with and before long I found
 <a class="reference external" href="https://www.reddit.com/r/neovim/comments/v45zkv/any_solution_for_isolated_neovimvim_environments/">this reddit thread</a>
 which linked
@@ -434,33 +439,33 @@ Not only did it provide a way of creating an isolated config but it also showed 
 <p>Following its example I was able to come up with the following definition</p>
 <div class="highlight-nix notranslate"><div class="highlight"><pre><span></span>utils<span class="o">.</span>lib<span class="o">.</span>eachDefaultSystem <span class="p">(</span>system<span class="p">:</span>
   <span class="k">let</span>
-    <span class="ss">pkgs =</span> <span class="nb">import</span> nixpkgs <span class="p">{</span> <span class="k">inherit</span> system <span class="p">;</span> <span class="p">};</span>
-    <span class="ss">initVim =</span> <span class="s1">&#39;&#39;</span>
-<span class="s1">      set number</span>
-<span class="s1">    &#39;&#39;</span><span class="p">;</span>
-    <span class="ss">paths =</span> pkgs<span class="o">.</span>lib<span class="o">.</span>makeBinPath <span class="p">[</span>
+    <span class="ss">pkgs</span> <span class="o">=</span> <span class="nb">import</span> nixpkgs <span class="p">{</span> <span class="k">inherit</span> system <span class="p">;</span> <span class="p">};</span>
+    <span class="ss">initVim</span> <span class="o">=</span> <span class="s s-Multiline">&#39;&#39;</span>
+<span class="s s-Multiline">      set number</span>
+<span class="s s-Multiline">    &#39;&#39;</span><span class="p">;</span>
+    <span class="ss">paths</span> <span class="o">=</span> pkgs<span class="o">.</span>lib<span class="o">.</span>makeBinPath <span class="p">[</span>
       pkgs<span class="o">.</span>neovim
     <span class="p">];</span>
-    <span class="ss">pluginList =</span> <span class="k">with</span> pkgs<span class="o">.</span>vimPlugins<span class="p">;</span> <span class="p">[</span>
+    <span class="ss">pluginList</span> <span class="o">=</span> <span class="k">with</span> pkgs<span class="o">.</span>vimPlugins<span class="p">;</span> <span class="p">[</span>
       nvim-lspconfig
     <span class="p">];</span>
-    <span class="ss">plugins =</span> pkgs<span class="o">.</span>stdenv<span class="o">.</span>mkDerivation <span class="p">{</span>
-      <span class="ss">name =</span> <span class="s2">&quot;esbonio-nvim-plugins&quot;</span><span class="p">;</span>
-      <span class="ss">buildCommand =</span> <span class="s1">&#39;&#39;</span>
-<span class="s1">        mkdir -p $out/nvim/site/pack/plugins/start/</span>
-<span class="s1">        </span><span class="si">${</span>pkgs<span class="o">.</span>lib<span class="o">.</span>concatMapStringsSep <span class="s2">&quot;</span><span class="se">\</span><span class="s2">n&quot;</span> <span class="p">(</span>path<span class="p">:</span> <span class="s2">&quot;ln -s </span><span class="si">${</span>path<span class="si">}</span><span class="s2"> $out/nvim/site/pack/plugins/start/&quot;</span><span class="p">)</span>  pluginList <span class="si">}</span>
-<span class="s1">      &#39;&#39;</span><span class="p">;</span>
+    <span class="ss">plugins</span> <span class="o">=</span> pkgs<span class="o">.</span>stdenv<span class="o">.</span>mkDerivation <span class="p">{</span>
+      <span class="ss">name</span> <span class="o">=</span> <span class="s2">&quot;esbonio-nvim-plugins&quot;</span><span class="p">;</span>
+      <span class="ss">buildCommand</span> <span class="o">=</span> <span class="s s-Multiline">&#39;&#39;</span>
+<span class="s s-Multiline">        mkdir -p $out/nvim/site/pack/plugins/start/</span>
+<span class="s s-Multiline">        </span><span class="si">${</span>pkgs<span class="o">.</span>lib<span class="o">.</span>concatMapStringsSep <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span> <span class="p">(</span>path<span class="p">:</span> <span class="s2">&quot;ln -s </span><span class="si">${</span>path<span class="si">}</span><span class="s2"> $out/nvim/site/pack/plugins/start/&quot;</span><span class="p">)</span>  pluginList <span class="si">}</span>
+<span class="s s-Multiline">      &#39;&#39;</span><span class="p">;</span>
     <span class="p">};</span>
-    <span class="ss">neovim =</span> pkgs<span class="o">.</span>writeShellScriptBin <span class="s2">&quot;nvim&quot;</span> <span class="s1">&#39;&#39;</span>
-<span class="s1">      export PATH=</span><span class="si">${</span>paths<span class="si">}</span><span class="s1">:$PATH</span>
-<span class="s1">      export XDG_CONFIG_DIRS=</span>
-<span class="s1">      export XDG_DATA_DIRS=</span><span class="si">${</span>plugins<span class="o">.</span>outPath<span class="si">}</span>
-<span class="s1">      nvim --clean --cmd source </span><span class="si">${</span>pkgs<span class="o">.</span>writeText <span class="s2">&quot;init.vim&quot;</span> initVim<span class="si">}</span><span class="s1"> &quot;$@&quot;</span>
-<span class="s1">    &#39;&#39;</span><span class="p">;</span>
+    <span class="ss">neovim</span> <span class="o">=</span> pkgs<span class="o">.</span>writeShellScriptBin <span class="s2">&quot;nvim&quot;</span> <span class="s s-Multiline">&#39;&#39;</span>
+<span class="s s-Multiline">      export PATH=</span><span class="si">${</span>paths<span class="si">}</span><span class="s s-Multiline">:$PATH</span>
+<span class="s s-Multiline">      export XDG_CONFIG_DIRS=</span>
+<span class="s s-Multiline">      export XDG_DATA_DIRS=</span><span class="si">${</span>plugins<span class="o">.</span>outPath<span class="si">}</span>
+<span class="s s-Multiline">      nvim --clean --cmd source </span><span class="si">${</span>pkgs<span class="o">.</span>writeText <span class="s2">&quot;init.vim&quot;</span> initVim<span class="si">}</span><span class="s s-Multiline"> &quot;$@&quot;</span>
+<span class="s s-Multiline">    &#39;&#39;</span><span class="p">;</span>
   <span class="k">in</span> <span class="p">{</span>
-     apps<span class="o">.</span><span class="ss">default =</span> <span class="p">{</span>
-       <span class="ss">type =</span> <span class="s2">&quot;app&quot;</span><span class="p">;</span>
-       <span class="ss">program =</span> <span class="s2">&quot;</span><span class="si">${</span>neovim<span class="si">}</span><span class="s2">/bin/nvim&quot;</span><span class="p">;</span>
+     apps<span class="o">.</span><span class="ss">default</span> <span class="o">=</span> <span class="p">{</span>
+       <span class="ss">type</span> <span class="o">=</span> <span class="s2">&quot;app&quot;</span><span class="p">;</span>
+       <span class="ss">program</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="si">${</span>neovim<span class="si">}</span><span class="s2">/bin/nvim&quot;</span><span class="p">;</span>
      <span class="p">};</span>
    <span class="p">}</span>
 <span class="p">);</span>
@@ -468,16 +473,17 @@ Not only did it provide a way of creating an isolated config but it also showed 
 </div>
 <p>And trying <code class="docutils literal notranslate"><span class="pre">nix</span> <span class="pre">run</span> <span class="pre">.</span></code> once more</p>
 <figure class="align-center" id="id2">
-<a class="reference internal image-reference" href="../../../_images/nix-nvim-isolated.png"><img alt="../../../_images/nix-nvim-isolated.png" src="../../../_images/nix-nvim-isolated.png" style="width: 50%;" /></a>
+<a class="reference internal image-reference" href="../../../_images/nix-nvim-isolated.png"><img alt="../../../_images/nix-nvim-isolated.png" src="../../../_images/nix-nvim-isolated.png" style="width: 50%;" />
+</a>
 <figcaption>
-<p><span class="caption-text">Success!</span><a class="headerlink" href="#id2" title="Permalink to this image">¶</a></p>
+<p><span class="caption-text">Success!</span><a class="headerlink" href="#id2" title="Link to this image">¶</a></p>
 </figcaption>
 </figure>
 <p>Not only did I end up with the correct configuration, the <code class="docutils literal notranslate"><span class="pre">runtimepath</span></code> finally contains just the paths that are necessary!</p>
 </section>
 </section>
 <section id="integrating-esboino">
-<h2>Integrating Esboino<a class="headerlink" href="#integrating-esboino" title="Permalink to this heading">¶</a></h2>
+<h2>Integrating Esboino<a class="headerlink" href="#integrating-esboino" title="Link to this heading">¶</a></h2>
 <p>Next we need to make sure the esbonio language server is available in this environment and include the necessary configuration for it in the config.</p>
 <p>Including the server should be pretty straightforward as we get to reuse the overlay defined <a class="reference internal" href="../nix-overlays-p2/"><span class="doc">previously</span></a>.</p>
 <div class="highlight-diff notranslate"><div class="highlight"><pre><span></span><span class="w"> </span> inputs = {
@@ -534,7 +540,7 @@ Not only did it provide a way of creating an isolated config but it also showed 
 <p>The overlay exported by the language server’s flake doesn’t include its dependency <code class="docutils literal notranslate"><span class="pre">pytest-lsp</span></code> which is provided through an overlay of its own.
 A quick “fix” would be to also pull in the flake for pytest-lsp, but really the language server’s flake should be exporting all of its dependencies.</p>
 <section id="composing-overlays">
-<h3>Composing Overlays<a class="headerlink" href="#composing-overlays" title="Permalink to this heading">¶</a></h3>
+<h3>Composing Overlays<a class="headerlink" href="#composing-overlays" title="Link to this heading">¶</a></h3>
 <p>Thankfully, nixpkgs provides a function
 <a class="reference external" href="https://github.com/NixOS/nixpkgs/blob/3eb57ca9451406a7131f54b8a90b82462ad89252/lib/fixed-points.nix#L86">composeManyExtensions</a>
 that handles this for us.
@@ -558,9 +564,10 @@ When exporting the overlay from within the language server’s flake we can use 
 </div>
 <p>Now trying <code class="docutils literal notranslate"><span class="pre">nix</span> <span class="pre">run</span> <span class="pre">.</span></code> again neovim launches as before, running the command <code class="docutils literal notranslate"><span class="pre">:r</span> <span class="pre">!python</span> <span class="pre">-m</span> <span class="pre">esbonio</span> <span class="pre">--help</span></code> we can verify that the language server is indeed available to the editor.</p>
 <figure class="align-center" id="id3">
-<a class="reference internal image-reference" href="../../../_images/nix-nvim-esbonio-help.png"><img alt="../../../_images/nix-nvim-esbonio-help.png" src="../../../_images/nix-nvim-esbonio-help.png" style="width: 50%;" /></a>
+<a class="reference internal image-reference" href="../../../_images/nix-nvim-esbonio-help.png"><img alt="../../../_images/nix-nvim-esbonio-help.png" src="../../../_images/nix-nvim-esbonio-help.png" style="width: 50%;" />
+</a>
 <figcaption>
-<p><span class="caption-text">Almost there!</span><a class="headerlink" href="#id3" title="Permalink to this image">¶</a></p>
+<p><span class="caption-text">Almost there!</span><a class="headerlink" href="#id3" title="Link to this image">¶</a></p>
 </figcaption>
 </figure>
 <div class="admonition-editor-s-note admonition">
@@ -573,7 +580,7 @@ a Python interpreter meaning that <code class="docutils literal notranslate"><sp
 </div>
 </section>
 <section id="configuring-neovim">
-<h3>Configuring Neovim<a class="headerlink" href="#configuring-neovim" title="Permalink to this heading">¶</a></h3>
+<h3>Configuring Neovim<a class="headerlink" href="#configuring-neovim" title="Link to this heading">¶</a></h3>
 <p>Now all that’s left to do is updating our <code class="docutils literal notranslate"><span class="pre">initVim</span></code> variable to contain the relevant configuration for the language server.
 Thanks to the
 <a class="reference external" href="https://swyddfa.github.io/esbonio/docs/latest/en/lsp/getting-started.html?editor=neovim-lspconfig#examples">example configuration</a>
@@ -595,15 +602,16 @@ function.</p>
 </div>
 <p>And try opening a Sphinx project with it</p>
 <figure class="align-center" id="id4">
-<a class="reference internal image-reference" href="../../../_images/nix-nvim-esbonio-minimal.png"><img alt="../../../_images/nix-nvim-esbonio-minimal.png" src="../../../_images/nix-nvim-esbonio-minimal.png" style="width: 50%;" /></a>
+<a class="reference internal image-reference" href="../../../_images/nix-nvim-esbonio-minimal.png"><img alt="../../../_images/nix-nvim-esbonio-minimal.png" src="../../../_images/nix-nvim-esbonio-minimal.png" style="width: 50%;" />
+</a>
 <figcaption>
-<p><span class="caption-text">It’s not pretty, but it works!</span><a class="headerlink" href="#id4" title="Permalink to this image">¶</a></p>
+<p><span class="caption-text">It’s not pretty, but it works!</span><a class="headerlink" href="#id4" title="Link to this image">¶</a></p>
 </figcaption>
 </figure>
 </section>
 </section>
 <section id="wrapping-up">
-<h2>Wrapping Up<a class="headerlink" href="#wrapping-up" title="Permalink to this heading">¶</a></h2>
+<h2>Wrapping Up<a class="headerlink" href="#wrapping-up" title="Link to this heading">¶</a></h2>
 <p>The experience as is currently stands is not that inspiring however, with the nix foundations laid it’s now more of a configuring neovim problem rather than a nix one!
 I am mildly disappointed that this required to dive so deep on the specifics of how neovim is configured, since that probably means you’d have to go to a similar depth to incorporate other editors.
 That said, once you’ve solved it for a given editor it’s probably solved “forever”.</p>
@@ -649,7 +657,7 @@ That said, once you’ve solved it for a given editor it’s probably solved “
                             Page Source
                         </a>
                     </span>
-                    <span>Built with <a class="text-green-600" href="https://www.sphinx-doc.org/en/master/">Sphinx</a> v5.3.0</span>
+                    <span>Built with <a class="text-green-600" href="https://www.sphinx-doc.org/en/master/">Sphinx</a> v8.0.2</span>
                 </div>
             </footer>
         </main>

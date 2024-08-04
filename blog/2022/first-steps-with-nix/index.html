@@ -1,35 +1,31 @@
-
 <!DOCTYPE html>
 
-<html lang="en">
+<html lang="en" data-content_root="../../../">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
     <title>My First Steps with Nix &#8212; Alex Carney</title>
 
     
-    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=92c9d732" />
     
     
     
-    <link id="pygments_dark_css" media="(prefers-color-scheme: dark)" rel="stylesheet" type="text/css" href="../../../_static/pygments_dark.css" />
+    <link id="pygments_dark_css" media="(prefers-color-scheme: dark)" rel="stylesheet" type="text/css" href="../../../_static/pygments_dark.css?v=8f9ffe49" />
     
     
-    <link rel="stylesheet" type="text/css" href="../../../_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/sphinx-design.min.css?v=95c83b7e" />
     
     
-    <link rel="stylesheet" type="text/css" href="../../../_static/css/styles.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/css/styles.css?v=7c0862aa" />
     
 
-    <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
-    <script src="../../../_static/jquery.js"></script>
-    <script src="../../../_static/underscore.js"></script>
-    <script src="../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
-    <script src="../../../_static/doctools.js"></script>
-    <script src="../../../_static/sphinx_highlight.js"></script>
-    <script src="../../../_static/design-tabs.js"></script>
-    <link rel="shortcut icon" href="../../../_static/favicon.ico"/>
+    <script src="../../../_static/documentation_options.js?v=187304be"></script>
+    <script src="../../../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../../_static/design-tabs.js?v=f930bc37"></script>
+    <link rel="icon" href="../../../_static/favicon.ico"/>
     <link rel="index" title="Index" href="../../../genindex/" />
     <link rel="search" title="Search" href="../../../search/" /> 
   </head><body class="flex flex-col justify-between min-h-screen overflow-x-hidden bg-gray-100 dark:bg-gray-900">
@@ -44,18 +40,28 @@
     <h2 class=""><a href="/">Alex Carney</a></h2>
 </div>
 
-                    <div id="searchbox" style="display: none" role="search" class="px-4 py-4">
-    <form class="flex justify-between px-2 py-1 bg-gray-100 border-2 rounded search dark:bg-gray-900 focus-within:border-green-600 dark:border-gray-600" action="../../../search/" method="get">
-        <label class="mr-2 text-gray-500" for="sbox">
-            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="feather feather-search">
-                <circle cx="11" cy="11" r="6" />
-                <path d="m21 21-4.35-4.35" />
-            </svg>
-        </label>
-        <input id="sbox" class="flex-grow bg-gray-100 dark:text-white dark:bg-gray-900 focus:outline-none" type="search" name="q" placeholder="Search..." aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" />
-    </form>
+                    
+<div id="searchbox" style="display: none" role="search" class="px-4 py-4">
+  <form class="flex justify-between px-2 py-1 bg-gray-100 border-2 rounded search dark:bg-gray-900 focus-within:border-green-600 dark:border-gray-600" action="../../../search/" method="get">
+    <label class="mr-2 text-gray-500" for="sbox">
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="feather feather-search">
+        <circle cx="11" cy="11" r="6" />
+        <path d="m21 21-4.35-4.35" />
+      </svg>
+    </label>
+    <input class="flex-grow bg-gray-100 w-full dark:text-white dark:bg-gray-900 focus:outline-none"
+           type="search"
+           name="q"
+           aria-labelledby="searchlabel"
+           autocomplete="off"
+           autocorrect="off"
+           autocapitalize="off"
+           spellcheck="false"
+           placeholder="Search"
+           />
+  </form>
 </div>
-<script>$('#searchbox').show(0);</script>
+<script>document.getElementById('searchbox').style.display = "block"</script>
 
                     
 
@@ -81,6 +87,12 @@
     <ul class="text-right">
         
         <li class="mb-1">
+            <a href="../../tag/nix/" class="px-2 my-1 text-green-600 border border-green-600 rounded bg-green-50 dark:bg-green-900 dark:text-green-200">
+                #nix
+            </a>
+        </li>
+        
+        <li class="mb-1">
             <a href="../../tag/esbonio/" class="px-2 my-1 text-green-600 border border-green-600 rounded bg-green-50 dark:bg-green-900 dark:text-green-200">
                 #esbonio
             </a>
@@ -89,12 +101,6 @@
         <li class="mb-1">
             <a href="../../tag/python/" class="px-2 my-1 text-green-600 border border-green-600 rounded bg-green-50 dark:bg-green-900 dark:text-green-200">
                 #python
-            </a>
-        </li>
-        
-        <li class="mb-1">
-            <a href="../../tag/nix/" class="px-2 my-1 text-green-600 border border-green-600 rounded bg-green-50 dark:bg-green-900 dark:text-green-200">
-                #nix
             </a>
         </li>
         
@@ -174,7 +180,7 @@
 
 <article class="p-4 prose-sm prose bg-white dark:bg-gray-800 border prose-md prose-emerald max-w-none dark:prose-invert dark:border-gray-600">
     <section id="my-first-steps-with-nix">
-<h1>My First Steps with Nix<a class="headerlink" href="#my-first-steps-with-nix" title="Permalink to this heading">¶</a></h1>
+<h1>My First Steps with Nix<a class="headerlink" href="#my-first-steps-with-nix" title="Link to this heading">¶</a></h1>
 <p>Nix, depending on the context, can refer to a <a class="reference external" href="https://nixos.org/manual/nix/stable/language/index.html">programming language</a>, a <a class="reference external" href="https://nixos.org/manual/nixpkgs/stable/#preface">package manager</a> or a <a class="reference external" href="https://nixos.org/manual/nixos/stable/#sec-installation">Linux Distro</a>.</p>
 <p>Personally, I’m most insterested in the package manager aspect and the promise of it being able to create declarative, reproducable development environments.
 With a configuration file and the <a class="reference external" href="https://nixos.org/manual/nix/stable/command-ref/new-cli/nix3-develop.html">nix develop</a> command you can activate a kind of “virtual environment” that contains not just your Python packages - but <em>any</em> program defined by the configuration!</p>
@@ -182,7 +188,7 @@ With a configuration file and the <a class="reference external" href="https://ni
 Having the ability to define a particular configuration and have some tool automatically recreate it would be amazing.</p>
 <p>But I’m getting ahead of myself, let’s see if I can get to a point where I can easily test <code class="docutils literal notranslate"><span class="pre">esbonio</span></code> against a range of Python versions.</p>
 <section id="intalling-nix">
-<h2>Intalling Nix<a class="headerlink" href="#intalling-nix" title="Permalink to this heading">¶</a></h2>
+<h2>Intalling Nix<a class="headerlink" href="#intalling-nix" title="Link to this heading">¶</a></h2>
 <p>What a nightmare! 😭</p>
 <p>I should say though, my issues aren’t really Nix’s fault.
 Trying to install Nix directly on <a class="reference external" href="https://kinoite.fedoraproject.org/">Fedora Kinoite</a> means dealing with issues caused by SELinux (which the Nix installer does <a class="reference external" href="https://github.com/NixOS/nix/issues/2374">not support</a>) and working around the immutable root filesystem.</p>
@@ -208,7 +214,7 @@ Use <code class="docutils literal notranslate"><span class="pre">systemctl</span
 </ul>
 </section>
 <section id="a-simple-flake">
-<h2>A Simple Flake<a class="headerlink" href="#a-simple-flake" title="Permalink to this heading">¶</a></h2>
+<h2>A Simple Flake<a class="headerlink" href="#a-simple-flake" title="Link to this heading">¶</a></h2>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>I’m not the best person to learn how to use Nix from - I’m still trying to figure it out myself!
@@ -221,20 +227,20 @@ Instead here are a few resources that I’ve found useful which go into more det
 <p>From what I can gather, <a class="reference external" href="https://nixos.wiki/wiki/Flakes">flakes</a> are a good starting point as they have a well defined structure and seem to be where things are going when it comes to Nix based workflows.</p>
 <p>As mentioned in the intro I’d like to get to the point where I can easily test <code class="docutils literal notranslate"><span class="pre">esbonio</span></code> against a range of Python versions, so let’s start off by writing a <code class="docutils literal notranslate"><span class="pre">flake.nix</span></code> that provides a <code class="docutils literal notranslate"><span class="pre">devShell</span></code> containing Python.</p>
 <div class="highlight-nix notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
-  <span class="ss">description =</span> <span class="s2">&quot;The Esbonio language server&quot;</span><span class="p">;</span>
+  <span class="ss">description</span> <span class="o">=</span> <span class="s2">&quot;The Esbonio language server&quot;</span><span class="p">;</span>
 
-  <span class="ss">inputs =</span> <span class="p">{</span>
-    nixpkgs<span class="o">.</span><span class="ss">url =</span> <span class="s2">&quot;github:NixOS/nixpkgs/nixpkgs-unstable&quot;</span><span class="p">;</span>
-    utils<span class="o">.</span><span class="ss">url =</span> <span class="s2">&quot;github:numtide/flake-utils&quot;</span><span class="p">;</span>
+  <span class="ss">inputs</span> <span class="o">=</span> <span class="p">{</span>
+    nixpkgs<span class="o">.</span><span class="ss">url</span> <span class="o">=</span> <span class="s2">&quot;github:NixOS/nixpkgs/nixpkgs-unstable&quot;</span><span class="p">;</span>
+    utils<span class="o">.</span><span class="ss">url</span> <span class="o">=</span> <span class="s2">&quot;github:numtide/flake-utils&quot;</span><span class="p">;</span>
   <span class="p">};</span>
 
-  <span class="ss">outputs =</span> <span class="p">{</span> self<span class="p">,</span> nixpkgs<span class="p">,</span> utils <span class="p">}:</span>
+  <span class="ss">outputs</span> <span class="o">=</span> <span class="p">{</span> self<span class="p">,</span> nixpkgs<span class="p">,</span> utils <span class="p">}:</span>
     utils<span class="o">.</span>lib<span class="o">.</span>eachDefaultSystem <span class="p">(</span>system<span class="p">:</span>
-      <span class="k">let</span> <span class="ss">pkgs =</span> <span class="nb">import</span> nixpkgs <span class="p">{</span> <span class="k">inherit</span> system<span class="p">;</span> <span class="p">};</span> <span class="k">in</span> <span class="p">{</span>
+      <span class="k">let</span> <span class="ss">pkgs</span> <span class="o">=</span> <span class="nb">import</span> nixpkgs <span class="p">{</span> <span class="k">inherit</span> system<span class="p">;</span> <span class="p">};</span> <span class="k">in</span> <span class="p">{</span>
 
-      <span class="ss">devShell =</span> <span class="k">with</span> pkgs<span class="p">;</span>
+      <span class="ss">devShell</span> <span class="o">=</span> <span class="k">with</span> pkgs<span class="p">;</span>
          mkShell <span class="p">{</span>
-            <span class="ss">packages =</span> <span class="p">[</span> python3 <span class="p">];</span>
+            <span class="ss">packages</span> <span class="o">=</span> <span class="p">[</span> python3 <span class="p">];</span>
          <span class="p">};</span>
       <span class="p">}</span>
    <span class="p">);</span>
@@ -279,16 +285,16 @@ Nix is smart enough to choose the one compatible with our current system and wil
 </div>
 </section>
 <section id="adding-python-packages">
-<h2>Adding Python Packages<a class="headerlink" href="#adding-python-packages" title="Permalink to this heading">¶</a></h2>
+<h2>Adding Python Packages<a class="headerlink" href="#adding-python-packages" title="Link to this heading">¶</a></h2>
 <p>Of course, this environment isn’t that useful at the moment as any of the packages required for <code class="docutils literal notranslate"><span class="pre">esbonio</span></code> and its test suite are not available</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp gp-VirtualEnv">(nix-shell)</span> <span class="gp">$ </span>pytest
 <span class="go">bash: pytest: command not found</span>
 </pre></div>
 </div>
 <p>If we’re lucky, the packages we need are already part of <a class="reference external" href="https://github.com/NixOS/nixpkgs">nixpkgs</a> and we just need to add them to the devShell’s <code class="docutils literal notranslate"><span class="pre">packages</span></code>.</p>
-<div class="highlight-nix notranslate"><div class="highlight"><pre><span></span><span class="ss">devShell =</span> <span class="k">with</span> pkgs<span class="p">;</span>
+<div class="highlight-nix notranslate"><div class="highlight"><pre><span></span><span class="ss">devShell</span> <span class="o">=</span> <span class="k">with</span> pkgs<span class="p">;</span>
   mkShell <span class="p">{</span>
-    <span class="ss">packages =</span> <span class="p">[</span>
+    <span class="ss">packages</span> <span class="o">=</span> <span class="p">[</span>
       python3
 
       <span class="c1"># esbonio&#39;s dependencies</span>
@@ -326,26 +332,26 @@ It should however, be relatively straightforward to package it ourselves, especi
 <span class="p">{</span> pythonPackages <span class="p">}:</span>
 
 pythonPackages<span class="o">.</span>buildPythonPackage <span class="k">rec</span> <span class="p">{</span>
-  <span class="ss">pname =</span> <span class="s2">&quot;pytest-lsp&quot;</span><span class="p">;</span>
-  <span class="ss">version =</span> <span class="s2">&quot;0.1.3&quot;</span><span class="p">;</span>
+  <span class="ss">pname</span> <span class="o">=</span> <span class="s2">&quot;pytest-lsp&quot;</span><span class="p">;</span>
+  <span class="ss">version</span> <span class="o">=</span> <span class="s2">&quot;0.1.3&quot;</span><span class="p">;</span>
 
-  <span class="ss">src =</span> pythonPackages<span class="o">.</span>fetchPypi <span class="p">{</span>
+  <span class="ss">src</span> <span class="o">=</span> pythonPackages<span class="o">.</span>fetchPypi <span class="p">{</span>
     <span class="k">inherit</span> pname version<span class="p">;</span>
-    <span class="ss">sha256 =</span> <span class="s2">&quot;sha256-WxTh9G3tWyGzYx1uHufkwg3hN6jTbRjlGLKJR1eUNtY=&quot;</span><span class="p">;</span>
+    <span class="ss">sha256</span> <span class="o">=</span> <span class="s2">&quot;sha256-WxTh9G3tWyGzYx1uHufkwg3hN6jTbRjlGLKJR1eUNtY=&quot;</span><span class="p">;</span>
   <span class="p">};</span>
 
-  <span class="ss">buildInputs =</span> <span class="p">[</span>
+  <span class="ss">buildInputs</span> <span class="o">=</span> <span class="p">[</span>
     pythonPackages<span class="o">.</span>appdirs
     pythonPackages<span class="o">.</span>pygls
     pythonPackages<span class="o">.</span>pytest
   <span class="p">];</span>
 
-  <span class="ss">propagatedBuildInputs =</span> <span class="p">[</span>
+  <span class="ss">propagatedBuildInputs</span> <span class="o">=</span> <span class="p">[</span>
     pythonPackages<span class="o">.</span>pytest-asyncio
   <span class="p">];</span>
 
   <span class="c1"># Disable tests</span>
-  <span class="ss">doCheck =</span> <span class="no">false</span><span class="p">;</span>
+  <span class="ss">doCheck</span> <span class="o">=</span> <span class="no">false</span><span class="p">;</span>
 <span class="p">}</span>
 </pre></div>
 </div>
@@ -359,12 +365,12 @@ This is what allows this definition to be used with multiple Python versions lat
 <p>Then, to use this package definition in our <code class="docutils literal notranslate"><span class="pre">flake.nix</span></code> file we use the <code class="docutils literal notranslate"><span class="pre">callPackage</span></code> function and pass it the correct python package set.</p>
 <div class="highlight-nix notranslate" id="first-steps-nix-call-pytest-lsp"><div class="highlight"><pre><span></span><span class="c1"># In ./flake.nix</span>
 <span class="k">let</span>
-   <span class="ss">pkgs =</span> <span class="nb">import</span> nixpkgs <span class="p">{</span> <span class="k">inherit</span> system<span class="p">;</span> <span class="p">};</span>
-   <span class="ss">pytest-lsp =</span> pkgs<span class="o">.</span>callPackage <span class="o">.</span><span class="l">/nix/pytest-lsp.nix</span> <span class="p">{</span> <span class="ss">pythonPackages =</span> pkgs<span class="o">.</span>python3Packages<span class="p">;</span> <span class="p">};</span>
+   <span class="ss">pkgs</span> <span class="o">=</span> <span class="nb">import</span> nixpkgs <span class="p">{</span> <span class="k">inherit</span> system<span class="p">;</span> <span class="p">};</span>
+   <span class="ss">pytest-lsp</span> <span class="o">=</span> pkgs<span class="o">.</span>callPackage <span class="l">./nix/pytest-lsp.nix</span> <span class="p">{</span> <span class="ss">pythonPackages</span> <span class="o">=</span> pkgs<span class="o">.</span>python3Packages<span class="p">;</span> <span class="p">};</span>
 <span class="k">in</span> <span class="p">{</span>
-   <span class="ss">devShell =</span> <span class="k">with</span> pkgs<span class="p">;</span>
+   <span class="ss">devShell</span> <span class="o">=</span> <span class="k">with</span> pkgs<span class="p">;</span>
      mkShell <span class="p">{</span>
-       <span class="ss">packages =</span> <span class="p">[</span>
+       <span class="ss">packages</span> <span class="o">=</span> <span class="p">[</span>
          <span class="c1"># ...</span>
          pytest-lsp
        <span class="p">];</span>
@@ -395,7 +401,7 @@ This is what allows this definition to be used with multiple Python versions lat
 <p>Ah… looks like we have to package <code class="docutils literal notranslate"><span class="pre">esbonio</span></code> itself, but we already know how to do that, aside from dependencies the only major difference is where we fetch the sources from.</p>
 <div class="highlight-nix notranslate"><div class="highlight"><pre><span></span><span class="c1"># In ./nix/esbonio.nix</span>
 
-<span class="ss">src =</span> <span class="o">.</span><span class="l">/..</span>
+<span class="ss">src</span> <span class="o">=</span> <span class="l">./..</span>
 </pre></div>
 </div>
 <p>Now we should have everything setup correctly! 🤞</p>
@@ -414,7 +420,7 @@ This is what allows this definition to be used with multiple Python versions lat
 <p>Success!</p>
 </section>
 <section id="multiple-python-versions">
-<span id="first-steps-nix-multiple-python-versions"></span><h2>Multiple Python Versions<a class="headerlink" href="#multiple-python-versions" title="Permalink to this heading">¶</a></h2>
+<span id="first-steps-nix-multiple-python-versions"></span><h2>Multiple Python Versions<a class="headerlink" href="#multiple-python-versions" title="Link to this heading">¶</a></h2>
 <p>Switching to a Nix-ish style of pseudo code for a moment, let’s summarize how our flake is currently defined.
 We defined a function which takes a <code class="docutils literal notranslate"><span class="pre">system</span></code> and produces an attribute set (think Python dictionary) with a <code class="docutils literal notranslate"><span class="pre">devShell</span></code> field</p>
 <div class="highlight-none notranslate"><div class="highlight"><pre><span></span>f(system) = { devShell = &lt;devShell for system&gt; }
@@ -450,8 +456,8 @@ This calls our function with each of the <a class="reference external" href="htt
 </div>
 <p>That’s the idea at least, now to translate it into real Nix code.</p>
 <p>Thankfully, finding an implementation for <code class="docutils literal notranslate"><span class="pre">mysteryHelper</span></code> isn’t too difficult as the <code class="docutils literal notranslate"><span class="pre">flake-utils</span></code> repo provides <code class="docutils literal notranslate"><span class="pre">eachDefaultSystemMap</span></code> which does precisely what we want.</p>
-<div class="highlight-nix notranslate"><div class="highlight"><pre><span></span><span class="ss">outputs =</span> <span class="p">{</span> self<span class="p">,</span> nixpkgs<span class="p">,</span> utils <span class="p">}:</span>
-  <span class="ss">devShells =</span> utils<span class="o">.</span>lib<span class="o">.</span>eachDefaultSystemMap <span class="p">(</span>system<span class="p">:</span>
+<div class="highlight-nix notranslate"><div class="highlight"><pre><span></span><span class="ss">outputs</span> <span class="o">=</span> <span class="p">{</span> self<span class="p">,</span> nixpkgs<span class="p">,</span> utils <span class="p">}:</span>
+  <span class="ss">devShells</span> <span class="o">=</span> utils<span class="o">.</span>lib<span class="o">.</span>eachDefaultSystemMap <span class="p">(</span>system<span class="p">:</span>
     f system<span class="p">;</span>
   <span class="p">);</span>
 </pre></div>
@@ -471,30 +477,30 @@ Unfortunately, this transformation only works when you define a single shell per
 <p>It turns out that the
 <a class="reference external" href="https://github.com/numtide/flake-utils/blob/5aed5285a952e0b949eb3ba02c12fa4fcfef535f/default.nix#L150">implementation</a>
 of <code class="docutils literal notranslate"><span class="pre">eachDefaultSystemMap</span></code> is almost identical to what we need, so it was easy enough to adapt it to this use case.</p>
-<div class="highlight-nix notranslate"><div class="highlight"><pre><span></span><span class="ss">eachPythonVersion =</span> versions<span class="p">:</span> f<span class="p">:</span> <span class="nb">builtins</span><span class="o">.</span>listToAttrs <span class="p">(</span><span class="nb">builtins</span><span class="o">.</span><span class="nb">map</span> <span class="p">(</span>version<span class="p">:</span> <span class="p">{</span> <span class="ss">name =</span> <span class="s2">&quot;py</span><span class="si">${</span>version<span class="si">}</span><span class="s2">&quot;</span><span class="p">;</span> <span class="ss">value =</span> f version<span class="p">;</span> <span class="p">})</span> versions<span class="p">);</span>
+<div class="highlight-nix notranslate"><div class="highlight"><pre><span></span><span class="ss">eachPythonVersion</span> <span class="o">=</span> versions<span class="p">:</span> f<span class="p">:</span> <span class="nb">builtins</span><span class="o">.</span>listToAttrs <span class="p">(</span><span class="nb">builtins</span><span class="o">.</span><span class="nb">map</span> <span class="p">(</span>version<span class="p">:</span> <span class="p">{</span> <span class="ss">name</span> <span class="o">=</span> <span class="s2">&quot;py</span><span class="si">${</span>version<span class="si">}</span><span class="s2">&quot;</span><span class="p">;</span> <span class="ss">value</span> <span class="o">=</span> f version<span class="p">;</span> <span class="p">})</span> versions<span class="p">);</span>
 </pre></div>
 </div>
 <p>Bringing it all together gives us this final flake definition</p>
-<div class="highlight-nix notranslate"><div class="highlight"><pre><span></span><span class="ss">outputs =</span> <span class="p">{</span> self<span class="p">,</span> nixpkgs<span class="p">,</span> utils <span class="p">}:</span>
+<div class="highlight-nix notranslate"><div class="highlight"><pre><span></span><span class="ss">outputs</span> <span class="o">=</span> <span class="p">{</span> self<span class="p">,</span> nixpkgs<span class="p">,</span> utils <span class="p">}:</span>
 
   <span class="k">let</span>
-    <span class="ss">eachPythonVersion =</span> versions<span class="p">:</span> f<span class="p">:</span> <span class="nb">builtins</span><span class="o">.</span>listToAttrs <span class="p">(</span><span class="nb">builtins</span><span class="o">.</span><span class="nb">map</span> <span class="p">(</span>version<span class="p">:</span> <span class="p">{</span><span class="ss">name =</span> <span class="s2">&quot;py</span><span class="si">${</span>version<span class="si">}</span><span class="s2">&quot;</span><span class="p">;</span> <span class="ss">value =</span> f version<span class="p">;</span> <span class="p">})</span> versions<span class="p">);</span>
+    <span class="ss">eachPythonVersion</span> <span class="o">=</span> versions<span class="p">:</span> f<span class="p">:</span> <span class="nb">builtins</span><span class="o">.</span>listToAttrs <span class="p">(</span><span class="nb">builtins</span><span class="o">.</span><span class="nb">map</span> <span class="p">(</span>version<span class="p">:</span> <span class="p">{</span><span class="ss">name</span> <span class="o">=</span> <span class="s2">&quot;py</span><span class="si">${</span>version<span class="si">}</span><span class="s2">&quot;</span><span class="p">;</span> <span class="ss">value</span> <span class="o">=</span> f version<span class="p">;</span> <span class="p">})</span> versions<span class="p">);</span>
   <span class="k">in</span> <span class="p">{</span>
 
-  <span class="ss">devShells =</span> utils<span class="o">.</span>lib<span class="o">.</span>eachDefaultSystemMap <span class="p">(</span>system<span class="p">:</span>
+  <span class="ss">devShells</span> <span class="o">=</span> utils<span class="o">.</span>lib<span class="o">.</span>eachDefaultSystemMap <span class="p">(</span>system<span class="p">:</span>
     <span class="k">let</span>
-      <span class="ss">pkgs =</span> <span class="nb">import</span> nixpkgs <span class="p">{</span> <span class="k">inherit</span> system<span class="p">;</span> <span class="p">};</span>
+      <span class="ss">pkgs</span> <span class="o">=</span> <span class="nb">import</span> nixpkgs <span class="p">{</span> <span class="k">inherit</span> system<span class="p">;</span> <span class="p">};</span>
     <span class="k">in</span>
       eachPythonVersion <span class="p">[</span> <span class="s2">&quot;37&quot;</span> <span class="s2">&quot;38&quot;</span> <span class="s2">&quot;39&quot;</span> <span class="s2">&quot;310&quot;</span> <span class="s2">&quot;311&quot;</span> <span class="p">]</span> <span class="p">(</span>pyVersion<span class="p">:</span>
         <span class="k">let</span>
-          <span class="ss">pytest-lsp =</span> pkgs<span class="o">.</span>callPackage <span class="o">.</span><span class="l">/nix/pytest-lsp.nix</span> <span class="p">{</span> <span class="ss">pythonPackages =</span> pkgs<span class="o">.</span><span class="s2">&quot;python</span><span class="si">${</span>pyVersion<span class="si">}</span><span class="s2">Packages&quot;</span><span class="p">;</span> <span class="p">};</span>
-          <span class="ss">esbonio =</span> pkgs<span class="o">.</span>callPackage <span class="o">.</span><span class="l">/nix/esbonio.nix</span> <span class="p">{</span> <span class="ss">pythonPackages =</span> pkgs<span class="o">.</span><span class="s2">&quot;python</span><span class="si">${</span>pyVersion<span class="si">}</span><span class="s2">Packages&quot;</span><span class="p">;</span> <span class="p">};</span>
+          <span class="ss">pytest-lsp</span> <span class="o">=</span> pkgs<span class="o">.</span>callPackage <span class="l">./nix/pytest-lsp.nix</span> <span class="p">{</span> <span class="ss">pythonPackages</span> <span class="o">=</span> pkgs<span class="o">.</span><span class="s2">&quot;python</span><span class="si">${</span>pyVersion<span class="si">}</span><span class="s2">Packages&quot;</span><span class="p">;</span> <span class="p">};</span>
+          <span class="ss">esbonio</span> <span class="o">=</span> pkgs<span class="o">.</span>callPackage <span class="l">./nix/esbonio.nix</span> <span class="p">{</span> <span class="ss">pythonPackages</span> <span class="o">=</span> pkgs<span class="o">.</span><span class="s2">&quot;python</span><span class="si">${</span>pyVersion<span class="si">}</span><span class="s2">Packages&quot;</span><span class="p">;</span> <span class="p">};</span>
         <span class="k">in</span>
 
         <span class="k">with</span> pkgs<span class="p">;</span> mkShell <span class="p">{</span>
-          <span class="ss">name =</span> <span class="s2">&quot;py</span><span class="si">${</span>pyVersion<span class="si">}</span><span class="s2">&quot;</span><span class="p">;</span>
+          <span class="ss">name</span> <span class="o">=</span> <span class="s2">&quot;py</span><span class="si">${</span>pyVersion<span class="si">}</span><span class="s2">&quot;</span><span class="p">;</span>
 
-          <span class="ss">packages =</span> <span class="p">[</span>
+          <span class="ss">packages</span> <span class="o">=</span> <span class="p">[</span>
             pkgs<span class="o">.</span><span class="s2">&quot;python</span><span class="si">${</span>pyVersion<span class="si">}</span><span class="s2">&quot;</span>
 
             esbonio
@@ -571,7 +577,7 @@ The <code class="docutils literal notranslate"><span class="pre">--command</span
 <p>Achievement unlocked! 🏆</p>
 </section>
 <section id="next-steps">
-<h2>Next Steps<a class="headerlink" href="#next-steps" title="Permalink to this heading">¶</a></h2>
+<h2>Next Steps<a class="headerlink" href="#next-steps" title="Link to this heading">¶</a></h2>
 <p>This was mainly a “Hello, World” type exercise looking to see if I could get Nix up and running in a real project, but so far I haven’t achieved anything you can’t already do with traditional Python tools like <a class="reference external" href="https://tox.wiki/en/latest/index.html">tox</a>.
 However, this should hopefully serve as a good foundation on which I can explore</p>
 <ul class="simple">
@@ -616,7 +622,7 @@ However, this should hopefully serve as a good foundation on which I can explore
                             Page Source
                         </a>
                     </span>
-                    <span>Built with <a class="text-green-600" href="https://www.sphinx-doc.org/en/master/">Sphinx</a> v5.3.0</span>
+                    <span>Built with <a class="text-green-600" href="https://www.sphinx-doc.org/en/master/">Sphinx</a> v8.0.2</span>
                 </div>
             </footer>
         </main>

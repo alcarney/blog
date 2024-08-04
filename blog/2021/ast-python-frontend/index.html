@@ -1,35 +1,31 @@
-
 <!DOCTYPE html>
 
-<html lang="en">
+<html lang="en" data-content_root="../../../">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
     <title>Creating a CPython Extension &#8212; Alex Carney</title>
 
     
-    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=92c9d732" />
     
     
     
-    <link id="pygments_dark_css" media="(prefers-color-scheme: dark)" rel="stylesheet" type="text/css" href="../../../_static/pygments_dark.css" />
+    <link id="pygments_dark_css" media="(prefers-color-scheme: dark)" rel="stylesheet" type="text/css" href="../../../_static/pygments_dark.css?v=8f9ffe49" />
     
     
-    <link rel="stylesheet" type="text/css" href="../../../_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/sphinx-design.min.css?v=95c83b7e" />
     
     
-    <link rel="stylesheet" type="text/css" href="../../../_static/css/styles.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/css/styles.css?v=7c0862aa" />
     
 
-    <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
-    <script src="../../../_static/jquery.js"></script>
-    <script src="../../../_static/underscore.js"></script>
-    <script src="../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
-    <script src="../../../_static/doctools.js"></script>
-    <script src="../../../_static/sphinx_highlight.js"></script>
-    <script src="../../../_static/design-tabs.js"></script>
-    <link rel="shortcut icon" href="../../../_static/favicon.ico"/>
+    <script src="../../../_static/documentation_options.js?v=187304be"></script>
+    <script src="../../../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../../_static/design-tabs.js?v=f930bc37"></script>
+    <link rel="icon" href="../../../_static/favicon.ico"/>
     <link rel="index" title="Index" href="../../../genindex/" />
     <link rel="search" title="Search" href="../../../search/" /> 
   </head><body class="flex flex-col justify-between min-h-screen overflow-x-hidden bg-gray-100 dark:bg-gray-900">
@@ -44,18 +40,28 @@
     <h2 class=""><a href="/">Alex Carney</a></h2>
 </div>
 
-                    <div id="searchbox" style="display: none" role="search" class="px-4 py-4">
-    <form class="flex justify-between px-2 py-1 bg-gray-100 border-2 rounded search dark:bg-gray-900 focus-within:border-green-600 dark:border-gray-600" action="../../../search/" method="get">
-        <label class="mr-2 text-gray-500" for="sbox">
-            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="feather feather-search">
-                <circle cx="11" cy="11" r="6" />
-                <path d="m21 21-4.35-4.35" />
-            </svg>
-        </label>
-        <input id="sbox" class="flex-grow bg-gray-100 dark:text-white dark:bg-gray-900 focus:outline-none" type="search" name="q" placeholder="Search..." aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" />
-    </form>
+                    
+<div id="searchbox" style="display: none" role="search" class="px-4 py-4">
+  <form class="flex justify-between px-2 py-1 bg-gray-100 border-2 rounded search dark:bg-gray-900 focus-within:border-green-600 dark:border-gray-600" action="../../../search/" method="get">
+    <label class="mr-2 text-gray-500" for="sbox">
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="feather feather-search">
+        <circle cx="11" cy="11" r="6" />
+        <path d="m21 21-4.35-4.35" />
+      </svg>
+    </label>
+    <input class="flex-grow bg-gray-100 w-full dark:text-white dark:bg-gray-900 focus:outline-none"
+           type="search"
+           name="q"
+           aria-labelledby="searchlabel"
+           autocomplete="off"
+           autocorrect="off"
+           autocapitalize="off"
+           spellcheck="false"
+           placeholder="Search"
+           />
+  </form>
 </div>
-<script>$('#searchbox').show(0);</script>
+<script>document.getElementById('searchbox').style.display = "block"</script>
 
                     
 
@@ -81,14 +87,14 @@
     <ul class="text-right">
         
         <li class="mb-1">
-            <a href="../../tag/python/" class="px-2 my-1 text-green-600 border border-green-600 rounded bg-green-50 dark:bg-green-900 dark:text-green-200">
-                #python
+            <a href="../../tag/c/" class="px-2 my-1 text-green-600 border border-green-600 rounded bg-green-50 dark:bg-green-900 dark:text-green-200">
+                #c
             </a>
         </li>
         
         <li class="mb-1">
-            <a href="../../tag/c/" class="px-2 my-1 text-green-600 border border-green-600 rounded bg-green-50 dark:bg-green-900 dark:text-green-200">
-                #c
+            <a href="../../tag/python/" class="px-2 my-1 text-green-600 border border-green-600 rounded bg-green-50 dark:bg-green-900 dark:text-green-200">
+                #python
             </a>
         </li>
         
@@ -192,7 +198,7 @@
 
 <article class="p-4 prose-sm prose bg-white dark:bg-gray-800 border prose-md prose-emerald max-w-none dark:prose-invert dark:border-gray-600">
     <section id="creating-a-cpython-extension">
-<h1>Creating a CPython Extension<a class="headerlink" href="#creating-a-cpython-extension" title="Permalink to this heading">¶</a></h1>
+<h1>Creating a CPython Extension<a class="headerlink" href="#creating-a-cpython-extension" title="Link to this heading">¶</a></h1>
 <p><a class="reference internal" href="../../2020/ast-simple-eval/"><span class="doc">Previously</span></a>, as part of my exploration
 into how programming languages are implemented, I wrote a very simple AST
 evaluator that knew how to add and multiply floats together. Since constructing
@@ -203,7 +209,7 @@ compiler/interpreter. However, while I’m definitely interested in parsing I
 don’t quite feel like tackling that just yet. Instead I’m going to have Python
 be the frontend and embed my toy language into it via a <a class="reference external" href="https://docs.python.org/3/extending/extending.html">CPython Extension</a></p>
 <section id="overview">
-<h2>Overview<a class="headerlink" href="#overview" title="Permalink to this heading">¶</a></h2>
+<h2>Overview<a class="headerlink" href="#overview" title="Link to this heading">¶</a></h2>
 <p>Before diving into the detail I think it would be worth keeping in mind what we
 want the end result to be. By the end of this post, we want to have a CPython
 extension that allows us to write normal-ish Python code to construct a
@@ -239,7 +245,7 @@ result back into Python.</p>
 </ul>
 </section>
 <section id="constructing-an-ast-representation">
-<span id="ast-python-frontend-ast-repr"></span><h2>Constructing an AST Representation<a class="headerlink" href="#constructing-an-ast-representation" title="Permalink to this heading">¶</a></h2>
+<span id="ast-python-frontend-ast-repr"></span><h2>Constructing an AST Representation<a class="headerlink" href="#constructing-an-ast-representation" title="Link to this heading">¶</a></h2>
 <p>To represent the AST in Python code we can create a class that captures the same
 information as our <a class="reference internal" href="../../2020/ast-simple-eval/#ast-simple-eval-ast-repr"><span class="std std-ref">AstNode</span></a> struct from the C code</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">AstNode</span><span class="p">:</span>
@@ -324,7 +330,7 @@ directly</p>
 </div>
 </section>
 <section id="setting-up-the-c-extension">
-<span id="ast-python-frontend-ext-setup"></span><h2>Setting up the C Extension<a class="headerlink" href="#setting-up-the-c-extension" title="Permalink to this heading">¶</a></h2>
+<span id="ast-python-frontend-ext-setup"></span><h2>Setting up the C Extension<a class="headerlink" href="#setting-up-the-c-extension" title="Link to this heading">¶</a></h2>
 <p>Using <a class="reference external" href="https://realpython.com/build-python-c-extension-module/">this tutorial</a> from Real Python as a guide I was able
 to get a C Extension up and running surprisingly easily. Be sure to check out
 the article for details but in short I ended up creating the following directory
@@ -397,7 +403,7 @@ called with. Check out the <a class="reference external" href="https://docs.pyth
 </pre></div>
 </div>
 <section id="building-the-extension">
-<h3>Building the Extension<a class="headerlink" href="#building-the-extension" title="Permalink to this heading">¶</a></h3>
+<h3>Building the Extension<a class="headerlink" href="#building-the-extension" title="Link to this heading">¶</a></h3>
 <p>To my surprise, this was the easiest step of them all. Rather than worrying
 about writing a <code class="docutils literal notranslate"><span class="pre">Makefile</span></code> or providing the right flags to link against my
 version of Python, it turns out that <code class="docutils literal notranslate"><span class="pre">setuptools</span></code> takes care of all those
@@ -483,7 +489,7 @@ functions from it just as we would with any other module.</p>
 </section>
 </section>
 <section id="converting-between-python-and-c">
-<span id="ast-python-frontend-conversions"></span><h2>Converting Between Python and C<a class="headerlink" href="#converting-between-python-and-c" title="Permalink to this heading">¶</a></h2>
+<span id="ast-python-frontend-conversions"></span><h2>Converting Between Python and C<a class="headerlink" href="#converting-between-python-and-c" title="Link to this heading">¶</a></h2>
 <p>Now for the fun part! It’s time to write a method for our extension module
 <code class="docutils literal notranslate"><span class="pre">method_eval_ast</span></code> that takes a Python representation of the AST and converts it
 into our C representation before executing it and passing the result back up to
@@ -508,7 +514,7 @@ Python.</p>
 <li><p><a class="reference internal" href="#ast-python-frontend-return"><span class="std std-ref">Returning the Result</span></a></p></li>
 </ul>
 <section id="parsing-function-arguments">
-<span id="ast-python-frontend-function-args"></span><h3>Parsing Function Arguments<a class="headerlink" href="#parsing-function-arguments" title="Permalink to this heading">¶</a></h3>
+<span id="ast-python-frontend-function-args"></span><h3>Parsing Function Arguments<a class="headerlink" href="#parsing-function-arguments" title="Link to this heading">¶</a></h3>
 <p>When writing a <code class="docutils literal notranslate"><span class="pre">METH_VARARGS</span></code> style function, it gets called with 2 parameters
 <code class="docutils literal notranslate"><span class="pre">self</span></code> and <code class="docutils literal notranslate"><span class="pre">args</span></code>. <code class="docutils literal notranslate"><span class="pre">self</span></code> in this case is a reference to our <code class="docutils literal notranslate"><span class="pre">_ccalc</span></code> module and
 <code class="docutils literal notranslate"><span class="pre">args</span></code> is a reference to a tuple containing the arguments that were passed to
@@ -534,7 +540,7 @@ for us to do is to return <code class="docutils literal notranslate"><span class
 there was an error. See the documentation on <a class="reference external" href="https://docs.python.org/3/c-api/exceptions.html">error handling</a> for more details</p>
 </section>
 <section id="constructing-the-c-ast">
-<span id="ast-python-frontend-c-ast"></span><h3>Constructing the C AST<a class="headerlink" href="#constructing-the-c-ast" title="Permalink to this heading">¶</a></h3>
+<span id="ast-python-frontend-c-ast"></span><h3>Constructing the C AST<a class="headerlink" href="#constructing-the-c-ast" title="Link to this heading">¶</a></h3>
 <p>With a reference to the Python object that (hopefully!) represents a valid AST
 it’s time to do the conversion into our C representation. To do this we’ll write
 a function dedicated to handling the conversion and call it from
@@ -549,7 +555,7 @@ a function dedicated to handling the conversion and call it from
 representation. Easy enough to do, assuming that you know the size of the
 tree…</p>
 <section id="allocating-memory">
-<h4>Allocating Memory<a class="headerlink" href="#allocating-memory" title="Permalink to this heading">¶</a></h4>
+<h4>Allocating Memory<a class="headerlink" href="#allocating-memory" title="Link to this heading">¶</a></h4>
 <p>It took me a while to realise it, but even though we’re writing C code we are
 still within the Python interpreter. This means we still have access to all the standard
 Python functions - we just need to look up their C equivalents. Why not just ask the
@@ -620,7 +626,7 @@ on our <code class="docutils literal notranslate"><span class="pre">AstNode</spa
 </div>
 </section>
 <section id="inspecting-nodes">
-<h4>Inspecting Nodes<a class="headerlink" href="#inspecting-nodes" title="Permalink to this heading">¶</a></h4>
+<h4>Inspecting Nodes<a class="headerlink" href="#inspecting-nodes" title="Link to this heading">¶</a></h4>
 <p>With the memory to hold the tree allocated it’s time to start on the actual
 conversion. To handle this we’ll write another function <code class="docutils literal notranslate"><span class="pre">AstNode_FromPyObject</span></code>
 that we can recursively call whenever we need to descend down a branch. This
@@ -661,7 +667,7 @@ think should be done based on what I found in the documentation on <a class="ref
 </section>
 </section>
 <section id="converting-the-node">
-<h3>Converting the Node<a class="headerlink" href="#converting-the-node" title="Permalink to this heading">¶</a></h3>
+<h3>Converting the Node<a class="headerlink" href="#converting-the-node" title="Link to this heading">¶</a></h3>
 <p>Now that we have an integer <code class="docutils literal notranslate"><span class="pre">node_type</span></code> that corresponds with one of the
 <code class="docutils literal notranslate"><span class="pre">AstNodeType</span></code> enum entries we can use a <code class="docutils literal notranslate"><span class="pre">switch</span></code> statement and start writing the
 conversion code for each type in turn.</p>
@@ -697,7 +703,7 @@ return successfully. However, in the case of <code class="docutils literal notra
 things aren’t as straightforward…</p>
 </section>
 <section id="traversing-the-tree">
-<h3>Traversing the Tree<a class="headerlink" href="#traversing-the-tree" title="Permalink to this heading">¶</a></h3>
+<h3>Traversing the Tree<a class="headerlink" href="#traversing-the-tree" title="Link to this heading">¶</a></h3>
 <p>Handling the other node types starts off easy enough, since  they are almost
 identical we can handle their differences in the <code class="docutils literal notranslate"><span class="pre">switch</span></code> statement and then use
 the remainder of the function to handle recursing down both the <code class="docutils literal notranslate"><span class="pre">left</span></code> and
@@ -782,7 +788,7 @@ to work well enough for this at least.</p>
 </div>
 </section>
 <section id="returning-the-result">
-<span id="ast-python-frontend-return"></span><h3>Returning the Result<a class="headerlink" href="#returning-the-result" title="Permalink to this heading">¶</a></h3>
+<span id="ast-python-frontend-return"></span><h3>Returning the Result<a class="headerlink" href="#returning-the-result" title="Link to this heading">¶</a></h3>
 <p>Phew! That was a lot of work but we’re almost there. We just need to add a few
 more lines to <code class="docutils literal notranslate"><span class="pre">method_eval_ast</span></code> that takes the newly constructed AST and
 evaluates it, before converting the result into a Python float and returning it.</p>
@@ -814,11 +820,11 @@ actually work!</p>
 </section>
 </section>
 <section id="final-thoughts">
-<h2>Final Thoughts<a class="headerlink" href="#final-thoughts" title="Permalink to this heading">¶</a></h2>
+<h2>Final Thoughts<a class="headerlink" href="#final-thoughts" title="Link to this heading">¶</a></h2>
 <p>There was a lot of code flying around in this post, if you want to see the final
 result in its entirety you can find it</p>
 <section id="best-practice">
-<h3>Best Practice?<a class="headerlink" href="#best-practice" title="Permalink to this heading">¶</a></h3>
+<h3>Best Practice?<a class="headerlink" href="#best-practice" title="Link to this heading">¶</a></h3>
 <p>This was my first CPython extension so I might be missing out on some best
 practices, for example a question I had was around my use of <code class="docutils literal notranslate"><span class="pre">malloc</span></code> and
 <code class="docutils literal notranslate"><span class="pre">free</span></code>. While writing this section I found the documentation on <a class="reference external" href="https://docs.python.org/3/c-api/memory.html">memory management</a>
@@ -830,7 +836,7 @@ the <a class="reference external" href="https://docs.python.org/3/glossary.html#
 🤔</p>
 </section>
 <section id="another-approach">
-<h3>Another approach<a class="headerlink" href="#another-approach" title="Permalink to this heading">¶</a></h3>
+<h3>Another approach<a class="headerlink" href="#another-approach" title="Link to this heading">¶</a></h3>
 <p>Another note worth mentioning is that it looks like it’s possible to
 <a class="reference external" href="https://docs.python.org/3/extending/newtypes_tutorial.html">define custom types</a> directly in C. This means it should be possible to extend
 the <code class="docutils literal notranslate"><span class="pre">AstNode</span></code> C struct to be an object than can be manipulated directly from
@@ -878,7 +884,7 @@ I’ll see you in the next one!</p>
                             Page Source
                         </a>
                     </span>
-                    <span>Built with <a class="text-green-600" href="https://www.sphinx-doc.org/en/master/">Sphinx</a> v5.3.0</span>
+                    <span>Built with <a class="text-green-600" href="https://www.sphinx-doc.org/en/master/">Sphinx</a> v8.0.2</span>
                 </div>
             </footer>
         </main>

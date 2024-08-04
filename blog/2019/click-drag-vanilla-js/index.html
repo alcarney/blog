@@ -1,35 +1,31 @@
-
 <!DOCTYPE html>
 
-<html lang="en">
+<html lang="en" data-content_root="../../../">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
     <title>Implementing Click &amp; Drag with Vanilla JS &#8212; Alex Carney</title>
 
     
-    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=92c9d732" />
     
     
     
-    <link id="pygments_dark_css" media="(prefers-color-scheme: dark)" rel="stylesheet" type="text/css" href="../../../_static/pygments_dark.css" />
+    <link id="pygments_dark_css" media="(prefers-color-scheme: dark)" rel="stylesheet" type="text/css" href="../../../_static/pygments_dark.css?v=8f9ffe49" />
     
     
-    <link rel="stylesheet" type="text/css" href="../../../_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/sphinx-design.min.css?v=95c83b7e" />
     
     
-    <link rel="stylesheet" type="text/css" href="../../../_static/css/styles.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/css/styles.css?v=7c0862aa" />
     
 
-    <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
-    <script src="../../../_static/jquery.js"></script>
-    <script src="../../../_static/underscore.js"></script>
-    <script src="../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
-    <script src="../../../_static/doctools.js"></script>
-    <script src="../../../_static/sphinx_highlight.js"></script>
-    <script src="../../../_static/design-tabs.js"></script>
-    <link rel="shortcut icon" href="../../../_static/favicon.ico"/>
+    <script src="../../../_static/documentation_options.js?v=187304be"></script>
+    <script src="../../../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../../_static/design-tabs.js?v=f930bc37"></script>
+    <link rel="icon" href="../../../_static/favicon.ico"/>
     <link rel="index" title="Index" href="../../../genindex/" />
     <link rel="search" title="Search" href="../../../search/" /> 
   </head><body class="flex flex-col justify-between min-h-screen overflow-x-hidden bg-gray-100 dark:bg-gray-900">
@@ -44,18 +40,28 @@
     <h2 class=""><a href="/">Alex Carney</a></h2>
 </div>
 
-                    <div id="searchbox" style="display: none" role="search" class="px-4 py-4">
-    <form class="flex justify-between px-2 py-1 bg-gray-100 border-2 rounded search dark:bg-gray-900 focus-within:border-green-600 dark:border-gray-600" action="../../../search/" method="get">
-        <label class="mr-2 text-gray-500" for="sbox">
-            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="feather feather-search">
-                <circle cx="11" cy="11" r="6" />
-                <path d="m21 21-4.35-4.35" />
-            </svg>
-        </label>
-        <input id="sbox" class="flex-grow bg-gray-100 dark:text-white dark:bg-gray-900 focus:outline-none" type="search" name="q" placeholder="Search..." aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" />
-    </form>
+                    
+<div id="searchbox" style="display: none" role="search" class="px-4 py-4">
+  <form class="flex justify-between px-2 py-1 bg-gray-100 border-2 rounded search dark:bg-gray-900 focus-within:border-green-600 dark:border-gray-600" action="../../../search/" method="get">
+    <label class="mr-2 text-gray-500" for="sbox">
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="feather feather-search">
+        <circle cx="11" cy="11" r="6" />
+        <path d="m21 21-4.35-4.35" />
+      </svg>
+    </label>
+    <input class="flex-grow bg-gray-100 w-full dark:text-white dark:bg-gray-900 focus:outline-none"
+           type="search"
+           name="q"
+           aria-labelledby="searchlabel"
+           autocomplete="off"
+           autocorrect="off"
+           autocapitalize="off"
+           spellcheck="false"
+           placeholder="Search"
+           />
+  </form>
 </div>
-<script>$('#searchbox').show(0);</script>
+<script>document.getElementById('searchbox').style.display = "block"</script>
 
                     
 
@@ -81,12 +87,6 @@
     <ul class="text-right">
         
         <li class="mb-1">
-            <a href="../../tag/js/" class="px-2 my-1 text-green-600 border border-green-600 rounded bg-green-50 dark:bg-green-900 dark:text-green-200">
-                #js
-            </a>
-        </li>
-        
-        <li class="mb-1">
             <a href="../../tag/svg/" class="px-2 my-1 text-green-600 border border-green-600 rounded bg-green-50 dark:bg-green-900 dark:text-green-200">
                 #svg
             </a>
@@ -95,6 +95,12 @@
         <li class="mb-1">
             <a href="../../tag/web/" class="px-2 my-1 text-green-600 border border-green-600 rounded bg-green-50 dark:bg-green-900 dark:text-green-200">
                 #web
+            </a>
+        </li>
+        
+        <li class="mb-1">
+            <a href="../../tag/js/" class="px-2 my-1 text-green-600 border border-green-600 rounded bg-green-50 dark:bg-green-900 dark:text-green-200">
+                #js
             </a>
         </li>
         
@@ -179,7 +185,7 @@
 
 <article class="p-4 prose-sm prose bg-white dark:bg-gray-800 border prose-md prose-emerald max-w-none dark:prose-invert dark:border-gray-600">
     <section id="implementing-click-drag-with-vanilla-js">
-<h1>Implementing Click &amp; Drag with Vanilla JS<a class="headerlink" href="#implementing-click-drag-with-vanilla-js" title="Permalink to this heading">¶</a></h1>
+<h1>Implementing Click &amp; Drag with Vanilla JS<a class="headerlink" href="#implementing-click-drag-with-vanilla-js" title="Link to this heading">¶</a></h1>
 <figure>
   <div id="main"></div>
   <figcaption>
@@ -208,7 +214,7 @@ can apply to many kinds of interactions so in this instance I’m specifically
 referring to clicking on an SVG element moving it around on the page as
 illustrated by the demo above.</p>
 <section id="setup">
-<h2>Setup<a class="headerlink" href="#setup" title="Permalink to this heading">¶</a></h2>
+<h2>Setup<a class="headerlink" href="#setup" title="Link to this heading">¶</a></h2>
 <p>All we need to get started is a HTML document that contains some markup which
 provides someplace we can reference and attach our image element to, as well as
 loading the code we write.</p>
@@ -241,7 +247,7 @@ us to use the SVG namespace instead of the HTML default.</p></li>
 </ul>
 </section>
 <section id="the-view-box">
-<h2>The View Box<a class="headerlink" href="#the-view-box" title="Permalink to this heading">¶</a></h2>
+<h2>The View Box<a class="headerlink" href="#the-view-box" title="Link to this heading">¶</a></h2>
 <p>The next step is to construct an appropriate <code class="docutils literal notranslate"><span class="pre">viewBox</span></code> definition for our
 canvas. For more information on the <code class="docutils literal notranslate"><span class="pre">viewBox</span></code> you can refer to the <a class="reference external" href="https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/viewBox">documentation</a>
 but to briefly summarise. An SVG image exists on an infinite plane and the
@@ -286,7 +292,7 @@ element and assign the view box to our canvas.</p>
 </div>
 </section>
 <section id="something-to-click-on">
-<h2>Something to Click on<a class="headerlink" href="#something-to-click-on" title="Permalink to this heading">¶</a></h2>
+<h2>Something to Click on<a class="headerlink" href="#something-to-click-on" title="Link to this heading">¶</a></h2>
 <p>By this point we have finished preparing our canvas and it’s time to add
 something for us to interact with. To keep things simple I will stick to a <code class="docutils literal notranslate"><span class="pre">&lt;circle&gt;</span></code>
 element, though the method we use here should apply to any SVG element (or any
@@ -307,7 +313,7 @@ will depend on the element you have chosen.</p>
 </div>
 </section>
 <section id="implementing-the-drag">
-<h2>Implementing the Drag<a class="headerlink" href="#implementing-the-drag" title="Permalink to this heading">¶</a></h2>
+<h2>Implementing the Drag<a class="headerlink" href="#implementing-the-drag" title="Link to this heading">¶</a></h2>
 <p>We will create an event handler for the <code class="docutils literal notranslate"><span class="pre">mousemove</span></code> event and attach it to
 our canvas.</p>
 <div class="highlight-js notranslate"><div class="highlight"><pre><span></span><span class="nx">canvas</span><span class="p">.</span><span class="nx">addEventListener</span><span class="p">(</span><span class="s2">&quot;mousemove&quot;</span><span class="p">,</span><span class="w"> </span><span class="p">(</span><span class="nx">event</span><span class="p">)</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">{</span>
@@ -329,7 +335,7 @@ function.</p>
 cursor is moving about the page</p>
 <p>Let’s get the simpler case out of the way first</p>
 <section id="not-clicked">
-<h3>Not Clicked<a class="headerlink" href="#not-clicked" title="Permalink to this heading">¶</a></h3>
+<h3>Not Clicked<a class="headerlink" href="#not-clicked" title="Link to this heading">¶</a></h3>
 <p>When the mouse is moving but the user has not clicked, then there is nothing for
 us to do! We can simply check the value of the <code class="docutils literal notranslate"><span class="pre">clicked</span></code> variable and stop the
 function if it meets the criteria.</p>
@@ -340,7 +346,7 @@ function if it meets the criteria.</p>
 </div>
 </section>
 <section id="clicked">
-<h3>Clicked<a class="headerlink" href="#clicked" title="Permalink to this heading">¶</a></h3>
+<h3>Clicked<a class="headerlink" href="#clicked" title="Link to this heading">¶</a></h3>
 <p>Now for the interesting part! The mouse is moving and the user has clicked on
 the circle, all we have to do now is update its position to match
 the cursor’s current position. The only problem is… where is it?</p>
@@ -510,7 +516,7 @@ that system and assign the result to our circle’s position!</p>
 </section>
 </section>
 <section id="click-detection">
-<h2>Click Detection<a class="headerlink" href="#click-detection" title="Permalink to this heading">¶</a></h2>
+<h2>Click Detection<a class="headerlink" href="#click-detection" title="Link to this heading">¶</a></h2>
 <p>Finally all that’s left is to do is decide how we want to toggle the dragging
 behaviour. This mostly comes down to how you want the user to interact with the
 draggable object and will change depending on your use case. To keep things
@@ -538,7 +544,7 @@ our code still believes the user never released the mouse button and so the
 circle will appear “stuck” to their cursor until they click again.</p>
 </section>
 <section id="conclusion">
-<h2>Conclusion<a class="headerlink" href="#conclusion" title="Permalink to this heading">¶</a></h2>
+<h2>Conclusion<a class="headerlink" href="#conclusion" title="Link to this heading">¶</a></h2>
 <p>There you have it, those were some of the basics required to get a working proof
 of concept of clicking and dragging functionality using only the JavaScript APIs
 that come with your web browser. However in writing this blog post I realised
@@ -645,7 +651,7 @@ you found this useful and I’ll see you in the next one!</p>
                             Page Source
                         </a>
                     </span>
-                    <span>Built with <a class="text-green-600" href="https://www.sphinx-doc.org/en/master/">Sphinx</a> v5.3.0</span>
+                    <span>Built with <a class="text-green-600" href="https://www.sphinx-doc.org/en/master/">Sphinx</a> v8.0.2</span>
                 </div>
             </footer>
         </main>

@@ -67,7 +67,6 @@ const _displayItem = (item, searchTerms, highlightTerms) => {
   const [docName, title, anchor, descr, score, _filename] = item;
 
   let listItem = document.createElement("li");
-  listItem.className = "p-4 mt-4 bg-white dark:bg-gray-800 border dark:border-gray-600"
   let requestUrl;
   let linkUrl;
   if (docBuilder === "dirhtml") {
@@ -87,7 +86,6 @@ const _displayItem = (item, searchTerms, highlightTerms) => {
   linkEl.href = linkUrl + anchor;
   linkEl.dataset.score = score;
   linkEl.innerHTML = title;
-  linkEl.className = "text-green-600"
   if (descr) {
     listItem.appendChild(document.createElement("span")).innerHTML =
       " (" + descr + ")";
@@ -246,12 +244,11 @@ const Search = {
     // create the required interface elements
     const searchText = document.createElement("h2");
     searchText.textContent = _("Searching");
-    searchText.className = "text-3xl text-green-600"
     const searchSummary = document.createElement("p");
-    searchSummary.className = "dark:text-white my-4"
+    searchSummary.classList.add("search-summary");
     searchSummary.innerText = "";
     const searchList = document.createElement("ul");
-    searchList.className = "m-0"
+    searchList.classList.add("search");
 
     const out = document.getElementById("search-results");
     Search.title = out.appendChild(searchText);
@@ -613,7 +610,7 @@ const Search = {
     const tail = startWithContext + 240 < text.length ? "..." : "";
 
     let summary = document.createElement("p");
-    summary.classList.add("dark:text-white");
+    summary.classList.add("context");
     summary.textContent = top + text.substr(startWithContext, 240).trim() + tail;
 
     return summary;

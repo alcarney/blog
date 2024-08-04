@@ -1,35 +1,31 @@
-
 <!DOCTYPE html>
 
-<html lang="en">
+<html lang="en" data-content_root="../../../">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
     <title>Bringing Esbonio to the Browser &#8212; Alex Carney</title>
 
     
-    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=92c9d732" />
     
     
     
-    <link id="pygments_dark_css" media="(prefers-color-scheme: dark)" rel="stylesheet" type="text/css" href="../../../_static/pygments_dark.css" />
+    <link id="pygments_dark_css" media="(prefers-color-scheme: dark)" rel="stylesheet" type="text/css" href="../../../_static/pygments_dark.css?v=8f9ffe49" />
     
     
-    <link rel="stylesheet" type="text/css" href="../../../_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/sphinx-design.min.css?v=95c83b7e" />
     
     
-    <link rel="stylesheet" type="text/css" href="../../../_static/css/styles.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/css/styles.css?v=7c0862aa" />
     
 
-    <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
-    <script src="../../../_static/jquery.js"></script>
-    <script src="../../../_static/underscore.js"></script>
-    <script src="../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
-    <script src="../../../_static/doctools.js"></script>
-    <script src="../../../_static/sphinx_highlight.js"></script>
-    <script src="../../../_static/design-tabs.js"></script>
-    <link rel="shortcut icon" href="../../../_static/favicon.ico"/>
+    <script src="../../../_static/documentation_options.js?v=187304be"></script>
+    <script src="../../../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../../_static/design-tabs.js?v=f930bc37"></script>
+    <link rel="icon" href="../../../_static/favicon.ico"/>
     <link rel="index" title="Index" href="../../../genindex/" />
     <link rel="search" title="Search" href="../../../search/" /> 
   </head><body class="flex flex-col justify-between min-h-screen overflow-x-hidden bg-gray-100 dark:bg-gray-900">
@@ -44,18 +40,28 @@
     <h2 class=""><a href="/">Alex Carney</a></h2>
 </div>
 
-                    <div id="searchbox" style="display: none" role="search" class="px-4 py-4">
-    <form class="flex justify-between px-2 py-1 bg-gray-100 border-2 rounded search dark:bg-gray-900 focus-within:border-green-600 dark:border-gray-600" action="../../../search/" method="get">
-        <label class="mr-2 text-gray-500" for="sbox">
-            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="feather feather-search">
-                <circle cx="11" cy="11" r="6" />
-                <path d="m21 21-4.35-4.35" />
-            </svg>
-        </label>
-        <input id="sbox" class="flex-grow bg-gray-100 dark:text-white dark:bg-gray-900 focus:outline-none" type="search" name="q" placeholder="Search..." aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" />
-    </form>
+                    
+<div id="searchbox" style="display: none" role="search" class="px-4 py-4">
+  <form class="flex justify-between px-2 py-1 bg-gray-100 border-2 rounded search dark:bg-gray-900 focus-within:border-green-600 dark:border-gray-600" action="../../../search/" method="get">
+    <label class="mr-2 text-gray-500" for="sbox">
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="feather feather-search">
+        <circle cx="11" cy="11" r="6" />
+        <path d="m21 21-4.35-4.35" />
+      </svg>
+    </label>
+    <input class="flex-grow bg-gray-100 w-full dark:text-white dark:bg-gray-900 focus:outline-none"
+           type="search"
+           name="q"
+           aria-labelledby="searchlabel"
+           autocomplete="off"
+           autocorrect="off"
+           autocapitalize="off"
+           spellcheck="false"
+           placeholder="Search"
+           />
+  </form>
 </div>
-<script>$('#searchbox').show(0);</script>
+<script>document.getElementById('searchbox').style.display = "block"</script>
 
                     
 
@@ -81,6 +87,12 @@
     <ul class="text-right">
         
         <li class="mb-1">
+            <a href="../../tag/lsp/" class="px-2 my-1 text-green-600 border border-green-600 rounded bg-green-50 dark:bg-green-900 dark:text-green-200">
+                #lsp
+            </a>
+        </li>
+        
+        <li class="mb-1">
             <a href="../../tag/esbonio/" class="px-2 my-1 text-green-600 border border-green-600 rounded bg-green-50 dark:bg-green-900 dark:text-green-200">
                 #esbonio
             </a>
@@ -89,12 +101,6 @@
         <li class="mb-1">
             <a href="../../tag/vscode/" class="px-2 my-1 text-green-600 border border-green-600 rounded bg-green-50 dark:bg-green-900 dark:text-green-200">
                 #vscode
-            </a>
-        </li>
-        
-        <li class="mb-1">
-            <a href="../../tag/lsp/" class="px-2 my-1 text-green-600 border border-green-600 rounded bg-green-50 dark:bg-green-900 dark:text-green-200">
-                #lsp
             </a>
         </li>
         
@@ -179,20 +185,21 @@
 
 <article class="p-4 prose-sm prose bg-white dark:bg-gray-800 border prose-md prose-emerald max-w-none dark:prose-invert dark:border-gray-600">
     <section id="bringing-esbonio-to-the-browser">
-<h1>Bringing Esbonio to the Browser<a class="headerlink" href="#bringing-esbonio-to-the-browser" title="Permalink to this heading">¶</a></h1>
+<h1>Bringing Esbonio to the Browser<a class="headerlink" href="#bringing-esbonio-to-the-browser" title="Link to this heading">¶</a></h1>
 <p>For the past year or so I’ve been working on a language server called <a class="reference external" href="https://github.com/swyddfa/esbonio">Esbonio</a>.
 It’s a language server designed to streamline the process of working with your
 <a class="reference external" href="https://www.sphinx-doc.org/en/master/">Sphinx</a> documentation projects. Currently its feature set is quite limited, but I
 think it does a good job of providing you with completion suggestions for all your
 roles, directives and cross-references.</p>
 <figure class="align-center">
-<a class="reference internal image-reference" href="https://github.com/swyddfa/esbonio/raw/develop/resources/images/completion-demo.gif"><img alt="https://github.com/swyddfa/esbonio/raw/develop/resources/images/completion-demo.gif" src="https://github.com/swyddfa/esbonio/raw/develop/resources/images/completion-demo.gif" style="width: 80%;" /></a>
+<a class="reference internal image-reference" href="https://github.com/swyddfa/esbonio/raw/develop/resources/images/completion-demo.gif"><img alt="https://github.com/swyddfa/esbonio/raw/develop/resources/images/completion-demo.gif" src="https://github.com/swyddfa/esbonio/raw/develop/resources/images/completion-demo.gif" style="width: 80%;" />
+</a>
 </figure>
 <p>Anyway with the recent releases of <a class="reference external" href="https://github.com/github/dev">github.dev</a> and <a class="reference external" href="https://code.visualstudio.com/blogs/2021/10/20/vscode-dev">vscode.dev</a> I really want to
 see if I can bring Esbonio into the browser version of VSCode. There’s only one
 problem… Esbonio is written in Python! 😬</p>
 <section id="the-approach">
-<h2>The Approach<a class="headerlink" href="#the-approach" title="Permalink to this heading">¶</a></h2>
+<h2>The Approach<a class="headerlink" href="#the-approach" title="Link to this heading">¶</a></h2>
 <p>I’m sure there will be plenty of problems that need to be solved in order to
 make this work, but my gut instinct is that it <em>is</em> possible. First of all there is
 <a class="reference external" href="https://pyodide.org/en/stable/index.html">Pyodide</a> which, if you’ve not come across it before, is the Python interpreter,
@@ -218,14 +225,14 @@ project so in theory should “just work” but file I/O could prove a challenge
 </ul>
 </section>
 <section id="the-setup">
-<h2>The Setup<a class="headerlink" href="#the-setup" title="Permalink to this heading">¶</a></h2>
+<h2>The Setup<a class="headerlink" href="#the-setup" title="Link to this heading">¶</a></h2>
 <p>Using the <a class="reference external" href="https://github.com/microsoft/vscode-extension-samples/tree/main/lsp-web-extension-sample">lsp-web-extension-sample</a> as a guide, the remainder of this blog post is
 going to be dedicated to setting up the rough structure of a web-enabled lsp VSCode
 extension. You can browse the completed extension <a class="reference internal" href="../../../code/hello-lsp-web/"><span class="doc">here</span></a>.</p>
 <p>But before we get too far into it, it’s probably worth zooming out a bit and roughly
 sketch out all the pieces and how they fit together.</p>
 <section id="architecture">
-<h3>Architecture<a class="headerlink" href="#architecture" title="Permalink to this heading">¶</a></h3>
+<h3>Architecture<a class="headerlink" href="#architecture" title="Link to this heading">¶</a></h3>
 <p>At the core we have two components, a language client (e.g. our VSCode extension) and
 a language server (e.g. the <a class="reference external" href="https://pypi.org/project/esbonio">esbonio</a> Python package) which communicate by sending
 messages between each other.</p>
@@ -295,7 +302,7 @@ running Esbonio managed by a bit of JavaScript glue code.</p>
   <path marker-start="url(#arrowleft)" marker-end="url(#arrowright)" stroke="currentColor" d="M545 100 L555 100"></path>
 </svg></section>
 <section id="writing-the-language-client">
-<h3>Writing the Language Client<a class="headerlink" href="#writing-the-language-client" title="Permalink to this heading">¶</a></h3>
+<h3>Writing the Language Client<a class="headerlink" href="#writing-the-language-client" title="Link to this heading">¶</a></h3>
 <p>The language client code is pretty straightforward as all the heavy lifting is done
 by the <a class="reference external" href="https://www.npmjs.com/package/vscode-languageclient">vscode-languageclient</a> library.</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>npm<span class="w"> </span>install<span class="w"> </span>--save<span class="w"> </span>vscode-languageclient
@@ -327,7 +334,7 @@ language server and pass that to the client also.</p>
 </div>
 </section>
 <section id="writing-the-language-server">
-<h3>Writing the Language Server<a class="headerlink" href="#writing-the-language-server" title="Permalink to this heading">¶</a></h3>
+<h3>Writing the Language Server<a class="headerlink" href="#writing-the-language-server" title="Link to this heading">¶</a></h3>
 <p>The goal of this post is just to get the simplest end-to-end concept working so the
 “language server” in this case does barely anything except prove that</p>
 <ul class="simple">
@@ -384,7 +391,7 @@ promise we can make any code that depends on pyodide wait until it’s ready to 
 </div>
 </section>
 <section id="packaging-for-the-web">
-<h3>Packaging for the Web<a class="headerlink" href="#packaging-for-the-web" title="Permalink to this heading">¶</a></h3>
+<h3>Packaging for the Web<a class="headerlink" href="#packaging-for-the-web" title="Link to this heading">¶</a></h3>
 <p>You may have noticed that the code above was written in TypeScript which needs to be
 compiled into JavaScript in order to run in the browser. Additionally, due
 to the way VSCode <a class="reference external" href="https://code.visualstudio.com/api/extension-guides/web-extensions#web-extension-main-file">handles web extensions</a> all the code that comprises the language
@@ -447,7 +454,7 @@ convenience.</p>
 </div>
 </section>
 <section id="trying-it-out">
-<h3>Trying it out<a class="headerlink" href="#trying-it-out" title="Permalink to this heading">¶</a></h3>
+<h3>Trying it out<a class="headerlink" href="#trying-it-out" title="Link to this heading">¶</a></h3>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>I don’t fully understand how this section works, thankfully the VSCode devs figured
@@ -520,13 +527,13 @@ messages printed to console.</p>
 <figure class="align-center" id="id1">
 <img alt="../../../_images/hello-lsp-web.png" src="../../../_images/hello-lsp-web.png" />
 <figcaption>
-<p><span class="caption-text">Success!</span><a class="headerlink" href="#id1" title="Permalink to this image">¶</a></p>
+<p><span class="caption-text">Success!</span><a class="headerlink" href="#id1" title="Link to this image">¶</a></p>
 </figcaption>
 </figure>
 </section>
 </section>
 <section id="next-steps">
-<h2>Next Steps<a class="headerlink" href="#next-steps" title="Permalink to this heading">¶</a></h2>
+<h2>Next Steps<a class="headerlink" href="#next-steps" title="Link to this heading">¶</a></h2>
 <p>That’s it! We have a very simple proof of concept web extension setup where the language
 server component is able to run Python code and communicate with the client. In the next
 post I hope to be able to stand up a simple <a class="reference external" href="https://github.com/openlawlibrary/pygls">pygls</a> language server and have it work
@@ -566,7 +573,7 @@ with the online version of VSCode 🤞</p>
                             Page Source
                         </a>
                     </span>
-                    <span>Built with <a class="text-green-600" href="https://www.sphinx-doc.org/en/master/">Sphinx</a> v5.3.0</span>
+                    <span>Built with <a class="text-green-600" href="https://www.sphinx-doc.org/en/master/">Sphinx</a> v8.0.2</span>
                 </div>
             </footer>
         </main>

@@ -1,35 +1,31 @@
-
 <!DOCTYPE html>
 
-<html lang="en">
+<html lang="en" data-content_root="../../">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
     <title>CCalc Extension &#8212; Alex Carney</title>
 
     
-    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=92c9d732" />
     
     
     
-    <link id="pygments_dark_css" media="(prefers-color-scheme: dark)" rel="stylesheet" type="text/css" href="../../_static/pygments_dark.css" />
+    <link id="pygments_dark_css" media="(prefers-color-scheme: dark)" rel="stylesheet" type="text/css" href="../../_static/pygments_dark.css?v=8f9ffe49" />
     
     
-    <link rel="stylesheet" type="text/css" href="../../_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-design.min.css?v=95c83b7e" />
     
     
-    <link rel="stylesheet" type="text/css" href="../../_static/css/styles.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/css/styles.css?v=7c0862aa" />
     
 
-    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
-    <script src="../../_static/jquery.js"></script>
-    <script src="../../_static/underscore.js"></script>
-    <script src="../../_static/_sphinx_javascript_frameworks_compat.js"></script>
-    <script src="../../_static/doctools.js"></script>
-    <script src="../../_static/sphinx_highlight.js"></script>
-    <script src="../../_static/design-tabs.js"></script>
-    <link rel="shortcut icon" href="../../_static/favicon.ico"/>
+    <script src="../../_static/documentation_options.js?v=187304be"></script>
+    <script src="../../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../_static/design-tabs.js?v=f930bc37"></script>
+    <link rel="icon" href="../../_static/favicon.ico"/>
     <link rel="index" title="Index" href="../../genindex/" />
     <link rel="search" title="Search" href="../../search/" />
     <link rel="next" title="Click Drag" href="../click-drag/" />
@@ -46,18 +42,28 @@
     <h2 class=""><a href="/">Alex Carney</a></h2>
 </div>
 
-                    <div id="searchbox" style="display: none" role="search" class="px-4 py-4">
-    <form class="flex justify-between px-2 py-1 bg-gray-100 border-2 rounded search dark:bg-gray-900 focus-within:border-green-600 dark:border-gray-600" action="../../search/" method="get">
-        <label class="mr-2 text-gray-500" for="sbox">
-            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="feather feather-search">
-                <circle cx="11" cy="11" r="6" />
-                <path d="m21 21-4.35-4.35" />
-            </svg>
-        </label>
-        <input id="sbox" class="flex-grow bg-gray-100 dark:text-white dark:bg-gray-900 focus:outline-none" type="search" name="q" placeholder="Search..." aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" />
-    </form>
+                    
+<div id="searchbox" style="display: none" role="search" class="px-4 py-4">
+  <form class="flex justify-between px-2 py-1 bg-gray-100 border-2 rounded search dark:bg-gray-900 focus-within:border-green-600 dark:border-gray-600" action="../../search/" method="get">
+    <label class="mr-2 text-gray-500" for="sbox">
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="feather feather-search">
+        <circle cx="11" cy="11" r="6" />
+        <path d="m21 21-4.35-4.35" />
+      </svg>
+    </label>
+    <input class="flex-grow bg-gray-100 w-full dark:text-white dark:bg-gray-900 focus:outline-none"
+           type="search"
+           name="q"
+           aria-labelledby="searchlabel"
+           autocomplete="off"
+           autocorrect="off"
+           autocapitalize="off"
+           spellcheck="false"
+           placeholder="Search"
+           />
+  </form>
 </div>
-<script>$('#searchbox').show(0);</script>
+<script>document.getElementById('searchbox').style.display = "block"</script>
 
                     
 
@@ -140,8 +146,240 @@
 
 <article class="p-4 prose-sm prose bg-white dark:bg-gray-800 border prose-md prose-emerald max-w-none dark:prose-invert dark:border-gray-600">
     <section id="ccalc-extension">
-<h1>CCalc Extension<a class="headerlink" href="#ccalc-extension" title="Permalink to this heading">¶</a></h1>
+<h1>CCalc Extension<a class="headerlink" href="#ccalc-extension" title="Link to this heading">¶</a></h1>
 <div class="my-4 border border-t-0 dark:border-gray-600">
+    
+
+    <div data-parent="" class=" border-t dark:border-gray-600"">
+        <label for="setup.py">
+            <div style="padding-left: 4px;" class="flex items-center px-2 py-1 space-x-2 hover:bg-gray-50 hover:dark:bg-gray-700">
+                
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" ><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+                    <path d="M14 2v6h6M16 13H8M16 17H8M10 9H8"/>
+                </svg>
+                
+
+                <span>setup.py</span>
+            </div>
+        </label>
+
+        
+        <input class="hidden" data-type="file" data-id="setup.py" type="checkbox" id="setup.py" />
+        <div class="overflow-y-auto transition-all max-h-0">
+            <div class="highlight"><pre style="margin: 0"><span></span><span class="kn">from</span> <span class="nn">setuptools</span> <span class="kn">import</span> <span class="n">setup</span><span class="p">,</span> <span class="n">Extension</span>
+
+<span class="n">ccalcmod</span> <span class="o">=</span> <span class="n">Extension</span><span class="p">(</span><span class="s2">&quot;_ccalc&quot;</span><span class="p">,</span> <span class="n">sources</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;ccalcmodule.c&quot;</span><span class="p">],</span> <span class="n">language</span><span class="o">=</span><span class="s2">&quot;c&quot;</span><span class="p">)</span>
+
+<span class="n">setup</span><span class="p">(</span>
+    <span class="n">name</span><span class="o">=</span><span class="s2">&quot;ccalc&quot;</span><span class="p">,</span>
+    <span class="n">version</span><span class="o">=</span><span class="s2">&quot;1.0.0&quot;</span><span class="p">,</span>
+    <span class="n">description</span><span class="o">=</span><span class="s2">&quot;A simple calculator implemented in C&quot;</span><span class="p">,</span>
+    <span class="n">packages</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;ccalc&quot;</span><span class="p">],</span>
+    <span class="n">ext_modules</span><span class="o">=</span><span class="p">[</span><span class="n">ccalcmod</span><span class="p">],</span>
+<span class="p">)</span>
+</pre></div>
+
+        </div>
+    </div>
+        
+
+    
+
+    <div data-parent="" class=" border-t dark:border-gray-600"">
+        <label for=".gitignore">
+            <div style="padding-left: 4px;" class="flex items-center px-2 py-1 space-x-2 hover:bg-gray-50 hover:dark:bg-gray-700">
+                
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" ><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+                    <path d="M14 2v6h6M16 13H8M16 17H8M10 9H8"/>
+                </svg>
+                
+
+                <span>.gitignore</span>
+            </div>
+        </label>
+
+        
+        <input class="hidden" data-type="file" data-id=".gitignore" type="checkbox" id=".gitignore" />
+        <div class="overflow-y-auto transition-all max-h-0">
+            <pre class="m-0">build
+dist
+__pycache__
+*.pyc
+*.egg-info</pre>
+        </div>
+    </div>
+        
+
+    
+
+    <div data-parent="" class=" border-t dark:border-gray-600"">
+        <label for="README.rst">
+            <div style="padding-left: 4px;" class="flex items-center px-2 py-1 space-x-2 hover:bg-gray-50 hover:dark:bg-gray-700">
+                
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" ><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+                    <path d="M14 2v6h6M16 13H8M16 17H8M10 9H8"/>
+                </svg>
+                
+
+                <span>README.rst</span>
+            </div>
+        </label>
+
+        
+        <input class="hidden" data-type="file" data-id="README.rst" type="checkbox" id="README.rst" />
+        <div class="overflow-y-auto transition-all max-h-0">
+            <div class="highlight"><pre style="margin: 0"><span></span>A CPython extension that embeds the <span class="s">``simple-ast``</span> program into Python.
+
+<span class="p">..</span> <span class="ow">code-block</span><span class="p">::</span> <span class="k">python</span>
+
+   <span class="o">&gt;&gt;&gt;</span> <span class="kn">import</span> <span class="nn">ccalc</span>
+   <span class="o">&gt;&gt;&gt;</span> <span class="n">expression</span> <span class="o">=</span> <span class="p">(</span><span class="n">ccalc</span><span class="o">.</span><span class="n">Literal</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span> <span class="o">+</span> <span class="mi">2</span><span class="p">)</span> <span class="o">*</span> <span class="mi">3</span>
+   <span class="o">&gt;&gt;&gt;</span> <span class="n">expression</span>
+   <span class="n">Multiply</span><span class="o">&lt;</span><span class="n">Plus</span><span class="o">&lt;</span><span class="n">Literal</span><span class="o">&lt;</span><span class="mf">1.0</span><span class="o">&gt;</span><span class="p">,</span> <span class="n">Literal</span><span class="o">&lt;</span><span class="mf">2.0</span><span class="o">&gt;&gt;</span><span class="p">,</span> <span class="n">Literal</span><span class="o">&lt;</span><span class="mf">3.0</span><span class="o">&gt;&gt;</span>
+
+   <span class="o">&gt;&gt;&gt;</span> <span class="n">ccalc</span><span class="o">.</span><span class="n">eval_ast</span><span class="p">(</span><span class="n">expression</span><span class="p">)</span>
+   <span class="mf">9.0</span>
+
+<span class="gh">Building</span>
+<span class="gh">--------</span>
+
+It&#39;s probably worth creating a virtual environment to work in
+
+<span class="p">..</span> <span class="ow">code-block</span><span class="p">::</span> <span class="k">console</span>
+
+   <span class="gp">$ </span>python<span class="w"> </span>-m<span class="w"> </span>venv<span class="w"> </span>.env
+
+Assuming you have a C compiler available, building the extension is as easy as
+running the following command
+
+<span class="p">..</span> <span class="ow">code-block</span><span class="p">::</span> console
+
+   (.env) $ python setup.py install 
+</pre></div>
+
+        </div>
+    </div>
+        
+
+    
+
+    <div data-parent="" class=" border-t dark:border-gray-600"">
+        <label for="ccalc">
+            <div style="padding-left: 4px;" class="flex items-center px-2 py-1 space-x-2 hover:bg-gray-50 hover:dark:bg-gray-700">
+                
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/>
+                </svg>
+                
+
+                <span>ccalc</span>
+            </div>
+        </label>
+
+        
+    </div>
+    <input class="hidden" data-type="folder" data-id="ccalc" type="checkbox" id="ccalc" />
+        
+
+    
+
+    <div data-parent="ccalc" class="max-h-0 transition-all overflow-y-hidden border-t dark:border-gray-600"">
+        <label for="ccalc/__init__.py">
+            <div style="padding-left: 20px;" class="flex items-center px-2 py-1 space-x-2 hover:bg-gray-50 hover:dark:bg-gray-700">
+                
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" ><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+                    <path d="M14 2v6h6M16 13H8M16 17H8M10 9H8"/>
+                </svg>
+                
+
+                <span>__init__.py</span>
+            </div>
+        </label>
+
+        
+        <input class="hidden" data-type="file" data-id="ccalc/__init__.py" type="checkbox" id="ccalc/__init__.py" />
+        <div class="overflow-y-auto transition-all max-h-0">
+            <div class="highlight"><pre style="margin: 0"><span></span><span class="kn">import</span> <span class="nn">_ccalc</span>
+
+<span class="n">eval_ast</span> <span class="o">=</span> <span class="n">_ccalc</span><span class="o">.</span><span class="n">eval_ast</span>
+
+<span class="k">class</span> <span class="nc">AstNode</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Base AstNode class.&quot;&quot;&quot;</span>
+
+    <span class="n">LITERAL</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="n">PLUS</span> <span class="o">=</span> <span class="mi">1</span>
+    <span class="n">MULTIPLY</span> <span class="o">=</span> <span class="mi">2</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">value</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">left</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">right</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+
+        <span class="k">if</span> <span class="n">left</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">left</span><span class="p">,</span> <span class="n">AstNode</span><span class="p">):</span>
+            <span class="n">left</span> <span class="o">=</span> <span class="n">Literal</span><span class="p">(</span><span class="n">left</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">right</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">right</span><span class="p">,</span> <span class="n">AstNode</span><span class="p">):</span>
+            <span class="n">right</span> <span class="o">=</span> <span class="n">Literal</span><span class="p">(</span><span class="n">right</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">type</span> <span class="o">=</span> <span class="nb">type</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">value</span> <span class="o">=</span> <span class="n">value</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">left</span> <span class="o">=</span> <span class="n">left</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">right</span> <span class="o">=</span> <span class="n">right</span>
+
+    <span class="k">def</span> <span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+
+        <span class="n">name</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span>
+        <span class="n">detail</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">value</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">detail</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">value</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">detail</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">left</span><span class="si">}</span><span class="s2">, </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">right</span><span class="si">}</span><span class="s2">&quot;</span>
+
+        <span class="k">return</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s2">&lt;</span><span class="si">{</span><span class="n">detail</span><span class="si">}</span><span class="s2">&gt;&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__len__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">left</span> <span class="o">=</span> <span class="mi">0</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">left</span> <span class="ow">is</span> <span class="kc">None</span> <span class="k">else</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">left</span><span class="p">)</span>
+        <span class="n">right</span> <span class="o">=</span> <span class="mi">0</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">right</span> <span class="ow">is</span> <span class="kc">None</span> <span class="k">else</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">right</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="mi">1</span> <span class="o">+</span> <span class="n">left</span> <span class="o">+</span> <span class="n">right</span>
+
+    <span class="k">def</span> <span class="fm">__add__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">Plus</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="fm">__radd__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">Plus</span><span class="p">(</span><span class="n">other</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="fm">__mul__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">Multiply</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="fm">__rmul__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">Multiply</span><span class="p">(</span><span class="n">other</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span>
+
+
+<span class="k">class</span> <span class="nc">Literal</span><span class="p">(</span><span class="n">AstNode</span><span class="p">):</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="p">(</span><span class="nb">int</span><span class="p">,</span> <span class="nb">float</span><span class="p">)):</span>
+            <span class="n">message</span> <span class="o">=</span> <span class="s2">&quot;Type &#39;</span><span class="si">{}</span><span class="s2">&#39; is not a valid literal&quot;</span>
+            <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="n">message</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="n">value</span><span class="p">)))</span>
+
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="nb">type</span><span class="o">=</span><span class="n">AstNode</span><span class="o">.</span><span class="n">LITERAL</span><span class="p">,</span> <span class="n">value</span><span class="o">=</span><span class="nb">float</span><span class="p">(</span><span class="n">value</span><span class="p">))</span>
+
+
+<span class="k">class</span> <span class="nc">Plus</span><span class="p">(</span><span class="n">AstNode</span><span class="p">):</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">left</span><span class="p">,</span> <span class="n">right</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="nb">type</span><span class="o">=</span><span class="n">AstNode</span><span class="o">.</span><span class="n">PLUS</span><span class="p">,</span> <span class="n">left</span><span class="o">=</span><span class="n">left</span><span class="p">,</span> <span class="n">right</span><span class="o">=</span><span class="n">right</span><span class="p">)</span>
+
+
+<span class="k">class</span> <span class="nc">Multiply</span><span class="p">(</span><span class="n">AstNode</span><span class="p">):</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">left</span><span class="p">,</span> <span class="n">right</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="nb">type</span><span class="o">=</span><span class="n">AstNode</span><span class="o">.</span><span class="n">MULTIPLY</span><span class="p">,</span> <span class="n">left</span><span class="o">=</span><span class="n">left</span><span class="p">,</span> <span class="n">right</span><span class="o">=</span><span class="n">right</span><span class="p">)</span>
+</pre></div>
+
+        </div>
+    </div>
+        
+
     
 
     <div data-parent="" class=" border-t dark:border-gray-600"">
@@ -393,247 +631,15 @@
         
 
     
-
-    <div data-parent="" class=" border-t dark:border-gray-600"">
-        <label for=".gitignore">
-            <div style="padding-left: 4px;" class="flex items-center px-2 py-1 space-x-2 hover:bg-gray-50 hover:dark:bg-gray-700">
-                
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" ><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
-                    <path d="M14 2v6h6M16 13H8M16 17H8M10 9H8"/>
-                </svg>
-                
-
-                <span>.gitignore</span>
-            </div>
-        </label>
-
-        
-        <input class="hidden" data-type="file" data-id=".gitignore" type="checkbox" id=".gitignore" />
-        <div class="overflow-y-auto transition-all max-h-0">
-            <pre class="m-0">build
-dist
-__pycache__
-*.pyc
-*.egg-info</pre>
-        </div>
-    </div>
-        
-
-    
-
-    <div data-parent="" class=" border-t dark:border-gray-600"">
-        <label for="ccalc">
-            <div style="padding-left: 4px;" class="flex items-center px-2 py-1 space-x-2 hover:bg-gray-50 hover:dark:bg-gray-700">
-                
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round">
-                    <path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/>
-                </svg>
-                
-
-                <span>ccalc</span>
-            </div>
-        </label>
-
-        
-    </div>
-    <input class="hidden" data-type="folder" data-id="ccalc" type="checkbox" id="ccalc" />
-        
-
-    
-
-    <div data-parent="ccalc" class="max-h-0 transition-all overflow-y-hidden border-t dark:border-gray-600"">
-        <label for="ccalc/__init__.py">
-            <div style="padding-left: 20px;" class="flex items-center px-2 py-1 space-x-2 hover:bg-gray-50 hover:dark:bg-gray-700">
-                
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" ><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
-                    <path d="M14 2v6h6M16 13H8M16 17H8M10 9H8"/>
-                </svg>
-                
-
-                <span>__init__.py</span>
-            </div>
-        </label>
-
-        
-        <input class="hidden" data-type="file" data-id="ccalc/__init__.py" type="checkbox" id="ccalc/__init__.py" />
-        <div class="overflow-y-auto transition-all max-h-0">
-            <div class="highlight"><pre style="margin: 0"><span></span><span class="kn">import</span> <span class="nn">_ccalc</span>
-
-<span class="n">eval_ast</span> <span class="o">=</span> <span class="n">_ccalc</span><span class="o">.</span><span class="n">eval_ast</span>
-
-<span class="k">class</span> <span class="nc">AstNode</span><span class="p">:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Base AstNode class.&quot;&quot;&quot;</span>
-
-    <span class="n">LITERAL</span> <span class="o">=</span> <span class="mi">0</span>
-    <span class="n">PLUS</span> <span class="o">=</span> <span class="mi">1</span>
-    <span class="n">MULTIPLY</span> <span class="o">=</span> <span class="mi">2</span>
-
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">value</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">left</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">right</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
-
-        <span class="k">if</span> <span class="n">left</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">left</span><span class="p">,</span> <span class="n">AstNode</span><span class="p">):</span>
-            <span class="n">left</span> <span class="o">=</span> <span class="n">Literal</span><span class="p">(</span><span class="n">left</span><span class="p">)</span>
-
-        <span class="k">if</span> <span class="n">right</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">right</span><span class="p">,</span> <span class="n">AstNode</span><span class="p">):</span>
-            <span class="n">right</span> <span class="o">=</span> <span class="n">Literal</span><span class="p">(</span><span class="n">right</span><span class="p">)</span>
-
-        <span class="bp">self</span><span class="o">.</span><span class="n">type</span> <span class="o">=</span> <span class="nb">type</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">value</span> <span class="o">=</span> <span class="n">value</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">left</span> <span class="o">=</span> <span class="n">left</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">right</span> <span class="o">=</span> <span class="n">right</span>
-
-    <span class="k">def</span> <span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-
-        <span class="n">name</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span>
-        <span class="n">detail</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
-
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">value</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="n">detail</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">value</span><span class="p">)</span>
-        <span class="k">else</span><span class="p">:</span>
-            <span class="n">detail</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">left</span><span class="si">}</span><span class="s2">, </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">right</span><span class="si">}</span><span class="s2">&quot;</span>
-
-        <span class="k">return</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s2">&lt;</span><span class="si">{</span><span class="n">detail</span><span class="si">}</span><span class="s2">&gt;&quot;</span>
-
-    <span class="k">def</span> <span class="fm">__len__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="n">left</span> <span class="o">=</span> <span class="mi">0</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">left</span> <span class="ow">is</span> <span class="kc">None</span> <span class="k">else</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">left</span><span class="p">)</span>
-        <span class="n">right</span> <span class="o">=</span> <span class="mi">0</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">right</span> <span class="ow">is</span> <span class="kc">None</span> <span class="k">else</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">right</span><span class="p">)</span>
-
-        <span class="k">return</span> <span class="mi">1</span> <span class="o">+</span> <span class="n">left</span> <span class="o">+</span> <span class="n">right</span>
-
-    <span class="k">def</span> <span class="fm">__add__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">):</span>
-        <span class="k">return</span> <span class="n">Plus</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">)</span>
-
-    <span class="k">def</span> <span class="fm">__radd__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">):</span>
-        <span class="k">return</span> <span class="n">Plus</span><span class="p">(</span><span class="n">other</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span>
-
-    <span class="k">def</span> <span class="fm">__mul__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">):</span>
-        <span class="k">return</span> <span class="n">Multiply</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">)</span>
-
-    <span class="k">def</span> <span class="fm">__rmul__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">):</span>
-        <span class="k">return</span> <span class="n">Multiply</span><span class="p">(</span><span class="n">other</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span>
-
-
-<span class="k">class</span> <span class="nc">Literal</span><span class="p">(</span><span class="n">AstNode</span><span class="p">):</span>
-
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
-        <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="p">(</span><span class="nb">int</span><span class="p">,</span> <span class="nb">float</span><span class="p">)):</span>
-            <span class="n">message</span> <span class="o">=</span> <span class="s2">&quot;Type &#39;</span><span class="si">{}</span><span class="s2">&#39; is not a valid literal&quot;</span>
-            <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="n">message</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="n">value</span><span class="p">)))</span>
-
-        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="nb">type</span><span class="o">=</span><span class="n">AstNode</span><span class="o">.</span><span class="n">LITERAL</span><span class="p">,</span> <span class="n">value</span><span class="o">=</span><span class="nb">float</span><span class="p">(</span><span class="n">value</span><span class="p">))</span>
-
-
-<span class="k">class</span> <span class="nc">Plus</span><span class="p">(</span><span class="n">AstNode</span><span class="p">):</span>
-
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">left</span><span class="p">,</span> <span class="n">right</span><span class="p">):</span>
-        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="nb">type</span><span class="o">=</span><span class="n">AstNode</span><span class="o">.</span><span class="n">PLUS</span><span class="p">,</span> <span class="n">left</span><span class="o">=</span><span class="n">left</span><span class="p">,</span> <span class="n">right</span><span class="o">=</span><span class="n">right</span><span class="p">)</span>
-
-
-<span class="k">class</span> <span class="nc">Multiply</span><span class="p">(</span><span class="n">AstNode</span><span class="p">):</span>
-
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">left</span><span class="p">,</span> <span class="n">right</span><span class="p">):</span>
-        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="nb">type</span><span class="o">=</span><span class="n">AstNode</span><span class="o">.</span><span class="n">MULTIPLY</span><span class="p">,</span> <span class="n">left</span><span class="o">=</span><span class="n">left</span><span class="p">,</span> <span class="n">right</span><span class="o">=</span><span class="n">right</span><span class="p">)</span>
-</pre></div>
-
-        </div>
-    </div>
-        
-
-    
-
-    <div data-parent="" class=" border-t dark:border-gray-600"">
-        <label for="setup.py">
-            <div style="padding-left: 4px;" class="flex items-center px-2 py-1 space-x-2 hover:bg-gray-50 hover:dark:bg-gray-700">
-                
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" ><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
-                    <path d="M14 2v6h6M16 13H8M16 17H8M10 9H8"/>
-                </svg>
-                
-
-                <span>setup.py</span>
-            </div>
-        </label>
-
-        
-        <input class="hidden" data-type="file" data-id="setup.py" type="checkbox" id="setup.py" />
-        <div class="overflow-y-auto transition-all max-h-0">
-            <div class="highlight"><pre style="margin: 0"><span></span><span class="kn">from</span> <span class="nn">setuptools</span> <span class="kn">import</span> <span class="n">setup</span><span class="p">,</span> <span class="n">Extension</span>
-
-<span class="n">ccalcmod</span> <span class="o">=</span> <span class="n">Extension</span><span class="p">(</span><span class="s2">&quot;_ccalc&quot;</span><span class="p">,</span> <span class="n">sources</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;ccalcmodule.c&quot;</span><span class="p">],</span> <span class="n">language</span><span class="o">=</span><span class="s2">&quot;c&quot;</span><span class="p">)</span>
-
-<span class="n">setup</span><span class="p">(</span>
-    <span class="n">name</span><span class="o">=</span><span class="s2">&quot;ccalc&quot;</span><span class="p">,</span>
-    <span class="n">version</span><span class="o">=</span><span class="s2">&quot;1.0.0&quot;</span><span class="p">,</span>
-    <span class="n">description</span><span class="o">=</span><span class="s2">&quot;A simple calculator implemented in C&quot;</span><span class="p">,</span>
-    <span class="n">packages</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;ccalc&quot;</span><span class="p">],</span>
-    <span class="n">ext_modules</span><span class="o">=</span><span class="p">[</span><span class="n">ccalcmod</span><span class="p">],</span>
-<span class="p">)</span>
-</pre></div>
-
-        </div>
-    </div>
-        
-
-    
-
-    <div data-parent="" class=" border-t dark:border-gray-600"">
-        <label for="README.rst">
-            <div style="padding-left: 4px;" class="flex items-center px-2 py-1 space-x-2 hover:bg-gray-50 hover:dark:bg-gray-700">
-                
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" ><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
-                    <path d="M14 2v6h6M16 13H8M16 17H8M10 9H8"/>
-                </svg>
-                
-
-                <span>README.rst</span>
-            </div>
-        </label>
-
-        
-        <input class="hidden" data-type="file" data-id="README.rst" type="checkbox" id="README.rst" />
-        <div class="overflow-y-auto transition-all max-h-0">
-            <div class="highlight"><pre style="margin: 0"><span></span>A CPython extension that embeds the <span class="s">``simple-ast``</span> program into Python.
-
-<span class="p">..</span> <span class="ow">code-block</span><span class="p">::</span> <span class="k">python</span>
-
-   <span class="o">&gt;&gt;&gt;</span> <span class="kn">import</span> <span class="nn">ccalc</span>
-   <span class="o">&gt;&gt;&gt;</span> <span class="n">expression</span> <span class="o">=</span> <span class="p">(</span><span class="n">ccalc</span><span class="o">.</span><span class="n">Literal</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span> <span class="o">+</span> <span class="mi">2</span><span class="p">)</span> <span class="o">*</span> <span class="mi">3</span>
-   <span class="o">&gt;&gt;&gt;</span> <span class="n">expression</span>
-   <span class="n">Multiply</span><span class="o">&lt;</span><span class="n">Plus</span><span class="o">&lt;</span><span class="n">Literal</span><span class="o">&lt;</span><span class="mf">1.0</span><span class="o">&gt;</span><span class="p">,</span> <span class="n">Literal</span><span class="o">&lt;</span><span class="mf">2.0</span><span class="o">&gt;&gt;</span><span class="p">,</span> <span class="n">Literal</span><span class="o">&lt;</span><span class="mf">3.0</span><span class="o">&gt;&gt;</span>
-
-   <span class="o">&gt;&gt;&gt;</span> <span class="n">ccalc</span><span class="o">.</span><span class="n">eval_ast</span><span class="p">(</span><span class="n">expression</span><span class="p">)</span>
-   <span class="mf">9.0</span>
-
-<span class="gh">Building</span>
-<span class="gh">--------</span>
-
-It&#39;s probably worth creating a virtual environment to work in
-
-<span class="p">..</span> <span class="ow">code-block</span><span class="p">::</span> <span class="k">console</span>
-
-   <span class="gp">$ </span>python<span class="w"> </span>-m<span class="w"> </span>venv<span class="w"> </span>.env
-
-Assuming you have a C compiler available, building the extension is as easy as
-running the following command
-
-<span class="p">..</span> <span class="ow">code-block</span><span class="p">::</span> console
-
-   (.env) $ python setup.py install 
-</pre></div>
-
-        </div>
-    </div>
-        
-
-    
 </div>
 <style>
     
 
-    input[data-id='ccalcmodule.c']:checked ~ div {
+    input[data-id='setup.py']:checked ~ div {
         max-height: 350px;
     }
 
-    input[data-id='']:checked ~ div[data-parent='ccalcmodule.c'] {
+    input[data-id='']:checked ~ div[data-parent='setup.py'] {
         max-height: 382px;
     }
 
@@ -644,6 +650,16 @@ running the following command
     }
 
     input[data-id='']:checked ~ div[data-parent='.gitignore'] {
+        max-height: 382px;
+    }
+
+    
+
+    input[data-id='README.rst']:checked ~ div {
+        max-height: 350px;
+    }
+
+    input[data-id='']:checked ~ div[data-parent='README.rst'] {
         max-height: 382px;
     }
 
@@ -669,27 +685,17 @@ running the following command
 
     
 
-    input[data-id='setup.py']:checked ~ div {
+    input[data-id='ccalcmodule.c']:checked ~ div {
         max-height: 350px;
     }
 
-    input[data-id='']:checked ~ div[data-parent='setup.py'] {
-        max-height: 382px;
-    }
-
-    
-
-    input[data-id='README.rst']:checked ~ div {
-        max-height: 350px;
-    }
-
-    input[data-id='']:checked ~ div[data-parent='README.rst'] {
+    input[data-id='']:checked ~ div[data-parent='ccalcmodule.c'] {
         max-height: 382px;
     }
 
     
 </style><section id="readme">
-<h2>README<a class="headerlink" href="#readme" title="Permalink to this heading">¶</a></h2>
+<h2>README<a class="headerlink" href="#readme" title="Link to this heading">¶</a></h2>
 <p>A CPython extension that embeds the <code class="docutils literal notranslate"><span class="pre">simple-ast</span></code> program into Python.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">ccalc</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">expression</span> <span class="o">=</span> <span class="p">(</span><span class="n">ccalc</span><span class="o">.</span><span class="n">Literal</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span> <span class="o">+</span> <span class="mi">2</span><span class="p">)</span> <span class="o">*</span> <span class="mi">3</span>
@@ -701,7 +707,7 @@ running the following command
 </pre></div>
 </div>
 <section id="building">
-<h3>Building<a class="headerlink" href="#building" title="Permalink to this heading">¶</a></h3>
+<h3>Building<a class="headerlink" href="#building" title="Link to this heading">¶</a></h3>
 <p>It’s probably worth creating a virtual environment to work in</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>python<span class="w"> </span>-m<span class="w"> </span>venv<span class="w"> </span>.env
 </pre></div>
@@ -756,7 +762,7 @@ running the following command</p>
                             Page Source
                         </a>
                     </span>
-                    <span>Built with <a class="text-green-600" href="https://www.sphinx-doc.org/en/master/">Sphinx</a> v5.3.0</span>
+                    <span>Built with <a class="text-green-600" href="https://www.sphinx-doc.org/en/master/">Sphinx</a> v8.0.2</span>
                 </div>
             </footer>
         </main>

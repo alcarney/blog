@@ -1,35 +1,31 @@
-
 <!DOCTYPE html>
 
-<html lang="en">
+<html lang="en" data-content_root="../../../">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
     <title>Passing strings between TinyGo and JavaScript &#8212; Alex Carney</title>
 
     
-    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=92c9d732" />
     
     
     
-    <link id="pygments_dark_css" media="(prefers-color-scheme: dark)" rel="stylesheet" type="text/css" href="../../../_static/pygments_dark.css" />
+    <link id="pygments_dark_css" media="(prefers-color-scheme: dark)" rel="stylesheet" type="text/css" href="../../../_static/pygments_dark.css?v=8f9ffe49" />
     
     
-    <link rel="stylesheet" type="text/css" href="../../../_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/sphinx-design.min.css?v=95c83b7e" />
     
     
-    <link rel="stylesheet" type="text/css" href="../../../_static/css/styles.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/css/styles.css?v=7c0862aa" />
     
 
-    <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
-    <script src="../../../_static/jquery.js"></script>
-    <script src="../../../_static/underscore.js"></script>
-    <script src="../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
-    <script src="../../../_static/doctools.js"></script>
-    <script src="../../../_static/sphinx_highlight.js"></script>
-    <script src="../../../_static/design-tabs.js"></script>
-    <link rel="shortcut icon" href="../../../_static/favicon.ico"/>
+    <script src="../../../_static/documentation_options.js?v=187304be"></script>
+    <script src="../../../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../../_static/design-tabs.js?v=f930bc37"></script>
+    <link rel="icon" href="../../../_static/favicon.ico"/>
     <link rel="index" title="Index" href="../../../genindex/" />
     <link rel="search" title="Search" href="../../../search/" /> 
   </head><body class="flex flex-col justify-between min-h-screen overflow-x-hidden bg-gray-100 dark:bg-gray-900">
@@ -44,18 +40,28 @@
     <h2 class=""><a href="/">Alex Carney</a></h2>
 </div>
 
-                    <div id="searchbox" style="display: none" role="search" class="px-4 py-4">
-    <form class="flex justify-between px-2 py-1 bg-gray-100 border-2 rounded search dark:bg-gray-900 focus-within:border-green-600 dark:border-gray-600" action="../../../search/" method="get">
-        <label class="mr-2 text-gray-500" for="sbox">
-            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="feather feather-search">
-                <circle cx="11" cy="11" r="6" />
-                <path d="m21 21-4.35-4.35" />
-            </svg>
-        </label>
-        <input id="sbox" class="flex-grow bg-gray-100 dark:text-white dark:bg-gray-900 focus:outline-none" type="search" name="q" placeholder="Search..." aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" />
-    </form>
+                    
+<div id="searchbox" style="display: none" role="search" class="px-4 py-4">
+  <form class="flex justify-between px-2 py-1 bg-gray-100 border-2 rounded search dark:bg-gray-900 focus-within:border-green-600 dark:border-gray-600" action="../../../search/" method="get">
+    <label class="mr-2 text-gray-500" for="sbox">
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="feather feather-search">
+        <circle cx="11" cy="11" r="6" />
+        <path d="m21 21-4.35-4.35" />
+      </svg>
+    </label>
+    <input class="flex-grow bg-gray-100 w-full dark:text-white dark:bg-gray-900 focus:outline-none"
+           type="search"
+           name="q"
+           aria-labelledby="searchlabel"
+           autocomplete="off"
+           autocorrect="off"
+           autocapitalize="off"
+           spellcheck="false"
+           placeholder="Search"
+           />
+  </form>
 </div>
-<script>$('#searchbox').show(0);</script>
+<script>document.getElementById('searchbox').style.display = "block"</script>
 
                     
 
@@ -81,8 +87,8 @@
     <ul class="text-right">
         
         <li class="mb-1">
-            <a href="../../tag/js/" class="px-2 my-1 text-green-600 border border-green-600 rounded bg-green-50 dark:bg-green-900 dark:text-green-200">
-                #js
+            <a href="../../tag/go/" class="px-2 my-1 text-green-600 border border-green-600 rounded bg-green-50 dark:bg-green-900 dark:text-green-200">
+                #go
             </a>
         </li>
         
@@ -93,14 +99,14 @@
         </li>
         
         <li class="mb-1">
-            <a href="../../tag/go/" class="px-2 my-1 text-green-600 border border-green-600 rounded bg-green-50 dark:bg-green-900 dark:text-green-200">
-                #go
+            <a href="../../tag/wasm/" class="px-2 my-1 text-green-600 border border-green-600 rounded bg-green-50 dark:bg-green-900 dark:text-green-200">
+                #wasm
             </a>
         </li>
         
         <li class="mb-1">
-            <a href="../../tag/wasm/" class="px-2 my-1 text-green-600 border border-green-600 rounded bg-green-50 dark:bg-green-900 dark:text-green-200">
-                #wasm
+            <a href="../../tag/js/" class="px-2 my-1 text-green-600 border border-green-600 rounded bg-green-50 dark:bg-green-900 dark:text-green-200">
+                #js
             </a>
         </li>
         
@@ -187,7 +193,7 @@
 
 <article class="p-4 prose-sm prose bg-white dark:bg-gray-800 border prose-md prose-emerald max-w-none dark:prose-invert dark:border-gray-600">
     <section id="passing-strings-between-tinygo-and-javascript">
-<h1>Passing strings between TinyGo and JavaScript<a class="headerlink" href="#passing-strings-between-tinygo-and-javascript" title="Permalink to this heading">¶</a></h1>
+<h1>Passing strings between TinyGo and JavaScript<a class="headerlink" href="#passing-strings-between-tinygo-and-javascript" title="Link to this heading">¶</a></h1>
 <p>After getting a <a class="reference internal" href="../hello-world-tinygo-wasm/"><span class="doc">“Hello, World!”</span></a> WebAssembly
 application working I thought it would be fun to try and implement a toy programming
 language in the browser. However before I could even start thinking about parsers,
@@ -200,11 +206,11 @@ WebAssembly module and the surrounding JavaScript.</p>
 to know about it! 🙂</p>
 </div>
 <section id="the-interface">
-<h2>The Interface<a class="headerlink" href="#the-interface" title="Permalink to this heading">¶</a></h2>
+<h2>The Interface<a class="headerlink" href="#the-interface" title="Link to this heading">¶</a></h2>
 <figure class="align-center" id="id1">
 <img alt="../../../_images/wasm-input-output.png" src="../../../_images/wasm-input-output.png" />
 <figcaption>
-<p><span class="caption-text">The Interface to our ‘interpreter’</span><a class="headerlink" href="#id1" title="Permalink to this image">¶</a></p>
+<p><span class="caption-text">The Interface to our ‘interpreter’</span><a class="headerlink" href="#id1" title="Link to this image">¶</a></p>
 </figcaption>
 </figure>
 <p>Our WebAssembly module needs a way to interact with the user in order both collect input
@@ -231,7 +237,7 @@ from our TinyGo code but it could be useful to have a log on screen to provide f
 to the user.</p>
 </section>
 <section id="passing-strings-from-tinygo-to-javascript">
-<h2>Passing strings from TinyGo to JavaScript<a class="headerlink" href="#passing-strings-from-tinygo-to-javascript" title="Permalink to this heading">¶</a></h2>
+<h2>Passing strings from TinyGo to JavaScript<a class="headerlink" href="#passing-strings-from-tinygo-to-javascript" title="Link to this heading">¶</a></h2>
 <p>To achieve this we first need a JavaScript function which takes some text and appends it
 to the “log” <code class="docutils literal notranslate"><span class="pre">textarea</span></code> element on screen.</p>
 <div class="highlight-js notranslate"><div class="highlight"><pre><span></span><span class="kd">const</span><span class="w"> </span><span class="nx">log</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="s1">&#39;log&#39;</span><span class="p">)</span>
@@ -282,7 +288,7 @@ might as well wire up that “Run” button.</p>
 <figure class="align-center" id="id2">
 <img alt="../../../_images/wasm-addr.png" src="../../../_images/wasm-addr.png" />
 <figcaption>
-<p><span class="caption-text">Not exactly what I had in mind…</span><a class="headerlink" href="#id2" title="Permalink to this image">¶</a></p>
+<p><span class="caption-text">Not exactly what I had in mind…</span><a class="headerlink" href="#id2" title="Link to this image">¶</a></p>
 </figcaption>
 </figure>
 <p>Hmm… 🤔</p>
@@ -296,7 +302,7 @@ to fly in the face of the <a class="reference external" href="https://tinygo.org
 website where it appears the compiler is handling most of these details.</p>
 <p>Unable to find an example to copy I decided it was time for a peek behind the curtain…</p>
 <section id="digging-deeper">
-<h3>Digging Deeper<a class="headerlink" href="#digging-deeper" title="Permalink to this heading">¶</a></h3>
+<h3>Digging Deeper<a class="headerlink" href="#digging-deeper" title="Link to this heading">¶</a></h3>
 <p>On my travels I did manage to find out some more information about WebAssembly itself</p>
 <ul class="simple">
 <li><p>WebAssembly only has basic integer and float <a class="reference external" href="https://webassembly.github.io/spec/core/syntax/types.html">types</a></p></li>
@@ -362,12 +368,12 @@ second argument and see what happens</p>
 <figure class="align-center" id="id3">
 <img alt="../../../_images/wasm-addr-length.png" src="../../../_images/wasm-addr-length.png" />
 <figcaption>
-<p><span class="caption-text">That looks promising!</span><a class="headerlink" href="#id3" title="Permalink to this image">¶</a></p>
+<p><span class="caption-text">That looks promising!</span><a class="headerlink" href="#id3" title="Link to this image">¶</a></p>
 </figcaption>
 </figure>
 </section>
 <section id="extracting-the-string">
-<h3>Extracting the String<a class="headerlink" href="#extracting-the-string" title="Permalink to this heading">¶</a></h3>
+<h3>Extracting the String<a class="headerlink" href="#extracting-the-string" title="Link to this heading">¶</a></h3>
 <p>Assuming our assumptions are correct we should now have all the information we need in
 order to extract the string from the WebAssembly module’s memory. <code class="docutils literal notranslate"><span class="pre">ArrayBuffer</span></code> objects
 in JavaScript don’t seem to be the most intuitive to work with but I was eventually able
@@ -392,7 +398,7 @@ the log area</p>
 <figure class="align-center" id="id4">
 <img alt="../../../_images/wasm-log-hello.png" src="../../../_images/wasm-log-hello.png" />
 <figcaption>
-<p><span class="caption-text">Success!</span><a class="headerlink" href="#id4" title="Permalink to this image">¶</a></p>
+<p><span class="caption-text">Success!</span><a class="headerlink" href="#id4" title="Link to this image">¶</a></p>
 </figcaption>
 </figure>
 <p>This did require a slight tweak to the way we load the module so that we have a global
@@ -414,7 +420,7 @@ instance directly.</p>
 </section>
 </section>
 <section id="passing-strings-from-javascript-to-tinygo">
-<h2>Passing strings from JavaScript to TinyGo<a class="headerlink" href="#passing-strings-from-javascript-to-tinygo" title="Permalink to this heading">¶</a></h2>
+<h2>Passing strings from JavaScript to TinyGo<a class="headerlink" href="#passing-strings-from-javascript-to-tinygo" title="Link to this heading">¶</a></h2>
 <p>Phew, at least we’re halfway there! Now that we’ve figured out how things actually hang
 together it’s “just” a matter of doing the inverse process to pass a string from our
 JavaScript code into our WebAssembly module. As a proof of concept let’s create an
@@ -428,7 +434,7 @@ JavaScript code into our WebAssembly module. As a proof of concept let’s creat
 <p>In order to actually pass a string to this function, we need to insert the string into
 the memory of the WebAssembly module before calling <code class="docutils literal notranslate"><span class="pre">echo</span></code> with its address and length.</p>
 <section id="manipulating-memory">
-<h3>Manipulating Memory<a class="headerlink" href="#manipulating-memory" title="Permalink to this heading">¶</a></h3>
+<h3>Manipulating Memory<a class="headerlink" href="#manipulating-memory" title="Link to this heading">¶</a></h3>
 <p>The problem is, where exactly in the module’s memory should we place the string? We
 can’t shove it anywhere as we could corrupt memory required for some other part of the
 program. It is possible to <a class="reference external" href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/WebAssembly/Memory/grow">grow</a> the memory assigned to a module instance
@@ -476,7 +482,7 @@ correctly. Also note that we’re using the <a class="reference external" href="
 modifying the original array and not a copy.</p>
 </section>
 <section id="calling-the-echo-function">
-<h3>Calling the Echo Function<a class="headerlink" href="#calling-the-echo-function" title="Permalink to this heading">¶</a></h3>
+<h3>Calling the Echo Function<a class="headerlink" href="#calling-the-echo-function" title="Link to this heading">¶</a></h3>
 <p>With a way for us to insert the string we want into the module’s memory we should now
 be in a position to call the <code class="docutils literal notranslate"><span class="pre">echo</span></code> function passing the starting address and length
 of the string we want it to echo. However instead of hardcoding the string this time why
@@ -503,7 +509,7 @@ don’t we take it from the input <code class="docutils literal notranslate"><sp
 </section>
 </section>
 <section id="wrapping-up">
-<h2>Wrapping Up<a class="headerlink" href="#wrapping-up" title="Permalink to this heading">¶</a></h2>
+<h2>Wrapping Up<a class="headerlink" href="#wrapping-up" title="Link to this heading">¶</a></h2>
 <p>That’s about it, if you want to have a look at the final codebase then you can find it
 <a class="reference external" href="https://github.com/alcarney/wisp/tree/passing-strings">here</a>.</p>
 <p>This apparently simple task was certainly a lot more work than I expected it to be,
@@ -560,7 +566,7 @@ Perhaps I’m just using it wrong 🤔</p>
                             Page Source
                         </a>
                     </span>
-                    <span>Built with <a class="text-green-600" href="https://www.sphinx-doc.org/en/master/">Sphinx</a> v5.3.0</span>
+                    <span>Built with <a class="text-green-600" href="https://www.sphinx-doc.org/en/master/">Sphinx</a> v8.0.2</span>
                 </div>
             </footer>
         </main>
