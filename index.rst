@@ -8,4 +8,5 @@
    :maxdepth: 1
 
    code
+   dotfiles
    notes

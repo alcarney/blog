@@ -29,5 +29,10 @@ html: _static/css/styles.css $(BUILDDIR)/_static/js/theme.js
 	cp -r talks/introducing-esbonio $(BUILDDIR)/talks/introducing-esbonio
 	patch -N -p1 < searchtools.patch
 
+.PHONY: dotfiles
+dotfiles:
+	$(HATCH) -e blog run sphinx-build -M sources . _build
+	rm -r _build/sources/_sphinx_design_static/
+
 preview:
 	python -m http.server -d $(BUILDDIR) $(PORT)

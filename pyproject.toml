@@ -6,6 +6,7 @@ dependencies = [
   "ablog",
   "sphinx",
   "sphinx-design",
+  "awdur @ git+https://github.com/swyddfa/awdur@develop#subdirectory=lib/awdur"
 ]
 
 [tool.hatch.envs.blog.scripts]
