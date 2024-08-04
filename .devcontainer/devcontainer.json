@@ -3,10 +3,10 @@
 {
 	"name": "Ubuntu",
 	// Or use a Dockerfile or Docker Compose file. More info: https://containers.dev/guide/dockerfile
-	// "image": "ghcr.io/swyddfa/esbonio-devenv:latest",
-	"build": {
-		"dockerfile": "Dockerfile"
-	},
+	"image": "ghcr.io/alcarney/blog-devenv:latest",
+	// "build": {
+	// 	"dockerfile": "Dockerfile"
+	// },
 	// "containerEnv": {
 		"TZ": "UTC"
 	},
