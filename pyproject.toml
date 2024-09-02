@@ -1,3 +1,6 @@
+[tool.esbonio.sphinx]
+pythonCommand = ["hatch", "-e", "blog", "run", "python"]
+
 [tool.hatch.envs.blog]
 installer = "uv"
 python = '3.10'
