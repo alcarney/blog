@@ -3,18 +3,78 @@ Bash
 
 Bash configuration
 
+Setup
+-----
+
+At some point I need to come back and figure out why things are set up this way.   g
+But for now, this is how Fedora had setup the configuration for bash and if I don't follow this things break.
+
 .. code-block:: make
    :filename: Makefile
 
    .PHONY: bash
    bash:
+   	test -L $(HOME)/.bash_profile || ln -s $(shell pwd)/bash_profile $(HOME)/.bash_profile
    	test -L $(HOME)/.bashrc || ln -s $(shell pwd)/bashrc $(HOME)/.bashrc
+   	test -L $(HOME)/.bashrc.d || ln -s $(shell pwd)/bash $(HOME)/.bashrc.d
+
+``.bash_profile``
+^^^^^^^^^^^^^^^^^
+
+The profile doesn't do anything except source the ``bashrc`` file
+
+.. code-block:: bash 
+   :filename: bash_profile
+
+   # Get the aliases and functions
+   if [ -f ~/.bashrc ]; then
+           . ~/.bashrc
+   fi
+
+``.bashrc``
+^^^^^^^^^^^
+
+The ``bashrc`` then sources the system config
+
+.. code-block:: bash
+   :filename: bashrc
+
+   if [ -f /etc/bashrc ]; then
+           . /etc/bashrc
+   fi
+
+Adds user specific dirs to the ``PATH``
+
+.. code-block:: bash
+   :filename: bashrc
+
+   if ! [[ "$PATH" =~ "$HOME/.local/bin:$HOME/bin:" ]]
+   then
+       PATH="$HOME/.local/bin:$HOME/bin:$PATH"
+   fi
+   export PATH
+
+Then sources additional config from the ``~/.bashrc.d`` dir
+
+.. code-block:: bash
+   :filename: bashrc
+
+   if [ -d ~/.bashrc.d ]; then
+           for rc in ~/.bashrc.d/*; do
+                   if [ -f "$rc" ]; then
+                           . "$rc"
+                   fi
+           done
+   fi
+
+   unset rc
+
 
 Aliases
 -------
 
 .. code-block:: bash
-   :filename: bashrc
+   :filename: bash/10-aliases
 
    alias ls='ls -CFhX --color=auto --group-directories-first'
    alias pypath='echo $PYTHONPATH | tr '\'':'\'' '\''\n'\'''
@@ -26,7 +86,7 @@ Options
 I set the following options
 
 .. code-block:: bash
-   :filename: bashrc
+   :filename: bash/00-options
 
    shopt -s autocd         # If no command found, but matches a directory, cd into it
    shopt -s checkjobs      # Warn about background jobs before exiting
@@ -42,7 +102,7 @@ Environment Variables
 ^^^^^^^^^^
 
 .. code-block:: bash
-   :filename: bashrc
+   :filename: bash/00-options
 
    [ -d "$HOME/Projects" ] && export CDPATH=".:~/Projects"
 
@@ -59,13 +119,11 @@ This means I can ``cd`` into a project folder from anywhere on my system!
 Update the ``PATH`` based on whatever folders are available.
 
 .. code-block:: bash
-   :filename: bashrc
+   :filename: bash/00-options
 
    paths=(
-       "$HOME/bin"
        "$HOME/go/bin"
        "$HOME/.cargo/bin"
-       "$HOME/.local/bin"
        "$HOME/.npm-packages/bin"
    )
 
@@ -79,7 +137,7 @@ History
 -------
 
 .. code-block:: bash
-   :filename: bashrc
+   :filename: bash/00-options
 
    shopt -s histappend
 
@@ -93,7 +151,7 @@ Prompt
 ------
 
 .. code-block:: bash
-   :filename: bashrc
+   :filename: bash/20-prompt
 
    __venv_py_version()
    {
