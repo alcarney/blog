@@ -3,11 +3,11 @@
 {
 	"name": "Ubuntu",
 	// Or use a Dockerfile or Docker Compose file. More info: https://containers.dev/guide/dockerfile
-	"image": "ghcr.io/alcarney/blog-devenv:latest",
-	// "build": {
-	// 	"dockerfile": "Dockerfile"
-	// },
-	// "containerEnv": {
+	//"image": "ghcr.io/alcarney/blog-devenv:latest",
+	"build": {
+		"dockerfile": "Dockerfile"
+	},
+	"containerEnv": {
 		"TZ": "UTC"
 	},
 	// Features to add to the dev container. More info: https://containers.dev/features.
@@ -18,6 +18,11 @@
 	// "postCreateCommand": "uname -a",
 	// Configure tool-specific properties.
 	"customizations": {
+		"vscode": {
+			"extensions": [
+				"swyddfa.esbonio"
+			]
+		}
 	}
 	// Uncomment to connect as root instead. More info: https://aka.ms/dev-containers-non-root.
 	// "remoteUser": "root"
