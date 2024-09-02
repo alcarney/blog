@@ -31,6 +31,7 @@ author = "Alex Carney"
 # ones.
 extensions = [
     # Builtin extensions
+    "sphinx.ext.extlinks",
     "sphinx.ext.intersphinx",
     # Third party extensions
     "ablog",
@@ -54,6 +55,11 @@ blog_baseurl = "https://www.alcarney.me"
 blog_feed_fulltext = True
 blog_title = "Alex Carney | Blog"
 post_date_format = "%b %d, %Y"
+
+# -- Options for ExtLinks extension ---------------------------------------------
+extlinks = {
+    'gh': ('https://github.com/%s', '%s'),
+}
 
 # -- Options for InterSphinx extension ---------------------------------------------
 intersphinx_mapping = {
