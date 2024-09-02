@@ -83,8 +83,34 @@ endif
 PY_INTERPRETERS += $(PY)
 #$(info $(PY_INTERPRETERS))
 
+PIPX ?= $(shell command -v pipx)
 
-PY_TOOLS := $(HATCH)
+ifeq ($(strip $(PIPX)),)
+PIPX := $(BIN)/pipx
+PIPX_VERSION := 1.5.0
+
+$(PIPX):
+	curl -L -o $(BIN)/pipx.pyz https://github.com/pypa/pipx/releases/download/$(PIPX_VERSION)/pipx.pyz
+	echo '#!/bin/bash\nexec $(PY) $(BIN)/pipx.pyz "$$@"' > $(PIPX)
+
+	chmod +x $(PIPX)
+	$@ --version
+	touch $@
+endif
+
+ESBONIO ?= $(shell command -v esbonio)
+
+ifeq ($(strip $(ESBONIO)),)
+ESBONIO := $(BIN)/esbonio
+
+$(ESBONIO): $(PIPX)
+	$(PIPX) install --pip-args='--pre' esbonio
+	$@ --version
+	touch $@
+endif
+
+
+PY_TOOLS := $(HATCH) $(PIPX) $(ESBONIO)
 
 # Node JS
 NPM ?= $(shell command -v npm)
