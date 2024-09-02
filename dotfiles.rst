@@ -14,6 +14,9 @@ Some of my dotfiles.
       :link: /dotfiles/git
       :link-type: doc
 
+   .. grid-item-card:: :octicon:`file-code` Neovim
+      :link: /dotfiles/nvim
+      :link-type: doc
 
 .. toctree::
    :glob:
