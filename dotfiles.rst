@@ -10,6 +10,10 @@ Some of my dotfiles.
       :link: /dotfiles/bash
       :link-type: doc
 
+   .. grid-item-card:: :octicon:`terminal` Emacs
+      :link: /dotfiles/emacs
+      :link-type: doc
+
    .. grid-item-card:: :octicon:`git-branch` Git
       :link: /dotfiles/git
       :link-type: doc
