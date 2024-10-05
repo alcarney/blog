@@ -305,11 +305,11 @@ If they are active, then it will use colors from the theme to style elements of 
            (modus-themes-with-colors
              (set-face-attribute 'mode-line nil
                                  :background bg-active
-                                 :overline fg-active
+                                 :overline bg-active
                                  :box `(:line-width 1 :color ,bg-active :style nil))
              (set-face-attribute 'mode-line-inactive nil
                                  :background bg-inactive
-                                 :overline fg-inactive
+                                 :overline bg-inactive
                                  :box `(:line-width 1 :color ,bg-inactive :style nil))
              (set-face-attribute 'alc-modeline-project-id-face nil
                                  :background 'unspecified
