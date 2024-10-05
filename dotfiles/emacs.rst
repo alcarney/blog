@@ -634,3 +634,44 @@ All thanks to :gh:`magit/forge/discussions/544`, it's possible to define an auth
      (advice-add 'auth-source-backend-parse :before-until #'auth-source-ghcli-backend-parse))
 
    (setq auth-sources '(gh-cli))
+
+``project.el``
+--------------
+
+The built-in project management, ``project.el`` is good enough for my needs.
+However, so that Emacs works nicely with monorepo style repositories defining some additional root marker files will get ``project.el`` to consider a sub-directory of a repo a valid project.
+
+.. code-block:: elisp
+   :filename: emacs/init.el
+
+   (setq project-vc-extra-root-markers '("Cargo.toml"
+                                         "package.json"
+                                         "pyproject.toml"))
+
+This however, introduces a few problems the most obvious of which is that ``project-find-file`` doesn't respect ``.gitignore`` when run from within a subproject.
+The following advice ensures that the right vc backend is selected for subprojects
+
+.. code-block:: elisp
+   :filename: emacs/init.el
+
+   (defun alc-project-try-vc-subproject (orig-fun &rest args)
+     "Advice for `project-try-vc'.
+
+   When using `project-vc-extra-root-markers' to teach project.el
+   about subprojects within a monorepo, `project-try-vc'
+   successfully finds the subject's root but fails to detect the
+   backend. But by calling `vc-responsible-backend' on the found
+   root, we can fill in the blanks.
+
+   As a result, commands like `project-find-file' now respect the
+   parent repo's .gitignore file even when being run from within a
+   subproject."
+     (let* ((res (apply orig-fun args))
+            (dir (nth 2 res))
+            (backend (or (nth 1 res)
+                         (ignore-errors (vc-responsible-backend dir)))))
+       (if dir
+           `(vc ,backend ,dir))))
+
+   (advice-add 'project-try-vc :around #'alc-project-try-vc-subproject)
+
