@@ -747,3 +747,25 @@ The following advice ensures that the right vc backend is selected for subprojec
 
    (advice-add 'project-try-vc :around #'alc-project-try-vc-subproject)
 
+Languages
+---------
+
+I use ``eglot`` as my Emacs language client
+
+.. code-block:: elisp
+   :filename: emacs/init.el
+
+   (use-package eglot)
+
+
+
+reStructuredText
+^^^^^^^^^^^^^^^^
+
+.. code-block:: elisp
+   :filename: emacs/init.el
+
+   (use-package esbonio
+     :load-path "elpa/esbonio.el"
+     :demand
+     :hook ((rst-mode . eglot-ensure)))
