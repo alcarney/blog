@@ -588,8 +588,8 @@ Use :kbd:`C-n` and :kbd:`C-p` to cycle through completion candidates.
    :filename: emacs/init.el
 
    (dolist (kmap (list minibuffer-local-map completion-in-region-mode-map))
-     (define-key kmap "C-p" #'minibuffer-previous-completion)
-     (define-key kmap "C-n" #'minibuffer-next-completion))
+     (keymap-set kmap "C-p" #'minibuffer-previous-completion)
+     (keymap-set kmap "C-n" #'minibuffer-next-completion))
 
 Only pop open the ``*Completions*`` buffer on the *second* attempt at completing something.
 However, once it is open keep it updated and only focus it on the second completion attempt with no progress made.
