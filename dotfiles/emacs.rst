@@ -38,6 +38,29 @@ Setup package archives
    (add-to-list 'package-archives '("org" . "https://orgmode.org/elpa/"))
    (add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/"))
 
+.. admonition:: Work Around
+   :class: mt-4
+
+   I am currently using `Aurora <https://getaurora.dev/>`__ which encourages the use of homebrew to install cli programs.
+   This means executables are normally placed in ``/home/linuxbrew/.linuxbrew/bin/`` which is usually added to ``PATH`` for my user account.
+   However, this does not happen when launching Emacs via krunner and so it fails to find any tools installed there.
+
+   To work around this, let's manually add it to ``exec-path``
+
+   .. code-block:: elisp
+      :filename: emacs/init.el
+
+      (if (file-exists-p "/home/linuxbrew/.linuxbrew/bin")
+          (add-to-list 'exec-path "/home/linuxbrew/.linuxbrew/bin"))
+
+   However, this isn't enough to let functions like ``shell-command`` find the command, we also need to update Emacs' version of ``PATH``
+
+   .. code-block:: elisp
+      :class: mb-2
+      :filename: emacs/init.el
+
+      (setenv "PATH" (string-join exec-path ":"))
+
 Appearance
 ----------
 
