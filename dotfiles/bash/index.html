@@ -18,7 +18,7 @@
     <link rel="stylesheet" type="text/css" href="../../_static/sphinx-design.min.css?v=95c83b7e" />
     
     
-    <link rel="stylesheet" type="text/css" href="../../_static/css/styles.css?v=c5c4c77e" />
+    <link rel="stylesheet" type="text/css" href="../../_static/css/styles.css?v=2acf0d0f" />
     
 
     <script src="../../_static/documentation_options.js?v=187304be"></script>
@@ -28,7 +28,7 @@
     <link rel="icon" href="../../_static/favicon.ico"/>
     <link rel="index" title="Index" href="../../genindex/" />
     <link rel="search" title="Search" href="../../search/" />
-    <link rel="next" title="Git" href="../git/" />
+    <link rel="next" title="Emacs" href="../emacs/" />
     <link rel="prev" title="Dotfiles" href="../" /> 
   </head><body class="flex flex-col justify-between min-h-screen overflow-x-hidden bg-gray-100 dark:bg-gray-900">
     <div class="flex flex-grow">
@@ -77,6 +77,11 @@
                     <div class="flex-shrink overflow-auto"><nav id="localtoc" class="p-4 border-t dark:text-gray-200 dark:border-gray-600">
     <ul>
 <li><a class="reference internal" href="#">Bash</a><ul>
+<li><a class="reference internal" href="#setup">Setup</a><ul>
+<li><a class="reference internal" href="#bash-profile"><code class="docutils literal notranslate"><span class="pre">.bash_profile</span></code></a></li>
+<li><a class="reference internal" href="#bashrc"><code class="docutils literal notranslate"><span class="pre">.bashrc</span></code></a></li>
+</ul>
+</li>
 <li><a class="reference internal" href="#aliases">Aliases</a></li>
 <li><a class="reference internal" href="#options">Options</a></li>
 <li><a class="reference internal" href="#environment-variables">Environment Variables</a><ul>
@@ -154,11 +159,57 @@
     <section id="bash">
 <h1>Bash<a class="headerlink" href="#bash" title="Link to this heading">¶</a></h1>
 <p>Bash configuration</p>
+<section id="setup">
+<h2>Setup<a class="headerlink" href="#setup" title="Link to this heading">¶</a></h2>
+<p>At some point I need to come back and figure out why things are set up this way.   g
+But for now, this is how Fedora had setup the configuration for bash and if I don’t follow this things break.</p>
 <div class="highlight-make notranslate"><div class="highlight"><pre><span></span><span class="nf">.PHONY</span><span class="o">:</span><span class="w"> </span><span class="n">bash</span>
 <span class="nf">bash</span><span class="o">:</span>
+<span class="w">     </span><span class="nb">test</span><span class="w"> </span>-L<span class="w"> </span><span class="k">$(</span>HOME<span class="k">)</span>/.bash_profile<span class="w"> </span><span class="o">||</span><span class="w"> </span>ln<span class="w"> </span>-s<span class="w"> </span><span class="k">$(</span>shell<span class="w"> </span><span class="nb">pwd</span><span class="k">)</span>/bash_profile<span class="w"> </span><span class="k">$(</span>HOME<span class="k">)</span>/.bash_profile
 <span class="w">     </span><span class="nb">test</span><span class="w"> </span>-L<span class="w"> </span><span class="k">$(</span>HOME<span class="k">)</span>/.bashrc<span class="w"> </span><span class="o">||</span><span class="w"> </span>ln<span class="w"> </span>-s<span class="w"> </span><span class="k">$(</span>shell<span class="w"> </span><span class="nb">pwd</span><span class="k">)</span>/bashrc<span class="w"> </span><span class="k">$(</span>HOME<span class="k">)</span>/.bashrc
+<span class="w">     </span><span class="nb">test</span><span class="w"> </span>-L<span class="w"> </span><span class="k">$(</span>HOME<span class="k">)</span>/.bashrc.d<span class="w"> </span><span class="o">||</span><span class="w"> </span>ln<span class="w"> </span>-s<span class="w"> </span><span class="k">$(</span>shell<span class="w"> </span><span class="nb">pwd</span><span class="k">)</span>/bash<span class="w"> </span><span class="k">$(</span>HOME<span class="k">)</span>/.bashrc.d
 </pre></div>
 </div>
+<section id="bash-profile">
+<h3><code class="docutils literal notranslate"><span class="pre">.bash_profile</span></code><a class="headerlink" href="#bash-profile" title="Link to this heading">¶</a></h3>
+<p>The profile doesn’t do anything except source the <code class="docutils literal notranslate"><span class="pre">bashrc</span></code> file</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Get the aliases and functions</span>
+<span class="k">if</span><span class="w"> </span><span class="o">[</span><span class="w"> </span>-f<span class="w"> </span>~/.bashrc<span class="w"> </span><span class="o">]</span><span class="p">;</span><span class="w"> </span><span class="k">then</span>
+<span class="w">        </span>.<span class="w"> </span>~/.bashrc
+<span class="k">fi</span>
+</pre></div>
+</div>
+</section>
+<section id="bashrc">
+<h3><code class="docutils literal notranslate"><span class="pre">.bashrc</span></code><a class="headerlink" href="#bashrc" title="Link to this heading">¶</a></h3>
+<p>The <code class="docutils literal notranslate"><span class="pre">bashrc</span></code> then sources the system config</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="k">if</span><span class="w"> </span><span class="o">[</span><span class="w"> </span>-f<span class="w"> </span>/etc/bashrc<span class="w"> </span><span class="o">]</span><span class="p">;</span><span class="w"> </span><span class="k">then</span>
+<span class="w">        </span>.<span class="w"> </span>/etc/bashrc
+<span class="k">fi</span>
+</pre></div>
+</div>
+<p>Adds user specific dirs to the <code class="docutils literal notranslate"><span class="pre">PATH</span></code></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="k">if</span><span class="w"> </span>!<span class="w"> </span><span class="o">[[</span><span class="w"> </span><span class="s2">&quot;</span><span class="nv">$PATH</span><span class="s2">&quot;</span><span class="w"> </span><span class="o">=</span>~<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$HOME</span><span class="s2">/.local/bin:</span><span class="nv">$HOME</span><span class="s2">/bin:&quot;</span><span class="w"> </span><span class="o">]]</span>
+<span class="k">then</span>
+<span class="w">    </span><span class="nv">PATH</span><span class="o">=</span><span class="s2">&quot;</span><span class="nv">$HOME</span><span class="s2">/.local/bin:</span><span class="nv">$HOME</span><span class="s2">/bin:</span><span class="nv">$PATH</span><span class="s2">&quot;</span>
+<span class="k">fi</span>
+<span class="nb">export</span><span class="w"> </span>PATH
+</pre></div>
+</div>
+<p>Then sources additional config from the <code class="docutils literal notranslate"><span class="pre">~/.bashrc.d</span></code> dir</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="k">if</span><span class="w"> </span><span class="o">[</span><span class="w"> </span>-d<span class="w"> </span>~/.bashrc.d<span class="w"> </span><span class="o">]</span><span class="p">;</span><span class="w"> </span><span class="k">then</span>
+<span class="w">        </span><span class="k">for</span><span class="w"> </span>rc<span class="w"> </span><span class="k">in</span><span class="w"> </span>~/.bashrc.d/*<span class="p">;</span><span class="w"> </span><span class="k">do</span>
+<span class="w">                </span><span class="k">if</span><span class="w"> </span><span class="o">[</span><span class="w"> </span>-f<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$rc</span><span class="s2">&quot;</span><span class="w"> </span><span class="o">]</span><span class="p">;</span><span class="w"> </span><span class="k">then</span>
+<span class="w">                        </span>.<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$rc</span><span class="s2">&quot;</span>
+<span class="w">                </span><span class="k">fi</span>
+<span class="w">        </span><span class="k">done</span>
+<span class="k">fi</span>
+
+<span class="nb">unset</span><span class="w"> </span>rc
+</pre></div>
+</div>
+</section>
+</section>
 <section id="aliases">
 <h2>Aliases<a class="headerlink" href="#aliases" title="Link to this heading">¶</a></h2>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">alias</span><span class="w"> </span><span class="nv">ls</span><span class="o">=</span><span class="s1">&#39;ls -CFhX --color=auto --group-directories-first&#39;</span>
@@ -194,10 +245,8 @@ This is a colon separated list of directories in which the shell looks for desti
 <h3><code class="docutils literal notranslate"><span class="pre">PATH</span></code><a class="headerlink" href="#path" title="Link to this heading">¶</a></h3>
 <p>Update the <code class="docutils literal notranslate"><span class="pre">PATH</span></code> based on whatever folders are available.</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nv">paths</span><span class="o">=(</span>
-<span class="w">    </span><span class="s2">&quot;</span><span class="nv">$HOME</span><span class="s2">/bin&quot;</span>
 <span class="w">    </span><span class="s2">&quot;</span><span class="nv">$HOME</span><span class="s2">/go/bin&quot;</span>
 <span class="w">    </span><span class="s2">&quot;</span><span class="nv">$HOME</span><span class="s2">/.cargo/bin&quot;</span>
-<span class="w">    </span><span class="s2">&quot;</span><span class="nv">$HOME</span><span class="s2">/.local/bin&quot;</span>
 <span class="w">    </span><span class="s2">&quot;</span><span class="nv">$HOME</span><span class="s2">/.npm-packages/bin&quot;</span>
 <span class="o">)</span>
 
@@ -278,8 +327,8 @@ __is_toolbox<span class="o">()</span>
         </li>
         
         <li class="w-1/2 p-4 ml-2 bg-white dark:bg-gray-800 border hover:shadow-lg dark:border-gray-600">
-            <a class="flex items-center justify-between h-full" href="../git/">
-                <p class="text-green-600">Git</p>
+            <a class="flex items-center justify-between h-full" href="../emacs/">
+                <p class="text-green-600">Emacs</p>
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="flex-shrink-0 w-8 h-8 ml-4" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg>
             </a>
         </li>
