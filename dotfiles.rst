@@ -22,6 +22,10 @@ Some of my dotfiles.
       :link: /dotfiles/nvim
       :link-type: doc
 
+   .. grid-item-card:: :octicon:`file-code` VSCode
+      :link: /dotfiles/vscode
+      :link-type: doc
+
 .. toctree::
    :glob:
    :hidden:
