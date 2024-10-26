@@ -80,9 +80,9 @@ I quite like the Ubuntu family of fonts, but use the "Nerd Font" version to get 
 .. code-block:: elisp
    :filename: emacs/init.el
 
-   (set-face-attribute 'default nil :family "UbuntuMono NF" :height 120)
-   (set-face-attribute 'fixed-pitch nil :family "UbuntuMono NF" :height 120)
-   (set-face-attribute 'variable-pitch nil :family "Ubuntu NF" :weight 'light :height 115)
+   (set-face-attribute 'default nil :family "UbuntuMono NF" :height 100)
+   (set-face-attribute 'fixed-pitch nil :family "UbuntuMono NF" :height 100)
+   (set-face-attribute 'variable-pitch nil :family "Ubuntu NF" :weight 'light :height 100)
 
 Line Numbers
 ^^^^^^^^^^^^
