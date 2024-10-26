@@ -491,10 +491,18 @@ Indent using spaces by default, and ensure that the TAB key is only used for ind
    (setq tab-always-indent t)
    (setq-default indent-tabs-mode nil)
 
-Recompile on Save
-^^^^^^^^^^^^^^^^^
+Compileation
+^^^^^^^^^^^^
 
-A simple minor mode which, when enabled, will call ``recompile`` each time the buffer is saved
+Basic settings for Emacs' compilation framework
+
+.. code-block:: elisp
+   :filename: emacs/init.el
+
+   (setq compilation-always-kill t
+         compilation-scroll-output t)
+
+The following adds a simple minor mode which, when enabled, will call ``recompile`` each time the buffer is saved
 
 .. code-block:: elisp
    :filename: emacs/init.el
