@@ -5,7 +5,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>Jinja Templates &#8212; Alex Carney</title>
+    <title>VSCode &#8212; Alex Carney</title>
 
     
     <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=92c9d732" />
@@ -28,8 +28,8 @@
     <link rel="icon" href="../../_static/favicon.ico"/>
     <link rel="index" title="Index" href="../../genindex/" />
     <link rel="search" title="Search" href="../../search/" />
-    <link rel="next" title="Installing npm packages globally without root" href="../npm-global-user-install/" />
-    <link rel="prev" title="Git" href="../git/" /> 
+    <link rel="next" title="Notes" href="../../notes/" />
+    <link rel="prev" title="Neovim" href="../nvim/" /> 
   </head><body class="flex flex-col justify-between min-h-screen overflow-x-hidden bg-gray-100 dark:bg-gray-900">
     <div class="flex flex-grow">
         <input id="menu-state" type="checkbox" class="hidden" />
@@ -76,8 +76,14 @@
 
                     <div class="flex-shrink overflow-auto"><nav id="localtoc" class="p-4 border-t dark:text-gray-200 dark:border-gray-600">
     <ul>
-<li><a class="reference internal" href="#">Jinja Templates</a><ul>
-<li><a class="reference internal" href="#basic-setup">Basic Setup</a></li>
+<li><a class="reference internal" href="#">VSCode</a><ul>
+<li><a class="reference internal" href="#appearance">Appearance</a></li>
+<li><a class="reference internal" href="#editing">Editing</a></li>
+<li><a class="reference internal" href="#languages">Languages</a><ul>
+<li><a class="reference internal" href="#python">Python</a></li>
+<li><a class="reference internal" href="#restructuredtext">reStructuredText</a></li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>
@@ -143,49 +149,103 @@
                     
 
 <article class="p-4 prose-sm prose bg-white dark:bg-gray-800 border prose-md prose-emerald max-w-none dark:prose-invert dark:border-gray-600">
-    <section id="jinja-templates">
-<h1>Jinja Templates<a class="headerlink" href="#jinja-templates" title="Link to this heading">¶</a></h1>
-<section id="basic-setup">
-<h2>Basic Setup<a class="headerlink" href="#basic-setup" title="Link to this heading">¶</a></h2>
-<ol class="arabic">
-<li><p>Create a folder containing all your templates</p>
-<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>templates
-├── layout.html
-...
-└── links.html
+    <section id="vscode">
+<h1>VSCode<a class="headerlink" href="#vscode" title="Link to this heading">¶</a></h1>
+<p>Add a <code class="docutils literal notranslate"><span class="pre">Makefile</span></code> rule to setup the configuration on a new machine</p>
+<div class="highlight-make notranslate"><div class="highlight"><pre><span></span><span class="nf">.PHONY</span><span class="o">:</span><span class="w"> </span><span class="n">vscode</span>
+<span class="nf">vscode</span><span class="o">:</span>
+<span class="w">     </span><span class="nb">test</span><span class="w"> </span>-L<span class="w"> </span><span class="k">$(</span>HOME<span class="k">)</span>/.config/Code/User<span class="w"> </span><span class="o">||</span><span class="w"> </span>ln<span class="w"> </span>-s<span class="w"> </span><span class="k">$(</span>shell<span class="w"> </span><span class="nb">pwd</span><span class="k">)</span>/vscode/<span class="w"> </span><span class="k">$(</span>HOME<span class="k">)</span>/.config/Code/User
+<span class="w">     </span>-code<span class="w"> </span>--install-extension<span class="w"> </span>charliermarsh.ruff
+<span class="w">     </span>-code<span class="w"> </span>--install-extension<span class="w"> </span>eamodio.gitlens
+<span class="w">     </span>-code<span class="w"> </span>--install-extension<span class="w"> </span>github.github-vscode-theme
+<span class="w">     </span>-code<span class="w"> </span>--install-extension<span class="w"> </span>ms-python.python
+<span class="w">     </span>-code<span class="w"> </span>--install-extension<span class="w"> </span>pkief.material-icon-theme
+<span class="w">     </span>-code<span class="w"> </span>--install-extension<span class="w"> </span>tamasfe.even-better-toml
 </pre></div>
 </div>
-</li>
-<li><p>Create an <code class="docutils literal notranslate"><span class="pre">Environment</span></code> with an appropriate loader so that <code class="docutils literal notranslate"><span class="pre">jinja</span></code> is able to
-find the templates.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">jinja2</span> <span class="k">as</span> <span class="nn">j2</span>
-
-<span class="n">loader</span> <span class="o">=</span> <span class="n">j2</span><span class="o">.</span><span class="n">FileSystemLoader</span><span class="p">(</span><span class="n">templates_dir</span><span class="p">)</span>
-<span class="n">env</span> <span class="o">=</span> <span class="n">j2</span><span class="o">.</span><span class="n">Environment</span><span class="p">(</span><span class="n">loader</span><span class="o">=</span><span class="n">loader</span><span class="p">)</span>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
 </pre></div>
 </div>
-</li>
-<li><p>Load the relevant template(s) from the environment</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">template</span> <span class="o">=</span> <span class="n">env</span><span class="o">.</span><span class="n">get_template</span><span class="p">(</span><span class="s2">&quot;layout.html&quot;</span><span class="p">)</span>
+<section id="appearance">
+<h2>Appearance<a class="headerlink" href="#appearance" title="Link to this heading">¶</a></h2>
+<p>Sync color theme to system theme</p>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="nt">&quot;window.autoDetectColorScheme&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span>
+<span class="nt">&quot;workbench.preferredLightColorTheme&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;GitHub Light Default&quot;</span><span class="p">,</span>
+<span class="nt">&quot;workbench.preferredDarkColorTheme&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;GitHub Dark Dimmed&quot;</span><span class="p">,</span>
 </pre></div>
 </div>
-</li>
-<li><p>Create the context containing the variables that are passed down into the template.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">context</span> <span class="o">=</span> <span class="p">{</span>
-   <span class="s2">&quot;date&quot;</span><span class="p">:</span> <span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">(),</span>
-   <span class="s2">&quot;author&quot;</span><span class="p">:</span> <span class="s2">&quot;S. King&quot;</span><span class="p">,</span>
-   <span class="s2">&quot;word_count&quot;</span><span class="p">:</span> <span class="nb">float</span><span class="p">(</span><span class="s2">&quot;inf&quot;</span><span class="p">)</span>
-<span class="p">}</span>
+<p>Change the icon theme</p>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="nt">&quot;workbench.iconTheme&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;material-icon-theme&quot;</span><span class="p">,</span>
 </pre></div>
 </div>
-</li>
-<li><p>Render the template!</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="s2">&quot;w&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
-   <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">template</span><span class="o">.</span><span class="n">render</span><span class="p">(</span><span class="n">context</span><span class="p">))</span>
+<p>Set the font</p>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="nt">&quot;editor.fontFamily&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;&#39;UbuntuMono NF&#39;, &#39;monospace&#39;, monospace&quot;</span><span class="p">,</span>
+<span class="nt">&quot;editor.fontSize&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">12</span><span class="p">,</span>
+<span class="nt">&quot;editor.fontLigatures&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span>
+<span class="nt">&quot;terminal.integrated.fontFamily&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;&#39;Ubuntu Mono NF&#39;, &#39;monospace&#39;, monospace&quot;</span><span class="p">,</span>
+<span class="nt">&quot;terminal.integrated.fontSize&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">12</span><span class="p">,</span>
+<span class="nt">&quot;terminal.integrated.lineHeight&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span>
 </pre></div>
 </div>
-</li>
-</ol>
+<p>Adjust various UI elements</p>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="nt">&quot;editor.cursorStyle&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;block&quot;</span><span class="p">,</span>
+<span class="nt">&quot;editor.cursorBlinking&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;solid&quot;</span><span class="p">,</span>
+<span class="nt">&quot;editor.cursorSmoothCaretAnimation&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;on&quot;</span><span class="p">,</span>
+<span class="nt">&quot;editor.minimap.enabled&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span>
+<span class="nt">&quot;editor.smoothScrolling&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span>
+<span class="nt">&quot;debug.toolBarLocation&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;commandCenter&quot;</span><span class="p">,</span>
+<span class="nt">&quot;window.commandCenter&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span>
+<span class="nt">&quot;window.titleBarStyle&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;custom&quot;</span><span class="p">,</span>
+<span class="nt">&quot;workbench.activityBar.location&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;top&quot;</span><span class="p">,</span>
+<span class="nt">&quot;workbench.editor.showTabs&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;single&quot;</span><span class="p">,</span>
+<span class="nt">&quot;workbench.layoutControl.enabled&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span>
+<span class="nt">&quot;workbench.list.smoothScrolling&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span>
+</pre></div>
+</div>
+</section>
+<section id="editing">
+<h2>Editing<a class="headerlink" href="#editing" title="Link to this heading">¶</a></h2>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="nt">&quot;files.autoSave&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;off&quot;</span><span class="p">,</span>
+<span class="nt">&quot;files.enableTrash&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span>
+<span class="nt">&quot;files.insertFinalNewline&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span>
+<span class="nt">&quot;files.trimTrailingWhitespace&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span>
+<span class="nt">&quot;files.trimFinalNewlines&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span>
+</pre></div>
+</div>
+<p>Exclude files that aren’t that useful from the explorer pane</p>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="nt">&quot;files.exclude&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">   </span><span class="nt">&quot;**/.hg&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span>
+<span class="w">   </span><span class="nt">&quot;**/.git&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span>
+<span class="w">   </span><span class="nt">&quot;**/.svn&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span>
+<span class="w">   </span><span class="nt">&quot;**/*.pyc&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span>
+<span class="w">   </span><span class="nt">&quot;**/.mypy_cache&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span>
+<span class="w">   </span><span class="nt">&quot;**/__pycache__&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span>
+<span class="p">},</span>
+</pre></div>
+</div>
+</section>
+<section id="languages">
+<h2>Languages<a class="headerlink" href="#languages" title="Link to this heading">¶</a></h2>
+<section id="python">
+<h3>Python<a class="headerlink" href="#python" title="Link to this heading">¶</a></h3>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="nt">&quot;[python]&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;editor.rulers&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w"> </span><span class="mi">89</span><span class="w"> </span><span class="p">]</span>
+<span class="p">},</span>
+</pre></div>
+</div>
+</section>
+<section id="restructuredtext">
+<h3>reStructuredText<a class="headerlink" href="#restructuredtext" title="Link to this heading">¶</a></h3>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="nt">&quot;[restructuredtext]&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;editor.tabSize&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">3</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;editor.wordBasedSuggestions&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;off&quot;</span><span class="p">,</span>
+<span class="p">},</span>
+</pre></div>
+</div>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">}</span>
+</pre></div>
+</div>
+</section>
 </section>
 </section>
 
@@ -198,16 +258,16 @@ find the templates.</p>
         
         <li  class="w-1/2 p-4 mr-2 bg-white dark:bg-gray-800 border hover:shadow-lg dark:border-gray-600" >
             
-            <a class="flex items-center justify-between h-full" href="../git/">
+            <a class="flex items-center justify-between h-full" href="../nvim/">
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="flex-shrink-0 w-8 h-8" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg>
-                <p class="ml-4 text-green-600">Git</p>
+                <p class="ml-4 text-green-600">Neovim</p>
             </a>
             
         </li>
         
         <li class="w-1/2 p-4 ml-2 bg-white dark:bg-gray-800 border hover:shadow-lg dark:border-gray-600">
-            <a class="flex items-center justify-between h-full" href="../npm-global-user-install/">
-                <p class="text-green-600">Installing npm packages globally without root</p>
+            <a class="flex items-center justify-between h-full" href="../../notes/">
+                <p class="text-green-600">Notes</p>
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="flex-shrink-0 w-8 h-8 ml-4" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg>
             </a>
         </li>
@@ -226,7 +286,7 @@ find the templates.</p>
             <footer class="p-2 mt-8 mb-2 text-sm text-gray-600 border-t dark:border-gray-600">
                 <div class="flex flex-col justify-between max-w-3xl mx-auto lg:flex-row">
                     <span>
-                        <a class="text-green-600" href="../../_sources/notes/jinja_templates.rst.txt" rel="nofollow">
+                        <a class="text-green-600" href="../../_sources/dotfiles/vscode.rst.txt" rel="nofollow">
                             Page Source
                         </a>
                     </span>
