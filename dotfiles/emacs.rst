@@ -505,8 +505,8 @@ Indent using spaces by default, and ensure that the TAB key is only used for ind
    (setq tab-always-indent t)
    (setq-default indent-tabs-mode nil)
 
-Compileation
-^^^^^^^^^^^^
+Compilation
+^^^^^^^^^^^
 
 Basic settings for Emacs' compilation framework
 
