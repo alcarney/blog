@@ -558,7 +558,8 @@ Thankfully, Emacs does provide a few utilities to help with this
    :filename: emacs/lisp/alc-treesitter.el
 
    (setq treesit-language-source-alist
-         '((python "https://github.com/tree-sitter/tree-sitter-python" "v0.20.4")))
+         '((python "https://github.com/tree-sitter/tree-sitter-python" "v0.20.4")
+           (typescript "https://github.com/tree-sitter/tree-sitter-typescript" "v0.20.3" "typescript/src")))
 
 The ``treesit-language-source-alist`` variable tells Emacs where it can find a given grammar and what language it is for.
 Once defined (and assuming you have the necessary dependencies) you can use ``M-x treesit-install-language-grammar`` command to install one of the grammars you defined.
@@ -911,3 +912,14 @@ reStructuredText
      :load-path "elpa/esbonio.el"
      :demand
      :hook ((rst-mode . eglot-ensure)))
+
+TypeScript
+^^^^^^^^^^
+
+.. code-block:: elisp
+   :filename: emacs/init.el
+
+   (use-package typescript-ts-mode
+     :mode "\\.ts\\'"
+     :ensure t
+     :hook ((typescript-ts-mode . eglot-ensure)))
