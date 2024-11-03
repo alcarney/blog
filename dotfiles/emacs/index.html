@@ -91,7 +91,7 @@
 <li><a class="reference internal" href="#backup-files">Backup Files</a></li>
 <li><a class="reference internal" href="#repeat-mode">Repeat Mode</a></li>
 <li><a class="reference internal" href="#whitespace">Whitespace</a></li>
-<li><a class="reference internal" href="#compileation">Compileation</a></li>
+<li><a class="reference internal" href="#compilation">Compilation</a></li>
 </ul>
 </li>
 <li><a class="reference internal" href="#treesitter">Treesitter</a><ul>
@@ -101,6 +101,7 @@
 </ul>
 </li>
 <li><a class="reference internal" href="#completions"><code class="docutils literal notranslate"><span class="pre">*Completions*</span></code></a></li>
+<li><a class="reference internal" href="#embark">Embark</a></li>
 <li><a class="reference internal" href="#git">Git</a><ul>
 <li><a class="reference internal" href="#forge">Forge</a></li>
 </ul>
@@ -113,6 +114,8 @@
 </ul>
 </li>
 <li><a class="reference internal" href="#restructuredtext">reStructuredText</a></li>
+<li><a class="reference internal" href="#typescript">TypeScript</a></li>
+<li><a class="reference internal" href="#yaml">YAML</a></li>
 </ul>
 </li>
 </ul>
@@ -554,8 +557,8 @@ Uses <code class="docutils literal notranslate"><span class="pre">whitespace-dis
 </pre></div>
 </div>
 </section>
-<section id="compileation">
-<h3>Compileation<a class="headerlink" href="#compileation" title="Link to this heading">¶</a></h3>
+<section id="compilation">
+<h3>Compilation<a class="headerlink" href="#compilation" title="Link to this heading">¶</a></h3>
 <p>Basic settings for Emacs’ compilation framework</p>
 <div class="highlight-elisp notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="k">setq</span><span class="w"> </span><span class="nv">compilation-always-kill</span><span class="w"> </span><span class="no">t</span>
 <span class="w">      </span><span class="nv">compilation-scroll-output</span><span class="w"> </span><span class="no">t</span><span class="p">)</span>
@@ -594,7 +597,8 @@ Uses <code class="docutils literal notranslate"><span class="pre">whitespace-dis
 <p>While Emacs supports the tree-sitter library itself, it does not come with any grammars which need to be installed separately.
 Thankfully, Emacs does provide a few utilities to help with this</p>
 <div class="highlight-elisp notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="k">setq</span><span class="w"> </span><span class="nv">treesit-language-source-alist</span>
-<span class="w">      </span><span class="o">&#39;</span><span class="p">((</span><span class="nv">python</span><span class="w"> </span><span class="s">&quot;https://github.com/tree-sitter/tree-sitter-python&quot;</span><span class="w"> </span><span class="s">&quot;v0.20.4&quot;</span><span class="p">)))</span>
+<span class="w">      </span><span class="o">&#39;</span><span class="p">((</span><span class="nv">python</span><span class="w"> </span><span class="s">&quot;https://github.com/tree-sitter/tree-sitter-python&quot;</span><span class="w"> </span><span class="s">&quot;v0.20.4&quot;</span><span class="p">)</span>
+<span class="w">        </span><span class="p">(</span><span class="nv">typescript</span><span class="w"> </span><span class="s">&quot;https://github.com/tree-sitter/tree-sitter-typescript&quot;</span><span class="w"> </span><span class="s">&quot;v0.20.3&quot;</span><span class="w"> </span><span class="s">&quot;typescript/src&quot;</span><span class="p">)))</span>
 </pre></div>
 </div>
 <p>The <code class="docutils literal notranslate"><span class="pre">treesit-language-source-alist</span></code> variable tells Emacs where it can find a given grammar and what language it is for.
@@ -664,6 +668,16 @@ However, once it is open keep it updated and only focus it on the second complet
 <span class="w">  </span><span class="nb">:custom</span>
 <span class="w">  </span><span class="p">(</span><span class="nv">completion-styles</span><span class="w"> </span><span class="o">&#39;</span><span class="p">(</span><span class="nv">orderless</span><span class="w"> </span><span class="nv">basic</span><span class="p">))</span>
 <span class="w">  </span><span class="p">(</span><span class="nv">completion-category-overrides</span><span class="w"> </span><span class="o">&#39;</span><span class="p">((</span><span class="nv">file</span><span class="w"> </span><span class="p">(</span><span class="nv">styles</span><span class="w"> </span><span class="nv">basic</span><span class="w"> </span><span class="nv">partial-completion</span><span class="p">)))))</span>
+</pre></div>
+</div>
+</section>
+<section id="embark">
+<h2>Embark<a class="headerlink" href="#embark" title="Link to this heading">¶</a></h2>
+<p>Use <a class="extlink-gh reference external" href="https://github.com/oantolin/embark">oantolin/embark</a>!</p>
+<div class="highlight-elisp notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="nb">use-package</span><span class="w"> </span><span class="nv">embark</span>
+<span class="w">  </span><span class="nb">:ensure</span><span class="w"> </span><span class="no">t</span>
+<span class="w">  </span><span class="nb">:bind</span><span class="w"> </span><span class="p">((</span><span class="s">&quot;C-.&quot;</span><span class="w"> </span><span class="o">.</span><span class="w"> </span><span class="nv">embark-act</span><span class="p">)</span>
+<span class="w">         </span><span class="p">(</span><span class="s">&quot;M-.&quot;</span><span class="w"> </span><span class="o">.</span><span class="w"> </span><span class="nv">embark-dwim</span><span class="p">)))</span>
 </pre></div>
 </div>
 </section>
@@ -866,6 +880,22 @@ The following advice ensures that the right vc backend is selected for subprojec
 <span class="w">  </span><span class="nb">:load-path</span><span class="w"> </span><span class="s">&quot;elpa/esbonio.el&quot;</span>
 <span class="w">  </span><span class="nb">:demand</span>
 <span class="w">  </span><span class="nb">:hook</span><span class="w"> </span><span class="p">((</span><span class="nv">rst-mode</span><span class="w"> </span><span class="o">.</span><span class="w"> </span><span class="nv">eglot-ensure</span><span class="p">)))</span>
+</pre></div>
+</div>
+</section>
+<section id="typescript">
+<h3>TypeScript<a class="headerlink" href="#typescript" title="Link to this heading">¶</a></h3>
+<div class="highlight-elisp notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="nb">use-package</span><span class="w"> </span><span class="nv">typescript-ts-mode</span>
+<span class="w">  </span><span class="nb">:mode</span><span class="w"> </span><span class="s">&quot;\\.ts\\&#39;&quot;</span>
+<span class="w">  </span><span class="nb">:ensure</span><span class="w"> </span><span class="no">t</span>
+<span class="w">  </span><span class="nb">:hook</span><span class="w"> </span><span class="p">((</span><span class="nv">typescript-ts-mode</span><span class="w"> </span><span class="o">.</span><span class="w"> </span><span class="nv">eglot-ensure</span><span class="p">)))</span>
+</pre></div>
+</div>
+</section>
+<section id="yaml">
+<h3>YAML<a class="headerlink" href="#yaml" title="Link to this heading">¶</a></h3>
+<div class="highlight-elisp notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="nb">use-package</span><span class="w"> </span><span class="nv">yaml-mode</span>
+<span class="w">  </span><span class="nb">:ensure</span><span class="w"> </span><span class="no">t</span><span class="p">)</span>
 </pre></div>
 </div>
 </section>

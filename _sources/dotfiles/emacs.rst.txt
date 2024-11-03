@@ -505,8 +505,8 @@ Indent using spaces by default, and ensure that the TAB key is only used for ind
    (setq tab-always-indent t)
    (setq-default indent-tabs-mode nil)
 
-Compileation
-^^^^^^^^^^^^
+Compilation
+^^^^^^^^^^^
 
 Basic settings for Emacs' compilation framework
 
@@ -558,7 +558,8 @@ Thankfully, Emacs does provide a few utilities to help with this
    :filename: emacs/lisp/alc-treesitter.el
 
    (setq treesit-language-source-alist
-         '((python "https://github.com/tree-sitter/tree-sitter-python" "v0.20.4")))
+         '((python "https://github.com/tree-sitter/tree-sitter-python" "v0.20.4")
+           (typescript "https://github.com/tree-sitter/tree-sitter-typescript" "v0.20.3" "typescript/src")))
 
 The ``treesit-language-source-alist`` variable tells Emacs where it can find a given grammar and what language it is for.
 Once defined (and assuming you have the necessary dependencies) you can use ``M-x treesit-install-language-grammar`` command to install one of the grammars you defined.
@@ -656,6 +657,19 @@ Use the :gh:`oantolin/orderless` completion style
      :custom
      (completion-styles '(orderless basic))
      (completion-category-overrides '((file (styles basic partial-completion)))))
+
+Embark
+------
+
+Use :gh:`oantolin/embark`!
+
+.. code-block:: elisp
+   :filename: emacs/init.el
+
+   (use-package embark
+     :ensure t
+     :bind (("C-." . embark-act)
+            ("M-." . embark-dwim)))
 
 Git
 ---
@@ -898,3 +912,23 @@ reStructuredText
      :load-path "elpa/esbonio.el"
      :demand
      :hook ((rst-mode . eglot-ensure)))
+
+TypeScript
+^^^^^^^^^^
+
+.. code-block:: elisp
+   :filename: emacs/init.el
+
+   (use-package typescript-ts-mode
+     :mode "\\.ts\\'"
+     :ensure t
+     :hook ((typescript-ts-mode . eglot-ensure)))
+
+YAML
+^^^^
+
+.. code-block:: elisp
+   :filename: emacs/init.el
+
+   (use-package yaml-mode
+     :ensure t)
