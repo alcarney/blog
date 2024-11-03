@@ -923,3 +923,12 @@ TypeScript
      :mode "\\.ts\\'"
      :ensure t
      :hook ((typescript-ts-mode . eglot-ensure)))
+
+YAML
+^^^^
+
+.. code-block:: elisp
+   :filename: emacs/init.el
+
+   (use-package yaml-mode
+     :ensure t)
