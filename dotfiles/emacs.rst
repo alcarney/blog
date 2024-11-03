@@ -657,6 +657,19 @@ Use the :gh:`oantolin/orderless` completion style
      (completion-styles '(orderless basic))
      (completion-category-overrides '((file (styles basic partial-completion)))))
 
+Embark
+------
+
+Use :gh:`oantolin/embark`!
+
+.. code-block:: elisp
+   :filename: emacs/init.el
+
+   (use-package embark
+     :ensure t
+     :bind (("C-." . embark-act)
+            ("M-." . embark-dwim)))
+
 Git
 ---
 
