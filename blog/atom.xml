@@ -2,10 +2,64 @@
 <feed xmlns="http://www.w3.org/2005/Atom" xml:lang="en">
   <id>https://www.alcarney.me</id>
   <title>Alex Carney | Blog</title>
-  <updated>2024-11-03T14:10:59.265536+00:00</updated>
+  <updated>2024-11-03T17:34:02.965383+00:00</updated>
   <link href="https://www.alcarney.me"/>
   <link href="https://www.alcarney.me/blog/atom.xml" rel="self"/>
   <generator uri="https://ablog.readthedocs.io/" version="0.11.12">ABlog</generator>
+  <entry>
+    <id>https://www.alcarney.me/blog/2024/notes-october/</id>
+    <title>Notes for October</title>
+    <updated>2024-11-03T00:00:00+00:00</updated>
+    <author>
+      <name>Alex Carney</name>
+    </author>
+    <content type="html">&lt;section id="notes-for-october"&gt;
+
+&lt;p&gt;I want to try and get into the habit of writing more, so taking inspiration from Simon Willison’s &lt;a class="reference external" href="https://simonwillison.net/tags/weeknotes/"&gt;weeknotes&lt;/a&gt; here’s a quick writeup of what I have been doing in the month of October.&lt;/p&gt;
+&lt;section id="esbonio"&gt;
+&lt;h2&gt;Esbonio&lt;/h2&gt;
+&lt;p&gt;&lt;a class="reference external" href="https://github.com/swyddfa/esbonio"&gt;esbonio&lt;/a&gt; &lt;em&gt;is a language server for your Sphinx documentation projects&lt;/em&gt;&lt;/p&gt;
+&lt;p&gt;Work towards the big &lt;code class="docutils literal notranslate"&gt;&lt;span class="pre"&gt;1.0&lt;/span&gt;&lt;/code&gt; release continues and in the &lt;a class="reference external" href="https://github.com/swyddfa/esbonio/releases/tag/esbonio-vscode-extension-v0.96.0"&gt;latest pre-release&lt;/a&gt; of the VSCode extension, it should now be possible to preview documentation builds when running on Codespaces.
+(&lt;a class="reference external" href="https://github.com/swyddfa/esbonio/issue/896"&gt;Issue&lt;/a&gt;, &lt;a class="reference external" href="https://github.com/swyddfa/esbonio/pull/905"&gt;PR&lt;/a&gt;)&lt;/p&gt;
+&lt;p&gt;Up until now, Esbonio has required a correctly configured Python environment in order to work at all.
+However, one of the most common issues I see is people struggling with this initial setup step and Esbonio will refuse to try anything until it is complete.&lt;/p&gt;
+&lt;p&gt;This isn’t ideal and in reality there is plenty Esbonio could do even if the Python environment is has access to is not complete!
+So this month I started looking into ways to make the server useful in more situations&lt;/p&gt;
+&lt;ul class="simple"&gt;
+&lt;li&gt;&lt;p&gt;The VSCode extension now comes with a default Python enviroment to use when the user does not provide their own
+(&lt;a class="reference external" href="https://github.com/swyddfa/esbonio/pull/915"&gt;PR&lt;/a&gt;)&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;The language server can now continue to work if one of the required Sphinx extensions is not available
+(&lt;a class="reference external" href="https://github.com/swyddfa/esbonio/pull/913"&gt;PR&lt;/a&gt;)&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;The language server will fallback to Sphinx’s default &lt;code class="docutils literal notranslate"&gt;&lt;span class="pre"&gt;alabaster&lt;/span&gt;&lt;/code&gt; theme if the requested HTML theme is not available
+(&lt;a class="reference external" href="https://github.com/swyddfa/esbonio/pull/916"&gt;PR&lt;/a&gt;)&lt;/p&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;There will, of course, be many more situations to handle but it’s a start!&lt;/p&gt;
+&lt;/section&gt;
+&lt;section id="pygls"&gt;
+&lt;h2&gt;pygls&lt;/h2&gt;
+&lt;p&gt;&lt;a class="reference external" href="https://github.com/openlawlibrary/pygls"&gt;pygls&lt;/a&gt; &lt;em&gt;is the language server framework I help to maintain and use in Esbonio&lt;/em&gt;&lt;/p&gt;
+&lt;p&gt;Work towards the &lt;code class="docutils literal notranslate"&gt;&lt;span class="pre"&gt;2.0&lt;/span&gt;&lt;/code&gt; release continues and this month I finally was able to tackle the migration from Python’s low-level to high-level asyncio APIs&lt;/p&gt;
+&lt;ul class="simple"&gt;
+&lt;li&gt;&lt;p&gt;&lt;a class="reference external" href="https://github.com/openlawlibrary/pygls/pull/506"&gt;Move JsonRPCServer.start_io to high-level asyncio API&lt;/a&gt;&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;&lt;a class="reference external" href="https://github.com/openlawlibrary/pygls/pull/507"&gt;Migrate JsonRPCServer.start_tcp and JsonRPCServer.start_ws to high level asyncio APIs&lt;/a&gt;&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;&lt;a class="reference external" href="https://github.com/openlawlibrary/pygls/pull/508"&gt;Replace “transports” with “writers”&lt;/a&gt;&lt;/p&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;I also was able to add TCP and WebSocket support to the language client&lt;/p&gt;
+&lt;ul class="simple"&gt;
+&lt;li&gt;&lt;p&gt;&lt;a class="reference external" href="https://github.com/openlawlibrary/pygls/pull/501"&gt;Add TCP support to pygls’ LanguageClient&lt;/a&gt;&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;&lt;a class="reference external" href="https://github.com/openlawlibrary/pygls/pull/503"&gt;Add start_ws method to pygls’ LanguageClient&lt;/a&gt;&lt;/p&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Finally, I was able to clean up the &lt;a class="reference external" href="https://github.com/openlawlibrary/pygls/pull/509"&gt;library’s support&lt;/a&gt; for &lt;a class="reference external" href="https://pyodide.org/"&gt;Pyodide&lt;/a&gt; and started thinking about what it would take to embed a simple language client into the docs for demos - disappointingly, it may be harder than I would like!&lt;/p&gt;
+&lt;/section&gt;
+&lt;/section&gt;
+</content>
+    <link href="https://www.alcarney.me/blog/2024/notes-october/"/>
+    <summary>I want to try and get into the habit of writing more, so taking inspiration from Simon Willison’s weeknotes here’s a quick writeup of what I have been doing in the month of October.</summary>
+    <category term="esbonio" label="esbonio"/>
+    <category term="monthnotes" label="monthnotes"/>
+    <category term="pygls" label="pygls"/>
+    <published>2024-11-03T00:00:00+00:00</published>
+  </entry>
   <entry>
     <id>https://www.alcarney.me/blog/2023/python-wasi-nix/</id>
     <title>Setting up a Python WASI Environment with Nix</title>
