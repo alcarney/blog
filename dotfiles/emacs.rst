@@ -652,6 +652,29 @@ Use the :gh:`oantolin/orderless` completion style
      (completion-styles '(orderless basic))
      (completion-category-overrides '((file (styles basic partial-completion)))))
 
+Consult
+-------
+
+Use :gh:`minad/consult`
+
+.. code-block:: elisp
+   :filename: emacs/init.el
+
+   (use-package consult
+     :ensure t
+     :custom
+     (consult-preview-key "M-.")
+     :bind (("C-x b" . consult-buffer)))
+
+And since I use embark, use the recommended ``emabrk-collect`` package
+
+.. code-block:: elisp
+   :filename: emacs/init.el
+
+   (use-package embark-consult
+     :after (embark consult)
+     :ensure t)
+
 Embark
 ------
 
