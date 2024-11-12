@@ -645,6 +645,7 @@ Tweak how the ``*Completions*`` buffer is rendered
 Use the :gh:`oantolin/orderless` completion style
 
 .. code-block:: elisp
+   :filename: emacs/init.el
 
    (use-package orderless
      :ensure t
