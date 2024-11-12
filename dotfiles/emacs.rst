@@ -637,16 +637,10 @@ Tweak how the ``*Completions*`` buffer is rendered
 
    (setq completions-detailed t
          completions-format 'one-column
+         completions-group t
          completions-header-format (propertize "%s candidates\n" 'face 'shadow)
          completions-max-height 15
          completion-show-help nil)
-
-This sounds interesting, though I'm yet to see it in action...
-
-.. code-block:: elisp
-   :filename: emacs/init.el
-
-   (setq completions-group t)
 
 Use the :gh:`oantolin/orderless` completion style
 
