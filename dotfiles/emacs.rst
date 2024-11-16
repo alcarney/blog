@@ -868,7 +868,7 @@ Python
 
 Settings for Python files
 
-.. code-block:: python
+.. code-block:: elisp
    :filename: emacs/init.el
 
    (use-package python
@@ -879,7 +879,7 @@ Settings for Python files
 
 Use ruff for formatting.
 
-.. code-block:: python
+.. code-block:: elisp
    :filename: emacs/init.el
 
    (with-eval-after-load 'apheleia
@@ -888,7 +888,7 @@ Use ruff for formatting.
 
 A function to run each time a Python file is visited.
 
-.. code-block:: python
+.. code-block:: elisp
    :filename: emacs/init.el
 
    (defun alc-python-mode-hook ()
