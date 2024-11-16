@@ -3,7 +3,7 @@ pythonCommand = ["hatch", "-e", "blog", "run", "python"]
 
 [tool.hatch.envs.blog]
 installer = "uv"
-python = '3.10'
+python = '3.13'
 skip-install = true
 dependencies = [
   "ablog",
