@@ -5,7 +5,7 @@ ifeq ($(strip $(ARCH)),)
 $(error Unable to determine platform architecture)
 endif
 
-NODE_VERSION := 18.20.4
+NODE_VERSION := 22.11.0
 UV_VERSION := 0.5.2
 
 UV ?= $(shell command -v uv)
