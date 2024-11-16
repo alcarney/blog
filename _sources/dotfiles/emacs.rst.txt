@@ -637,26 +637,44 @@ Tweak how the ``*Completions*`` buffer is rendered
 
    (setq completions-detailed t
          completions-format 'one-column
+         completions-group t
          completions-header-format (propertize "%s candidates\n" 'face 'shadow)
          completions-max-height 15
          completion-show-help nil)
 
-This sounds interesting, though I'm yet to see it in action...
-
-.. code-block:: elisp
-   :filename: emacs/init.el
-
-   (setq completions-group t)
-
 Use the :gh:`oantolin/orderless` completion style
 
 .. code-block:: elisp
+   :filename: emacs/init.el
 
    (use-package orderless
      :ensure t
      :custom
      (completion-styles '(orderless basic))
      (completion-category-overrides '((file (styles basic partial-completion)))))
+
+Consult
+-------
+
+Use :gh:`minad/consult`
+
+.. code-block:: elisp
+   :filename: emacs/init.el
+
+   (use-package consult
+     :ensure t
+     :custom
+     (consult-preview-key "M-.")
+     :bind (("C-x b" . consult-buffer)))
+
+And since I use embark, use the recommended ``emabrk-collect`` package
+
+.. code-block:: elisp
+   :filename: emacs/init.el
+
+   (use-package embark-consult
+     :after (embark consult)
+     :ensure t)
 
 Embark
 ------
@@ -932,3 +950,23 @@ YAML
 
    (use-package yaml-mode
      :ensure t)
+
+LLMs
+----
+
+.. seealso::
+
+   :ref:`local-llms-with-ollama-gptel`
+
+.. code-block:: elisp
+   :filename: emacs/init.el
+
+   (use-package gptel
+     :ensure t
+     :bind (("C-c RET" . gptel-send))
+     :config
+     (setq gptel-model 'llama3.2:latest)
+     (setq gptel-backend (gptel-make-ollama "Ollama"
+                          :host "localhost:11434"
+                          :stream t
+                          :models '(llama3.2:latest))))

@@ -101,6 +101,7 @@
 </ul>
 </li>
 <li><a class="reference internal" href="#completions"><code class="docutils literal notranslate"><span class="pre">*Completions*</span></code></a></li>
+<li><a class="reference internal" href="#consult">Consult</a></li>
 <li><a class="reference internal" href="#embark">Embark</a></li>
 <li><a class="reference internal" href="#git">Git</a><ul>
 <li><a class="reference internal" href="#forge">Forge</a></li>
@@ -118,6 +119,7 @@
 <li><a class="reference internal" href="#yaml">YAML</a></li>
 </ul>
 </li>
+<li><a class="reference internal" href="#llms">LLMs</a></li>
 </ul>
 </li>
 </ul>
@@ -653,13 +655,10 @@ However, once it is open keep it updated and only focus it on the second complet
 <p>Tweak how the <code class="docutils literal notranslate"><span class="pre">*Completions*</span></code> buffer is rendered</p>
 <div class="highlight-elisp notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="k">setq</span><span class="w"> </span><span class="nv">completions-detailed</span><span class="w"> </span><span class="no">t</span>
 <span class="w">      </span><span class="nv">completions-format</span><span class="w"> </span><span class="ss">&#39;one-column</span>
+<span class="w">      </span><span class="nv">completions-group</span><span class="w"> </span><span class="no">t</span>
 <span class="w">      </span><span class="nv">completions-header-format</span><span class="w"> </span><span class="p">(</span><span class="nf">propertize</span><span class="w"> </span><span class="s">&quot;%s candidates\n&quot;</span><span class="w"> </span><span class="ss">&#39;face</span><span class="w"> </span><span class="ss">&#39;shadow</span><span class="p">)</span>
 <span class="w">      </span><span class="nv">completions-max-height</span><span class="w"> </span><span class="mi">15</span>
 <span class="w">      </span><span class="nv">completion-show-help</span><span class="w"> </span><span class="no">nil</span><span class="p">)</span>
-</pre></div>
-</div>
-<p>This sounds interesting, though I’m yet to see it in action…</p>
-<div class="highlight-elisp notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="k">setq</span><span class="w"> </span><span class="nv">completions-group</span><span class="w"> </span><span class="no">t</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>Use the <a class="extlink-gh reference external" href="https://github.com/oantolin/orderless">oantolin/orderless</a> completion style</p>
@@ -668,6 +667,23 @@ However, once it is open keep it updated and only focus it on the second complet
 <span class="w">  </span><span class="nb">:custom</span>
 <span class="w">  </span><span class="p">(</span><span class="nv">completion-styles</span><span class="w"> </span><span class="o">&#39;</span><span class="p">(</span><span class="nv">orderless</span><span class="w"> </span><span class="nv">basic</span><span class="p">))</span>
 <span class="w">  </span><span class="p">(</span><span class="nv">completion-category-overrides</span><span class="w"> </span><span class="o">&#39;</span><span class="p">((</span><span class="nv">file</span><span class="w"> </span><span class="p">(</span><span class="nv">styles</span><span class="w"> </span><span class="nv">basic</span><span class="w"> </span><span class="nv">partial-completion</span><span class="p">)))))</span>
+</pre></div>
+</div>
+</section>
+<section id="consult">
+<h2>Consult<a class="headerlink" href="#consult" title="Link to this heading">¶</a></h2>
+<p>Use <a class="extlink-gh reference external" href="https://github.com/minad/consult">minad/consult</a></p>
+<div class="highlight-elisp notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="nb">use-package</span><span class="w"> </span><span class="nv">consult</span>
+<span class="w">  </span><span class="nb">:ensure</span><span class="w"> </span><span class="no">t</span>
+<span class="w">  </span><span class="nb">:custom</span>
+<span class="w">  </span><span class="p">(</span><span class="nv">consult-preview-key</span><span class="w"> </span><span class="s">&quot;M-.&quot;</span><span class="p">)</span>
+<span class="w">  </span><span class="nb">:bind</span><span class="w"> </span><span class="p">((</span><span class="s">&quot;C-x b&quot;</span><span class="w"> </span><span class="o">.</span><span class="w"> </span><span class="nv">consult-buffer</span><span class="p">)))</span>
+</pre></div>
+</div>
+<p>And since I use embark, use the recommended <code class="docutils literal notranslate"><span class="pre">emabrk-collect</span></code> package</p>
+<div class="highlight-elisp notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="nb">use-package</span><span class="w"> </span><span class="nv">embark-consult</span>
+<span class="w">  </span><span class="nb">:after</span><span class="w"> </span><span class="p">(</span><span class="nv">embark</span><span class="w"> </span><span class="nv">consult</span><span class="p">)</span>
+<span class="w">  </span><span class="nb">:ensure</span><span class="w"> </span><span class="no">t</span><span class="p">)</span>
 </pre></div>
 </div>
 </section>
@@ -899,6 +915,24 @@ The following advice ensures that the right vc backend is selected for subprojec
 </pre></div>
 </div>
 </section>
+</section>
+<section id="llms">
+<h2>LLMs<a class="headerlink" href="#llms" title="Link to this heading">¶</a></h2>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<p><a class="reference internal" href="../../blog/2024/local-llms-with-ollama-gptel/#local-llms-with-ollama-gptel"><span class="std std-ref">TIL: Local LLMs with Ollama and gptel</span></a></p>
+</div>
+<div class="highlight-elisp notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="nb">use-package</span><span class="w"> </span><span class="nv">gptel</span>
+<span class="w">  </span><span class="nb">:ensure</span><span class="w"> </span><span class="no">t</span>
+<span class="w">  </span><span class="nb">:bind</span><span class="w"> </span><span class="p">((</span><span class="s">&quot;C-c RET&quot;</span><span class="w"> </span><span class="o">.</span><span class="w"> </span><span class="nv">gptel-send</span><span class="p">))</span>
+<span class="w">  </span><span class="nb">:config</span>
+<span class="w">  </span><span class="p">(</span><span class="k">setq</span><span class="w"> </span><span class="nv">gptel-model</span><span class="w"> </span><span class="ss">&#39;llama3.2:latest</span><span class="p">)</span>
+<span class="w">  </span><span class="p">(</span><span class="k">setq</span><span class="w"> </span><span class="nv">gptel-backend</span><span class="w"> </span><span class="p">(</span><span class="nv">gptel-make-ollama</span><span class="w"> </span><span class="s">&quot;Ollama&quot;</span>
+<span class="w">                       </span><span class="nb">:host</span><span class="w"> </span><span class="s">&quot;localhost:11434&quot;</span>
+<span class="w">                       </span><span class="nb">:stream</span><span class="w"> </span><span class="no">t</span>
+<span class="w">                       </span><span class="nb">:models</span><span class="w"> </span><span class="o">&#39;</span><span class="p">(</span><span class="nv">llama3.2:latest</span><span class="p">))))</span>
+</pre></div>
+</div>
 </section>
 </section>
 

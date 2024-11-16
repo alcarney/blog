@@ -2,10 +2,79 @@
 <feed xmlns="http://www.w3.org/2005/Atom" xml:lang="en">
   <id>https://www.alcarney.me</id>
   <title>Alex Carney | Blog</title>
-  <updated>2024-11-03T17:34:02.965383+00:00</updated>
+  <updated>2024-11-16T15:34:18.583335+00:00</updated>
   <link href="https://www.alcarney.me"/>
   <link href="https://www.alcarney.me/blog/atom.xml" rel="self"/>
   <generator uri="https://ablog.readthedocs.io/" version="0.11.12">ABlog</generator>
+  <entry>
+    <id>https://www.alcarney.me/blog/2024/local-llms-with-ollama-gptel/</id>
+    <title>TIL: Local LLMs with Ollama and gptel</title>
+    <updated>2024-11-16T00:00:00+00:00</updated>
+    <author>
+      <name>Alex Carney</name>
+    </author>
+    <content type="html">&lt;section id="til-local-llms-with-ollama-and-gptel"&gt;
+
+&lt;p&gt;LLMs don’t look like they’re going to go away anytime soon, so I may as well start playing around with them.
+Since I am also using Emacs more and more it also makes sense to try using it as the interface to any models.&lt;/p&gt;
+&lt;section id="installing-ollama"&gt;
+&lt;h2&gt;Installing Ollama&lt;/h2&gt;
+&lt;p&gt;I’m not terribly interested in messing around with API keys, rate limits and/or billing that seems to come with any of the hosted models.
+Thankfully Bluefin/Aurorae &lt;a class="reference external" href="https://docs.projectbluefin.io/ai#local-ai"&gt;makes it easy&lt;/a&gt; to get &lt;a class="reference external" href="https://github.com/ollama/ollama"&gt;Ollama&lt;/a&gt; up and running locally.&lt;/p&gt;
+&lt;div class="highlight-console notranslate"&gt;&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="gp"&gt;$ &lt;/span&gt;ujust&lt;span class="w"&gt; &lt;/span&gt;ollama&lt;span class="w"&gt; &lt;/span&gt;install
+&lt;span class="gp"&gt;$ &lt;/span&gt;brew&lt;span class="w"&gt; &lt;/span&gt;install&lt;span class="w"&gt; &lt;/span&gt;ollama
+&lt;span class="gp"&gt;$ &lt;/span&gt;systemctl&lt;span class="w"&gt; &lt;/span&gt;--user&lt;span class="w"&gt; &lt;/span&gt;start&lt;span class="w"&gt; &lt;/span&gt;ollama
+&lt;/pre&gt;&lt;/div&gt;
+&lt;/div&gt;
+&lt;p&gt;This will make the Ollama API available locally on &lt;code class="docutils literal notranslate"&gt;&lt;span class="pre"&gt;http://localhost:11434&lt;/span&gt;&lt;/code&gt;.&lt;/p&gt;
+&lt;div class="admonition tip"&gt;
+&lt;p class="admonition-title"&gt;Tip&lt;/p&gt;
+&lt;p&gt;Bluefin/Aurorae also make it easy to spin up an instance of the &lt;a class="reference external" href="https://docs.openwebui.com/"&gt;Open Web UI&lt;/a&gt; if you want a Chat GPT style interface&lt;/p&gt;
+&lt;div class="highlight-console notranslate"&gt;&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="gp"&gt;$ &lt;/span&gt;ujust&lt;span class="w"&gt; &lt;/span&gt;ollama&lt;span class="w"&gt; &lt;/span&gt;install-open-webui
+&lt;span class="gp"&gt;$ &lt;/span&gt;systemctl&lt;span class="w"&gt; &lt;/span&gt;--user&lt;span class="w"&gt; &lt;/span&gt;start&lt;span class="w"&gt; &lt;/span&gt;ollama-web
+&lt;/pre&gt;&lt;/div&gt;
+&lt;/div&gt;
+&lt;p&gt;Once everything has spun up, the interface will be available locally on &lt;code class="docutils literal notranslate"&gt;&lt;span class="pre"&gt;http://localhost:8080&lt;/span&gt;&lt;/code&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;/section&gt;
+&lt;section id="choosing-a-model"&gt;
+&lt;h2&gt;Choosing a Model&lt;/h2&gt;
+&lt;p&gt;Installing Ollama by itself however does not give you much, you now have the infrastructure in place to run models and interact with them but it does not come with any models out of the box.&lt;/p&gt;
+&lt;p&gt;Unfortunately, there are so many models to choose from!
+I have no idea how to pick between them and most of the benchmark scores are meaningless to me.&lt;/p&gt;
+&lt;p&gt;However, any model I run will have to run on my CPU so I can let my hardware constraints pick for me.
+So looking for something small… ah! &lt;a class="reference external" href="https://ollama.com/library/llama3.2"&gt;llama3.2:3b&lt;/a&gt;, it’s a new-ish model, 3b parameters and only a 2GB download, seems as good a choice as any. - Any AI is better then no AI… right? 😅&lt;/p&gt;
+&lt;div class="highlight-console notranslate"&gt;&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="gp"&gt;$ &lt;/span&gt;ollama&lt;span class="w"&gt; &lt;/span&gt;pull&lt;span class="w"&gt; &lt;/span&gt;llama3.2
+&lt;/pre&gt;&lt;/div&gt;
+&lt;/div&gt;
+&lt;p&gt;This was all I needed to do in order for the model to show up in Open Web UI however, as I mentioned in the intro I’m interested in interacting with these models via Emacs.&lt;/p&gt;
+&lt;/section&gt;
+&lt;section id="installing-gptel"&gt;
+&lt;h2&gt;Installing gptel&lt;/h2&gt;
+&lt;p&gt;If you search for packages that involve AI in some way you will quickly discover a lot of them!
+However, stumbling across this &lt;a class="reference external" href="https://www.youtube.com/watch?v=bsRnh_brggM"&gt;video demo&lt;/a&gt; of &lt;a class="reference external" href="https://github.com/karthink/gptel"&gt;gptel&lt;/a&gt; was enough to sell me on it.&lt;/p&gt;
+&lt;p&gt;All it takes is a few lines of elisp to point &lt;code class="docutils literal notranslate"&gt;&lt;span class="pre"&gt;gptel&lt;/span&gt;&lt;/code&gt; at the local Ollama API.&lt;/p&gt;
+&lt;div class="highlight-elisp notranslate"&gt;&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nv"&gt;package-install&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="ss"&gt;&amp;#39;gptel&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="k"&gt;setq&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nv"&gt;gptel-model&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="ss"&gt;&amp;#39;llama3.2:latest&lt;/span&gt;
+&lt;span class="w"&gt;      &lt;/span&gt;&lt;span class="nv"&gt;gptel-backend&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nv"&gt;gptel-make-ollama&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="s"&gt;&amp;quot;Ollama&amp;quot;&lt;/span&gt;
+&lt;span class="w"&gt;                      &lt;/span&gt;&lt;span class="nb"&gt;:host&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="s"&gt;&amp;quot;localhost:11434&amp;quot;&lt;/span&gt;
+&lt;span class="w"&gt;                      &lt;/span&gt;&lt;span class="nb"&gt;:stream&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="no"&gt;t&lt;/span&gt;
+&lt;span class="w"&gt;                      &lt;/span&gt;&lt;span class="nb"&gt;:models&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nv"&gt;llama3.2:latest&lt;/span&gt;&lt;span class="p"&gt;)))&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+&lt;/div&gt;
+&lt;p&gt;And I can now call &lt;code class="docutils literal notranslate"&gt;&lt;span class="pre"&gt;M-x&lt;/span&gt; &lt;span class="pre"&gt;gptel&lt;/span&gt;&lt;/code&gt; to open a dedicated chat buffer with the &lt;code class="docutils literal notranslate"&gt;&lt;span class="pre"&gt;llama3.2&lt;/span&gt;&lt;/code&gt; model.
+Now all I have to do is figure out what these models are actually useful for!&lt;/p&gt;
+&lt;/section&gt;
+&lt;/section&gt;
+</content>
+    <link href="https://www.alcarney.me/blog/2024/local-llms-with-ollama-gptel/"/>
+    <summary>LLMs don’t look like they’re going to go away anytime soon, so I may as well start playing around with them.
+Since I am also using Emacs more and more it also makes sense to try using it as the interface to any models.</summary>
+    <category term="emacs" label="emacs"/>
+    <category term="llms" label="llms"/>
+    <category term="til" label="til"/>
+    <published>2024-11-16T00:00:00+00:00</published>
+  </entry>
   <entry>
     <id>https://www.alcarney.me/blog/2024/notes-october/</id>
     <title>Notes for October</title>
