@@ -950,3 +950,23 @@ YAML
 
    (use-package yaml-mode
      :ensure t)
+
+LLMs
+----
+
+.. seealso::
+
+   :ref:`local-llms-with-ollama-gptel`
+
+.. code-block:: elisp
+   :filename: emacs/init.el
+
+   (use-package gptel
+     :ensure t
+     :bind (("C-c RET" . gptel-send))
+     :config
+     (setq gptel-model 'llama3.2:latest)
+     (setq gptel-backend (gptel-make-ollama "Ollama"
+                          :host "localhost:11434"
+                          :stream t
+                          :models '(llama3.2:latest))))
