@@ -237,9 +237,9 @@ However, this does not happen when launching Emacs via krunner and so it fails t
 <section id="fonts">
 <h3>Fonts<a class="headerlink" href="#fonts" title="Link to this heading">¶</a></h3>
 <p>I quite like the Ubuntu family of fonts, but use the “Nerd Font” version to get some extra icons</p>
-<div class="highlight-elisp notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="nv">set-face-attribute</span><span class="w"> </span><span class="ss">&#39;default</span><span class="w"> </span><span class="no">nil</span><span class="w"> </span><span class="nb">:family</span><span class="w"> </span><span class="s">&quot;UbuntuMono NF&quot;</span><span class="w"> </span><span class="nb">:height</span><span class="w"> </span><span class="mi">100</span><span class="p">)</span>
-<span class="p">(</span><span class="nv">set-face-attribute</span><span class="w"> </span><span class="ss">&#39;fixed-pitch</span><span class="w"> </span><span class="no">nil</span><span class="w"> </span><span class="nb">:family</span><span class="w"> </span><span class="s">&quot;UbuntuMono NF&quot;</span><span class="w"> </span><span class="nb">:height</span><span class="w"> </span><span class="mi">100</span><span class="p">)</span>
-<span class="p">(</span><span class="nv">set-face-attribute</span><span class="w"> </span><span class="ss">&#39;variable-pitch</span><span class="w"> </span><span class="no">nil</span><span class="w"> </span><span class="nb">:family</span><span class="w"> </span><span class="s">&quot;Ubuntu NF&quot;</span><span class="w"> </span><span class="nb">:weight</span><span class="w"> </span><span class="ss">&#39;light</span><span class="w"> </span><span class="nb">:height</span><span class="w"> </span><span class="mi">100</span><span class="p">)</span>
+<div class="highlight-elisp notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="nv">set-face-attribute</span><span class="w"> </span><span class="ss">&#39;default</span><span class="w"> </span><span class="no">nil</span><span class="w"> </span><span class="nb">:family</span><span class="w"> </span><span class="s">&quot;UbuntuMonoNerdFont&quot;</span><span class="w"> </span><span class="nb">:height</span><span class="w"> </span><span class="mi">120</span><span class="p">)</span>
+<span class="p">(</span><span class="nv">set-face-attribute</span><span class="w"> </span><span class="ss">&#39;fixed-pitch</span><span class="w"> </span><span class="no">nil</span><span class="w"> </span><span class="nb">:family</span><span class="w"> </span><span class="s">&quot;UbuntuMonoNerdFont&quot;</span><span class="w"> </span><span class="nb">:height</span><span class="w"> </span><span class="mi">120</span><span class="p">)</span>
+<span class="p">(</span><span class="nv">set-face-attribute</span><span class="w"> </span><span class="ss">&#39;variable-pitch</span><span class="w"> </span><span class="no">nil</span><span class="w"> </span><span class="nb">:family</span><span class="w"> </span><span class="s">&quot;UbuntuSansNerdFont&quot;</span><span class="w"> </span><span class="nb">:weight</span><span class="w"> </span><span class="ss">&#39;light</span><span class="w"> </span><span class="nb">:height</span><span class="w"> </span><span class="mi">120</span><span class="p">)</span>
 </pre></div>
 </div>
 </section>
@@ -848,30 +848,30 @@ The following advice ensures that the right vc backend is selected for subprojec
 <section id="python">
 <h3>Python<a class="headerlink" href="#python" title="Link to this heading">¶</a></h3>
 <p>Settings for Python files</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="n">use</span><span class="o">-</span><span class="n">package</span> <span class="n">python</span>
-  <span class="p">:</span><span class="n">hook</span> <span class="p">((</span><span class="n">python</span><span class="o">-</span><span class="n">mode</span> <span class="o">.</span> <span class="n">alc</span><span class="o">-</span><span class="n">python</span><span class="o">-</span><span class="n">mode</span><span class="o">-</span><span class="n">hook</span><span class="p">)</span>
-         <span class="p">(</span><span class="n">python</span><span class="o">-</span><span class="n">ts</span><span class="o">-</span><span class="n">mode</span> <span class="o">.</span> <span class="n">alc</span><span class="o">-</span><span class="n">python</span><span class="o">-</span><span class="n">mode</span><span class="o">-</span><span class="n">hook</span><span class="p">))</span>
-  <span class="p">:</span><span class="n">custom</span>
-  <span class="p">(</span><span class="n">python</span><span class="o">-</span><span class="n">shell</span><span class="o">-</span><span class="n">dedicated</span> <span class="s1">&#39;project))</span>
+<div class="highlight-elisp notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="nb">use-package</span><span class="w"> </span><span class="nv">python</span>
+<span class="w">  </span><span class="nb">:hook</span><span class="w"> </span><span class="p">((</span><span class="nv">python-mode</span><span class="w"> </span><span class="o">.</span><span class="w"> </span><span class="nv">alc-python-mode-hook</span><span class="p">)</span>
+<span class="w">         </span><span class="p">(</span><span class="nv">python-ts-mode</span><span class="w"> </span><span class="o">.</span><span class="w"> </span><span class="nv">alc-python-mode-hook</span><span class="p">))</span>
+<span class="w">  </span><span class="nb">:custom</span>
+<span class="w">  </span><span class="p">(</span><span class="nv">python-shell-dedicated</span><span class="w"> </span><span class="ss">&#39;project</span><span class="p">))</span>
 </pre></div>
 </div>
 <p>Use ruff for formatting.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="k">with</span><span class="o">-</span><span class="nb">eval</span><span class="o">-</span><span class="n">after</span><span class="o">-</span><span class="n">load</span> <span class="s1">&#39;apheleia</span>
-  <span class="p">(</span><span class="n">setf</span> <span class="p">(</span><span class="n">alist</span><span class="o">-</span><span class="n">get</span> <span class="s1">&#39;python-ts-mode apheleia-mode-alist)</span>
-       <span class="s1">&#39;(ruff-isort ruff)))</span>
+<div class="highlight-elisp notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="nb">with-eval-after-load</span><span class="w"> </span><span class="ss">&#39;apheleia</span>
+<span class="w">  </span><span class="p">(</span><span class="nb">setf</span><span class="w"> </span><span class="p">(</span><span class="nv">alist-get</span><span class="w"> </span><span class="ss">&#39;python-ts-mode</span><span class="w"> </span><span class="nv">apheleia-mode-alist</span><span class="p">)</span>
+<span class="w">       </span><span class="o">&#39;</span><span class="p">(</span><span class="nv">ruff-isort</span><span class="w"> </span><span class="nv">ruff</span><span class="p">)))</span>
 </pre></div>
 </div>
 <p>A function to run each time a Python file is visited.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="n">defun</span> <span class="n">alc</span><span class="o">-</span><span class="n">python</span><span class="o">-</span><span class="n">mode</span><span class="o">-</span><span class="n">hook</span> <span class="p">()</span>
-  <span class="s2">&quot;Tweaks and config to run when starting `python-mode&#39;&quot;</span>
-  <span class="p">(</span><span class="n">setq</span><span class="o">-</span><span class="n">local</span> <span class="n">fill</span><span class="o">-</span><span class="n">column</span> <span class="mi">88</span><span class="p">)</span>
+<div class="highlight-elisp notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="nb">defun</span><span class="w"> </span><span class="nv">alc-python-mode-hook</span><span class="w"> </span><span class="p">()</span>
+<span class="w">  </span><span class="s">&quot;Tweaks and config to run when starting </span><span class="ss">`python-mode&#39;</span><span class="s">&quot;</span>
+<span class="w">  </span><span class="p">(</span><span class="nb">setq-local</span><span class="w"> </span><span class="nv">fill-column</span><span class="w"> </span><span class="mi">88</span><span class="p">)</span>
 
-  <span class="p">;;</span> <span class="n">Files</span> <span class="ow">in</span> <span class="n">site</span><span class="o">-</span><span class="n">packages</span><span class="o">/</span> <span class="n">etc</span><span class="o">.</span> <span class="n">should</span> <span class="n">be</span> <span class="n">read</span> <span class="n">only</span> <span class="n">by</span> <span class="n">default</span><span class="o">.</span>
-  <span class="p">;;</span> <span class="n">Also</span> <span class="n">do</span> <span class="ow">not</span> <span class="n">start</span> <span class="n">eglot</span> <span class="ow">in</span> <span class="n">these</span> <span class="n">locations</span> <span class="n">to</span> <span class="n">cut</span> <span class="n">down</span> <span class="n">on</span> <span class="n">the</span>
-  <span class="p">;;</span> <span class="n">number</span> <span class="n">of</span> <span class="n">server</span> <span class="n">instances</span><span class="o">.</span>
-  <span class="p">(</span><span class="k">if</span> <span class="p">(</span><span class="n">alc</span><span class="o">-</span><span class="n">python</span><span class="o">-</span><span class="n">library</span><span class="o">-</span><span class="n">file</span><span class="o">-</span><span class="n">p</span><span class="p">)</span>
-      <span class="p">(</span><span class="n">read</span><span class="o">-</span><span class="n">only</span><span class="o">-</span><span class="n">mode</span><span class="p">)</span>
-    <span class="p">(</span><span class="n">eglot</span><span class="o">-</span><span class="n">ensure</span><span class="p">)))</span>
+<span class="w">  </span><span class="c1">;; Files in site-packages/ etc. should be read only by default.</span>
+<span class="w">  </span><span class="c1">;; Also do not start eglot in these locations to cut down on the</span>
+<span class="w">  </span><span class="c1">;; number of server instances.</span>
+<span class="w">  </span><span class="p">(</span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="nv">alc-python-library-file-p</span><span class="p">)</span>
+<span class="w">      </span><span class="p">(</span><span class="nv">read-only-mode</span><span class="p">)</span>
+<span class="w">    </span><span class="p">(</span><span class="nv">eglot-ensure</span><span class="p">)))</span>
 </pre></div>
 </div>
 <section id="helper-functions">

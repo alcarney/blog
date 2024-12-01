@@ -3,8 +3,9 @@
 <html lang="en" data-content_root="../../../">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Posts tagged til &#8212; Alex Carney</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>TIL: Inspecting Python Threads &#8212; Alex Carney</title>
 
     
     <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=92c9d732" />
@@ -72,6 +73,40 @@
 </nav>
 
                     <div class="flex-shrink overflow-auto">
+
+<div class="grid justify-between p-4 text-gray-400 border-t dark:border-gray-600" style="grid-template-columns: 24px auto">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+</svg>
+    <span class="ml-2 text-right">Dec 01, 2024</span>
+    
+
+    <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z" />
+</svg>
+    <ul class="text-right">
+        
+        <li class="mb-1">
+            <a href="../../tag/python/" class="px-2 my-1 text-green-600 border border-green-600 rounded bg-green-50 dark:bg-green-900 dark:text-green-200">
+                #python
+            </a>
+        </li>
+        
+        <li class="mb-1">
+            <a href="../../tag/til/" class="px-2 my-1 text-green-600 border border-green-600 rounded bg-green-50 dark:bg-green-900 dark:text-green-200">
+                #til
+            </a>
+        </li>
+        
+    </ul>
+</div>
+<nav id="localtoc" class="p-4 border-t dark:text-gray-200 dark:border-gray-600">
+    <ul>
+<li><a class="reference internal" href="#">TIL: Inspecting Python Threads</a></li>
+</ul>
+
+</nav>
                     </div>
 
                     <footer class="w-full p-4 mt-auto text-white bg-gray-700">
@@ -130,202 +165,86 @@
             <div id="content" class="mx-2 my-8">
                 <div role="main" class="max-w-3xl mx-auto">
                     
-<style>
-    header::before {
-        position: absolute;
-        top: 4px;
-        left: -13px;
-        display: block;
-        content: '';
-        width: 25px;
-        height: 25px;
-        background: white;
-        transform: rotate(45deg);
-        border-left: solid 1px #e5e7eb;
-        border-bottom: solid 1px #e5e7eb;
 
-    }
-
-    header h2 {
-        margin-top: -16px;
-    }
-
-    aside[data-id='post-meta']::after {
-        position: absolute;
-        top: 45px;
-        right: -5px;
-        display: block;
-        content: '';
-        width: 8px;
-        height: 8px;
-        border-radius: 100%;
-        background: #717885;
-    }
-
-    @media(prefers-color-scheme: dark) {
-        header::before {
-            background: rgb(39 39 42 / var(--tw-bg-opacity));
-            border-left: solid 1px rgb(82 82 91 / var(--tw-border-opacity));
-            border-bottom: solid 1px rgb(82 82 91 / var(--tw-border-opacity));
-        }
-    }
-
-    @media(max-width: 700px) {
-        header::before {
-            left: 19px;
-            top: -13px;
-            border-top: solid 1px rgb(82 82 91 / var(--tw-border-opacity));
-            border-bottom: none;
-            clip-path: polygon(0 0, 100% 0, 100% 10%, 10% 100%, 0 100%);
-        }
-
-        aside[data-id='post-meta']::after {
-            top: 10px;
-            left: 28px;
-        }
-
-    }
-</style>
-<!-- <div class="grid items-baseline grid-cols-1 mb-12 md:grid-cols-4"> -->
-    <div >
-        <div class="flex flex-col items-baseline w-full md:flex-row">
-        <aside data-id="post-meta" class="relative self-stretch w-40 mt-8 text-right text-gray-500 md:px-4 md:mt-0 md:mr-8 md:border-r-2 dark:border-gray-600">
-            <div class="flex md:mt-9">
-                <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
-</svg>
-                <span class="ml-4 text-right md:ml-auto">Dec 01, 2024</span>
-            </div>
-        </aside>
-        <article class="relative p-4 mt-4 bg-white dark:bg-gray-800 border md:mt-8 md:col-span-3 hover:shadow-lg dark:border-gray-600">
-            <header>
-                <a href="../../2024/inspecting-python-threads/">
-                    <h2 style="max-width: 33ch" class="mb-4 text-2xl text-green-600">TIL: Inspecting Python Threads</h2>
-                </a>
-            </header>
-            <div class="prose-sm prose prose-emerald dark:prose-invert">
-                <p class="ablog-post-excerpt"><p>One of my favourite things about Python is that pretty much everything about the language can be inspected at runtime and today I found out this is true even for threads.</p>
+<article class="p-4 prose-sm prose bg-white dark:bg-gray-800 border prose-md prose-emerald max-w-none dark:prose-invert dark:border-gray-600">
+    <section id="til-inspecting-python-threads">
+<h1>TIL: Inspecting Python Threads<a class="headerlink" href="#til-inspecting-python-threads" title="Link to this heading">¶</a></h1>
+<p>One of my favourite things about Python is that pretty much everything about the language can be inspected at runtime and today I found out this is true even for threads.</p>
 <p>While working on <a class="reference external" href="https://github.com/swyddfa/esbonio/pull/928">this PR</a> I kept running into issues where the <code class="docutils literal notranslate"><span class="pre">esbonio</span></code> process would not terminate, despite everything to my knowledge at least, was being shutdown as expected.
 Having encountered issues like this before, I knew the culprit was likely to be some background thread was stuck on something and keeping the process alive.
 The problem was I had no idea which thread it could be or what it was doing.</p>
-</p>
+<p>Thanks to <a class="reference external" href="https://stackoverflow.com/questions/7189226/program-does-not-exit-how-to-find-out-what-python-is-doing">this Stack Overflow</a> post, I discovered Python does provide the tools to figure it out.</p>
+<p>With a breakpoint set just before the point where the process should be exiting, we can first enumerate all the active threads.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">threading</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="p">{</span><span class="n">t</span><span class="o">.</span><span class="n">ident</span><span class="p">:</span> <span class="n">t</span><span class="o">.</span><span class="n">name</span> <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">threading</span><span class="o">.</span><span class="n">enumerate</span><span class="p">()}</span>
+<span class="go">{</span>
+<span class="go">    140658776004416: &#39;MainThread&#39;,</span>
+<span class="go">    140658503321280: &#39;pydevd.Writer&#39;,</span>
+<span class="go">    140658492835520: &#39;pydevd.Reader&#39;,</span>
+<span class="go">    140658482349760: &#39;pydevd.CommandThread&#39;,</span>
+<span class="go">    140658471864000: &#39;pydevd.CheckAliveThread&#39;,</span>
+<span class="go">    140658444601024: &#39;Thread-6&#39;,</span>
+<span class="go">    140658354423488: &#39;Thread-7&#39;</span>
+<span class="go">}</span>
+</pre></div>
+</div>
+<p>Ignoring all the threads that appear to be part of the debugger (<code class="docutils literal notranslate"><span class="pre">pydevd.*</span></code>), the issue is probably in <code class="docutils literal notranslate"><span class="pre">Thread-6</span></code> or <code class="docutils literal notranslate"><span class="pre">Thread-7</span></code>.
+With the help of the <code class="docutils literal notranslate"><span class="pre">sys</span></code> module we can get the current stack frame for each thread</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">sys</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">thread_6_stack_frame</span> <span class="o">=</span> <span class="n">sys</span><span class="o">.</span><span class="n">_current_frames</span><span class="p">()[</span><span class="mi">140658444601024</span><span class="p">]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">thread_7_stack_frame</span> <span class="o">=</span> <span class="n">sys</span><span class="o">.</span><span class="n">_current_frames</span><span class="p">()[</span><span class="mi">140658354423488</span><span class="p">]</span>
+</pre></div>
+</div>
+<p>Then using the <code class="docutils literal notranslate"><span class="pre">traceback</span></code> module we can print the current call stack!</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">traceback</span><span class="o">.</span><span class="n">print_stack</span><span class="p">(</span><span class="n">thread_6_stack_frame</span><span class="p">)</span>
+<span class="go">File &quot;/var/home/linuxbrew/.linuxbrew/Cellar/python@3.13/3.13.0_1/lib/python3.13/threading.py&quot;, line 1012, in _bootstrap</span>
+<span class="go">  self._bootstrap_inner()</span>
+<span class="go">File &quot;/var/home/linuxbrew/.linuxbrew/Cellar/python@3.13/3.13.0_1/lib/python3.13/threading.py&quot;, line 1041, in _bootstrap_inner</span>
+<span class="go">  self.run()</span>
+<span class="go">File &quot;/var/home/alex/.vscode/extensions/ms-python.debugpy-2024.12.0-linux-x64/bundled/libs/debugpy/_vendored/pydevd/_pydevd_bundle/pydevd_daemon_thread.py&quot;, line 53, in run</span>
+<span class="go">  self._on_run()</span>
+<span class="go">File &quot;/var/home/alex/.vscode/extensions/ms-python.debugpy-2024.12.0-linux-x64/bundled/libs/debugpy/_vendored/pydevd/_pydevd_bundle/pydevd_timeout.py&quot;, line 43, in _on_run</span>
+<span class="go">  self._event.wait(wait_time)</span>
+<span class="go">File &quot;/var/home/linuxbrew/.linuxbrew/Cellar/python@3.13/3.13.0_1/lib/python3.13/threading.py&quot;, line 656, in wait</span>
+<span class="go">  with self._cond:</span>
+<span class="go">File &quot;/var/home/linuxbrew/.linuxbrew/Cellar/python@3.13/3.13.0_1/lib/python3.13/threading.py&quot;, line 369, in wait</span>
+<span class="go">  if not gotit:</span>
+</pre></div>
+</div>
+<p>Hmm, not so useful.. but then again looking closer at the call stack this thread also seems to be related to the debugger.
+What about the other thread?</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">traceback</span><span class="o">.</span><span class="n">print_stack</span><span class="p">(</span><span class="n">thread_7_stack_frame</span><span class="p">)</span>
+<span class="go">File &quot;/var/home/linuxbrew/.linuxbrew/Cellar/python@3.13/3.13.0_1/lib/python3.13/threading.py&quot;, line 1012, in _bootstrap</span>
+<span class="go">  self._bootstrap_inner()</span>
+<span class="go">File &quot;/var/home/linuxbrew/.linuxbrew/Cellar/python@3.13/3.13.0_1/lib/python3.13/threading.py&quot;, line 1041, in _bootstrap_inner</span>
+<span class="go">  self.run()</span>
+<span class="go">File &quot;/home/alex/.local/share/hatch/env/virtual/esbonio/3pU26gTf/hatch-test.py3.13-sphinx6/lib/python3.13/site-packages/aiosqlite/core.py&quot;, line 107, in run</span>
+<span class="go">  tx_item = self._tx.get()</span>
+</pre></div>
+</div>
+<p>Ah! This thread is stuck somewhere in the <code class="docutils literal notranslate"><span class="pre">aiosqlite</span></code> library, looks like I wasn’t cleaning up all the DB connections like I thought I was!</p>
+</section>
+
+</article>
 
 
-            </div>
-            <div class="flex flex-col justify-between mt-4 lg:flex-row">
-                <p class="prose-sm prose prose-emerald dark:prose-invert"><a href="../../2024/inspecting-python-threads/">Read More...</a></p>
-
-                <ul class="flex flex-wrap space-x-2">
-                    <li class="mb-1">
-                        <a href="../python/" class="px-2 text-green-600 border border-green-600 rounded bg-green-50 dark:bg-green-600/[.2] dark:text-green-200">
-                            #python
-                        </a>
-                    </li>
-                    <li class="mb-1">
-                        <a href="#" class="px-2 text-green-600 border border-green-600 rounded bg-green-50 dark:bg-green-600/[.2] dark:text-green-200">
-                            #til
-                        </a>
-                    </li>
-                </ul>
-            </div>
-        </article>
-        </div>
-        <div class="flex flex-col items-baseline w-full md:flex-row">
-        <aside data-id="post-meta" class="relative self-stretch w-40 mt-8 text-right text-gray-500 md:px-4 md:mt-0 md:mr-8 md:border-r-2 dark:border-gray-600">
-            <div class="flex md:mt-9">
-                <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
-</svg>
-                <span class="ml-4 text-right md:ml-auto">Nov 16, 2024</span>
-            </div>
-        </aside>
-        <article class="relative p-4 mt-4 bg-white dark:bg-gray-800 border md:mt-8 md:col-span-3 hover:shadow-lg dark:border-gray-600">
-            <header>
-                <a href="../../2024/local-llms-with-ollama-gptel/">
-                    <h2 style="max-width: 33ch" class="mb-4 text-2xl text-green-600">TIL: Local LLMs with Ollama and gptel</h2>
-                </a>
-            </header>
-            <div class="prose-sm prose prose-emerald dark:prose-invert">
-                <p class="ablog-post-excerpt"><p>LLMs don’t look like they’re going to go away anytime soon, so I may as well start playing around with them.
-Since I am also using Emacs more and more it also makes sense to try using it as the interface to any models.</p>
-</p>
 
 
-            </div>
-            <div class="flex flex-col justify-between mt-4 lg:flex-row">
-                <p class="prose-sm prose prose-emerald dark:prose-invert"><a href="../../2024/local-llms-with-ollama-gptel/">Read More...</a></p>
+<div class="mt-8 pt-4 border-t dark:border-gray-600">
+    <script src="https://giscus.app/client.js"
+            data-repo="alcarney/blog"
+            data-repo-id="MDEwOlJlcG9zaXRvcnk2Njk3NzM3MQ=="
+            data-category="Comments"
+            data-category-id="DIC_kwDOA_3-W84B_XOl"
+            data-mapping="pathname"
+            data-reactions-enabled="1"
+            data-emit-metadata="0"
+            data-theme="preferred_color_scheme"
+            crossorigin="anonymous"
+            async>
+    </script>
+</div>
 
-                <ul class="flex flex-wrap space-x-2">
-                    <li class="mb-1">
-                        <a href="../emacs/" class="px-2 text-green-600 border border-green-600 rounded bg-green-50 dark:bg-green-600/[.2] dark:text-green-200">
-                            #emacs
-                        </a>
-                    </li>
-                    <li class="mb-1">
-                        <a href="../llms/" class="px-2 text-green-600 border border-green-600 rounded bg-green-50 dark:bg-green-600/[.2] dark:text-green-200">
-                            #llms
-                        </a>
-                    </li>
-                    <li class="mb-1">
-                        <a href="#" class="px-2 text-green-600 border border-green-600 rounded bg-green-50 dark:bg-green-600/[.2] dark:text-green-200">
-                            #til
-                        </a>
-                    </li>
-                </ul>
-            </div>
-        </article>
-        </div>
-        <div class="flex flex-col items-baseline w-full md:flex-row">
-        <aside data-id="post-meta" class="relative self-stretch w-40 mt-8 text-right text-gray-500 md:px-4 md:mt-0 md:mr-8 md:border-r-2 dark:border-gray-600">
-            <div class="flex md:mt-9">
-                <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
-</svg>
-                <span class="ml-4 text-right md:ml-auto">Jan 05, 2019</span>
-            </div>
-        </aside>
-        <article class="relative p-4 mt-4 bg-white dark:bg-gray-800 border md:mt-8 md:col-span-3 hover:shadow-lg dark:border-gray-600">
-            <header>
-                <a href="../../2019/til-python-cmd/">
-                    <h2 style="max-width: 33ch" class="mb-4 text-2xl text-green-600">TIL: Python has a cmd module</h2>
-                </a>
-            </header>
-            <div class="prose-sm prose prose-emerald dark:prose-invert">
-                <p class="ablog-post-excerpt"><p>Today I Learned that Python’s standard library has a <a class="reference external" href="https://docs.python.org/3/library/cmd.html">cmd</a> module and it is <em>awesome!</em></p>
-<img alt="../../../_images/cmd_python.gif" src="../../../_images/cmd_python.gif" /></p>
-
-
-            </div>
-            <div class="flex flex-col justify-between mt-4 lg:flex-row">
-                <p class="prose-sm prose prose-emerald dark:prose-invert"><a href="../../2019/til-python-cmd/">Read More...</a></p>
-
-                <ul class="flex flex-wrap space-x-2">
-                    <li class="mb-1">
-                        <a href="../stylo/" class="px-2 text-green-600 border border-green-600 rounded bg-green-50 dark:bg-green-600/[.2] dark:text-green-200">
-                            #stylo
-                        </a>
-                    </li>
-                    <li class="mb-1">
-                        <a href="../python/" class="px-2 text-green-600 border border-green-600 rounded bg-green-50 dark:bg-green-600/[.2] dark:text-green-200">
-                            #python
-                        </a>
-                    </li>
-                    <li class="mb-1">
-                        <a href="#" class="px-2 text-green-600 border border-green-600 rounded bg-green-50 dark:bg-green-600/[.2] dark:text-green-200">
-                            #til
-                        </a>
-                    </li>
-                    <li class="mb-1">
-                        <a href="../cli/" class="px-2 text-green-600 border border-green-600 rounded bg-green-50 dark:bg-green-600/[.2] dark:text-green-200">
-                            #cli
-                        </a>
-                    </li>
-                </ul>
-            </div>
-        </article>
-        </div>
-    </div>
-<!-- </div> -->
 
 
                 </div>
@@ -334,6 +253,9 @@ Since I am also using Emacs more and more it also makes sense to try using it as
             <footer class="p-2 mt-8 mb-2 text-sm text-gray-600 border-t dark:border-gray-600">
                 <div class="flex flex-col justify-between max-w-3xl mx-auto lg:flex-row">
                     <span>
+                        <a class="text-green-600" href="../../../_sources/blog/2024/inspecting-python-threads.rst.txt" rel="nofollow">
+                            Page Source
+                        </a>
                     </span>
                     <span>Built with <a class="text-green-600" href="https://www.sphinx-doc.org/en/master/">Sphinx</a> v8.1.3</span>
                 </div>
