@@ -90,6 +90,43 @@ This tells git to use the `GitHub CLI <https://cli.github.com/>`__ to authentica
    helper =
    helper = !gh auth git-credential
 
+Diffing
+-------
+
+Using the ``histogram`` algorithm `apparently produces nicer diffs <https://luppeng.wordpress.com/2020/10/10/when-to-use-each-of-the-git-diff-algorithms/>`__ when code is moved
+
+.. code-block::
+   :filename: gitconfig
+
+   [diff]
+   algorithm = histogram
+   colorMoved = default
+
+Merging
+-------
+
+The following option describes how git should render merge conflicts
+
+.. code-block::
+   :filename: gitconfig
+
+   [merge]
+   conflictstyle = diff3
+
+Another option that might be worth experimenting with is ``zdiff3``, see `this article <https://ductile.systems/zdiff3/>`__
+
+Rebasing
+--------
+
+I rebase all the time most of the time to squash a bunch of ``fixup!`` commits together.
+The following options remove the need to manually pass `--autosquash` and `--autostash` to the rebase command each time.
+
+.. code-block::
+   :filename: gitconfig
+
+   [rebase]
+   autosquash = true
+   autostash = true
 
 Other Options
 -------------
@@ -102,12 +139,6 @@ Other Options
 
    [core]
    editor = nvim
-
-   [diff]
-   colorMoved = default
-
-   [merge]
-   conflictstyle = diff3
 
    [pull]
    rebase = true
