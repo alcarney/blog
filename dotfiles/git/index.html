@@ -80,6 +80,9 @@
 <li><a class="reference internal" href="#author">Author</a></li>
 <li><a class="reference internal" href="#aliases">Aliases</a></li>
 <li><a class="reference internal" href="#credential-helper">Credential Helper</a></li>
+<li><a class="reference internal" href="#diffing">Diffing</a></li>
+<li><a class="reference internal" href="#merging">Merging</a></li>
+<li><a class="reference internal" href="#rebasing">Rebasing</a></li>
 <li><a class="reference internal" href="#other-options">Other Options</a></li>
 </ul>
 </li>
@@ -212,6 +215,34 @@ helper = !gh auth git-credential
 </pre></div>
 </div>
 </section>
+<section id="diffing">
+<h2>Diffing<a class="headerlink" href="#diffing" title="Link to this heading">¶</a></h2>
+<p>Using the <code class="docutils literal notranslate"><span class="pre">histogram</span></code> algorithm <a class="reference external" href="https://luppeng.wordpress.com/2020/10/10/when-to-use-each-of-the-git-diff-algorithms/">apparently produces nicer diffs</a> when code is moved</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>[diff]
+algorithm = histogram
+colorMoved = default
+</pre></div>
+</div>
+</section>
+<section id="merging">
+<h2>Merging<a class="headerlink" href="#merging" title="Link to this heading">¶</a></h2>
+<p>The following option describes how git should render merge conflicts</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>[merge]
+conflictstyle = diff3
+</pre></div>
+</div>
+<p>Another option that might be worth experimenting with is <code class="docutils literal notranslate"><span class="pre">zdiff3</span></code>, see <a class="reference external" href="https://ductile.systems/zdiff3/">this article</a></p>
+</section>
+<section id="rebasing">
+<h2>Rebasing<a class="headerlink" href="#rebasing" title="Link to this heading">¶</a></h2>
+<p>I rebase all the time most of the time to squash a bunch of <code class="docutils literal notranslate"><span class="pre">fixup!</span></code> commits together.
+The following options remove the need to manually pass <cite>–autosquash</cite> and <cite>–autostash</cite> to the rebase command each time.</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>[rebase]
+autosquash = true
+autostash = true
+</pre></div>
+</div>
+</section>
 <section id="other-options">
 <h2>Other Options<a class="headerlink" href="#other-options" title="Link to this heading">¶</a></h2>
 <div class="highlight-none notranslate"><div class="highlight"><pre><span></span>[commit]
@@ -219,12 +250,6 @@ verbose = true
 
 [core]
 editor = nvim
-
-[diff]
-colorMoved = default
-
-[merge]
-conflictstyle = diff3
 
 [pull]
 rebase = true
