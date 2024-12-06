@@ -39,6 +39,7 @@ extensions = [
     "sphinx_design",
     # Local extensions: see `./extensions`
     "coderepo",
+    "denote",
     "tailwind",
 ]
 
