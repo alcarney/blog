@@ -2,10 +2,64 @@
 <feed xmlns="http://www.w3.org/2005/Atom" xml:lang="en">
   <id>https://www.alcarney.me</id>
   <title>Alex Carney | Blog</title>
-  <updated>2024-12-02T19:45:04.766836+00:00</updated>
+  <updated>2024-12-06T19:14:59.724275+00:00</updated>
   <link href="https://www.alcarney.me"/>
   <link href="https://www.alcarney.me/blog/atom.xml" rel="self"/>
   <generator uri="https://ablog.readthedocs.io/" version="0.11.12">ABlog</generator>
+  <entry>
+    <id>https://www.alcarney.me/blog/2024/notes-november/</id>
+    <title>Notes for November 2024</title>
+    <updated>2024-12-04T00:00:00+00:00</updated>
+    <author>
+      <name>Alex Carney</name>
+    </author>
+    <content type="html">&lt;section id="notes-for-november-2024"&gt;
+
+&lt;p&gt;Doubling my streak of writing notes on the &lt;a class="reference internal" href="2024/notes-october/#notes-october"&gt;&lt;span class="std std-ref"&gt;previous month&lt;/span&gt;&lt;/a&gt; to 2, here are some of the things I worked on in November.&lt;/p&gt;
+&lt;section id="vscode-wasi-pygls"&gt;
+&lt;h2&gt;vscode-wasi-pygls&lt;/h2&gt;
+&lt;figure class="align-default"&gt;
+&lt;a class="reference external image-reference" href="https://github.com/alcarney/vscode-wasi-pygls/blob/main/screenshot.png?raw=true"&gt;&lt;img alt="https://github.com/alcarney/vscode-wasi-pygls/blob/main/screenshot.png?raw=true" src="https://github.com/alcarney/vscode-wasi-pygls/blob/main/screenshot.png?raw=true" /&gt;
+&lt;/a&gt;
+&lt;/figure&gt;
+&lt;p&gt;This project is a proof of concept demonstrating how a pygls powered language server can be run entirely in the browser by making use of VSCode’s &lt;a class="reference external" href="https://code.visualstudio.com/blogs/2023/06/05/vscode-wasm-wasi"&gt;support for WebAssembly&lt;/a&gt;.&lt;/p&gt;
+&lt;ul class="simple"&gt;
+&lt;li&gt;&lt;p&gt;Thanks to the work I managed to land in pygls in October, this project is now able to use the upstream version of the framework rather than my fork! (&lt;a class="reference external" href="https://github.com/alcarney/vscode-wasi-pygls/pull/3"&gt;PR&lt;/a&gt;)&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;I also pulled in &lt;code class="docutils literal notranslate"&gt;&lt;span class="pre"&gt;&amp;#64;vscode/wasm-wasi-lsp&lt;/span&gt;&lt;/code&gt; as a dependency, removing some of the code I had previously taken from the &lt;a class="extlink-gh reference external" href="https://github.com/microsoft/vscode-wasm"&gt;microsoft/vscode-wasm&lt;/a&gt; repo (&lt;a class="reference external" href="https://github.com/alcarney/vscode-wasi-pygls/pull/7"&gt;PR&lt;/a&gt;)&lt;/p&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/section&gt;
+&lt;section id="esbonio"&gt;
+&lt;h2&gt;esbonio&lt;/h2&gt;
+&lt;p&gt;&lt;a class="reference external" href="https://github.com/swyddfa/esbonio"&gt;esbonio&lt;/a&gt; &lt;em&gt;is a language server for your Sphinx documentation projects&lt;/em&gt;&lt;/p&gt;
+&lt;ul class="simple"&gt;
+&lt;li&gt;&lt;p&gt;I &lt;a class="reference external" href="https://github.com/swyddfa/esbonio/pull/928"&gt;updated esbonio&lt;/a&gt; to the latest pygls &lt;code class="docutils literal notranslate"&gt;&lt;span class="pre"&gt;v2&lt;/span&gt;&lt;/code&gt; pre-release&lt;/p&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/section&gt;
+&lt;section id="pytest-lsp"&gt;
+&lt;h2&gt;pytest-lsp&lt;/h2&gt;
+&lt;p&gt;&lt;a class="reference external" href="https://github.com/swyddfa/lsp-devtools"&gt;pytest-lsp&lt;/a&gt; &lt;em&gt;is a pytest plugin for writing end-to-end tests for language servers&lt;/em&gt;&lt;/p&gt;
+&lt;ul class="simple"&gt;
+&lt;li&gt;&lt;p&gt;&lt;a class="reference external" href="https://github.com/swyddfa/lsp-devtools/pull/188"&gt;Updated pytest-lsp&lt;/a&gt; to the latest pygls &lt;code class="docutils literal notranslate"&gt;&lt;span class="pre"&gt;v2&lt;/span&gt;&lt;/code&gt; pre-release&lt;/p&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/section&gt;
+&lt;section id="lsp-devtools"&gt;
+&lt;h2&gt;lsp-devtools&lt;/h2&gt;
+&lt;p&gt;&lt;a class="reference external" href="https://github.com/swyddfa/lsp-devtools"&gt;lsp-devtools&lt;/a&gt; &lt;em&gt;is an attempt at building some of the developer tools I wished existed when I first started working on esbonio&lt;/em&gt;&lt;/p&gt;
+&lt;ul class="simple"&gt;
+&lt;li&gt;&lt;p&gt;&lt;a class="reference external" href="https://github.com/swyddfa/lsp-devtools/pull/190"&gt;Dropped support&lt;/a&gt; for Python 3.8&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;&lt;a class="reference external" href="https://github.com/swyddfa/lsp-devtools/pull/192"&gt;Updated lsp-devtools&lt;/a&gt; to the latest pygls &lt;code class="docutils literal notranslate"&gt;&lt;span class="pre"&gt;v2&lt;/span&gt;&lt;/code&gt; pre-release&lt;/p&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/section&gt;
+&lt;/section&gt;
+</content>
+    <link href="https://www.alcarney.me/blog/2024/notes-november/"/>
+    <summary>Doubling my streak of writing notes on the previous month to 2, here are some of the things I worked on in November.</summary>
+    <category term="esbonio" label="esbonio"/>
+    <category term="lsp-devtools" label="lsp-devtools"/>
+    <category term="monthnotes" label="monthnotes"/>
+    <category term="pytest-lsp" label="pytest-lsp"/>
+    <published>2024-12-04T00:00:00+00:00</published>
+  </entry>
   <entry>
     <id>https://www.alcarney.me/blog/2024/inspecting-python-threads/</id>
     <title>TIL: Inspecting Python Threads</title>
