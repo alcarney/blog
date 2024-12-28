@@ -10,7 +10,7 @@ Some of my dotfiles.
       :link: /dotfiles/bash
       :link-type: doc
 
-   .. grid-item-card:: :octicon:`terminal` Emacs
+   .. grid-item-card:: :octicon:`file-code` Emacs
       :link: /dotfiles/emacs
       :link-type: doc
 
@@ -24,6 +24,10 @@ Some of my dotfiles.
 
    .. grid-item-card:: :octicon:`file-code` VSCode
       :link: /dotfiles/vscode
+      :link-type: doc
+
+   .. grid-item-card:: :octicon:`terminal` Wezterm
+      :link: /dotfiles/wezterm
       :link-type: doc
 
 .. toctree::
