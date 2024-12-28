@@ -1943,6 +1943,13 @@ video {
   transition-duration: 500ms;
 }
 
+:root {
+  --sd-color-card-border: #52525b;
+  /* zinc-600 */
+  --sd-color-card-border-hover: #059669;
+  /* emerald-600 */
+}
+
 /* --  Menu open/close controls -- */
 
 #menu-state:checked+aside {

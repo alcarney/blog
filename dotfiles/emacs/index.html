@@ -18,7 +18,7 @@
     <link rel="stylesheet" type="text/css" href="../../_static/sphinx-design.min.css?v=95c83b7e" />
     
     
-    <link rel="stylesheet" type="text/css" href="../../_static/css/styles.css?v=2acf0d0f" />
+    <link rel="stylesheet" type="text/css" href="../../_static/css/styles.css?v=e19e2cc2" />
     
 
     <script src="../../_static/documentation_options.js?v=187304be"></script>
@@ -102,6 +102,8 @@
 </li>
 <li><a class="reference internal" href="#completions"><code class="docutils literal notranslate"><span class="pre">*Completions*</span></code></a></li>
 <li><a class="reference internal" href="#consult">Consult</a></li>
+<li><a class="reference internal" href="#dired">Dired</a></li>
+<li><a class="reference internal" href="#denote">Denote</a></li>
 <li><a class="reference internal" href="#embark">Embark</a></li>
 <li><a class="reference internal" href="#git">Git</a><ul>
 <li><a class="reference internal" href="#forge">Forge</a></li>
@@ -684,6 +686,49 @@ However, once it is open keep it updated and only focus it on the second complet
 <div class="highlight-elisp notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="nb">use-package</span><span class="w"> </span><span class="nv">embark-consult</span>
 <span class="w">  </span><span class="nb">:after</span><span class="w"> </span><span class="p">(</span><span class="nv">embark</span><span class="w"> </span><span class="nv">consult</span><span class="p">)</span>
 <span class="w">  </span><span class="nb">:ensure</span><span class="w"> </span><span class="no">t</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="dired">
+<h2>Dired<a class="headerlink" href="#dired" title="Link to this heading">¶</a></h2>
+<p>Settings for dired</p>
+<div class="highlight-elisp notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="nb">use-package</span><span class="w"> </span><span class="nv">dired</span>
+<span class="w"> </span><span class="nb">:hook</span><span class="w"> </span><span class="p">((</span><span class="nv">dired-mode</span><span class="w"> </span><span class="o">.</span><span class="w"> </span><span class="nv">dired-hide-details-mode</span><span class="p">)</span>
+<span class="w">        </span><span class="p">(</span><span class="nv">dired-mode</span><span class="w"> </span><span class="o">.</span><span class="w"> </span><span class="nv">hl-line-mode</span><span class="p">))</span>
+<span class="w"> </span><span class="nb">:config</span>
+<span class="w"> </span><span class="p">(</span><span class="k">setq</span><span class="w"> </span><span class="nv">dired-dwim-target</span><span class="w"> </span><span class="no">t</span>
+<span class="w">       </span><span class="c1">;; -A, all files - except &#39;.&#39; &amp; &#39;..&#39;</span>
+<span class="w">       </span><span class="c1">;; -F, add symbols denoting object type (file, directory, etc.)</span>
+<span class="w">       </span><span class="c1">;; -G, omit owning group</span>
+<span class="w">       </span><span class="c1">;; -h, human readable file sizes</span>
+<span class="w">       </span><span class="c1">;; -l, long listing, required for dired.</span>
+<span class="w">       </span><span class="c1">;; -v, natural sort of (version) numbers within text</span>
+<span class="w">       </span><span class="nv">dired-listing-switches</span><span class="w"> </span><span class="s">&quot;-AFGhlvX --group-directories-first --time-style=long-iso&quot;</span><span class="p">))</span>
+</pre></div>
+</div>
+</section>
+<section id="denote">
+<h2>Denote<a class="headerlink" href="#denote" title="Link to this heading">¶</a></h2>
+<p><a class="reference external" href="https://protesilaos.com/emacs/denote">denote</a> is primarily a clever file naming scheme well-suited for note taking/being organised.
+The elisp package from Protesilaos provides many nice utilities in Emacs that build on the naming scheme.</p>
+<div class="highlight-elisp notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="nb">use-package</span><span class="w"> </span><span class="nv">denote</span>
+<span class="w">  </span><span class="nb">:ensure</span><span class="w"> </span><span class="no">t</span>
+<span class="w">  </span><span class="nb">:hook</span><span class="w"> </span><span class="p">((</span><span class="nv">dired-mode</span><span class="w"> </span><span class="o">.</span><span class="w"> </span><span class="nv">denote-dired-mode</span><span class="p">))</span>
+<span class="w">  </span><span class="nb">:config</span>
+
+<span class="w">  </span><span class="c1">;; Add reStructuredText support to denote</span>
+<span class="w">  </span><span class="p">(</span><span class="nv">add-to-list</span><span class="w"> </span><span class="ss">&#39;denote-file-types</span><span class="w"> </span><span class="o">`</span><span class="p">(</span><span class="nv">rst</span>
+<span class="w">                                    </span><span class="nb">:extension</span><span class="w"> </span><span class="s">&quot;.rst&quot;</span>
+<span class="w">                                    </span><span class="nb">:date-function</span><span class="w"> </span><span class="nv">denote-date-iso-8601</span>
+<span class="w">                                    </span><span class="nb">:front-matter</span><span class="w"> </span><span class="s">&quot;:title: %s\n:date: %s\n:tags: %s\n:identifier: %s\n\n&quot;</span>
+<span class="w">                                    </span><span class="nb">:title-key-regexp</span><span class="w"> </span><span class="s">&quot;^:title:&quot;</span>
+<span class="w">                                    </span><span class="nb">:title-value-function</span><span class="w"> </span><span class="nf">identity</span>
+<span class="w">                                    </span><span class="nb">:title-value-reverse-function</span><span class="w"> </span><span class="nv">denote-trim-whitespace</span>
+<span class="w">                                    </span><span class="nb">:keywords-key-regexp</span><span class="w"> </span><span class="s">&quot;^:tags:&quot;</span>
+<span class="w">                                    </span><span class="nb">:keywords-value-function</span><span class="w"> </span><span class="o">,</span><span class="p">(</span><span class="nb">lambda</span><span class="w"> </span><span class="p">(</span><span class="nv">ks</span><span class="p">)</span><span class="w"> </span><span class="p">(</span><span class="nv">string-join</span><span class="w"> </span><span class="nv">ks</span><span class="w"> </span><span class="s">&quot;, &quot;</span><span class="p">))</span>
+<span class="w">                                    </span><span class="nb">:keywords-value-reverse-function</span><span class="w"> </span><span class="nv">denote-extract-keywords-from-front-matter</span>
+<span class="w">                                    </span><span class="nb">:link</span><span class="w"> </span><span class="s">&quot;:note:`%2$s &lt;%1$s&gt;`&quot;</span>
+<span class="w">                                    </span><span class="nb">:link-in-context-regexp</span><span class="w"> </span><span class="o">,</span><span class="p">(</span><span class="nf">concat</span><span class="w"> </span><span class="s">&quot;:note:`.*?&lt;\\(?1:&quot;</span><span class="w"> </span><span class="nv">denote-id-regexp</span><span class="w"> </span><span class="s">&quot;\\)&gt;`&quot;</span><span class="p">))))</span>
 </pre></div>
 </div>
 </section>
