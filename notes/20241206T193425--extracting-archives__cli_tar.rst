@@ -1,3 +1,8 @@
+:title: Extracting Archives
+:date: 2024-12-06
+:tags: cli, tar
+:identifier: 20241206T193425
+
 Extracting archives
 -------------------
 

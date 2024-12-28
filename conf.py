@@ -37,8 +37,10 @@ extensions = [
     "ablog",
     "awdur",
     "sphinx_design",
+    "myst_parser",
     # Local extensions: see `./extensions`
     "coderepo",
+    "denote",
     "tailwind",
 ]
 
@@ -48,7 +50,7 @@ templates_path = ["_templates"]
 # List of patterns, relative to source directory, that match files and
 # directories to ignore when looking for source files.
 # This pattern also affects html_static_path and html_extra_path.
-exclude_patterns = ["_build", "Thumbs.db", ".DS_Store", ".env", "talks"]
+exclude_patterns = ["_build", "Thumbs.db", ".DS_Store", ".env", "node_modules", "talks"]
 
 # -- Options for ABlog extension ---------------------------------------------
 blog_baseurl = "https://www.alcarney.me"
@@ -58,7 +60,7 @@ post_date_format = "%b %d, %Y"
 
 # -- Options for ExtLinks extension ---------------------------------------------
 extlinks = {
-    'gh': ('https://github.com/%s', '%s'),
+    "gh": ("https://github.com/%s", "%s"),
 }
 
 # -- Options for InterSphinx extension ---------------------------------------------

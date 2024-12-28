@@ -1,3 +1,8 @@
+:title: Detecting Interactive Python
+:date: 2024-10-16
+:tags: python
+:identifier: 20241016T001316
+
 Detecting ``python -i``
 =======================
 
@@ -8,7 +13,7 @@ Unfortunately, because this sets ``__name__ = '__main__'`` if you're working on 
 
 But thanks to `this Stack Overflow answer <https://stackoverflow.com/a/640431>`__ it's possible to add a little ``ctypes`` magic to your script and only trigger the main block if Python has not been started with the ``-i`` flag!
 
-.. code-block:: python 
+.. code-block:: python
 
    import ctypes
 
@@ -20,6 +25,6 @@ But thanks to `this Stack Overflow answer <https://stackoverflow.com/a/640431>`_
            ctypes.pythonapi.Py_InteractiveFlag, ctypes.POINTER(ctypes.c_int)
        )
        return interactive_flag.contents.value > 0
- 
+
    if __name__ == '__main__' and not is_interactive_mode():
        ...
