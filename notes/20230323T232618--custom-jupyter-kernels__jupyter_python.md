@@ -1,5 +1,13 @@
-Custom Jupyter Kernels
-======================
+---
+title: Custom Jupyter Kernels
+date: 2023-03-23T23:26:18+00:00
+tags:
+  - python
+  - jupyter
+identifier: 20230323T232618
+---
+
+# Custom Jupyter Kernels
 
 It's possible to create custom Python environments for use within a Jupyter
 notebook without having to run a jupyter server from each of them. The following
@@ -12,8 +20,4 @@ variety of Python environments in its notebooks
 
 Then the new environment should become available in the Change kernel menu
 
-
-Links & Resources
------------------
-
-- `IPython: Kernels for different environments <https://ipython.readthedocs.io/en/stable/install/kernel%5Finstall.html#kernels-for-different-environments>`_
+[IPython: Kernels for different environments](https://ipython.readthedocs.io/en/stable/install/kernel%5Finstall.html#kernels-for-different-environments)

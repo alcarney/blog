@@ -1,3 +1,8 @@
+:title: writing-makefiles
+:date: 2024-12-06
+:tags: make
+:identifier: 20241206T193424
+
 Writing Makefiles
 =================
 

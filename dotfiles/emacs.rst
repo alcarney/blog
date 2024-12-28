@@ -676,6 +676,55 @@ And since I use embark, use the recommended ``emabrk-collect`` package
      :after (embark consult)
      :ensure t)
 
+Dired
+-----
+
+Settings for dired
+
+.. code-block:: elisp
+   :filename: emacs/init.el
+
+   (use-package dired
+    :hook ((dired-mode . dired-hide-details-mode)
+           (dired-mode . hl-line-mode))
+    :config
+    (setq dired-dwim-target t
+          ;; -A, all files - except '.' & '..'
+          ;; -F, add symbols denoting object type (file, directory, etc.)
+          ;; -G, omit owning group
+          ;; -h, human readable file sizes
+          ;; -l, long listing, required for dired.
+          ;; -v, natural sort of (version) numbers within text
+          dired-listing-switches "-AFGhlvX --group-directories-first --time-style=long-iso"))
+
+Denote
+------
+
+`denote <https://protesilaos.com/emacs/denote>`__ is primarily a clever file naming scheme well-suited for note taking/being organised.
+The elisp package from Protesilaos provides many nice utilities in Emacs that build on the naming scheme.
+
+.. code-block:: elisp
+   :filename: emacs/init.el
+
+   (use-package denote
+     :ensure t
+     :hook ((dired-mode . denote-dired-mode))
+     :config
+
+     ;; Add reStructuredText support to denote
+     (add-to-list 'denote-file-types `(rst
+                                       :extension ".rst"
+                                       :date-function denote-date-iso-8601
+                                       :front-matter ":title: %s\n:date: %s\n:tags: %s\n:identifier: %s\n\n"
+                                       :title-key-regexp "^:title:"
+                                       :title-value-function identity
+                                       :title-value-reverse-function denote-trim-whitespace
+                                       :keywords-key-regexp "^:tags:"
+                                       :keywords-value-function ,(lambda (ks) (string-join ks ", "))
+                                       :keywords-value-reverse-function denote-extract-keywords-from-front-matter
+                                       :link ":note:`%2$s <%1$s>`"
+                                       :link-in-context-regexp ,(concat ":note:`.*?<\\(?1:" denote-id-regexp "\\)>`"))))
+
 Embark
 ------
 

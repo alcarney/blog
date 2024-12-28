@@ -4,7 +4,7 @@
 {# Overide the default css implementation, just to exclude the stylesheet for the "basic" theme. #}
 {%- for css in css_files %}
   {%- if css|attr("filename") %}
-    {% if not css.endswith("basic.css") %}
+    {% if not css.filename.endswith("basic.css") %}
     {{ css_tag(css) }}
     {% endif %}
   {%- else %}
