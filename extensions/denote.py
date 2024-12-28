@@ -1,5 +1,5 @@
-"""denote.py - Add support for denote style file names for my notes.
-"""
+"""denote.py - Add support for denote style file names for my notes."""
+
 from __future__ import annotations
 
 import pathlib
@@ -9,8 +9,8 @@ from sphinx.builders.dirhtml import DirectoryHTMLBuilder
 
 
 def parse_denote_name(name: str):
-    date, rest = name.split('--')
-    title, tags = rest.split('__')
+    date, rest = name.split("--")
+    title, tags = rest.split("__")
 
     return date, title, tags
 
@@ -26,9 +26,7 @@ class DenoteHTMLBuilder(DirectoryHTMLBuilder):
         docpath = pathlib.Path(docname)
         date, title, tabs = parse_denote_name(docpath.stem)
 
-        old = super().get_target_uri(docname, typ)
         result = super().get_target_uri(str(docpath.parent / date), typ)
-        print(f"uri: {docname} -> {result}")
         return result
 
     def get_outfilename(self, pagename: str) -> str:
@@ -38,9 +36,7 @@ class DenoteHTMLBuilder(DirectoryHTMLBuilder):
         pagepath = pathlib.Path(pagename)
         date, title, tabs = parse_denote_name(pagepath.stem)
 
-        old = super().get_target_uri(pagename)
         result = super().get_outfilename(str(pagepath.parent / date))
-        print(f"page: {pagename} -> {result}")
         return result
 
 

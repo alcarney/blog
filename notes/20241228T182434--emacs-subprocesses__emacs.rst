@@ -1,5 +1,10 @@
-Emacs Sub Processes
-=================== 
+:title: Emacs Sub-processes
+:date: 2024-12-28
+:tags: emacs
+:identifier: 20241228T182434
+
+Emacs Sub-processes
+===================
 
 Something that's quite useful in Emacs is the ability to start a running process
 in the background. This can be done with the ``start-process`` function.
@@ -24,4 +29,3 @@ There's a lot of mentions of hugo here let's break this down a bit
   process
 - The third is the ``hugo`` command itself, followed by any additional arguments
   to pass to it.
- 

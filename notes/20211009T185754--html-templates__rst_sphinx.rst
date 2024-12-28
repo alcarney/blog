@@ -1,8 +1,10 @@
-Sphinx Theming
-==============
+:title: HTML Templates
+:date: 2021-10-09
+:tags: rst, sphinx
+:identifier: 20211009T185754
 
-Template Discovery
-------------------
+HTML Templates
+--------------
 
 When I was redesigning this site, there were times when it wasn't obvious to me which
 templates were being used to render a given page. Thankfully it's not too hard to get
@@ -29,23 +31,23 @@ I needed.
                              "non-ASCII content are Unicode strings."), pagename)
 
 
-Then to determine which template was being used for a given page, I only had to find it 
-in the build output. 
+Then to determine which template was being used for a given page, I only had to find it
+in the build output.
 
-.. code-block:: none 
+.. code-block:: none
 
    Running Sphinx v4.2.0
    loading pickled environment... done
    building [mo]: targets for 0 po files that are out of date
    building [dirhtml]: targets for 1 source files that are out of date
    updating environment: 0 added, 1 changed, 0 removed
-   reading sources... [100%] blog/2021/sphinx-template-discovery                                                
+   reading sources... [100%] blog/2021/sphinx-template-discovery
    looking for now-outdated files... none found
    pickling environment... done
    checking consistency... done
    preparing documents... done
-   blog/2021/sphinx-template-discovery: page.htmllate-discovery                                                 
-   index: page.html. [100%] index                                                                               
+   blog/2021/sphinx-template-discovery: page.htmllate-discovery
+   index: page.html. [100%] index
 
    generating indices... genindex genindex: genindex.html
    done
