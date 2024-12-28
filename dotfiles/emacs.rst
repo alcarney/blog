@@ -697,6 +697,19 @@ Settings for dired
           ;; -v, natural sort of (version) numbers within text
           dired-listing-switches "-AFGhlvX --group-directories-first --time-style=long-iso"))
 
+Denote
+------
+
+`denote <https://protesilaos.com/emacs/denote>`__ is primarily a clever file naming scheme well-suited for note taking/being organised.
+The elisp package from Protesilaos provides many nice utilities in Emacs that build on the naming scheme.
+
+.. code-block:: elisp
+   :filename: emacs/init.el
+
+   (use-package denote
+     :ensure t
+     :hook ((dired-mode . denote-dired-mode)))
+
 Embark
 ------
 
