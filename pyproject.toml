@@ -9,6 +9,7 @@ dependencies = [
   "ablog",
   "sphinx",
   "sphinx-design",
+  "myst-parser",
   "awdur @ git+https://github.com/swyddfa/awdur@develop#subdirectory=lib/awdur"
 ]
 
