@@ -708,7 +708,22 @@ The elisp package from Protesilaos provides many nice utilities in Emacs that bu
 
    (use-package denote
      :ensure t
-     :hook ((dired-mode . denote-dired-mode)))
+     :hook ((dired-mode . denote-dired-mode))
+     :config
+
+     ;; Add reStructuredText support to denote
+     (add-to-list 'denote-file-types `(rst
+                                       :extension ".rst"
+                                       :date-function denote-date-iso-8601
+                                       :front-matter ":title: %s\n:date: %s\n:tags: %s\n:identifier: %s\n\n"
+                                       :title-key-regexp "^:title:"
+                                       :title-value-function identity
+                                       :title-value-reverse-function denote-trim-whitespace
+                                       :keywords-key-regexp "^:tags:"
+                                       :keywords-value-function ,(lambda (ks) (string-join ks ", "))
+                                       :keywords-value-reverse-function denote-extract-keywords-from-front-matter
+                                       :link ":note:`%2$s <%1$s>`"
+                                       :link-in-context-regexp ,(concat ":note:`.*?<\\(?1:" denote-id-regexp "\\)>`"))))
 
 Embark
 ------
