@@ -1,3 +1,8 @@
+:title: The PyPDF2 Package
+:date: 2024-10-16
+:tags: pdf, python
+:identifier: 20241016T001317
+
 PDF Documents
 =============
 
@@ -7,7 +12,7 @@ Rotating Pages
 Using the :pypi:`PyPDF2` package it's quite easy to rotate pages with Python.
 The following snippet flips each page in a document by 180 degress.
 
-.. code-block:: python 
+.. code-block:: python
 
    import PyPDF2
 
@@ -23,6 +28,6 @@ The following snippet flips each page in a document by 180 degress.
        writer.addPage(page)
 
    writer.write(output)
-    
+
    source.close()
    output.close()
