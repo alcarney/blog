@@ -5,7 +5,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>Searching for Code in Python Packages &#8212; Alex Carney</title>
+    <title>Using mock.patch() for debugging &#8212; Alex Carney</title>
 
     
     <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=92c9d732" />
@@ -28,8 +28,8 @@
     <link rel="icon" href="../../_static/favicon.ico"/>
     <link rel="index" title="Index" href="../../genindex/" />
     <link rel="search" title="Search" href="../../search/" />
-    <link rel="next" title="Using mock.patch() for debugging" href="../20241228T200358/" />
-    <link rel="prev" title="Emacs Sub-processes" href="../20241228T182434/" /> 
+    <link rel="next" title="Git" href="../git/" />
+    <link rel="prev" title="Searching for Code in Python Packages" href="../20241228T190506/" /> 
   </head><body class="flex flex-col justify-between min-h-screen overflow-x-hidden bg-gray-100 dark:bg-gray-900">
     <div class="flex flex-grow">
         <input id="menu-state" type="checkbox" class="hidden" />
@@ -76,7 +76,7 @@
 
                     <div class="flex-shrink overflow-auto"><nav id="localtoc" class="p-4 border-t dark:text-gray-200 dark:border-gray-600">
     <ul>
-<li><a class="reference internal" href="#">Searching for Code in Python Packages</a></li>
+<li><a class="reference internal" href="#">Using <code class="docutils literal notranslate"><span class="pre">mock.patch()</span></code> for debugging</a></li>
 </ul>
 
 </nav>
@@ -140,11 +140,33 @@
                     
 
 <article class="p-4 prose-sm prose bg-white dark:bg-gray-800 border prose-md prose-emerald max-w-none dark:prose-invert dark:border-gray-600">
-    <section id="searching-for-code-in-python-packages">
-<h1>Searching for Code in Python Packages<a class="headerlink" href="#searching-for-code-in-python-packages" title="Link to this heading">¶</a></h1>
-<p>Something I find myself wanting to do quite often is to search for a particular object within a Python package.</p>
-<p>A nice trick is to use a tool like <code class="docutils literal notranslate"><span class="pre">fd</span></code> to gather all the relevant filepaths and pass them to <code class="docutils literal notranslate"><span class="pre">rg</span></code> for us</p>
-<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>fd<span class="w"> </span>-e<span class="w"> </span>py<span class="w"> </span>.<span class="w"> </span><span class="s2">&quot;</span><span class="si">${</span><span class="nv">VIRTUAL_ENV</span><span class="si">}</span><span class="s2">/lib/python3.10/site-packages/&lt;package&gt;&quot;</span><span class="w"> </span>-X<span class="w"> </span>rg<span class="w"> </span>&lt;pattern&gt;
+    <section id="using-mock-patch-for-debugging">
+<h1>Using <code class="docutils literal notranslate"><span class="pre">mock.patch()</span></code> for debugging<a class="headerlink" href="#using-mock-patch-for-debugging" title="Link to this heading">¶</a></h1>
+<p>This is cool, using <code class="docutils literal notranslate"><span class="pre">mock.patch()</span></code> to replace the implementation of something you wish to inspect further.</p>
+<p>This can be something simple like adding in a logging statement.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">unittest.mock</span> <span class="kn">import</span> <span class="n">patch</span>
+
+<span class="kn">from</span> <span class="nn">mymodule</span> <span class="kn">import</span> <span class="n">original_func</span>
+<span class="kn">from</span> <span class="nn">mymodule</span> <span class="kn">import</span> <span class="n">some_other_func</span>
+
+<span class="k">def</span> <span class="nf">patched_func</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">):</span>
+    <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Args </span><span class="si">%s</span><span class="s2"> </span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">original_func</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">)</span>
+
+<span class="k">with</span> <span class="n">patch</span><span class="p">(</span><span class="s1">&#39;mymodule.original_func&#39;</span><span class="p">,</span> <span class="n">side_effect</span><span class="o">=</span><span class="n">patched_func</span><span class="p">):</span>
+    <span class="n">some_other_func</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Or <em>very</em> useful if you want to interact with/visualise the situation you are trying to debug in a notebook!</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">IPython.display</span> <span class="kn">import</span> <span class="n">display</span>
+
+<span class="k">def</span> <span class="nf">patched_func</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">):</span>
+    <span class="n">widget</span> <span class="o">=</span> <span class="o">...</span> <span class="c1"># Something that jupyter displays nicely.</span>
+    <span class="n">display</span><span class="p">(</span><span class="n">widget</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">original_func</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">)</span>
+
+<span class="k">with</span> <span class="n">patch</span><span class="p">(</span><span class="s1">&#39;mymodule.original_func&#39;</span><span class="p">,</span> <span class="n">side_effect</span><span class="o">=</span><span class="n">patched_func</span><span class="p">):</span>
+    <span class="n">some_other_func</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
 </pre></div>
 </div>
 </section>
@@ -158,16 +180,16 @@
         
         <li  class="w-1/2 p-4 mr-2 bg-white dark:bg-gray-800 border hover:shadow-lg dark:border-gray-600" >
             
-            <a class="flex items-center justify-between h-full" href="../20241228T182434/">
+            <a class="flex items-center justify-between h-full" href="../20241228T190506/">
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="flex-shrink-0 w-8 h-8" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg>
-                <p class="ml-4 text-green-600">Emacs Sub-processes</p>
+                <p class="ml-4 text-green-600">Searching for Code in Python Packages</p>
             </a>
             
         </li>
         
         <li class="w-1/2 p-4 ml-2 bg-white dark:bg-gray-800 border hover:shadow-lg dark:border-gray-600">
-            <a class="flex items-center justify-between h-full" href="../20241228T200358/">
-                <p class="text-green-600">Using <code class="docutils literal notranslate"><span class="pre">mock.patch()</span></code> for debugging</p>
+            <a class="flex items-center justify-between h-full" href="../git/">
+                <p class="text-green-600">Git</p>
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="flex-shrink-0 w-8 h-8 ml-4" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg>
             </a>
         </li>
@@ -186,7 +208,7 @@
             <footer class="p-2 mt-8 mb-2 text-sm text-gray-600 border-t dark:border-gray-600">
                 <div class="flex flex-col justify-between max-w-3xl mx-auto lg:flex-row">
                     <span>
-                        <a class="text-green-600" href="../../_sources/notes/20241228T190506--search-for-code-in-python-packages__python_ripgrep.rst.txt" rel="nofollow">
+                        <a class="text-green-600" href="../../_sources/notes/20241228T200358--using-mockpatch-for-debugging__python.rst.txt" rel="nofollow">
                             Page Source
                         </a>
                     </span>
