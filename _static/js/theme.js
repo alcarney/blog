@@ -90,32 +90,42 @@ if (profileElement) {
     onScrollCallbacks.push(() => growShrinkProfile(profileElement, referenceElement))
 }
 
-const localToc = document.querySelector("#localtoc")
-console.debug("localtoc - ", localToc)
-if (localToc) {
-    const documentSections = document.querySelectorAll("section")
-    const navRoot = localToc.querySelector("a[href='#'] + ul")
 
-    console.debug("sections - ", documentSections)
-    console.debug("navroot - ", navRoot)
+function main() {
+    const localToc = document.querySelector("#localtoc")
+    console.debug("localtoc - ", localToc)
+    if (localToc) {
+        const documentSections = document.querySelectorAll("section")
+        const navRoot = localToc.querySelector("a[href='#'] + ul")
 
-    const navTitle = localToc.querySelector("a[href='#']")
-    navTitle.innerHTML = "Contents"
+        console.debug("sections - ", documentSections)
+        console.debug("navroot - ", navRoot)
 
-    if (!navRoot) {
-        localToc.className = "hidden"
+        const navTitle = localToc.querySelector("a[href='#']")
+        navTitle.innerHTML = "Contents"
 
-    } else {
+        if (!navRoot) {
+            localToc.className = "hidden"
 
-        let tocTree = new Map()
-        buildTocTree(tocTree, navRoot, [])
-        console.debug("toctree - ", tocTree)
+        } else {
 
-        highlightCurrentSection(tocTree, navRoot, documentSections)
-        onScrollCallbacks.push(() => highlightCurrentSection(tocTree, navRoot, documentSections))
+            let tocTree = new Map()
+            buildTocTree(tocTree, navRoot, [])
+            console.debug("toctree - ", tocTree)
+
+            highlightCurrentSection(tocTree, navRoot, documentSections)
+            onScrollCallbacks.push(() => highlightCurrentSection(tocTree, navRoot, documentSections))
+        }
     }
 }
 
 window.addEventListener('scroll', (_) => {
     onScrollCallbacks.forEach(callback => callback())
 })
+
+
+if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", main);
+} else {
+    main();
+}

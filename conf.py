@@ -20,7 +20,7 @@ from sphinx.application import Sphinx
 # -- Project information -----------------------------------------------------
 
 project = "Blog"
-copyright = "2023, Alex Carney"
+copyright = "2024, Alex Carney"
 author = "Alex Carney"
 
 
@@ -91,6 +91,10 @@ html_static_path = ["_static"]
 html_theme = "mytheme"
 html_theme_path = ["theme"]
 html_title = "Alex Carney"
+html_js_files = [
+    "js/theme.js",
+    "js/htmx-2.0.4.min.js",
+]
 
 
 def pypi_role(name, rawtext, text, lineno, inliner, options={}, content=[]):
