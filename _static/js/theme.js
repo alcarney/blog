@@ -37,7 +37,7 @@ function highlightCurrentSection(tocTree, navRoot, documentSections) {
     let currentId
     const ulHidden = "hidden"
     const ulVisible = "ml-2 border-l"
-    const linkNormal = "pl-2 border-l-4 border-white dark:border-gray-800"
+    const linkNormal = "pl-2 border-l-4 border-gray-800"
     const linkHighlighted = "pl-2 text-green-600 border-l-4 border-green-600"
 
     for (let section of Array.from(documentSections)) {

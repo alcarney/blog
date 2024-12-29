@@ -1,7 +1,7 @@
 {%- extends "layout.html" %}
 {% block body %}
 
-<article class="p-4 prose-sm prose bg-white dark:bg-gray-800 border prose-md prose-emerald max-w-none dark:prose-invert dark:border-gray-600">
+<article class="p-4 prose-sm prose prose-md prose-emerald max-w-none dark:prose-invert">
     {{ body }}
 </article>
 
@@ -32,7 +32,7 @@
 {% endif %}
 
 {% if pagename in ablog %}
-<div class="mt-8 pt-4 border-t dark:border-gray-600">
+<div class="mt-8 pt-4">
     <script src="https://giscus.app/client.js"
             data-repo="alcarney/blog"
             data-repo-id="MDEwOlJlcG9zaXRvcnk2Njk3NzM3MQ=="

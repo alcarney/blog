@@ -1,10 +1,11 @@
 Dotfiles
 ========
 
-Some of my dotfiles.
+Some of my dotfiles
 
 .. grid:: 1 2 2 2
    :gutter: 2
+   :padding: 0
 
    .. grid-item-card:: :octicon:`terminal` Bash
       :link: /dotfiles/bash
