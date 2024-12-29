@@ -13,15 +13,15 @@
 {%- endfor %}
 {% endblock %}
 
-{% block body_tag %}<body class="flex flex-col justify-between min-h-screen overflow-x-hidden bg-gray-100 dark:bg-gray-900">{% endblock %}
+{% block body_tag %}<body class="flex flex-col justify-between min-h-screen overflow-x-hidden bg-white dark:bg-gray-900">{% endblock %}
 
 {% block relbar1 %}{% endblock %}
 
 {%- block content %}
     <div class="flex flex-grow">
         <input id="menu-state" type="checkbox" class="hidden" />
-        <aside class="flex justify-between flex-shrink-0 transition-all duration-500 bg-white dark:bg-gray-800 -ml-80 lg:ml-0 dark:border-gray-600">
-            <div class="flex flex-col justify-between h-full border-r w-80 dark:border-gray-600">
+        <aside class="flex justify-between flex-shrink-0 transition-all duration-500 bg-gray-800 -ml-80 lg:ml-0">
+            <div class="flex flex-col justify-between h-full w-80 ">
                 <div class="sticky top-0 flex flex-col h-screen">
 
                     {% include "profilecard.html" %}
@@ -51,13 +51,13 @@
             </div>
 
             <div id="content" class="mx-2 my-8">
-                <div role="main" class="max-w-3xl mx-auto">
+                <div role="main" class="max-w-5xl mx-4">
                     {% block body %} {{body}} {% endblock %}
                 </div>
             </div>
 
             <footer class="p-2 mt-8 mb-2 text-sm text-gray-600 border-t dark:border-gray-600">
-                <div class="flex flex-col justify-between max-w-3xl mx-auto lg:flex-row">
+                <div class="flex flex-col justify-between max-w-5xl mx-4 lg:flex-row">
                     <span>
                         {%- if show_source and has_source and sourcename %}
                         <a class="text-green-600" href="{{ pathto('_sources/' + sourcename, true)|e }}" rel="nofollow">

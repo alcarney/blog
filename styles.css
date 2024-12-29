@@ -3,7 +3,8 @@
 @tailwind utilities;
 
 :root {
-    --sd-color-card-border: #52525b; /* zinc-600 */
+    --sd-color-card-background: white;
+    --sd-color-card-border: #f4f4f5; /* zinc-100 */
     --sd-color-card-border-hover: #059669; /* emerald-600 */
 }
 
@@ -27,7 +28,7 @@ a.headerlink {
 }
 
 section a.headerlink {
-    @apply text-white dark:text-gray-800
+    @apply text-white dark:text-gray-900
 }
 
 h1>a.headerlink::before,
@@ -56,6 +57,12 @@ section a.headerlink::before {
 }
 
 @media (prefers-color-scheme: dark) {
+
+    :root {
+        --sd-color-card-background: #27272a; /* zinc-800 */
+        --sd-color-card-border: #52525b; /* zinc-600 */
+        --sd-color-card-border-hover: #059669; /* emerald-600 */
+    }
 
     section a.headerlink::before {
         background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" stroke="white" fill="none" viewBox="0 0 24 24"> <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1" /></svg>');
@@ -133,7 +140,7 @@ kbd {
 /* -- Profile image -- */
 
 .full-profile {
-    @apply flex justify-between p-2 lg:flex-col border-b lg:border-b-0 dark:border-gray-600
+    @apply flex justify-between p-2 lg:flex-col border-b lg:border-b-0 border-gray-600
 }
 
 .full-profile img {
@@ -145,7 +152,7 @@ kbd {
 }
 
 .small-profile {
-    @apply flex justify-between p-2 border-b dark:border-gray-600
+    @apply flex justify-between p-2 border-b border-gray-600
 }
 
 .small-profile img {
