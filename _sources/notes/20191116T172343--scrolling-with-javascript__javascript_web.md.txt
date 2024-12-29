@@ -20,5 +20,5 @@ page 1000 pixels. However this will be executed instantly and the effect could
 be jarring for the user so we can make this happen “smoothly” like so
 
 ```javascript
-window.scrollTo({left: 0, top: 1000, behaviour: ‘smooth’})
+window.scrollTo({left: 0, top: 1000, behaviour: 'smooth'})
 ```
