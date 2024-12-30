@@ -455,7 +455,7 @@ By default Emacs will litter folders with backup files (``filename.txt~``), rath
 Repeat Mode
 ^^^^^^^^^^^
 
-``repeat-mode`` is awesome and while I should really look at trying some of the things shown in `Karthik's guide <https://karthinks.com/software/it-bears-repeating/>`_, simply turning the mode on gives you a lot.
+``repeat-mode`` is awesome and while I should really look at trying some of the things shown in `Karthink's guide <https://karthinks.com/software/it-bears-repeating/>`_, simply turning the mode on gives you a lot.
 
 .. code-block:: elisp
    :filename: emacs/init.el
@@ -749,6 +749,25 @@ Of course, no Emacs config would be complete without :gh:`magit/magit`
    (use-package magit
      :ensure t
      :bind (("C-x g" . magit-status)))
+
+``diff-hl``
+^^^^^^^^^^^
+
+:gh:`dgutov/diff-hl` highlights regions of the buffer that have changed relative to some reference commit (typically ``HEAD``)
+
+.. seealso::
+
+   `This article <https://karthinks.com/software/fringe-matters-finding-the-right-difference/>`__ from Karthink shows how you can change the reference commit
+
+.. code-block:: elisp
+   :filename: emacs/init.el
+
+   (use-package diff-hl
+     :ensure t
+     :hook ((dired-mode . diff-hl-dired-mode))
+     :config
+     (global-diff-hl-mode)
+     (diff-hl-margin-mode))
 
 Forge
 ^^^^^
