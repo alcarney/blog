@@ -9,7 +9,7 @@ identifier: "20240510T145518"
 
 `pygit2` can be used to manipulate a git repository from Python
 
-### Creating a repo
+## Creating a repo
 
 To create a new repository
 
@@ -18,7 +18,7 @@ To create a new repository
 >>> repo = pygit2.init_repository('/path/to/repository', False)  # True implies 'bare' repository
 ```
 
-### Creating a blob
+## Creating a blob
 
 A 'blob' is some content, typically from a file.
 
@@ -28,7 +28,7 @@ A 'blob' is some content, typically from a file.
 4648e701849ee7d52fb685111a7f0e4323505a35
 ```
 
-### Creating a tree
+## Creating a tree
 
 Note, that a 'blob' is the content is contains nothing else, for it to become a file it must be included in some tree. This means that the same blob can be reused in multiple files!
 
@@ -43,7 +43,7 @@ Note, that a 'blob' is the content is contains nothing else, for it to become a 
 >>> tree = builder.write()  # at this point the tree becomes a real object under .git/
 ```
 
-### Creating a commit
+## Creating a commit
 
 Once you have a complete tree, you likely want to commit it to the repo
 
@@ -59,7 +59,7 @@ Once you have a complete tree, you likely want to commit it to the repo
 ... )
 ```
 
-### git checkout
+## git checkout
 
 At this point, the working directory is still empty, to sync the state with the commit we just made we need to do a git checkout. This seemed a little clunky but I was able to make the following work
 
