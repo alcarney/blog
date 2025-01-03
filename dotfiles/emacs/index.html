@@ -108,6 +108,7 @@
 <li><a class="reference internal" href="#denote">Denote</a></li>
 <li><a class="reference internal" href="#embark">Embark</a></li>
 <li><a class="reference internal" href="#git">Git</a><ul>
+<li><a class="reference internal" href="#diff-hl"><code class="docutils literal notranslate"><span class="pre">diff-hl</span></code></a></li>
 <li><a class="reference internal" href="#forge">Forge</a></li>
 </ul>
 </li>
@@ -177,7 +178,7 @@
             </div>
         </aside>
 
-        <main class="w-full mx-auto lg:pr-0">
+        <main class="w-full mx-auto lg:pr-0 overflow-auto">
             <div class="sticky top-0 z-50 mt-0 transition-all duration-300 bg-white dark:bg-gray-800 border-b shadow-md lg:shadow-none lg:relative lg:-mt-16 dark:border-gray-600">
                 <label class="flex h-16 text-gray-600 transition" for="menu-state">
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="w-8 h-8 my-auto" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="feather feather-arrow-right"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
@@ -528,7 +529,7 @@ If they are active, then it will use colors from the theme to style elements of 
 </section>
 <section id="repeat-mode">
 <h3>Repeat Mode<a class="headerlink" href="#repeat-mode" title="Link to this heading">¶</a></h3>
-<p><code class="docutils literal notranslate"><span class="pre">repeat-mode</span></code> is awesome and while I should really look at trying some of the things shown in <a class="reference external" href="https://karthinks.com/software/it-bears-repeating/">Karthik’s guide</a>, simply turning the mode on gives you a lot.</p>
+<p><code class="docutils literal notranslate"><span class="pre">repeat-mode</span></code> is awesome and while I should really look at trying some of the things shown in <a class="reference external" href="https://karthinks.com/software/it-bears-repeating/">Karthink’s guide</a>, simply turning the mode on gives you a lot.</p>
 <div class="highlight-elisp notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="nv">repeat-mode</span><span class="w"> </span><span class="mi">1</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -752,6 +753,22 @@ The elisp package from Protesilaos provides many nice utilities in Emacs that bu
 <span class="w">  </span><span class="nb">:bind</span><span class="w"> </span><span class="p">((</span><span class="s">&quot;C-x g&quot;</span><span class="w"> </span><span class="o">.</span><span class="w"> </span><span class="nv">magit-status</span><span class="p">)))</span>
 </pre></div>
 </div>
+<section id="diff-hl">
+<h3><code class="docutils literal notranslate"><span class="pre">diff-hl</span></code><a class="headerlink" href="#diff-hl" title="Link to this heading">¶</a></h3>
+<p><a class="extlink-gh reference external" href="https://github.com/dgutov/diff-hl">dgutov/diff-hl</a> highlights regions of the buffer that have changed relative to some reference commit (typically <code class="docutils literal notranslate"><span class="pre">HEAD</span></code>)</p>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<p><a class="reference external" href="https://karthinks.com/software/fringe-matters-finding-the-right-difference/">This article</a> from Karthink shows how you can change the reference commit</p>
+</div>
+<div class="highlight-elisp notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="nb">use-package</span><span class="w"> </span><span class="nv">diff-hl</span>
+<span class="w">  </span><span class="nb">:ensure</span><span class="w"> </span><span class="no">t</span>
+<span class="w">  </span><span class="nb">:hook</span><span class="w"> </span><span class="p">((</span><span class="nv">dired-mode</span><span class="w"> </span><span class="o">.</span><span class="w"> </span><span class="nv">diff-hl-dired-mode</span><span class="p">))</span>
+<span class="w">  </span><span class="nb">:config</span>
+<span class="w">  </span><span class="p">(</span><span class="nv">global-diff-hl-mode</span><span class="p">)</span>
+<span class="w">  </span><span class="p">(</span><span class="nv">diff-hl-margin-mode</span><span class="p">))</span>
+</pre></div>
+</div>
+</section>
 <section id="forge">
 <h3>Forge<a class="headerlink" href="#forge" title="Link to this heading">¶</a></h3>
 <p>I’ve also started playing around with <a class="extlink-gh reference external" href="https://github.com/magit/forge">magit/forge</a></p>

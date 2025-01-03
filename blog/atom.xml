@@ -2,10 +2,286 @@
 <feed xmlns="http://www.w3.org/2005/Atom" xml:lang="en">
   <id>https://www.alcarney.me</id>
   <title>Alex Carney | Blog</title>
-  <updated>2024-12-30T18:08:27.567804+00:00</updated>
+  <updated>2025-01-03T20:07:01.011734+00:00</updated>
   <link href="https://www.alcarney.me"/>
   <link href="https://www.alcarney.me/blog/atom.xml" rel="self"/>
   <generator uri="https://ablog.readthedocs.io/" version="0.11.12">ABlog</generator>
+  <entry>
+    <id>https://www.alcarney.me/blog/2025/debugging-go-with-gdb/</id>
+    <title>TIL: Debugging go programs with gdb</title>
+    <updated>2025-01-03T00:00:00+00:00</updated>
+    <author>
+      <name>Alex Carney</name>
+    </author>
+    <content type="html">&lt;section id="til-debugging-go-programs-with-gdb"&gt;
+
+&lt;div class="highlight-console notranslate"&gt;&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="gp"&gt;$ &lt;/span&gt;gdb&lt;span class="w"&gt; &lt;/span&gt;--args&lt;span class="w"&gt; &lt;/span&gt;podman&lt;span class="w"&gt; &lt;/span&gt;info
+&lt;span class="gp gp-VirtualEnv"&gt;(gdb)&lt;/span&gt; &lt;span class="go"&gt;run&lt;/span&gt;
+&lt;span class="go"&gt;Starting program: /usr/bin/podman info&lt;/span&gt;
+&lt;span class="go"&gt;[Thread debugging using libthread_db enabled]&lt;/span&gt;
+&lt;span class="go"&gt;...&lt;/span&gt;
+&lt;span class="go"&gt;WARN[0000] Found incomplete layer &amp;quot;6748b9a4e6f2d75763acd0d8351dfb92d4281a0b3546cc68042fb8cb5e1b7c3c&amp;quot;, deleting it&lt;/span&gt;
+
+&lt;span class="go"&gt;Thread 9 &amp;quot;podman&amp;quot; received signal SIGSEGV, Segmentation fault.&lt;/span&gt;
+&lt;span class="go"&gt;[Switching to Thread 0x7fbacbfff6c0 (LWP 10496)]&lt;/span&gt;
+&lt;span class="go"&gt;Downloading source file /usr/src/debug/podman-5.3.1-1.fc41.x86_64/vendor/github.com/containers/storage/layers.go&lt;/span&gt;
+&lt;span class="go"&gt;github.com/containers/storage.(*layerStore).load (r=0xc00024c140, lockedForWriting=true, ~r0=&amp;lt;optimized out&amp;gt;, ~r0=&amp;lt;optimized out&amp;gt;, ~r1=..., ~r1=...) at /usr/src/debug/podman-5.3.1-1.fc41.x86_64/vendor/github.com/containers/storage/layers.go:917&lt;/span&gt;
+&lt;span class="go"&gt;917                     if layer.Flags == nil {&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+&lt;/div&gt;
+&lt;p&gt;&lt;em&gt;&amp;lt;Freeze frame, record scratch&amp;gt;&lt;/em&gt;&lt;/p&gt;
+&lt;p&gt;&lt;em&gt;You might be wondering how I got here…&lt;/em&gt;&lt;/p&gt;
+&lt;p&gt;And no, I wasn’t trying to work on &lt;a class="reference external" href="https://github.com/containers/podman"&gt;podman&lt;/a&gt;!&lt;/p&gt;
+&lt;section id="how-i-got-here"&gt;
+&lt;span id="debug-go-with-gdb-getting-here"&gt;&lt;/span&gt;&lt;h2&gt;How I got here&lt;/h2&gt;
+&lt;div class="admonition note"&gt;
+&lt;p class="admonition-title"&gt;Note&lt;/p&gt;
+&lt;p&gt;This section has nothing to do with using &lt;code class="docutils literal notranslate"&gt;&lt;span class="pre"&gt;gdb&lt;/span&gt;&lt;/code&gt;, I just find it amusing how many tangents I let myself take!
+Feel free to skip this and start with the &lt;a class="reference internal" href="2025/debugging-go-with-gdb/#debug-go-with-gdb-setup"&gt;&lt;span class="std std-ref"&gt;next section&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;p&gt;I was working on a &lt;a class="reference external" href="https://github.com/swyddfa/esbonio/pull/937"&gt;PR&lt;/a&gt; for esbonio, and ran into some test failures that I couldn’t easily figure out from the CI logs alone.
+Trouble was, the tests all relate to my arch nemesis - Windows file paths.&lt;/p&gt;
+&lt;p&gt;No problem! I’ll use &lt;a class="reference external" href="https://github.com/quickemu-project/quickemu"&gt;quickemu&lt;/a&gt; to fire up a Windows VM&lt;/p&gt;
+&lt;div class="highlight-console notranslate"&gt;&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="gp"&gt;$  &lt;/span&gt;quickemu&lt;span class="w"&gt; &lt;/span&gt;--vm&lt;span class="w"&gt; &lt;/span&gt;windows-11.conf
+&lt;span class="go"&gt;ERROR! Requested &amp;#39;spicy&amp;#39; as viewer, but &amp;#39;spicy&amp;#39; is not installed.&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+&lt;/div&gt;
+&lt;p&gt;Oh yes, I haven’t spun up a VM on this machine yet so don’t have a frontend installed.
+I’ve used &lt;code class="docutils literal notranslate"&gt;&lt;span class="pre"&gt;remote-viewer&lt;/span&gt;&lt;/code&gt; in the past, let’s install that… umm… which package provides this again?&lt;/p&gt;
+&lt;p&gt;&lt;em&gt;It was in this moment he made a grave mistake&lt;/em&gt;&lt;/p&gt;
+&lt;p&gt;Rather than do the sane thing and Google it, I thought this would be a good chance to ask my &lt;a class="reference internal" href="2024/local-llms-with-ollama-gptel/#local-llms-with-ollama-gptel"&gt;&lt;span class="std std-ref"&gt;local AI model&lt;/span&gt;&lt;/a&gt; for the &lt;code class="docutils literal notranslate"&gt;&lt;span class="pre"&gt;dnf&lt;/span&gt;&lt;/code&gt; incantation to search for the package that provides the &lt;code class="docutils literal notranslate"&gt;&lt;span class="pre"&gt;remote-viewer&lt;/span&gt;&lt;/code&gt; command.
+However, I quickly realised none of my containers were working since almost any podman command resulted in a go panic.&lt;/p&gt;
+&lt;div class="highlight-console notranslate"&gt;&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="gp"&gt;$ &lt;/span&gt;podman&lt;span class="w"&gt; &lt;/span&gt;info
+&lt;span class="go"&gt;WARN[0000] Found incomplete layer &amp;quot;6748b9a4e6f2d75763acd0d8351dfb92d4281a0b3546cc68042fb8cb5e1b7c3c&amp;quot;, deleting it&lt;/span&gt;
+&lt;span class="go"&gt;panic: runtime error: invalid memory address or nil pointer dereference&lt;/span&gt;
+&lt;span class="go"&gt;[signal SIGSEGV: segmentation violation code=0x1 addr=0x100 pc=0x55fab5c85217]&lt;/span&gt;
+
+&lt;span class="go"&gt;goroutine 1 gp=0xc0000061c0 m=16 mp=0xc00050f508 [running]:&lt;/span&gt;
+&lt;span class="go"&gt;panic({0x55fab6c906e0?, 0x55fab7bac9e0?})&lt;/span&gt;
+&lt;span class="go"&gt;        /usr/lib/golang/src/runtime/panic.go:804 +0x168 fp=0xc00005eda8 sp=0xc00005ecf8 pc=0x55fab529aa88&lt;/span&gt;
+&lt;span class="go"&gt;runtime.panicmem(...)&lt;/span&gt;
+&lt;span class="go"&gt;        /usr/lib/golang/src/runtime/panic.go:262&lt;/span&gt;
+&lt;span class="go"&gt;runtime.sigpanic()&lt;/span&gt;
+
+&lt;span class="go"&gt;[Many, many more lines omitted...]&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+&lt;/div&gt;
+&lt;p&gt;After a quick rummage around some issue trackers I found that not only was this a known issue, it &lt;a class="reference external" href="https://github.com/containers/storage/pull/2185"&gt;has a fix&lt;/a&gt;.
+Unfortunately the fix hasn’t made it into my version of &lt;code class="docutils literal notranslate"&gt;&lt;span class="pre"&gt;podman&lt;/span&gt;&lt;/code&gt; yet, so as a workaround, I will have to remove the incomplete layer myself.&lt;/p&gt;
+&lt;p&gt;&lt;em&gt;&amp;lt;Insert Thanos meme here&amp;gt;&lt;/em&gt;&lt;/p&gt;
+&lt;p&gt;And since I don’t know which file(s)/folder(s) need deleting, I thought the &lt;span class="line-through"&gt;quickest&lt;/span&gt;, most fun way to figure this out would be to debug the process.&lt;/p&gt;
+&lt;p&gt;Which brings us onto the subject of this blog post!&lt;/p&gt;
+&lt;/section&gt;
+&lt;section id="setup"&gt;
+&lt;span id="debug-go-with-gdb-setup"&gt;&lt;/span&gt;&lt;h2&gt;Setup&lt;/h2&gt;
+&lt;p&gt;Since I’m using the &lt;code class="docutils literal notranslate"&gt;&lt;span class="pre"&gt;-dx&lt;/span&gt;&lt;/code&gt; version of &lt;a class="reference external" href="https://getaurora.dev/"&gt;Aurora&lt;/a&gt;, I found that I already had &lt;code class="docutils literal notranslate"&gt;&lt;span class="pre"&gt;gdb&lt;/span&gt;&lt;/code&gt; installed.
+From there all you have to do is pass it the program (and any arguments) you want it to run&lt;/p&gt;
+&lt;div class="highlight-console notranslate"&gt;&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="gp"&gt;$ &lt;/span&gt;gdb&lt;span class="w"&gt; &lt;/span&gt;--args&lt;span class="w"&gt; &lt;/span&gt;podman
+&lt;span class="go"&gt;GNU gdb (Fedora Linux) 15.2-3.fc41&lt;/span&gt;
+&lt;span class="go"&gt;Reading symbols from podman...&lt;/span&gt;
+
+&lt;span class="go"&gt;This GDB supports auto-downloading debuginfo from the following URLs:&lt;/span&gt;
+&lt;span class="go"&gt;  &amp;lt;https://debuginfod.fedoraproject.org/&amp;gt;&lt;/span&gt;
+&lt;span class="go"&gt;Enable debuginfod for this session? (y or [n])&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+&lt;/div&gt;
+&lt;p&gt;You want to say yes to this!&lt;/p&gt;
+&lt;div class="highlight-none notranslate"&gt;&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;Debuginfod has been enabled.
+To make this setting permanent, add &amp;#39;set debuginfod enabled on&amp;#39; to .gdbinit.
+Downloading 70.28 M separate debug info for /usr/bin/podman
+Reading symbols from /home/alex/.cache/debuginfod_client/6c1be8511a45f7f8eef6df8bc94c20641d96eb9a/debuginfo...
+/var/home/alex/info: No such file or directory.
+warning: Missing auto-load script at offset 0 in section .debug_gdb_scripts
+of file /var/home/alex/.cache/debuginfod_client/6c1be8511a45f7f8eef6df8bc94c20641d96eb9a/debuginfo.
+Use `info auto-load python-scripts [REGEXP]&amp;#39; to list them.
+&lt;/pre&gt;&lt;/div&gt;
+&lt;/div&gt;
+&lt;p&gt;Once enabled, &lt;code class="docutils literal notranslate"&gt;&lt;span class="pre"&gt;gdb&lt;/span&gt;&lt;/code&gt; will be able to download any debug symbols it needs automatically, on demand!&lt;/p&gt;
+&lt;div class="highlight-console notranslate"&gt;&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="gp gp-VirtualEnv"&gt;(gdb)&lt;/span&gt; &lt;span class="go"&gt;run&lt;/span&gt;
+&lt;span class="go"&gt;Starting program: /usr/bin/podman&lt;/span&gt;
+&lt;span class="go"&gt;Downloading separate debug info for system-supplied DSO at 0x7f6e30ef1000&lt;/span&gt;
+&lt;span class="go"&gt;Downloading 188.48 K separate debug info for /lib64/libresolv.so.2&lt;/span&gt;
+&lt;span class="go"&gt;Downloading 187.84 K separate debug info for /lib64/libsubid.so.4&lt;/span&gt;
+&lt;span class="go"&gt;Downloading 94.60 K separate debug info for /var/home/alex/.cache/debuginfod_client/05cb3df691d3ecacb634897526293dabb8834d87/debuginfo&lt;/span&gt;
+&lt;span class="go"&gt;Downloading 1.20 M separate debug info for /lib64/libgpgme.so.11&lt;/span&gt;
+&lt;span class="go"&gt;Downloading 2.77 M separate debug info for /var/home/alex/.cache/debuginfod_client/ad0ff4afb064a77890eb5b5dfae388c7598f3180/debuginfo&lt;/span&gt;
+&lt;span class="go"&gt;Downloading 319.12 K separate debug info for /lib64/libseccomp.so.2&lt;/span&gt;
+&lt;span class="go"&gt;Downloading 610.38 K separate debug info for /lib64/libgcc_s.so.1&lt;/span&gt;
+&lt;span class="go"&gt;Downloading 6.22 M separate debug info for /var/home/alex/.cache/debuginfod_client/a120aca96a83fdaa1dbff64ccb67f9b3e46a86fc/debuginfo&lt;/span&gt;
+&lt;span class="go"&gt;Downloading 6.70 M separate debug info for /lib64/libc.so.6&lt;/span&gt;
+&lt;span class="go"&gt;[Thread debugging using libthread_db enabled]&lt;/span&gt;
+&lt;span class="go"&gt;Using host libthread_db library &amp;quot;/lib64/libthread_db.so.1&amp;quot;.&lt;/span&gt;
+&lt;span class="go"&gt;Downloading 168.53 K separate debug info for /lib64/libaudit.so.1&lt;/span&gt;
+&lt;span class="go"&gt;Downloading 30.00 K separate debug info for /var/home/alex/.cache/debuginfod_client/894985c591daedd80a91b4221c8725fc8aacb96b/debuginfo&lt;/span&gt;
+&lt;span class="go"&gt;Downloading 540.78 K separate debug info for /lib64/libselinux.so.1&lt;/span&gt;
+&lt;span class="go"&gt;Downloading 82.43 K separate debug info for /var/home/alex/.cache/debuginfod_client/a77b40fbe465e7cfd1b53f220a51f41837976591/debuginfo&lt;/span&gt;
+&lt;span class="go"&gt;Downloading 916.87 K separate debug info for /lib64/libsemanage.so.2&lt;/span&gt;
+&lt;span class="go"&gt;Downloading 15.68 K separate debug info for /var/home/alex/.cache/debuginfod_client/92a110d4e6ddc3d7ec8219622107d2ade30338e3/debuginfo&lt;/span&gt;
+&lt;span class="go"&gt;Downloading 129.88 K separate debug info for /lib64/libeconf.so.0&lt;/span&gt;
+&lt;span class="go"&gt;Downloading 5.09 K separate debug info for /var/home/alex/.cache/debuginfod_client/12df41e5399f930a9b1520115cc1f2ed776edfa7/debuginfo&lt;/span&gt;
+&lt;span class="go"&gt;Downloading 392.91 K separate debug info for /lib64/libcrypt.so.2&lt;/span&gt;
+&lt;span class="go"&gt;Downloading 61.04 K separate debug info for /var/home/alex/.cache/debuginfod_client/3b22db61e60f5ba97c4e0bb1cbee6a8107f3f313/debuginfo&lt;/span&gt;
+&lt;span class="go"&gt;Downloading 125.27 K separate debug info for /lib64/libacl.so.1&lt;/span&gt;
+&lt;span class="go"&gt;Downloading separate debug info for /var/home/alex/.cache/debuginfod_client/6e078332ae36e8358da618b723ea4463791c70fc/debuginfo&lt;/span&gt;
+&lt;span class="go"&gt;Downloading separate debug info for /lib64/libattr.so.1&lt;/span&gt;
+&lt;span class="go"&gt;Downloading 7.69 K separate debug info for /var/home/alex/.cache/debuginfod_client/45c3b76fd658b1e86c6ff09d1f06babadf71fa78/debuginfo&lt;/span&gt;
+&lt;span class="go"&gt;Downloading 193.53 K separate debug info for /lib64/libpam.so.0&lt;/span&gt;
+&lt;span class="go"&gt;Downloading separate debug info for /var/home/alex/.cache/debuginfod_client/dc4d461ec91383087257839ec7862ed0f230a765/debuginfo&lt;/span&gt;
+&lt;span class="go"&gt;Downloading 34.12 K separate debug info for /lib64/libpam_misc.so.0&lt;/span&gt;
+&lt;span class="go"&gt;Downloading 299.74 K separate debug info for /lib64/libassuan.so.0&lt;/span&gt;
+&lt;span class="go"&gt;Downloading 555.48 K separate debug info for /lib64/libgpg-error.so.0&lt;/span&gt;
+&lt;span class="go"&gt;Downloading 28.08 K separate debug info for /var/home/alex/.cache/debuginfod_client/1966004cd3bdfb76ca6c281c7ea322057ca67c08/debuginfo&lt;/span&gt;
+&lt;span class="go"&gt;Downloading separate debug info for /lib64/libcap-ng.so.0&lt;/span&gt;
+&lt;span class="go"&gt;Downloading 9.07 K separate debug info for /var/home/alex/.cache/debuginfod_client/32db198012cdf3b3d1fe4db5414ca51ee36474d9/debuginfo&lt;/span&gt;
+&lt;span class="go"&gt;Downloading 1.50 M separate debug info for /lib64/libpcre2-8.so.0&lt;/span&gt;
+&lt;span class="go"&gt;Downloading 77.46 K separate debug info for /var/home/alex/.cache/debuginfod_client/ecf3f9c874cd4aa76ed4bd9e4f4d87d2d2ab9373/debuginfo&lt;/span&gt;
+&lt;span class="go"&gt;Downloading 2.95 M separate debug info for /lib64/libsepol.so.2&lt;/span&gt;
+&lt;span class="go"&gt;Downloading 163.20 K separate debug info for /lib64/libbz2.so.1&lt;/span&gt;
+&lt;span class="go"&gt;Downloading separate debug info for /var/home/alex/.cache/debuginfod_client/e55f754492a153b4068a131340d25bf80918f8cf/debuginfo&lt;/span&gt;
+&lt;span class="go"&gt;Downloading 2.09 M separate debug info for /lib64/libm.so.6&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+&lt;/div&gt;
+&lt;/section&gt;
+&lt;section id="debugging"&gt;
+&lt;h2&gt;Debugging&lt;/h2&gt;
+&lt;div class="admonition seealso"&gt;
+&lt;p class="admonition-title"&gt;See also&lt;/p&gt;
+&lt;dl class="simple"&gt;
+&lt;dt&gt;&lt;a class="reference external" href="https://go.dev/doc/gdb"&gt;Debugging Go Code with GDB&lt;/a&gt;&lt;/dt&gt;&lt;dd&gt;&lt;p&gt;A guide from the GO documentation on using &lt;code class="docutils literal notranslate"&gt;&lt;span class="pre"&gt;gdb&lt;/span&gt;&lt;/code&gt; to debug a program&lt;/p&gt;
+&lt;/dd&gt;
+&lt;/dl&gt;
+&lt;/div&gt;
+&lt;p&gt;Finally, we’re caught up with where we were at the start of the blog post&lt;/p&gt;
+&lt;p&gt;(If you skipped the &lt;a class="reference internal" href="2025/debugging-go-with-gdb/#debug-go-with-gdb-getting-here"&gt;&lt;span class="std std-ref"&gt;How I got here&lt;/span&gt;&lt;/a&gt; section, all I’m hoping to acheive is finding out where the incomplete layer is stored, so I can delete it myself)&lt;/p&gt;
+&lt;div class="highlight-console notranslate"&gt;&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="gp gp-VirtualEnv"&gt;(gdb)&lt;/span&gt; &lt;span class="go"&gt;run&lt;/span&gt;
+&lt;span class="go"&gt;Starting program: /usr/bin/podman info&lt;/span&gt;
+&lt;span class="go"&gt;[Thread debugging using libthread_db enabled]&lt;/span&gt;
+&lt;span class="go"&gt;Using host libthread_db library &amp;quot;/lib64/libthread_db.so.1&amp;quot;.&lt;/span&gt;
+&lt;span class="go"&gt;[New Thread 0x7fbb1feff6c0 (LWP 19987)]&lt;/span&gt;
+&lt;span class="go"&gt;[New Thread 0x7fbb1f6fe6c0 (LWP 19988)]&lt;/span&gt;
+&lt;span class="go"&gt;[New Thread 0x7fbb1e6fc6c0 (LWP 19990)]&lt;/span&gt;
+&lt;span class="go"&gt;[New Thread 0x7fbb1eefd6c0 (LWP 19989)]&lt;/span&gt;
+&lt;span class="go"&gt;[New Thread 0x7fbb1defb6c0 (LWP 19991)]&lt;/span&gt;
+&lt;span class="go"&gt;[New Thread 0x7fbb1d55a6c0 (LWP 19992)]&lt;/span&gt;
+&lt;span class="go"&gt;[New Thread 0x7fbb1cd096c0 (LWP 19993)]&lt;/span&gt;
+&lt;span class="go"&gt;[New Thread 0x7fbb17fff6c0 (LWP 19994)]&lt;/span&gt;
+&lt;span class="go"&gt;[New Thread 0x7fbb177fe6c0 (LWP 19995)]&lt;/span&gt;
+&lt;span class="go"&gt;[New Thread 0x7fbb16ffd6c0 (LWP 19996)]&lt;/span&gt;
+&lt;span class="go"&gt;[New Thread 0x7fbb167fc6c0 (LWP 19997)]&lt;/span&gt;
+&lt;span class="go"&gt;[Detaching after vfork from child process 19998]&lt;/span&gt;
+&lt;span class="go"&gt;[Detaching after vfork from child process 19999]&lt;/span&gt;
+&lt;span class="go"&gt;[Detaching after vfork from child process 20001]&lt;/span&gt;
+&lt;span class="go"&gt;[Detaching after vfork from child process 20002]&lt;/span&gt;
+&lt;span class="go"&gt;[Detaching after vfork from child process 20004]&lt;/span&gt;
+&lt;span class="go"&gt;[Detaching after vfork from child process 20005]&lt;/span&gt;
+&lt;span class="go"&gt;[Detaching after vfork from child process 20006]&lt;/span&gt;
+&lt;span class="go"&gt;[Detaching after vfork from child process 20008]&lt;/span&gt;
+&lt;span class="go"&gt;[Detaching after vfork from child process 20009]&lt;/span&gt;
+&lt;span class="go"&gt;[Detaching after vfork from child process 20011]&lt;/span&gt;
+&lt;span class="go"&gt;[Detaching after vfork from child process 20013]&lt;/span&gt;
+&lt;span class="go"&gt;[Detaching after vfork from child process 20015]&lt;/span&gt;
+&lt;span class="go"&gt;[Detaching after vfork from child process 20016]&lt;/span&gt;
+&lt;span class="go"&gt;[New Thread 0x7fbb15ffb6c0 (LWP 20017)]&lt;/span&gt;
+&lt;span class="go"&gt;WARN[0000] Found incomplete layer &amp;quot;6748b9a4e6f2d75763acd0d8351dfb92d4281a0b3546cc68042fb8cb5e1b7c3c&amp;quot;, deleting it&lt;/span&gt;
+
+&lt;span class="go"&gt;Thread 11 &amp;quot;podman&amp;quot; received signal SIGSEGV, Segmentation fault.&lt;/span&gt;
+&lt;span class="go"&gt;[Switching to Thread 0x7fbb16ffd6c0 (LWP 19996)]&lt;/span&gt;
+&lt;span class="go"&gt;github.com/containers/storage.(*layerStore).load (r=0xc0004ea000, lockedForWriting=true, ~r0=&amp;lt;optimized out&amp;gt;, ~r0=&amp;lt;optimized out&amp;gt;, ~r1=..., ~r1=...) at /usr/src/debug/podman-5.3.1-1.fc41.x86_64/vendor/github.com/containers/storage/layers.go:917&lt;/span&gt;
+&lt;span class="go"&gt;917                     if layer.Flags == nil {&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+&lt;/div&gt;
+&lt;p&gt;The &lt;code class="docutils literal notranslate"&gt;&lt;span class="pre"&gt;l&lt;/span&gt;&lt;/code&gt; command prints the code around where the panic happened.&lt;/p&gt;
+&lt;div class="highlight-console notranslate"&gt;&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="gp gp-VirtualEnv"&gt;(gdb)&lt;/span&gt; &lt;span class="go"&gt;l&lt;/span&gt;
+&lt;span class="go"&gt;912             // Last step: try to remove anything that a previous&lt;/span&gt;
+&lt;span class="go"&gt;913             // user of this storage area marked for deletion but didn&amp;#39;t manage to&lt;/span&gt;
+&lt;span class="go"&gt;914             // actually delete.&lt;/span&gt;
+&lt;span class="go"&gt;915             var incompleteDeletionErrors error // = nil&lt;/span&gt;
+&lt;span class="go"&gt;916             for _, layer := range r.layers {&lt;/span&gt;
+&lt;span class="go"&gt;917                     if layer.Flags == nil {&lt;/span&gt;
+&lt;span class="go"&gt;918                             layer.Flags = make(map[string]interface{})&lt;/span&gt;
+&lt;span class="go"&gt;919                     }&lt;/span&gt;
+&lt;span class="go"&gt;920                     if layerHasIncompleteFlag(layer) {&lt;/span&gt;
+&lt;span class="go"&gt;921                             logrus.Warnf(&amp;quot;Found incomplete layer %#v, deleting it&amp;quot;, layer.ID)&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+&lt;/div&gt;
+&lt;p&gt;The &lt;code class="docutils literal notranslate"&gt;&lt;span class="pre"&gt;p&lt;/span&gt;&lt;/code&gt; command allows us to inspect the value of a variable.
+As expected, &lt;code class="docutils literal notranslate"&gt;&lt;span class="pre"&gt;layer&lt;/span&gt;&lt;/code&gt; contains a null pointer.&lt;/p&gt;
+&lt;div class="highlight-console notranslate"&gt;&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="gp gp-VirtualEnv"&gt;(gdb)&lt;/span&gt; &lt;span class="go"&gt;p layer&lt;/span&gt;
+&lt;span class="gp"&gt;$&lt;/span&gt;&lt;span class="nv"&gt;1&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;(&lt;/span&gt;github.com/containers/storage.Layer&lt;span class="w"&gt; &lt;/span&gt;*&lt;span class="o"&gt;)&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;0x0
+&lt;/pre&gt;&lt;/div&gt;
+&lt;/div&gt;
+&lt;p&gt;There are limits to gdb’s Go support however, and trying to look at the contents of the &lt;code class="docutils literal notranslate"&gt;&lt;span class="pre"&gt;layers&lt;/span&gt;&lt;/code&gt; array does not make much sense to me.&lt;/p&gt;
+&lt;div class="highlight-console notranslate"&gt;&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="gp gp-VirtualEnv"&gt;(gdb)&lt;/span&gt; &lt;span class="go"&gt;p r.layers&lt;/span&gt;
+&lt;span class="gp"&gt;$&lt;/span&gt;&lt;span class="nv"&gt;2&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;{&lt;/span&gt;&lt;span class="nv"&gt;array&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;0xc0001d7800,&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nv"&gt;len&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="m"&gt;35&lt;/span&gt;,&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nv"&gt;cap&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="m"&gt;64&lt;/span&gt;&lt;span class="o"&gt;}&lt;/span&gt;
+&lt;span class="gp gp-VirtualEnv"&gt;(gdb)&lt;/span&gt; &lt;span class="go"&gt;p r.layers.array&lt;/span&gt;
+&lt;span class="gp"&gt;$&lt;/span&gt;&lt;span class="nv"&gt;3&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;(&lt;/span&gt;github.com/containers/storage.Layer&lt;span class="w"&gt; &lt;/span&gt;**&lt;span class="o"&gt;)&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;0xc0001d7800
+&lt;/pre&gt;&lt;/div&gt;
+&lt;/div&gt;
+&lt;p&gt;This must be some of Go’s implementation details showing through…&lt;/p&gt;
+&lt;/section&gt;
+&lt;section id="setting-a-breakpoint"&gt;
+&lt;h2&gt;Setting a Breakpoint&lt;/h2&gt;
+&lt;p&gt;It also doesn’t help that the crash has already happened, I want to inspect the state of the program just before the crash.
+Thankfully, the warning message about the incomplete layer provides the ideal place to set the breakpoint.&lt;/p&gt;
+&lt;p&gt;After starting a fresh debug session, I can use the &lt;code class="docutils literal notranslate"&gt;&lt;span class="pre"&gt;break&lt;/span&gt;&lt;/code&gt; command to set a breakpoint&lt;/p&gt;
+&lt;div class="highlight-console notranslate"&gt;&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="gp gp-VirtualEnv"&gt;(gdb)&lt;/span&gt; &lt;span class="go"&gt;break /usr/src/debug/podman-5.3.1-1.fc41.x86_64/vendor/github.com/containers/storage/layers.go:921&lt;/span&gt;
+&lt;span class="go"&gt;Breakpoint 1 at 0xa63324: file /usr/src/debug/podman-5.3.1-1.fc41.x86_64/vendor/github.com/containers/storage/layers.go, line 921.&lt;/span&gt;
+&lt;span class="gp gp-VirtualEnv"&gt;(gdb)&lt;/span&gt; &lt;span class="go"&gt;run&lt;/span&gt;
+&lt;span class="go"&gt;Starting program: /usr/bin/podman info&lt;/span&gt;
+&lt;span class="go"&gt;[Thread debugging using libthread_db enabled]&lt;/span&gt;
+&lt;span class="go"&gt;Using host libthread_db library &amp;quot;/lib64/libthread_db.so.1&amp;quot;.&lt;/span&gt;
+&lt;span class="go"&gt;...&lt;/span&gt;
+
+&lt;span class="go"&gt;Thread 13 &amp;quot;podman&amp;quot; hit Breakpoint 1, github.com/containers/storage.(*layerStore).load (r=0xc000622000, lockedForWriting=true, ~r0=&amp;lt;optimized out&amp;gt;, ~r0=&amp;lt;optimized out&amp;gt;, ~r1=..., ~r1=...) at /usr/src/debug/podman-5.3.1-1.fc41.x86_64/vendor/github.com/containers/storage/layers.go:921&lt;/span&gt;
+&lt;span class="go"&gt;921                             logrus.Warnf(&amp;quot;Found incomplete layer %#v, deleting it&amp;quot;, layer.ID)&lt;/span&gt;
+&lt;span class="gp gp-VirtualEnv"&gt;(gdb)&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+&lt;/div&gt;
+&lt;p&gt;Using the &lt;code class="docutils literal notranslate"&gt;&lt;span class="pre"&gt;n(ext)&lt;/span&gt;&lt;/code&gt; and &lt;code class="docutils literal notranslate"&gt;&lt;span class="pre"&gt;s(tep)&lt;/span&gt;&lt;/code&gt; commands I was eventually able to step into the function responsible for removing the layer&lt;/p&gt;
+&lt;div class="highlight-console notranslate"&gt;&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="gp gp-VirtualEnv"&gt;(gdb)&lt;/span&gt; &lt;span class="go"&gt;n&lt;/span&gt;
+&lt;span class="go"&gt;921                             logrus.Warnf(&amp;quot;Found incomplete layer %#v, deleting it&amp;quot;, layer.ID)&lt;/span&gt;
+&lt;span class="gp gp-VirtualEnv"&gt;(gdb)&lt;/span&gt; &lt;span class="go"&gt;n&lt;/span&gt;
+&lt;span class="go"&gt;WARN[0014] Found incomplete layer &amp;quot;6748b9a4e6f2d75763acd0d8351dfb92d4281a0b3546cc68042fb8cb5e1b7c3c&amp;quot;, deleting it&lt;/span&gt;
+&lt;span class="go"&gt;922                             err := r.deleteInternal(layer.ID)&lt;/span&gt;
+&lt;span class="gp gp-VirtualEnv"&gt;(gdb)&lt;/span&gt; &lt;span class="go"&gt;s&lt;/span&gt;
+&lt;span class="go"&gt;github.com/containers/storage.(*layerStore).deleteInternal (r=0xc0004f4000, id=..., ~r0=...) at /usr/src/debug/podman-5.3.1-1.fc41.x86_64/vendor/github.com/containers/storage/layers.go:1888&lt;/span&gt;
+&lt;span class="go"&gt;1888    func (r *layerStore) deleteInternal(id string) error {&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class="mt-4 admonition note"&gt;
+&lt;p class="admonition-title"&gt;Note&lt;/p&gt;
+&lt;p&gt;It actually took me a few attempts to step into the &lt;code class="docutils literal notranslate"&gt;&lt;span class="pre"&gt;deleteInternal&lt;/span&gt;&lt;/code&gt; function.&lt;/p&gt;
+&lt;p&gt;&lt;code class="docutils literal notranslate"&gt;&lt;span class="pre"&gt;podman&lt;/span&gt;&lt;/code&gt; spins up a lot of goroutines and depending on how slow I was, one of the background goroutines would segfault before I could get to it.
+This would switch the debugger’s context away from the goroutine I was interested in.&lt;/p&gt;
+&lt;p&gt;I am sure there is a way to switch back but I didn’t try looking it up.&lt;/p&gt;
+&lt;/div&gt;
+&lt;p&gt;After a few more &lt;cite&gt;n&lt;/cite&gt; commands I arrived at some code that looks like it should be able to tell me where the layers are stored.&lt;/p&gt;
+&lt;div class="highlight-go notranslate"&gt;&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="mi"&gt;1911&lt;/span&gt;&lt;span class="w"&gt;           &lt;/span&gt;&lt;span class="nx"&gt;os&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;Remove&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nx"&gt;r&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;tspath&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nx"&gt;id&lt;/span&gt;&lt;span class="p"&gt;))&lt;/span&gt;
+&lt;span class="mi"&gt;1912&lt;/span&gt;&lt;span class="w"&gt;           &lt;/span&gt;&lt;span class="nx"&gt;os&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;RemoveAll&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nx"&gt;r&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;datadir&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nx"&gt;id&lt;/span&gt;&lt;span class="p"&gt;))&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+&lt;/div&gt;
+&lt;p&gt;And sure enough I was able to locate the directory where the layer was stored&lt;/p&gt;
+&lt;div class="highlight-none notranslate"&gt;&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;github.com/containers/storage.(*layerStore).tspath (r=0xc000686000, id=...) at /usr/src/debug/podman-5.3.1-1.fc41.x86_64/vendor/github.com/containers/storage/layers.go:1870
+1870           return filepath.Join(r.layerdir, id+tarSplitSuffix)
+(gdb) p r.layerdir
+$7 = 0xc0005a29c0 &amp;quot;/var/home/alex/.local/share/containers/storage/overlay-layers&amp;quot;
+&lt;/pre&gt;&lt;/div&gt;
+&lt;/div&gt;
+&lt;/section&gt;
+&lt;section id="fixing-the-panic"&gt;
+&lt;h2&gt;Fixing the Panic&lt;/h2&gt;
+&lt;p&gt;Turns out the problematic layer (&lt;code class="docutils literal notranslate"&gt;&lt;span class="pre"&gt;6748b9a4e6f2d75763acd0d8351dfb92d4281a0b3546cc68042fb8cb5e1b7c3c&lt;/span&gt;&lt;/code&gt;) had been removed, but the record of it still existed in the &lt;code class="docutils literal notranslate"&gt;&lt;span class="pre"&gt;layers.json&lt;/span&gt;&lt;/code&gt; metadata file.
+After manually removing it &lt;code class="docutils literal notranslate"&gt;&lt;span class="pre"&gt;podman&lt;/span&gt;&lt;/code&gt; once again worked as expected!&lt;/p&gt;
+&lt;/section&gt;
+&lt;/section&gt;
+</content>
+    <link href="https://www.alcarney.me/blog/2025/debugging-go-with-gdb/"/>
+    <summary>&lt;Freeze frame, record scratch&gt;You might be wondering how I got here…And no, I wasn’t trying to work on podman!</summary>
+    <category term="gdb" label="gdb"/>
+    <category term="go" label="go"/>
+    <category term="til" label="til"/>
+    <published>2025-01-03T00:00:00+00:00</published>
+  </entry>
   <entry>
     <id>https://www.alcarney.me/blog/2024/notes-november/</id>
     <title>Notes for November 2024</title>
