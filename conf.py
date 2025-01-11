@@ -34,7 +34,6 @@ extensions = [
     "sphinx.ext.extlinks",
     "sphinx.ext.intersphinx",
     # Third party extensions
-    "ablog",
     "awdur",
     "sphinx_design",
     "myst_parser",

@@ -6,7 +6,6 @@ installer = "uv"
 python = '3.13'
 skip-install = true
 dependencies = [
-  "ablog",
   "sphinx",
   "sphinx-design",
   "myst-parser",
@@ -14,4 +13,4 @@ dependencies = [
 ]
 
 [tool.hatch.envs.blog.scripts]
-build = "ablog build -w _build/html -d _build/doctrees"
+build = "sphinx-build -M dirhtml . ./_build"
