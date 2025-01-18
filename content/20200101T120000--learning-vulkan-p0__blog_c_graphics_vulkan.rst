@@ -1,11 +1,9 @@
-.. post:: 2020-01-01
-   :tags: c, vulkan, graphics
-   :author: Alex Carney
-   :language: en
-   :excerpt: 2
-
-.. description = "Declaring my intention to learn Vulkan once again"
-.. series = ["Learning Vulkan"]
+:title: learning-vulkan-p0
+:identifier: 20200101T120000
+:date: 2020-01-01
+:tags: blog, c, graphics, vulkan
+:author: Alex Carney
+:language: en
 
 Learning Vulkan: Overview
 =========================
@@ -19,8 +17,6 @@ once I got that far...
 But that's (hopefully) about to change! What better excuse than a new decade to
 jump back into this world for the 100th time and try to get to all those
 interesting ideas I see people playing with all the time!
-
-.. <!--more-->
 
 I should say that I don't really know what I'm doing and will totally be making
 it up as I go along. With Python being my favourite language, programming in C

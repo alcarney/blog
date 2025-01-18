@@ -1,9 +1,11 @@
-.. post:: 2021-10-25
-   :tags: lsp, esbonio, vscode
-   :excerpt: 2
-   :image: 1
-   :author: Alex Carney
-   :language: en
+:title: Bringing Esbonio to the Browser
+:identifier: 20211025T120000
+:date: 2021-10-25
+:tags: blog, esbonio, lsp, vscode
+:excerpt: 2
+:image: 1
+:author: Alex Carney
+:language: en
 
 Bringing Esbonio to the Browser
 ===============================

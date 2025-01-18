@@ -1,6 +1,7 @@
-:blogpost: true
+:title: Debugging Go with GDB
+:identifier: 20250103T120000
 :date: 2025-01-03
-:tags: go, gdb, til
+:tags: blog, gdb, go, til
 :author: Alex Carney
 :language: en
 :excerpt: 3

@@ -1,8 +1,10 @@
-.. post:: 2023-07-27
-   :tags: nix, python, esbonio
-   :author: Alex Carney
-   :language: en
-   :excerpt: 1
+:title: Nix Day to Day
+:identifier: 20230727T120000
+:date: 2023-07-27
+:tags: blog, esbonio, nix, python
+:author: Alex Carney
+:language: en
+:excerpt: 1
 
 Nix: Day to Day Usage
 =====================

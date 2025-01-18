@@ -1,8 +1,10 @@
-.. post:: 2023-09-18
-   :tags: nix, python, wasm
-   :author: Alex Carney
-   :language: en
-   :excerpt: 1
+:title: Python WASI Nix
+:identifier: 20230918T120000
+:date: 2023-09-18
+:tags: blog, nix, python, wasm
+:author: Alex Carney
+:language: en
+:excerpt: 1
 
 Setting up a Python WASI Environment with Nix
 =============================================

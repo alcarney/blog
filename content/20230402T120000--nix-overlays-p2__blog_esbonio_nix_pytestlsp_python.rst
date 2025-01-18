@@ -1,8 +1,10 @@
-.. post:: 2023-04-02
-   :tags: nix, python, pytest-lsp, esbonio
-   :author: Alex Carney
-   :language: en
-   :excerpt: 1
+:title: Nix Overlays P2
+:identifier: 20230402T120000
+:date: 2023-04-02
+:tags: blog, esbonio, nix, pytestlsp, python
+:author: Alex Carney
+:language: en
+:excerpt: 1
 
 Nix Overlays: A follow up
 =========================

@@ -1,7 +1,9 @@
-.. post:: 2020-12-17
-   :tags: c, prog-langs
-   :author: Alex Carney
-   :language: en
+:title: AST Simple Eval
+:identifier: 20201217T120000
+:date: 2020-12-17
+:tags: blog, c, proglangs
+:author: Alex Carney
+:language: en
 
 .. code:
    - code/simple-ast/

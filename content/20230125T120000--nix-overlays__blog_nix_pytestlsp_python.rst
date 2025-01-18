@@ -1,8 +1,10 @@
-.. post:: 2023-01-25
-   :tags: nix, pytest-lsp, python
-   :author: Alex Carney
-   :language: en
-   :excerpt: 3
+:title: Nix Overlays
+:identifier: 20230125T120000
+:date: 2023-01-25
+:tags: blog, nix, pytestlsp, python
+:author: Alex Carney
+:language: en
+:excerpt: 3
 
 My Next Steps with Nix: Overlays
 ================================

@@ -1,8 +1,10 @@
-.. post:: 2018-09-22
-   :tags: blogging
-   :author: Alex Carney
-   :language: en
-   :excerpt: 4
+:title: First Article
+:date: 2018-09-22
+:tags: blog,blogging
+:identifier: 20180922T120000
+:author: Alex Carney
+:language: en
+:excerpt: 4
 
 .. description = "First article with ox-hugo"
 

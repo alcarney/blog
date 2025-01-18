@@ -1,11 +1,9 @@
-.. post:: 2018-10-12
-   :tags: stylo, python
-   :author: Alex Carney
-   :language: en
-   :excerpt: 3
-   :image: 1
-
-.. description = "Introducing the new community gallery for stylo"
+:title: Introducing Stylo Doodles
+:identifier: 20181012T120000
+:date: 2018-10-12
+:tags: blog, stylo, python
+:author: Alex Carney
+:language: en
 
 Introducing Stylo Doodles!
 ==========================

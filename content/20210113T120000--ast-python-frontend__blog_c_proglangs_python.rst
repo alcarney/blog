@@ -1,8 +1,10 @@
-.. post:: 2021-01-13
-   :tags: c, python, prog-langs
-   :author: Alex Carney
-   :language: en
-   :excerpt: 2
+:title: AST Python Frontend
+:identifier: 20210113T120000
+:date: 2021-01-13
+:tags: blog, c, proglangs, python
+:author: Alex Carney
+:language: en
+:excerpt: 2
 
 .. code:
    - code/ccalc/

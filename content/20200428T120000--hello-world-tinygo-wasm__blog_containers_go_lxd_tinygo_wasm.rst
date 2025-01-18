@@ -1,7 +1,9 @@
-.. post:: 2020-04-28
-   :tags: go, tinygo, wasm, lxd, containers
-   :author: Alex Carney
-   :language: en
+:title: Hello World TinyGo WASM
+:identifier: 20200428T120000
+:date: 2020-04-28
+:tags: blog, containers, go, lxd, tinygo, wasm
+:author: Alex Carney
+:language: en
 
 .. description = "Using TinyGo to implement 'Hello, World!' in WebAssembly"
 

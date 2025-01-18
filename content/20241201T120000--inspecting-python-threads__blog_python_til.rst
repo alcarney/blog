@@ -1,8 +1,10 @@
-.. post:: 2024-12-01
-   :tags: python, til
-   :author: Alex Carney
-   :language: en
-   :excerpt: 2
+:title: Inspecting Python Threads
+:identifier: 20241201T120000
+:date: 2024-12-01
+:tags: blog, python, til
+:author: Alex Carney
+:language: en
+:excerpt: 2
 
 TIL: Inspecting Python Threads
 ==============================
