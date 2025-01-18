@@ -1,8 +1,10 @@
-.. post:: 2024-11-03
-   :tags: monthnotes, esbonio, pygls
-   :author: Alex Carney
-   :language: en
-   :excerpt: 1
+:title: Notes October
+:identifier: 20241103T120000
+:date: 2024-11-03
+:tags: blog, esbonio, monthnotes, pygls
+:author: Alex Carney
+:language: en
+:excerpt: 1
 
 Notes for October
 =================

@@ -1,8 +1,10 @@
-.. post:: 2020-05-06
-   :tags: go, tinygo, wasm, js
-   :author: Alex Carney
-   :language: en
-   :excerpt: 2
+:title: Passing Strings Between TinyGo WASM
+:identifier: 20200506T120000
+:date: 2020-05-06
+:tags: blog, go, js, tinygo, wasm
+:author: Alex Carney
+:language: en
+:excerpt: 2
 
 .. description Figuring out how WebAssembly handles memory and how to use it to pass data between it and \
    JavaScript

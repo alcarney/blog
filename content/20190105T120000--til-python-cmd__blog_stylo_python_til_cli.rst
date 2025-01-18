@@ -1,9 +1,9 @@
-.. post:: 2019-01-05
-   :tags: stylo, python, til, cli
-   :author: Alex Carney
-   :language: en
-   :excerpt: 1
-   :image: 1
+:title: TIL Python Cmd
+:identifier: 20190105T120000
+:date: 2019-01-05
+:tags: blog, stylo, python, til, cli
+:author: Alex Carney
+:language: en
 
 .. description = "Today I learned about Pyton's cmd module"
 

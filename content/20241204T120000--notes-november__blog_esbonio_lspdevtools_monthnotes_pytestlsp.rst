@@ -1,8 +1,10 @@
-.. post:: 2024-12-04
-   :tags: monthnotes, esbonio, lsp-devtools, pytest-lsp
-   :author: Alex Carney
-   :language: en
-   :excerpt: 1
+:title: Notes November
+:identifier: 20241204T120000
+:date: 2024-12-04
+:tags: blog, esbonio, lspdevtools, monthnotes, pytestlsp
+:author: Alex Carney
+:language: en
+:excerpt: 1
 
 Notes for November 2024
 =======================

@@ -1,8 +1,10 @@
-.. post:: 2023-04-21
-   :tags: nix, python, esbonio
-   :author: Alex Carney
-   :language: en
-   :excerpt: 3
+:title: Integrate Esbonio Nvim with Nix
+:identifier: 20230421T120000
+:date: 2023-04-21
+:tags: blog, esbonio, nix, python
+:author: Alex Carney
+:language: en
+:excerpt: 3
 
 Integrating Esbonio with Neovim Using Nix
 =========================================

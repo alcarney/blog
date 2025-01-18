@@ -1,8 +1,10 @@
-.. post:: 2024-11-16
-   :tags: emacs, llms, til
-   :author: Alex Carney
-   :language: en
-   :excerpt: 1
+:title: Local LLMs with Ollama and gptel
+:identifier: 20241116T120000
+:date: 2024-11-16
+:tags: blog, emacs, llms, til
+:author: Alex Carney
+:language: en
+:excerpt: 1
 
 TIL: Local LLMs with Ollama and gptel
 =====================================

@@ -1,11 +1,10 @@
-.. post:: 2020-01-08
-   :tags: c, vulkan, graphics
-   :author: Alex Carney
-   :language: en
-   :excerpt: 2
-
-.. description = "Enumerating Vulkan compatible physical devices"
-.. series = ["Learning Vulkan"]
+:title: Learning Vulkan P1
+:identifier: 20200108T120000
+:date: 2020-01-08
+:tags: blog, c, graphics, vulkan
+:author: Alex Carney
+:language: en
+:excerpt: 2
 
 Learning Vulkan: Enumerating Physical Devices
 =============================================
@@ -24,8 +23,6 @@ API and lists out the available devices in the system.
      Device ID:            6422
      API Version:          v1.1.102
      Driver Version:       v19.3.1
-
-.. <!--more-->
 
 .. note::
 

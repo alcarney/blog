@@ -1,9 +1,9 @@
-.. post:: 2019-07-07
-   :tags: svg, web, js
-   :author: Alex Carney
-   :language: en
-   :image: 1
-   :excerpt: 4
+:title: Click Drag Vanilla JS
+:identifier: 20190707T120000
+:date: 2019-07-07
+:tags: blog, js, svg, web
+:author: Alex Carney
+:language: en
 
 .. description = "Implementing clicking and dragging of SVG elements using vanilla JavaScript"
 
