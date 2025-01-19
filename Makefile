@@ -7,6 +7,10 @@ PORT=8000
 
 default: html
 
+.PHONY: clean
+clean:
+	rm -r _build/doctrees _build/dirhtml
+
 node_modules/.installed: package.json package-lock.json $(NPM)
 	$(NPM) ci
 	touch $@
