@@ -4,16 +4,17 @@
 :tags: blog, esbonio, nix, pytestlsp, python
 :author: Alex Carney
 :language: en
-:excerpt: 1
 
 Nix Overlays: A follow up
 =========================
 
-It turns out there were a few issues with the setup I put together in my :doc:`previous post </blog/2023/nix-overlays>`.
-This time I try and resolve them and get to the point where I have working overlays for both
-`pytest-lsp <https://github.com/swyddfa/lsp-devtools/tree/develop/lib/pytest-lsp>`__
-and
-`esbonio <https://github.com/swyddfa/esbonio>`__.
+.. container:: post-teaser
+
+   It turns out there were a few issues with the setup I put together in my :doc:`previous post </blog/2023/nix-overlays>`.
+   This time I try and resolve them and get to the point where I have working overlays for both
+   `pytest-lsp <https://github.com/swyddfa/lsp-devtools/tree/develop/lib/pytest-lsp>`__
+   and
+   `esbonio <https://github.com/swyddfa/esbonio>`__.
 
 ``Dependency is not of valid type``
 -----------------------------------

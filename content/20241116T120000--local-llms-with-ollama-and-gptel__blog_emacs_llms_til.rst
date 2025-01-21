@@ -4,13 +4,14 @@
 :tags: blog, emacs, llms, til
 :author: Alex Carney
 :language: en
-:excerpt: 1
 
 TIL: Local LLMs with Ollama and gptel
 =====================================
 
-LLMs don't look like they're going to go away anytime soon, so I may as well start playing around with them.
-Since I am also using Emacs more and more it also makes sense to try using it as the interface to any models.
+.. container:: post-teaser
+
+   LLMs don't look like they're going to go away anytime soon, so I may as well start playing around with them.
+   Since I am also using Emacs more and more it also makes sense to try using it as the interface to any models.
 
 Installing Ollama
 -----------------

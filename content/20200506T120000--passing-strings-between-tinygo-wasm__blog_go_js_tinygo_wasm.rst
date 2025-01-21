@@ -4,24 +4,19 @@
 :tags: blog, go, js, tinygo, wasm
 :author: Alex Carney
 :language: en
-:excerpt: 2
-
-.. description Figuring out how WebAssembly handles memory and how to use it to pass data between it and \
-   JavaScript
 
 Passing strings between TinyGo and JavaScript
 =============================================
 
-After getting a :doc:`"Hello, World!" </blog/2020/hello-world-tinygo-wasm>` WebAssembly
-application working I thought it would be fun to try and implement a toy programming
-language in the browser. However before I could even start thinking about parsers,
-abstract syntax trees and the like I had to be able to pass strings between my
-WebAssembly module and the surrounding JavaScript.
+.. container:: post-teaser
 
-Turns out that is much trickier than I expected.
+   After getting a :doc:`"Hello, World!" </blog/2020/hello-world-tinygo-wasm>` WebAssembly
+   application working I thought it would be fun to try and implement a toy programming
+   language in the browser. However before I could even start thinking about parsers,
+   abstract syntax trees and the like I had to be able to pass strings between my
+   WebAssembly module and the surrounding JavaScript.
 
-
-.. <!--more-->
+   Turns out that is much trickier than I expected.
 
 .. admonition:: Disclaimer
 

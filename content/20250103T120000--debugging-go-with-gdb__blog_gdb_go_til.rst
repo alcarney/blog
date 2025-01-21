@@ -4,7 +4,6 @@
 :tags: blog, gdb, go, til
 :author: Alex Carney
 :language: en
-:excerpt: 3
 
 TIL: Debugging go programs with ``gdb``
 =======================================
@@ -14,27 +13,29 @@ TIL: Debugging go programs with ``gdb``
 
 .. highlight:: none
 
-.. code-block:: console
+.. container:: post-teaser
 
-   $ gdb --args podman info
-   (gdb) run
-   Starting program: /usr/bin/podman info
-   [Thread debugging using libthread_db enabled]
-   ...
-   WARN[0000] Found incomplete layer "6748b9a4e6f2d75763acd0d8351dfb92d4281a0b3546cc68042fb8cb5e1b7c3c", deleting it
+   .. code-block:: console
 
-   Thread 9 "podman" received signal SIGSEGV, Segmentation fault.
-   [Switching to Thread 0x7fbacbfff6c0 (LWP 10496)]
-   Downloading source file /usr/src/debug/podman-5.3.1-1.fc41.x86_64/vendor/github.com/containers/storage/layers.go
-   github.com/containers/storage.(*layerStore).load (r=0xc00024c140, lockedForWriting=true, ~r0=<optimized out>, ~r0=<optimized out>, ~r1=..., ~r1=...) at /usr/src/debug/podman-5.3.1-1.fc41.x86_64/vendor/github.com/containers/storage/layers.go:917
-   917                     if layer.Flags == nil {
+      $ gdb --args podman info
+      (gdb) run
+      Starting program: /usr/bin/podman info
+      [Thread debugging using libthread_db enabled]
+      ...
+      WARN[0000] Found incomplete layer "6748b9a4e6f2d75763acd0d8351dfb92d4281a0b3546cc68042fb8cb5e1b7c3c", deleting it
+
+      Thread 9 "podman" received signal SIGSEGV, Segmentation fault.
+      [Switching to Thread 0x7fbacbfff6c0 (LWP 10496)]
+      Downloading source file /usr/src/debug/podman-5.3.1-1.fc41.x86_64/vendor/github.com/containers/storage/layers.go
+      github.com/containers/storage.(*layerStore).load (r=0xc00024c140, lockedForWriting=true, ~r0=<optimized out>, ~r0=<optimized out>, ~r1=..., ~r1=...) at /usr/src/debug/podman-5.3.1-1.fc41.x86_64/vendor/github.com/containers/storage/layers.go:917
+      917                     if layer.Flags == nil {
 
 
-*<Freeze frame, record scratch>*
+   *<Freeze frame, record scratch>*
 
-*You might be wondering how I got here...*
+   *You might be wondering how I got here...*
 
-And no, I wasn't trying to work on `podman <https://github.com/containers/podman>`__!
+   And no, I wasn't trying to work on `podman <https://github.com/containers/podman>`__!
 
 .. _debug-go-with-gdb-getting-here:
 

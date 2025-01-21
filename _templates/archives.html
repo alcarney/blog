@@ -1,5 +1,5 @@
 <ul class="flex flex-col p-4 space-y-2 border-t border-gray-600 text-center">
-  {% for coll in ablog.archive %} {% if coll %}
+  {% for coll in [] %} {% if coll %}
   <li class="text-md">
     <a href="{{ pathto(coll.docname) }}">
         <span class="text-green-600">{{ coll }}</span>

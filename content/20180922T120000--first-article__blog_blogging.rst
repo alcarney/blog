@@ -1,32 +1,30 @@
 :title: First Article
 :date: 2018-09-22
-:tags: blog,blogging
+:tags: blog, blogging
 :identifier: 20180922T120000
 :author: Alex Carney
 :language: en
-:excerpt: 4
-
-.. description = "First article with ox-hugo"
 
 I've Started a Blog… Again!
 ===========================
 
-Not that you would have known it, but I've had a blog since 2014.  Well 2015 if
-you're feeling generous, the first (and only) post went up in the last few
-hours of New Year's Eve. It was a look back on some of the projects I had
-worked on that year and I announced my intentions to start blogging.
+.. container:: post-teaser
 
-Fast forward nearly 4 years and here I am announcing my intentions to start
-blogging - **again**. So I guess you are wondering what happened?
+   Not that you would have known it, but I've had a blog since 2014.  Well 2015 if
+   you're feeling generous, the first (and only) post went up in the last few
+   hours of New Year's Eve. It was a look back on some of the projects I had
+   worked on that year and I announced my intentions to start blogging.
 
-I got lost.
+   Fast forward nearly 4 years and here I am announcing my intentions to start
+   blogging - **again**. So I guess you are wondering what happened?
 
-My first attempt at running a blog was using `Jekyll`_ and for some mystical reason
-(It's been so long I can't actually remember why), I decided that it was not the
-static site generator I was looking for. So I promptly set off on a voyage of
-discovery in search of the ultimate static site generator.
+   I got lost.
 
-.. <!--more-->
+   My first attempt at running a blog was using `Jekyll`_ and for some mystical reason
+   (It's been so long I can't actually remember why), I decided that it was not the
+   static site generator I was looking for. So I promptly set off on a voyage of
+   discovery in search of the ultimate static site generator.
+
 
 Here is a list of some of the other static site generators I have played with
 over the years in no particular order:

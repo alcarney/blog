@@ -4,13 +4,14 @@
 :tags: blog, esbonio, nix, python
 :author: Alex Carney
 :language: en
-:excerpt: 1
 
 Nix: Day to Day Usage
 =====================
 
-This blog post marks a change in my usage of Nix, I'm (just!) past the point of trying to get *something* to work and now starting to incorporate it into some of my regular workflows.
-So instead of trying to accomplish some major task, this post is a small collection of things I've learned over the past few weeks.
+.. container:: post-teaser
+
+   This blog post marks a change in my usage of Nix, I'm (just!) past the point of trying to get *something* to work and now starting to incorporate it into some of my regular workflows.
+   So instead of trying to accomplish some major task, this post is a small collection of things I've learned over the past few weeks.
 
 A better ``devShell`` definition
 --------------------------------

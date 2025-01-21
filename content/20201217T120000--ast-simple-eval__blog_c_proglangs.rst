@@ -5,21 +5,16 @@
 :author: Alex Carney
 :language: en
 
-.. code:
-   - code/simple-ast/
-   description: |
-      Playing around with constructing and evaluating Abstract Syntax Trees
-
 Evaluating a Simple Abstract Syntax Tree
 ========================================
 
-Programming languages and their implementation is a topic I've been interested
-in for a long time and I thought it would be worth trying to get a bit more
-hands on and play with some of the ideas in this space. Choosing a topic
-somewhat at random I've chosen to take a look at implementing an Abstract Syntax
-Tree (AST).
+.. container:: post-teaser
 
-.. <!--more-->
+   Programming languages and their implementation is a topic I've been interested
+   in for a long time and I thought it would be worth trying to get a bit more
+   hands on and play with some of the ideas in this space. Choosing a topic
+   somewhat at random I've chosen to take a look at implementing an Abstract Syntax
+   Tree (AST).
 
 What is an Abstract Syntax Tree?
 --------------------------------

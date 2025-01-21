@@ -4,12 +4,13 @@
 :tags: blog, esbonio, monthnotes, pygls
 :author: Alex Carney
 :language: en
-:excerpt: 1
 
 Notes for October
 =================
 
-I want to try and get into the habit of writing more, so taking inspiration from Simon Willison’s `weeknotes <https://simonwillison.net/tags/weeknotes/>`__ here's a quick writeup of what I have been doing in the month of October.
+.. container:: post-teaser
+
+   I want to try and get into the habit of writing more, so taking inspiration from Simon Willison’s `weeknotes <https://simonwillison.net/tags/weeknotes/>`__ here's a quick writeup of what I have been doing in the month of October.
 
 Esbonio
 -------

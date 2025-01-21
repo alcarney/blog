@@ -5,19 +5,17 @@
 :author: Alex Carney
 :language: en
 
-.. description = "Using TinyGo to implement 'Hello, World!' in WebAssembly"
-
 Saying 'Hello, World!' with TinyGo and WebAssembly
 ==================================================
 
-WebAssembly is something I've wanted to play with for quite a while now and
-I've finally got around to taking a look at it. In this post I describe how I
-managed to use `TinyGo`_ to compile a "Hello, World!" Go program into
-WebAssembly and execute it in the browser. So that I have something to refer
-back to I also describe setting up my development environment as a container
-using `LXD`_.
+.. container:: post-teaser
 
-.. <!--more-->
+   WebAssembly is something I've wanted to play with for quite a while now and
+   I've finally got around to taking a look at it. In this post I describe how I
+   managed to use `TinyGo`_ to compile a "Hello, World!" Go program into
+   WebAssembly and execute it in the browser. So that I have something to refer
+   back to I also describe setting up my development environment as a container
+   using `LXD`_.
 
 Setting Up
 ----------
