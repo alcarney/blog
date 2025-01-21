@@ -4,8 +4,7 @@
    :gutter: 2
 
    .. grid-item-card:: Blog
-      :link: blog-posts
-      :link-type: ref
+      :link: /blog
       :class-title: text-lg text-green-600 bang!font-normal
       :class-card: w-full p-4 prose-sm prose dark:prose-invert transition bg-white dark:bg-gray-800 border dark:border-gray-600 lg:w-1/3 hover:shadow-lg prose-emerald
 

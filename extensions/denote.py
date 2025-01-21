@@ -182,13 +182,21 @@ def discover_records(app: Sphinx, docname: str, content: list[str]):
 def generate_collections(app: Sphinx):
     """Generate collections of records according to some criteria"""
 
+    all_posts = []
     by_year = {}
     domain: Denote = app.env.domains["denote"]
 
     for post in domain.posts.values():
         year = post.timestamp.year
-        by_year.setdefault(year, []).append(post)
+        by_year.setdefault(year, []).insert(0, post)
 
+        all_posts.insert(0, post)
+
+    # Emit an all blog posts page
+    context = {"collection": all_posts}
+    yield ("blog", context, "blog/collection.html")
+
+    # Emit a page for each year
     for year, collection in by_year.items():
         context = {"collection": collection}
         yield (f"blog/{year}", context, "blog/collection.html")
