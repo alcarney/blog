@@ -2,27 +2,27 @@
 :identifier: 20211025T120000
 :date: 2021-10-25
 :tags: blog, esbonio, lsp, vscode
-:excerpt: 2
-:image: 1
 :author: Alex Carney
 :language: en
 
 Bringing Esbonio to the Browser
 ===============================
 
-For the past year or so I've been working on a language server called `Esbonio`_.
-It's a language server designed to streamline the process of working with your
-`Sphinx`_ documentation projects. Currently its feature set is quite limited, but I
-think it does a good job of providing you with completion suggestions for all your
-roles, directives and cross-references.
+.. container:: post-teaser
 
-.. figure:: https://github.com/swyddfa/esbonio/raw/develop/resources/images/completion-demo.gif
-   :align: center
-   :width: 80%
+   For the past year or so I've been working on a language server called `Esbonio`_.
+   It's a language server designed to streamline the process of working with your
+   `Sphinx`_ documentation projects. Currently its feature set is quite limited, but I
+   think it does a good job of providing you with completion suggestions for all your
+   roles, directives and cross-references.
 
-Anyway with the recent releases of `github.dev`_ and `vscode.dev`_ I really want to
-see if I can bring Esbonio into the browser version of VSCode. There's only one
-problem... Esbonio is written in Python! 😬
+   .. figure:: https://github.com/swyddfa/esbonio/raw/develop/resources/images/completion-demo.gif
+      :align: center
+      :width: 80%
+
+   Anyway with the recent releases of `github.dev`_ and `vscode.dev`_ I really want to
+   see if I can bring Esbonio into the browser version of VSCode. There's only one
+   problem... Esbonio is written in Python! 😬
 
 The Approach
 ------------

@@ -4,18 +4,19 @@
 :tags: blog, esbonio, nix, python
 :author: Alex Carney
 :language: en
-:excerpt: 3
 
 Integrating Esbonio with Neovim Using Nix
 =========================================
 
-So far I've been learning how to use Nix by trying to package and define development shells for `esbonio`_ (see :ref:`here <tag-nix>` if you are interested).
-While useful, the end result is not too dissimilar to what you can get with standard Python tooling.
-Indeed, the main reason I started looking into Nix was the promise of it being able to manage more than just Python libraries.
+.. container:: post-teaser
 
-Since ``esbonio`` is a language server, it would be useful for Nix to create standardised environments where the language server is pre-configured for a given editor - great for debugging and demos!
+   So far I've been learning how to use Nix by trying to package and define development shells for `esbonio`_ (see :ref:`here <tag-nix>` if you are interested).
+   While useful, the end result is not too dissimilar to what you can get with standard Python tooling.
+   Indeed, the main reason I started looking into Nix was the promise of it being able to manage more than just Python libraries.
 
-In this blog post I try to define an environment in which Neovim is installed and configured to use the ``esbonio`` language server for reStructuredText files.
+   Since ``esbonio`` is a language server, it would be useful for Nix to create standardised environments where the language server is pre-configured for a given editor - great for debugging and demos!
+
+   In this blog post I try to define an environment in which Neovim is installed and configured to use the ``esbonio`` language server for reStructuredText files.
 
 .. admonition:: Try it yourself!
 

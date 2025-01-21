@@ -4,18 +4,19 @@
 :tags: blog, nix, pytestlsp, python
 :author: Alex Carney
 :language: en
-:excerpt: 3
 
 My Next Steps with Nix: Overlays
 ================================
 
-:doc:`Last time </blog/2022/first-steps-with-nix>`, I experimented with writing a flake that defined development environments for the :pypi:`esbonio` package spanning multiple Python versions.
-During that process I also packaged :pypi:`pytest-lsp` using an ad-hoc nix expression as part of the ``esbonio`` repo.
+.. container:: post-teaser
 
-In this post I look into writing a similar flake for the ``pytest-lsp`` package itself, but this time using overlays to override and extend the nixpkgs package set.
+   :doc:`Last time </blog/2022/first-steps-with-nix>`, I experimented with writing a flake that defined development environments for the :pypi:`esbonio` package spanning multiple Python versions.
+   During that process I also packaged :pypi:`pytest-lsp` using an ad-hoc nix expression as part of the ``esbonio`` repo.
 
-If you are interested, you can find the final version of the code
-`here <https://github.com/swyddfa/lsp-devtools/commit/a7b8d545364cc14c1cd054fd56831d0bd3517659>`__.
+   In this post I look into writing a similar flake for the ``pytest-lsp`` package itself, but this time using overlays to override and extend the nixpkgs package set.
+
+   If you are interested, you can find the final version of the code
+   `here <https://github.com/swyddfa/lsp-devtools/commit/a7b8d545364cc14c1cd054fd56831d0bd3517659>`__.
 
 Packaging ``pytest-lsp``
 ------------------------

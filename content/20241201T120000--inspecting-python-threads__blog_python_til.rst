@@ -4,16 +4,17 @@
 :tags: blog, python, til
 :author: Alex Carney
 :language: en
-:excerpt: 2
 
 TIL: Inspecting Python Threads
 ==============================
 
-One of my favourite things about Python is that pretty much everything about the language can be inspected at runtime and today I found out this is true even for threads.
+.. container:: post-teaser
 
-While working on `this PR <https://github.com/swyddfa/esbonio/pull/928>`__ I kept running into issues where the ``esbonio`` process would not terminate, despite everything to my knowledge at least, was being shutdown as expected.
-Having encountered issues like this before, I knew the culprit was likely to be some background thread was stuck on something and keeping the process alive.
-The problem was I had no idea which thread it could be or what it was doing.
+   One of my favourite things about Python is that pretty much everything about the language can be inspected at runtime and today I found out this is true even for threads.
+
+   While working on `this PR <https://github.com/swyddfa/esbonio/pull/928>`__ I kept running into issues where the ``esbonio`` process would not terminate, despite everything to my knowledge at least, was being shutdown as expected.
+   Having encountered issues like this before, I knew the culprit was likely to be some background thread was stuck on something and keeping the process alive.
+   The problem was I had no idea which thread it could be or what it was doing.
 
 Thanks to `this Stack Overflow <https://stackoverflow.com/questions/7189226/program-does-not-exit-how-to-find-out-what-python-is-doing>`__ post, I discovered Python does provide the tools to figure it out.
 

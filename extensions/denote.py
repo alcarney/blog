@@ -40,6 +40,8 @@ class Record:
     title: str
     tags: list[str]
 
+    docname: str = ''
+
     @classmethod
     def parse(cls, filename: str) -> Record | None:
         """Parse an instance of a record from the given filename"""
@@ -99,8 +101,25 @@ class Denote(Domain):
     }
 
     @property
-    def notes(self) -> dict[str, tuple[str, str, str]]:
-        return self.data.setdefault("notes", {})
+    def posts(self) -> dict[str, Record]:
+        return self.data.setdefault("posts", {})
+
+    @property
+    def records(self) -> dict[str, Record]:
+        return self.data.setdefault("records", {})
+
+    def add_record(self, docname: str, record: Record):
+        """Add a record to the domain"""
+        logger.debug("[denote]: Found record: %r", record)
+        record.docname = docname
+
+        # Silence the 'not included in toctree' warnings
+        # Is this the right way to do that?
+        self.env.metadata[docname]['orphan'] = True
+        self.records[docname] = record
+
+        if "blog" in record.tags:
+            self.posts[docname] = record
 
     def resolve_xref(
         self,
@@ -114,7 +133,7 @@ class Denote(Domain):
     ) -> Element | None:
         """Resolve cross references"""
 
-        if (dest := self.notes.get(target)) is None:
+        if (dest := self.records.get(target)) is None:
             return None
 
         docname, title, tags = dest
@@ -133,7 +152,7 @@ class DenoteHTMLBuilder(DirectoryHTMLBuilder):
     def get_target_uri(self, docname: str, typ: str | None = None) -> str:
         domain: Denote = self.env.domains["denote"]
 
-        if (record := domain.notes.get(docname)) is None:
+        if (record := domain.records.get(docname)) is None:
             return super().get_target_uri(docname, typ)
 
         result = super().get_target_uri(record.url, typ)
@@ -142,30 +161,45 @@ class DenoteHTMLBuilder(DirectoryHTMLBuilder):
     def get_outfilename(self, pagename: str) -> str:
         domain: Denote = self.env.domains["denote"]
 
-        if (record := domain.notes.get(pagename)) is None:
+        if (record := domain.records.get(pagename)) is None:
             return super().get_outfilename(pagename)
 
         result = super().get_outfilename(record.url)
         return result
 
 
-def discover_notes(app: Sphinx, docname: str, content: list[str]):
-    """Automatically discover and index notes as they are read"""
+def discover_records(app: Sphinx, docname: str, content: list[str]):
+    """Automatically discover and index records as they are read"""
 
     docpath = pathlib.Path(docname)
     if (record := Record.parse(docpath.name)) is None:
         return
 
     domain: Denote = app.env.domains["denote"]
+    domain.add_record(docname, record)
 
-    logger.info("[denote]: Found record: %r", record)
-    domain.notes[docname] = record
+
+def generate_collections(app: Sphinx):
+    """Generate collections of records according to some criteria"""
+
+    by_year = {}
+    domain: Denote = app.env.domains["denote"]
+
+    for post in domain.posts.values():
+        year = post.timestamp.year
+        by_year.setdefault(year, []).append(post)
+
+    for year, collection in by_year.items():
+        context = {"collection": collection}
+        yield (f"blog/{year}", context, "blog/collection.html")
+
 
 
 def setup(app: Sphinx):
     app.add_builder(DenoteHTMLBuilder, override=True)
     app.add_domain(Denote)
 
-    app.connect("source-read", discover_notes)
+    app.connect("source-read", discover_records)
+    app.connect("html-collect-pages", generate_collections)
 
     return {"version": "1.0", "parallel_read_safe": True}

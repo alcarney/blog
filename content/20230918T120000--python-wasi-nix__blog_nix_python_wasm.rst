@@ -4,13 +4,14 @@
 :tags: blog, nix, python, wasm
 :author: Alex Carney
 :language: en
-:excerpt: 1
 
 Setting up a Python WASI Environment with Nix
 =============================================
 
-In this blog post I look at setting up a local development environment for the `WASI build of Python <https://github.com/brettcannon/cpython-wasi-build>`_  using Nix.
-You can see the final result `here <https://github.com/alcarney/python-wasi-nix>`__
+.. container:: post-teaser
+
+   In this blog post I look at setting up a local development environment for the `WASI build of Python <https://github.com/brettcannon/cpython-wasi-build>`_  using Nix.
+   You can see the final result `here <https://github.com/alcarney/python-wasi-nix>`__
 
 Why?
 ----

@@ -5,48 +5,45 @@
 :author: Alex Carney
 :language: en
 
-.. description = "Implementing clicking and dragging of SVG elements using vanilla JavaScript"
-
 Implementing Click & Drag with Vanilla JS
 =========================================
 
-.. raw:: html
+.. container:: post-teaser
 
-   <figure>
-     <div id="main"></div>
-     <figcaption>
-       <p>Try clicking and dragging on this circle.</p>
-     </figcaption>
-   </figure>
-   <script type="text/javascript" src="/_static/js/click-drag.js"></script>
+   .. raw:: html
+
+      <figure>
+        <div id="main"></div>
+        <figcaption>
+          <p>Try clicking and dragging on this circle.</p>
+        </figcaption>
+      </figure>
+      <script type="text/javascript" src="/_static/js/click-drag.js"></script>
 
 
-.. admonition:: Disclaimer
+   .. admonition:: Disclaimer
 
-   This post makes use of a number of interactive elements to help illustrate a few
-   concepts. Unfortunately these do not yet work on mobile devices - sorry mobile
-   users!
+      This post makes use of a number of interactive elements to help illustrate a few
+      concepts. Unfortunately these do not yet work on mobile devices - sorry mobile
+      users!
 
-I have for quite some time now wanted to play around with web development some
-more, particularly using web technologies to build user interfaces of some
-kind. However there is just **so much** out there it's been impossible for me to
-really get anywhere past a "Hello, World!" tutorial before I find myself trying
-out the next new shiny.
+   I have for quite some time now wanted to play around with web development some
+   more, particularly using web technologies to build user interfaces of some
+   kind. However there is just **so much** out there it's been impossible for me to
+   really get anywhere past a "Hello, World!" tutorial before I find myself trying
+   out the next new shiny.
 
-So I've decided to abandon everything and try a bottom up approach where I see
-how far I can push the core web technologies - HTML, CSS and
-JavaScript. Hopefully then by the time I start using one of the gazillion
-libraries out there I will have a better understanding of why I
-needed it in the first place.
+   So I've decided to abandon everything and try a bottom up approach where I see
+   how far I can push the core web technologies - HTML, CSS and
+   JavaScript. Hopefully then by the time I start using one of the gazillion
+   libraries out there I will have a better understanding of why I
+   needed it in the first place.
 
-In this post I will be looking at implementing clicking and dragging
-functionality using only vanilla JavaScript. Clicking and dragging as a concept
-can apply to many kinds of interactions so in this instance I'm specifically
-referring to clicking on an SVG element moving it around on the page as
-illustrated by the demo above.
-
-.. <!--more-->
-
+   In this post I will be looking at implementing clicking and dragging
+   functionality using only vanilla JavaScript. Clicking and dragging as a concept
+   can apply to many kinds of interactions so in this instance I'm specifically
+   referring to clicking on an SVG element moving it around on the page as
+   illustrated by the demo above.
 
 Setup
 -----

@@ -9,20 +9,22 @@
 Learning Vulkan: Enumerating Physical Devices
 =============================================
 
-Being an API for talking to GPUs and other compute devices every Vulkan
-program starts off by looking for an appropriate `physical device`_
-to use. In this post I write a little C program that initialises the Vulkan
-API and lists out the available devices in the system.
+.. container:: post-teaser
 
-.. code-block:: none
+   Being an API for talking to GPUs and other compute devices every Vulkan
+   program starts off by looking for an appropriate `physical device`_
+   to use. In this post I write a little C program that initialises the Vulkan
+   API and lists out the available devices in the system.
 
-   $ vkdevice
-   Device Name:            Intel(R) HD Graphics 520 (Skylake GT2)
-     Type:                 Integrated GPU
-     Vendor ID:            32902
-     Device ID:            6422
-     API Version:          v1.1.102
-     Driver Version:       v19.3.1
+   .. code-block:: none
+
+      $ vkdevice
+      Device Name:            Intel(R) HD Graphics 520 (Skylake GT2)
+        Type:                 Integrated GPU
+        Vendor ID:            32902
+        Device ID:            6422
+        API Version:          v1.1.102
+        Driver Version:       v19.3.1
 
 .. note::
 

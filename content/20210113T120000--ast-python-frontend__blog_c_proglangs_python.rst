@@ -4,28 +4,22 @@
 :tags: blog, c, proglangs, python
 :author: Alex Carney
 :language: en
-:excerpt: 2
-
-.. code:
-   - code/ccalc/
-   - code/simple-ast/
-   description: Creating a Python frontend to my simple AST evaluator
 
 Creating a CPython Extension
 ============================
 
-:doc:`Previously </blog/2020/ast-simple-eval>`, as part of my exploration
-into how programming languages are implemented, I wrote a very simple AST
-evaluator that knew how to add and multiply floats together. Since constructing
-these ASTs by hand is quite painful I thought it would be fun to come up with a
-frontend to my "programming language" which could do it for me.
+.. container:: post-teaser
 
-Now your typical frontend would be some kind of parser built into the
-compiler/interpreter. However, while I'm definitely interested in parsing I
-don't quite feel like tackling that just yet. Instead I'm going to have Python
-be the frontend and embed my toy language into it via a `CPython Extension`_
+   :doc:`Previously </blog/2020/ast-simple-eval>`, as part of my exploration
+   into how programming languages are implemented, I wrote a very simple AST
+   evaluator that knew how to add and multiply floats together. Since constructing
+   these ASTs by hand is quite painful I thought it would be fun to come up with a
+   frontend to my "programming language" which could do it for me.
 
-.. <!--more-->
+   Now your typical frontend would be some kind of parser built into the
+   compiler/interpreter. However, while I'm definitely interested in parsing I
+   don't quite feel like tackling that just yet. Instead I'm going to have Python
+   be the frontend and embed my toy language into it via a `CPython Extension`_
 
 Overview
 --------

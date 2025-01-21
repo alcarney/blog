@@ -8,15 +8,17 @@
 Learning Vulkan: Overview
 =========================
 
-I have always been interested in graphics and have on numerous occasions tried
-to dip my toe into the world of OpenGL and more recently Vulkan. However I have
-never been able to get past the "Hello, World" of these technologies - drawing a
-triangle on screen, I think mostly becuase I never really had a goal in mind
-once I got that far...
+.. container:: post-teaser
 
-But that's (hopefully) about to change! What better excuse than a new decade to
-jump back into this world for the 100th time and try to get to all those
-interesting ideas I see people playing with all the time!
+   I have always been interested in graphics and have on numerous occasions tried
+   to dip my toe into the world of OpenGL and more recently Vulkan. However I have
+   never been able to get past the "Hello, World" of these technologies - drawing a
+   triangle on screen, I think mostly becuase I never really had a goal in mind
+   once I got that far...
+
+   But that's (hopefully) about to change! What better excuse than a new decade to
+   jump back into this world for the 100th time and try to get to all those
+   interesting ideas I see people playing with all the time!
 
 I should say that I don't really know what I'm doing and will totally be making
 it up as I go along. With Python being my favourite language, programming in C

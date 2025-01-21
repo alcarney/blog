@@ -5,19 +5,17 @@
 :author: Alex Carney
 :language: en
 
-.. description = "Today I learned about Pyton's cmd module"
-
 TIL: Python has a cmd module
 ============================
 
-Today I Learned that Python's standard library has a `cmd`_ module and it is *awesome!*
+.. container:: post-teaser
 
-.. figure:: /images/cmd_python.gif
-   :align: center
+   Today I Learned that Python's standard library has a `cmd`_ module and it is *awesome!*
 
-   Interactive program using the cmd module
+   .. figure:: /images/cmd_python.gif
+      :align: center
 
-.. <!--more-->
+      Interactive program using the cmd module
 
 The `cmd`_ module contains a single class called ``Cmd`` which handles all the
 details of creating an application similar to Python's REPL. All you need to do

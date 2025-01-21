@@ -8,27 +8,26 @@
 Introducing Stylo Doodles!
 ==========================
 
-A few weeks back at `PyConUK`_ I gave my first `lighting talk`_
-at a conference. During that talk I spoke publically about `stylo`_ for
-the first time. Stylo is a Python library that I have been working on for just
-over a year and a half and it aims to make the creation of images easier by
-bringing together ideas from programming and mathematics.
+.. container:: post-teaser
 
-Version `0.6.0`_ was recently released which included the first feature
-that wasn't written by me! It's very exciting not only to see other people
-starting to take an interest in the project but taking the time to make a
-contribution!
+   A few weeks back at `PyConUK`_ I gave my first `lighting talk`_
+   at a conference. During that talk I spoke publically about `stylo`_ for
+   the first time. Stylo is a Python library that I have been working on for just
+   over a year and a half and it aims to make the creation of images easier by
+   bringing together ideas from programming and mathematics.
 
-Now that stylo seems to be getting to the point that it might me useful to
-other people wouldn't it be great if there was a community driven example
-gallery that people could get inspired by? - Well now there is! And it's
-called `Stylo Doodles`_
+   Version `0.6.0`_ was recently released which included the first feature
+   that wasn't written by me! It's very exciting not only to see other people
+   starting to take an interest in the project but taking the time to make a
+   contribution!
 
-.. figure:: /images/stylo-doodles.png
-   :align: center
+   Now that stylo seems to be getting to the point that it might me useful to
+   other people wouldn't it be great if there was a community driven example
+   gallery that people could get inspired by? - Well now there is! And it's
+   called `Stylo Doodles`_
 
-
-.. <!--more-->
+   .. figure:: /images/stylo-doodles.png
+      :align: center
 
 All the examples are written as a `Jupyter Notebook`_ and can be submitted to the
 gallery by opening a pull request against the stylo-doodles `repository`_. A small

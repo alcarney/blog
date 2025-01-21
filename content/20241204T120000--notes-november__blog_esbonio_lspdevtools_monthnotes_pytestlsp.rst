@@ -4,12 +4,13 @@
 :tags: blog, esbonio, lspdevtools, monthnotes, pytestlsp
 :author: Alex Carney
 :language: en
-:excerpt: 1
 
 Notes for November 2024
 =======================
 
-Doubling my streak of writing notes on the :ref:`previous month <notes-october>` to 2, here are some of the things I worked on in November.
+.. container:: post-teaser
+
+   Doubling my streak of writing notes on the :ref:`previous month <notes-october>` to 2, here are some of the things I worked on in November.
 
 vscode-wasi-pygls
 -----------------

@@ -57,7 +57,6 @@ exclude_patterns = ["_build", "Thumbs.db", ".DS_Store", ".env", "node_modules", 
 blog_baseurl = "https://www.alcarney.me"
 blog_feed_fulltext = True
 blog_title = "Alex Carney | Blog"
-post_date_format = "%b %d, %Y"
 
 # -- Options for ExtLinks extension ---------------------------------------------
 extlinks = {

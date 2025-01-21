@@ -4,22 +4,23 @@
 :tags: blog, esbonio, nix, python
 :author: Alex Carney
 :language: en
-:excerpt: 4
 
 My First Steps with Nix
 =======================
 
 .. highlight:: none
 
-Nix, depending on the context, can refer to a `programming language`_, a `package manager`_ or a `Linux Distro`_.
+.. container:: post-teaser
 
-Personally, I'm most insterested in the package manager aspect and the promise of it being able to create declarative, reproducable development environments.
-With a configuration file and the `nix develop`_ command you can activate a kind of "virtual environment" that contains not just your Python packages - but *any* program defined by the configuration!
+   Nix, depending on the context, can refer to a `programming language`_, a `package manager`_ or a `Linux Distro`_.
 
-I find that idea particuarly exciting when working on a language server like `esbonio`_, since it needs to be able to work against a variety of Python versions, Sphinx versions, as well as various code editors and all their versions!
-Having the ability to define a particular configuration and have some tool automatically recreate it would be amazing.
+   Personally, I'm most insterested in the package manager aspect and the promise of it being able to create declarative, reproducable development environments.
+   With a configuration file and the `nix develop`_ command you can activate a kind of "virtual environment" that contains not just your Python packages - but *any* program defined by the configuration!
 
-But I'm getting ahead of myself, let's see if I can get to a point where I can easily test ``esbonio`` against a range of Python versions.
+   I find that idea particuarly exciting when working on a language server like `esbonio`_, since it needs to be able to work against a variety of Python versions, Sphinx versions, as well as various code editors and all their versions!
+   Having the ability to define a particular configuration and have some tool automatically recreate it would be amazing.
+
+   But I'm getting ahead of myself, let's see if I can get to a point where I can easily test ``esbonio`` against a range of Python versions.
 
 Intalling Nix
 -------------
