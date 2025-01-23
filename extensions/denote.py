@@ -11,6 +11,7 @@ import pathlib
 import re
 import typing
 from datetime import datetime
+from datetime import timezone
 
 from docutils import nodes
 from sphinx.application import Sphinx
@@ -27,7 +28,9 @@ if typing.TYPE_CHECKING:
     from sphinx.environment import BuildEnvironment
 
 logger = getLogger('denote')
+UTC = timezone.utc
 FILENAME_PATTERN = re.compile(r"(?P<identifier>\d{8}T\d{6})--(?P<title>[^_]+)__(?P<tags>[^.]+)", re.VERBOSE)
+
 
 @dataclasses.dataclass
 class Record:
@@ -58,6 +61,7 @@ class Record:
             hour=int(time[:2]),
             minute=int(time[2:4]),
             second=int(time[4:6]),
+            tzinfo=UTC,
         )
 
         slug = match.group("title")
@@ -161,6 +165,11 @@ class DenoteHTMLBuilder(DirectoryHTMLBuilder):
     def get_outfilename(self, pagename: str) -> str:
         domain: Denote = self.env.domains["denote"]
 
+        # Special case for the rss feed
+        if pagename == "blog/atom":
+            outpath = super().get_outfilename(pagename)
+            return outpath.replace("/index.html", ".xml")
+
         if (record := domain.records.get(pagename)) is None:
             return super().get_outfilename(pagename)
 
@@ -196,6 +205,15 @@ def generate_collections(app: Sphinx):
     context = {"collection": all_posts}
     yield ("blog", context, "blog/collection.html")
 
+    context.update({
+        "baseurl": app.config.blog_baseurl,
+        "title": app.config.blog_title,
+        "now": datetime.now(tz=UTC),
+        "relurl": "blog/atom.xml",
+        "sphinx_version": "8"
+    })
+    yield ("blog/atom", context, "blog/atom.xml")
+
     # Emit a page for each year
     for year, collection in by_year.items():
         context = {"collection": collection}
@@ -204,6 +222,9 @@ def generate_collections(app: Sphinx):
 
 
 def setup(app: Sphinx):
+    app.add_config_value("blog_baseurl", default='', rebuild='env')
+    app.add_config_value("blog_title", default='', rebuild='env')
+
     app.add_builder(DenoteHTMLBuilder, override=True)
     app.add_domain(Denote)
 

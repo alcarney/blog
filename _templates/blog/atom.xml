@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom" xml:lang="en">
+  <id>{{ baseurl }}/</id>
+  <title>{{ title }}</title>
+  <updated>{{ now.isoformat() }}</updated>
+  <link href="{{ baseurl }}/" />
+  <link href="{{ baseurl }}/{{ relurl }}" rel="self" />
+  <author>
+    <name>Alex Carney</name>
+  </author>
+  <generator uri="https://www.sphinx-doc.org/en/master/" version="{{ sphinx_version }}">Sphinx</generator>
+  {% for post in collection %}
+  <entry>
+    <id>{{ baseurl }}/{{ post.url }}/</id>
+    <link href="{{ baseurl }}/{{ post.url }}" rel="alternate" />
+    <published>{{ post.timestamp.isoformat() }}</published>
+    <updated>{{ post.timestamp.isoformat() }}</updated>
+    <title>{{ post.title }}</title>
+  </entry>
+  {% endfor %}
+</feed>
