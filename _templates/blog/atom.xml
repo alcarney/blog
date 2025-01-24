@@ -15,7 +15,7 @@
     <link href="{{ baseurl }}/{{ post.url }}" rel="alternate" />
     <published>{{ post.timestamp.isoformat() }}</published>
     <updated>{{ post.timestamp.isoformat() }}</updated>
-    <title>{{ post.title }}</title>
+    <title>{{ post.title|e }}</title>
   </entry>
   {% endfor %}
 </feed>
