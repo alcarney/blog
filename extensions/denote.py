@@ -178,7 +178,7 @@ class DenoteHTMLBuilder(DirectoryHTMLBuilder):
 
 
 def discover_records(app: Sphinx, docname: str, content: list[str]):
-    """Automatically discover and index records as they are read"""
+    """Discover and index records based on their filename"""
 
     docpath = pathlib.Path(docname)
     if (record := Record.parse(docpath.name)) is None:
@@ -187,6 +187,19 @@ def discover_records(app: Sphinx, docname: str, content: list[str]):
     domain: Denote = app.env.domains["denote"]
     domain.add_record(docname, record)
 
+
+def parse_records(app: Sphinx, doctree):
+    """Extract additional information from a document's content"""
+
+    docname = app.env.docname
+    domain: Denote = app.env.domains["denote"]
+    if (record := domain.records.get(docname)) is None:
+        return
+
+    if (title := doctree.next_node(condition=nodes.title, descend=True)) is None:
+        return
+
+    record.title = title.astext()
 
 def generate_collections(app: Sphinx):
     """Generate collections of records according to some criteria"""
@@ -229,6 +242,7 @@ def setup(app: Sphinx):
     app.add_domain(Denote)
 
     app.connect("source-read", discover_records)
+    app.connect("doctree-read", parse_records)
     app.connect("html-collect-pages", generate_collections)
 
     return {"version": "1.0", "parallel_read_safe": True}
