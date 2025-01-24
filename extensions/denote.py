@@ -10,8 +10,7 @@ import dataclasses
 import pathlib
 import re
 import typing
-from datetime import datetime
-from datetime import timezone
+from datetime import datetime, timezone
 
 from docutils import nodes
 from sphinx.application import Sphinx
@@ -22,28 +21,44 @@ from sphinx.util.logging import getLogger
 from sphinx.util.nodes import make_refnode
 
 if typing.TYPE_CHECKING:
+    from typing import Any
+
     from docutils.nodes import Element
     from sphinx.addnodes import pending_xref
     from sphinx.builders import Builder
     from sphinx.environment import BuildEnvironment
 
-logger = getLogger('denote')
+logger = getLogger("denote")
 UTC = timezone.utc
-FILENAME_PATTERN = re.compile(r"(?P<identifier>\d{8}T\d{6})--(?P<title>[^_]+)__(?P<tags>[^.]+)", re.VERBOSE)
+FILENAME_PATTERN = re.compile(
+    r"(?P<identifier>\d{8}T\d{6})--(?P<title>[^_]+)__(?P<tags>[^.]+)", re.VERBOSE
+)
 
 
 @dataclasses.dataclass
 class Record:
-    """Represents a 'record' with a denote style filename."""
+    """Represents a 'record' with a denote-style filename."""
 
     identifier: str
+    """The identifier part of the denote-style filename"""
+
     slug: str
+    """The title part of the denote-style filename"""
+
+    tags: list[str]
+    """The list of tags from the denote-style filename"""
 
     timestamp: datetime
-    title: str
-    tags: list[str]
+    """The record's identifier, parsed as a datetime"""
 
-    docname: str = ''
+    title: str
+    """The 'pretty' version of the record's title."""
+
+    is_blogpost: bool = dataclasses.field(default=False)
+    """Indicates if this record represents a blog post."""
+
+    docname: str | None = dataclasses.field(default=None)
+    """The Sphinx docname this record is associated with (if known)"""
 
     @classmethod
     def parse(cls, filename: str) -> Record | None:
@@ -66,7 +81,13 @@ class Record:
 
         slug = match.group("title")
         tags = match.group("tags").split("_")
-        title = " ".join( c.title() for c in slug.split('-'))
+        title = " ".join(c.title() for c in slug.split("-"))
+
+        try:
+            tags.remove("blog")
+            is_blogpost = True
+        except ValueError:
+            is_blogpost = False
 
         return cls(
             identifier=identifier,
@@ -74,13 +95,14 @@ class Record:
             timestamp=dt,
             title=title,
             tags=tags,
+            is_blogpost=is_blogpost,
         )
 
     @property
     def url(self):
         """Return the url for this record"""
 
-        if "blog" in self.tags:
+        if self.is_blogpost:
             dirname = pathlib.Path("blog", str(self.timestamp.year))
             url = str(dirname / self.slug)
         else:
@@ -119,10 +141,10 @@ class Denote(Domain):
 
         # Silence the 'not included in toctree' warnings
         # Is this the right way to do that?
-        self.env.metadata[docname]['orphan'] = True
+        self.env.metadata[docname]["orphan"] = True
         self.records[docname] = record
 
-        if "blog" in record.tags:
+        if record.is_blogpost:
             self.posts[docname] = record
 
     def resolve_xref(
@@ -201,6 +223,7 @@ def parse_records(app: Sphinx, doctree):
 
     record.title = title.astext()
 
+
 def generate_collections(app: Sphinx):
     """Generate collections of records according to some criteria"""
 
@@ -218,13 +241,15 @@ def generate_collections(app: Sphinx):
     context = {"collection": all_posts}
     yield ("blog", context, "blog/collection.html")
 
-    context.update({
-        "baseurl": app.config.blog_baseurl,
-        "title": app.config.blog_title,
-        "now": datetime.now(tz=UTC),
-        "relurl": "blog/atom.xml",
-        "sphinx_version": "8"
-    })
+    context.update(
+        {
+            "baseurl": app.config.blog_baseurl,
+            "title": app.config.blog_title,
+            "now": datetime.now(tz=UTC),
+            "relurl": "blog/atom.xml",
+            "sphinx_version": "8",
+        }
+    )
     yield ("blog/atom", context, "blog/atom.xml")
 
     # Emit a page for each year
@@ -233,10 +258,23 @@ def generate_collections(app: Sphinx):
         yield (f"blog/{year}", context, "blog/collection.html")
 
 
+def update_html_context(
+    app: Sphinx,
+    pagename: str,
+    templatename: str,
+    context: dict[str, Any],
+    doctree: nodes.document,
+):
+    """Add additional information to the context passed to the Jinja template"""
+    domain: Denote = app.env.domains["denote"]
+
+    if (record := domain.records.get(pagename)) is not None:
+        context["record"] = record
+
 
 def setup(app: Sphinx):
-    app.add_config_value("blog_baseurl", default='', rebuild='env')
-    app.add_config_value("blog_title", default='', rebuild='env')
+    app.add_config_value("blog_baseurl", default="", rebuild="env")
+    app.add_config_value("blog_title", default="", rebuild="env")
 
     app.add_builder(DenoteHTMLBuilder, override=True)
     app.add_domain(Denote)
@@ -244,5 +282,6 @@ def setup(app: Sphinx):
     app.connect("source-read", discover_records)
     app.connect("doctree-read", parse_records)
     app.connect("html-collect-pages", generate_collections)
+    app.connect("html-page-context", update_html_context)
 
     return {"version": "1.0", "parallel_read_safe": True}

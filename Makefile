@@ -9,7 +9,8 @@ default: html
 
 .PHONY: clean
 clean:
-	rm -r _build/doctrees _build/dirhtml
+	-test -d _build/doctrees && rm -r _build/doctrees
+	-test -d _build/dirhtml && rm -r _build/dirhtml
 
 node_modules/.installed: package.json package-lock.json $(NPM)
 	$(NPM) ci
