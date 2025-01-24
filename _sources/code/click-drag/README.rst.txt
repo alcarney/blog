@@ -1,1 +1,0 @@
-Click and drag of an SVG element implemented with vanilla JavaScript
