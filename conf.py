@@ -71,7 +71,8 @@ intersphinx_mapping = {
 
 # -- Options for HTML output -------------------------------------------------
 html_sidebars = {
-    "blog/": ["archives.html"],
+    "blog": ["archives.html"],
+    "blog/20*": ["archives.html"],
     "content/*": ["postcard.html", "localtoc.html"],
     "code": [],
     "code/*": ["localtoc.html"],
