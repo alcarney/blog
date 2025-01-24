@@ -23,15 +23,15 @@ jobs:
         runCmd: make html
 
     - name: 'Upload Aritfact'
-      uses: 'actions/upload-artifact@v3'
+      uses: 'actions/upload-artifact@v4'
       with:
         name: 'blog'
-        path: '_build/html'
+        path: '_build/dirhtml'
 
     - name: 'Publish Site'
       uses: JamesIves/github-pages-deploy-action@v4
       with:
         branch: gh-pages
-        folder: _build/html
+        folder: _build/dirhtml
         clean: true
       if: success() && startsWith(github.ref, 'refs/heads/release')
