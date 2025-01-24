@@ -32,7 +32,7 @@ html: _static/css/styles.css $(BUILDDIR)/_static/js/theme.js
 	$(HATCH) run 'blog:build'
 	mkdir -p $(BUILDDIR)/talks/
 	cp -r talks/introducing-esbonio $(BUILDDIR)/talks/introducing-esbonio
-	patch -N -p1 < searchtools.patch
+
 
 .PHONY: dotfiles
 dotfiles:
