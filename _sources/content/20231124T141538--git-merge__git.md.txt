@@ -1,0 +1,27 @@
+---
+title: Git Merge
+date: 2023-11-24T14:15:38+00:00
+tags: git
+identifier: "20231124T141538"
+---
+
+# Merging
+
+## Dry run a merge
+
+```
+git merge --no-commit <branch>
+```
+The changes will be staged, so view them with
+
+```
+git diff --cached
+```
+
+To undo the merge
+
+```
+git merge --abort
+```
+
+[Stack Overflow](https://stackoverflow.com/questions/501407/is-there-a-git-merge-dry-run-option)
