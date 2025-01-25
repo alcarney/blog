@@ -18,7 +18,7 @@
     <link rel="stylesheet" type="text/css" href="../../_static/sphinx-design.min.css?v=95c83b7e" />
     
     
-    <link rel="stylesheet" type="text/css" href="../../_static/css/styles.css?v=69cad2d0" />
+    <link rel="stylesheet" type="text/css" href="../../_static/css/styles.css?v=c8573db6" />
     
 
     <script src="../../_static/documentation_options.js?v=187304be"></script>
@@ -165,6 +165,9 @@
 <h2>Setup<a class="headerlink" href="#setup" title="Link to this heading">¶</a></h2>
 <p>At some point I need to come back and figure out why things are set up this way.   g
 But for now, this is how Fedora had setup the configuration for bash and if I don’t follow this things break.</p>
+<div class="awdur-codeblock docutils container">
+<div class="awdur-codeblock-header docutils container">
+<code class="awdur-codeblock-filename docutils literal notranslate"><span class="pre">Makefile</span></code></div>
 <div class="highlight-make notranslate"><div class="highlight"><pre><span></span><span class="nf">.PHONY</span><span class="o">:</span><span class="w"> </span><span class="n">bash</span>
 <span class="nf">bash</span><span class="o">:</span>
 <span class="w">     </span><span class="nb">test</span><span class="w"> </span>-L<span class="w"> </span><span class="k">$(</span>HOME<span class="k">)</span>/.bash_profile<span class="w"> </span><span class="o">||</span><span class="w"> </span>ln<span class="w"> </span>-s<span class="w"> </span><span class="k">$(</span>shell<span class="w"> </span><span class="nb">pwd</span><span class="k">)</span>/bash_profile<span class="w"> </span><span class="k">$(</span>HOME<span class="k">)</span>/.bash_profile
@@ -172,25 +175,37 @@ But for now, this is how Fedora had setup the configuration for bash and if I do
 <span class="w">     </span><span class="nb">test</span><span class="w"> </span>-L<span class="w"> </span><span class="k">$(</span>HOME<span class="k">)</span>/.bashrc.d<span class="w"> </span><span class="o">||</span><span class="w"> </span>ln<span class="w"> </span>-s<span class="w"> </span><span class="k">$(</span>shell<span class="w"> </span><span class="nb">pwd</span><span class="k">)</span>/bash<span class="w"> </span><span class="k">$(</span>HOME<span class="k">)</span>/.bashrc.d
 </pre></div>
 </div>
+</div>
 <section id="bash-profile">
 <h3><code class="docutils literal notranslate"><span class="pre">.bash_profile</span></code><a class="headerlink" href="#bash-profile" title="Link to this heading">¶</a></h3>
 <p>The profile doesn’t do anything except source the <code class="docutils literal notranslate"><span class="pre">bashrc</span></code> file</p>
+<div class="awdur-codeblock docutils container">
+<div class="awdur-codeblock-header docutils container">
+<code class="awdur-codeblock-filename docutils literal notranslate"><span class="pre">bash_profile</span></code></div>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Get the aliases and functions</span>
 <span class="k">if</span><span class="w"> </span><span class="o">[</span><span class="w"> </span>-f<span class="w"> </span>~/.bashrc<span class="w"> </span><span class="o">]</span><span class="p">;</span><span class="w"> </span><span class="k">then</span>
 <span class="w">        </span>.<span class="w"> </span>~/.bashrc
 <span class="k">fi</span>
 </pre></div>
 </div>
+</div>
 </section>
 <section id="bashrc">
 <h3><code class="docutils literal notranslate"><span class="pre">.bashrc</span></code><a class="headerlink" href="#bashrc" title="Link to this heading">¶</a></h3>
 <p>The <code class="docutils literal notranslate"><span class="pre">bashrc</span></code> then sources the system config</p>
+<div class="awdur-codeblock docutils container">
+<div class="awdur-codeblock-header docutils container">
+<code class="awdur-codeblock-filename docutils literal notranslate"><span class="pre">bashrc</span></code></div>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="k">if</span><span class="w"> </span><span class="o">[</span><span class="w"> </span>-f<span class="w"> </span>/etc/bashrc<span class="w"> </span><span class="o">]</span><span class="p">;</span><span class="w"> </span><span class="k">then</span>
 <span class="w">        </span>.<span class="w"> </span>/etc/bashrc
 <span class="k">fi</span>
 </pre></div>
 </div>
+</div>
 <p>Adds user specific dirs to the <code class="docutils literal notranslate"><span class="pre">PATH</span></code></p>
+<div class="awdur-codeblock docutils container">
+<div class="awdur-codeblock-header docutils container">
+<code class="awdur-codeblock-filename docutils literal notranslate"><span class="pre">bashrc</span></code></div>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="k">if</span><span class="w"> </span>!<span class="w"> </span><span class="o">[[</span><span class="w"> </span><span class="s2">&quot;</span><span class="nv">$PATH</span><span class="s2">&quot;</span><span class="w"> </span><span class="o">=</span>~<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$HOME</span><span class="s2">/.local/bin:</span><span class="nv">$HOME</span><span class="s2">/bin:&quot;</span><span class="w"> </span><span class="o">]]</span>
 <span class="k">then</span>
 <span class="w">    </span><span class="nv">PATH</span><span class="o">=</span><span class="s2">&quot;</span><span class="nv">$HOME</span><span class="s2">/.local/bin:</span><span class="nv">$HOME</span><span class="s2">/bin:</span><span class="nv">$PATH</span><span class="s2">&quot;</span>
@@ -198,7 +213,11 @@ But for now, this is how Fedora had setup the configuration for bash and if I do
 <span class="nb">export</span><span class="w"> </span>PATH
 </pre></div>
 </div>
+</div>
 <p>Then sources additional config from the <code class="docutils literal notranslate"><span class="pre">~/.bashrc.d</span></code> dir</p>
+<div class="awdur-codeblock docutils container">
+<div class="awdur-codeblock-header docutils container">
+<code class="awdur-codeblock-filename docutils literal notranslate"><span class="pre">bashrc</span></code></div>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="k">if</span><span class="w"> </span><span class="o">[</span><span class="w"> </span>-d<span class="w"> </span>~/.bashrc.d<span class="w"> </span><span class="o">]</span><span class="p">;</span><span class="w"> </span><span class="k">then</span>
 <span class="w">        </span><span class="k">for</span><span class="w"> </span>rc<span class="w"> </span><span class="k">in</span><span class="w"> </span>~/.bashrc.d/*<span class="p">;</span><span class="w"> </span><span class="k">do</span>
 <span class="w">                </span><span class="k">if</span><span class="w"> </span><span class="o">[</span><span class="w"> </span>-f<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$rc</span><span class="s2">&quot;</span><span class="w"> </span><span class="o">]</span><span class="p">;</span><span class="w"> </span><span class="k">then</span>
@@ -210,18 +229,26 @@ But for now, this is how Fedora had setup the configuration for bash and if I do
 <span class="nb">unset</span><span class="w"> </span>rc
 </pre></div>
 </div>
+</div>
 </section>
 </section>
 <section id="aliases">
 <h2>Aliases<a class="headerlink" href="#aliases" title="Link to this heading">¶</a></h2>
+<div class="awdur-codeblock docutils container">
+<div class="awdur-codeblock-header docutils container">
+<code class="awdur-codeblock-filename docutils literal notranslate"><span class="pre">bash/10-aliases</span></code></div>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">alias</span><span class="w"> </span><span class="nv">ls</span><span class="o">=</span><span class="s1">&#39;ls -CFhX --color=auto --group-directories-first&#39;</span>
 <span class="nb">alias</span><span class="w"> </span><span class="nv">pypath</span><span class="o">=</span><span class="s1">&#39;echo $PYTHONPATH | tr &#39;</span><span class="se">\&#39;</span><span class="s1">&#39;:&#39;</span><span class="se">\&#39;</span><span class="s1">&#39; &#39;</span><span class="se">\&#39;</span><span class="s1">&#39;\n&#39;</span><span class="se">\&#39;</span><span class="s1">&#39;&#39;</span>
 </pre></div>
+</div>
 </div>
 </section>
 <section id="options">
 <h2>Options<a class="headerlink" href="#options" title="Link to this heading">¶</a></h2>
 <p>I set the following options</p>
+<div class="awdur-codeblock docutils container">
+<div class="awdur-codeblock-header docutils container">
+<code class="awdur-codeblock-filename docutils literal notranslate"><span class="pre">bash/00-options</span></code></div>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">shopt</span><span class="w"> </span>-s<span class="w"> </span>autocd<span class="w">         </span><span class="c1"># If no command found, but matches a directory, cd into it</span>
 <span class="nb">shopt</span><span class="w"> </span>-s<span class="w"> </span>checkjobs<span class="w">      </span><span class="c1"># Warn about background jobs before exiting</span>
 <span class="nb">shopt</span><span class="w"> </span>-s<span class="w"> </span>checkwinsize<span class="w">   </span><span class="c1"># Update the COLUMNS and LINES environment variables between each command</span>
@@ -229,13 +256,18 @@ But for now, this is how Fedora had setup the configuration for bash and if I do
 <span class="nb">shopt</span><span class="w"> </span>-s<span class="w"> </span>globstar<span class="w">       </span><span class="c1"># Enable recursive globbing i.e `./**/*.py`</span>
 </pre></div>
 </div>
+</div>
 </section>
 <section id="environment-variables">
 <h2>Environment Variables<a class="headerlink" href="#environment-variables" title="Link to this heading">¶</a></h2>
 <section id="cdpath">
 <h3><code class="docutils literal notranslate"><span class="pre">CDPATH</span></code><a class="headerlink" href="#cdpath" title="Link to this heading">¶</a></h3>
+<div class="awdur-codeblock docutils container">
+<div class="awdur-codeblock-header docutils container">
+<code class="awdur-codeblock-filename docutils literal notranslate"><span class="pre">bash/00-options</span></code></div>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="o">[</span><span class="w"> </span>-d<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$HOME</span><span class="s2">/Projects&quot;</span><span class="w"> </span><span class="o">]</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="nb">export</span><span class="w"> </span><span class="nv">CDPATH</span><span class="o">=</span><span class="s2">&quot;.:~/Projects&quot;</span>
 </pre></div>
+</div>
 </div>
 <blockquote class="pull-quote">
 <div><p>The search path for the cd command.
@@ -246,6 +278,9 @@ This is a colon separated list of directories in which the shell looks for desti
 <section id="path">
 <h3><code class="docutils literal notranslate"><span class="pre">PATH</span></code><a class="headerlink" href="#path" title="Link to this heading">¶</a></h3>
 <p>Update the <code class="docutils literal notranslate"><span class="pre">PATH</span></code> based on whatever folders are available.</p>
+<div class="awdur-codeblock docutils container">
+<div class="awdur-codeblock-header docutils container">
+<code class="awdur-codeblock-filename docutils literal notranslate"><span class="pre">bash/00-options</span></code></div>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nv">paths</span><span class="o">=(</span>
 <span class="w">    </span><span class="s2">&quot;</span><span class="nv">$HOME</span><span class="s2">/go/bin&quot;</span>
 <span class="w">    </span><span class="s2">&quot;</span><span class="nv">$HOME</span><span class="s2">/.cargo/bin&quot;</span>
@@ -258,10 +293,14 @@ This is a colon separated list of directories in which the shell looks for desti
 <span class="k">done</span>
 </pre></div>
 </div>
+</div>
 </section>
 </section>
 <section id="history">
 <h2>History<a class="headerlink" href="#history" title="Link to this heading">¶</a></h2>
+<div class="awdur-codeblock docutils container">
+<div class="awdur-codeblock-header docutils container">
+<code class="awdur-codeblock-filename docutils literal notranslate"><span class="pre">bash/00-options</span></code></div>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">shopt</span><span class="w"> </span>-s<span class="w"> </span>histappend
 
 <span class="nv">HISTCONTROL</span><span class="o">=</span>erasedups
@@ -270,9 +309,13 @@ This is a colon separated list of directories in which the shell looks for desti
 <span class="nv">HISTSIZE</span><span class="o">=</span><span class="m">10000</span>
 </pre></div>
 </div>
+</div>
 </section>
 <section id="prompt">
 <h2>Prompt<a class="headerlink" href="#prompt" title="Link to this heading">¶</a></h2>
+<div class="awdur-codeblock docutils container">
+<div class="awdur-codeblock-header docutils container">
+<code class="awdur-codeblock-filename docutils literal notranslate"><span class="pre">bash/20-prompt</span></code></div>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>__venv_py_version<span class="o">()</span>
 <span class="o">{</span>
 <span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="o">[</span><span class="w"> </span>-z<span class="w"> </span><span class="s2">&quot;</span><span class="si">${</span><span class="nv">VIRTUAL_ENV</span><span class="si">}</span><span class="s2">&quot;</span><span class="w"> </span><span class="o">]</span><span class="p">;</span><span class="w"> </span><span class="k">then</span>
@@ -308,6 +351,7 @@ __is_toolbox<span class="o">()</span>
 <span class="w">    </span><span class="nb">export</span><span class="w"> </span><span class="nv">PS1</span><span class="o">=</span><span class="s2">&quot;\W\n&gt; &quot;</span>
 <span class="k">fi</span>
 </pre></div>
+</div>
 </div>
 </section>
 </section>

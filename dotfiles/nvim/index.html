@@ -18,7 +18,7 @@
     <link rel="stylesheet" type="text/css" href="../../_static/sphinx-design.min.css?v=95c83b7e" />
     
     
-    <link rel="stylesheet" type="text/css" href="../../_static/css/styles.css?v=69cad2d0" />
+    <link rel="stylesheet" type="text/css" href="../../_static/css/styles.css?v=c8573db6" />
     
 
     <script src="../../_static/documentation_options.js?v=187304be"></script>
@@ -169,10 +169,14 @@
     <section id="neovim">
 <h1>Neovim<a class="headerlink" href="#neovim" title="Link to this heading">¶</a></h1>
 <p>Neovim configuration</p>
+<div class="awdur-codeblock docutils container">
+<div class="awdur-codeblock-header docutils container">
+<code class="awdur-codeblock-filename docutils literal notranslate"><span class="pre">Makefile</span></code></div>
 <div class="highlight-make notranslate"><div class="highlight"><pre><span></span><span class="nf">.PHONY</span><span class="o">:</span><span class="w"> </span><span class="n">nvim</span>
 <span class="nf">nvim</span><span class="o">:</span>
 <span class="w">     </span><span class="nb">test</span><span class="w"> </span>-L<span class="w"> </span><span class="k">$(</span>HOME<span class="k">)</span>/.config/nvim<span class="w"> </span><span class="o">||</span><span class="w"> </span>ln<span class="w"> </span>-s<span class="w"> </span><span class="k">$(</span>shell<span class="w"> </span><span class="nb">pwd</span><span class="k">)</span>/nvim<span class="w"> </span><span class="k">$(</span>HOME<span class="k">)</span>/.config/nvim
 </pre></div>
+</div>
 </div>
 <p>It’s been some time since I have used (n)vim as my primary editor, certainly pre nvim <code class="docutils literal notranslate"><span class="pre">v0.5</span></code> (nvim <code class="docutils literal notranslate"><span class="pre">v0.10.1</span></code> is now available at the time of writing).</p>
 <p>Needless to say a lot has changed (such as using lua for configuration!) so the overall structure of this config has been heavily influenced by/stolen from <a class="extlink-gh reference external" href="https://github.com/nvim-lua/kickstart.nvim">nvim-lua/kickstart.nvim</a></p>
@@ -181,14 +185,22 @@
 <section id="appearance">
 <h3>Appearance<a class="headerlink" href="#appearance" title="Link to this heading">¶</a></h3>
 <p>For the time being, use the default colorscheme with <code class="docutils literal notranslate"><span class="pre">notermguicolors</span></code> set so that <code class="docutils literal notranslate"><span class="pre">nvim</span></code> inherits the colorscheme used by the terminal. (Makes adapting to the system theme easier)</p>
+<div class="awdur-codeblock docutils container">
+<div class="awdur-codeblock-header docutils container">
+<code class="awdur-codeblock-filename docutils literal notranslate"><span class="pre">nvim/init.lua</span></code></div>
 <div class="highlight-lua notranslate"><div class="highlight"><pre><span></span><span class="nv">vim</span><span class="p">.</span><span class="py">opt</span><span class="p">.</span><span class="py">termguicolors</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">false</span>
 </pre></div>
+</div>
 </div>
 </section>
 <section id="breakindent">
 <h3><code class="docutils literal notranslate"><span class="pre">breakindent</span></code><a class="headerlink" href="#breakindent" title="Link to this heading">¶</a></h3>
+<div class="awdur-codeblock docutils container">
+<div class="awdur-codeblock-header docutils container">
+<code class="awdur-codeblock-filename docutils literal notranslate"><span class="pre">nvim/init.lua</span></code></div>
 <div class="highlight-lua notranslate"><div class="highlight"><pre><span></span><span class="nv">vim</span><span class="p">.</span><span class="py">opt</span><span class="p">.</span><span class="py">breakindent</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">true</span>
 </pre></div>
+</div>
 </div>
 <p>It ensures that when a long that is indented is wrapped, the next line starts at the same level of indentation i.e</p>
 <div class="highlight-none notranslate"><div class="highlight"><pre><span></span>|   This is a very
@@ -208,29 +220,45 @@
 <p>Disabling <code class="docutils literal notranslate"><span class="pre">ignorecase</span></code> will make searches case sensitive by default.
 To make the search case insensitive add a <code class="docutils literal notranslate"><span class="pre">\c</span></code> to the search pattern e.g. <code class="docutils literal notranslate"><span class="pre">/set\c/</span></code> or <code class="docutils literal notranslate"><span class="pre">/\cset/</span></code></p>
 <p>The <code class="docutils literal notranslate"><span class="pre">inccomand</span> <span class="pre">=</span> <span class="pre">'split'</span></code> tells neovim to open a dedicated split to preview the result of the current <code class="docutils literal notranslate"><span class="pre">:%s/../../</span></code> command.</p>
+<div class="awdur-codeblock docutils container">
+<div class="awdur-codeblock-header docutils container">
+<code class="awdur-codeblock-filename docutils literal notranslate"><span class="pre">nvim/init.lua</span></code></div>
 <div class="highlight-lua notranslate"><div class="highlight"><pre><span></span><span class="nv">vim</span><span class="p">.</span><span class="py">opt</span><span class="p">.</span><span class="py">inccommand</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;split&#39;</span>
 <span class="nv">vim</span><span class="p">.</span><span class="py">opt</span><span class="p">.</span><span class="py">incsearch</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">true</span>
 <span class="nv">vim</span><span class="p">.</span><span class="py">opt</span><span class="p">.</span><span class="py">ignorecase</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">false</span>
 </pre></div>
 </div>
+</div>
 </section>
 <section id="line-numbers">
 <h3>Line Numbers<a class="headerlink" href="#line-numbers" title="Link to this heading">¶</a></h3>
 <p>Enable line numbers</p>
+<div class="awdur-codeblock docutils container">
+<div class="awdur-codeblock-header docutils container">
+<code class="awdur-codeblock-filename docutils literal notranslate"><span class="pre">nvim/init.lua</span></code></div>
 <div class="highlight-lua notranslate"><div class="highlight"><pre><span></span><span class="nv">vim</span><span class="p">.</span><span class="py">opt</span><span class="p">.</span><span class="py">number</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">true</span>
 </pre></div>
 </div>
+</div>
 <p>Reuse the line number column to render ‘signs’</p>
+<div class="awdur-codeblock docutils container">
+<div class="awdur-codeblock-header docutils container">
+<code class="awdur-codeblock-filename docutils literal notranslate"><span class="pre">nvim/init.lua</span></code></div>
 <div class="highlight-lua notranslate"><div class="highlight"><pre><span></span><span class="nv">vim</span><span class="p">.</span><span class="py">opt</span><span class="p">.</span><span class="py">signcolumn</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;number&#39;</span>
 </pre></div>
+</div>
 </div>
 </section>
 <section id="whitespace">
 <h3>Whitespace<a class="headerlink" href="#whitespace" title="Link to this heading">¶</a></h3>
 <p>Render certain whitespace characters</p>
+<div class="awdur-codeblock docutils container">
+<div class="awdur-codeblock-header docutils container">
+<code class="awdur-codeblock-filename docutils literal notranslate"><span class="pre">nvim/init.lua</span></code></div>
 <div class="highlight-lua notranslate"><div class="highlight"><pre><span></span><span class="nv">vim</span><span class="p">.</span><span class="py">opt</span><span class="p">.</span><span class="py">list</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">true</span>
 <span class="nv">vim</span><span class="p">.</span><span class="py">opt</span><span class="p">.</span><span class="py">listchars</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nv">tab</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;».&#39;</span><span class="p">,</span><span class="w"> </span><span class="nv">trail</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;·&#39;</span><span class="p">,</span><span class="w"> </span><span class="nv">extends</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;→&#39;</span><span class="p">,</span><span class="w"> </span><span class="nv">precedes</span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;←&#39;</span><span class="w"> </span><span class="p">}</span>
 </pre></div>
+</div>
 </div>
 </section>
 </section>
@@ -238,22 +266,37 @@ To make the search case insensitive add a <code class="docutils literal notransl
 <h2>Keybindings<a class="headerlink" href="#keybindings" title="Link to this heading">¶</a></h2>
 <p>Keybindings that are useful anywhere.</p>
 <p>Set the <code class="docutils literal notranslate"><span class="pre">&lt;leader&gt;</span></code> and <code class="docutils literal notranslate"><span class="pre">&lt;localleader&gt;</span></code></p>
+<div class="awdur-codeblock docutils container">
+<div class="awdur-codeblock-header docutils container">
+<code class="awdur-codeblock-filename docutils literal notranslate"><span class="pre">nvim/init.lua</span></code></div>
 <div class="highlight-lua notranslate"><div class="highlight"><pre><span></span><span class="nv">vim</span><span class="p">.</span><span class="py">g</span><span class="p">.</span><span class="py">mapleader</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39; &#39;</span>
 <span class="nv">vim</span><span class="p">.</span><span class="py">g</span><span class="p">.</span><span class="py">maplocalleader</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39; &#39;</span>
 </pre></div>
 </div>
+</div>
 <p>Mash <kbd class="kbd docutils literal notranslate">Esc</kbd> to clear any search highlights</p>
+<div class="awdur-codeblock docutils container">
+<div class="awdur-codeblock-header docutils container">
+<code class="awdur-codeblock-filename docutils literal notranslate"><span class="pre">nvim/init.lua</span></code></div>
 <div class="highlight-lua notranslate"><div class="highlight"><pre><span></span><span class="nv">vim</span><span class="p">.</span><span class="py">keymap</span><span class="p">.</span><span class="nf">set</span><span class="p">(</span><span class="s1">&#39;n&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;&lt;Esc&gt;&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;&lt;cmd&gt;nohlsearch&lt;CR&gt;&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
+</div>
 <p>Easier movement between windows</p>
+<div class="awdur-codeblock docutils container">
+<div class="awdur-codeblock-header docutils container">
+<code class="awdur-codeblock-filename docutils literal notranslate"><span class="pre">nvim/init.lua</span></code></div>
 <div class="highlight-lua notranslate"><div class="highlight"><pre><span></span><span class="nv">vim</span><span class="p">.</span><span class="py">keymap</span><span class="p">.</span><span class="nf">set</span><span class="p">(</span><span class="s1">&#39;n&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;&lt;C-h&gt;&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;&lt;C-w&gt;&lt;C-h&gt;&#39;</span><span class="p">)</span>
 <span class="nv">vim</span><span class="p">.</span><span class="py">keymap</span><span class="p">.</span><span class="nf">set</span><span class="p">(</span><span class="s1">&#39;n&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;&lt;C-l&gt;&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;&lt;C-w&gt;&lt;C-l&gt;&#39;</span><span class="p">)</span>
 <span class="nv">vim</span><span class="p">.</span><span class="py">keymap</span><span class="p">.</span><span class="nf">set</span><span class="p">(</span><span class="s1">&#39;n&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;&lt;C-j&gt;&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;&lt;C-w&gt;&lt;C-j&gt;&#39;</span><span class="p">)</span>
 <span class="nv">vim</span><span class="p">.</span><span class="py">keymap</span><span class="p">.</span><span class="nf">set</span><span class="p">(</span><span class="s1">&#39;n&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;&lt;C-k&gt;&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;&lt;C-w&gt;&lt;C-k&gt;&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
+</div>
 <p>Recenter the display after common movement commands</p>
+<div class="awdur-codeblock docutils container">
+<div class="awdur-codeblock-header docutils container">
+<code class="awdur-codeblock-filename docutils literal notranslate"><span class="pre">nvim/init.lua</span></code></div>
 <div class="highlight-lua notranslate"><div class="highlight"><pre><span></span><span class="nv">vim</span><span class="p">.</span><span class="py">keymap</span><span class="p">.</span><span class="nf">set</span><span class="p">(</span><span class="s1">&#39;n&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;n&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;nzz&#39;</span><span class="p">)</span>
 <span class="nv">vim</span><span class="p">.</span><span class="py">keymap</span><span class="p">.</span><span class="nf">set</span><span class="p">(</span><span class="s1">&#39;n&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;N&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;Nzz&#39;</span><span class="p">)</span>
 <span class="nv">vim</span><span class="p">.</span><span class="py">keymap</span><span class="p">.</span><span class="nf">set</span><span class="p">(</span><span class="s1">&#39;n&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;G&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;Gzz&#39;</span><span class="p">)</span>
@@ -261,10 +304,14 @@ To make the search case insensitive add a <code class="docutils literal notransl
 <span class="nv">vim</span><span class="p">.</span><span class="py">keymap</span><span class="p">.</span><span class="nf">set</span><span class="p">(</span><span class="s1">&#39;n&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;&lt;c-o&gt;&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;&lt;c-o&gt;zz&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
+</div>
 </section>
 <section id="plugins">
 <h2>Plugins<a class="headerlink" href="#plugins" title="Link to this heading">¶</a></h2>
 <p>The plugin manager du-jour appears to be <a class="extlink-gh reference external" href="https://github.com/folke/lazy.nvim">folke/lazy.nvim</a>, let’s ensure that it’s available.</p>
+<div class="awdur-codeblock docutils container">
+<div class="awdur-codeblock-header docutils container">
+<code class="awdur-codeblock-filename docutils literal notranslate"><span class="pre">nvim/init.lua</span></code></div>
 <div class="highlight-lua notranslate"><div class="highlight"><pre><span></span><span class="kd">local</span><span class="w"> </span><span class="nv">lazypath</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">vim</span><span class="p">.</span><span class="py">fn</span><span class="p">.</span><span class="nf">stdpath</span><span class="p">(</span><span class="s1">&#39;data&#39;</span><span class="p">)</span><span class="w"> </span><span class="o">..</span><span class="w"> </span><span class="s1">&#39;/lazy/lazy.nvim&#39;</span>
 <span class="kr">if</span><span class="w"> </span><span class="ow">not</span><span class="w"> </span><span class="nv">vim</span><span class="p">.</span><span class="py">uv</span><span class="p">.</span><span class="nf">fs_stat</span><span class="p">(</span><span class="nv">lazypath</span><span class="p">)</span><span class="w"> </span><span class="kr">then</span>
 <span class="w">  </span><span class="kd">local</span><span class="w"> </span><span class="nv">lazyrepo</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;https://github.com/folke/lazy.nvim.git&#39;</span>
@@ -276,11 +323,19 @@ To make the search case insensitive add a <code class="docutils literal notransl
 <span class="kr">end</span>
 </pre></div>
 </div>
+</div>
 <p>And add the install location to the runtime path</p>
+<div class="awdur-codeblock docutils container">
+<div class="awdur-codeblock-header docutils container">
+<code class="awdur-codeblock-filename docutils literal notranslate"><span class="pre">nvim/init.lua</span></code></div>
 <div class="highlight-lua notranslate"><div class="highlight"><pre><span></span><span class="nv">vim</span><span class="p">.</span><span class="py">opt</span><span class="p">.</span><span class="py">rtp</span><span class="p">:</span><span class="nf">prepend</span><span class="p">(</span><span class="nv">lazypath</span><span class="p">)</span>
 </pre></div>
 </div>
+</div>
 <p>Finally, tell lazyvim what plugins to install and configure</p>
+<div class="awdur-codeblock docutils container">
+<div class="awdur-codeblock-header docutils container">
+<code class="awdur-codeblock-filename docutils literal notranslate"><span class="pre">nvim/init.lua</span></code></div>
 <div class="highlight-lua notranslate"><div class="highlight"><pre><span></span><span class="nb">require</span><span class="p">(</span><span class="s1">&#39;lazy&#39;</span><span class="p">).</span><span class="nf">setup</span><span class="p">({</span>
 <span class="w">  </span><span class="s1">&#39;tpope/vim-sleuth&#39;</span><span class="p">,</span>
 <span class="w">  </span><span class="nb">require</span><span class="w"> </span><span class="s1">&#39;alc.completion&#39;</span><span class="p">,</span>
@@ -289,10 +344,14 @@ To make the search case insensitive add a <code class="docutils literal notransl
 <span class="p">})</span>
 </pre></div>
 </div>
+</div>
 </section>
 <section id="completion">
 <h2>Completion<a class="headerlink" href="#completion" title="Link to this heading">¶</a></h2>
 <p><a class="extlink-gh reference external" href="https://github.com/hrsh7th/nvim-cmp">hrsh7th/nvim-cmp</a> seems to be the completion framework of choice</p>
+<div class="awdur-codeblock docutils container">
+<div class="awdur-codeblock-header docutils container">
+<code class="awdur-codeblock-filename docutils literal notranslate"><span class="pre">nvim/lua/alc/completion.lua</span></code></div>
 <div class="highlight-lua notranslate"><div class="highlight"><pre><span></span><span class="kr">function</span><span class="w"> </span><span class="nf">setup</span><span class="p">()</span>
 <span class="w">  </span><span class="kd">local</span><span class="w"> </span><span class="nv">cmp</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">require</span><span class="p">(</span><span class="s1">&#39;cmp&#39;</span><span class="p">)</span>
 
@@ -312,6 +371,10 @@ To make the search case insensitive add a <code class="docutils literal notransl
 <span class="kr">end</span>
 </pre></div>
 </div>
+</div>
+<div class="awdur-codeblock docutils container">
+<div class="awdur-codeblock-header docutils container">
+<code class="awdur-codeblock-filename docutils literal notranslate"><span class="pre">nvim/lua/alc/completion.lua</span></code></div>
 <div class="highlight-lua notranslate"><div class="highlight"><pre><span></span><span class="kr">return</span><span class="w"> </span><span class="p">{</span>
 <span class="w">  </span><span class="s1">&#39;hrsh7th/nvim-cmp&#39;</span><span class="p">,</span>
 <span class="w">  </span><span class="nv">event</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;InsertEnter&#39;</span><span class="p">,</span>
@@ -322,10 +385,14 @@ To make the search case insensitive add a <code class="docutils literal notransl
 <span class="p">}</span>
 </pre></div>
 </div>
+</div>
 </section>
 <section id="language-servers">
 <h2>Language Servers<a class="headerlink" href="#language-servers" title="Link to this heading">¶</a></h2>
 <p>The following is a function that will be called each time a connection to a server is made, allowing LSP specific keybindings etc to be configured.</p>
+<div class="awdur-codeblock docutils container">
+<div class="awdur-codeblock-header docutils container">
+<code class="awdur-codeblock-filename docutils literal notranslate"><span class="pre">nvim/lua/alc/lsp/init.lua</span></code></div>
 <div class="highlight-lua notranslate"><div class="highlight"><pre><span></span><span class="kr">function</span><span class="w"> </span><span class="nf">lsp_attach</span><span class="p">(</span><span class="nv">event</span><span class="p">)</span>
 <span class="w">  </span><span class="nv">vim</span><span class="p">.</span><span class="py">keymap</span><span class="p">.</span><span class="nf">set</span><span class="p">(</span><span class="s1">&#39;n&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;gd&#39;</span><span class="p">,</span><span class="w"> </span><span class="nb">require</span><span class="p">(</span><span class="s1">&#39;telescope.builtin&#39;</span><span class="p">).</span><span class="nv">lsp_definitions</span><span class="p">,</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nv">buffer</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">event</span><span class="p">.</span><span class="py">buf</span><span class="w"> </span><span class="p">})</span>
 <span class="w">  </span><span class="nv">vim</span><span class="p">.</span><span class="py">keymap</span><span class="p">.</span><span class="nf">set</span><span class="p">(</span><span class="s1">&#39;n&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;gr&#39;</span><span class="p">,</span><span class="w"> </span><span class="nb">require</span><span class="p">(</span><span class="s1">&#39;telescope.builtin&#39;</span><span class="p">).</span><span class="nv">lsp_references</span><span class="p">,</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nv">buffer</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">event</span><span class="p">.</span><span class="py">buf</span><span class="w"> </span><span class="p">})</span>
@@ -339,7 +406,11 @@ To make the search case insensitive add a <code class="docutils literal notransl
 <span class="kr">end</span>
 </pre></div>
 </div>
+</div>
 <p>Finally, the block of <code class="docutils literal notranslate"><span class="pre">lazy.nvim</span></code> configuration that ties it all together</p>
+<div class="awdur-codeblock docutils container">
+<div class="awdur-codeblock-header docutils container">
+<code class="awdur-codeblock-filename docutils literal notranslate"><span class="pre">nvim/lua/alc/lsp/init.lua</span></code></div>
 <div class="highlight-lua notranslate"><div class="highlight"><pre><span></span><span class="kr">return</span><span class="w"> </span><span class="p">{</span>
 <span class="w">   </span><span class="s1">&#39;neovim/nvim-lspconfig&#39;</span><span class="p">,</span>
 <span class="w">   </span><span class="nv">dependencies</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span>
@@ -369,9 +440,13 @@ To make the search case insensitive add a <code class="docutils literal notransl
 <span class="p">}</span>
 </pre></div>
 </div>
+</div>
 <section id="esbonio">
 <h3>esbonio<a class="headerlink" href="#esbonio" title="Link to this heading">¶</a></h3>
 <p>Of course, I use <a class="extlink-gh reference external" href="https://github.com/swyddfa/esbonio">swyddfa/esbonio</a> with my documentation projects.</p>
+<div class="awdur-codeblock docutils container">
+<div class="awdur-codeblock-header docutils container">
+<code class="awdur-codeblock-filename docutils literal notranslate"><span class="pre">nvim/lua/alc/lsp/esbonio.lua</span></code></div>
 <div class="highlight-lua notranslate"><div class="highlight"><pre><span></span><span class="kr">function</span><span class="w"> </span><span class="nf">setup</span><span class="p">(</span><span class="nv">opts</span><span class="p">)</span>
 <span class="w">   </span><span class="nv">opts</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">opts</span><span class="w"> </span><span class="ow">or</span><span class="w"> </span><span class="p">{}</span>
 
@@ -406,6 +481,7 @@ To make the search case insensitive add a <code class="docutils literal notransl
 <span class="kr">end</span>
 </pre></div>
 </div>
+</div>
 <p>The following function determines the command that should be used to launch <code class="docutils literal notranslate"><span class="pre">esbonio</span></code>, useful for the occasions where I need to debug it or use some of the <a class="extlink-gh reference external" href="https://github.com/swyddfa/lsp-devtools">swyddfa/lsp-devtools</a> tooling.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
@@ -415,6 +491,9 @@ To make the search case insensitive add a <code class="docutils literal notransl
 </div>
 <p>it is pointless trying to run an LSP from inside the container.</p>
 </div>
+<div class="awdur-codeblock docutils container">
+<div class="awdur-codeblock-header docutils container">
+<code class="awdur-codeblock-filename docutils literal notranslate"><span class="pre">nvim/lua/alc/lsp/esbonio.lua</span></code></div>
 <div class="highlight-lua notranslate"><div class="highlight"><pre><span></span><span class="kr">function</span><span class="w"> </span><span class="nf">get_esbonio_cmd</span><span class="p">(</span><span class="nv">opts</span><span class="p">)</span>
 <span class="w">  </span><span class="kd">local</span><span class="w"> </span><span class="nv">cmd</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{}</span>
 
@@ -439,8 +518,12 @@ To make the search case insensitive add a <code class="docutils literal notransl
 <span class="kr">end</span>
 </pre></div>
 </div>
+</div>
 <p><strong>Previews</strong></p>
 <p>The following command triggers a preview of the file vistied by the current buffer as well as setting up an autocommand to syncronise the scroll state with the preview.</p>
+<div class="awdur-codeblock docutils container">
+<div class="awdur-codeblock-header docutils container">
+<code class="awdur-codeblock-filename docutils literal notranslate"><span class="pre">nvim/lua/alc/lsp/esbonio.lua</span></code></div>
 <div class="highlight-lua notranslate"><div class="highlight"><pre><span></span><span class="kr">function</span><span class="w"> </span><span class="nf">preview_file</span><span class="p">()</span>
 <span class="w">  </span><span class="kd">local</span><span class="w"> </span><span class="nv">params</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span>
 <span class="w">    </span><span class="nv">command</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;esbonio.server.previewFile&#39;</span><span class="p">,</span>
@@ -464,7 +547,11 @@ To make the search case insensitive add a <code class="docutils literal notransl
 <span class="kr">end</span>
 </pre></div>
 </div>
+</div>
 <p>Scrolling the view itself is handled by the following function</p>
+<div class="awdur-codeblock docutils container">
+<div class="awdur-codeblock-header docutils container">
+<code class="awdur-codeblock-filename docutils literal notranslate"><span class="pre">nvim/lua/alc/lsp/esbonio.lua</span></code></div>
 <div class="highlight-lua notranslate"><div class="highlight"><pre><span></span><span class="kr">function</span><span class="w"> </span><span class="nf">scroll_view</span><span class="p">(</span><span class="nv">event</span><span class="p">)</span>
 <span class="w">  </span><span class="kd">local</span><span class="w"> </span><span class="nv">esbonio</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">vim</span><span class="p">.</span><span class="py">lsp</span><span class="p">.</span><span class="nf">get_active_clients</span><span class="p">({</span><span class="w"> </span><span class="nv">bufnr</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="nv">name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;esbonio&#39;</span><span class="w"> </span><span class="p">})[</span><span class="mi">1</span><span class="p">]</span>
 <span class="w">  </span><span class="kd">local</span><span class="w"> </span><span class="nv">view</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">vim</span><span class="p">.</span><span class="py">fn</span><span class="p">.</span><span class="nf">winsaveview</span><span class="p">()</span>
@@ -474,12 +561,16 @@ To make the search case insensitive add a <code class="docutils literal notransl
 <span class="kr">end</span>
 </pre></div>
 </div>
+</div>
 </section>
 <section id="sphinx-processes">
 <h3>Sphinx Processes<a class="headerlink" href="#sphinx-processes" title="Link to this heading">¶</a></h3>
 <p>These handlers help shed some light on the status of the underlying sphinx processes managed by <code class="docutils literal notranslate"><span class="pre">esbonio</span></code>.</p>
 <p><strong>sphinx/clientCreated</strong></p>
 <p>Emitted when a new process is created.</p>
+<div class="awdur-codeblock docutils container">
+<div class="awdur-codeblock-header docutils container">
+<code class="awdur-codeblock-filename docutils literal notranslate"><span class="pre">nvim/lua/alc/lsp/esbonio.lua</span></code></div>
 <div class="highlight-lua notranslate"><div class="highlight"><pre><span></span><span class="kr">function</span><span class="w"> </span><span class="nf">client_created</span><span class="p">(</span><span class="nv">err</span><span class="p">,</span><span class="w"> </span><span class="nv">result</span><span class="p">,</span><span class="w"> </span><span class="nv">ctx</span><span class="p">,</span><span class="w"> </span><span class="nv">config</span><span class="p">)</span>
 <span class="w">  </span><span class="nv">vim</span><span class="p">.</span><span class="nf">notify</span><span class="p">(</span><span class="s2">&quot;Sphinx client created in &quot;</span><span class="w"> </span><span class="o">..</span><span class="w"> </span><span class="nv">result</span><span class="p">.</span><span class="py">scope</span><span class="p">,</span><span class="w"> </span><span class="nv">vim</span><span class="p">.</span><span class="py">log</span><span class="p">.</span><span class="py">levels</span><span class="p">.</span><span class="py">INFO</span><span class="p">)</span>
 <span class="kr">end</span>
@@ -497,15 +588,23 @@ To make the search case insensitive add a <code class="docutils literal notransl
 <span class="kr">end</span>
 </pre></div>
 </div>
+</div>
+<div class="awdur-codeblock docutils container">
+<div class="awdur-codeblock-header docutils container">
+<code class="awdur-codeblock-filename docutils literal notranslate"><span class="pre">nvim/lua/alc/lsp/esbonio.lua</span></code></div>
 <div class="highlight-lua notranslate"><div class="highlight"><pre><span></span><span class="kr">return</span><span class="w"> </span><span class="p">{</span>
 <span class="w">  </span><span class="nv">setup</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">setup</span>
 <span class="p">}</span>
 </pre></div>
 </div>
+</div>
 </section>
 <section id="python">
 <h3>Python<a class="headerlink" href="#python" title="Link to this heading">¶</a></h3>
 <p>I currently use the <a class="extlink-gh reference external" href="https://github.com/microsoft/pyright">microsoft/pyright</a> language server for Python projects.</p>
+<div class="awdur-codeblock docutils container">
+<div class="awdur-codeblock-header docutils container">
+<code class="awdur-codeblock-filename docutils literal notranslate"><span class="pre">nvim/lua/alc/lsp/python.lua</span></code></div>
 <div class="highlight-lua notranslate"><div class="highlight"><pre><span></span><span class="kr">function</span><span class="w"> </span><span class="nf">setup</span><span class="p">(</span><span class="nv">opts</span><span class="p">)</span>
 <span class="w">   </span><span class="nv">opts</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">opts</span><span class="w"> </span><span class="ow">or</span><span class="w"> </span><span class="p">{}</span>
 
@@ -523,16 +622,24 @@ To make the search case insensitive add a <code class="docutils literal notransl
 <span class="kr">end</span>
 </pre></div>
 </div>
+</div>
+<div class="awdur-codeblock docutils container">
+<div class="awdur-codeblock-header docutils container">
+<code class="awdur-codeblock-filename docutils literal notranslate"><span class="pre">nvim/lua/alc/lsp/python.lua</span></code></div>
 <div class="highlight-lua notranslate"><div class="highlight"><pre><span></span><span class="kr">return</span><span class="w"> </span><span class="p">{</span>
 <span class="w">  </span><span class="nv">setup</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">setup</span>
 <span class="p">}</span>
 </pre></div>
+</div>
 </div>
 </section>
 </section>
 <section id="telescope">
 <h2>Telescope<a class="headerlink" href="#telescope" title="Link to this heading">¶</a></h2>
 <p>The <code class="docutils literal notranslate"><span class="pre">vertico</span></code> of the neovim world, telescope offers a nice “select item from list” UI</p>
+<div class="awdur-codeblock docutils container">
+<div class="awdur-codeblock-header docutils container">
+<code class="awdur-codeblock-filename docutils literal notranslate"><span class="pre">nvim/lua/alc/telescope.lua</span></code></div>
 <div class="highlight-lua notranslate"><div class="highlight"><pre><span></span><span class="kr">return</span><span class="w"> </span><span class="p">{</span>
 <span class="w">  </span><span class="s1">&#39;nvim-telescope/telescope.nvim&#39;</span><span class="p">,</span>
 <span class="w">  </span><span class="nv">event</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;VimEnter&#39;</span><span class="p">,</span>
@@ -556,6 +663,7 @@ To make the search case insensitive add a <code class="docutils literal notransl
 <span class="p">}</span>
 </pre></div>
 </div>
+</div>
 </section>
 <section id="libraries-helpers">
 <h2>Libraries &amp; Helpers<a class="headerlink" href="#libraries-helpers" title="Link to this heading">¶</a></h2>
@@ -566,6 +674,9 @@ To make the search case insensitive add a <code class="docutils literal notransl
 This helper library helps me make use of the <a class="extlink-gh reference external" href="https://github.com/devcontainers/cli">devcontainers/cli</a> from within <code class="docutils literal notranslate"><span class="pre">nvim</span></code>.</p>
 <p>The following function will check to see if there is a <code class="docutils literal notranslate"><span class="pre">.devcontainer/</span></code> for the repo and return the relevant
 workspace folder if it exists.</p>
+<div class="awdur-codeblock docutils container">
+<div class="awdur-codeblock-header docutils container">
+<code class="awdur-codeblock-filename docutils literal notranslate"><span class="pre">nvim/lua/alc/devcontainer.lua</span></code></div>
 <div class="highlight-lua notranslate"><div class="highlight"><pre><span></span><span class="kr">function</span><span class="w"> </span><span class="nf">workspace</span><span class="p">()</span>
 <span class="w">  </span><span class="kd">local</span><span class="w"> </span><span class="nv">cwd</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">vim</span><span class="p">.</span><span class="py">uv</span><span class="p">.</span><span class="nf">cwd</span><span class="p">()</span>
 <span class="w">  </span><span class="kr">if</span><span class="w"> </span><span class="ow">not</span><span class="w"> </span><span class="nv">cwd</span><span class="w"> </span><span class="kr">then</span>
@@ -586,11 +697,16 @@ workspace folder if it exists.</p>
 <span class="kr">end</span>
 </pre></div>
 </div>
+</div>
 <p>Finally, export all the public functions from this module</p>
+<div class="awdur-codeblock docutils container">
+<div class="awdur-codeblock-header docutils container">
+<code class="awdur-codeblock-filename docutils literal notranslate"><span class="pre">nvim/lua/alc/devcontainer.lua</span></code></div>
 <div class="highlight-lua notranslate"><div class="highlight"><pre><span></span><span class="kr">return</span><span class="w"> </span><span class="p">{</span>
 <span class="w">  </span><span class="nv">workspace</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">workspace</span>
 <span class="p">}</span>
 </pre></div>
+</div>
 </div>
 </section>
 </section>
