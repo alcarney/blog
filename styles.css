@@ -162,3 +162,18 @@ kbd {
 .small-profile h2 {
     @apply transition-all duration-300 mt-2 text-xl text-green-600
 }
+
+/*-- Awdur integration --*/
+
+.awdur-codeblock-header {
+    @apply px-2 border-t border-r border-l rounded-t dark:border-gray-600 dark:bg-gray-800
+}
+
+.awdur-codeblock-filename::after,
+.awdur-codeblock-filename::before {
+    display: none;
+}
+
+.awdur-codeblock div.highlight {
+    @apply border-t-0 rounded-t-none
+}
