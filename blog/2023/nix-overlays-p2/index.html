@@ -190,7 +190,7 @@
     <section id="nix-overlays-a-follow-up">
 <h1>Nix Overlays: A follow up<a class="headerlink" href="#nix-overlays-a-follow-up" title="Link to this heading">¶</a></h1>
 <div class="post-teaser docutils container">
-<p>It turns out there were a few issues with the setup I put together in my <span class="xref std std-doc">previous post</span>.
+<p>It turns out there were a few issues with the setup I put together in my <a class="reference internal" href="../nix-overlays/" title="My Next Steps with Nix: Overlays">previous post</a>.
 This time I try and resolve them and get to the point where I have working overlays for both
 <a class="reference external" href="https://github.com/swyddfa/lsp-devtools/tree/develop/lib/pytest-lsp">pytest-lsp</a>
 and
@@ -583,7 +583,7 @@ However, when you are setting up a <code class="docutils literal notranslate"><s
 <section id="conclusion">
 <h2>Conclusion<a class="headerlink" href="#conclusion" title="Link to this heading">¶</a></h2>
 <p>I have no idea why Nix needed me to move the <code class="docutils literal notranslate"><span class="pre">overridePythonAttrs</span></code> call out into a separate <code class="docutils literal notranslate"><span class="pre">let</span></code> binding, but hey it works!</p>
-<p>I’ve finally managed to recreate the setup I had in my <span class="xref std std-doc">original</span> blog post, spinning up <code class="docutils literal notranslate"><span class="pre">devShells</span></code> in order to test <code class="docutils literal notranslate"><span class="pre">esbonio</span></code> against a range of Python versions - just with the added flexibility that working with overlays can bring.</p>
+<p>I’ve finally managed to recreate the setup I had in my <a class="reference internal" href="../../2022/first-steps-with-nix/" title="My First Steps with Nix">original</a> blog post, spinning up <code class="docutils literal notranslate"><span class="pre">devShells</span></code> in order to test <code class="docutils literal notranslate"><span class="pre">esbonio</span></code> against a range of Python versions - just with the added flexibility that working with overlays can bring.</p>
 <p>If you’re interested you can find the final version of all my <code class="docutils literal notranslate"><span class="pre">*.nix</span></code> files
 <a class="reference external" href="https://github.com/swyddfa/lsp-devtools/commit/6ae80a24b55d2b6943b9d30805cf02440ebbaf5c">here (pytest-lsp)</a>
 and

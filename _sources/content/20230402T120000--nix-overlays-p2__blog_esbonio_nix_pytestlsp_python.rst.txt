@@ -10,7 +10,7 @@ Nix Overlays: A follow up
 
 .. container:: post-teaser
 
-   It turns out there were a few issues with the setup I put together in my :doc:`previous post </blog/2023/nix-overlays>`.
+   It turns out there were a few issues with the setup I put together in my :denote:link:`previous post <20230125T120000>`.
    This time I try and resolve them and get to the point where I have working overlays for both
    `pytest-lsp <https://github.com/swyddfa/lsp-devtools/tree/develop/lib/pytest-lsp>`__
    and
@@ -463,7 +463,7 @@ Conclusion
 
 I have no idea why Nix needed me to move the ``overridePythonAttrs`` call out into a separate ``let`` binding, but hey it works!
 
-I've finally managed to recreate the setup I had in my :doc:`original </blog/2022/first-steps-with-nix>` blog post, spinning up ``devShells`` in order to test ``esbonio`` against a range of Python versions - just with the added flexibility that working with overlays can bring.
+I've finally managed to recreate the setup I had in my :denote:link:`original <20221217T120000>` blog post, spinning up ``devShells`` in order to test ``esbonio`` against a range of Python versions - just with the added flexibility that working with overlays can bring.
 
 If you're interested you can find the final version of all my ``*.nix`` files
 `here (pytest-lsp) <https://github.com/swyddfa/lsp-devtools/commit/6ae80a24b55d2b6943b9d30805cf02440ebbaf5c>`__

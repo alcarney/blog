@@ -16,7 +16,7 @@ Nix: Day to Day Usage
 A better ``devShell`` definition
 --------------------------------
 
-The original issue I'm trying to solve dates back to my :doc:`first post </blog/2022/first-steps-with-nix>` on using Nix.
+The original issue I'm trying to solve dates back to my :denote:link:`first post <20221217T120000>` on using Nix.
 That is, defining a ``devShell`` containing the dependencies of a local Python package doesn't mean that the local package itself is importable when the ``devShell`` is activated.
 
 .. code-block::
@@ -302,7 +302,7 @@ Bringing it all together results in a surprisingly compact function definition!
 Flakes and Monorepos
 --------------------
 
-:doc:`Previously </blog/2023/integrate-esboino-nvim-with-nix>` I tried adding a "top-level" ``flake.nix`` to the git repository for the `esbonio <https://github.com/swyddfa/esbonio>`__ language server that depended on another ``flake.nix`` within a sub directory of the same repository.
+:denote:link:`Previously <20230421T120000>` I tried adding a "top-level" ``flake.nix`` to the git repository for the `esbonio <https://github.com/swyddfa/esbonio>`__ language server that depended on another ``flake.nix`` within a sub directory of the same repository.
 
 It... `didn't work <https://github.com/swyddfa/esbonio/issues/570>`__.
 

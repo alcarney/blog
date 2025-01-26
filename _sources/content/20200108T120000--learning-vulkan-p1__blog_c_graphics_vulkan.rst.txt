@@ -30,7 +30,7 @@ Learning Vulkan: Enumerating Physical Devices
 
    This is part of my "Learning Vulkan" series where I try to figure how to use
    Vulkan to explore various concepts in graphics programming. As mentioned in
-   the :doc:`Overview </blog/2020/learning-vulkan-p0>` I don't necessarily
+   the :denote:link:`Overview <20200101T120000>` I don't necessarily
    know what I'm doing!
 
 Setup

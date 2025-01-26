@@ -185,7 +185,7 @@ So instead of trying to accomplish some major task, this post is a small collect
 </div>
 <section id="a-better-devshell-definition">
 <h2>A better <code class="docutils literal notranslate"><span class="pre">devShell</span></code> definition<a class="headerlink" href="#a-better-devshell-definition" title="Link to this heading">¶</a></h2>
-<p>The original issue I’m trying to solve dates back to my <span class="xref std std-doc">first post</span> on using Nix.
+<p>The original issue I’m trying to solve dates back to my <a class="reference internal" href="../../2022/first-steps-with-nix/" title="My First Steps with Nix">first post</a> on using Nix.
 That is, defining a <code class="docutils literal notranslate"><span class="pre">devShell</span></code> containing the dependencies of a local Python package doesn’t mean that the local package itself is importable when the <code class="docutils literal notranslate"><span class="pre">devShell</span></code> is activated.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ nix develop .#py310
 (nix-shell) $ pytest
@@ -446,7 +446,7 @@ git+file:///var/home/alex/Projects/esbonio-beta?dir=lib%2fesbonio
 </section>
 <section id="flakes-and-monorepos">
 <h2>Flakes and Monorepos<a class="headerlink" href="#flakes-and-monorepos" title="Link to this heading">¶</a></h2>
-<p><span class="xref std std-doc">Previously</span> I tried adding a “top-level” <code class="docutils literal notranslate"><span class="pre">flake.nix</span></code> to the git repository for the <a class="reference external" href="https://github.com/swyddfa/esbonio">esbonio</a> language server that depended on another <code class="docutils literal notranslate"><span class="pre">flake.nix</span></code> within a sub directory of the same repository.</p>
+<p><a class="reference internal" href="../integrate-esbonio-nvim-with-nix/" title="Integrating Esbonio with Neovim Using Nix">Previously</a> I tried adding a “top-level” <code class="docutils literal notranslate"><span class="pre">flake.nix</span></code> to the git repository for the <a class="reference external" href="https://github.com/swyddfa/esbonio">esbonio</a> language server that depended on another <code class="docutils literal notranslate"><span class="pre">flake.nix</span></code> within a sub directory of the same repository.</p>
 <p>It… <a class="reference external" href="https://github.com/swyddfa/esbonio/issues/570">didn’t work</a>.</p>
 <p>I’m still trying to figure out the best way to approach this but I’m currently leaning towards keeping the multiple <code class="docutils literal notranslate"><span class="pre">flake.nix</span></code> files where</p>
 <ul class="simple">

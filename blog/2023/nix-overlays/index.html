@@ -183,7 +183,7 @@
     <section id="my-next-steps-with-nix-overlays">
 <h1>My Next Steps with Nix: Overlays<a class="headerlink" href="#my-next-steps-with-nix-overlays" title="Link to this heading">¶</a></h1>
 <div class="post-teaser docutils container">
-<p><span class="xref std std-doc">Last time</span>, I experimented with writing a flake that defined development environments for the <a class="reference external" href="https://pypi.org/project/esbonio">esbonio</a> package spanning multiple Python versions.
+<p><a class="reference internal" href="../../2022/first-steps-with-nix/" title="My First Steps with Nix">Last time</a>, I experimented with writing a flake that defined development environments for the <a class="reference external" href="https://pypi.org/project/esbonio">esbonio</a> package spanning multiple Python versions.
 During that process I also packaged <a class="reference external" href="https://pypi.org/project/pytest-lsp">pytest-lsp</a> using an ad-hoc nix expression as part of the <code class="docutils literal notranslate"><span class="pre">esbonio</span></code> repo.</p>
 <p>In this post I look into writing a similar flake for the <code class="docutils literal notranslate"><span class="pre">pytest-lsp</span></code> package itself, but this time using overlays to override and extend the nixpkgs package set.</p>
 <p>If you are interested, you can find the final version of the code

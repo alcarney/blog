@@ -487,7 +487,7 @@ Not only did it provide a way of creating an isolated config but it also showed 
 <section id="integrating-esboino">
 <h2>Integrating Esboino<a class="headerlink" href="#integrating-esboino" title="Link to this heading">¶</a></h2>
 <p>Next we need to make sure the esbonio language server is available in this environment and include the necessary configuration for it in the config.</p>
-<p>Including the server should be pretty straightforward as we get to reuse the overlay defined <span class="xref std std-doc">previously</span>.</p>
+<p>Including the server should be pretty straightforward as we get to reuse the overlay defined <a class="reference internal" href="../nix-overlays-p2/" title="Nix Overlays: A follow up">previously</a>.</p>
 <div class="highlight-diff notranslate"><div class="highlight"><pre><span></span><span class="w"> </span> inputs = {
 <span class="w"> </span>   nixpkgs.url = &quot;github:NixOS/nixpkgs/nixpkgs-unstable&quot;;
 <span class="gi">+   esbonio.url = &quot;path:lib/esbonio&quot;;</span>

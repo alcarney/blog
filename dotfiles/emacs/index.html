@@ -933,8 +933,8 @@ The elisp package from Protesilaos provides many nice utilities in Emacs that bu
 <span class="w">                                    </span><span class="nb">:keywords-key-regexp</span><span class="w"> </span><span class="s">&quot;^:tags:&quot;</span>
 <span class="w">                                    </span><span class="nb">:keywords-value-function</span><span class="w"> </span><span class="o">,</span><span class="p">(</span><span class="nb">lambda</span><span class="w"> </span><span class="p">(</span><span class="nv">ks</span><span class="p">)</span><span class="w"> </span><span class="p">(</span><span class="nv">string-join</span><span class="w"> </span><span class="nv">ks</span><span class="w"> </span><span class="s">&quot;, &quot;</span><span class="p">))</span>
 <span class="w">                                    </span><span class="nb">:keywords-value-reverse-function</span><span class="w"> </span><span class="nv">denote-extract-keywords-from-front-matter</span>
-<span class="w">                                    </span><span class="nb">:link</span><span class="w"> </span><span class="s">&quot;:note:`%2$s &lt;%1$s&gt;`&quot;</span>
-<span class="w">                                    </span><span class="nb">:link-in-context-regexp</span><span class="w"> </span><span class="o">,</span><span class="p">(</span><span class="nf">concat</span><span class="w"> </span><span class="s">&quot;:note:`.*?&lt;\\(?1:&quot;</span><span class="w"> </span><span class="nv">denote-id-regexp</span><span class="w"> </span><span class="s">&quot;\\)&gt;`&quot;</span><span class="p">))))</span>
+<span class="w">                                    </span><span class="nb">:link</span><span class="w"> </span><span class="s">&quot;:denote:link:`%2$s &lt;%1$s&gt;`&quot;</span>
+<span class="w">                                    </span><span class="nb">:link-in-context-regexp</span><span class="w"> </span><span class="o">,</span><span class="p">(</span><span class="nf">concat</span><span class="w"> </span><span class="s">&quot;:denote:link:`.*?&lt;\\(?1:&quot;</span><span class="w"> </span><span class="nv">denote-id-regexp</span><span class="w"> </span><span class="s">&quot;\\)&gt;`&quot;</span><span class="p">))))</span>
 </pre></div>
 </div>
 </div>
@@ -1256,7 +1256,7 @@ The following advice ensures that the right vc backend is selected for subprojec
 <h2>LLMs<a class="headerlink" href="#llms" title="Link to this heading">¶</a></h2>
 <div class="admonition seealso">
 <p class="admonition-title">See also</p>
-<p><span class="xref std std-ref">local-llms-with-ollama-gptel</span></p>
+<p><a class="reference internal" href="../../blog/2024/local-llms-with-ollama-and-gptel/" title="TIL: Local LLMs with Ollama and gptel">TIL: Local LLMs with Ollama and gptel</a></p>
 </div>
 <div class="awdur-codeblock docutils container">
 <div class="awdur-codeblock-header docutils container">
