@@ -20,7 +20,7 @@ Why?
 
    See Brett Cannon's `blog post <https://snarky.ca/webassembly-and-its-platform-targets/>`__ for a good overview of the different flavours of WebAssembly platforms.
 
-Some :doc:`time ago </blog/2021/bringing-esbonio-to-the-browser>` now, I stated that I wanted to get the `esbonio`_ language server running in `vscode.dev <https://vscode.dev>`__.
+Some :denote:link:`time ago <20211025T120000>` now, I stated that I wanted to get the `esbonio`_ language server running in `vscode.dev <https://vscode.dev>`__.
 While there
 `has been <https://github.com/swyddfa/esbonio/pull/438>`__
 some

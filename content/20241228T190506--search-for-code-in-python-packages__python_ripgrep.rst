@@ -14,4 +14,4 @@ A nice trick is to use a tool like ``fd`` to gather all the relevant filepaths a
 
    $ fd -e py . "${VIRTUAL_ENV}/lib/python3.10/site-packages/<package>" -X rg <pattern>
 
-For jupyter notebooks see :note:`Search for Code in Jupyter Notebooks <20241221T132917>`
+   For jupyter notebooks see :denote:link:`Search for Code in Jupyter Notebooks <20241221T132917>`
