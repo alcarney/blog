@@ -381,33 +381,42 @@ Specifics of theme loading aside, let's pick a variant based on the current syst
 .. code-block:: elisp
    :filename: emacs/init.el
 
-   (alc-theme-load-theme
-     (caar (dbus-call-method
-            :session
-            "org.freedesktop.portal.Desktop"
-            "/org/freedesktop/portal/desktop"
-            "org.freedesktop.portal.Settings" "Read"
-            "org.freedesktop.appearance" "color-scheme")))
+   (when (display-graphic-p)
+     (alc-theme-load-theme
+       (caar (dbus-call-method
+              :session
+              "org.freedesktop.portal.Desktop"
+              "/org/freedesktop/portal/desktop"
+              "org.freedesktop.portal.Settings" "Read"
+              "org.freedesktop.appearance" "color-scheme"))))
 
 Also, set up a listener so that Emacs automatically updates if the preference changes (again, thanks to ``auto-dark-emacs`` for the DBus incantation)
 
 .. code-block:: elisp
    :filename: emacs/init.el
 
-   (setq alc-theme-dbus-listener
-         (dbus-register-signal
-          :session
-          "org.freedesktop.portal.Desktop"
-          "/org/freedesktop/portal/desktop"
-          "org.freedesktop.portal.Settings"
-          "SettingChanged"
-          (lambda (path var val)
-            (when (and (string= path "org.freedesktop.appearance")
-                       (string= var "color-scheme"))
-              (alc-theme-load-theme (car val))))))
+   (when (display-graphic-p)
+      (setq alc-theme-dbus-listener
+            (dbus-register-signal
+             :session
+             "org.freedesktop.portal.Desktop"
+             "/org/freedesktop/portal/desktop"
+             "org.freedesktop.portal.Settings"
+             "SettingChanged"
+             (lambda (path var val)
+               (when (and (string= path "org.freedesktop.appearance")
+                          (string= var "color-scheme"))
+                 (alc-theme-load-theme (car val)))))))
 
 If I ever need to, the listener can be disabled by running ``(dbus-unregister-object alc-theme-dbus-listener)``
 
+However, the dbus code fails when I am SSH-ing into my Raspberry Pi so in that case we just want a theme loaded and be done with it.
+
+.. code-block:: elisp
+   :filename: emacs/init.el
+
+   (unless (display-graphic-p)
+     (alc-theme-load-theme 1)) ; dark
 
 Miscellaneous
 ^^^^^^^^^^^^^
