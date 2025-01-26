@@ -10,7 +10,7 @@ Passing strings between TinyGo and JavaScript
 
 .. container:: post-teaser
 
-   After getting a :doc:`"Hello, World!" </blog/2020/hello-world-tinygo-wasm>` WebAssembly
+   After getting a :denote:link:`"Hello, World!" <20200428T120000>` WebAssembly
    application working I thought it would be fun to try and implement a toy programming
    language in the browser. However before I could even start thinking about parsers,
    abstract syntax trees and the like I had to be able to pass strings between my

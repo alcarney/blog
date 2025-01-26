@@ -27,12 +27,21 @@ class RecordCollection(collections.UserDict[str, Record]):
         super().__init__(*args, **kwargs)
 
         self._by_year = {}
+        self._by_identifier = {}
 
     def __setitem__(self, key: str, item: Record) -> None:
         super().__setitem__(key, item)
 
+        self._by_identifier[item.identifier] = key
+
         year = item.timestamp.year
         self._by_year.setdefault(year, []).append(key)
+
+    def find(self, *, identifier: str | None = None) -> Record | None:
+        """Find records by various criteria."""
+
+        if identifier is not None:
+            return self.get(self._by_identifier.get(identifier))
 
     def all(self):
         for k in sorted(self.keys(), reverse=True):
@@ -64,7 +73,7 @@ class Denote(Domain):
     }
 
     roles = {
-        "note": XRefRole(),
+        "link": XRefRole(),
     }
 
     @property
@@ -100,14 +109,16 @@ class Denote(Domain):
     ) -> Element | None:
         """Resolve cross references"""
 
-        if (record := self.records.get(target)) is None:
+        if (record := self.records.find(identifier=target)) is None:
             return None
 
         if record.docname is None:
             return None
 
-        if contnode.astext() == target:
+        if (linktext := contnode.astext()) == target:
             contnode = nodes.Text(record.title)
+        else:
+            contnode = nodes.Text(linktext)
 
         return make_refnode(
             builder, fromdocname, record.docname, None, [contnode], record.title

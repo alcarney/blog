@@ -10,7 +10,7 @@ Notes for November 2024
 
 .. container:: post-teaser
 
-   Doubling my streak of writing notes on the :ref:`previous month <notes-october>` to 2, here are some of the things I worked on in November.
+   Doubling my streak of writing notes on the :denote:link:`previous month <20241103T120000>` to 2, here are some of the things I worked on in November.
 
 vscode-wasi-pygls
 -----------------

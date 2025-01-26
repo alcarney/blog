@@ -10,7 +10,7 @@ My Next Steps with Nix: Overlays
 
 .. container:: post-teaser
 
-   :doc:`Last time </blog/2022/first-steps-with-nix>`, I experimented with writing a flake that defined development environments for the :pypi:`esbonio` package spanning multiple Python versions.
+   :denote:link:`Last time <20221217T120000>`, I experimented with writing a flake that defined development environments for the :pypi:`esbonio` package spanning multiple Python versions.
    During that process I also packaged :pypi:`pytest-lsp` using an ad-hoc nix expression as part of the ``esbonio`` repo.
 
    In this post I look into writing a similar flake for the ``pytest-lsp`` package itself, but this time using overlays to override and extend the nixpkgs package set.

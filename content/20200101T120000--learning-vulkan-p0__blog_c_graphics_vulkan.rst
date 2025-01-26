@@ -34,7 +34,7 @@ remember to update it that is!
 
 - [ ] Draw a triangle on screen
 
-  + [x] :doc:`Enumerating available VkPhysicalDevices </blog/2020/learning-vulkan-p1>`
+  + [x] :denote:link:`Enumerating available VkPhysicalDevices <20200108T120000>`
 
 - [ ] OBJ object viewer
 - [ ] Ray Marching

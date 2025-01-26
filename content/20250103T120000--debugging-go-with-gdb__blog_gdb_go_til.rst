@@ -62,7 +62,7 @@ I've used ``remote-viewer`` in the past, let's install that... umm... which pack
 
 *It was in this moment he made a grave mistake*
 
-Rather than do the sane thing and Google it, I thought this would be a good chance to ask my :ref:`local AI model <local-llms-with-ollama-gptel>` for the ``dnf`` incantation to search for the package that provides the ``remote-viewer`` command.
+Rather than do the sane thing and Google it, I thought this would be a good chance to ask my :denote:link:`local AI model <20241116T120000>` for the ``dnf`` incantation to search for the package that provides the ``remote-viewer`` command.
 However, I quickly realised none of my containers were working since almost any podman command resulted in a go panic.
 
 .. code-block:: console

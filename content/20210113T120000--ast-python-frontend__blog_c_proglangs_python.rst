@@ -10,7 +10,7 @@ Creating a CPython Extension
 
 .. container:: post-teaser
 
-   :doc:`Previously </blog/2020/ast-simple-eval>`, as part of my exploration
+   :denote:link:`Previously <20201217T120000>`, as part of my exploration
    into how programming languages are implemented, I wrote a very simple AST
    evaluator that knew how to add and multiply floats together. Since constructing
    these ASTs by hand is quite painful I thought it would be fun to come up with a

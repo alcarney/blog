@@ -722,8 +722,8 @@ The elisp package from Protesilaos provides many nice utilities in Emacs that bu
                                        :keywords-key-regexp "^:tags:"
                                        :keywords-value-function ,(lambda (ks) (string-join ks ", "))
                                        :keywords-value-reverse-function denote-extract-keywords-from-front-matter
-                                       :link ":note:`%2$s <%1$s>`"
-                                       :link-in-context-regexp ,(concat ":note:`.*?<\\(?1:" denote-id-regexp "\\)>`"))))
+                                       :link ":denote:link:`%2$s <%1$s>`"
+                                       :link-in-context-regexp ,(concat ":denote:link:`.*?<\\(?1:" denote-id-regexp "\\)>`"))))
 
 Embark
 ------
@@ -1024,7 +1024,7 @@ LLMs
 
 .. seealso::
 
-   :ref:`local-llms-with-ollama-gptel`
+   :denote:link:`20241116T120000`
 
 .. code-block:: elisp
    :filename: emacs/init.el

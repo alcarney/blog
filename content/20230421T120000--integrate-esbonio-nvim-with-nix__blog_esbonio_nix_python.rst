@@ -356,7 +356,7 @@ Integrating Esboino
 
 Next we need to make sure the esbonio language server is available in this environment and include the necessary configuration for it in the config.
 
-Including the server should be pretty straightforward as we get to reuse the overlay defined :doc:`previously </blog/2023/nix-overlays-p2>`.
+Including the server should be pretty straightforward as we get to reuse the overlay defined :denote:link:`previously <20230402T120000>`.
 
 .. code-block:: diff
 
