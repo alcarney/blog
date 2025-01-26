@@ -575,13 +575,14 @@ If they are active, then it will use colors from the theme to style elements of 
 <div class="awdur-codeblock docutils container">
 <div class="awdur-codeblock-header docutils container">
 <code class="awdur-codeblock-filename docutils literal notranslate"><span class="pre">emacs/init.el</span></code></div>
-<div class="highlight-elisp notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="nv">alc-theme-load-theme</span>
-<span class="w">  </span><span class="p">(</span><span class="nv">caar</span><span class="w"> </span><span class="p">(</span><span class="nv">dbus-call-method</span>
-<span class="w">         </span><span class="nb">:session</span>
-<span class="w">         </span><span class="s">&quot;org.freedesktop.portal.Desktop&quot;</span>
-<span class="w">         </span><span class="s">&quot;/org/freedesktop/portal/desktop&quot;</span>
-<span class="w">         </span><span class="s">&quot;org.freedesktop.portal.Settings&quot;</span><span class="w"> </span><span class="s">&quot;Read&quot;</span>
-<span class="w">         </span><span class="s">&quot;org.freedesktop.appearance&quot;</span><span class="w"> </span><span class="s">&quot;color-scheme&quot;</span><span class="p">)))</span>
+<div class="highlight-elisp notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="nb">when</span><span class="w"> </span><span class="p">(</span><span class="nv">display-graphic-p</span><span class="p">)</span>
+<span class="w">  </span><span class="p">(</span><span class="nv">alc-theme-load-theme</span>
+<span class="w">    </span><span class="p">(</span><span class="nv">caar</span><span class="w"> </span><span class="p">(</span><span class="nv">dbus-call-method</span>
+<span class="w">           </span><span class="nb">:session</span>
+<span class="w">           </span><span class="s">&quot;org.freedesktop.portal.Desktop&quot;</span>
+<span class="w">           </span><span class="s">&quot;/org/freedesktop/portal/desktop&quot;</span>
+<span class="w">           </span><span class="s">&quot;org.freedesktop.portal.Settings&quot;</span><span class="w"> </span><span class="s">&quot;Read&quot;</span>
+<span class="w">           </span><span class="s">&quot;org.freedesktop.appearance&quot;</span><span class="w"> </span><span class="s">&quot;color-scheme&quot;</span><span class="p">))))</span>
 </pre></div>
 </div>
 </div>
@@ -589,21 +590,31 @@ If they are active, then it will use colors from the theme to style elements of 
 <div class="awdur-codeblock docutils container">
 <div class="awdur-codeblock-header docutils container">
 <code class="awdur-codeblock-filename docutils literal notranslate"><span class="pre">emacs/init.el</span></code></div>
-<div class="highlight-elisp notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="k">setq</span><span class="w"> </span><span class="nv">alc-theme-dbus-listener</span>
-<span class="w">      </span><span class="p">(</span><span class="nv">dbus-register-signal</span>
-<span class="w">       </span><span class="nb">:session</span>
-<span class="w">       </span><span class="s">&quot;org.freedesktop.portal.Desktop&quot;</span>
-<span class="w">       </span><span class="s">&quot;/org/freedesktop/portal/desktop&quot;</span>
-<span class="w">       </span><span class="s">&quot;org.freedesktop.portal.Settings&quot;</span>
-<span class="w">       </span><span class="s">&quot;SettingChanged&quot;</span>
-<span class="w">       </span><span class="p">(</span><span class="nb">lambda</span><span class="w"> </span><span class="p">(</span><span class="nv">path</span><span class="w"> </span><span class="nv">var</span><span class="w"> </span><span class="nv">val</span><span class="p">)</span>
-<span class="w">         </span><span class="p">(</span><span class="nb">when</span><span class="w"> </span><span class="p">(</span><span class="k">and</span><span class="w"> </span><span class="p">(</span><span class="nf">string=</span><span class="w"> </span><span class="nv">path</span><span class="w"> </span><span class="s">&quot;org.freedesktop.appearance&quot;</span><span class="p">)</span>
-<span class="w">                    </span><span class="p">(</span><span class="nf">string=</span><span class="w"> </span><span class="nv">var</span><span class="w"> </span><span class="s">&quot;color-scheme&quot;</span><span class="p">))</span>
-<span class="w">           </span><span class="p">(</span><span class="nv">alc-theme-load-theme</span><span class="w"> </span><span class="p">(</span><span class="nf">car</span><span class="w"> </span><span class="nv">val</span><span class="p">))))))</span>
+<div class="highlight-elisp notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="nb">when</span><span class="w"> </span><span class="p">(</span><span class="nv">display-graphic-p</span><span class="p">)</span>
+<span class="w">   </span><span class="p">(</span><span class="k">setq</span><span class="w"> </span><span class="nv">alc-theme-dbus-listener</span>
+<span class="w">         </span><span class="p">(</span><span class="nv">dbus-register-signal</span>
+<span class="w">          </span><span class="nb">:session</span>
+<span class="w">          </span><span class="s">&quot;org.freedesktop.portal.Desktop&quot;</span>
+<span class="w">          </span><span class="s">&quot;/org/freedesktop/portal/desktop&quot;</span>
+<span class="w">          </span><span class="s">&quot;org.freedesktop.portal.Settings&quot;</span>
+<span class="w">          </span><span class="s">&quot;SettingChanged&quot;</span>
+<span class="w">          </span><span class="p">(</span><span class="nb">lambda</span><span class="w"> </span><span class="p">(</span><span class="nv">path</span><span class="w"> </span><span class="nv">var</span><span class="w"> </span><span class="nv">val</span><span class="p">)</span>
+<span class="w">            </span><span class="p">(</span><span class="nb">when</span><span class="w"> </span><span class="p">(</span><span class="k">and</span><span class="w"> </span><span class="p">(</span><span class="nf">string=</span><span class="w"> </span><span class="nv">path</span><span class="w"> </span><span class="s">&quot;org.freedesktop.appearance&quot;</span><span class="p">)</span>
+<span class="w">                       </span><span class="p">(</span><span class="nf">string=</span><span class="w"> </span><span class="nv">var</span><span class="w"> </span><span class="s">&quot;color-scheme&quot;</span><span class="p">))</span>
+<span class="w">              </span><span class="p">(</span><span class="nv">alc-theme-load-theme</span><span class="w"> </span><span class="p">(</span><span class="nf">car</span><span class="w"> </span><span class="nv">val</span><span class="p">)))))))</span>
 </pre></div>
 </div>
 </div>
 <p>If I ever need to, the listener can be disabled by running <code class="docutils literal notranslate"><span class="pre">(dbus-unregister-object</span> <span class="pre">alc-theme-dbus-listener)</span></code></p>
+<p>However, the dbus code fails when I am SSH-ing into my Raspberry Pi so in that case we just want a theme loaded and be done with it.</p>
+<div class="awdur-codeblock docutils container">
+<div class="awdur-codeblock-header docutils container">
+<code class="awdur-codeblock-filename docutils literal notranslate"><span class="pre">emacs/init.el</span></code></div>
+<div class="highlight-elisp notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="nb">unless</span><span class="w"> </span><span class="p">(</span><span class="nv">display-graphic-p</span><span class="p">)</span>
+<span class="w">  </span><span class="p">(</span><span class="nv">alc-theme-load-theme</span><span class="w"> </span><span class="mi">1</span><span class="p">))</span><span class="w"> </span><span class="c1">; dark</span>
+</pre></div>
+</div>
+</div>
 </section>
 <section id="miscellaneous">
 <h3>Miscellaneous<a class="headerlink" href="#miscellaneous" title="Link to this heading">¶</a></h3>
