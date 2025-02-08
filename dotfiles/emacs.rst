@@ -879,6 +879,7 @@ I use ``eglot`` as my language client
    :filename: emacs/init.el
 
    (use-package eglot
+     :bind (("<f2>" . eglot-rename))
      :custom
      (eglot-autoshutdown t)
      (eglot-extend-to-xref t)
