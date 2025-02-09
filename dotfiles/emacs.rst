@@ -106,12 +106,11 @@ Scrolling
 ^^^^^^^^^
 
 With Emacs 29 came ``pixel-scroll-precision-mode`` which makes the scrolling with a touchpad experience much nicer overall.
-It even support inertial scrolling!
 
 .. code-block:: elisp
    :filename: emacs/init.el
 
-   (setq pixel-scroll-precision-use-momentum t
+   (setq pixel-scroll-precision-use-momentum nil
          pixel-scroll-precision-interpolate-page t
          pixel-scroll-precision-momentum-seconds 0.5)
    (pixel-scroll-precision-mode t)
@@ -660,10 +659,11 @@ Use the :gh:`oantolin/orderless` completion style
      :ensure t
      :custom
      (completion-styles '(orderless basic))
+     (completion-category-defaults nil)
      (completion-category-overrides '((file (styles basic partial-completion)))))
 
 Consult
--------
+^^^^^^^
 
 Use :gh:`minad/consult`
 
@@ -676,7 +676,7 @@ Use :gh:`minad/consult`
      (consult-preview-key "M-.")
      :bind (("C-x b" . consult-buffer)))
 
-And since I use embark, use the recommended ``emabrk-collect`` package
+And since I use embark, use the recommended ``emabrk-consult`` package
 
 .. code-block:: elisp
    :filename: emacs/init.el
@@ -684,6 +684,19 @@ And since I use embark, use the recommended ``emabrk-collect`` package
    (use-package embark-consult
      :after (embark consult)
      :ensure t)
+
+Embark
+^^^^^^
+
+Use :gh:`oantolin/embark`!
+
+.. code-block:: elisp
+   :filename: emacs/init.el
+
+   (use-package embark
+     :ensure t
+     :bind (("C-." . embark-act)
+            ("M-." . embark-dwim)))
 
 Dired
 -----
@@ -733,19 +746,6 @@ The elisp package from Protesilaos provides many nice utilities in Emacs that bu
                                        :keywords-value-reverse-function denote-extract-keywords-from-front-matter
                                        :link ":denote:link:`%2$s <%1$s>`"
                                        :link-in-context-regexp ,(concat ":denote:link:`.*?<\\(?1:" denote-id-regexp "\\)>`"))))
-
-Embark
-------
-
-Use :gh:`oantolin/embark`!
-
-.. code-block:: elisp
-   :filename: emacs/init.el
-
-   (use-package embark
-     :ensure t
-     :bind (("C-." . embark-act)
-            ("M-." . embark-dwim)))
 
 Git
 ---
@@ -888,6 +888,7 @@ I use ``eglot`` as my language client
    :filename: emacs/init.el
 
    (use-package eglot
+     :bind (("<f2>" . eglot-rename))
      :custom
      (eglot-autoshutdown t)
      (eglot-extend-to-xref t)
