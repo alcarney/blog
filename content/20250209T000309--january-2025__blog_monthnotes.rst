@@ -31,4 +31,4 @@ I also managed to put a fair amount of work into the upcoming ``v1`` of  ``esbon
 
 - `Re-implemented <https://github.com/swyddfa/esbonio/pull/941>`__ completion suggestions for directive arguments
 
-- Fixed quite a few bugs which made their way into the `v1.0.0b10 release <https://github.com/swyddfa/esbonio/releases/tag/esbonio-language-server-v1.0.0b10>` this week.
+- Fixed quite a few bugs which made their way into the `v1.0.0b10 release <https://github.com/swyddfa/esbonio/releases/tag/esbonio-language-server-v1.0.0b10>`__ this week.
