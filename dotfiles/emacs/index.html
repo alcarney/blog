@@ -18,7 +18,7 @@
     <link rel="stylesheet" type="text/css" href="../../_static/sphinx-design.min.css?v=95c83b7e" />
     
     
-    <link rel="stylesheet" type="text/css" href="../../_static/css/styles.css?v=c8573db6" />
+    <link rel="stylesheet" type="text/css" href="../../_static/css/styles.css?v=6d775f47" />
     
 
     <script src="../../_static/documentation_options.js?v=187304be"></script>
@@ -724,6 +724,14 @@ Uses <code class="docutils literal notranslate"><span class="pre">whitespace-dis
 <code class="awdur-codeblock-filename docutils literal notranslate"><span class="pre">emacs/init.el</span></code></div>
 <div class="highlight-elisp notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="k">setq</span><span class="w"> </span><span class="nv">compilation-always-kill</span><span class="w"> </span><span class="no">t</span>
 <span class="w">      </span><span class="nv">compilation-scroll-output</span><span class="w"> </span><span class="no">t</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<p>Make <kbd class="kbd docutils literal notranslate">F5</kbd> call <code class="docutils literal notranslate"><span class="pre">recompile</span></code></p>
+<div class="awdur-codeblock docutils container">
+<div class="awdur-codeblock-header docutils container">
+<code class="awdur-codeblock-filename docutils literal notranslate"><span class="pre">emacs/init.el</span></code></div>
+<div class="highlight-elisp notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="nv">keymap-global-set</span><span class="w"> </span><span class="s">&quot;&lt;f5&gt;&quot;</span><span class="w"> </span><span class="ss">&#39;recompile</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>

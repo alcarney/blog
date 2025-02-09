@@ -3,6 +3,8 @@ Dotfiles
 
 Some of my dotfiles
 
+.. awdur:project-browser::
+
 .. grid:: 1 2 2 2
    :gutter: 2
    :padding: 0
