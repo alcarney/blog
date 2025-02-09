@@ -2,13 +2,21 @@
 <feed xmlns="http://www.w3.org/2005/Atom" xml:lang="en">
   <id>https://www.alcarney.me/</id>
   <title>Alex Carney | Blog</title>
-  <updated>2025-01-26T00:56:09.415815+00:00</updated>
+  <updated>2025-02-09T17:30:28.576812+00:00</updated>
   <link href="https://www.alcarney.me/" />
   <link href="https://www.alcarney.me/blog/atom.xml" rel="self" />
   <author>
     <name>Alex Carney</name>
   </author>
   <generator uri="https://www.sphinx-doc.org/en/master/" version="8">Sphinx</generator>
+  
+  <entry>
+    <id>https://www.alcarney.me/blog/2025/january-2025/</id>
+    <link href="https://www.alcarney.me/blog/2025/january-2025" rel="alternate" />
+    <published>2025-02-09T00:03:09+00:00</published>
+    <updated>2025-02-09T00:03:09+00:00</updated>
+    <title>Notes for December/January</title>
+  </entry>
   
   <entry>
     <id>https://www.alcarney.me/blog/2025/debugging-go-with-gdb/</id>
