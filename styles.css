@@ -165,8 +165,17 @@ kbd {
 
 /*-- Awdur integration --*/
 
-.awdur-codeblock-header {
-    @apply px-2 border-t border-r border-l rounded-t dark:border-gray-600 dark:bg-gray-800
+.awdur-container {
+    @apply my-4
+}
+
+.awdur-codeblock {
+
+}
+
+.awdur-codeblock-header,
+.awdur-directory-header {
+    @apply prose prose-emerald px-2 border-t border-r border-l rounded-t dark:border-gray-600 dark:bg-gray-800 max-w-none
 }
 
 .awdur-codeblock-filename::after,
@@ -176,4 +185,45 @@ kbd {
 
 .awdur-codeblock div.highlight {
     @apply border-t-0 rounded-t-none
+}
+
+
+.awdur-directory-listing {
+    @apply prose prose-emerald p-0 m-0 border-r border-b border-l rounded-b dark:border-gray-600 max-w-none
+}
+
+.awdur-directory-listing li  {
+    @apply m-0 border-t dark:border-gray-600
+}
+
+.awdur-directory-listing li {
+    list-style: none;
+    position: relative;
+    padding: 0.2em 2em;
+}
+
+.awdur-directory::before {
+    content: '';
+    position: absolute;
+    left: 3px;
+    top: 4px;
+    width: 1.5em;
+    height: 1.5em;
+    background-repeat: no-repeat;
+    background-image: url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNCAyNCIgY2xhc3M9InctNiBoLTYiIGZpbGw9Im5vbmUiIHN0cm9rZT0id2hpdGUiIHN0cm9rZS13aWR0aD0iMSIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIj4KICA8cGF0aCBkPSJNMjIgMTlhMiAyIDAgMCAxLTIgMkg0YTIgMiAwIDAgMS0yLTJWNWEyIDIgMCAwIDEgMi0yaDVsMiAzaDlhMiAyIDAgMCAxIDIgMnoiLz4KPC9zdmc+Cg==");
+}
+
+.awdur-file::before {
+    content: '';
+    position: absolute;
+    left: 3px;
+    top: 4px;
+    width: 1.5em;
+    height: 1.5em;
+    background-repeat: no-repeat;
+    background-image: url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNCAyNCIgY2xhc3M9InctNiBoLTYiIGZpbGw9Im5vbmUiIHN0cm9rZT0id2hpdGUiIHN0cm9rZS13aWR0aD0iMSIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIiA+PHBhdGggZD0iTTE0IDJINmEyIDIgMCAwIDAtMiAydjE2YTIgMiAwIDAgMCAyIDJoMTJhMiAyIDAgMCAwIDItMlY4eiIvPgogIDxwYXRoIGQ9Ik0xNCAydjZoNk0xNiAxM0g4TTE2IDE3SDhNMTAgOUg4Ii8+Cjwvc3ZnPg==");
+}
+
+.awdur-directory-listing li:hover {
+    @apply bg-gray-50 dark:bg-gray-800
 }
