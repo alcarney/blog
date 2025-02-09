@@ -106,12 +106,11 @@ Scrolling
 ^^^^^^^^^
 
 With Emacs 29 came ``pixel-scroll-precision-mode`` which makes the scrolling with a touchpad experience much nicer overall.
-It even support inertial scrolling!
 
 .. code-block:: elisp
    :filename: emacs/init.el
 
-   (setq pixel-scroll-precision-use-momentum t
+   (setq pixel-scroll-precision-use-momentum nil
          pixel-scroll-precision-interpolate-page t
          pixel-scroll-precision-momentum-seconds 0.5)
    (pixel-scroll-precision-mode t)
