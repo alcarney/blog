@@ -524,6 +524,13 @@ Basic settings for Emacs' compilation framework
    (setq compilation-always-kill t
          compilation-scroll-output t)
 
+Make :kbd:`F5` call ``recompile``
+
+.. code-block:: elisp
+   :filename: emacs/init.el
+
+   (keymap-global-set "<f5>" 'recompile)
+
 The following adds a simple minor mode which, when enabled, will call ``recompile`` each time the buffer is saved
 
 .. code-block:: elisp
