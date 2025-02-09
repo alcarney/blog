@@ -650,10 +650,11 @@ Use the :gh:`oantolin/orderless` completion style
      :ensure t
      :custom
      (completion-styles '(orderless basic))
+     (completion-category-defaults nil)
      (completion-category-overrides '((file (styles basic partial-completion)))))
 
 Consult
--------
+^^^^^^^
 
 Use :gh:`minad/consult`
 
@@ -666,7 +667,7 @@ Use :gh:`minad/consult`
      (consult-preview-key "M-.")
      :bind (("C-x b" . consult-buffer)))
 
-And since I use embark, use the recommended ``emabrk-collect`` package
+And since I use embark, use the recommended ``emabrk-consult`` package
 
 .. code-block:: elisp
    :filename: emacs/init.el
@@ -674,6 +675,19 @@ And since I use embark, use the recommended ``emabrk-collect`` package
    (use-package embark-consult
      :after (embark consult)
      :ensure t)
+
+Embark
+^^^^^^
+
+Use :gh:`oantolin/embark`!
+
+.. code-block:: elisp
+   :filename: emacs/init.el
+
+   (use-package embark
+     :ensure t
+     :bind (("C-." . embark-act)
+            ("M-." . embark-dwim)))
 
 Dired
 -----
@@ -723,19 +737,6 @@ The elisp package from Protesilaos provides many nice utilities in Emacs that bu
                                        :keywords-value-reverse-function denote-extract-keywords-from-front-matter
                                        :link ":note:`%2$s <%1$s>`"
                                        :link-in-context-regexp ,(concat ":note:`.*?<\\(?1:" denote-id-regexp "\\)>`"))))
-
-Embark
-------
-
-Use :gh:`oantolin/embark`!
-
-.. code-block:: elisp
-   :filename: emacs/init.el
-
-   (use-package embark
-     :ensure t
-     :bind (("C-." . embark-act)
-            ("M-." . embark-dwim)))
 
 Git
 ---
