@@ -40,7 +40,6 @@ extensions = [
     # Local extensions: see `./extensions`
     "coderepo",
     "denote",
-    "tailwind",
 ]
 
 primary_domain = "denote"
