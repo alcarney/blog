@@ -1,8 +1,9 @@
 include .devcontainer/tools.mk
 
 
-ABLOG_ARGS=
-BUILDDIR=_build/html
+SPHINX_OPTS=
+BUILDDIR=_build
+HTMLDIR=$(BUILDDIR)/dirhtml
 PORT=8000
 
 default: html
@@ -12,26 +13,15 @@ clean:
 	-test -d _build/doctrees && rm -r _build/doctrees
 	-test -d _build/dirhtml && rm -r _build/dirhtml
 
-node_modules/.installed: package.json package-lock.json $(NPM)
-	$(NPM) ci
-	touch $@
-
-.PHONY: tailwind
-tailwind: node_modules/.installed
-
 # Rebuild everything if any JavaScript is modified
-$(BUILDDIR)/_static/js/theme.js: _static/js/theme.js
-	$(eval ABLOG_ARGS=-a)
+$(HTMLDIR)/_static/js/theme.js: _static/js/theme.js
+	$(eval SPHINX_OPTS=-Ea)
 
-# Run tailwind if any styles are changed.
-_static/css/styles.css: styles.css tailwind.config.js $(wildcard _templates/*.html) _static/js/theme.js tailwind
-	$(NPX) tailwindcss -i styles.css -o _static/css/styles.css
-	$(eval ABLOG_ARGS=-a)
-
-html: _static/css/styles.css $(BUILDDIR)/_static/js/theme.js
-	$(HATCH) run 'blog:build'
-	mkdir -p $(BUILDDIR)/talks/
-	cp -r talks/introducing-esbonio $(BUILDDIR)/talks/introducing-esbonio
+.PHONY: html
+html:
+	$(HATCH) -e blog run sphinx-build -M dirhtml . $(BUILDDIR) $(SPHINX_OPTS)
+	mkdir -p $(HTMLDIR)/talks/
+	cp -r talks/introducing-esbonio $(HTMLDIR)/talks/introducing-esbonio
 
 
 .PHONY: dotfiles
@@ -40,4 +30,4 @@ dotfiles:
 
 
 preview:
-	python -m http.server -d $(BUILDDIR) $(PORT)
+	python -m http.server -d $(HTMLDIR) $(PORT)
