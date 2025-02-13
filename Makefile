@@ -36,8 +36,8 @@ html: _static/css/styles.css $(BUILDDIR)/_static/js/theme.js
 
 .PHONY: dotfiles
 dotfiles:
-	$(HATCH) -e blog run sphinx-build -M sources . _build
-	rm -r _build/sources/_sphinx_design_static/
+	$(HATCH) -e blog run sphinx-build -M sources . $(BUILDDIR) $(SPHINX_OPTS)
+
 
 preview:
 	python -m http.server -d $(BUILDDIR) $(PORT)
