@@ -18,7 +18,7 @@ Bringing Esbonio to the Browser
 
    .. figure:: https://github.com/swyddfa/esbonio/raw/develop/resources/images/completion-demo.gif
       :align: center
-      :width: 80%
+
 
    Anyway with the recent releases of `github.dev`_ and `vscode.dev`_ I really want to
    see if I can bring Esbonio into the browser version of VSCode. There's only one
@@ -75,7 +75,6 @@ messages between each other.
    <svg
      width="100%"
      viewBox="0 0 350 100"
-     class="bg-gray-100 dark:bg-gray-900 border dark:border-gray-600 rounded"
      fill="currentColor"
      xmlns="http://www.w3.org/2000/svg"
      xmlns:svg="http://www.w3.org/2000/svg">
@@ -86,11 +85,11 @@ messages between each other.
        </marker>
      </defs>
 
-     <rect class="text-green-600" x="30" y="25" width="100" height="50"/>
-     <rect class="text-green-600" x="220" y="25" width="100" height="50"/>
+     <rect fill="var(--fg-accent)" x="30" y="25" width="100" height="50"/>
+     <rect fill="var(--fg-accent)" x="220" y="25" width="100" height="50"/>
 
-     <text class="text-white" y="55" x="47">LSP Client</text>
-     <text class="text-white" y="55" x="237">LSP Server</text>
+     <text style="font-size: 0.8rem" y="55" x="47">LSP Client</text>
+     <text style="font-size: 0.8rem" y="55" x="237">LSP Server</text>
 
      <path marker-end="url(#arrowhead)" stroke="currentColor" d="M135 40 L205 40"></path>
      <path marker-end="url(#arrowhead)" stroke="currentColor" d="M215 60 L145 60"></path>
@@ -106,7 +105,6 @@ running Esbonio managed by a bit of JavaScript glue code.
    <svg
      width="100%"
      viewBox="0 0 700 200"
-     class="bg-gray-100 dark:bg-gray-900 border dark:border-gray-600 rounded"
      fill="currentColor"
      xmlns="http://www.w3.org/2000/svg"
      xmlns:svg="http://www.w3.org/2000/svg">
@@ -117,26 +115,26 @@ running Esbonio managed by a bit of JavaScript glue code.
        </marker>
        <marker id="arrowleft" markerWidth="10" markerHeight="10" refX="0" refY="3" orient="180deg" markerUnits="strokeWidth">
          <path d="M0,0 L0,6 L9,3 z"></path>
-   </defs>
+     </defs>
 
-     <rect class="text-green-600" fill="none" stroke="currentColor" x="30" y="50" width="150" height="100"/>
-     <rect class="text-green-600" fill="none" stroke="currentColor" x="225" y="50" width="150" height="100"/>
-     <rect class="text-green-600" fill="none" stroke="currentColor" x="420" y="50" width="250" height="100"/>
+     <rect fill="none" stroke="currentColor" x="30" y="50" width="150" height="100"/>
+     <rect fill="none" stroke="currentColor" x="225" y="50" width="150" height="100"/>
+     <rect fill="none" stroke="currentColor" x="420" y="50" width="250" height="100"/>
 
-     <rect class="text-green-600" x="50" y="75" width="110" height="50"/>
-     <rect class="text-green-600" x="250" y="75" width="100" height="50"/>
-     <rect class="text-green-600" x="435" y="75" width="100" height="50"/>
-     <rect class="text-green-600" x="565" y="75" width="80" height="50"/>
+     <rect fill="var(--fg-accent)" x="50" y="75" width="110" height="50"/>
+     <rect fill="var(--fg-accent)" x="250" y="75" width="100" height="50"/>
+     <rect fill="var(--fg-accent)" x="435" y="75" width="100" height="50"/>
+     <rect fill="var(--fg-accent)" x="565" y="75" width="80" height="50"/>
 
-     <text y="45" x="70">vscode.dev</text>
-     <text y="45" x="260">Web Worker</text>
-     <text y="45" x="465">LSP Server (Web Worker)</text>
-     <text y="95" x="166">Starts</text>
+     <text style="font-size: 0.8rem" y="45" x="70">vscode.dev</text>
+     <text style="font-size: 0.8rem" y="45" x="260">Web Worker</text>
+     <text style="font-size: 0.8rem" y="45" x="465">LSP Server (Web Worker)</text>
+     <text style="font-size: 0.8rem" y="95" x="185">Starts</text>
 
-     <text class="text-white" y="105" x="57">Extension Host</text>
-     <text class="text-white" y="105" x="267">LSP Client</text>
-     <text class="text-white" y="105" x="450">JS Wrapper</text>
-     <text class="text-white" y="105" x="580">Pyodide</text>
+     <text style="font-size: 0.8rem" y="105" x="57">Extension Host</text>
+     <text style="font-size: 0.8rem" y="105" x="267">LSP Client</text>
+     <text style="font-size: 0.8rem" y="105" x="450">JS Wrapper</text>
+     <text style="font-size: 0.8rem" y="105" x="580">Pyodide</text>
 
      <path marker-end="url(#arrowright)" stroke="currentColor" d="M162 100 L240 100"></path>
      <path marker-start="url(#arrowleft)" marker-end="url(#arrowright)" stroke="currentColor" d="M360 100 L425 100"></path>
@@ -350,6 +348,7 @@ URL printed by the ``tunnel`` script, which takes us to a "Friendly Reminder" sc
 and we click the ``Click to Continue`` button.
 
 .. figure:: /code/hello-lsp-web/resources/tunnel_warning.png
+   :align: center
 
 Now we can finally open the `web version`_ of VSCode itself, open the command palette
 with :kbd:`F1` and pick the ``Developer: Install Web Extension...`` command. When asked
@@ -357,6 +356,7 @@ for the URL to install from, we paste the URL given to us from the ``tunnel``  s
 above.
 
 .. figure:: /code/hello-lsp-web/resources/install_extension.png
+   :align: center
 
 With any luck, VSCode should install the extension show it in the installed extensions
 list in the ``Extensions`` tab. All that's left us to do is actually test the extension!

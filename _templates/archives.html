@@ -1,10 +1,13 @@
-<ul class="flex flex-col p-4 space-y-2 border-t border-gray-600 text-center">
+<section class="archive">
+  <h5>Archive</h5>
+  <ul>
   {% for year, posts in denote.posts.by_year().items()  %}
-  <li class="text-md">
+  <li>
     <a href="{{ pathto('blog/{}'.format(year)) }}">
-        <span class="text-green-600">{{ year }}</span>
-        <span class="text-white">({{ posts|length }})</span>
+        <span>{{ year }}</span>
+        <span class="count">({{ posts|length }})</span>
     </a>
   </li>
   {% endfor %}
 </ul>
+</section>

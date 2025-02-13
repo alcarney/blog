@@ -1,17 +1,18 @@
-{% if record and record.is_blogpost %}
-<div class="grid justify-between p-4 text-gray-400 border-t border-gray-600" style="grid-template-columns: 24px auto">
-    {% include "icon_calendar.html" %}
-    <span class="ml-2 text-right">{{ record.timestamp.strftime('%b %d, %Y') }}</span>
+{%- if record and record.is_blogpost %}
+<section class="post-metadata">
+    <h5 style="grid-column: span 2">Metadata</h5>
+    {%- include "icon_calendar.html" %}
+    <time style="align-self: center; text-align: right;" datetime="{{ record.timestamp }}">{{ record.timestamp.strftime('%b %d, %Y') }}</time>
 
-    {% include "icon_tag.html" %}
-    <ul class="text-right">
-        {% for tag in record.tags %}
-        <li class="mb-1">
-            <a href="{{ pathto('tag/' + tag) }}" class="px-2 my-1 border border-green-600 rounded bg-green-900 text-green-200">
+    {%- include "icon_tag.html" %}
+    <ul class="taglist">
+        {%- for tag in record.tags %}
+        <li>
+            <a class="tag" href="{{ pathto('tag/' + tag) }}">
                 #{{ tag }}
             </a>
         </li>
-        {% endfor %}
+        {%- endfor %}
     </ul>
-</div>
-{% endif %}
+</section>
+{%- endif %}

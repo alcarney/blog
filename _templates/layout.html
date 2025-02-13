@@ -4,75 +4,89 @@
 {# Overide the default css implementation, just to exclude the stylesheet for the "basic" theme. #}
 {%- for css in css_files %}
   {%- if css|attr("filename") %}
-    {% if not css.filename.endswith("basic.css") %}
+    {%- if not css.filename.endswith("basic.css") %}
     {{ css_tag(css) }}
-    {% endif %}
+    {%- endif %}
   {%- else %}
     <link rel="stylesheet" href="{{ pathto(css, 1)|e }}" type="text/css" />
   {%- endif %}
 {%- endfor %}
 {% endblock %}
 
-{% block body_tag %}<body class="flex flex-col justify-between min-h-screen overflow-x-hidden bg-white dark:bg-gray-900">{% endblock %}
+{% block body_tag %}
+  <body>
+{% endblock %}
 
-{% block relbar1 %}{% endblock %}
+{%- block relbar1 %}{% endblock %}
 
 {%- block content %}
-    <div class="flex flex-grow">
-        <input id="menu-state" type="checkbox" class="hidden" />
-        <aside class="flex justify-between flex-shrink-0 transition-all duration-500 bg-gray-800 -ml-80 lg:ml-0">
-            <div class="flex flex-col justify-between h-full w-80 ">
-                <div class="sticky top-0 flex flex-col h-screen">
+<input type="checkbox" id="menu-toggle" class="hidden" />
+<aside>
+  <div class="sidebar">
+    {%- include "profilecard.html" %}
+    {%- include "searchfield.html" %}
+    {%- include "globaltoc.html" %}
+    {%- if sidebars != None %}
+    {%- for sidebartemplate in sidebars %}
+      {%- include sidebartemplate %}
+    {%- endfor %}
+    {%- endif %}
+  </div>
+</aside>
 
-                    {% include "profilecard.html" %}
+<div class="content" style="min-width: 0">
+    <header class="site">
+        <label for="menu-toggle">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="2em" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </label>
+    </header>
 
-                    {% include "searchfield.html" %}
-
-                    {% include "globaltoc.html" %}
-
-                    <div class="flex-shrink overflow-auto">
-                        {%- for sidebartemplate in sidebars %}
-                        {%- include sidebartemplate %}
-                        {%- endfor %}
-                    </div>
-
-                    <footer class="w-full p-4 mt-auto text-white bg-gray-700">
-                        {% include "social_links.html" %}
-                    </footer>
-                </div>
-            </div>
-        </aside>
-
-        <main class="w-full mx-auto lg:pr-0 overflow-auto">
-            <div class="sticky top-0 z-50 mt-0 transition-all duration-300 bg-white dark:bg-gray-800 border-b shadow-md lg:shadow-none lg:relative lg:-mt-16 dark:border-gray-600">
-                <label class="flex h-16 text-gray-600 transition" for="menu-state">
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="w-8 h-8 my-auto" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="feather feather-arrow-right"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-                </label>
-            </div>
-
-            <div id="content" class="mx-2 my-8">
-                <div role="main" class="max-w-5xl mx-4">
-                    {% block body %} {{body}} {% endblock %}
-                </div>
-            </div>
-
-            <footer class="p-2 mt-8 mb-2 text-sm text-gray-600 border-t dark:border-gray-600">
-                <div class="flex flex-col justify-between max-w-5xl mx-4 lg:flex-row">
-                    <span>
-                        {%- if show_source and has_source and sourcename %}
-                        <a class="text-green-600" href="{{ pathto('_sources/' + sourcename, true)|e }}" rel="nofollow">
-                            Page Source
-                        </a>
-                        {%- endif %}
-                    </span>
-                    <span>Built with <a class="text-green-600" href="https://www.sphinx-doc.org/en/master/">Sphinx</a> v{{sphinx_version}}</span>
-                </div>
-            </footer>
-        </main>
-
+    <div role="main">
+      {%- block body %}
+        {{body}}
+      {%- endblock %}
     </div>
+
+    <footer class="site">
+      <div>
+        <h6>Links</h6>
+        <ul>
+          {%- if show_source and has_source and sourcename %}
+          <li>
+            <a href="{{ pathto('_sources/' + sourcename, true)|e }}" rel="nofollow">
+              Page Source
+            </a>
+          </li>
+          {%- endif %}
+          <li>
+            <a href="https://github.com/alcarney/blog" rel="nofollow">
+              Source Code
+            </a>
+          </li>
+        </ul>
+      </div>
+
+      <div>
+        <h6>
+          Built with
+        </h6>
+        <ul>
+          <li>
+            <a href="https://www.sphinx-doc.org/en/master/">
+              Sphinx
+            </a>
+            v{{sphinx_version}}
+          </li>
+          <li>
+            <a href="https://feathericons.com/">
+              Feather Icons
+            </a>
+          </li>
+        </ul>
+      </div>
+    </footer>
+</div>
 {%- endblock %}
-
 {%- block relbar2 %}{% endblock %}
-
-{% block footer %}{% endblock %}
+{%- block footer %}{%- endblock %}

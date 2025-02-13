@@ -127,7 +127,8 @@ def template_override(app, pagename, templatename, context, doctree):
 
 
 def setup(app: Sphinx):
-    app.add_css_file("css/styles.css", priority=800)
+    app.add_css_file("css/layout.css", priority=800)
+
     app.add_role("pypi", pypi_role)
 
     app.connect("html-page-context", template_override)
