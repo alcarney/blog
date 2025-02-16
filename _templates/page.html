@@ -4,35 +4,6 @@
 <article>
   {{ body }}
   <footer>
-    {%- if next or prev %}
-    <nav>
-      <ul>
-        {#- Even if there's no "Previous" link, we want the li node here so that "Next" is forced to the right #}
-        <li>
-          {%- if prev %}
-          <a href="{{ prev.link | e }}">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round">
-              <path d="m15 18-6-6 6-6"/>
-            </svg>
-            <p>{{prev.title}}</p>
-          </a>
-          {%- endif %}
-        </li>
-        {%- if next %}
-        <li>
-          <a href="{{next.link | e }}">
-            <p>{{next.title}}</p>
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="flex-shrink-0 w-8 h-8 ml-4" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round">
-              <path d="m9 18 6-6-6-6"/>
-            </svg>
-          </a>
-        </li>
-        {%- endif %}
-      </ul>
-
-    </nav>
-    {%- endif %}
-
     {%- if record and record.is_blogpost %}
     <script src="https://giscus.app/client.js"
             data-repo="alcarney/blog"
