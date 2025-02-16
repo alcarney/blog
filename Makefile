@@ -1,10 +1,10 @@
 include .devcontainer/tools.mk
 
 
-SPHINX_OPTS=
-BUILDDIR=_build
+SPHINX_OPTS2 ?=
+BUILDDIR ?=_build
 HTMLDIR=$(BUILDDIR)/dirhtml
-PORT=8000
+PORT ?= 8000
 
 default: html
 

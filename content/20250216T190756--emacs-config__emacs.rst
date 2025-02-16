@@ -1,3 +1,8 @@
+:title: Emacs Config
+:date: 2025-02-16
+:tags: emacs
+:identifier: 20250216T190756
+
 Emacs
 =====
 
@@ -789,6 +794,17 @@ Forge
 ^^^^^
 
 I've also started playing around with :gh:`magit/forge`
+
+.. important::
+
+   Forge looks for your GitHub username in your ``gitconfig``
+
+   .. code-block::
+      :filename: gitconfig
+
+      [github]
+      user = alcarney
+
 
 .. code-block:: elisp
    :filename: emacs/init.el

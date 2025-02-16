@@ -1,12 +1,12 @@
-Bash
-====
+:title: Bash Config
+:date: 2025-02-16
+:tags: bash
+:identifier: 20250216T190236
 
-Bash configuration
+Bash Configuration
+==================
 
-Setup
------
-
-At some point I need to come back and figure out why things are set up this way.   g
+At some point I need to come back and figure out why things are set up this way.
 But for now, this is how Fedora had setup the configuration for bash and if I don't follow this things break.
 
 .. code-block:: make
@@ -23,7 +23,7 @@ But for now, this is how Fedora had setup the configuration for bash and if I do
 
 The profile doesn't do anything except source the ``bashrc`` file
 
-.. code-block:: bash 
+.. code-block:: bash
    :filename: bash_profile
 
    # Get the aliases and functions
