@@ -1,3 +1,8 @@
+:title: Nvim Config
+:date: 2025-02-16
+:tags: nvim
+:identifier: 20250216T190621
+
 Neovim
 ======
 
@@ -24,10 +29,10 @@ Appearance
 
 For the time being, use the default colorscheme with ``notermguicolors`` set so that ``nvim`` inherits the colorscheme used by the terminal. (Makes adapting to the system theme easier)
 
-.. code-block:: lua  
+.. code-block:: lua
    :filename: nvim/init.lua
 
-   vim.opt.termguicolors = false 
+   vim.opt.termguicolors = false
 
 ``breakindent``
 ^^^^^^^^^^^^^^^
@@ -40,24 +45,24 @@ For the time being, use the default colorscheme with ``notermguicolors`` set so 
 It ensures that when a long that is indented is wrapped, the next line starts at the same level of indentation i.e ::
 
    |   This is a very
-   |   long line that 
+   |   long line that
    |   has been wrapped
 
 Instead of ::
 
    |   This is a very
-   |long line that 
+   |long line that
    |has been wrapped
 
 Searching
 ^^^^^^^^^
 
-Disabling ``ignorecase`` will make searches case sensitive by default. 
+Disabling ``ignorecase`` will make searches case sensitive by default.
 To make the search case insensitive add a ``\c`` to the search pattern e.g. ``/set\c/`` or ``/\cset/``
 
 The ``inccomand = 'split'`` tells neovim to open a dedicated split to preview the result of the current ``:%s/../../`` command.
 
-.. code-block:: lua 
+.. code-block:: lua
    :filename: nvim/init.lua
 
    vim.opt.inccommand = 'split'
@@ -69,14 +74,14 @@ Line Numbers
 
 Enable line numbers
 
-.. code-block:: lua  
+.. code-block:: lua
    :filename: nvim/init.lua
 
    vim.opt.number = true
 
 Reuse the line number column to render 'signs'
 
-.. code-block:: lua  
+.. code-block:: lua
    :filename: nvim/init.lua
 
    vim.opt.signcolumn = 'number'
@@ -87,7 +92,7 @@ Whitespace
 
 Render certain whitespace characters
 
-.. code-block:: lua  
+.. code-block:: lua
    :filename: nvim/init.lua
 
    vim.opt.list = true
@@ -126,7 +131,7 @@ Easier movement between windows
 
 Recenter the display after common movement commands
 
-.. code-block:: lua 
+.. code-block:: lua
    :filename: nvim/init.lua
 
    vim.keymap.set('n', 'n', 'nzz')
@@ -148,12 +153,12 @@ The plugin manager du-jour appears to be :gh:`folke/lazy.nvim`, let's ensure tha
    if not vim.uv.fs_stat(lazypath) then
      local lazyrepo = 'https://github.com/folke/lazy.nvim.git'
      local out = vim.fn.system({ 'git', 'clone', '--filter=blob:none', '--branch=stable', lazyrepo, lazypath})
-     
+
      if vim.v.shell_error ~= 0 then
        error('Error cloning lazy.nvim:\n' .. out)
      end
    end
-   
+
 And add the install location to the runtime path
 
 .. code-block:: lua
@@ -168,7 +173,7 @@ Finally, tell lazyvim what plugins to install and configure
 
    require('lazy').setup({
      'tpope/vim-sleuth',
-     require 'alc.completion', 
+     require 'alc.completion',
      require 'alc.lsp',
      require 'alc.telescope',
    })
@@ -216,7 +221,7 @@ Language Servers
 
 The following is a function that will be called each time a connection to a server is made, allowing LSP specific keybindings etc to be configured.
 
-.. code-block:: lua 
+.. code-block:: lua
    :filename: nvim/lua/alc/lsp/init.lua
 
    function lsp_attach(event)
@@ -244,7 +249,7 @@ Finally, the block of ``lazy.nvim`` configuration that ties it all together
             notification = {
               override_vim_notify = true,
             }
-          } 
+          }
         },
       },
       config = function()
@@ -275,7 +280,7 @@ Of course, I use :gh:`swyddfa/esbonio` with my documentation projects.
    function setup(opts)
       opts = opts or {}
 
-      if not opts.capabilities then 
+      if not opts.capabilities then
         opts.capabilities = vim.lsp.protocol.make_client_capabilities()
       end
 
@@ -310,7 +315,7 @@ The following function determines the command that should be used to launch ``es
 .. note::
 
    Until I can configure nvim to send URIs relative to the devcontainer e.g. ::
-    
+
       file:///var/home/alex/Projects/alcarney/blog -> file:///workspaces/blog
 
    it is pointless trying to run an LSP from inside the container.
@@ -321,10 +326,10 @@ The following function determines the command that should be used to launch ``es
    function get_esbonio_cmd(opts)
      local cmd = {}
 
-     -- TODO: Devcontainer support. 
+     -- TODO: Devcontainer support.
      --
      -- local workspace = require('alc.devcontainer').workspace()
-     -- if workspace then 
+     -- if workspace then
      --   table.insert(cmd, 'devcontainer')
      --   table.insert(cmd, 'exec')
      --   table.insert(cmd, '--workspace-folder')
@@ -334,7 +339,7 @@ The following function determines the command that should be used to launch ``es
      if opts.devtools then
        table.insert(cmd, 'lsp-devtools')
        table.insert(cmd, 'agent')
-       table.insert(cmd, '--') 
+       table.insert(cmd, '--')
      end
 
      table.insert(cmd, 'esbonio')
@@ -393,7 +398,7 @@ These handlers help shed some light on the status of the underlying sphinx proce
 
 Emitted when a new process is created.
 
-.. code-block:: lua 
+.. code-block:: lua
    :filename: nvim/lua/alc/lsp/esbonio.lua
 
    function client_created(err, result, ctx, config)
@@ -431,7 +436,7 @@ I currently use the :gh:`microsoft/pyright` language server for Python projects.
    function setup(opts)
       opts = opts or {}
 
-      if not opts.capabilities then 
+      if not opts.capabilities then
         opts.capabilities = vim.lsp.protocol.make_client_capabilities()
       end
 
@@ -439,7 +444,7 @@ I currently use the :gh:`microsoft/pyright` language server for Python projects.
         capabilities = capabilities,
         settings = {
           python = {
-          } 
+          }
         }
       }
    end
@@ -468,7 +473,7 @@ The ``vertico`` of the neovim world, telescope offers a nice "select item from l
      dependencies = {
        'nvim-lua/plenary.nvim',
        'nvim-telescope/telescope-ui-select.nvim',
-     }, 
+     },
      config = function()
        local themes = require('telescope.themes')
 
@@ -494,7 +499,7 @@ What follows is a series of helper libraries I've written to support the configu
 Thanks to switching to :gh:`ublue-os/bluefin` (well, Aurora) I'm finally got a setup where devcontainers work for me.
 This helper library helps me make use of the :gh:`devcontainers/cli` from within ``nvim``.
 
-The following function will check to see if there is a ``.devcontainer/`` for the repo and return the relevant 
+The following function will check to see if there is a ``.devcontainer/`` for the repo and return the relevant
 workspace folder if it exists.
 
 .. code-block:: lua

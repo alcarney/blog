@@ -8,7 +8,7 @@
 
     <link rel="stylesheet" type="text/css" href="../../../../_static/pygments.css?v=02ca0aaa" />
     <link id="pygments_dark_css" media="(prefers-color-scheme: dark)" rel="stylesheet" type="text/css" href="../../../../_static/pygments_dark.css?v=d8568271" />
-    <link rel="stylesheet" type="text/css" href="../../../../_static/css/layout.css?v=90faea22" />
+    <link rel="stylesheet" type="text/css" href="../../../../_static/css/layout.css?v=c1b3100b" />
 
     <script src="../../../../_static/documentation_options.js?v=187304be"></script>
     <script src="../../../../_static/doctools.js?v=9bcbadda"></script>
@@ -134,15 +134,15 @@
   </div>
 
   <div class="awdur-codeblock">
-    <div class="highlight"><pre style="margin: 0"><span></span><span class="nf">.PHONY</span><span class="o">:</span><span class="w"> </span><span class="n">bash</span>
+    <div class="highlight"><pre style="margin: 0"><span></span><span class="nf">.PHONY</span><span class="o">:</span><span class="w"> </span><span class="n">wezterm</span>
+<span class="nf">wezterm</span><span class="o">:</span>
+<span class="w">     </span><span class="nb">test</span><span class="w"> </span>-L<span class="w"> </span><span class="k">$(</span>HOME<span class="k">)</span>/.config/wezterm<span class="w"> </span><span class="o">||</span><span class="w"> </span>ln<span class="w"> </span>-s<span class="w"> </span><span class="k">$(</span>shell<span class="w"> </span><span class="nb">pwd</span><span class="k">)</span>/wezterm<span class="w"> </span><span class="k">$(</span>HOME<span class="k">)</span>/.config/wezterm
+
+<span class="nf">.PHONY</span><span class="o">:</span><span class="w"> </span><span class="n">bash</span>
 <span class="nf">bash</span><span class="o">:</span>
 <span class="w">     </span><span class="nb">test</span><span class="w"> </span>-L<span class="w"> </span><span class="k">$(</span>HOME<span class="k">)</span>/.bash_profile<span class="w"> </span><span class="o">||</span><span class="w"> </span>ln<span class="w"> </span>-s<span class="w"> </span><span class="k">$(</span>shell<span class="w"> </span><span class="nb">pwd</span><span class="k">)</span>/bash_profile<span class="w"> </span><span class="k">$(</span>HOME<span class="k">)</span>/.bash_profile
 <span class="w">     </span><span class="nb">test</span><span class="w"> </span>-L<span class="w"> </span><span class="k">$(</span>HOME<span class="k">)</span>/.bashrc<span class="w"> </span><span class="o">||</span><span class="w"> </span>ln<span class="w"> </span>-s<span class="w"> </span><span class="k">$(</span>shell<span class="w"> </span><span class="nb">pwd</span><span class="k">)</span>/bashrc<span class="w"> </span><span class="k">$(</span>HOME<span class="k">)</span>/.bashrc
 <span class="w">     </span><span class="nb">test</span><span class="w"> </span>-L<span class="w"> </span><span class="k">$(</span>HOME<span class="k">)</span>/.bashrc.d<span class="w"> </span><span class="o">||</span><span class="w"> </span>ln<span class="w"> </span>-s<span class="w"> </span><span class="k">$(</span>shell<span class="w"> </span><span class="nb">pwd</span><span class="k">)</span>/bash<span class="w"> </span><span class="k">$(</span>HOME<span class="k">)</span>/.bashrc.d
-
-<span class="nf">.PHONY</span><span class="o">:</span><span class="w"> </span><span class="n">emacs</span>
-<span class="nf">emacs</span><span class="o">:</span>
-<span class="w">     </span><span class="nb">test</span><span class="w"> </span>-L<span class="w"> </span><span class="k">$(</span>HOME<span class="k">)</span>/.emacs.d<span class="w"> </span><span class="o">||</span><span class="w"> </span>ln<span class="w"> </span>-s<span class="w"> </span><span class="k">$(</span>shell<span class="w"> </span><span class="nb">pwd</span><span class="k">)</span>/emacs/<span class="w"> </span><span class="k">$(</span>HOME<span class="k">)</span>/.emacs.d
 
 <span class="nf">.PHONY</span><span class="o">:</span><span class="w"> </span><span class="n">git</span>
 <span class="nf">git</span><span class="o">:</span>
@@ -162,9 +162,9 @@
 <span class="w">     </span>-code<span class="w"> </span>--install-extension<span class="w"> </span>pkief.material-icon-theme
 <span class="w">     </span>-code<span class="w"> </span>--install-extension<span class="w"> </span>tamasfe.even-better-toml
 
-<span class="nf">.PHONY</span><span class="o">:</span><span class="w"> </span><span class="n">wezterm</span>
-<span class="nf">wezterm</span><span class="o">:</span>
-<span class="w">     </span><span class="nb">test</span><span class="w"> </span>-L<span class="w"> </span><span class="k">$(</span>HOME<span class="k">)</span>/.config/wezterm<span class="w"> </span><span class="o">||</span><span class="w"> </span>ln<span class="w"> </span>-s<span class="w"> </span><span class="k">$(</span>shell<span class="w"> </span><span class="nb">pwd</span><span class="k">)</span>/wezterm<span class="w"> </span><span class="k">$(</span>HOME<span class="k">)</span>/.config/wezterm
+<span class="nf">.PHONY</span><span class="o">:</span><span class="w"> </span><span class="n">emacs</span>
+<span class="nf">emacs</span><span class="o">:</span>
+<span class="w">     </span><span class="nb">test</span><span class="w"> </span>-L<span class="w"> </span><span class="k">$(</span>HOME<span class="k">)</span>/.emacs.d<span class="w"> </span><span class="o">||</span><span class="w"> </span>ln<span class="w"> </span>-s<span class="w"> </span><span class="k">$(</span>shell<span class="w"> </span><span class="nb">pwd</span><span class="k">)</span>/emacs/<span class="w"> </span><span class="k">$(</span>HOME<span class="k">)</span>/.emacs.d
 </pre></div>
 
   </div>

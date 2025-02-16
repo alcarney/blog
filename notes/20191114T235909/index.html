@@ -9,7 +9,7 @@
 
     <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=02ca0aaa" />
     <link id="pygments_dark_css" media="(prefers-color-scheme: dark)" rel="stylesheet" type="text/css" href="../../_static/pygments_dark.css?v=d8568271" />
-    <link rel="stylesheet" type="text/css" href="../../_static/css/layout.css?v=90faea22" />
+    <link rel="stylesheet" type="text/css" href="../../_static/css/layout.css?v=c1b3100b" />
 
     <script src="../../_static/documentation_options.js?v=187304be"></script>
     <script src="../../_static/doctools.js?v=9bcbadda"></script>
@@ -110,14 +110,15 @@
   <section id="custom-text-objects">
 <h1>Custom Text Objects<a class="headerlink" href="#custom-text-objects" title="Link to this heading">¶</a></h1>
 <p>The following snippet of vimscript (if I’m reading it right) will create 26(!) custom text objects</p>
-<div class="highlight-viml notranslate"><div class="highlight"><pre><span></span>for char in [‘_’, ‘.’, ‘:’, ‘,’, ‘;’, ‘&lt;bar&gt;’, ‘/‘, ‘&lt;bslash&gt;’, ‘*’, ‘+’, ‘%’, ‘-‘, ‘#’]
-    execute ‘xnoremap i’ . char . ‘:&lt;C-u&gt;normal! T’ . char . ‘vt’ . char . ‘&lt;CR&gt;’
-    execute ‘onoremap i’ . char . ‘:normal vi’ . char . ‘&lt;CR&gt;’
-    execute ‘xnoremap a’ . char . ‘:&lt;C-u&gt;normal! F’ . char . ‘vt’ . char . ‘&lt;CR&gt;’
-    execute ‘onoremap a’ . char . ‘:normal va’ . char . ‘&lt;CR&gt;’
-endfor
+<div class="highlight-vim notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> char <span class="k">in</span> [‘_’<span class="p">,</span> ‘.’<span class="p">,</span> ‘:’<span class="p">,</span> ‘<span class="p">,</span>’<span class="p">,</span> ‘;’<span class="p">,</span> ‘<span class="p">&lt;</span>bar<span class="p">&gt;</span>’<span class="p">,</span> ‘/‘<span class="p">,</span> ‘<span class="p">&lt;</span>bslash<span class="p">&gt;</span>’<span class="p">,</span> ‘*’<span class="p">,</span> ‘<span class="p">+</span>’<span class="p">,</span> ‘%’<span class="p">,</span> ‘<span class="p">-</span>‘<span class="p">,</span> ‘#’]
+    execute ‘xnoremap <span class="k">i</span>’ . char . ‘:<span class="p">&lt;</span>C<span class="p">-</span><span class="k">u</span><span class="p">&gt;</span>normal<span class="p">!</span> T’ . char . ‘vt’ . char . ‘<span class="p">&lt;</span>CR<span class="p">&gt;</span>’
+    execute ‘onoremap <span class="k">i</span>’ . char . ‘:normal <span class="k">vi</span>’ . char . ‘<span class="p">&lt;</span>CR<span class="p">&gt;</span>’
+    execute ‘xnoremap <span class="k">a</span>’ . char . ‘:<span class="p">&lt;</span>C<span class="p">-</span><span class="k">u</span><span class="p">&gt;</span>normal<span class="p">!</span> F’ . char . ‘vt’ . char . ‘<span class="p">&lt;</span>CR<span class="p">&gt;</span>’
+    execute ‘onoremap <span class="k">a</span>’ . char . ‘:normal va’ . char . ‘<span class="p">&lt;</span>CR<span class="p">&gt;</span>’
+<span class="k">endfor</span>
 </pre></div>
 </div>
+<p><a class="reference external" href="https://gist.github.com/romainl/c0a8b57a36aec71a986f1120e1931f20">Source</a></p>
 </section>
 
   <footer>

@@ -1,3 +1,8 @@
+:title: VSCode Config
+:date: 2025-02-16
+:tags: vscode
+:identifier: 20250216T190725
+
 VSCode
 ======
 

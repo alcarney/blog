@@ -5,11 +5,11 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>Bash &#8212; Alex Carney</title>
+    <title>Bash Configuration &#8212; Alex Carney</title>
 
     <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=02ca0aaa" />
     <link id="pygments_dark_css" media="(prefers-color-scheme: dark)" rel="stylesheet" type="text/css" href="../../_static/pygments_dark.css?v=d8568271" />
-    <link rel="stylesheet" type="text/css" href="../../_static/css/layout.css?v=90faea22" />
+    <link rel="stylesheet" type="text/css" href="../../_static/css/layout.css?v=c1b3100b" />
 
     <script src="../../_static/documentation_options.js?v=187304be"></script>
     <script src="../../_static/doctools.js?v=9bcbadda"></script>
@@ -18,9 +18,7 @@
     <script src="../../_static/js/htmx-2.0.4.min.js?v=be6ab97a"></script>
     <link rel="icon" href="../../_static/favicon.ico"/>
     <link rel="index" title="Index" href="../../genindex/" />
-    <link rel="search" title="Search" href="../../search/" />
-    <link rel="next" title="Emacs" href="../emacs/" />
-    <link rel="prev" title="Dotfiles" href="../" /> 
+    <link rel="search" title="Search" href="../../search/" /> 
   </head>
   <body>
 
@@ -91,21 +89,20 @@
   </ul>
 </nav><nav id="localtoc">
     <ul>
-<li><a class="reference internal" href="#">Bash</a><ul>
-<li><a class="reference internal" href="#setup">Setup</a><ul>
+<li><a class="reference internal" href="#">Bash Configuration</a><ul>
 <li><a class="reference internal" href="#bash-profile"><code class="docutils literal notranslate"><span class="pre">.bash_profile</span></code></a></li>
-<li><a class="reference internal" href="#bashrc"><code class="docutils literal notranslate"><span class="pre">.bashrc</span></code></a></li>
-</ul>
-</li>
+<li><a class="reference internal" href="#bashrc"><code class="docutils literal notranslate"><span class="pre">.bashrc</span></code></a><ul>
 <li><a class="reference internal" href="#aliases">Aliases</a></li>
 <li><a class="reference internal" href="#options">Options</a></li>
-<li><a class="reference internal" href="#environment-variables">Environment Variables</a><ul>
-<li><a class="reference internal" href="#cdpath"><code class="docutils literal notranslate"><span class="pre">CDPATH</span></code></a></li>
-<li><a class="reference internal" href="#path"><code class="docutils literal notranslate"><span class="pre">PATH</span></code></a></li>
+<li><a class="reference internal" href="#environment-variables">Environment Variables</a></li>
 </ul>
 </li>
+<li><a class="reference internal" href="#cdpath"><code class="docutils literal notranslate"><span class="pre">CDPATH</span></code></a></li>
+<li><a class="reference internal" href="#path"><code class="docutils literal notranslate"><span class="pre">PATH</span></code></a><ul>
 <li><a class="reference internal" href="#history">History</a></li>
 <li><a class="reference internal" href="#prompt">Prompt</a></li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>
@@ -125,12 +122,9 @@
     <div role="main">
 
 <article>
-  <section id="bash">
-<h1>Bash<a class="headerlink" href="#bash" title="Link to this heading">¶</a></h1>
-<p>Bash configuration</p>
-<section id="setup">
-<h2>Setup<a class="headerlink" href="#setup" title="Link to this heading">¶</a></h2>
-<p>At some point I need to come back and figure out why things are set up this way.   g
+  <section id="bash-configuration">
+<h1>Bash Configuration<a class="headerlink" href="#bash-configuration" title="Link to this heading">¶</a></h1>
+<p>At some point I need to come back and figure out why things are set up this way.
 But for now, this is how Fedora had setup the configuration for bash and if I don’t follow this things break.</p>
 <div class="awdur-codeblock docutils container">
 <div class="awdur-codeblock-header docutils container">
@@ -144,7 +138,7 @@ But for now, this is how Fedora had setup the configuration for bash and if I do
 </div>
 </div>
 <section id="bash-profile">
-<h3><code class="docutils literal notranslate"><span class="pre">.bash_profile</span></code><a class="headerlink" href="#bash-profile" title="Link to this heading">¶</a></h3>
+<h2><code class="docutils literal notranslate"><span class="pre">.bash_profile</span></code><a class="headerlink" href="#bash-profile" title="Link to this heading">¶</a></h2>
 <p>The profile doesn’t do anything except source the <code class="docutils literal notranslate"><span class="pre">bashrc</span></code> file</p>
 <div class="awdur-codeblock docutils container">
 <div class="awdur-codeblock-header docutils container">
@@ -158,7 +152,7 @@ But for now, this is how Fedora had setup the configuration for bash and if I do
 </div>
 </section>
 <section id="bashrc">
-<h3><code class="docutils literal notranslate"><span class="pre">.bashrc</span></code><a class="headerlink" href="#bashrc" title="Link to this heading">¶</a></h3>
+<h2><code class="docutils literal notranslate"><span class="pre">.bashrc</span></code><a class="headerlink" href="#bashrc" title="Link to this heading">¶</a></h2>
 <p>The <code class="docutils literal notranslate"><span class="pre">bashrc</span></code> then sources the system config</p>
 <div class="awdur-codeblock docutils container">
 <div class="awdur-codeblock-header docutils container">
@@ -197,10 +191,8 @@ But for now, this is how Fedora had setup the configuration for bash and if I do
 </pre></div>
 </div>
 </div>
-</section>
-</section>
 <section id="aliases">
-<h2>Aliases<a class="headerlink" href="#aliases" title="Link to this heading">¶</a></h2>
+<h3>Aliases<a class="headerlink" href="#aliases" title="Link to this heading">¶</a></h3>
 <div class="awdur-codeblock docutils container">
 <div class="awdur-codeblock-header docutils container">
 <code class="awdur-codeblock-filename docutils literal notranslate"><span class="pre">bash/10-aliases</span></code></div>
@@ -211,7 +203,7 @@ But for now, this is how Fedora had setup the configuration for bash and if I do
 </div>
 </section>
 <section id="options">
-<h2>Options<a class="headerlink" href="#options" title="Link to this heading">¶</a></h2>
+<h3>Options<a class="headerlink" href="#options" title="Link to this heading">¶</a></h3>
 <p>I set the following options</p>
 <div class="awdur-codeblock docutils container">
 <div class="awdur-codeblock-header docutils container">
@@ -226,9 +218,11 @@ But for now, this is how Fedora had setup the configuration for bash and if I do
 </div>
 </section>
 <section id="environment-variables">
-<h2>Environment Variables<a class="headerlink" href="#environment-variables" title="Link to this heading">¶</a></h2>
+<h3>Environment Variables<a class="headerlink" href="#environment-variables" title="Link to this heading">¶</a></h3>
+</section>
+</section>
 <section id="cdpath">
-<h3><code class="docutils literal notranslate"><span class="pre">CDPATH</span></code><a class="headerlink" href="#cdpath" title="Link to this heading">¶</a></h3>
+<h2><code class="docutils literal notranslate"><span class="pre">CDPATH</span></code><a class="headerlink" href="#cdpath" title="Link to this heading">¶</a></h2>
 <div class="awdur-codeblock docutils container">
 <div class="awdur-codeblock-header docutils container">
 <code class="awdur-codeblock-filename docutils literal notranslate"><span class="pre">bash/00-options</span></code></div>
@@ -243,7 +237,7 @@ This is a colon separated list of directories in which the shell looks for desti
 <p>This means I can <code class="docutils literal notranslate"><span class="pre">cd</span></code> into a project folder from anywhere on my system!</p>
 </section>
 <section id="path">
-<h3><code class="docutils literal notranslate"><span class="pre">PATH</span></code><a class="headerlink" href="#path" title="Link to this heading">¶</a></h3>
+<h2><code class="docutils literal notranslate"><span class="pre">PATH</span></code><a class="headerlink" href="#path" title="Link to this heading">¶</a></h2>
 <p>Update the <code class="docutils literal notranslate"><span class="pre">PATH</span></code> based on whatever folders are available.</p>
 <div class="awdur-codeblock docutils container">
 <div class="awdur-codeblock-header docutils container">
@@ -261,10 +255,8 @@ This is a colon separated list of directories in which the shell looks for desti
 </pre></div>
 </div>
 </div>
-</section>
-</section>
 <section id="history">
-<h2>History<a class="headerlink" href="#history" title="Link to this heading">¶</a></h2>
+<h3>History<a class="headerlink" href="#history" title="Link to this heading">¶</a></h3>
 <div class="awdur-codeblock docutils container">
 <div class="awdur-codeblock-header docutils container">
 <code class="awdur-codeblock-filename docutils literal notranslate"><span class="pre">bash/00-options</span></code></div>
@@ -279,7 +271,7 @@ This is a colon separated list of directories in which the shell looks for desti
 </div>
 </section>
 <section id="prompt">
-<h2>Prompt<a class="headerlink" href="#prompt" title="Link to this heading">¶</a></h2>
+<h3>Prompt<a class="headerlink" href="#prompt" title="Link to this heading">¶</a></h3>
 <div class="awdur-codeblock docutils container">
 <div class="awdur-codeblock-header docutils container">
 <code class="awdur-codeblock-filename docutils literal notranslate"><span class="pre">bash/20-prompt</span></code></div>
@@ -322,6 +314,7 @@ __is_toolbox<span class="o">()</span>
 </div>
 </section>
 </section>
+</section>
 
   <footer>
 
@@ -334,7 +327,7 @@ __is_toolbox<span class="o">()</span>
         <h6>Links</h6>
         <ul>
           <li>
-            <a href="../../_sources/dotfiles/bash.rst.txt" rel="nofollow">
+            <a href="../../_sources/content/20250216T190236--bash-config__bash.rst.txt" rel="nofollow">
               Page Source
             </a>
           </li>
