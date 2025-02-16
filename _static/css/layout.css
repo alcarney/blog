@@ -116,6 +116,12 @@ figure.align-center img {
     margin: auto;
 }
 
+figcaption p {
+    margin: auto;
+    font-size: 0.8rem;
+    text-align: center;
+}
+
 ul.taglist {
     text-align: right;
 }

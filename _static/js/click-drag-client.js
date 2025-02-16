@@ -24,7 +24,7 @@ function clientDemo() {
     circle.setAttribute("cx", viewBox.width / 2)
     circle.setAttribute("cy", viewBox.height / 2)
     circle.setAttribute("r", 25)
-    circle.setAttribute("fill", "var(--primary)")
+    circle.setAttribute("fill", "var(--fg-accent)")
 
     canvas.appendChild(circle)
 
@@ -32,7 +32,7 @@ function clientDemo() {
     point.setAttribute("cx", 0)
     point.setAttribute("cy", 0)
     point.setAttribute("r", 0.05)
-    point.setAttribute("fill", "var(--primary)")
+    point.setAttribute("fill", "var(--fg-accent)")
 
     posBox.appendChild(point)
 

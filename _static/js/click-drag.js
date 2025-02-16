@@ -1,13 +1,13 @@
 // Setup
 const svgns = "http://www.w3.org/2000/svg"
-const main = document.getElementById("main")
+const mainEl = document.getElementById("main-el")
 
 const canvas = document.createElementNS(svgns, "svg")
 canvas.setAttribute("width", "100%")
 canvas.setAttribute("height", "100%")
-canvas.style.border = "solid 2px #242930"
+canvas.style.border = "solid 2px var(--border-color)"
 
-main.appendChild(canvas)
+mainEl.appendChild(canvas)
 
 // Viewbox
 let bbox = canvas.getBoundingClientRect()

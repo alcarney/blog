@@ -13,7 +13,7 @@ Implementing Click & Drag with Vanilla JS
    .. raw:: html
 
       <figure>
-        <div id="main"></div>
+        <div id="main-el"></div>
         <figcaption>
           <p>Try clicking and dragging on this circle.</p>
         </figcaption>
@@ -271,11 +271,11 @@ position.
        </div>
        <svg width="100%"
             id="offset-demo-canvas"
-            style="border: solid 2px var(--background-dark)">
+            style="border: solid 2px var(--border-color)">
        </svg>
        <svg width="50%"
             id="offset-posbox"
-            style="border: solid 2px var(--background-dark);margin:auto"><svg>
+            style="border: solid 2px var(--border-color);margin:auto"><svg>
      </div>
      <figcaption>
        <p>
@@ -331,11 +331,11 @@ changing target. Try the same thing again on the canvas below.
       </div>
       <svg width="100%"
             id="client-demo-canvas"
-            style="border: solid 2px var(--background-dark)">
+            style="border: solid 2px var(--border-color)">
       </svg>
          <svg width="50%"
             id="client-posbox"
-            style="border: solid 2px var(--background-dark);margin:auto"><svg>
+            style="border: solid 2px var(--border-color);margin:auto"><svg>
    </div>
    <figcaption>
       <p>
