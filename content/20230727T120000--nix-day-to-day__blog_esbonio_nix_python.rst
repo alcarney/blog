@@ -144,7 +144,7 @@ and then apply it over some function to get definitions for all combinations of 
      })
    );
 
-.. dropdown:: Which expands into a lot of devShells!
+.. details:: Which expands into a lot of devShells!
 
    .. code-block:: none
 

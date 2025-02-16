@@ -35,11 +35,11 @@ extensions = [
     "sphinx.ext.intersphinx",
     # Third party extensions
     "awdur",
-    "sphinx_design",
     "myst_parser",
     # Local extensions: see `./extensions`
     "coderepo",
     "denote",
+    "htmlext",
 ]
 
 primary_domain = "denote"
