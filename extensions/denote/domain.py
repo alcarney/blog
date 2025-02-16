@@ -26,6 +26,7 @@ class RecordCollection(collections.UserDict[str, Record]):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
 
+        self._by_tag = {}
         self._by_year = {}
         self._by_identifier = {}
 
@@ -37,6 +38,9 @@ class RecordCollection(collections.UserDict[str, Record]):
         year = item.timestamp.year
         self._by_year.setdefault(year, []).append(key)
 
+        for tag in item.tags:
+            self._by_tag.setdefault(tag, []).append(key)
+
     def find(self, *, identifier: str | None = None) -> Record | None:
         """Find records by various criteria."""
 
@@ -46,6 +50,20 @@ class RecordCollection(collections.UserDict[str, Record]):
     def all(self):
         for k in sorted(self.keys(), reverse=True):
             yield self[k]
+
+    def by_tag(self) -> dict[int, list[Record]]:
+        """Return all records, grouped by tag"""
+        records: dict[int, list[Record]] = {}
+
+        for tag, keys in self._by_tag.items():
+            # Some keys may have been deleted, only consider those that are still present.
+            records[tag] = [
+                record
+                for k in sorted(keys, reverse=True)
+                if (record := self.get(k)) is not None
+            ]
+
+        return records
 
     def by_year(self) -> dict[int, list[Record]]:
         """Return all records, grouped by year"""

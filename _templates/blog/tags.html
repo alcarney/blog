@@ -1,0 +1,15 @@
+{%- extends "layout.html" %}
+{%- block body %}
+
+<h1>Tags</h1>
+
+<ul class="taglist">
+{%- for tag, items in tags | dictsort %}
+  <li>
+    <a class="tag" href="{{ pathto('tag/' + tag) }}">
+      #{{ tag }} <span class="count">({{ items | length }})</span>
+    </a>
+  </li>
+{%- endfor %}
+</ul>
+{% endblock %}

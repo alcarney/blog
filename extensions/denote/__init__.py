@@ -56,7 +56,7 @@ def generate_collections(app: Sphinx):
     domain: Denote = app.env.domains["denote"]
 
     # Emit an all blog posts page
-    context = {"collection": list(domain.posts.all())}
+    context = {"collection": list(domain.posts.all()), "title": "Blog"}
     yield ("blog", context, "blog/collection.html")
 
     context.update(
@@ -73,8 +73,16 @@ def generate_collections(app: Sphinx):
     # Emit a page for each year
     by_year = domain.posts.by_year()
     for year, collection in by_year.items():
-        context = {"collection": collection}
+        context = {"collection": collection, "title": f"Posts in {year}"}
         yield (f"blog/{year}", context, "blog/collection.html")
+
+    # Emit a page for each tag - include both notes and posts on these pages
+    by_tag = domain.records.by_tag()
+    yield ("tag", {"tags": by_tag}, "blog/tags.html")
+
+    for tag, collection in by_tag.items():
+        context = {"collection": collection, "title": f"Tagged with: {tag}"}
+        yield (f"tag/{tag}", context, "blog/collection.html")
 
 
 def update_html_context(

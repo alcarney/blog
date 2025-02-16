@@ -77,6 +77,10 @@ a.tag {
     padding: 0.1em 0.5em;
 }
 
+a.tag span.count {
+    color: var(--fg-main);
+}
+
 h1 {
     font-size: 2rem;
     font-weight: 500;
@@ -123,16 +127,27 @@ figcaption p {
 }
 
 ul.taglist {
-    text-align: right;
+    display: flex;
+    gap: 1em;
+    flex-wrap: wrap;
 }
 
 ul.taglist li {
-    margin-bottom: 0.75em;
-    list-style:none;
+    list-style: none;
+    margin: 0;
+}
+
+.post-metadata ul.taglist {
+    justify-content: flex-end;
 }
 
 div.content header.site {
     display: none;
+}
+
+div[role="main"] > h1 {
+    margin: 2em;
+    color: var(--fg-accent);
 }
 
 article {
@@ -240,6 +255,7 @@ aside div.sidebar {
 }
 
 section.post-metadata {
+    margin-bottom: 1em;
     display: grid;
     grid-template-columns: 2em auto;
 }
@@ -569,16 +585,5 @@ div.admonition > :not(ol,ul) {
     article.summary aside {
         grid-row: unset;
         border: none;
-    }
-
-    article.summary ul.taglist {
-        display: flex;
-        gap: 1em;
-        justify-content: flex-end;
-        flex-wrap: wrap;
-    }
-
-    article.summary ul.taglist li {
-        margin: 0;
     }
 }
