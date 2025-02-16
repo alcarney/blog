@@ -1,3 +1,8 @@
+:title: Git Config
+:date: 2025-02-16
+:tags: git
+:identifier: 20250216T190328
+
 Git
 ===
 
@@ -145,7 +150,3 @@ Other Options
 
    [rerere]
    enabled = true
-
-   # Used by forge.el
-   [github]
-   user = alcarney
