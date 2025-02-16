@@ -499,6 +499,11 @@ div.admonition > :not(ol,ul) {
 
 }
 
+@media screen and (max-width: 500px) {
+    article {
+        padding: 0 0.5em;
+    }
+}
 
 @media screen and (max-width: 1000px) {
     body {
