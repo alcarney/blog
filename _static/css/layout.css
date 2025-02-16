@@ -235,7 +235,7 @@ aside div.sidebar {
 
 section.post-metadata {
     display: grid;
-    grid-template-columns: auto auto;
+    grid-template-columns: 2em auto;
 }
 
 section.archive ul {
@@ -564,5 +564,10 @@ div.admonition > :not(ol,ul) {
         display: flex;
         gap: 1em;
         justify-content: flex-end;
+        flex-wrap: wrap;
+    }
+
+    article.summary ul.taglist li {
+        margin: 0;
     }
 }
