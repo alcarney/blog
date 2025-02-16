@@ -1,10 +1,12 @@
-include .devcontainer/tools.mk
-
-
-SPHINX_OPTS2 ?=
+SPHINX_OPTS ?=
 BUILDDIR ?=_build
 HTMLDIR=$(BUILDDIR)/dirhtml
 PORT ?= 8000
+
+ifneq ($(strip $(INSIDE_EMACS)),)
+SPHINX_OPTS += --no-color
+endif
+
 
 default: html
 
@@ -31,3 +33,6 @@ dotfiles:
 
 preview:
 	python -m http.server -d $(HTMLDIR) $(PORT)
+
+
+include .devcontainer/tools.mk
