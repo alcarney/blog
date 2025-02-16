@@ -10,7 +10,7 @@ the ``Directive`` class from ``docutils``::
    from docutils.parsers.rst import Directive
 
    class MyCustom(Directive):
-       
+
        def run(self):
            return []
 
@@ -46,7 +46,7 @@ the functions used to parse them::
        option_spec = {
           "arg-name": paser_function
        }
-       
+
        def run(self):
            return []
 
@@ -71,11 +71,11 @@ where the following built in parsers are available
    Option is a flag, raises an error if a value is given
 
 ``docutils.parsers.rst.directives.length_or_unitless``
-   A valid length value (``em``, ``ex``, ``px``, ``in``, ``cm``, ``mm``, ``pt``, ``pc``) or 
-   a unitless value. 
+   A valid length value (``em``, ``ex``, ``px``, ``in``, ``cm``, ``mm``, ``pt``, ``pc``) or
+   a unitless value.
 
 ``docutils.parsers.rst.directives.length_or_percentage_or_unitless``
-   A valid length, percentage or unitless value. 
+   A valid length, percentage or unitless value.
 
 ``docutils.parsers.rst.directives.path``
    From the docutils docs.
@@ -108,7 +108,7 @@ where the following built in parsers are available
    Pass the option through unchanged
 
 ``docutils.parsers.rst.directives.unchanged_required``
-   Option is required, pass it through unchanged 
+   Option is required, pass it through unchanged
 
 ``docutils.parsers.rst.directives.unicode_code``
    Converts a unicode character code (e.g. ``U+262E``) into a unicode character.
@@ -139,7 +139,7 @@ insert some reStructuredText into the final document.
          content = f.read().splitlines()
          self.state_machine.insert_input(content, str(readme))
 
-.. note:: 
+.. note::
 
    The actual ``.. include::`` directive does a lot more work to handle edge cases particuarly
    when it comes to whitespace, so the above approach may not be sufficient in all cases.
@@ -149,7 +149,7 @@ Based on ``SphinxDirective``
 ----------------------------
 
 If the directive is only for use within Sphinx projects, it's a good idea to base it
-on :class:`~sphinx:sphinx.util.docutils.SphinxDirective` as it exposes more of Sphinx's 
+on :external+sphinx:py:class:`sphinx.util.docutils.SphinxDirective` as it exposes more of Sphinx's
 internals potentially leading into better integration.
 
 Referencing Files
@@ -157,12 +157,12 @@ Referencing Files
 
 If you are referencing files from a directive, chances are you want to reference that
 file either relative to the document's source or the root of the documentation project.
-Thankfully, there is the :meth:`~sphinx:sphinx.environment.BuildEnvironment.relfn2path`
+Thankfully, there is the :external+sphinx:py:meth:`sphinx.environment.BuildEnvironment.relfn2path`
 method that implements that logic for you
 
 .. code-block:: python
 
-   def run(self): 
+   def run(self):
       ...
       relpath, abspath = self.env.relfn2path(filename)
 
@@ -177,8 +177,8 @@ which returns
 Noting Dependencies
 ^^^^^^^^^^^^^^^^^^^
 
-If the result of your directive depends on more than just the source file that contains 
-it you can use the :meth:`~sphinx:sphinx.environment.BuildEnvironment.note_dependency`
+If the result of your directive depends on more than just the source file that contains
+it you can use the :external+sphinx:py:meth:`sphinx.environment.BuildEnvironment.note_dependency`
 method to indicate the document should be rebuild if one of these external files change.
 
 .. code-block:: python
