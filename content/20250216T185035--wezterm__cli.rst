@@ -1,9 +1,15 @@
+:title: Wezterm
+:date: 2025-02-16
+:tags: cli
+:identifier: 20250216T185035
+
 Wezterm
 =======
 
 .. highlight:: none
 
-`Wezterm <https://wezfurlong.org/wezterm/>`__ configuration
+`Wezterm <https://wezterm.org/>`__ is an interesting terminal emulator that is configured using Lua.
+I've been using it for a while however, my config is fairly minimal.
 
 .. code-block:: make
    :filename: Makefile
