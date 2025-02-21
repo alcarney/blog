@@ -1,0 +1,640 @@
+<!DOCTYPE html>
+
+<html lang="en" data-content_root="../../../">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Integrating Esbonio with Neovim Using Nix &#8212; Alex Carney</title>
+
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=02ca0aaa" />
+    <link id="pygments_dark_css" media="(prefers-color-scheme: dark)" rel="stylesheet" type="text/css" href="../../../_static/pygments_dark.css?v=d8568271" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/css/layout.css?v=118cebfc" />
+
+    <script src="../../../_static/documentation_options.js?v=187304be"></script>
+    <script src="../../../_static/doctools.js?v=9bcbadda"></script>
+    <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../../_static/js/theme.js?v=94324b12"></script>
+    <script src="../../../_static/js/htmx-2.0.4.min.js?v=be6ab97a"></script>
+    <link rel="icon" href="../../../_static/favicon.ico"/>
+    <link rel="index" title="Index" href="../../../genindex/" />
+    <link rel="search" title="Search" href="../../../search/" /> 
+  </head>
+  <body>
+
+<input type="checkbox" id="menu-toggle" class="hidden" />
+<aside>
+  <div class="sidebar"><div id="profile-card">
+    <img src="/_static/avatar.jpg"/>
+    <h2>
+      <a href="/">Alex Carney</a>
+    </h2>
+    <nav class="social">
+  <a target="_blank" rel="noreferrer noopener" href="https://github.com/alcarney" title="GitHub">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="24px" height="24px">
+      <path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/>
+    </svg>
+  </a>
+
+  <a target="_blank" rel="noreferrer noopener me" href="https://fosstodon.org/@alcarney" title="Mastodon">
+    <svg role="img" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" width="24px" height="24px" fill="currentColor">
+      <title>Mastodon</title>
+      <path d="M23.268 5.313c-.35-2.578-2.617-4.61-5.304-5.004C17.51.242 15.792 0 11.813 0h-.03c-3.98 0-4.835.242-5.288.309C3.882.692 1.496 2.518.917 5.127.64 6.412.61 7.837.661 9.143c.074 1.874.088 3.745.26 5.611.118 1.24.325 2.47.62 3.68.55 2.237 2.777 4.098 4.96 4.857 2.336.792 4.849.923 7.256.38.265-.061.527-.132.786-.213.585-.184 1.27-.39 1.774-.753a.057.057 0 0 0 .023-.043v-1.809a.052.052 0 0 0-.02-.041.053.053 0 0 0-.046-.01 20.282 20.282 0 0 1-4.709.545c-2.73 0-3.463-1.284-3.674-1.818a5.593 5.593 0 0 1-.319-1.433.053.053 0 0 1 .066-.054c1.517.363 3.072.546 4.632.546.376 0 .75 0 1.125-.01 1.57-.044 3.224-.124 4.768-.422.038-.008.077-.015.11-.024 2.435-.464 4.753-1.92 4.989-5.604.008-.145.03-1.52.03-1.67.002-.512.167-3.63-.024-5.545zm-3.748 9.195h-2.561V8.29c0-1.309-.55-1.976-1.67-1.976-1.23 0-1.846.79-1.846 2.35v3.403h-2.546V8.663c0-1.56-.617-2.35-1.848-2.35-1.112 0-1.668.668-1.67 1.977v6.218H4.822V8.102c0-1.31.337-2.35 1.011-3.12.696-.77 1.608-1.164 2.74-1.164 1.311 0 2.302.5 2.962 1.498l.638 1.06.638-1.06c.66-.999 1.65-1.498 2.96-1.498 1.13 0 2.043.395 2.74 1.164.675.77 1.012 1.81 1.012 3.12z"/>
+    </svg>
+  </a>
+
+  <a target="_blank" rel="noreferrer noopener" href="https://pixelfed.social/i/web/profile/795173629619860860" title="Pixelfed">
+    <svg width="24px" height="24px" viewBox="0 0 50 50" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path d="M25 50C11.193 50 0 38.807 0 25S11.193 0 25 0s25 11.193 25 25-11.193 25-25 25zm-1.985-19.542h4.586c4.32 0 7.823-3.41 7.823-7.615 0-4.206-3.502-7.616-7.823-7.616h-6.619c-2.492 0-4.513 1.967-4.513 4.394v17.1l6.546-6.263z" fill-rule="evenodd"/></svg>
+  </a>
+
+  <a target="_blank" rel="noreferrer noopener" href="https://www.youtube.com/channel/UC5GPflgRWhnCxA0BllfP5CA" title="YouTube">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24px" height="24px" fill="currentColor">
+      <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
+    </svg>
+  </a>
+
+  <a href="/blog/atom.xml" title="RSS Feed">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24px" height="24px" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
+      <path d="M4 11a9 9 0 0 1 9 9M4 4a16 16 0 0 1 16 16"/>
+      <circle cx="5" cy="19" r="1"/>
+    </svg>
+  </a>
+</nav>
+</div>
+<search id="searchbox" style="display: none" role="search">
+    <div class="searchformwrapper">
+    <form class="search" action="../../../search/" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" placeholder="Search"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</search>
+<script>document.getElementById('searchbox').style.display = "block"</script><nav class="site">
+  <ul>
+    <li>
+      <a href="/blog">Blog</a>
+    </li>
+    <li>
+      <a href="/code">Code</a>
+    </li>
+    <li>
+      <a href="/dotfiles">Dotfiles</a>
+    </li>
+    <li>
+      <a href="/notes">Notes</a>
+    </li>
+  </ul>
+</nav>
+<section class="post-metadata">
+    <h5 style="grid-column: span 2">Metadata</h5><svg xmlns="http://www.w3.org/2000/svg" width="2em" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+</svg>
+    <time style="align-self: center; text-align: right;" datetime="2023-04-21 12:00:00+00:00">Apr 21, 2023</time><svg xmlns="http://www.w3.org/2000/svg" width="2em" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z" />
+</svg>
+    <ul class="taglist">
+        <li>
+            <a class="tag" href="../../../tag/esbonio/">
+                #esbonio
+            </a>
+        </li>
+        <li>
+            <a class="tag" href="../../../tag/nix/">
+                #nix
+            </a>
+        </li>
+        <li>
+            <a class="tag" href="../../../tag/python/">
+                #python
+            </a>
+        </li>
+    </ul>
+</section><nav id="localtoc">
+    <ul>
+<li><a class="reference internal" href="#">Integrating Esbonio with Neovim Using Nix</a><ul>
+<li><a class="reference internal" href="#defining-applications">Defining Applications</a></li>
+<li><a class="reference internal" href="#isolated-configuration">Isolated Configuration</a><ul>
+<li><a class="reference internal" href="#nvim-clean"><code class="docutils literal notranslate"><span class="pre">nvim</span> <span class="pre">--clean</span></code></a></li>
+<li><a class="reference internal" href="#a-new-approach">A New Approach</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#integrating-esboino">Integrating Esboino</a><ul>
+<li><a class="reference internal" href="#composing-overlays">Composing Overlays</a></li>
+<li><a class="reference internal" href="#configuring-neovim">Configuring Neovim</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#wrapping-up">Wrapping Up</a></li>
+</ul>
+</li>
+</ul>
+
+</nav>
+  </div>
+</aside>
+
+<div class="content" style="min-width: 0">
+    <header class="site">
+        <label for="menu-toggle">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="2em" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </label>
+    </header>
+
+    <div role="main">
+
+<article>
+  <section id="integrating-esbonio-with-neovim-using-nix">
+<h1>Integrating Esbonio with Neovim Using Nix<a class="headerlink" href="#integrating-esbonio-with-neovim-using-nix" title="Link to this heading">¶</a></h1>
+<div class="post-teaser docutils container">
+<p>So far I’ve been learning how to use Nix by trying to package and define development shells for <a class="reference external" href="https://github.com/swyddfa/esbonio">esbonio</a> (see <span class="xref std std-ref">here</span> if you are interested).
+While useful, the end result is not too dissimilar to what you can get with standard Python tooling.
+Indeed, the main reason I started looking into Nix was the promise of it being able to manage more than just Python libraries.</p>
+<p>Since <code class="docutils literal notranslate"><span class="pre">esbonio</span></code> is a language server, it would be useful for Nix to create standardised environments where the language server is pre-configured for a given editor - great for debugging and demos!</p>
+<p>In this blog post I try to define an environment in which Neovim is installed and configured to use the <code class="docutils literal notranslate"><span class="pre">esbonio</span></code> language server for reStructuredText files.</p>
+</div>
+<div class="admonition-try-it-yourself admonition">
+<p class="admonition-title">Try it yourself!</p>
+<p>If I’ve done all my homework right, you <strong>should</strong> be able to try the result of this blog post for yourself
+Assuming you have nix installed</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>nix<span class="w"> </span>run<span class="w"> </span>github:alcarney/esbonio?rev<span class="o">=</span>a077efeed176dcad2ae5e4fd221179d266f88ca1
+</pre></div>
+</div>
+<p>should be the only command you need.
+Let me know if you run into any issues!</p>
+</div>
+<section id="defining-applications">
+<h2>Defining Applications<a class="headerlink" href="#defining-applications" title="Link to this heading">¶</a></h2>
+<p>One of the <a class="reference external" href="https://nixos.wiki/wiki/Flakes#Output_schema">defined flake outputs</a> is <code class="docutils literal notranslate"><span class="pre">apps.&lt;system&gt;.&lt;name&gt;</span></code> which as the name suggests allows you to export applications from a flake.</p>
+<div class="highlight-nix notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+  <span class="ss">description</span> <span class="o">=</span> <span class="s2">&quot;Esbonio&quot;</span><span class="p">;</span>
+
+  <span class="ss">inputs</span> <span class="o">=</span> <span class="p">{</span>
+    nixpkgs<span class="o">.</span><span class="ss">url</span> <span class="o">=</span> <span class="s2">&quot;github:NixOS/nixpkgs/nixpkgs-unstable&quot;</span><span class="p">;</span>
+    utils<span class="o">.</span><span class="ss">url</span> <span class="o">=</span> <span class="s2">&quot;github:numtide/flake-utils&quot;</span><span class="p">;</span>
+  <span class="p">};</span>
+
+  <span class="ss">outputs</span> <span class="o">=</span> <span class="p">{</span> self<span class="p">,</span> nixpkgs<span class="p">,</span> utils <span class="p">}:</span>
+    utils<span class="o">.</span>lib<span class="o">.</span>eachDefaultSystem <span class="p">(</span>system<span class="p">:</span>
+      <span class="k">let</span>
+        <span class="ss">pkgs</span> <span class="o">=</span> <span class="nb">import</span> nixpkgs <span class="p">{</span> <span class="k">inherit</span> system<span class="p">;</span> <span class="p">};</span>
+      <span class="k">in</span> <span class="p">{</span>
+        apps<span class="o">.</span><span class="ss">default</span> <span class="o">=</span> <span class="p">{</span> <span class="ss">type</span> <span class="o">=</span> <span class="s2">&quot;app&quot;</span><span class="p">;</span> <span class="ss">program</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="si">${</span>pkgs<span class="o">.</span>neovim<span class="si">}</span><span class="s2">/bin/nvim&quot;</span><span class="p">;</span> <span class="p">};</span>
+      <span class="p">}</span>
+    <span class="p">);</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>This simple <code class="docutils literal notranslate"><span class="pre">flake.nix</span></code> exports neovim as an application which we can launch by running <code class="docutils literal notranslate"><span class="pre">nix</span> <span class="pre">run</span> <span class="pre">.</span></code> from the folder containing this flake.</p>
+<figure class="align-center">
+<a class="reference internal image-reference" href="../../../_images/nix-nvim-myconfig.png"><img alt="../../../_images/nix-nvim-myconfig.png" src="../../../_images/nix-nvim-myconfig.png" style="width: 50%;" />
+</a>
+</figure>
+<p>Which works as expected however, it’s also picking up my personal config - not so useful when you’re trying to create a standard, isolated environment.</p>
+</section>
+<section id="isolated-configuration">
+<h2>Isolated Configuration<a class="headerlink" href="#isolated-configuration" title="Link to this heading">¶</a></h2>
+<p>As with most things in Nix, the neovim package definition allows for certain fields to be overridden - including the config.
+Let’s start by trying provide an empty <code class="docutils literal notranslate"><span class="pre">init.vim</span></code> file.</p>
+<div class="highlight-nix notranslate"><div class="highlight"><pre><span></span>utils<span class="o">.</span>lib<span class="o">.</span>eachDefaultSystem <span class="p">(</span>system<span class="p">:</span>
+   <span class="k">let</span>
+     <span class="ss">pkgs</span> <span class="o">=</span> <span class="nb">import</span> nixpkgs <span class="p">{</span> <span class="k">inherit</span> system<span class="p">;</span> <span class="p">};</span>
+     <span class="ss">neovim</span> <span class="o">=</span> pkgs<span class="o">.</span>neovim<span class="o">.</span>override <span class="p">{</span>
+       <span class="ss">configure</span> <span class="o">=</span> <span class="p">{</span>
+         <span class="ss">customRC</span> <span class="o">=</span> <span class="s s-Multiline">&#39;&#39;</span>
+<span class="s s-Multiline">         &#39;&#39;</span><span class="p">;</span>
+       <span class="p">};</span>
+     <span class="p">};</span>
+   <span class="k">in</span> <span class="p">{</span>
+     apps<span class="o">.</span><span class="ss">default</span> <span class="o">=</span> <span class="p">{</span>
+       <span class="ss">type</span> <span class="o">=</span> <span class="s2">&quot;app&quot;</span><span class="p">;</span>
+       <span class="ss">program</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="si">${</span>neovim<span class="si">}</span><span class="s2">/bin/nvim&quot;</span><span class="p">;</span>
+     <span class="p">};</span>
+   <span class="p">}</span>
+ <span class="p">);</span>
+</pre></div>
+</div>
+<p>And try <code class="docutils literal notranslate"><span class="pre">nix</span> <span class="pre">run</span> <span class="pre">.</span></code> again</p>
+<figure class="align-center">
+<a class="reference internal image-reference" href="../../../_images/nix-nvim-emptyconfig.png"><img alt="../../../_images/nix-nvim-emptyconfig.png" src="../../../_images/nix-nvim-emptyconfig.png" style="width: 50%;" />
+</a>
+</figure>
+<p>Which worked! Sort of… well… not really. 😕</p>
+<p>It worked in the sense that it loaded the empty <code class="docutils literal notranslate"><span class="pre">init.vim</span></code> file we specified (notice that the screenshot above has no line numbers).
+However, it’s not truly isolated since it went ahead and loaded my plugins anyway due to my user’s home folder being included in the <code class="docutils literal notranslate"><span class="pre">runtimepath</span></code></p>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>To get the contents of your <a class="reference external" href="https://neovim.io/doc/user/options.html#'runtimepath'">runtimepath</a>
+into a buffer.</p>
+<ol class="arabic simple">
+<li><p>In <code class="docutils literal notranslate"><span class="pre">INSERT</span></code> mode type <code class="docutils literal notranslate"><span class="pre">&lt;c-r&gt;=&amp;rtp</span></code> and hit enter</p></li>
+<li><p>Replace all commas with newlines <code class="docutils literal notranslate"><span class="pre">:%s/,/\r/g</span></code></p></li>
+</ol>
+</div>
+<p>So how can we exclude them?</p>
+<section id="nvim-clean">
+<h3><code class="docutils literal notranslate"><span class="pre">nvim</span> <span class="pre">--clean</span></code><a class="headerlink" href="#nvim-clean" title="Link to this heading">¶</a></h3>
+<p>Reading through <a class="reference external" href="https://neovim.io/doc/user/options.html#'runtimepath'">:h ‘runtimepath’</a> there’s a lot of detail around which paths are searched by default and in what order.
+But right at the end there’s a little note</p>
+<blockquote class="pull-quote">
+<div><p>With <code class="docutils literal notranslate"><span class="pre">--clean</span></code> the home directory entries are not included.</p>
+</div></blockquote>
+<p>Which sounds like just what we need!
+The question is… how do we start <code class="docutils literal notranslate"><span class="pre">nvim</span></code> with that flag?</p>
+<p>Looking around the nixpkgs repo for a bit I found a set of
+<a class="reference external" href="https://github.com/NixOS/nixpkgs/blob/d8f05d468eb7b0a97cef73b9b6631613cfac13a7/pkgs/applications/editors/neovim/tests/default.nix">test cases</a>
+that made use of a
+<a class="reference external" href="https://github.com/NixOS/nixpkgs/blob/d8f05d468eb7b0a97cef73b9b6631613cfac13a7/pkgs/applications/editors/neovim/utils.nix#L24">utility</a>
+for generating a config, along with a
+<a class="reference external" href="https://github.com/NixOS/nixpkgs/blob/d8f05d468eb7b0a97cef73b9b6631613cfac13a7/pkgs/applications/editors/neovim/wrapper.nix">wrapper</a>
+which converts the given config into a shell script.
+This shell script pulls together various components from <code class="docutils literal notranslate"><span class="pre">/nix/store</span></code>, before ultimately launching our isolated instance of neovim.</p>
+<details><summary>Example wrapper script</summary><p>Here is an example of a wrapper script generated by nix.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="ch">#! /nix/store/0hx32wk55ml88jrb1qxwg5c5yazfm6gf-bash-5.2-p15/bin/bash -e</span>
+<span class="nb">export</span><span class="w"> </span><span class="nv">NVIM_SYSTEM_RPLUGIN_MANIFEST</span><span class="o">=</span><span class="s1">&#39;/nix/store/jjl5fy7dc5cxvc7mi781vxbk8ag89ih0-neovim-0.8.3-esbonio/rplugin.vim&#39;</span>
+<span class="nb">export</span><span class="w"> </span><span class="nv">GEM_HOME</span><span class="o">=</span><span class="s1">&#39;/nix/store/4mmkiw8n1nhlfsnh4g2kijzkxnp6fyxb-neovim-ruby-env/lib/ruby/gems/2.7.0&#39;</span>
+<span class="nv">PATH</span><span class="o">=</span><span class="si">${</span><span class="nv">PATH</span><span class="p">:+</span><span class="s1">&#39;:&#39;</span><span class="nv">$PATH</span><span class="s1">&#39;:&#39;</span><span class="si">}</span>
+<span class="k">if</span><span class="w"> </span><span class="o">[[</span><span class="w"> </span><span class="nv">$PATH</span><span class="w"> </span>!<span class="o">=</span><span class="w"> </span>*<span class="s1">&#39;:&#39;&#39;/nix/store/4mmkiw8n1nhlfsnh4g2kijzkxnp6fyxb-neovim-ruby-env/bin&#39;&#39;:&#39;</span>*<span class="w"> </span><span class="o">]]</span><span class="p">;</span><span class="w"> </span><span class="k">then</span>
+<span class="w">    </span><span class="nv">PATH</span><span class="o">=</span><span class="nv">$PATH</span><span class="s1">&#39;/nix/store/4mmkiw8n1nhlfsnh4g2kijzkxnp6fyxb-neovim-ruby-env/bin&#39;</span>
+<span class="k">fi</span>
+<span class="nv">PATH</span><span class="o">=</span><span class="si">${</span><span class="nv">PATH</span><span class="p">#</span><span class="s1">&#39;:&#39;</span><span class="si">}</span>
+<span class="nv">PATH</span><span class="o">=</span><span class="si">${</span><span class="nv">PATH</span><span class="p">%</span><span class="s1">&#39;:&#39;</span><span class="si">}</span>
+<span class="nb">export</span><span class="w"> </span>PATH
+<span class="nv">LUA_PATH</span><span class="o">=</span><span class="si">${</span><span class="nv">LUA_PATH</span><span class="p">:+</span><span class="s1">&#39;;&#39;</span><span class="nv">$LUA_PATH</span><span class="s1">&#39;;&#39;</span><span class="si">}</span>
+<span class="nv">LUA_PATH</span><span class="o">=</span><span class="si">${</span><span class="nv">LUA_PATH</span><span class="p">/</span><span class="s1">&#39;;&#39;&#39;/nix/store/nlmk08cmald0zi7fc6hgpdqrjz7lh8qj-luajit-2.1.0-2022-10-04-env/share/lua/5.1/?/init.lua&#39;&#39;;&#39;</span><span class="p">/</span><span class="s1">&#39;;&#39;</span><span class="si">}</span>
+<span class="nv">LUA_PATH</span><span class="o">=</span><span class="s1">&#39;/nix/store/nlmk08cmald0zi7fc6hgpdqrjz7lh8qj-luajit-2.1.0-2022-10-04-env/share/lua/5.1/?/init.lua&#39;</span><span class="nv">$LUA_PATH</span>
+<span class="nv">LUA_PATH</span><span class="o">=</span><span class="si">${</span><span class="nv">LUA_PATH</span><span class="p">#</span><span class="s1">&#39;;&#39;</span><span class="si">}</span>
+<span class="nv">LUA_PATH</span><span class="o">=</span><span class="si">${</span><span class="nv">LUA_PATH</span><span class="p">%</span><span class="s1">&#39;;&#39;</span><span class="si">}</span>
+<span class="nb">export</span><span class="w"> </span>LUA_PATH
+<span class="nv">LUA_PATH</span><span class="o">=</span><span class="si">${</span><span class="nv">LUA_PATH</span><span class="p">:+</span><span class="s1">&#39;;&#39;</span><span class="nv">$LUA_PATH</span><span class="s1">&#39;;&#39;</span><span class="si">}</span>
+<span class="nv">LUA_PATH</span><span class="o">=</span><span class="si">${</span><span class="nv">LUA_PATH</span><span class="p">/</span><span class="s1">&#39;;&#39;&#39;/nix/store/nlmk08cmald0zi7fc6hgpdqrjz7lh8qj-luajit-2.1.0-2022-10-04-env/share/lua/5.1/?.lua&#39;&#39;;&#39;</span><span class="p">/</span><span class="s1">&#39;;&#39;</span><span class="si">}</span>
+<span class="nv">LUA_PATH</span><span class="o">=</span><span class="s1">&#39;/nix/store/nlmk08cmald0zi7fc6hgpdqrjz7lh8qj-luajit-2.1.0-2022-10-04-env/share/lua/5.1/?.lua&#39;</span><span class="nv">$LUA_PATH</span>
+<span class="nv">LUA_PATH</span><span class="o">=</span><span class="si">${</span><span class="nv">LUA_PATH</span><span class="p">#</span><span class="s1">&#39;;&#39;</span><span class="si">}</span>
+<span class="nv">LUA_PATH</span><span class="o">=</span><span class="si">${</span><span class="nv">LUA_PATH</span><span class="p">%</span><span class="s1">&#39;;&#39;</span><span class="si">}</span>
+<span class="nb">export</span><span class="w"> </span>LUA_PATH
+<span class="nv">LUA_CPATH</span><span class="o">=</span><span class="si">${</span><span class="nv">LUA_CPATH</span><span class="p">:+</span><span class="s1">&#39;;&#39;</span><span class="nv">$LUA_CPATH</span><span class="s1">&#39;;&#39;</span><span class="si">}</span>
+<span class="nv">LUA_CPATH</span><span class="o">=</span><span class="si">${</span><span class="nv">LUA_CPATH</span><span class="p">/</span><span class="s1">&#39;;&#39;&#39;/nix/store/nlmk08cmald0zi7fc6hgpdqrjz7lh8qj-luajit-2.1.0-2022-10-04-env/lib/lua/5.1/?.so&#39;&#39;;&#39;</span><span class="p">/</span><span class="s1">&#39;;&#39;</span><span class="si">}</span>
+<span class="nv">LUA_CPATH</span><span class="o">=</span><span class="s1">&#39;/nix/store/nlmk08cmald0zi7fc6hgpdqrjz7lh8qj-luajit-2.1.0-2022-10-04-env/lib/lua/5.1/?.so&#39;</span><span class="nv">$LUA_CPATH</span>
+<span class="nv">LUA_CPATH</span><span class="o">=</span><span class="si">${</span><span class="nv">LUA_CPATH</span><span class="p">#</span><span class="s1">&#39;;&#39;</span><span class="si">}</span>
+<span class="nv">LUA_CPATH</span><span class="o">=</span><span class="si">${</span><span class="nv">LUA_CPATH</span><span class="p">%</span><span class="s1">&#39;;&#39;</span><span class="si">}</span>
+<span class="nb">export</span><span class="w"> </span>LUA_CPATH
+<span class="nb">exec</span><span class="w"> </span>-a<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$0</span><span class="s2">&quot;</span><span class="w"> </span><span class="s2">&quot;/nix/store/1czj8mydgi30kyfimq6q4ifh06q131ch-neovim-unwrapped-0.8.3/bin/nvim&quot;</span><span class="w">  </span>-u<span class="w"> </span>/nix/store/fqjv4r08pl8k3vhy6ijxddrn8gpq2h7z-init.vim<span class="w"> </span><span class="s1">&#39;--cmd&#39;</span><span class="w"> </span><span class="s1">&#39;let g:loaded_node_provider=0 | let g:loaded_python_provider=0 | let g:python3_host_prog=&#39;</span><span class="se">\&#39;</span><span class="s1">&#39;/nix/store/jjl5fy7dc5cxvc7mi781vxbk8ag89ih0-neovim-0.8.3-esbonio/bin/nvim-python3&#39;</span><span class="se">\&#39;</span><span class="s1">&#39; | let g:ruby_host_prog=&#39;</span><span class="se">\&#39;</span><span class="s1">&#39;/nix/store/jjl5fy7dc5cxvc7mi781vxbk8ag89ih0-neovim-0.8.3-esbonio/bin/nvim-ruby&#39;</span><span class="se">\&#39;</span><span class="s1">&#39;&#39;</span><span class="w"> </span><span class="s2">&quot;</span><span class="nv">$@</span><span class="s2">&quot;</span>
+</pre></div>
+</div>
+</details><p>After some trial and error I was able to put together the following</p>
+<div class="highlight-nix notranslate"><div class="highlight"><pre><span></span>utils<span class="o">.</span>lib<span class="o">.</span>eachDefaultSystem <span class="p">(</span>system<span class="p">:</span>
+  <span class="k">let</span>
+    <span class="ss">pkgs</span> <span class="o">=</span> <span class="nb">import</span> nixpkgs <span class="p">{</span> <span class="k">inherit</span> system<span class="p">;</span> <span class="p">};</span>
+    <span class="ss">nvim-cfg</span> <span class="o">=</span> pkgs<span class="o">.</span>neovimUtils<span class="o">.</span>makeNeovimConfig <span class="p">{</span>
+      <span class="ss">extraName</span> <span class="o">=</span> <span class="s2">&quot;-esbonio&quot;</span><span class="p">;</span>
+      <span class="ss">customRC</span> <span class="o">=</span> <span class="s s-Multiline">&#39;&#39;</span>
+<span class="s s-Multiline">        set number</span>
+<span class="s s-Multiline">      &#39;&#39;</span><span class="p">;</span>
+    <span class="p">};</span>
+    <span class="ss">neovim-config</span> <span class="o">=</span> pkgs<span class="o">.</span>lib<span class="o">.</span>attrsets<span class="o">.</span>updateManyAttrsByPath <span class="p">[</span>
+      <span class="p">{</span>
+        <span class="ss">path</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;wrapperArgs&quot;</span><span class="p">];</span>
+        <span class="ss">update</span> <span class="o">=</span> old<span class="p">:</span> old <span class="o">++</span> <span class="p">[</span>
+          <span class="s2">&quot;--add-flags&quot;</span> <span class="s2">&quot;--clean&quot;</span>
+        <span class="p">];</span>
+      <span class="p">}</span>
+    <span class="p">]</span> nvim-cfg<span class="p">;</span>
+    <span class="ss">neovim</span> <span class="o">=</span> pkgs<span class="o">.</span>wrapNeovimUnstable pkgs<span class="o">.</span>neovim-unwrapped neovim-config<span class="p">;</span>
+  <span class="k">in</span> <span class="p">{</span>
+    apps<span class="o">.</span><span class="ss">default</span> <span class="o">=</span> <span class="p">{</span>
+      <span class="ss">type</span> <span class="o">=</span> <span class="s2">&quot;app&quot;</span><span class="p">;</span>
+      <span class="ss">program</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="si">${</span>neovim<span class="si">}</span><span class="s2">/bin/nvim&quot;</span><span class="p">;</span>
+    <span class="p">};</span>
+  <span class="p">}</span>
+<span class="p">);</span>
+</pre></div>
+</div>
+<p>To summarize</p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">pkgs.neovimUtils.makeNeovimConfig</span></code> as the name suggests is a utility that generates a neovim “config”.
+“config” in this case is an attribute set containing all the arguments required to call <code class="docutils literal notranslate"><span class="pre">pkgs.wrapNeovimUnstable</span></code>.</p></li>
+<li><p>One of these arguments is called <code class="docutils literal notranslate"><span class="pre">wrapperArgs</span></code> which contains the list of cli arguments to pass to the wrapped instance of neovim. Well almost.</p>
+<p><code class="docutils literal notranslate"><span class="pre">wrapperArgs</span></code> aren’t passed through to neovim directly, they are passed to a utility called <code class="docutils literal notranslate"><span class="pre">makeWrapper</span></code> which is a small program with it’s own
+<a class="reference external" href="https://github.com/NixOS/nixpkgs/blob/master/pkgs/build-support/setup-hooks/make-wrapper.sh#L13-L35">set of arguments</a>
+that allow you to describe how you want to wrap an underlying executable.
+This is why I’m appending <code class="docutils literal notranslate"><span class="pre">&quot;--add-flags&quot;</span> <span class="pre">&quot;--clean&quot;</span></code> to <code class="docutils literal notranslate"><span class="pre">wrapperArgs</span></code> and not just <code class="docutils literal notranslate"><span class="pre">--clean</span></code>.</p>
+</li>
+<li><p>Finally, the config and base neovim derivation are passed to <code class="docutils literal notranslate"><span class="pre">pkgs.wrapNeovimUnstable</span></code> to bring it all together.</p></li>
+</ul>
+<p>Unfortunately, after all that I still didn’t end up with the result I was looking for</p>
+<figure class="align-center" id="id1">
+<a class="reference internal image-reference" href="../../../_images/nix-nvim-clean.png"><img alt="../../../_images/nix-nvim-clean.png" src="../../../_images/nix-nvim-clean.png" style="width: 50%;" />
+</a>
+<figcaption>
+<p><span class="caption-text">No plugins, but also note no line numbers 😢</span><a class="headerlink" href="#id1" title="Link to this image">¶</a></p>
+</figcaption>
+</figure>
+<p>Not only does the <code class="docutils literal notranslate"><span class="pre">--clean</span></code> flag prevent neovim from loading the plugins in my home folder, it also stopped neovim from loading the contents of my <code class="docutils literal notranslate"><span class="pre">customRC</span></code> - something I would’ve found out if I’d actually read the help text for <code class="docutils literal notranslate"><span class="pre">--clean</span></code> itself</p>
+<blockquote class="pull-quote">
+<div><p><code class="docutils literal notranslate"><span class="pre">--clean</span></code> - Mimics a fresh install of Nvim:</p>
+<ul class="simple">
+<li><p>Skips initializations from files and environment variables.</p></li>
+<li><p>No ‘shada’ file is read or written.</p></li>
+<li><p>Excludes user directories from ‘runtimepath’</p></li>
+<li><p>Loads builtin plugins, unlike -u NONE -i NONE.</p></li>
+</ul>
+</div></blockquote>
+<p>It should be possible to work around this though by telling neovim to <code class="docutils literal notranslate"><span class="pre">source</span></code> our init file as well as giving it the <code class="docutils literal notranslate"><span class="pre">--clean</span></code> flag.
+Let’s take a look at the <code class="docutils literal notranslate"><span class="pre">exec</span></code> command nix is currently generating for us in the wrapper script.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">exec</span><span class="w"> </span>-a<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$0</span><span class="s2">&quot;</span><span class="w"> </span><span class="s2">&quot;/nix/store/1czj8mydgi30kyfimq6q4ifh06q131ch-neovim-unwrapped-0.8.3/bin/nvim&quot;</span><span class="w"> </span><span class="se">\</span>
+<span class="w">     </span>-u<span class="w"> </span>/nix/store/fqjv4r08pl8k3vhy6ijxddrn8gpq2h7z-init.vim<span class="w"> </span><span class="se">\</span>
+<span class="w">     </span>--cmd<span class="w"> </span><span class="s1">&#39;...&#39;</span><span class="w"> </span><span class="se">\</span>
+<span class="w">     </span>--clean<span class="w"> </span><span class="se">\</span>
+<span class="w">     </span><span class="s2">&quot;</span><span class="nv">$@</span><span class="s2">&quot;</span>
+</pre></div>
+</div>
+<p>The <code class="docutils literal notranslate"><span class="pre">-u</span> <span class="pre">/nix/store/fqj...-init.vim</span></code> argument contains the contents of our <code class="docutils literal notranslate"><span class="pre">customRC</span></code> and I think changing the command to something like</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">exec</span><span class="w"> </span>-a<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$0</span><span class="s2">&quot;</span><span class="w"> </span><span class="s2">&quot;/nix/store/1czj8mydgi30kyfimq6q4ifh06q131ch-neovim-unwrapped-0.8.3/bin/nvim&quot;</span><span class="w"> </span><span class="se">\</span>
+<span class="w">     </span>--clean<span class="w"> </span><span class="se">\</span>
+<span class="w">     </span>--cmd<span class="w"> </span><span class="s1">&#39;source /nix/store/fqjv4r08pl8k3vhy6ijxddrn8gpq2h7z-init.vim&#39;</span><span class="w"> </span><span class="se">\</span>
+<span class="w">     </span><span class="s2">&quot;</span><span class="nv">$@</span><span class="s2">&quot;</span>
+</pre></div>
+</div>
+<p>will result in the behaviour I’m looking for.</p>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>So far I’ve neglected to mention how I’m finding the <code class="docutils literal notranslate"><span class="pre">/nix/store</span></code> path containing this wrapper script.
+Using the nix repl you can load your flake and inspect the values it contains.</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>nix<span class="w"> </span>repl
+<span class="go">Welcome to Nix 2.11.1. Type :? for help.</span>
+
+<span class="go">nix-repl&gt; :lf .        # load the flake located at &#39;.&#39;</span>
+<span class="go">warning: Git tree &#39;/var/home/alex/Projects/esbonio-nix&#39; is dirty</span>
+<span class="go">Added 9 variables.</span>
+
+<span class="go">nix-repl&gt; outputs.apps.x86_64-linux.default</span>
+<span class="go">{ program = &quot;/nix/store/knr1nfdmg9ld0xg813hb7ljl68060jlv-neovim-0.8.3-esbonio/bin/nvim&quot;; type = &quot;app&quot;; }</span>
+</pre></div>
+</div>
+<p>It’s also useful for figuring out how the many utilities in nixpkgs work</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">nix-repl&gt; pkgs = import inputs.nixpkgs {system = &quot;x86_64-linux&quot;; }</span>
+
+<span class="go">nix-repl&gt; config = pkgs.neovimUtils.makeNeovimConfig { customRC = &quot;set number&quot;; }</span>
+
+<span class="go">nix-repl&gt; config.wrapperArgs</span>
+<span class="go">[ &quot;--inherit-argv0&quot; &quot;--add-flags&quot; &quot;&#39;--cmd&#39; &#39;let g:loaded_node_provider=0 | let g:loaded_python_provider=0 | let g:python3_host_prog=&#39;\\&#39;&#39;/1rz4g4znpzjwh1xymhjpm42vipw92pr73vdgl6xs1hycac8kf2n9/bin/nvim-python3&#39;\\&#39;&#39; | let g:ruby_host_prog=&#39;\\&#39;&#39;/1rz4g4znpzjwh1xymhjpm42vipw92pr73vdgl6xs1hycac8kf2n9/bin/nvim-ruby&#39;\\&#39;&#39;&#39;&quot; &quot;--set&quot; &quot;GEM_HOME&quot; &quot;/nix/store/4mmkiw8n1nhlfsnh4g2kijzkxnp6fyxb-neovim-ruby-env/lib/ruby/gems/2.7.0&quot; &quot;--suffix&quot; &quot;PATH&quot; &quot;:&quot; &quot;/nix/store/4mmkiw8n1nhlfsnh4g2kijzkxnp6fyxb-neovim-ruby-env/bin&quot; &quot;--prefix&quot; &quot;LUA_PATH&quot; &quot;;&quot; &quot;/nix/store/nlmk08cmald0zi7fc6hgpdqrjz7lh8qj-luajit-2.1.0-2022-10-04-env/share/lua/5.1/?.lua;/nix/store/nlmk08cmald0zi7fc6hgpdqrjz7lh8qj-luajit-2.1.0-2022-10-04-env/share/lua/5.1/?/init.lua&quot; &quot;--prefix&quot; &quot;LUA_CPATH&quot; &quot;;&quot; &quot;/nix/store/nlmk08cmald0zi7fc6hgpdqrjz7lh8qj-luajit-2.1.0-2022-10-04-env/lib/lua/5.1/?.so&quot; ]</span>
+</pre></div>
+</div>
+<p class="m-0 text-white dark:text-gray-800">.</p></div>
+<p>Unfortunately, I could not see an obvious way to rewrite the arguments to <code class="docutils literal notranslate"><span class="pre">exec</span></code>.
+The store path for the <code class="docutils literal notranslate"><span class="pre">init.vim</span></code> file is only generated in the depths of the <code class="docutils literal notranslate"><span class="pre">wrapNeovimUnstable</span></code> as it is written to disk and trying to manipulate <code class="docutils literal notranslate"><span class="pre">wrapperArgs</span></code> to extract it isn’t something I’m willing to attempt in Nix just yet!</p>
+</section>
+<section id="a-new-approach">
+<h3>A New Approach<a class="headerlink" href="#a-new-approach" title="Link to this heading">¶</a></h3>
+<p>It was at this point I started looking around to see what other people have come up with and before long I found
+<a class="reference external" href="https://www.reddit.com/r/neovim/comments/v45zkv/any_solution_for_isolated_neovimvim_environments/">this reddit thread</a>
+which linked
+<a class="reference external" href="https://git.sr.ht/~whynothugo/dotfiles/tree/e7c0e701/item/v/flake.nix">this flake</a>
+that looked very promising.
+Not only did it provide a way of creating an isolated config but it also showed how to manage plugins and external binaries!</p>
+<p>Following its example I was able to come up with the following definition</p>
+<div class="highlight-nix notranslate"><div class="highlight"><pre><span></span>utils<span class="o">.</span>lib<span class="o">.</span>eachDefaultSystem <span class="p">(</span>system<span class="p">:</span>
+  <span class="k">let</span>
+    <span class="ss">pkgs</span> <span class="o">=</span> <span class="nb">import</span> nixpkgs <span class="p">{</span> <span class="k">inherit</span> system <span class="p">;</span> <span class="p">};</span>
+    <span class="ss">initVim</span> <span class="o">=</span> <span class="s s-Multiline">&#39;&#39;</span>
+<span class="s s-Multiline">      set number</span>
+<span class="s s-Multiline">    &#39;&#39;</span><span class="p">;</span>
+    <span class="ss">paths</span> <span class="o">=</span> pkgs<span class="o">.</span>lib<span class="o">.</span>makeBinPath <span class="p">[</span>
+      pkgs<span class="o">.</span>neovim
+    <span class="p">];</span>
+    <span class="ss">pluginList</span> <span class="o">=</span> <span class="k">with</span> pkgs<span class="o">.</span>vimPlugins<span class="p">;</span> <span class="p">[</span>
+      nvim-lspconfig
+    <span class="p">];</span>
+    <span class="ss">plugins</span> <span class="o">=</span> pkgs<span class="o">.</span>stdenv<span class="o">.</span>mkDerivation <span class="p">{</span>
+      <span class="ss">name</span> <span class="o">=</span> <span class="s2">&quot;esbonio-nvim-plugins&quot;</span><span class="p">;</span>
+      <span class="ss">buildCommand</span> <span class="o">=</span> <span class="s s-Multiline">&#39;&#39;</span>
+<span class="s s-Multiline">        mkdir -p $out/nvim/site/pack/plugins/start/</span>
+<span class="s s-Multiline">        </span><span class="si">${</span>pkgs<span class="o">.</span>lib<span class="o">.</span>concatMapStringsSep <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span> <span class="p">(</span>path<span class="p">:</span> <span class="s2">&quot;ln -s </span><span class="si">${</span>path<span class="si">}</span><span class="s2"> $out/nvim/site/pack/plugins/start/&quot;</span><span class="p">)</span>  pluginList <span class="si">}</span>
+<span class="s s-Multiline">      &#39;&#39;</span><span class="p">;</span>
+    <span class="p">};</span>
+    <span class="ss">neovim</span> <span class="o">=</span> pkgs<span class="o">.</span>writeShellScriptBin <span class="s2">&quot;nvim&quot;</span> <span class="s s-Multiline">&#39;&#39;</span>
+<span class="s s-Multiline">      export PATH=</span><span class="si">${</span>paths<span class="si">}</span><span class="s s-Multiline">:$PATH</span>
+<span class="s s-Multiline">      export XDG_CONFIG_DIRS=</span>
+<span class="s s-Multiline">      export XDG_DATA_DIRS=</span><span class="si">${</span>plugins<span class="o">.</span>outPath<span class="si">}</span>
+<span class="s s-Multiline">      nvim --clean --cmd source </span><span class="si">${</span>pkgs<span class="o">.</span>writeText <span class="s2">&quot;init.vim&quot;</span> initVim<span class="si">}</span><span class="s s-Multiline"> &quot;$@&quot;</span>
+<span class="s s-Multiline">    &#39;&#39;</span><span class="p">;</span>
+  <span class="k">in</span> <span class="p">{</span>
+     apps<span class="o">.</span><span class="ss">default</span> <span class="o">=</span> <span class="p">{</span>
+       <span class="ss">type</span> <span class="o">=</span> <span class="s2">&quot;app&quot;</span><span class="p">;</span>
+       <span class="ss">program</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="si">${</span>neovim<span class="si">}</span><span class="s2">/bin/nvim&quot;</span><span class="p">;</span>
+     <span class="p">};</span>
+   <span class="p">}</span>
+<span class="p">);</span>
+</pre></div>
+</div>
+<p>And trying <code class="docutils literal notranslate"><span class="pre">nix</span> <span class="pre">run</span> <span class="pre">.</span></code> once more</p>
+<figure class="align-center" id="id2">
+<a class="reference internal image-reference" href="../../../_images/nix-nvim-isolated.png"><img alt="../../../_images/nix-nvim-isolated.png" src="../../../_images/nix-nvim-isolated.png" style="width: 50%;" />
+</a>
+<figcaption>
+<p><span class="caption-text">Success!</span><a class="headerlink" href="#id2" title="Link to this image">¶</a></p>
+</figcaption>
+</figure>
+<p>Not only did I end up with the correct configuration, the <code class="docutils literal notranslate"><span class="pre">runtimepath</span></code> finally contains just the paths that are necessary!</p>
+</section>
+</section>
+<section id="integrating-esboino">
+<h2>Integrating Esboino<a class="headerlink" href="#integrating-esboino" title="Link to this heading">¶</a></h2>
+<p>Next we need to make sure the esbonio language server is available in this environment and include the necessary configuration for it in the config.</p>
+<p>Including the server should be pretty straightforward as we get to reuse the overlay defined <a class="reference internal" href="../nix-overlays-p2/" title="Nix Overlays: A follow up">previously</a>.</p>
+<div class="highlight-diff notranslate"><div class="highlight"><pre><span></span><span class="w"> </span> inputs = {
+<span class="w"> </span>   nixpkgs.url = &quot;github:NixOS/nixpkgs/nixpkgs-unstable&quot;;
+<span class="gi">+   esbonio.url = &quot;path:lib/esbonio&quot;;</span>
+<span class="gi">+   esbonio.inputs.nixpkgs.follows = &quot;nixpkgs&quot;;</span>
+<span class="w"> </span>   utils.url = &quot;github:numtide/flake-utils&quot;;
+<span class="w"> </span> };
+
+<span class="gd">- outputs = { self, nixpkgs, utils }:</span>
+<span class="gi">+ outputs = { self, nixpkgs, esbonio, utils }:</span>
+
+<span class="w"> </span>utils.lib.eachDefaultSystem (system:
+<span class="w"> </span>  let
+<span class="gd">-    pkgs = import nixpkgs { inherit system ; };</span>
+<span class="gi">+    pkgs = import nixpkgs { inherit system ; overlays = [ esbonio.overlays.default ];};</span>
+<span class="w"> </span>    initVim = &#39;&#39;
+<span class="w"> </span>      set number
+<span class="w"> </span>    &#39;&#39;;
+<span class="w"> </span>    paths = pkgs.lib.makeBinPath [
+<span class="w"> </span>      pkgs.neovim
+<span class="gi">+      pkgs.python310Packages.esbonio</span>
+<span class="w"> </span>    ];
+</pre></div>
+</div>
+<p><strong>Should</strong> being the key word here…</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>nix<span class="w"> </span>run<span class="w"> </span>.
+<span class="go">warning: Git tree &#39;/var/home/alex/Projects/esbonio-nix&#39; is dirty</span>
+<span class="go">warning: updating lock file &#39;/var/home/alex/Projects/esbonio-nix/flake.lock&#39;:</span>
+<span class="go">• Added input &#39;esbonio&#39;:</span>
+<span class="go">    &#39;path:lib/esbonio?lastModified=1&amp;narHash=sha256-WiFypw4lUZo7P9h82NMudwb5DFV0Nde5cOu1SqDmhVQ=&#39; (1970-01-01)</span>
+<span class="go">• Added input &#39;esbonio/nixpkgs&#39;:</span>
+<span class="go">    follows &#39;nixpkgs&#39;</span>
+<span class="go">• Added input &#39;esbonio/pytest-lsp&#39;:</span>
+<span class="go">    &#39;github:swyddfa/lsp-devtools/6ae80a24b55d2b6943b9d30805cf02440ebbaf5c?dir=lib%2fpytest-lsp&#39; (2023-04-02)</span>
+<span class="go">• Added input &#39;esbonio/pytest-lsp/nixpkgs&#39;:</span>
+<span class="go">    follows &#39;esbonio/nixpkgs&#39;</span>
+<span class="go">• Added input &#39;esbonio/pytest-lsp/utils&#39;:</span>
+<span class="go">    &#39;github:numtide/flake-utils/93a2b84fc4b70d9e089d029deacc3583435c2ed6&#39; (2023-03-15)</span>
+<span class="go">• Added input &#39;esbonio/utils&#39;:</span>
+<span class="go">    &#39;github:numtide/flake-utils/5aed5285a952e0b949eb3ba02c12fa4fcfef535f&#39; (2022-11-02)</span>
+<span class="go">warning: Git tree &#39;/var/home/alex/Projects/esbonio-nix&#39; is dirty</span>
+<span class="go">error: undefined variable &#39;pytest-lsp&#39;</span>
+
+<span class="go">       at /nix/store/96z740kkay7j0cbgmccj2mzbn5z8agvp-source/nix/esbonio-overlay.nix:22:11:</span>
+
+<span class="go">           21|           mock</span>
+<span class="go">           22|           pytest-lsp</span>
+<span class="go">             |           ^</span>
+<span class="go">           23|           pytest-timeout</span>
+<span class="gp gp-VirtualEnv">(use &#39;--show-trace&#39; to show detailed location information)</span>
+</pre></div>
+</div>
+<p>The overlay exported by the language server’s flake doesn’t include its dependency <code class="docutils literal notranslate"><span class="pre">pytest-lsp</span></code> which is provided through an overlay of its own.
+A quick “fix” would be to also pull in the flake for pytest-lsp, but really the language server’s flake should be exporting all of its dependencies.</p>
+<section id="composing-overlays">
+<h3>Composing Overlays<a class="headerlink" href="#composing-overlays" title="Link to this heading">¶</a></h3>
+<p>Thankfully, nixpkgs provides a function
+<a class="reference external" href="https://github.com/NixOS/nixpkgs/blob/3eb57ca9451406a7131f54b8a90b82462ad89252/lib/fixed-points.nix#L86">composeManyExtensions</a>
+that handles this for us.
+When exporting the overlay from within the language server’s flake we can use it to merge the overlay from pytest-lsp with the overlay containing esbonio.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># In lib/esbonio/flake.nix</span>
+<span class="n">overlays</span><span class="o">.</span><span class="n">default</span> <span class="o">=</span> <span class="bp">self</span><span class="p">:</span> <span class="nb">super</span><span class="p">:</span> <span class="n">nixpkgs</span><span class="o">.</span><span class="n">lib</span><span class="o">.</span><span class="n">composeManyExtensions</span> <span class="p">[</span>
+  <span class="n">pytest</span><span class="o">-</span><span class="n">lsp</span><span class="o">-</span><span class="n">overlay</span>
+  <span class="n">esbonio</span><span class="o">-</span><span class="n">overlay</span>
+<span class="p">]</span> <span class="bp">self</span> <span class="nb">super</span>
+</pre></div>
+</div>
+<p>However, since <code class="docutils literal notranslate"><span class="pre">flake.lock</span></code> freezes the language server’s flake as it was before we made this change we need to also update the lock file before trying again</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>nix<span class="w"> </span>flake<span class="w"> </span>lock<span class="w"> </span>--update-input<span class="w"> </span>esbonio
+<span class="go">warning: Git tree &#39;/var/home/alex/Projects/esbonio-nix&#39; is dirty</span>
+<span class="go">warning: updating lock file &#39;/var/home/alex/Projects/esbonio-nix/flake.lock&#39;:</span>
+<span class="go">• Updated input &#39;esbonio&#39;:</span>
+<span class="go">    &#39;path:lib/esbonio?lastModified=1&amp;narHash=sha256-WiFypw4lUZo7P9h82NMudwb5DFV0Nde5cOu1SqDmhVQ=&#39; (1970-01-01)</span>
+<span class="go">  → &#39;path:lib/esbonio?lastModified=1&amp;narHash=sha256-QgSDxOPSrtsaqjeStalef07+bUE3qkzz7pJC4y43ltw=&#39; (1970-01-01)</span>
+<span class="go">warning: Git tree &#39;/var/home/alex/Projects/esbonio-nix&#39; is dirty</span>
+</pre></div>
+</div>
+<p>Now trying <code class="docutils literal notranslate"><span class="pre">nix</span> <span class="pre">run</span> <span class="pre">.</span></code> again neovim launches as before, running the command <code class="docutils literal notranslate"><span class="pre">:r</span> <span class="pre">!python</span> <span class="pre">-m</span> <span class="pre">esbonio</span> <span class="pre">--help</span></code> we can verify that the language server is indeed available to the editor.</p>
+<figure class="align-center" id="id3">
+<a class="reference internal image-reference" href="../../../_images/nix-nvim-esbonio-help.png"><img alt="../../../_images/nix-nvim-esbonio-help.png" src="../../../_images/nix-nvim-esbonio-help.png" style="width: 50%;" />
+</a>
+<figcaption>
+<p><span class="caption-text">Almost there!</span><a class="headerlink" href="#id3" title="Link to this image">¶</a></p>
+</figcaption>
+</figure>
+<div class="admonition-editor-s-note admonition">
+<p class="admonition-title">Editor’s Note</p>
+<p>Since writing this section and taking the above screenshot, I have been unable to re-produce it!
+Now <code class="docutils literal notranslate"><span class="pre">:r</span> <span class="pre">!python</span> <span class="pre">-m</span> <span class="pre">esbonio</span> <span class="pre">--help</span></code> results in a <code class="docutils literal notranslate"><span class="pre">esbonio:</span> <span class="pre">Module</span> <span class="pre">not</span> <span class="pre">found</span></code> error…</p>
+<p>When debugging this, I’m not sure how the original ever worked since the flake definition does not include
+a Python interpreter meaning that <code class="docutils literal notranslate"><span class="pre">python</span> <span class="pre">-m</span> <span class="pre">esbonio</span> <span class="pre">--help</span></code> is running under the system Python.</p>
+<p>The fix then, was to switch from <code class="docutils literal notranslate"><span class="pre">python</span> <span class="pre">-m</span> <span class="pre">esbonio</span> <span class="pre">--help</span></code> to calling <code class="docutils literal notranslate"><span class="pre">esbonio</span> <span class="pre">--help</span></code> directly, which thankfully, did not require me to change any of the Nix code.</p>
+</div>
+</section>
+<section id="configuring-neovim">
+<h3>Configuring Neovim<a class="headerlink" href="#configuring-neovim" title="Link to this heading">¶</a></h3>
+<p>Now all that’s left to do is updating our <code class="docutils literal notranslate"><span class="pre">initVim</span></code> variable to contain the relevant configuration for the language server.
+Thanks to the
+<a class="reference external" href="https://swyddfa.github.io/esbonio/docs/latest/en/lsp/getting-started.html?editor=neovim-lspconfig#examples">example configuration</a>
+available in the documentation, this can be as straightforward as replacing our hardcoded configuration with a call to Nix (the language’s) builtin
+<a class="reference external" href="https://nixos.org/manual/nix/stable/language/builtins.html#builtins-readFile">readFile</a>
+function.</p>
+<div class="highlight-diff notranslate"><div class="highlight"><pre><span></span><span class="w"> </span>utils.lib.eachDefaultSystem (system:
+<span class="w"> </span>  let
+<span class="w"> </span>    pkgs = import nixpkgs { inherit system ; overlays = [ esbonio.overlays.default ];};
+<span class="gd">-    initVim = &#39;&#39;</span>
+<span class="gd">-      set number</span>
+<span class="gd">-    &#39;&#39;;</span>
+<span class="gi">+    initVim = builtins.readFile ./docs/lsp/editors/nvim-lspconfig/init.vim;</span>
+<span class="w"> </span>    paths = pkgs.lib.makeBinPath [
+<span class="w"> </span>      pkgs.neovim
+<span class="w"> </span>      pkgs.python310Packages.esbonio
+<span class="w"> </span>    ];
+</pre></div>
+</div>
+<p>And try opening a Sphinx project with it</p>
+<figure class="align-center" id="id4">
+<a class="reference internal image-reference" href="../../../_images/nix-nvim-esbonio-minimal.png"><img alt="../../../_images/nix-nvim-esbonio-minimal.png" src="../../../_images/nix-nvim-esbonio-minimal.png" style="width: 50%;" />
+</a>
+<figcaption>
+<p><span class="caption-text">It’s not pretty, but it works!</span><a class="headerlink" href="#id4" title="Link to this image">¶</a></p>
+</figcaption>
+</figure>
+</section>
+</section>
+<section id="wrapping-up">
+<h2>Wrapping Up<a class="headerlink" href="#wrapping-up" title="Link to this heading">¶</a></h2>
+<p>The experience as is currently stands is not that inspiring however, with the nix foundations laid it’s now more of a configuring neovim problem rather than a nix one!
+I am mildly disappointed that this required to dive so deep on the specifics of how neovim is configured, since that probably means you’d have to go to a similar depth to incorporate other editors.
+That said, once you’ve solved it for a given editor it’s probably solved “forever”.</p>
+<p>Next I think I’d be interested in exploring how (or if it’s even possible) to make these Nix definitions more dynamic e.g.</p>
+<ul class="simple">
+<li><p>Using the language server from <code class="docutils literal notranslate"><span class="pre">$EDITOR</span></code> using Python <code class="docutils literal notranslate"><span class="pre">3.x</span></code></p></li>
+<li><p>Run the language server tests, but with a local checkout of <a class="reference external" href="https://github.com/openlawlibrary/pygls">pygls</a></p></li>
+<li><p>Edit docs for <code class="docutils literal notranslate"><span class="pre">$PROJECT</span></code> using Sphinx <code class="docutils literal notranslate"><span class="pre">vX</span></code></p></li>
+</ul>
+<p>Obviously, you could achieve a lot of that by just editing the Nix definitions and rebuilding but I wonder if it’s possible to build in support for swapping parts out that can be wrapped up in a Makefile or similar 🤔</p>
+</section>
+</section>
+
+  <footer>
+    <script src="https://giscus.app/client.js"
+            data-repo="alcarney/blog"
+            data-repo-id="MDEwOlJlcG9zaXRvcnk2Njk3NzM3MQ=="
+            data-category="Comments"
+            data-category-id="DIC_kwDOA_3-W84B_XOl"
+            data-mapping="pathname"
+            data-reactions-enabled="1"
+            data-emit-metadata="0"
+            data-theme="preferred_color_scheme"
+            crossorigin="anonymous"
+            async>
+    </script>
+  </footer>
+
+</article>
+
+    </div>
+
+    <footer class="site">
+      <div>
+        <h6>Links</h6>
+        <ul>
+          <li>
+            <a href="../../../_sources/content/20230421T120000--integrate-esbonio-nvim-with-nix__blog_esbonio_nix_python.rst.txt" rel="nofollow">
+              Page Source
+            </a>
+          </li>
+          <li>
+            <a href="https://github.com/alcarney/blog" rel="nofollow">
+              Source Code
+            </a>
+          </li>
+        </ul>
+      </div>
+
+      <div>
+        <h6>
+          Built with
+        </h6>
+        <ul>
+          <li>
+            <a href="https://www.sphinx-doc.org/en/master/">
+              Sphinx
+            </a>
+            v8.2.0
+          </li>
+          <li>
+            <a href="https://feathericons.com/">
+              Feather Icons
+            </a>
+          </li>
+        </ul>
+      </div>
+    </footer>
+</div>
+  </body>
+</html>

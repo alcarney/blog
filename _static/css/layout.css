@@ -126,6 +126,20 @@ figcaption p {
     text-align: center;
 }
 
+dt {
+    margin-top: 1em;
+}
+
+dd {
+    margin-left: 1em;
+    padding-left: 1em;
+    border-left: solid 1px var(--fg-accent);
+}
+
+dd p:first-child {
+    margin-top: 0
+}
+
 ul.taglist {
     display: flex;
     gap: 1em;

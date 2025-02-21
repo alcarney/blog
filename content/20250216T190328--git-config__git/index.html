@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+
+<html lang="en" data-content_root="../../">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Git &#8212; Alex Carney</title>
+
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=02ca0aaa" />
+    <link id="pygments_dark_css" media="(prefers-color-scheme: dark)" rel="stylesheet" type="text/css" href="../../_static/pygments_dark.css?v=d8568271" />
+    <link rel="stylesheet" type="text/css" href="../../_static/css/layout.css?v=118cebfc" />
+
+    <script src="../../_static/documentation_options.js?v=187304be"></script>
+    <script src="../../_static/doctools.js?v=9bcbadda"></script>
+    <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../_static/js/theme.js?v=94324b12"></script>
+    <script src="../../_static/js/htmx-2.0.4.min.js?v=be6ab97a"></script>
+    <link rel="icon" href="../../_static/favicon.ico"/>
+    <link rel="index" title="Index" href="../../genindex/" />
+    <link rel="search" title="Search" href="../../search/" /> 
+  </head>
+  <body>
+
+<input type="checkbox" id="menu-toggle" class="hidden" />
+<aside>
+  <div class="sidebar"><div id="profile-card">
+    <img src="/_static/avatar.jpg"/>
+    <h2>
+      <a href="/">Alex Carney</a>
+    </h2>
+    <nav class="social">
+  <a target="_blank" rel="noreferrer noopener" href="https://github.com/alcarney" title="GitHub">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="24px" height="24px">
+      <path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/>
+    </svg>
+  </a>
+
+  <a target="_blank" rel="noreferrer noopener me" href="https://fosstodon.org/@alcarney" title="Mastodon">
+    <svg role="img" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" width="24px" height="24px" fill="currentColor">
+      <title>Mastodon</title>
+      <path d="M23.268 5.313c-.35-2.578-2.617-4.61-5.304-5.004C17.51.242 15.792 0 11.813 0h-.03c-3.98 0-4.835.242-5.288.309C3.882.692 1.496 2.518.917 5.127.64 6.412.61 7.837.661 9.143c.074 1.874.088 3.745.26 5.611.118 1.24.325 2.47.62 3.68.55 2.237 2.777 4.098 4.96 4.857 2.336.792 4.849.923 7.256.38.265-.061.527-.132.786-.213.585-.184 1.27-.39 1.774-.753a.057.057 0 0 0 .023-.043v-1.809a.052.052 0 0 0-.02-.041.053.053 0 0 0-.046-.01 20.282 20.282 0 0 1-4.709.545c-2.73 0-3.463-1.284-3.674-1.818a5.593 5.593 0 0 1-.319-1.433.053.053 0 0 1 .066-.054c1.517.363 3.072.546 4.632.546.376 0 .75 0 1.125-.01 1.57-.044 3.224-.124 4.768-.422.038-.008.077-.015.11-.024 2.435-.464 4.753-1.92 4.989-5.604.008-.145.03-1.52.03-1.67.002-.512.167-3.63-.024-5.545zm-3.748 9.195h-2.561V8.29c0-1.309-.55-1.976-1.67-1.976-1.23 0-1.846.79-1.846 2.35v3.403h-2.546V8.663c0-1.56-.617-2.35-1.848-2.35-1.112 0-1.668.668-1.67 1.977v6.218H4.822V8.102c0-1.31.337-2.35 1.011-3.12.696-.77 1.608-1.164 2.74-1.164 1.311 0 2.302.5 2.962 1.498l.638 1.06.638-1.06c.66-.999 1.65-1.498 2.96-1.498 1.13 0 2.043.395 2.74 1.164.675.77 1.012 1.81 1.012 3.12z"/>
+    </svg>
+  </a>
+
+  <a target="_blank" rel="noreferrer noopener" href="https://pixelfed.social/i/web/profile/795173629619860860" title="Pixelfed">
+    <svg width="24px" height="24px" viewBox="0 0 50 50" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path d="M25 50C11.193 50 0 38.807 0 25S11.193 0 25 0s25 11.193 25 25-11.193 25-25 25zm-1.985-19.542h4.586c4.32 0 7.823-3.41 7.823-7.615 0-4.206-3.502-7.616-7.823-7.616h-6.619c-2.492 0-4.513 1.967-4.513 4.394v17.1l6.546-6.263z" fill-rule="evenodd"/></svg>
+  </a>
+
+  <a target="_blank" rel="noreferrer noopener" href="https://www.youtube.com/channel/UC5GPflgRWhnCxA0BllfP5CA" title="YouTube">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24px" height="24px" fill="currentColor">
+      <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
+    </svg>
+  </a>
+
+  <a href="/blog/atom.xml" title="RSS Feed">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24px" height="24px" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
+      <path d="M4 11a9 9 0 0 1 9 9M4 4a16 16 0 0 1 16 16"/>
+      <circle cx="5" cy="19" r="1"/>
+    </svg>
+  </a>
+</nav>
+</div>
+<search id="searchbox" style="display: none" role="search">
+    <div class="searchformwrapper">
+    <form class="search" action="../../search/" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" placeholder="Search"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</search>
+<script>document.getElementById('searchbox').style.display = "block"</script><nav class="site">
+  <ul>
+    <li>
+      <a href="/blog">Blog</a>
+    </li>
+    <li>
+      <a href="/code">Code</a>
+    </li>
+    <li>
+      <a href="/dotfiles">Dotfiles</a>
+    </li>
+    <li>
+      <a href="/notes">Notes</a>
+    </li>
+  </ul>
+</nav>
+<section class="post-metadata">
+    <h5 style="grid-column: span 2">Metadata</h5><svg xmlns="http://www.w3.org/2000/svg" width="2em" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+</svg>
+    <time style="align-self: center; text-align: right;" datetime="2025-02-16 19:03:28+00:00">Feb 16, 2025</time><svg xmlns="http://www.w3.org/2000/svg" width="2em" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z" />
+</svg>
+    <ul class="taglist">
+        <li>
+            <a class="tag" href="../../tag/git/">
+                #git
+            </a>
+        </li>
+    </ul>
+</section><nav id="localtoc">
+    <ul>
+<li><a class="reference internal" href="#">Git</a><ul>
+<li><a class="reference internal" href="#author">Author</a></li>
+<li><a class="reference internal" href="#aliases">Aliases</a></li>
+<li><a class="reference internal" href="#credential-helper">Credential Helper</a></li>
+<li><a class="reference internal" href="#diffing">Diffing</a></li>
+<li><a class="reference internal" href="#merging">Merging</a></li>
+<li><a class="reference internal" href="#rebasing">Rebasing</a></li>
+<li><a class="reference internal" href="#other-options">Other Options</a></li>
+</ul>
+</li>
+</ul>
+
+</nav>
+  </div>
+</aside>
+
+<div class="content" style="min-width: 0">
+    <header class="site">
+        <label for="menu-toggle">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="2em" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </label>
+    </header>
+
+    <div role="main">
+
+<article>
+  <section id="git">
+<h1>Git<a class="headerlink" href="#git" title="Link to this heading">¶</a></h1>
+<div class="awdur-codeblock docutils container">
+<div class="awdur-codeblock-header docutils container">
+<code class="awdur-codeblock-filename docutils literal notranslate"><span class="pre">Makefile</span></code></div>
+<div class="highlight-make notranslate"><div class="highlight"><pre><span></span><span class="nf">.PHONY</span><span class="o">:</span><span class="w"> </span><span class="n">git</span>
+<span class="nf">git</span><span class="o">:</span>
+<span class="w">     </span><span class="nb">test</span><span class="w"> </span>-L<span class="w"> </span><span class="k">$(</span>HOME<span class="k">)</span>/.gitconfig<span class="w"> </span><span class="o">||</span><span class="w"> </span>ln<span class="w"> </span>-s<span class="w"> </span><span class="k">$(</span>shell<span class="w"> </span><span class="nb">pwd</span><span class="k">)</span>/gitconfig<span class="w"> </span><span class="k">$(</span>HOME<span class="k">)</span>/.gitconfig
+</pre></div>
+</div>
+</div>
+<section id="author">
+<h2>Author<a class="headerlink" href="#author" title="Link to this heading">¶</a></h2>
+<p>Setting basic identity details for commits</p>
+<div class="awdur-codeblock docutils container">
+<div class="awdur-codeblock-header docutils container">
+<code class="awdur-codeblock-filename docutils literal notranslate"><span class="pre">gitconfig</span></code></div>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>[user]
+name  = Alex Carney
+email = alcarneyme@gmail.com
+</pre></div>
+</div>
+</div>
+</section>
+<section id="aliases">
+<h2>Aliases<a class="headerlink" href="#aliases" title="Link to this heading">¶</a></h2>
+<div class="awdur-codeblock docutils container">
+<div class="awdur-codeblock-header docutils container">
+<code class="awdur-codeblock-filename docutils literal notranslate"><span class="pre">gitconfig</span></code></div>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>[alias]
+co = checkout
+amend = commit --amend --no-edit  # Squash changes into the previous commit
+</pre></div>
+</div>
+</div>
+<p>A nice view of a repository’s history</p>
+<div class="awdur-codeblock docutils container">
+<div class="awdur-codeblock-header docutils container">
+<code class="awdur-codeblock-filename docutils literal notranslate"><span class="pre">gitconfig</span></code></div>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>hist = log --branches --remotes --tags --graph --oneline --decorate
+</pre></div>
+</div>
+</div>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>$ git hist
+* 9bbbedca (origin/sphinx-8, sphinx-8) lsp: Drop Sphinx 5.x, add support for Sphinx 8.x
+*   44f758bc (HEAD -&gt; develop, upstream/develop, origin/develop) Merge branch &#39;release&#39; into develop
+|\
+| * 6a2086c7 (tag: esbonio-vscode-extension-v0.95.1, upstream/release, release) Esbonio VSCode Extension Release v0.95.1
+| * 72be1341 (origin/take-2) code: Update changelog
+* | fc194b26 Start testing against 3.13
+* | 306fbaf9 Bump ruff version
+* | 4552ff34 [pre-commit.ci] pre-commit autoupdate
+* | 5bce0a3c build(deps): bump semver from 7.6.2 to 7.6.3 in /code
+* | d02c69ad build(deps-dev): bump @vscode/vsce from 2.30.0 to 2.31.1 in /code
+* | 8de0b24a devenv: Install the latest hatch
+* | c96bc561 devenv: Bump NodeJS version
+...
+</pre></div>
+</div>
+<p>A better (for some definition of “better”) git status command</p>
+<div class="awdur-codeblock docutils container">
+<div class="awdur-codeblock-header docutils container">
+<code class="awdur-codeblock-filename docutils literal notranslate"><span class="pre">gitconfig</span></code></div>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>s = !git status -sb &amp;&amp; git --no-pager diff --shortstat
+</pre></div>
+</div>
+</div>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>$ git s
+## release...origin/release [ahead 2]
+ M dotfiles.rst
+ M dotfiles/bash.rst
+?? dotfiles/.#git.rst
+?? dotfiles/git.rst
+ 2 files changed, 12 insertions(+), 3 deletions(-)
+</pre></div>
+</div>
+</section>
+<section id="credential-helper">
+<h2>Credential Helper<a class="headerlink" href="#credential-helper" title="Link to this heading">¶</a></h2>
+<p>This tells git to use the <a class="reference external" href="https://cli.github.com/">GitHub CLI</a> to authenticate when pushing/pulling from GitHub</p>
+<div class="awdur-codeblock docutils container">
+<div class="awdur-codeblock-header docutils container">
+<code class="awdur-codeblock-filename docutils literal notranslate"><span class="pre">gitconfig</span></code></div>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>[credential &quot;https://github.com&quot;]
+helper =
+helper = !gh auth git-credential
+</pre></div>
+</div>
+</div>
+</section>
+<section id="diffing">
+<h2>Diffing<a class="headerlink" href="#diffing" title="Link to this heading">¶</a></h2>
+<p>Using the <code class="docutils literal notranslate"><span class="pre">histogram</span></code> algorithm <a class="reference external" href="https://luppeng.wordpress.com/2020/10/10/when-to-use-each-of-the-git-diff-algorithms/">apparently produces nicer diffs</a> when code is moved</p>
+<div class="awdur-codeblock docutils container">
+<div class="awdur-codeblock-header docutils container">
+<code class="awdur-codeblock-filename docutils literal notranslate"><span class="pre">gitconfig</span></code></div>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>[diff]
+algorithm = histogram
+colorMoved = default
+</pre></div>
+</div>
+</div>
+</section>
+<section id="merging">
+<h2>Merging<a class="headerlink" href="#merging" title="Link to this heading">¶</a></h2>
+<p>The following option describes how git should render merge conflicts</p>
+<div class="awdur-codeblock docutils container">
+<div class="awdur-codeblock-header docutils container">
+<code class="awdur-codeblock-filename docutils literal notranslate"><span class="pre">gitconfig</span></code></div>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>[merge]
+conflictstyle = diff3
+</pre></div>
+</div>
+</div>
+<p>Another option that might be worth experimenting with is <code class="docutils literal notranslate"><span class="pre">zdiff3</span></code>, see <a class="reference external" href="https://ductile.systems/zdiff3/">this article</a></p>
+</section>
+<section id="rebasing">
+<h2>Rebasing<a class="headerlink" href="#rebasing" title="Link to this heading">¶</a></h2>
+<p>I rebase all the time most of the time to squash a bunch of <code class="docutils literal notranslate"><span class="pre">fixup!</span></code> commits together.
+The following options remove the need to manually pass <cite>–autosquash</cite> and <cite>–autostash</cite> to the rebase command each time.</p>
+<div class="awdur-codeblock docutils container">
+<div class="awdur-codeblock-header docutils container">
+<code class="awdur-codeblock-filename docutils literal notranslate"><span class="pre">gitconfig</span></code></div>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>[rebase]
+autosquash = true
+autostash = true
+</pre></div>
+</div>
+</div>
+</section>
+<section id="other-options">
+<h2>Other Options<a class="headerlink" href="#other-options" title="Link to this heading">¶</a></h2>
+<div class="awdur-codeblock docutils container">
+<div class="awdur-codeblock-header docutils container">
+<code class="awdur-codeblock-filename docutils literal notranslate"><span class="pre">gitconfig</span></code></div>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>[commit]
+verbose = true
+
+[core]
+editor = nvim
+
+[pull]
+rebase = true
+
+[rerere]
+enabled = true
+</pre></div>
+</div>
+</div>
+</section>
+</section>
+
+  <footer>
+
+</article>
+
+    </div>
+
+    <footer class="site">
+      <div>
+        <h6>Links</h6>
+        <ul>
+          <li>
+            <a href="../../_sources/content/20250216T190328--git-config__git.rst.txt" rel="nofollow">
+              Page Source
+            </a>
+          </li>
+          <li>
+            <a href="https://github.com/alcarney/blog" rel="nofollow">
+              Source Code
+            </a>
+          </li>
+        </ul>
+      </div>
+
+      <div>
+        <h6>
+          Built with
+        </h6>
+        <ul>
+          <li>
+            <a href="https://www.sphinx-doc.org/en/master/">
+              Sphinx
+            </a>
+            v8.2.0
+          </li>
+          <li>
+            <a href="https://feathericons.com/">
+              Feather Icons
+            </a>
+          </li>
+        </ul>
+      </div>
+    </footer>
+</div>
+  </body>
+</html>
