@@ -6,7 +6,7 @@ installer = "uv"
 python = '3.13'
 skip-install = true
 dependencies = [
-  "sphinx",
+  "sphinx==8.2.*",
   "myst-parser",
   "awdur @ git+https://github.com/swyddfa/awdur@develop#subdirectory=lib/awdur"
 ]
