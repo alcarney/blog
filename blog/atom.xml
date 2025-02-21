@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom" xml:lang="en">
   <id>https://www.alcarney.me/</id>
   <title>Alex Carney | Blog</title>
-  <updated>2025-02-21T19:56:23.562522+00:00</updated>
+  <updated>2025-02-21T20:00:58.415652+00:00</updated>
   <link href="https://www.alcarney.me/" />
   <link href="https://www.alcarney.me/blog/atom.xml" rel="self" />
   <author>
@@ -16,14 +16,6 @@
     <published>2025-02-21T19:02:47+00:00</published>
     <updated>2025-02-21T19:02:47+00:00</updated>
     <title>TIL: Additional magit keybindings</title>
-  </entry>
-  
-  <entry>
-    <id>https://www.alcarney.me/blog/2025/denote-filenames-with-sphinx/</id>
-    <link href="https://www.alcarney.me/blog/2025/denote-filenames-with-sphinx" rel="alternate" />
-    <published>2025-02-17T18:27:26+00:00</published>
-    <updated>2025-02-17T18:27:26+00:00</updated>
-    <title>Integrating denote Filenames with Sphinx</title>
   </entry>
   
   <entry>
