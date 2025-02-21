@@ -18,6 +18,7 @@ $ git submodule add <repo-url> path/to/folder
 ## Cloning
 
 To clone a repo that contains submodules we can run the following command
+[Source](https://stackoverflow.com/questions/3796927/how-to-git-clone-including-submodules)
 
 ```
 $ git clone —-recurse-submodules <repo-url>
