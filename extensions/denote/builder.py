@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import pathlib
 import typing
 
 from sphinx.builders.dirhtml import DirectoryHTMLBuilder
@@ -25,16 +26,17 @@ class DenoteHTMLBuilder(DirectoryHTMLBuilder):
         result = super().get_target_uri(record.url, typ)
         return result
 
-    def get_outfilename(self, pagename: str) -> str:
+    def get_output_path(self, page_name: str) -> pathlib.Path:
         domain: Denote = self.env.domains["denote"]
 
         # Special case for the rss feed
-        if pagename == "blog/atom":
-            outpath = super().get_outfilename(pagename)
-            return outpath.replace("/index.html", ".xml")
+        if page_name == "blog/atom":
+            outpath = super().get_output_path(page_name)
+            xml = str(outpath).replace("/index.html", ".xml")
+            return pathlib.Path(xml)
 
-        if (record := domain.records.get(pagename)) is None:
-            return super().get_outfilename(pagename)
+        if (record := domain.records.get(page_name)) is None:
+            return super().get_output_path(page_name)
 
-        result = super().get_outfilename(record.url)
+        result = super().get_output_path(record.url)
         return result
