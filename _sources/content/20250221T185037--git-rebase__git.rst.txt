@@ -1,0 +1,16 @@
+:title: git rebase
+:date: 2025-02-21
+:tags: git
+:identifier: 20250221T185037
+
+``git rebase``
+--------------
+
+To include the root commit in a rebase use the ``--root`` flag.
+
+.. code-block:: console
+
+   $ git rebase -i --root
+
+
+`Source <https://stackoverflow.com/a/14630424>`__

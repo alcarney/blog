@@ -5,7 +5,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>Log &#8212; Alex Carney</title>
+    <title>git log &#8212; Alex Carney</title>
 
     <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=02ca0aaa" />
     <link id="pygments_dark_css" media="(prefers-color-scheme: dark)" rel="stylesheet" type="text/css" href="../../_static/pygments_dark.css?v=d8568271" />
@@ -101,7 +101,7 @@
     </ul>
 </section><nav id="localtoc">
     <ul>
-<li><a class="reference internal" href="#">Log</a><ul>
+<li><a class="reference internal" href="#"><code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">log</span></code></a><ul>
 <li><a class="reference internal" href="#find-a-deleted-file-in-history">Find a deleted file in history</a></li>
 <li><a class="reference internal" href="#list-all-commits-in-a-given-time-range">List all commits in a given time range</a></li>
 <li><a class="reference internal" href="#list-all-commits-affecting-a-specific-file">List all commits affecting a specific file</a></li>
@@ -127,11 +127,12 @@
     <div role="main">
 
 <article>
-  <section id="log">
-<h1>Log<a class="headerlink" href="#log" title="Link to this heading">¶</a></h1>
+  <section id="git-log">
+<h1><code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">log</span></code><a class="headerlink" href="#git-log" title="Link to this heading">¶</a></h1>
 <section id="find-a-deleted-file-in-history">
 <h2>Find a deleted file in history<a class="headerlink" href="#find-a-deleted-file-in-history" title="Link to this heading">¶</a></h2>
-<p>If you don’t know the full path</p>
+<p>If you don’t know the full path
+<a class="reference external" href="https://stackoverflow.com/questions/7203515/how-to-find-a-deleted-file-in-the-project-commit-history">Source</a></p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">git</span> <span class="n">log</span> <span class="o">--</span><span class="nb">all</span> <span class="o">--</span><span class="n">full</span><span class="o">-</span><span class="n">history</span> <span class="o">--</span> <span class="s2">&quot;**/name.*&quot;</span>
 </pre></div>
 </div>
@@ -145,11 +146,11 @@
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">git</span> <span class="n">log</span> <span class="o">--</span><span class="n">after</span><span class="o">=</span><span class="s2">&quot;2013-11-01&quot;</span> <span class="o">--</span><span class="n">before</span><span class="o">=</span><span class="s2">&quot;2013-12-01&quot;</span>
 </pre></div>
 </div>
-<p>If the desired range is a day or less, specify the time also</p>
+<p>If the desired range is a day or less, specify the time also
+<a class="reference external" href="https://stackoverflow.com/questions/19987099/how-do-i-view-all-commits-for-a-specific-day">Source</a></p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">git</span> <span class="n">log</span> <span class="o">--</span><span class="n">after</span><span class="o">=</span><span class="s2">&quot;2013-11-12 00:00&quot;</span> <span class="o">--</span><span class="n">before</span><span class="o">=</span><span class="s2">&quot;2013-11-12 23:59&quot;</span>
 </pre></div>
 </div>
-<p><a class="reference external" href="https://stackoverflow.com/questions/19987099/how-do-i-view-all-commits-for-a-specific-day">Stack Overflow</a></p>
 </section>
 <section id="list-all-commits-affecting-a-specific-file">
 <h2>List all commits affecting a specific file<a class="headerlink" href="#list-all-commits-affecting-a-specific-file" title="Link to this heading">¶</a></h2>
