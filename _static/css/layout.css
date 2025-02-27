@@ -115,6 +115,11 @@ img {
     max-width: 100%;
 }
 
+kbd {
+    padding: 0 0.15em;
+    color: var(--fg-accent);
+}
+
 figure.align-center img {
     display: block;
     margin: auto;
