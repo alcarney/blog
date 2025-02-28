@@ -8,7 +8,7 @@
 
     <link rel="stylesheet" type="text/css" href="../../../../../_static/pygments.css?v=02ca0aaa" />
     <link id="pygments_dark_css" media="(prefers-color-scheme: dark)" rel="stylesheet" type="text/css" href="../../../../../_static/pygments_dark.css?v=d8568271" />
-    <link rel="stylesheet" type="text/css" href="../../../../../_static/css/layout.css?v=118cebfc" />
+    <link rel="stylesheet" type="text/css" href="../../../../../_static/css/layout.css?v=fec7d310" />
 
     <script src="../../../../../_static/documentation_options.js?v=187304be"></script>
     <script src="../../../../../_static/doctools.js?v=9bcbadda"></script>
@@ -195,23 +195,6 @@
 <span class="w">      </span><span class="nv">display-time-default-load-average</span><span class="w"> </span><span class="no">nil</span><span class="p">)</span>
 <span class="p">(</span><span class="nv">display-time-mode</span><span class="p">)</span>
 
-<span class="p">(</span><span class="nb">use-package</span><span class="w"> </span><span class="nv">alc-modeline</span>
-<span class="w">  </span><span class="nb">:load-path</span><span class="w"> </span><span class="s">&quot;lisp&quot;</span>
-<span class="w">  </span><span class="nb">:config</span>
-<span class="w">  </span><span class="p">(</span><span class="k">setq-default</span><span class="w"> </span><span class="nv">mode-line-format</span>
-<span class="w">             </span><span class="o">&#39;</span><span class="p">(</span><span class="s">&quot;%e&quot;</span>
-<span class="w">               </span><span class="nv">mode-line-front-space</span>
-<span class="w">               </span><span class="nv">alc-modeline-window-dedicated</span>
-<span class="w">               </span><span class="nv">alc-modeline-project-identification</span>
-<span class="w">               </span><span class="s">&quot;  &quot;</span>
-<span class="w">               </span><span class="nv">alc-modeline-remote-indication</span>
-<span class="w">               </span><span class="nv">alc-modeline-buffer-identification</span>
-<span class="w">               </span><span class="s">&quot; &quot;</span>
-<span class="w">               </span><span class="nv">alc-modeline-buffer-position</span>
-<span class="w">               </span><span class="s">&quot;      &quot;</span>
-<span class="w">               </span><span class="nv">mode-line-modes</span>
-<span class="w">               </span><span class="p">)))</span>
-
 <span class="p">(</span><span class="k">setq</span><span class="w"> </span><span class="nv">modus-themes-bold-constructs</span><span class="w"> </span><span class="no">t</span>
 <span class="w">      </span><span class="nv">modus-themes-italic-constructs</span><span class="w"> </span><span class="no">t</span>
 <span class="w">      </span><span class="nv">modus-themes-syntax</span><span class="w"> </span><span class="o">&#39;</span><span class="p">(</span><span class="nv">green-strings</span><span class="p">)</span>
@@ -357,64 +340,6 @@
 <span class="w">                                    </span><span class="nb">:link</span><span class="w"> </span><span class="s">&quot;:denote:link:`%2$s &lt;%1$s&gt;`&quot;</span>
 <span class="w">                                    </span><span class="nb">:link-in-context-regexp</span><span class="w"> </span><span class="o">,</span><span class="p">(</span><span class="nf">concat</span><span class="w"> </span><span class="s">&quot;:denote:link:`.*?&lt;\\(?1:&quot;</span><span class="w"> </span><span class="nv">denote-id-regexp</span><span class="w"> </span><span class="s">&quot;\\)&gt;`&quot;</span><span class="p">))))</span>
 
-<span class="p">(</span><span class="nb">use-package</span><span class="w"> </span><span class="nv">magit</span>
-<span class="w">  </span><span class="nb">:ensure</span><span class="w"> </span><span class="no">t</span>
-<span class="w">  </span><span class="nb">:bind</span><span class="w"> </span><span class="p">((</span><span class="s">&quot;C-x g&quot;</span><span class="w"> </span><span class="o">.</span><span class="w"> </span><span class="nv">magit-status</span><span class="p">)))</span>
-
-<span class="p">(</span><span class="nb">use-package</span><span class="w"> </span><span class="nv">diff-hl</span>
-<span class="w">  </span><span class="nb">:ensure</span><span class="w"> </span><span class="no">t</span>
-<span class="w">  </span><span class="nb">:hook</span><span class="w"> </span><span class="p">((</span><span class="nv">dired-mode</span><span class="w"> </span><span class="o">.</span><span class="w"> </span><span class="nv">diff-hl-dired-mode</span><span class="p">))</span>
-<span class="w">  </span><span class="nb">:config</span>
-<span class="w">  </span><span class="p">(</span><span class="nv">global-diff-hl-mode</span><span class="p">)</span>
-<span class="w">  </span><span class="p">(</span><span class="nv">diff-hl-margin-mode</span><span class="p">))</span>
-
-<span class="p">(</span><span class="nb">use-package</span><span class="w"> </span><span class="nv">forge</span>
-<span class="w">  </span><span class="nb">:ensure</span><span class="w"> </span><span class="no">t</span>
-<span class="w">  </span><span class="nb">:after</span><span class="w"> </span><span class="nv">magit</span><span class="p">)</span>
-
-<span class="p">(</span><span class="nb">cl-defun</span><span class="w"> </span><span class="nv">auth-source-ghcli-search</span><span class="w"> </span><span class="p">(</span><span class="kp">&amp;rest</span><span class="w"> </span><span class="nv">spec</span>
-<span class="w">                                          </span><span class="kp">&amp;key</span><span class="w"> </span><span class="nv">backend</span><span class="w"> </span><span class="nb">require</span>
-<span class="w">                                          </span><span class="nv">type</span><span class="w"> </span><span class="nf">max</span><span class="w"> </span><span class="nv">host</span><span class="w"> </span><span class="nv">user</span><span class="w"> </span><span class="nv">port</span>
-<span class="w">                                          </span><span class="kp">&amp;allow-other-keys</span><span class="p">)</span>
-<span class="w">  </span><span class="s">&quot;Given a property list SPEC, return search matches from the `:backend&#39;.</span>
-<span class="s">See </span><span class="ss">`auth-source-search&#39;</span><span class="s"> for details on SPEC.&quot;</span>
-<span class="w">  </span><span class="c1">;; just in case, check that the type is correct (null or same as the backend)</span>
-<span class="w">  </span><span class="p">(</span><span class="ne">cl-assert</span><span class="w"> </span><span class="p">(</span><span class="k">or</span><span class="w"> </span><span class="p">(</span><span class="nf">null</span><span class="w"> </span><span class="nv">type</span><span class="p">)</span><span class="w"> </span><span class="p">(</span><span class="nf">eq</span><span class="w"> </span><span class="nv">type</span><span class="w"> </span><span class="p">(</span><span class="nb">oref</span><span class="w"> </span><span class="nv">backend</span><span class="w"> </span><span class="nv">type</span><span class="p">)))</span>
-<span class="w">             </span><span class="no">t</span><span class="w"> </span><span class="s">&quot;Invalid GH CLI search: %s %s&quot;</span><span class="p">)</span>
-
-<span class="w">  </span><span class="p">(</span><span class="nv">when-let*</span><span class="w"> </span><span class="p">((</span><span class="nv">hostname</span><span class="w"> </span><span class="p">(</span><span class="nv">string-remove-prefix</span><span class="w"> </span><span class="s">&quot;api.&quot;</span><span class="w"> </span><span class="nv">host</span><span class="p">))</span>
-<span class="w">              </span><span class="c1">;; split ghub--ident again</span>
-<span class="w">              </span><span class="p">(</span><span class="nv">ghub_ident</span><span class="w"> </span><span class="p">(</span><span class="nv">split-string</span><span class="w"> </span><span class="p">(</span><span class="k">or</span><span class="w"> </span><span class="nv">user</span><span class="w"> </span><span class="s">&quot;&quot;</span><span class="p">)</span><span class="w"> </span><span class="s">&quot;\\^&quot;</span><span class="p">))</span>
-<span class="w">              </span><span class="p">(</span><span class="nv">username</span><span class="w"> </span><span class="p">(</span><span class="nf">car</span><span class="w"> </span><span class="nv">ghub_ident</span><span class="p">))</span>
-<span class="w">              </span><span class="p">(</span><span class="nv">package</span><span class="w"> </span><span class="p">(</span><span class="nv">cadr</span><span class="w"> </span><span class="nv">ghub_ident</span><span class="p">))</span>
-<span class="w">              </span><span class="p">(</span><span class="nv">cmd</span><span class="w"> </span><span class="p">(</span><span class="nf">format</span><span class="w"> </span><span class="s">&quot;gh auth token --hostname &#39;%s&#39;&quot;</span><span class="w"> </span><span class="nv">hostname</span><span class="p">))</span>
-<span class="w">              </span><span class="p">(</span><span class="nv">token</span><span class="w"> </span><span class="p">(</span><span class="nb">when</span><span class="w"> </span><span class="p">(</span><span class="nf">string=</span><span class="w"> </span><span class="nv">package</span><span class="w"> </span><span class="s">&quot;forge&quot;</span><span class="p">)</span><span class="w"> </span><span class="p">(</span><span class="nv">string-trim-right</span><span class="w"> </span><span class="p">(</span><span class="nv">shell-command-to-string</span><span class="w"> </span><span class="nv">cmd</span><span class="p">))))</span>
-<span class="w">              </span><span class="p">(</span><span class="nv">retval</span><span class="w"> </span><span class="p">(</span><span class="nf">list</span>
-<span class="w">                       </span><span class="nb">:host</span><span class="w"> </span><span class="nv">hostname</span>
-<span class="w">                       </span><span class="nb">:user</span><span class="w"> </span><span class="nv">username</span>
-<span class="w">                       </span><span class="nb">:secret</span><span class="w"> </span><span class="nv">token</span><span class="p">)))</span>
-<span class="w">    </span><span class="p">(</span><span class="nv">auth-source-do-debug</span><span class="w">  </span><span class="s">&quot;auth-source-ghcli: return %s as final result (plus hidden password)&quot;</span>
-<span class="w">                           </span><span class="p">(</span><span class="nv">seq-subseq</span><span class="w"> </span><span class="nv">retval</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="mi">-2</span><span class="p">))</span><span class="w"> </span><span class="c1">;; remove password</span>
-<span class="w">    </span><span class="p">(</span><span class="nf">list</span><span class="w"> </span><span class="nv">retval</span><span class="p">)))</span>
-
-<span class="p">(</span><span class="k">defvar</span><span class="w"> </span><span class="nv">auth-source-ghcli-backend</span>
-<span class="w">  </span><span class="p">(</span><span class="nv">auth-source-backend</span>
-<span class="w">   </span><span class="nb">:source</span><span class="w"> </span><span class="s">&quot;.&quot;</span><span class="w"> </span><span class="c1">;; not used</span>
-<span class="w">   </span><span class="nb">:type</span><span class="w"> </span><span class="ss">&#39;gh-cli</span>
-<span class="w">   </span><span class="nb">:search-function</span><span class="w"> </span><span class="nf">#&#39;</span><span class="nv">auth-source-ghcli-search</span><span class="p">)</span>
-<span class="w">  </span><span class="s">&quot;Auth-source backend for GH CLI.&quot;</span><span class="p">)</span>
-
-<span class="p">(</span><span class="nb">defun</span><span class="w"> </span><span class="nv">auth-source-ghcli-backend-parse</span><span class="w"> </span><span class="p">(</span><span class="nv">entry</span><span class="p">)</span>
-<span class="w">  </span><span class="s">&quot;Create a GH CLI auth-source backend from ENTRY.&quot;</span>
-<span class="w">  </span><span class="p">(</span><span class="nb">when</span><span class="w"> </span><span class="p">(</span><span class="nf">eq</span><span class="w"> </span><span class="nv">entry</span><span class="w"> </span><span class="ss">&#39;gh-cli</span><span class="p">)</span>
-<span class="w">    </span><span class="p">(</span><span class="nv">auth-source-backend-parse-parameters</span><span class="w"> </span><span class="nv">entry</span><span class="w"> </span><span class="nv">auth-source-ghcli-backend</span><span class="p">)))</span>
-
-<span class="p">(</span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="nf">boundp</span><span class="w"> </span><span class="ss">&#39;auth-source-backend-parser-functions</span><span class="p">)</span>
-<span class="w">    </span><span class="p">(</span><span class="nv">add-hook</span><span class="w"> </span><span class="ss">&#39;auth-source-backend-parser-functions</span><span class="w"> </span><span class="nf">#&#39;</span><span class="nv">auth-source-ghcli-backend-parse</span><span class="p">)</span>
-<span class="w">  </span><span class="p">(</span><span class="nv">advice-add</span><span class="w"> </span><span class="ss">&#39;auth-source-backend-parse</span><span class="w"> </span><span class="nb">:before-until</span><span class="w"> </span><span class="nf">#&#39;</span><span class="nv">auth-source-ghcli-backend-parse</span><span class="p">))</span>
-
-<span class="p">(</span><span class="k">setq</span><span class="w"> </span><span class="nv">auth-sources</span><span class="w"> </span><span class="o">&#39;</span><span class="p">(</span><span class="nv">gh-cli</span><span class="p">))</span>
-
 <span class="p">(</span><span class="k">setq</span><span class="w"> </span><span class="nv">project-vc-extra-root-markers</span><span class="w"> </span><span class="o">&#39;</span><span class="p">(</span><span class="s">&quot;Cargo.toml&quot;</span>
 <span class="w">                                      </span><span class="s">&quot;package.json&quot;</span>
 <span class="w">                                      </span><span class="s">&quot;pyproject.toml&quot;</span><span class="p">))</span>
@@ -534,6 +459,83 @@
 <span class="w">                       </span><span class="nb">:host</span><span class="w"> </span><span class="s">&quot;localhost:11434&quot;</span>
 <span class="w">                       </span><span class="nb">:stream</span><span class="w"> </span><span class="no">t</span>
 <span class="w">                       </span><span class="nb">:models</span><span class="w"> </span><span class="o">&#39;</span><span class="p">(</span><span class="nv">llama3.2:latest</span><span class="p">))))</span>
+
+<span class="p">(</span><span class="nb">use-package</span><span class="w"> </span><span class="nv">magit</span>
+<span class="w">  </span><span class="nb">:ensure</span><span class="w"> </span><span class="no">t</span>
+<span class="w">  </span><span class="nb">:config</span>
+<span class="w">  </span><span class="p">(</span><span class="k">setq</span><span class="w"> </span><span class="nv">magit-format-file-function</span><span class="w"> </span><span class="nf">#&#39;</span><span class="nv">magit-format-file-nerd-icons</span><span class="p">))</span>
+
+<span class="p">(</span><span class="nb">use-package</span><span class="w"> </span><span class="nv">diff-hl</span>
+<span class="w">  </span><span class="nb">:ensure</span><span class="w"> </span><span class="no">t</span>
+<span class="w">  </span><span class="nb">:hook</span><span class="w"> </span><span class="p">((</span><span class="nv">dired-mode</span><span class="w"> </span><span class="o">.</span><span class="w"> </span><span class="nv">diff-hl-dired-mode</span><span class="p">))</span>
+<span class="w">  </span><span class="nb">:config</span>
+<span class="w">  </span><span class="p">(</span><span class="nv">global-diff-hl-mode</span><span class="p">)</span>
+<span class="w">  </span><span class="p">(</span><span class="nv">diff-hl-margin-mode</span><span class="p">))</span>
+
+<span class="p">(</span><span class="nb">use-package</span><span class="w"> </span><span class="nv">forge</span>
+<span class="w">  </span><span class="nb">:ensure</span><span class="w"> </span><span class="no">t</span>
+<span class="w">  </span><span class="nb">:after</span><span class="w"> </span><span class="nv">magit</span><span class="p">)</span>
+
+<span class="p">(</span><span class="nb">cl-defun</span><span class="w"> </span><span class="nv">auth-source-ghcli-search</span><span class="w"> </span><span class="p">(</span><span class="kp">&amp;rest</span><span class="w"> </span><span class="nv">spec</span>
+<span class="w">                                          </span><span class="kp">&amp;key</span><span class="w"> </span><span class="nv">backend</span><span class="w"> </span><span class="nb">require</span>
+<span class="w">                                          </span><span class="nv">type</span><span class="w"> </span><span class="nf">max</span><span class="w"> </span><span class="nv">host</span><span class="w"> </span><span class="nv">user</span><span class="w"> </span><span class="nv">port</span>
+<span class="w">                                          </span><span class="kp">&amp;allow-other-keys</span><span class="p">)</span>
+<span class="w">  </span><span class="s">&quot;Given a property list SPEC, return search matches from the `:backend&#39;.</span>
+<span class="s">See </span><span class="ss">`auth-source-search&#39;</span><span class="s"> for details on SPEC.&quot;</span>
+<span class="w">  </span><span class="c1">;; just in case, check that the type is correct (null or same as the backend)</span>
+<span class="w">  </span><span class="p">(</span><span class="ne">cl-assert</span><span class="w"> </span><span class="p">(</span><span class="k">or</span><span class="w"> </span><span class="p">(</span><span class="nf">null</span><span class="w"> </span><span class="nv">type</span><span class="p">)</span><span class="w"> </span><span class="p">(</span><span class="nf">eq</span><span class="w"> </span><span class="nv">type</span><span class="w"> </span><span class="p">(</span><span class="nb">oref</span><span class="w"> </span><span class="nv">backend</span><span class="w"> </span><span class="nv">type</span><span class="p">)))</span>
+<span class="w">             </span><span class="no">t</span><span class="w"> </span><span class="s">&quot;Invalid GH CLI search: %s %s&quot;</span><span class="p">)</span>
+
+<span class="w">  </span><span class="p">(</span><span class="nv">when-let*</span><span class="w"> </span><span class="p">((</span><span class="nv">hostname</span><span class="w"> </span><span class="p">(</span><span class="nv">string-remove-prefix</span><span class="w"> </span><span class="s">&quot;api.&quot;</span><span class="w"> </span><span class="nv">host</span><span class="p">))</span>
+<span class="w">              </span><span class="c1">;; split ghub--ident again</span>
+<span class="w">              </span><span class="p">(</span><span class="nv">ghub_ident</span><span class="w"> </span><span class="p">(</span><span class="nv">split-string</span><span class="w"> </span><span class="p">(</span><span class="k">or</span><span class="w"> </span><span class="nv">user</span><span class="w"> </span><span class="s">&quot;&quot;</span><span class="p">)</span><span class="w"> </span><span class="s">&quot;\\^&quot;</span><span class="p">))</span>
+<span class="w">              </span><span class="p">(</span><span class="nv">username</span><span class="w"> </span><span class="p">(</span><span class="nf">car</span><span class="w"> </span><span class="nv">ghub_ident</span><span class="p">))</span>
+<span class="w">              </span><span class="p">(</span><span class="nv">package</span><span class="w"> </span><span class="p">(</span><span class="nv">cadr</span><span class="w"> </span><span class="nv">ghub_ident</span><span class="p">))</span>
+<span class="w">              </span><span class="p">(</span><span class="nv">cmd</span><span class="w"> </span><span class="p">(</span><span class="nf">format</span><span class="w"> </span><span class="s">&quot;gh auth token --hostname &#39;%s&#39;&quot;</span><span class="w"> </span><span class="nv">hostname</span><span class="p">))</span>
+<span class="w">              </span><span class="p">(</span><span class="nv">token</span><span class="w"> </span><span class="p">(</span><span class="nb">when</span><span class="w"> </span><span class="p">(</span><span class="nf">string=</span><span class="w"> </span><span class="nv">package</span><span class="w"> </span><span class="s">&quot;forge&quot;</span><span class="p">)</span><span class="w"> </span><span class="p">(</span><span class="nv">string-trim-right</span><span class="w"> </span><span class="p">(</span><span class="nv">shell-command-to-string</span><span class="w"> </span><span class="nv">cmd</span><span class="p">))))</span>
+<span class="w">              </span><span class="p">(</span><span class="nv">retval</span><span class="w"> </span><span class="p">(</span><span class="nf">list</span>
+<span class="w">                       </span><span class="nb">:host</span><span class="w"> </span><span class="nv">hostname</span>
+<span class="w">                       </span><span class="nb">:user</span><span class="w"> </span><span class="nv">username</span>
+<span class="w">                       </span><span class="nb">:secret</span><span class="w"> </span><span class="nv">token</span><span class="p">)))</span>
+<span class="w">    </span><span class="p">(</span><span class="nv">auth-source-do-debug</span><span class="w">  </span><span class="s">&quot;auth-source-ghcli: return %s as final result (plus hidden password)&quot;</span>
+<span class="w">                           </span><span class="p">(</span><span class="nv">seq-subseq</span><span class="w"> </span><span class="nv">retval</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="mi">-2</span><span class="p">))</span><span class="w"> </span><span class="c1">;; remove password</span>
+<span class="w">    </span><span class="p">(</span><span class="nf">list</span><span class="w"> </span><span class="nv">retval</span><span class="p">)))</span>
+
+<span class="p">(</span><span class="k">defvar</span><span class="w"> </span><span class="nv">auth-source-ghcli-backend</span>
+<span class="w">  </span><span class="p">(</span><span class="nv">auth-source-backend</span>
+<span class="w">   </span><span class="nb">:source</span><span class="w"> </span><span class="s">&quot;.&quot;</span><span class="w"> </span><span class="c1">;; not used</span>
+<span class="w">   </span><span class="nb">:type</span><span class="w"> </span><span class="ss">&#39;gh-cli</span>
+<span class="w">   </span><span class="nb">:search-function</span><span class="w"> </span><span class="nf">#&#39;</span><span class="nv">auth-source-ghcli-search</span><span class="p">)</span>
+<span class="w">  </span><span class="s">&quot;Auth-source backend for GH CLI.&quot;</span><span class="p">)</span>
+
+<span class="p">(</span><span class="nb">defun</span><span class="w"> </span><span class="nv">auth-source-ghcli-backend-parse</span><span class="w"> </span><span class="p">(</span><span class="nv">entry</span><span class="p">)</span>
+<span class="w">  </span><span class="s">&quot;Create a GH CLI auth-source backend from ENTRY.&quot;</span>
+<span class="w">  </span><span class="p">(</span><span class="nb">when</span><span class="w"> </span><span class="p">(</span><span class="nf">eq</span><span class="w"> </span><span class="nv">entry</span><span class="w"> </span><span class="ss">&#39;gh-cli</span><span class="p">)</span>
+<span class="w">    </span><span class="p">(</span><span class="nv">auth-source-backend-parse-parameters</span><span class="w"> </span><span class="nv">entry</span><span class="w"> </span><span class="nv">auth-source-ghcli-backend</span><span class="p">)))</span>
+
+<span class="p">(</span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="nf">boundp</span><span class="w"> </span><span class="ss">&#39;auth-source-backend-parser-functions</span><span class="p">)</span>
+<span class="w">    </span><span class="p">(</span><span class="nv">add-hook</span><span class="w"> </span><span class="ss">&#39;auth-source-backend-parser-functions</span><span class="w"> </span><span class="nf">#&#39;</span><span class="nv">auth-source-ghcli-backend-parse</span><span class="p">)</span>
+<span class="w">  </span><span class="p">(</span><span class="nv">advice-add</span><span class="w"> </span><span class="ss">&#39;auth-source-backend-parse</span><span class="w"> </span><span class="nb">:before-until</span><span class="w"> </span><span class="nf">#&#39;</span><span class="nv">auth-source-ghcli-backend-parse</span><span class="p">))</span>
+
+<span class="p">(</span><span class="k">setq</span><span class="w"> </span><span class="nv">auth-sources</span><span class="w"> </span><span class="o">&#39;</span><span class="p">(</span><span class="nv">gh-cli</span><span class="p">))</span>
+
+<span class="p">(</span><span class="nb">use-package</span><span class="w"> </span><span class="nv">alc-modeline</span>
+<span class="w">  </span><span class="nb">:after</span><span class="w"> </span><span class="p">(</span><span class="nv">modus-themes</span><span class="p">)</span>
+<span class="w">  </span><span class="nb">:load-path</span><span class="w"> </span><span class="s">&quot;lisp&quot;</span>
+<span class="w">  </span><span class="nb">:config</span>
+<span class="w">  </span><span class="p">(</span><span class="k">setq-default</span><span class="w"> </span><span class="nv">mode-line-format</span>
+<span class="w">             </span><span class="o">&#39;</span><span class="p">(</span><span class="s">&quot;%e&quot;</span>
+<span class="w">               </span><span class="nv">mode-line-front-space</span>
+<span class="w">               </span><span class="nv">alc-modeline-window-dedicated</span>
+<span class="w">               </span><span class="nv">alc-modeline-project-identification</span>
+<span class="w">               </span><span class="s">&quot;  &quot;</span>
+<span class="w">               </span><span class="nv">alc-modeline-remote-indication</span>
+<span class="w">               </span><span class="nv">alc-modeline-buffer-identification</span>
+<span class="w">               </span><span class="s">&quot; &quot;</span>
+<span class="w">               </span><span class="nv">alc-modeline-buffer-position</span>
+<span class="w">               </span><span class="s">&quot;      &quot;</span>
+<span class="w">               </span><span class="nv">mode-line-modes</span>
+<span class="w">               </span><span class="p">)))</span>
 </pre></div>
 
   </div>
@@ -563,7 +565,7 @@
             <a href="https://www.sphinx-doc.org/en/master/">
               Sphinx
             </a>
-            v8.2.0
+            v8.2.1
           </li>
           <li>
             <a href="https://feathericons.com/">

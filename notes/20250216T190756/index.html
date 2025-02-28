@@ -9,7 +9,7 @@
 
     <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=02ca0aaa" />
     <link id="pygments_dark_css" media="(prefers-color-scheme: dark)" rel="stylesheet" type="text/css" href="../../_static/pygments_dark.css?v=d8568271" />
-    <link rel="stylesheet" type="text/css" href="../../_static/css/layout.css?v=118cebfc" />
+    <link rel="stylesheet" type="text/css" href="../../_static/css/layout.css?v=fec7d310" />
 
     <script src="../../_static/documentation_options.js?v=187304be"></script>
     <script src="../../_static/doctools.js?v=9bcbadda"></script>
@@ -89,7 +89,7 @@
     <h5 style="grid-column: span 2">Metadata</h5><svg xmlns="http://www.w3.org/2000/svg" width="2em" fill="none" viewBox="0 0 24 24" stroke="currentColor">
     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
 </svg>
-    <time style="align-self: center; text-align: right;" datetime="2025-02-16 19:07:56+00:00">Feb 16, 2025</time><svg xmlns="http://www.w3.org/2000/svg" width="2em" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+    <time style="align-self: center; text-align: right;" datetime="2025-02-16 00:00:00">Feb 16, 2025</time><svg xmlns="http://www.w3.org/2000/svg" width="2em" fill="none" viewBox="0 0 24 24" stroke="currentColor">
     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z" />
 </svg>
     <ul class="taglist">
@@ -107,7 +107,6 @@
 <li><a class="reference internal" href="#line-numbers">Line Numbers</a></li>
 <li><a class="reference internal" href="#scrolling">Scrolling</a></li>
 <li><a class="reference internal" href="#tab-bar">Tab Bar</a></li>
-<li><a class="reference internal" href="#modeline">Modeline</a></li>
 <li><a class="reference internal" href="#theme">Theme</a></li>
 <li><a class="reference internal" href="#miscellaneous">Miscellaneous</a></li>
 </ul>
@@ -132,11 +131,6 @@
 </li>
 <li><a class="reference internal" href="#dired">Dired</a></li>
 <li><a class="reference internal" href="#denote">Denote</a></li>
-<li><a class="reference internal" href="#git">Git</a><ul>
-<li><a class="reference internal" href="#diff-hl"><code class="docutils literal notranslate"><span class="pre">diff-hl</span></code></a></li>
-<li><a class="reference internal" href="#forge">Forge</a></li>
-</ul>
-</li>
 <li><a class="reference internal" href="#project-el"><code class="docutils literal notranslate"><span class="pre">project.el</span></code></a></li>
 <li><a class="reference internal" href="#eglot">Eglot</a></li>
 <li><a class="reference internal" href="#languages">Languages</a><ul>
@@ -330,186 +324,6 @@ However, this does not happen when launching Emacs via krunner and so it fails t
 <div class="highlight-elisp notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="k">setq</span><span class="w"> </span><span class="nv">display-time-format</span><span class="w"> </span><span class="s">&quot;%H:%M %d/%m/%y&quot;</span>
 <span class="w">      </span><span class="nv">display-time-default-load-average</span><span class="w"> </span><span class="no">nil</span><span class="p">)</span>
 <span class="p">(</span><span class="nv">display-time-mode</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-</section>
-<section id="modeline">
-<h3>Modeline<a class="headerlink" href="#modeline" title="Link to this heading">¶</a></h3>
-<p>Heavily inspired by Protesilaos’ excellent <a class="reference external" href="https://protesilaos.com/codelog/2023-07-29-emacs-custom-modeline-tutorial">tutorial</a> on writing custom modelines.</p>
-<p>For reference, here are the components that were in the default modeline</p>
-<ul class="simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">mode-line-mule-info</span></code></p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">mode-line-client</span></code></p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">mode-line-frame-identification</span></code></p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">mode-line-position</span></code></p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">mode-line-misc-info</span></code></p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">mode-line-end-spaces</span></code></p></li>
-</ul>
-<div class="awdur-codeblock docutils container">
-<div class="awdur-codeblock-header docutils container">
-<code class="awdur-codeblock-filename docutils literal notranslate"><span class="pre">emacs/init.el</span></code></div>
-<div class="highlight-elisp notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="nb">use-package</span><span class="w"> </span><span class="nv">alc-modeline</span>
-<span class="w">  </span><span class="nb">:load-path</span><span class="w"> </span><span class="s">&quot;lisp&quot;</span>
-<span class="w">  </span><span class="nb">:config</span>
-<span class="w">  </span><span class="p">(</span><span class="k">setq-default</span><span class="w"> </span><span class="nv">mode-line-format</span>
-<span class="w">             </span><span class="o">&#39;</span><span class="p">(</span><span class="s">&quot;%e&quot;</span>
-<span class="w">               </span><span class="nv">mode-line-front-space</span>
-<span class="w">               </span><span class="nv">alc-modeline-window-dedicated</span>
-<span class="w">               </span><span class="nv">alc-modeline-project-identification</span>
-<span class="w">               </span><span class="s">&quot;  &quot;</span>
-<span class="w">               </span><span class="nv">alc-modeline-remote-indication</span>
-<span class="w">               </span><span class="nv">alc-modeline-buffer-identification</span>
-<span class="w">               </span><span class="s">&quot; &quot;</span>
-<span class="w">               </span><span class="nv">alc-modeline-buffer-position</span>
-<span class="w">               </span><span class="s">&quot;      &quot;</span>
-<span class="w">               </span><span class="nv">mode-line-modes</span>
-<span class="w">               </span><span class="p">)))</span>
-</pre></div>
-</div>
-</div>
-<p>And now for the definition of my custom components</p>
-<div class="awdur-codeblock docutils container">
-<div class="awdur-codeblock-header docutils container">
-<code class="awdur-codeblock-filename docutils literal notranslate"><span class="pre">emacs/lisp/alc-modeline.el</span></code></div>
-<div class="highlight-elisp notranslate"><div class="highlight"><pre><span></span><span class="c1">;;; alc-modeline.el --- Modeline configuration -*- lexical-binding: t -*-</span>
-<span class="c1">;;; Code:</span>
-
-<span class="p">(</span><span class="nb">defgroup</span><span class="w"> </span><span class="nv">alc-modeline</span><span class="w"> </span><span class="no">nil</span>
-<span class="w">  </span><span class="s">&quot;My custom modeline&quot;</span>
-<span class="w">  </span><span class="nb">:group</span><span class="w"> </span><span class="ss">&#39;mode-line</span><span class="p">)</span>
-
-<span class="p">(</span><span class="nb">defgroup</span><span class="w"> </span><span class="nv">alc-modeline-faces</span><span class="w"> </span><span class="no">nil</span>
-<span class="w">  </span><span class="s">&quot;Faces for my custom modeline&quot;</span>
-<span class="w">  </span><span class="nb">:group</span><span class="w"> </span><span class="ss">&#39;alc-modeline</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-<p><strong>Project Indentification</strong></p>
-<p>If the current buffer is associated with a project, show the name of the project.</p>
-<div class="awdur-codeblock docutils container">
-<div class="awdur-codeblock-header docutils container">
-<code class="awdur-codeblock-filename docutils literal notranslate"><span class="pre">emacs/lisp/alc-modeline.el</span></code></div>
-<div class="highlight-elisp notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="nb">defface</span><span class="w"> </span><span class="nv">alc-modeline-project-id-face</span>
-<span class="w">  </span><span class="o">&#39;</span><span class="p">((</span><span class="nv">default</span><span class="w"> </span><span class="nb">:inherit</span><span class="w"> </span><span class="p">(</span><span class="nv">bold</span><span class="p">)))</span>
-<span class="w">  </span><span class="s">&quot;Face for styling the project indicator&quot;</span>
-<span class="w">  </span><span class="nb">:group</span><span class="w"> </span><span class="ss">&#39;alc-modeline-faces</span><span class="p">)</span>
-
-<span class="p">(</span><span class="nb">defvar-local</span><span class="w"> </span><span class="nv">alc-modeline-project-identification</span>
-<span class="w"> </span><span class="o">&#39;</span><span class="p">(</span><span class="nb">:eval</span>
-<span class="w">   </span><span class="p">(</span><span class="nv">if-let</span><span class="w"> </span><span class="p">((</span><span class="nv">pr</span><span class="w"> </span><span class="p">(</span><span class="nv">project-current</span><span class="p">))</span>
-<span class="w">            </span><span class="p">(</span><span class="nv">file</span><span class="w"> </span><span class="p">(</span><span class="nf">buffer-file-name</span><span class="p">)))</span>
-<span class="w">       </span><span class="p">(</span><span class="nf">propertize</span><span class="w"> </span><span class="p">(</span><span class="nf">format</span><span class="w"> </span><span class="s">&quot;🖿 %s &quot;</span><span class="w"> </span><span class="p">(</span><span class="nv">project-name</span><span class="w"> </span><span class="nv">pr</span><span class="p">))</span>
-<span class="w">                   </span><span class="ss">&#39;face</span><span class="w"> </span><span class="ss">&#39;alc-modeline-project-id-face</span><span class="p">))))</span>
-<span class="p">(</span><span class="nf">put</span><span class="w"> </span><span class="ss">&#39;alc-modeline-project-identification</span><span class="w"> </span><span class="ss">&#39;risky-local-variable</span><span class="w"> </span><span class="no">t</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-<p><strong>Remote Indication</strong></p>
-<p>Replaces the default <code class="docutils literal notranslate"><span class="pre">mode-line-remote</span></code> and indicates if the current buffer is visiting a remote file</p>
-<div class="awdur-codeblock docutils container">
-<div class="awdur-codeblock-header docutils container">
-<code class="awdur-codeblock-filename docutils literal notranslate"><span class="pre">emacs/lisp/alc-modeline.el</span></code></div>
-<div class="highlight-elisp notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="nb">defvar-local</span><span class="w"> </span><span class="nv">alc-modeline-remote-indication</span>
-<span class="w">    </span><span class="o">&#39;</span><span class="p">(</span><span class="nb">:eval</span>
-<span class="w">       </span><span class="p">(</span><span class="nb">when</span><span class="w"> </span><span class="p">(</span><span class="nv">file-remote-p</span><span class="w"> </span><span class="nv">default-directory</span><span class="p">)</span>
-<span class="w">         </span><span class="p">(</span><span class="nf">propertize</span><span class="w"> </span><span class="s">&quot; ☁ &quot;</span>
-<span class="w">                     </span><span class="ss">&#39;face</span><span class="w"> </span><span class="o">&#39;</span><span class="p">(</span><span class="nv">bold</span><span class="p">)))))</span>
-<span class="p">(</span><span class="nf">put</span><span class="w"> </span><span class="ss">&#39;alc-modeline-remote-indication</span><span class="w"> </span><span class="ss">&#39;risky-local-variable</span><span class="w"> </span><span class="no">t</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-<p><strong>Buffer Identification</strong></p>
-<p>Intended to replace the default <code class="docutils literal notranslate"><span class="pre">mode-line-buffer-identification</span></code> and <code class="docutils literal notranslate"><span class="pre">mode-line-modified</span></code> components this displays the name of the buffer and a face depending on if the buffer is unsaved, read only etc.</p>
-<div class="awdur-codeblock docutils container">
-<div class="awdur-codeblock-header docutils container">
-<code class="awdur-codeblock-filename docutils literal notranslate"><span class="pre">emacs/lisp/alc-modeline.el</span></code></div>
-<div class="highlight-elisp notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="nb">defun</span><span class="w"> </span><span class="nv">alc-modeline-buffer-identification-face</span><span class="w"> </span><span class="p">()</span>
-<span class="w">  </span><span class="s">&quot;Return the face(s) to apply to the buffer name in the modeline.&quot;</span>
-<span class="w">  </span><span class="p">(</span><span class="k">cond</span><span class="w"> </span><span class="p">((</span><span class="k">and</span><span class="w"> </span><span class="p">(</span><span class="nf">buffer-file-name</span><span class="p">)</span>
-<span class="w">              </span><span class="p">(</span><span class="nf">buffer-modified-p</span><span class="p">))</span>
-<span class="w">         </span><span class="ss">&#39;error</span><span class="p">)</span>
-<span class="w">        </span><span class="p">(</span><span class="nv">buffer-read-only</span><span class="w"> </span><span class="o">&#39;</span><span class="p">(</span><span class="nv">italic</span><span class="w"> </span><span class="nv">mode-line-buffer-id</span><span class="p">))</span>
-<span class="w">        </span><span class="p">(</span><span class="no">t</span><span class="w"> </span><span class="ss">&#39;mode-line-buffer-id</span><span class="p">)))</span>
-
-<span class="p">(</span><span class="nb">defvar-local</span><span class="w"> </span><span class="nv">alc-modeline-buffer-identification</span>
-<span class="w">    </span><span class="o">&#39;</span><span class="p">(</span><span class="nb">:eval</span>
-<span class="w">       </span><span class="p">(</span><span class="nf">propertize</span><span class="w"> </span><span class="s">&quot;%b&quot;</span>
-<span class="w">                   </span><span class="ss">&#39;face</span><span class="w"> </span><span class="p">(</span><span class="nv">alc-modeline-buffer-identification-face</span><span class="p">))))</span>
-<span class="p">(</span><span class="nf">put</span><span class="w"> </span><span class="ss">&#39;alc-modeline-buffer-identification</span><span class="w"> </span><span class="ss">&#39;risky-local-variable</span><span class="w"> </span><span class="no">t</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-<p><strong>Buffer Position</strong></p>
-<p>Shows line and column number for the position in the current buffer</p>
-<div class="awdur-codeblock docutils container">
-<div class="awdur-codeblock-header docutils container">
-<code class="awdur-codeblock-filename docutils literal notranslate"><span class="pre">emacs/lisp/alc-modeline.el</span></code></div>
-<div class="highlight-elisp notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="nb">defun</span><span class="w"> </span><span class="nv">alc-modeline-buffer-position-face</span><span class="w"> </span><span class="p">()</span>
-<span class="w">  </span><span class="s">&quot;Return the face(s) to apply to the buffer position in the modeline.&quot;</span>
-<span class="w">  </span><span class="p">(</span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="nv">mode-line-window-selected-p</span><span class="p">)</span>
-<span class="w">      </span><span class="ss">&#39;mode-line</span>
-<span class="w">    </span><span class="ss">&#39;mode-line-inactive</span><span class="p">))</span>
-
-<span class="p">(</span><span class="nb">defvar-local</span><span class="w"> </span><span class="nv">alc-modeline-buffer-position</span>
-<span class="w">    </span><span class="o">&#39;</span><span class="p">(</span><span class="nb">:eval</span>
-<span class="w">      </span><span class="p">(</span><span class="nf">propertize</span><span class="w"> </span><span class="s">&quot;%l:%c&quot;</span>
-<span class="w">                  </span><span class="ss">&#39;face</span><span class="w"> </span><span class="p">(</span><span class="nv">alc-modeline-buffer-position-face</span><span class="p">))))</span>
-<span class="p">(</span><span class="nf">put</span><span class="w"> </span><span class="ss">&#39;alc-modeline-buffer-position</span><span class="w"> </span><span class="ss">&#39;risky-local-variable</span><span class="w"> </span><span class="no">t</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-<p><strong>Dedidcated Windows</strong></p>
-<p>Indicates if the current window is dedicated.</p>
-<div class="awdur-codeblock docutils container">
-<div class="awdur-codeblock-header docutils container">
-<code class="awdur-codeblock-filename docutils literal notranslate"><span class="pre">emacs/lisp/alc-modeline.el</span></code></div>
-<div class="highlight-elisp notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="nb">defface</span><span class="w"> </span><span class="nv">alc-modeline-window-dedicated-face</span>
-<span class="w">  </span><span class="o">&#39;</span><span class="p">((</span><span class="nv">default</span><span class="w"> </span><span class="nb">:inherit</span><span class="w"> </span><span class="p">(</span><span class="nv">bold</span><span class="p">)))</span>
-<span class="w">  </span><span class="s">&quot;Face for styling the dedicated window indicator&quot;</span>
-<span class="w">  </span><span class="nb">:group</span><span class="w"> </span><span class="ss">&#39;alc-modeline-faces</span><span class="p">)</span>
-
-<span class="p">(</span><span class="nb">defvar-local</span><span class="w"> </span><span class="nv">alc-modeline-window-dedicated</span>
-<span class="w">    </span><span class="o">&#39;</span><span class="p">(</span><span class="nb">:eval</span>
-<span class="w">      </span><span class="p">(</span><span class="nb">when</span><span class="w"> </span><span class="p">(</span><span class="nf">window-dedicated-p</span><span class="p">)</span>
-<span class="w">        </span><span class="p">(</span><span class="nf">propertize</span><span class="w"> </span><span class="s">&quot;🖈 &quot;</span>
-<span class="w">                    </span><span class="ss">&#39;face</span><span class="w"> </span><span class="ss">&#39;alc-modeline-window-dedicated-face</span><span class="p">))))</span>
-<span class="p">(</span><span class="nf">put</span><span class="w"> </span><span class="ss">&#39;alc-modeline-window-dedicated</span><span class="w"> </span><span class="ss">&#39;risky-local-variable</span><span class="w"> </span><span class="no">t</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-<p><strong>Modus Theme Integration</strong></p>
-<p>The following code will only run if one of the <code class="docutils literal notranslate"><span class="pre">modus-themes</span></code> is active.
-If they are active, then it will use colors from the theme to style elements of the modeline</p>
-<div class="awdur-codeblock docutils container">
-<div class="awdur-codeblock-header docutils container">
-<code class="awdur-codeblock-filename docutils literal notranslate"><span class="pre">emacs/lisp/alc-modeline.el</span></code></div>
-<div class="highlight-elisp notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="nb">with-eval-after-load</span><span class="w"> </span><span class="ss">&#39;modus-themes</span>
-<span class="w">  </span><span class="p">(</span><span class="nb">defun</span><span class="w"> </span><span class="nv">alc-modeline-apply-modus-colors</span><span class="w"> </span><span class="p">()</span>
-<span class="w">    </span><span class="s">&quot;Style the modeline using colors provided by the </span><span class="ss">`modus-themes&#39;</span><span class="s">&quot;</span>
-<span class="w">    </span><span class="p">(</span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="nv">modus-themes--current-theme</span><span class="p">)</span><span class="w"> </span><span class="c1">; Only if a modus-theme is active.</span>
-<span class="w">        </span><span class="p">(</span><span class="nv">modus-themes-with-colors</span>
-<span class="w">          </span><span class="p">(</span><span class="nv">set-face-attribute</span><span class="w"> </span><span class="ss">&#39;mode-line</span><span class="w"> </span><span class="no">nil</span>
-<span class="w">                              </span><span class="nb">:background</span><span class="w"> </span><span class="nv">bg-active</span>
-<span class="w">                              </span><span class="nb">:overline</span><span class="w"> </span><span class="nv">bg-active</span>
-<span class="w">                              </span><span class="nb">:box</span><span class="w"> </span><span class="o">`</span><span class="p">(</span><span class="nb">:line-width</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="nb">:color</span><span class="w"> </span><span class="o">,</span><span class="nv">bg-active</span><span class="w"> </span><span class="nb">:style</span><span class="w"> </span><span class="no">nil</span><span class="p">))</span>
-<span class="w">          </span><span class="p">(</span><span class="nv">set-face-attribute</span><span class="w"> </span><span class="ss">&#39;mode-line-inactive</span><span class="w"> </span><span class="no">nil</span>
-<span class="w">                              </span><span class="nb">:background</span><span class="w"> </span><span class="nv">bg-inactive</span>
-<span class="w">                              </span><span class="nb">:overline</span><span class="w"> </span><span class="nv">bg-inactive</span>
-<span class="w">                              </span><span class="nb">:box</span><span class="w"> </span><span class="o">`</span><span class="p">(</span><span class="nb">:line-width</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="nb">:color</span><span class="w"> </span><span class="o">,</span><span class="nv">bg-inactive</span><span class="w"> </span><span class="nb">:style</span><span class="w"> </span><span class="no">nil</span><span class="p">))</span>
-<span class="w">          </span><span class="p">(</span><span class="nv">set-face-attribute</span><span class="w"> </span><span class="ss">&#39;alc-modeline-project-id-face</span><span class="w"> </span><span class="no">nil</span>
-<span class="w">                              </span><span class="nb">:background</span><span class="w"> </span><span class="ss">&#39;unspecified</span>
-<span class="w">                              </span><span class="nb">:foreground</span><span class="w"> </span><span class="nv">blue</span><span class="p">))))</span>
-
-<span class="w">  </span><span class="p">(</span><span class="nv">alc-modeline-apply-modus-colors</span><span class="p">)</span>
-<span class="w">  </span><span class="p">(</span><span class="nv">add-hook</span><span class="w"> </span><span class="ss">&#39;modus-themes-after-load-theme-hook</span><span class="w"> </span><span class="nf">#&#39;</span><span class="nv">alc-modeline-apply-modus-colors</span><span class="p">))</span>
-</pre></div>
-</div>
-</div>
-<div class="awdur-codeblock docutils container">
-<div class="awdur-codeblock-header docutils container">
-<code class="awdur-codeblock-filename docutils literal notranslate"><span class="pre">emacs/lisp/alc-modeline.el</span></code></div>
-<div class="highlight-elisp notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="nb">provide</span><span class="w"> </span><span class="ss">&#39;alc-modeline</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -951,113 +765,6 @@ The elisp package from Protesilaos provides many nice utilities in Emacs that bu
 </div>
 </div>
 </section>
-<section id="git">
-<h2>Git<a class="headerlink" href="#git" title="Link to this heading">¶</a></h2>
-<p>Of course, no Emacs config would be complete without <a class="extlink-gh reference external" href="https://github.com/magit/magit">magit/magit</a></p>
-<div class="awdur-codeblock docutils container">
-<div class="awdur-codeblock-header docutils container">
-<code class="awdur-codeblock-filename docutils literal notranslate"><span class="pre">emacs/init.el</span></code></div>
-<div class="highlight-elisp notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="nb">use-package</span><span class="w"> </span><span class="nv">magit</span>
-<span class="w">  </span><span class="nb">:ensure</span><span class="w"> </span><span class="no">t</span>
-<span class="w">  </span><span class="nb">:bind</span><span class="w"> </span><span class="p">((</span><span class="s">&quot;C-x g&quot;</span><span class="w"> </span><span class="o">.</span><span class="w"> </span><span class="nv">magit-status</span><span class="p">)))</span>
-</pre></div>
-</div>
-</div>
-<section id="diff-hl">
-<h3><code class="docutils literal notranslate"><span class="pre">diff-hl</span></code><a class="headerlink" href="#diff-hl" title="Link to this heading">¶</a></h3>
-<p><a class="extlink-gh reference external" href="https://github.com/dgutov/diff-hl">dgutov/diff-hl</a> highlights regions of the buffer that have changed relative to some reference commit (typically <code class="docutils literal notranslate"><span class="pre">HEAD</span></code>)</p>
-<div class="admonition seealso">
-<p class="admonition-title">See also</p>
-<p><a class="reference external" href="https://karthinks.com/software/fringe-matters-finding-the-right-difference/">This article</a> from Karthink shows how you can change the reference commit</p>
-</div>
-<div class="awdur-codeblock docutils container">
-<div class="awdur-codeblock-header docutils container">
-<code class="awdur-codeblock-filename docutils literal notranslate"><span class="pre">emacs/init.el</span></code></div>
-<div class="highlight-elisp notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="nb">use-package</span><span class="w"> </span><span class="nv">diff-hl</span>
-<span class="w">  </span><span class="nb">:ensure</span><span class="w"> </span><span class="no">t</span>
-<span class="w">  </span><span class="nb">:hook</span><span class="w"> </span><span class="p">((</span><span class="nv">dired-mode</span><span class="w"> </span><span class="o">.</span><span class="w"> </span><span class="nv">diff-hl-dired-mode</span><span class="p">))</span>
-<span class="w">  </span><span class="nb">:config</span>
-<span class="w">  </span><span class="p">(</span><span class="nv">global-diff-hl-mode</span><span class="p">)</span>
-<span class="w">  </span><span class="p">(</span><span class="nv">diff-hl-margin-mode</span><span class="p">))</span>
-</pre></div>
-</div>
-</div>
-</section>
-<section id="forge">
-<h3>Forge<a class="headerlink" href="#forge" title="Link to this heading">¶</a></h3>
-<p>I’ve also started playing around with <a class="extlink-gh reference external" href="https://github.com/magit/forge">magit/forge</a></p>
-<div class="admonition important">
-<p class="admonition-title">Important</p>
-<p>Forge looks for your GitHub username in your <code class="docutils literal notranslate"><span class="pre">gitconfig</span></code></p>
-<div class="awdur-codeblock docutils container">
-<div class="awdur-codeblock-header docutils container">
-<code class="awdur-codeblock-filename docutils literal notranslate"><span class="pre">gitconfig</span></code></div>
-<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>[github]
-user = alcarney
-</pre></div>
-</div>
-</div>
-</div>
-<div class="awdur-codeblock docutils container">
-<div class="awdur-codeblock-header docutils container">
-<code class="awdur-codeblock-filename docutils literal notranslate"><span class="pre">emacs/init.el</span></code></div>
-<div class="highlight-elisp notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="nb">use-package</span><span class="w"> </span><span class="nv">forge</span>
-<span class="w">  </span><span class="nb">:ensure</span><span class="w"> </span><span class="no">t</span>
-<span class="w">  </span><span class="nb">:after</span><span class="w"> </span><span class="nv">magit</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-<p>All thanks to <a class="extlink-gh reference external" href="https://github.com/magit/forge/discussions/544">magit/forge/discussions/544</a>, it’s possible to define an auth source that uses the <code class="docutils literal notranslate"><span class="pre">gh</span></code> cli to authenticate with the API!</p>
-<div class="awdur-codeblock docutils container">
-<div class="awdur-codeblock-header docutils container">
-<code class="awdur-codeblock-filename docutils literal notranslate"><span class="pre">emacs/init.el</span></code></div>
-<div class="highlight-elisp notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="nb">cl-defun</span><span class="w"> </span><span class="nv">auth-source-ghcli-search</span><span class="w"> </span><span class="p">(</span><span class="kp">&amp;rest</span><span class="w"> </span><span class="nv">spec</span>
-<span class="w">                                          </span><span class="kp">&amp;key</span><span class="w"> </span><span class="nv">backend</span><span class="w"> </span><span class="nb">require</span>
-<span class="w">                                          </span><span class="nv">type</span><span class="w"> </span><span class="nf">max</span><span class="w"> </span><span class="nv">host</span><span class="w"> </span><span class="nv">user</span><span class="w"> </span><span class="nv">port</span>
-<span class="w">                                          </span><span class="kp">&amp;allow-other-keys</span><span class="p">)</span>
-<span class="w">  </span><span class="s">&quot;Given a property list SPEC, return search matches from the `:backend&#39;.</span>
-<span class="s">See </span><span class="ss">`auth-source-search&#39;</span><span class="s"> for details on SPEC.&quot;</span>
-<span class="w">  </span><span class="c1">;; just in case, check that the type is correct (null or same as the backend)</span>
-<span class="w">  </span><span class="p">(</span><span class="ne">cl-assert</span><span class="w"> </span><span class="p">(</span><span class="k">or</span><span class="w"> </span><span class="p">(</span><span class="nf">null</span><span class="w"> </span><span class="nv">type</span><span class="p">)</span><span class="w"> </span><span class="p">(</span><span class="nf">eq</span><span class="w"> </span><span class="nv">type</span><span class="w"> </span><span class="p">(</span><span class="nb">oref</span><span class="w"> </span><span class="nv">backend</span><span class="w"> </span><span class="nv">type</span><span class="p">)))</span>
-<span class="w">             </span><span class="no">t</span><span class="w"> </span><span class="s">&quot;Invalid GH CLI search: %s %s&quot;</span><span class="p">)</span>
-
-<span class="w">  </span><span class="p">(</span><span class="nv">when-let*</span><span class="w"> </span><span class="p">((</span><span class="nv">hostname</span><span class="w"> </span><span class="p">(</span><span class="nv">string-remove-prefix</span><span class="w"> </span><span class="s">&quot;api.&quot;</span><span class="w"> </span><span class="nv">host</span><span class="p">))</span>
-<span class="w">              </span><span class="c1">;; split ghub--ident again</span>
-<span class="w">              </span><span class="p">(</span><span class="nv">ghub_ident</span><span class="w"> </span><span class="p">(</span><span class="nv">split-string</span><span class="w"> </span><span class="p">(</span><span class="k">or</span><span class="w"> </span><span class="nv">user</span><span class="w"> </span><span class="s">&quot;&quot;</span><span class="p">)</span><span class="w"> </span><span class="s">&quot;\\^&quot;</span><span class="p">))</span>
-<span class="w">              </span><span class="p">(</span><span class="nv">username</span><span class="w"> </span><span class="p">(</span><span class="nf">car</span><span class="w"> </span><span class="nv">ghub_ident</span><span class="p">))</span>
-<span class="w">              </span><span class="p">(</span><span class="nv">package</span><span class="w"> </span><span class="p">(</span><span class="nv">cadr</span><span class="w"> </span><span class="nv">ghub_ident</span><span class="p">))</span>
-<span class="w">              </span><span class="p">(</span><span class="nv">cmd</span><span class="w"> </span><span class="p">(</span><span class="nf">format</span><span class="w"> </span><span class="s">&quot;gh auth token --hostname &#39;%s&#39;&quot;</span><span class="w"> </span><span class="nv">hostname</span><span class="p">))</span>
-<span class="w">              </span><span class="p">(</span><span class="nv">token</span><span class="w"> </span><span class="p">(</span><span class="nb">when</span><span class="w"> </span><span class="p">(</span><span class="nf">string=</span><span class="w"> </span><span class="nv">package</span><span class="w"> </span><span class="s">&quot;forge&quot;</span><span class="p">)</span><span class="w"> </span><span class="p">(</span><span class="nv">string-trim-right</span><span class="w"> </span><span class="p">(</span><span class="nv">shell-command-to-string</span><span class="w"> </span><span class="nv">cmd</span><span class="p">))))</span>
-<span class="w">              </span><span class="p">(</span><span class="nv">retval</span><span class="w"> </span><span class="p">(</span><span class="nf">list</span>
-<span class="w">                       </span><span class="nb">:host</span><span class="w"> </span><span class="nv">hostname</span>
-<span class="w">                       </span><span class="nb">:user</span><span class="w"> </span><span class="nv">username</span>
-<span class="w">                       </span><span class="nb">:secret</span><span class="w"> </span><span class="nv">token</span><span class="p">)))</span>
-<span class="w">    </span><span class="p">(</span><span class="nv">auth-source-do-debug</span><span class="w">  </span><span class="s">&quot;auth-source-ghcli: return %s as final result (plus hidden password)&quot;</span>
-<span class="w">                           </span><span class="p">(</span><span class="nv">seq-subseq</span><span class="w"> </span><span class="nv">retval</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="mi">-2</span><span class="p">))</span><span class="w"> </span><span class="c1">;; remove password</span>
-<span class="w">    </span><span class="p">(</span><span class="nf">list</span><span class="w"> </span><span class="nv">retval</span><span class="p">)))</span>
-
-<span class="p">(</span><span class="k">defvar</span><span class="w"> </span><span class="nv">auth-source-ghcli-backend</span>
-<span class="w">  </span><span class="p">(</span><span class="nv">auth-source-backend</span>
-<span class="w">   </span><span class="nb">:source</span><span class="w"> </span><span class="s">&quot;.&quot;</span><span class="w"> </span><span class="c1">;; not used</span>
-<span class="w">   </span><span class="nb">:type</span><span class="w"> </span><span class="ss">&#39;gh-cli</span>
-<span class="w">   </span><span class="nb">:search-function</span><span class="w"> </span><span class="nf">#&#39;</span><span class="nv">auth-source-ghcli-search</span><span class="p">)</span>
-<span class="w">  </span><span class="s">&quot;Auth-source backend for GH CLI.&quot;</span><span class="p">)</span>
-
-<span class="p">(</span><span class="nb">defun</span><span class="w"> </span><span class="nv">auth-source-ghcli-backend-parse</span><span class="w"> </span><span class="p">(</span><span class="nv">entry</span><span class="p">)</span>
-<span class="w">  </span><span class="s">&quot;Create a GH CLI auth-source backend from ENTRY.&quot;</span>
-<span class="w">  </span><span class="p">(</span><span class="nb">when</span><span class="w"> </span><span class="p">(</span><span class="nf">eq</span><span class="w"> </span><span class="nv">entry</span><span class="w"> </span><span class="ss">&#39;gh-cli</span><span class="p">)</span>
-<span class="w">    </span><span class="p">(</span><span class="nv">auth-source-backend-parse-parameters</span><span class="w"> </span><span class="nv">entry</span><span class="w"> </span><span class="nv">auth-source-ghcli-backend</span><span class="p">)))</span>
-
-<span class="p">(</span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="nf">boundp</span><span class="w"> </span><span class="ss">&#39;auth-source-backend-parser-functions</span><span class="p">)</span>
-<span class="w">    </span><span class="p">(</span><span class="nv">add-hook</span><span class="w"> </span><span class="ss">&#39;auth-source-backend-parser-functions</span><span class="w"> </span><span class="nf">#&#39;</span><span class="nv">auth-source-ghcli-backend-parse</span><span class="p">)</span>
-<span class="w">  </span><span class="p">(</span><span class="nv">advice-add</span><span class="w"> </span><span class="ss">&#39;auth-source-backend-parse</span><span class="w"> </span><span class="nb">:before-until</span><span class="w"> </span><span class="nf">#&#39;</span><span class="nv">auth-source-ghcli-backend-parse</span><span class="p">))</span>
-
-<span class="p">(</span><span class="k">setq</span><span class="w"> </span><span class="nv">auth-sources</span><span class="w"> </span><span class="o">&#39;</span><span class="p">(</span><span class="nv">gh-cli</span><span class="p">))</span>
-</pre></div>
-</div>
-</div>
-</section>
-</section>
 <section id="project-el">
 <h2><code class="docutils literal notranslate"><span class="pre">project.el</span></code><a class="headerlink" href="#project-el" title="Link to this heading">¶</a></h2>
 <p>The built-in project management, <code class="docutils literal notranslate"><span class="pre">project.el</span></code> is good enough for my needs.
@@ -1319,7 +1026,7 @@ The following advice ensures that the right vc backend is selected for subprojec
             <a href="https://www.sphinx-doc.org/en/master/">
               Sphinx
             </a>
-            v8.2.0
+            v8.2.1
           </li>
           <li>
             <a href="https://feathericons.com/">

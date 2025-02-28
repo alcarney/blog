@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+
+<html lang="en" data-content_root="../../../">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>TIL: Navigating History with Magit &#8212; Alex Carney</title>
+
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=02ca0aaa" />
+    <link id="pygments_dark_css" media="(prefers-color-scheme: dark)" rel="stylesheet" type="text/css" href="../../../_static/pygments_dark.css?v=d8568271" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/css/layout.css?v=fec7d310" />
+
+    <script src="../../../_static/documentation_options.js?v=187304be"></script>
+    <script src="../../../_static/doctools.js?v=9bcbadda"></script>
+    <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../../_static/js/theme.js?v=94324b12"></script>
+    <script src="../../../_static/js/htmx-2.0.4.min.js?v=be6ab97a"></script>
+    <link rel="icon" href="../../../_static/favicon.ico"/>
+    <link rel="index" title="Index" href="../../../genindex/" />
+    <link rel="search" title="Search" href="../../../search/" /> 
+  </head>
+  <body>
+
+<input type="checkbox" id="menu-toggle" class="hidden" />
+<aside>
+  <div class="sidebar"><div id="profile-card">
+    <img src="/_static/avatar.jpg"/>
+    <h2>
+      <a href="/">Alex Carney</a>
+    </h2>
+    <nav class="social">
+  <a target="_blank" rel="noreferrer noopener" href="https://github.com/alcarney" title="GitHub">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="24px" height="24px">
+      <path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/>
+    </svg>
+  </a>
+
+  <a target="_blank" rel="noreferrer noopener me" href="https://fosstodon.org/@alcarney" title="Mastodon">
+    <svg role="img" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" width="24px" height="24px" fill="currentColor">
+      <title>Mastodon</title>
+      <path d="M23.268 5.313c-.35-2.578-2.617-4.61-5.304-5.004C17.51.242 15.792 0 11.813 0h-.03c-3.98 0-4.835.242-5.288.309C3.882.692 1.496 2.518.917 5.127.64 6.412.61 7.837.661 9.143c.074 1.874.088 3.745.26 5.611.118 1.24.325 2.47.62 3.68.55 2.237 2.777 4.098 4.96 4.857 2.336.792 4.849.923 7.256.38.265-.061.527-.132.786-.213.585-.184 1.27-.39 1.774-.753a.057.057 0 0 0 .023-.043v-1.809a.052.052 0 0 0-.02-.041.053.053 0 0 0-.046-.01 20.282 20.282 0 0 1-4.709.545c-2.73 0-3.463-1.284-3.674-1.818a5.593 5.593 0 0 1-.319-1.433.053.053 0 0 1 .066-.054c1.517.363 3.072.546 4.632.546.376 0 .75 0 1.125-.01 1.57-.044 3.224-.124 4.768-.422.038-.008.077-.015.11-.024 2.435-.464 4.753-1.92 4.989-5.604.008-.145.03-1.52.03-1.67.002-.512.167-3.63-.024-5.545zm-3.748 9.195h-2.561V8.29c0-1.309-.55-1.976-1.67-1.976-1.23 0-1.846.79-1.846 2.35v3.403h-2.546V8.663c0-1.56-.617-2.35-1.848-2.35-1.112 0-1.668.668-1.67 1.977v6.218H4.822V8.102c0-1.31.337-2.35 1.011-3.12.696-.77 1.608-1.164 2.74-1.164 1.311 0 2.302.5 2.962 1.498l.638 1.06.638-1.06c.66-.999 1.65-1.498 2.96-1.498 1.13 0 2.043.395 2.74 1.164.675.77 1.012 1.81 1.012 3.12z"/>
+    </svg>
+  </a>
+
+  <a target="_blank" rel="noreferrer noopener" href="https://pixelfed.social/i/web/profile/795173629619860860" title="Pixelfed">
+    <svg width="24px" height="24px" viewBox="0 0 50 50" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path d="M25 50C11.193 50 0 38.807 0 25S11.193 0 25 0s25 11.193 25 25-11.193 25-25 25zm-1.985-19.542h4.586c4.32 0 7.823-3.41 7.823-7.615 0-4.206-3.502-7.616-7.823-7.616h-6.619c-2.492 0-4.513 1.967-4.513 4.394v17.1l6.546-6.263z" fill-rule="evenodd"/></svg>
+  </a>
+
+  <a target="_blank" rel="noreferrer noopener" href="https://www.youtube.com/channel/UC5GPflgRWhnCxA0BllfP5CA" title="YouTube">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24px" height="24px" fill="currentColor">
+      <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
+    </svg>
+  </a>
+
+  <a href="/blog/atom.xml" title="RSS Feed">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24px" height="24px" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
+      <path d="M4 11a9 9 0 0 1 9 9M4 4a16 16 0 0 1 16 16"/>
+      <circle cx="5" cy="19" r="1"/>
+    </svg>
+  </a>
+</nav>
+</div>
+<search id="searchbox" style="display: none" role="search">
+    <div class="searchformwrapper">
+    <form class="search" action="../../../search/" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" placeholder="Search"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</search>
+<script>document.getElementById('searchbox').style.display = "block"</script><nav class="site">
+  <ul>
+    <li>
+      <a href="/blog">Blog</a>
+    </li>
+    <li>
+      <a href="/code">Code</a>
+    </li>
+    <li>
+      <a href="/dotfiles">Dotfiles</a>
+    </li>
+    <li>
+      <a href="/notes">Notes</a>
+    </li>
+  </ul>
+</nav>
+<section class="post-metadata">
+    <h5 style="grid-column: span 2">Metadata</h5><svg xmlns="http://www.w3.org/2000/svg" width="2em" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+</svg>
+    <time style="align-self: center; text-align: right;" datetime="2025-02-27 00:00:00">Feb 27, 2025</time><svg xmlns="http://www.w3.org/2000/svg" width="2em" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z" />
+</svg>
+    <ul class="taglist">
+        <li>
+            <a class="tag" href="../../../tag/emacs/">
+                #emacs
+            </a>
+        </li>
+        <li>
+            <a class="tag" href="../../../tag/magit/">
+                #magit
+            </a>
+        </li>
+    </ul>
+</section><nav id="localtoc">
+    <ul>
+<li><a class="reference internal" href="#">TIL: Navigating History with Magit</a><ul>
+<li><a class="reference internal" href="#from-magit-dispatch">From <code class="docutils literal notranslate"><span class="pre">magit-dispatch</span></code></a></li>
+<li><a class="reference internal" href="#from-magit-file-dispatch">From <code class="docutils literal notranslate"><span class="pre">magit-file-dispatch</span></code></a></li>
+<li><a class="reference internal" href="#navigating-history">Navigating history</a></li>
+</ul>
+</li>
+</ul>
+
+</nav>
+  </div>
+</aside>
+
+<div class="content" style="min-width: 0">
+    <header class="site">
+        <label for="menu-toggle">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="2em" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </label>
+    </header>
+
+    <div role="main">
+
+<article>
+  <section id="til-navigating-history-with-magit">
+<h1>TIL: Navigating History with Magit<a class="headerlink" href="#til-navigating-history-with-magit" title="Link to this heading">¶</a></h1>
+<div class="post-teaser docutils container">
+<p>Building on <a class="reference internal" href="../til-additional-magit-keybindings/" title="TIL: Additional magit keybindings">my previous discovery</a>, today I figured out a few ways of exploring the history of a project with <code class="docutils literal notranslate"><span class="pre">magit</span></code>.
+<a class="reference external" href="https://github.com/swyddfa/esbonio/issues/965">This issue</a> provided a nice motivating example to have in mind - the <code class="docutils literal notranslate"><span class="pre">exceptiongroup</span></code> Python package was dropped from a <code class="docutils literal notranslate"><span class="pre">requirements.txt</span></code> file - in which commit did it happen?</p>
+</div>
+<section id="from-magit-dispatch">
+<h2>From <code class="docutils literal notranslate"><span class="pre">magit-dispatch</span></code><a class="headerlink" href="#from-magit-dispatch" title="Link to this heading">¶</a></h2>
+<p>From any file in the repository you can</p>
+<ul class="simple">
+<li><p>Invoke <code class="docutils literal notranslate"><span class="pre">magit-dispatch</span></code> (<kbd class="kbd docutils literal notranslate">C</kbd>-<kbd class="kbd docutils literal notranslate">x</kbd> <kbd class="kbd docutils literal notranslate">M</kbd>-<kbd class="kbd docutils literal notranslate">g</kbd>)</p></li>
+<li><p>Open the log menu (<kbd class="kbd docutils literal notranslate">l</kbd>)</p></li>
+<li><p>Limit the log to commits affecting a specific file (<kbd class="kbd docutils literal notranslate">--</kbd>) and enter the filename(s) at the minibuffer prompt (<code class="docutils literal notranslate"><span class="pre">code/requirements-libs.txt</span></code>) in my case</p></li>
+<li><p>Generate the log for the current branch (<kbd class="kbd docutils literal notranslate">l</kbd>)</p></li>
+</ul>
+<p>Which resulted in the following buffer:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>Commits in develop touching code/requirements-libs.txt
+a0b08399 * build(deps): bump websockets from 14.1 to 14.2 in /code
+d781cdc0 * code: Update dependencies
+f88f8ad5 * build(deps): bump tomli from 2.0.2 to 2.2.1 in /code
+83e810c6 * code: Update bundled dependencies
+d6462b20 * code: Bundle a basic Sphinx env with the extension
+</pre></div>
+</div>
+<p>Then with point on one of the commits, hitting <kbd class="kbd docutils literal notranslate">SPC</kbd> will open the corresponding diff in a new window:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>commit d781cdc0 limited to file code/requirements-libs.txt
+d781cdc087a1846ecc13df36d6ee4b6ad383a3b9
+Author:     Alex Carney &lt;alcarneyme@gmail.com&gt;
+AuthorDate: Sat Jan 18 20:57:09 2025 +0000
+Commit:     Alex Carney &lt;alex.rugby101@gmail.com&gt;
+CommitDate: Thu Jan 23 19:56:08 2025 +0000
+
+Parent:     19be4d6b devenv: Use `uv` for dependency resolution
+Contained:  develop release
+Follows:    esbonio-vscode-extension-v0.96.1 (9)
+Precedes:   esbonio-language-server-v1.0.0b10 (32)
+
+code: Update dependencies
+
+1 file changed, 5 insertions(+), 9 deletions(-)
+code/requirements-libs.txt | 14 +++++---------
+
+modified   code/requirements-libs.txt
+@@ -1,16 +1,12 @@
+-#
+-# This file is autogenerated by pip-compile with Python 3.9
+-# by the following command:
+-#
+-#    pip-compile --generate-hashes --output-file=requirements-libs.txt requirements-libs.in
+-#
++# This file was autogenerated by uv via the following command:
++#    uv pip compile --prerelease=allow --generate-hashes --python-version 3.9 --output-file requirements-libs.txt requirements-libs.in
+ aiosqlite==0.20.0 \
+     --hash=sha256:36a1deaca0cac40ebe32aac9977a6e2bbc7f5189f23f4a54d5908986729e5bd6 \
+     --hash=sha256:6d35c8c256637f4672f843c31021464090805bf925385ac39473fb16eaaca3d7
+     # via -r requirements-libs.in
+-attrs==24.2.0 \
+-    --hash=sha256:5cfb1b9148b5b086569baec03f20d7b6bf3bcacc9a42bebf87ffaaca362f6346 \
+-    --hash=sha256:81921eb96de3191c8258c199618104dd27ac608d9366f5e35d011eae1867ede2
++attrs==24.3.0 \
++    --hash=sha256:8f5c07333d543103541ba7be0e2ce16eeee8130cb0b3f9238ab904ce1e85baff \
++    --hash=sha256:ac96cd038792094f438ad1f6ff80837353805ac950cd2aa0e0625ef19850c308
+     # via
+     #   cattrs
+     #   lsprotocol
+
+[back]
+</pre></div>
+</div>
+<p>However, the <code class="docutils literal notranslate"><span class="pre">magit-log:</span></code> buffer will still be focused - it turns out navigating up and down the list with <kbd class="kbd docutils literal notranslate">n</kbd> and <kbd class="kbd docutils literal notranslate">p</kbd> will automatically refresh the diff to match the new commit under point!</p>
+</section>
+<section id="from-magit-file-dispatch">
+<h2>From <code class="docutils literal notranslate"><span class="pre">magit-file-dispatch</span></code><a class="headerlink" href="#from-magit-file-dispatch" title="Link to this heading">¶</a></h2>
+<p>A perhaps faster way to acheive the same result is to</p>
+<ul class="simple">
+<li><p>Navigate to the file of interest <code class="docutils literal notranslate"><span class="pre">code/requirements-libs.txt</span></code></p></li>
+<li><p>Invoke <code class="docutils literal notranslate"><span class="pre">magit-file-dispatch</span></code> (<kbd class="kbd docutils literal notranslate">C</kbd>-<kbd class="kbd docutils literal notranslate">c</kbd> <kbd class="kbd docutils literal notranslate">M</kbd>-<kbd class="kbd docutils literal notranslate">g</kbd>)</p></li>
+<li><p>Select log (<kbd class="kbd docutils literal notranslate">l</kbd>)</p></li>
+</ul>
+</section>
+<section id="navigating-history">
+<h2>Navigating history<a class="headerlink" href="#navigating-history" title="Link to this heading">¶</a></h2>
+<p>Another nice set of commands in the <code class="docutils literal notranslate"><span class="pre">magit-file-dispatch</span></code> menu are in the <code class="docutils literal notranslate"><span class="pre">Navigate</span></code> column:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>File actions   Inspect                               Navigate        More actions
+   s Stage      D Diff...   L Log...   B Blame...     p Prev blob     c Commit
+   u Unstage    d Diff      l Log      b Blame        n Next blob     e Edit line
+ , x Untrack                t Trace    m Blame echo   v Goto blob
+ , r Rename                                           V Goto file
+ , k Delete                                           g Goto status
+ , c Checkout                                         G Goto magit
+</pre></div>
+</div>
+<p>Using <kbd class="kbd docutils literal notranslate">n</kbd> or <kbd class="kbd docutils literal notranslate">p</kbd> you can walk through the history of the current file, or if you know the commit/branch/tag, jump to it directly with <kbd class="kbd docutils literal notranslate">v</kbd>.</p>
+<p>Then if you wish you can view the diff for the current revision with <kbd class="kbd docutils literal notranslate">d</kbd>.</p>
+<p>Now I wonder if it’s possible to integrate <kbd class="kbd docutils literal notranslate">n</kbd> and <kbd class="kbd docutils literal notranslate">p</kbd> with <a class="reference external" href="https://karthinks.com/software/it-bears-repeating/">repeat-mode</a>… 🤔</p>
+</section>
+</section>
+
+  <footer>
+    <script src="https://giscus.app/client.js"
+            data-repo="alcarney/blog"
+            data-repo-id="MDEwOlJlcG9zaXRvcnk2Njk3NzM3MQ=="
+            data-category="Comments"
+            data-category-id="DIC_kwDOA_3-W84B_XOl"
+            data-mapping="pathname"
+            data-reactions-enabled="1"
+            data-emit-metadata="0"
+            data-theme="preferred_color_scheme"
+            crossorigin="anonymous"
+            async>
+    </script>
+  </footer>
+
+</article>
+
+    </div>
+
+    <footer class="site">
+      <div>
+        <h6>Links</h6>
+        <ul>
+          <li>
+            <a href="../../../_sources/content/20250222T125328--til-navigating-history-with-magit__blog_emacs_magit.rst.txt" rel="nofollow">
+              Page Source
+            </a>
+          </li>
+          <li>
+            <a href="https://github.com/alcarney/blog" rel="nofollow">
+              Source Code
+            </a>
+          </li>
+        </ul>
+      </div>
+
+      <div>
+        <h6>
+          Built with
+        </h6>
+        <ul>
+          <li>
+            <a href="https://www.sphinx-doc.org/en/master/">
+              Sphinx
+            </a>
+            v8.2.1
+          </li>
+          <li>
+            <a href="https://feathericons.com/">
+              Feather Icons
+            </a>
+          </li>
+        </ul>
+      </div>
+    </footer>
+</div>
+  </body>
+</html>
