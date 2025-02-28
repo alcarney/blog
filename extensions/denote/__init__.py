@@ -41,13 +41,16 @@ def parse_records(app: Sphinx, doctree):
 
     docname = app.env.docname
     domain: Denote = app.env.domains["denote"]
+    metadata = app.env.metadata.get(docname, {})
+
     if (record := domain.records.get(docname)) is None:
         return
 
-    if (title := doctree.next_node(condition=nodes.title, descend=True)) is None:
-        return
+    if (title := doctree.next_node(condition=nodes.title, descend=True)) is not None:
+        record.title = title.astext()
 
-    record.title = title.astext()
+    if (date := metadata.get("date")) is not None:
+        record.timestamp = datetime.fromisoformat(date)
 
 
 def generate_collections(app: Sphinx):
