@@ -680,63 +680,6 @@ And :gh:`radian-software/apheleia` for automatic formatting of buffers
      :config
      (apheleia-global-mode))
 
-Python
-^^^^^^
-
-Settings for Python files
-
-.. code-block:: elisp
-   :filename: emacs/init.el
-
-   (use-package python
-     :hook ((python-mode . alc-python-mode-hook)
-            (python-ts-mode . alc-python-mode-hook))
-     :custom
-     (python-shell-dedicated 'project))
-
-Use ruff for formatting.
-
-.. code-block:: elisp
-   :filename: emacs/init.el
-
-   (with-eval-after-load 'apheleia
-     (setf (alist-get 'python-ts-mode apheleia-mode-alist)
-          '(ruff-isort ruff)))
-
-A function to run each time a Python file is visited.
-
-.. code-block:: elisp
-   :filename: emacs/init.el
-
-   (defun alc-python-mode-hook ()
-     "Tweaks and config to run when starting `python-mode'"
-     (setq-local fill-column 88)
-
-     ;; Files in site-packages/ etc. should be read only by default.
-     ;; Also do not start eglot in these locations to cut down on the
-     ;; number of server instances.
-     (if (alc-python-library-file-p)
-         (read-only-mode)
-       (eglot-ensure)))
-
-Helper Functions
-""""""""""""""""
-
-A function that tries to distinguish between library code and project code
-
-.. code-block:: elisp
-   :filename: emacs/init.el
-
-   (defun alc-python-library-file-p ()
-     "Determine if the current buffer is a library file"
-     (if-let ((file-name (buffer-file-name)))
-         (or
-          (string-match-p "site-packages/" file-name)
-          (string-match-p "typeshed-fallback/" file-name)
-          (string-match-p "/usr/lib\\(64\\)?/" file-name))
-       ;; For now, consider buffers that do not visit a file a "library" as well
-       t))
-
 reStructuredText
 ^^^^^^^^^^^^^^^^
 
