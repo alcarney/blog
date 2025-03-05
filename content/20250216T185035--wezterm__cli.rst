@@ -52,8 +52,19 @@ Use the "retro" tab bar.
 
    config.use_fancy_tab_bar = false
 
+Default Program
+---------------
+
+Rather than mess around with my user's default shell, just tell wezterm to start fish by default instead
+
+.. code-block:: lua
+   :filename: wezterm/wezterm.lua
+
+   config.default_prog = { '/usr/bin/fish', '-l' }
+
 .. code-block:: lua
    :class: hidden
    :filename: wezterm/wezterm.lua
 
    return config
+
