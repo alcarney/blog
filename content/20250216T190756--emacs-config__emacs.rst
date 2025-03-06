@@ -193,9 +193,9 @@ I want to run one of the ``modus-themes-load-<variant>`` functions so that the `
      (if (eq 1 variant)
         (progn
           (load-theme 'modus-vivendi t)
-          (modus-themes-load-vivendi))
+          (modus-themes-load-theme 'modus-vivendi))
        (load-theme 'modus-operandi t)
-       (modus-themes-load-operandi)))
+       (modus-themes-load-theme 'modus-operandi)))
 
 
 Specifics of theme loading aside, let's pick a variant based on the current system theme.
