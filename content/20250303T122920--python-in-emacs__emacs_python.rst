@@ -34,6 +34,7 @@ A function to run each time a Python file is visited.
 
    (defun alc-python-mode-hook ()
      "Tweaks and config to run when starting `python-mode'"
+     (require 'alc-python)
      (setq-local fill-column 88)
 
      ;; Files in site-packages/ etc. should be read only by default.
@@ -45,6 +46,12 @@ A function to run each time a Python file is visited.
 
 Python Environments
 -------------------
+
+.. code-block:: elisp
+   :filename: emacs/lisp/alc-python.el
+
+   ;;; alc-python.el --- Python configuration -*- lexical-binding: t -*-
+   ;;; Code:
 
 No configuration would be complete without considering the *many* ways in which you might work with Python environments!
 
@@ -63,6 +70,33 @@ The following function allows me to use the minibuffer to select an environment 
                 (alc-python-env-hatch-select prj)))))
 
 The main use case of course, is to "activate" the chosen environment within the context of the current project.
+It works by updating the ``.dir-locals.el`` file for the current project
+
+.. code-block:: elisp
+   :filename: emacs/lisp/alc-python.el
+
+   (defun alc-python-env-activate ()
+     "Select a Python environment and activate it."
+     (interactive)
+     (if-let ((selected-env (alc-python-env-select))
+              (default-directory (project-root (project-current))))
+         (progn
+           (setq-local python-shell-interpreter selected-env)
+           (modify-dir-local-variable 'python-mode
+                                      'python-shell-interpreter
+                                      selected-env
+                                      'add-or-replace)
+           (modify-dir-local-variable 'python-mode
+                                      'eglot-workspace-configuration
+                                      `(:python
+                                        (:pythonPath ,selected-env)
+                                        :python.analysis
+                                        (:logLevel "trace"))
+                                      'add-or-replace)
+           ;; Annoyingly, `modify-dir-local-variable' will leave the
+           ;; .dir-locals.el file open in an unsaved buffer
+           (save-buffer)
+           (kill-buffer))))
 
 Hatch
 """""
