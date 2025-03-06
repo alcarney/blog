@@ -89,6 +89,14 @@ I quite like the Ubuntu family of fonts, but use the "Nerd Font" version to get 
    (set-face-attribute 'fixed-pitch nil :family "UbuntuMonoNerdFont" :height 120)
    (set-face-attribute 'variable-pitch nil :family "UbuntuSansNerdFont" :weight 'light :height 120)
 
+Make it easy to get relevant nerd icons
+
+.. code-block:: elisp
+   :filename: emacs/init.el
+
+   (use-package nerd-icons
+     :ensure t)
+
 Line Numbers
 ^^^^^^^^^^^^
 
@@ -193,9 +201,9 @@ I want to run one of the ``modus-themes-load-<variant>`` functions so that the `
      (if (eq 1 variant)
         (progn
           (load-theme 'modus-vivendi t)
-          (modus-themes-load-vivendi))
+          (modus-themes-load-theme 'modus-vivendi))
        (load-theme 'modus-operandi t)
-       (modus-themes-load-operandi)))
+       (modus-themes-load-theme 'modus-operandi)))
 
 
 Specifics of theme loading aside, let's pick a variant based on the current system theme.
@@ -550,33 +558,6 @@ Settings for dired
           ;; -v, natural sort of (version) numbers within text
           dired-listing-switches "-AFGhlvX --group-directories-first --time-style=long-iso"))
 
-Denote
-------
-
-`denote <https://protesilaos.com/emacs/denote>`__ is primarily a clever file naming scheme well-suited for note taking/being organised.
-The elisp package from Protesilaos provides many nice utilities in Emacs that build on the naming scheme.
-
-.. code-block:: elisp
-   :filename: emacs/init.el
-
-   (use-package denote
-     :ensure t
-     :hook ((dired-mode . denote-dired-mode))
-     :config
-
-     ;; Add reStructuredText support to denote
-     (add-to-list 'denote-file-types `(rst
-                                       :extension ".rst"
-                                       :date-function denote-date-iso-8601
-                                       :front-matter ":title: %s\n:date: %s\n:tags: %s\n:identifier: %s\n\n"
-                                       :title-key-regexp "^:title:"
-                                       :title-value-function identity
-                                       :title-value-reverse-function denote-trim-whitespace
-                                       :keywords-key-regexp "^:tags:"
-                                       :keywords-value-function ,(lambda (ks) (string-join ks ", "))
-                                       :keywords-value-reverse-function denote-extract-keywords-from-front-matter
-                                       :link ":denote:link:`%2$s <%1$s>`"
-                                       :link-in-context-regexp ,(concat ":denote:link:`.*?<\\(?1:" denote-id-regexp "\\)>`"))))
 ``project.el``
 --------------
 
@@ -617,56 +598,6 @@ The following advice ensures that the right vc backend is selected for subprojec
 
    (advice-add 'project-try-vc :around #'alc-project-try-vc-subproject)
 
-
-Eglot
------
-
-I use ``eglot`` as my language client
-
-.. code-block:: elisp
-   :filename: emacs/init.el
-
-   (use-package eglot
-     :bind (("<f2>" . eglot-rename))
-     :custom
-     (eglot-autoshutdown t)
-     (eglot-extend-to-xref t)
-     :config
-     (advice-add 'eglot--workspace-configuration-plist :around #'alc-eglot-fix-workspace-configuration-scope))
-
-The following function is used to advise the ``eglot--workspace-configuration-plist`` function to ensure that it calculates the correct scope for ``workspace/configuration`` requests
-
-.. code-block:: elisp
-   :filename: emacs/init.el
-
-   (require 's)
-
-   (defun alc-eglot-fix-workspace-configuration-scope (orig-fun server &optional path)
-     "Fix the scopeUri of a workspace/configuration request.
-
-   When eglot handles a workspace/configuration request with an
-   associated scopeUri it uses the `file-name-directory' function to
-   determine the directory from which to resolve the configuration
-   values.
-
-   This causes an issue for servers like esbonio and pyright which
-   set the scopeUri to a directory. For `file-name-directory' to
-   treat the path as a directory it must include a trailing slash, a
-   convention which these servers do not follow.
-
-   Therefore `file-name-directory' treats the path as a file and
-   removes the final component, causing eglot to resolve the
-   configuration relative to the wrong directory.
-
-   This function fixes the issue by advising the
-   `eglot--workspace-configuration-plist' function, ensuring that
-   paths referencing directories include the trailing slash."
-     (if (and path
-              (file-directory-p path)
-              (not (s-ends-with? "/" path)))
-         (funcall orig-fun server (concat path "/"))
-       (funcall orig-fun server path)))
-
 Languages
 ---------
 
@@ -679,63 +610,6 @@ And :gh:`radian-software/apheleia` for automatic formatting of buffers
      :ensure t
      :config
      (apheleia-global-mode))
-
-Python
-^^^^^^
-
-Settings for Python files
-
-.. code-block:: elisp
-   :filename: emacs/init.el
-
-   (use-package python
-     :hook ((python-mode . alc-python-mode-hook)
-            (python-ts-mode . alc-python-mode-hook))
-     :custom
-     (python-shell-dedicated 'project))
-
-Use ruff for formatting.
-
-.. code-block:: elisp
-   :filename: emacs/init.el
-
-   (with-eval-after-load 'apheleia
-     (setf (alist-get 'python-ts-mode apheleia-mode-alist)
-          '(ruff-isort ruff)))
-
-A function to run each time a Python file is visited.
-
-.. code-block:: elisp
-   :filename: emacs/init.el
-
-   (defun alc-python-mode-hook ()
-     "Tweaks and config to run when starting `python-mode'"
-     (setq-local fill-column 88)
-
-     ;; Files in site-packages/ etc. should be read only by default.
-     ;; Also do not start eglot in these locations to cut down on the
-     ;; number of server instances.
-     (if (alc-python-library-file-p)
-         (read-only-mode)
-       (eglot-ensure)))
-
-Helper Functions
-""""""""""""""""
-
-A function that tries to distinguish between library code and project code
-
-.. code-block:: elisp
-   :filename: emacs/init.el
-
-   (defun alc-python-library-file-p ()
-     "Determine if the current buffer is a library file"
-     (if-let ((file-name (buffer-file-name)))
-         (or
-          (string-match-p "site-packages/" file-name)
-          (string-match-p "typeshed-fallback/" file-name)
-          (string-match-p "/usr/lib\\(64\\)?/" file-name))
-       ;; For now, consider buffers that do not visit a file a "library" as well
-       t))
 
 reStructuredText
 ^^^^^^^^^^^^^^^^
