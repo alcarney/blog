@@ -89,6 +89,14 @@ I quite like the Ubuntu family of fonts, but use the "Nerd Font" version to get 
    (set-face-attribute 'fixed-pitch nil :family "UbuntuMonoNerdFont" :height 120)
    (set-face-attribute 'variable-pitch nil :family "UbuntuSansNerdFont" :weight 'light :height 120)
 
+Make it easy to get relevant nerd icons
+
+.. code-block:: elisp
+   :filename: emacs/init.el
+
+   (use-package nerd-icons
+     :ensure t)
+
 Line Numbers
 ^^^^^^^^^^^^
 
