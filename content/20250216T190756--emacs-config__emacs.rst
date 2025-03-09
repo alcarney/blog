@@ -145,14 +145,7 @@ As well as using the tab bar to show... well tabs, I also make use of the ``tab-
 
    ;; Disable the menu-bar, since it's accessible via the tab bar.
    (menu-bar-mode -1)
-
-Ensure that the tab bar is always visible, even when there is only the one tab to show.
-
-.. code-block:: elisp
-   :filename: emacs/init.el
-
-   (setq tab-bar-show 0)
-   (tab-bar-mode t)
+   (add-hook 'after-init-hook #'tab-bar-mode)
 
 **Battery Info**
 
