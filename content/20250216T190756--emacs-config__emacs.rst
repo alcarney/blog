@@ -609,9 +609,8 @@ reStructuredText
    :filename: emacs/init.el
 
    (use-package esbonio
-     :load-path "elpa/esbonio.el"
-     :demand
-     :hook ((rst-mode . eglot-ensure)))
+     :vc (:url "https://github.com/swyddfa/esbonio.el" :rev "main")
+     :hook ((rst-mode . esbonio-eglot-ensure)))
 
 TypeScript
 ^^^^^^^^^^
