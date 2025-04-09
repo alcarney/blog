@@ -13,8 +13,9 @@ Of course, no Emacs config would be complete without :gh:`magit/magit`
 
    (use-package magit
      :ensure t
-     :config
-     (setq magit-format-file-function #'magit-format-file-nerd-icons))
+     :defer
+     :custom
+     (magit-format-file-function #'magit-format-file-nerd-icons))
 
 ``diff-hl``
 ^^^^^^^^^^^

@@ -188,9 +188,7 @@
 
 <span class="c1">;; Disable the menu-bar, since it&#39;s accessible via the tab bar.</span>
 <span class="p">(</span><span class="nv">menu-bar-mode</span><span class="w"> </span><span class="mi">-1</span><span class="p">)</span>
-
-<span class="p">(</span><span class="k">setq</span><span class="w"> </span><span class="nv">tab-bar-show</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span>
-<span class="p">(</span><span class="nv">tab-bar-mode</span><span class="w"> </span><span class="no">t</span><span class="p">)</span>
+<span class="p">(</span><span class="nv">add-hook</span><span class="w"> </span><span class="ss">&#39;after-init-hook</span><span class="w"> </span><span class="nf">#&#39;</span><span class="nv">tab-bar-mode</span><span class="p">)</span>
 
 <span class="p">(</span><span class="nv">display-battery-mode</span><span class="p">)</span>
 
@@ -198,14 +196,12 @@
 <span class="w">      </span><span class="nv">display-time-default-load-average</span><span class="w"> </span><span class="no">nil</span><span class="p">)</span>
 <span class="p">(</span><span class="nv">display-time-mode</span><span class="p">)</span>
 
-<span class="p">(</span><span class="k">setq</span><span class="w"> </span><span class="nv">modus-themes-bold-constructs</span><span class="w"> </span><span class="no">t</span>
-<span class="w">      </span><span class="nv">modus-themes-italic-constructs</span><span class="w"> </span><span class="no">t</span>
-<span class="w">      </span><span class="nv">modus-themes-syntax</span><span class="w"> </span><span class="o">&#39;</span><span class="p">(</span><span class="nv">green-strings</span><span class="p">)</span>
-<span class="w">      </span><span class="nv">modus-themes-links</span><span class="w"> </span><span class="o">&#39;</span><span class="p">(</span><span class="nv">faint</span><span class="w"> </span><span class="nv">italic</span><span class="p">)</span>
-<span class="w">      </span><span class="nv">modus-themes-tabs-accented</span><span class="w"> </span><span class="no">nil</span>
-<span class="w">      </span><span class="nv">modus-themes-fringes</span><span class="w"> </span><span class="no">nil</span>
-<span class="w">      </span><span class="nv">modus-themes-subtle-line-numbers</span><span class="w"> </span><span class="no">t</span>
-<span class="w">      </span><span class="nv">modus-themes-variable-pitch-ui</span><span class="w"> </span><span class="no">t</span><span class="p">)</span>
+<span class="c1">;; Use `setopt&#39; has modus supports automatically reloading the theme when these</span>
+<span class="c1">;; are changed via the `customize&#39; framework</span>
+<span class="p">(</span><span class="nv">setopt</span><span class="w"> </span><span class="nv">modus-themes-bold-constructs</span><span class="w"> </span><span class="no">t</span>
+<span class="w">        </span><span class="nv">modus-themes-italic-constructs</span><span class="w"> </span><span class="no">t</span>
+<span class="w">        </span><span class="nv">modus-themes-prompts</span><span class="w"> </span><span class="o">&#39;</span><span class="p">(</span><span class="nv">bold</span><span class="w"> </span><span class="nv">italic</span><span class="p">)</span>
+<span class="w">        </span><span class="nv">modus-themes-variable-pitch-ui</span><span class="w"> </span><span class="no">t</span><span class="p">)</span>
 
 <span class="p">(</span><span class="nb">defun</span><span class="w"> </span><span class="nv">alc-theme-load-theme</span><span class="w"> </span><span class="p">(</span><span class="nv">variant</span><span class="p">)</span>
 <span class="w">  </span><span class="s">&quot;Load the light or dark theme according to VARIANT.&quot;</span>
@@ -355,9 +351,8 @@
 <span class="w">  </span><span class="p">(</span><span class="nv">apheleia-global-mode</span><span class="p">))</span>
 
 <span class="p">(</span><span class="nb">use-package</span><span class="w"> </span><span class="nv">esbonio</span>
-<span class="w">  </span><span class="nb">:load-path</span><span class="w"> </span><span class="s">&quot;elpa/esbonio.el&quot;</span>
-<span class="w">  </span><span class="nb">:demand</span>
-<span class="w">  </span><span class="nb">:hook</span><span class="w"> </span><span class="p">((</span><span class="nv">rst-mode</span><span class="w"> </span><span class="o">.</span><span class="w"> </span><span class="nv">eglot-ensure</span><span class="p">)))</span>
+<span class="w">  </span><span class="nb">:vc</span><span class="w"> </span><span class="p">(</span><span class="nb">:url</span><span class="w"> </span><span class="s">&quot;https://github.com/swyddfa/esbonio.el&quot;</span><span class="w"> </span><span class="nb">:rev</span><span class="w"> </span><span class="s">&quot;main&quot;</span><span class="p">)</span>
+<span class="w">  </span><span class="nb">:hook</span><span class="w"> </span><span class="p">((</span><span class="nv">rst-mode</span><span class="w"> </span><span class="o">.</span><span class="w"> </span><span class="nv">esbonio-eglot-ensure</span><span class="p">)))</span>
 
 <span class="p">(</span><span class="nb">use-package</span><span class="w"> </span><span class="nv">typescript-ts-mode</span>
 <span class="w">  </span><span class="nb">:mode</span><span class="w"> </span><span class="s">&quot;\\.ts\\&#39;&quot;</span>
@@ -398,8 +393,9 @@
 
 <span class="p">(</span><span class="nb">use-package</span><span class="w"> </span><span class="nv">magit</span>
 <span class="w">  </span><span class="nb">:ensure</span><span class="w"> </span><span class="no">t</span>
-<span class="w">  </span><span class="nb">:config</span>
-<span class="w">  </span><span class="p">(</span><span class="k">setq</span><span class="w"> </span><span class="nv">magit-format-file-function</span><span class="w"> </span><span class="nf">#&#39;</span><span class="nv">magit-format-file-nerd-icons</span><span class="p">))</span>
+<span class="w">  </span><span class="nb">:defer</span>
+<span class="w">  </span><span class="nb">:custom</span>
+<span class="w">  </span><span class="p">(</span><span class="nv">magit-format-file-function</span><span class="w"> </span><span class="nf">#&#39;</span><span class="nv">magit-format-file-nerd-icons</span><span class="p">))</span>
 
 <span class="p">(</span><span class="nb">use-package</span><span class="w"> </span><span class="nv">diff-hl</span>
 <span class="w">  </span><span class="nb">:ensure</span><span class="w"> </span><span class="no">t</span>
