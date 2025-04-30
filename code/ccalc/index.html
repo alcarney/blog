@@ -20,7 +20,9 @@
     <link rel="index" title="Index" href="../../genindex/" />
     <link rel="search" title="Search" href="../../search/" />
     <link rel="next" title="Click Drag" href="../click-drag/" />
-    <link rel="prev" title="&lt;no title&gt;" href="../README/" /> 
+    <link rel="prev" title="&lt;no title&gt;" href="../README/" />
+    <meta name="fediverse:creator" content="@alcarney@mastodon.social">
+
   </head>
   <body>
 
@@ -38,7 +40,7 @@
     </svg>
   </a>
 
-  <a target="_blank" rel="noreferrer noopener me" href="https://fosstodon.org/@alcarney" title="Mastodon">
+  <a target="_blank" rel="noreferrer noopener me" href="https://mastodon.social/@alcarney" title="Mastodon">
     <svg role="img" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" width="24px" height="24px" fill="currentColor">
       <title>Mastodon</title>
       <path d="M23.268 5.313c-.35-2.578-2.617-4.61-5.304-5.004C17.51.242 15.792 0 11.813 0h-.03c-3.98 0-4.835.242-5.288.309C3.882.692 1.496 2.518.917 5.127.64 6.412.61 7.837.661 9.143c.074 1.874.088 3.745.26 5.611.118 1.24.325 2.47.62 3.68.55 2.237 2.777 4.098 4.96 4.857 2.336.792 4.849.923 7.256.38.265-.061.527-.132.786-.213.585-.184 1.27-.39 1.774-.753a.057.057 0 0 0 .023-.043v-1.809a.052.052 0 0 0-.02-.041.053.053 0 0 0-.046-.01 20.282 20.282 0 0 1-4.709.545c-2.73 0-3.463-1.284-3.674-1.818a5.593 5.593 0 0 1-.319-1.433.053.053 0 0 1 .066-.054c1.517.363 3.072.546 4.632.546.376 0 .75 0 1.125-.01 1.57-.044 3.224-.124 4.768-.422.038-.008.077-.015.11-.024 2.435-.464 4.753-1.92 4.989-5.604.008-.145.03-1.52.03-1.67.002-.512.167-3.63-.024-5.545zm-3.748 9.195h-2.561V8.29c0-1.309-.55-1.976-1.67-1.976-1.23 0-1.846.79-1.846 2.35v3.403h-2.546V8.663c0-1.56-.617-2.35-1.848-2.35-1.112 0-1.668.668-1.67 1.977v6.218H4.822V8.102c0-1.31.337-2.35 1.011-3.12.696-.77 1.608-1.164 2.74-1.164 1.311 0 2.302.5 2.962 1.498l.638 1.06.638-1.06c.66-.999 1.65-1.498 2.96-1.498 1.13 0 2.043.395 2.74 1.164.675.77 1.012 1.81 1.012 3.12z"/>
@@ -115,6 +117,41 @@
   <section id="ccalc-extension">
 <h1>CCalc Extension<a class="headerlink" href="#ccalc-extension" title="Link to this heading">¶</a></h1>
 <div class="my-4 border border-t-0 dark:border-gray-600">
+    
+
+    <div data-parent="" class=" border-t dark:border-gray-600"">
+        <label for="setup.py">
+            <div style="padding-left: 4px;" class="flex items-center px-2 py-1 space-x-2 hover:bg-gray-50 hover:dark:bg-gray-700">
+                
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" ><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+                    <path d="M14 2v6h6M16 13H8M16 17H8M10 9H8"/>
+                </svg>
+                
+
+                <span>setup.py</span>
+            </div>
+        </label>
+
+        
+        <input class="hidden" data-type="file" data-id="setup.py" type="checkbox" id="setup.py" />
+        <div class="overflow-y-auto transition-all max-h-0">
+            <div class="highlight"><pre style="margin: 0"><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">setuptools</span><span class="w"> </span><span class="kn">import</span> <span class="n">setup</span><span class="p">,</span> <span class="n">Extension</span>
+
+<span class="n">ccalcmod</span> <span class="o">=</span> <span class="n">Extension</span><span class="p">(</span><span class="s2">&quot;_ccalc&quot;</span><span class="p">,</span> <span class="n">sources</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;ccalcmodule.c&quot;</span><span class="p">],</span> <span class="n">language</span><span class="o">=</span><span class="s2">&quot;c&quot;</span><span class="p">)</span>
+
+<span class="n">setup</span><span class="p">(</span>
+    <span class="n">name</span><span class="o">=</span><span class="s2">&quot;ccalc&quot;</span><span class="p">,</span>
+    <span class="n">version</span><span class="o">=</span><span class="s2">&quot;1.0.0&quot;</span><span class="p">,</span>
+    <span class="n">description</span><span class="o">=</span><span class="s2">&quot;A simple calculator implemented in C&quot;</span><span class="p">,</span>
+    <span class="n">packages</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;ccalc&quot;</span><span class="p">],</span>
+    <span class="n">ext_modules</span><span class="o">=</span><span class="p">[</span><span class="n">ccalcmod</span><span class="p">],</span>
+<span class="p">)</span>
+</pre></div>
+
+        </div>
+    </div>
+        
+
     
 
     <div data-parent="" class=" border-t dark:border-gray-600"">
@@ -368,7 +405,7 @@
     
 
     <div data-parent="" class=" border-t dark:border-gray-600"">
-        <label for="README.rst">
+        <label for=".gitignore">
             <div style="padding-left: 4px;" class="flex items-center px-2 py-1 space-x-2 hover:bg-gray-50 hover:dark:bg-gray-700">
                 
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" ><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
@@ -376,77 +413,18 @@
                 </svg>
                 
 
-                <span>README.rst</span>
+                <span>.gitignore</span>
             </div>
         </label>
 
         
-        <input class="hidden" data-type="file" data-id="README.rst" type="checkbox" id="README.rst" />
+        <input class="hidden" data-type="file" data-id=".gitignore" type="checkbox" id=".gitignore" />
         <div class="overflow-y-auto transition-all max-h-0">
-            <div class="highlight"><pre style="margin: 0"><span></span>A CPython extension that embeds the <span class="s">``simple-ast``</span> program into Python.
-
-<span class="p">..</span> <span class="ow">code-block</span><span class="p">::</span> <span class="k">python</span>
-
-   <span class="o">&gt;&gt;&gt;</span> <span class="kn">import</span><span class="w"> </span><span class="nn">ccalc</span>
-   <span class="o">&gt;&gt;&gt;</span> <span class="n">expression</span> <span class="o">=</span> <span class="p">(</span><span class="n">ccalc</span><span class="o">.</span><span class="n">Literal</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span> <span class="o">+</span> <span class="mi">2</span><span class="p">)</span> <span class="o">*</span> <span class="mi">3</span>
-   <span class="o">&gt;&gt;&gt;</span> <span class="n">expression</span>
-   <span class="n">Multiply</span><span class="o">&lt;</span><span class="n">Plus</span><span class="o">&lt;</span><span class="n">Literal</span><span class="o">&lt;</span><span class="mf">1.0</span><span class="o">&gt;</span><span class="p">,</span> <span class="n">Literal</span><span class="o">&lt;</span><span class="mf">2.0</span><span class="o">&gt;&gt;</span><span class="p">,</span> <span class="n">Literal</span><span class="o">&lt;</span><span class="mf">3.0</span><span class="o">&gt;&gt;</span>
-
-   <span class="o">&gt;&gt;&gt;</span> <span class="n">ccalc</span><span class="o">.</span><span class="n">eval_ast</span><span class="p">(</span><span class="n">expression</span><span class="p">)</span>
-   <span class="mf">9.0</span>
-
-<span class="gh">Building</span>
-<span class="gh">--------</span>
-
-It&#39;s probably worth creating a virtual environment to work in
-
-<span class="p">..</span> <span class="ow">code-block</span><span class="p">::</span> <span class="k">console</span>
-
-   <span class="gp">$ </span>python<span class="w"> </span>-m<span class="w"> </span>venv<span class="w"> </span>.env
-
-Assuming you have a C compiler available, building the extension is as easy as
-running the following command
-
-<span class="p">..</span> <span class="ow">code-block</span><span class="p">::</span> console
-
-   (.env) $ python setup.py install 
-</pre></div>
-
-        </div>
-    </div>
-        
-
-    
-
-    <div data-parent="" class=" border-t dark:border-gray-600"">
-        <label for="setup.py">
-            <div style="padding-left: 4px;" class="flex items-center px-2 py-1 space-x-2 hover:bg-gray-50 hover:dark:bg-gray-700">
-                
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" ><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
-                    <path d="M14 2v6h6M16 13H8M16 17H8M10 9H8"/>
-                </svg>
-                
-
-                <span>setup.py</span>
-            </div>
-        </label>
-
-        
-        <input class="hidden" data-type="file" data-id="setup.py" type="checkbox" id="setup.py" />
-        <div class="overflow-y-auto transition-all max-h-0">
-            <div class="highlight"><pre style="margin: 0"><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">setuptools</span><span class="w"> </span><span class="kn">import</span> <span class="n">setup</span><span class="p">,</span> <span class="n">Extension</span>
-
-<span class="n">ccalcmod</span> <span class="o">=</span> <span class="n">Extension</span><span class="p">(</span><span class="s2">&quot;_ccalc&quot;</span><span class="p">,</span> <span class="n">sources</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;ccalcmodule.c&quot;</span><span class="p">],</span> <span class="n">language</span><span class="o">=</span><span class="s2">&quot;c&quot;</span><span class="p">)</span>
-
-<span class="n">setup</span><span class="p">(</span>
-    <span class="n">name</span><span class="o">=</span><span class="s2">&quot;ccalc&quot;</span><span class="p">,</span>
-    <span class="n">version</span><span class="o">=</span><span class="s2">&quot;1.0.0&quot;</span><span class="p">,</span>
-    <span class="n">description</span><span class="o">=</span><span class="s2">&quot;A simple calculator implemented in C&quot;</span><span class="p">,</span>
-    <span class="n">packages</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;ccalc&quot;</span><span class="p">],</span>
-    <span class="n">ext_modules</span><span class="o">=</span><span class="p">[</span><span class="n">ccalcmod</span><span class="p">],</span>
-<span class="p">)</span>
-</pre></div>
-
+            <pre class="m-0">build
+dist
+__pycache__
+*.pyc
+*.egg-info</pre>
         </div>
     </div>
         
@@ -573,7 +551,7 @@ running the following command
     
 
     <div data-parent="" class=" border-t dark:border-gray-600"">
-        <label for=".gitignore">
+        <label for="README.rst">
             <div style="padding-left: 4px;" class="flex items-center px-2 py-1 space-x-2 hover:bg-gray-50 hover:dark:bg-gray-700">
                 
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" ><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
@@ -581,18 +559,42 @@ running the following command
                 </svg>
                 
 
-                <span>.gitignore</span>
+                <span>README.rst</span>
             </div>
         </label>
 
         
-        <input class="hidden" data-type="file" data-id=".gitignore" type="checkbox" id=".gitignore" />
+        <input class="hidden" data-type="file" data-id="README.rst" type="checkbox" id="README.rst" />
         <div class="overflow-y-auto transition-all max-h-0">
-            <pre class="m-0">build
-dist
-__pycache__
-*.pyc
-*.egg-info</pre>
+            <div class="highlight"><pre style="margin: 0"><span></span>A CPython extension that embeds the <span class="s">``simple-ast``</span> program into Python.
+
+<span class="p">..</span> <span class="ow">code-block</span><span class="p">::</span> <span class="k">python</span>
+
+   <span class="o">&gt;&gt;&gt;</span> <span class="kn">import</span><span class="w"> </span><span class="nn">ccalc</span>
+   <span class="o">&gt;&gt;&gt;</span> <span class="n">expression</span> <span class="o">=</span> <span class="p">(</span><span class="n">ccalc</span><span class="o">.</span><span class="n">Literal</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span> <span class="o">+</span> <span class="mi">2</span><span class="p">)</span> <span class="o">*</span> <span class="mi">3</span>
+   <span class="o">&gt;&gt;&gt;</span> <span class="n">expression</span>
+   <span class="n">Multiply</span><span class="o">&lt;</span><span class="n">Plus</span><span class="o">&lt;</span><span class="n">Literal</span><span class="o">&lt;</span><span class="mf">1.0</span><span class="o">&gt;</span><span class="p">,</span> <span class="n">Literal</span><span class="o">&lt;</span><span class="mf">2.0</span><span class="o">&gt;&gt;</span><span class="p">,</span> <span class="n">Literal</span><span class="o">&lt;</span><span class="mf">3.0</span><span class="o">&gt;&gt;</span>
+
+   <span class="o">&gt;&gt;&gt;</span> <span class="n">ccalc</span><span class="o">.</span><span class="n">eval_ast</span><span class="p">(</span><span class="n">expression</span><span class="p">)</span>
+   <span class="mf">9.0</span>
+
+<span class="gh">Building</span>
+<span class="gh">--------</span>
+
+It&#39;s probably worth creating a virtual environment to work in
+
+<span class="p">..</span> <span class="ow">code-block</span><span class="p">::</span> <span class="k">console</span>
+
+   <span class="gp">$ </span>python<span class="w"> </span>-m<span class="w"> </span>venv<span class="w"> </span>.env
+
+Assuming you have a C compiler available, building the extension is as easy as
+running the following command
+
+<span class="p">..</span> <span class="ow">code-block</span><span class="p">::</span> console
+
+   (.env) $ python setup.py install 
+</pre></div>
+
         </div>
     </div>
         
@@ -600,6 +602,16 @@ __pycache__
     
 </div>
 <style>
+    
+
+    input[data-id='setup.py']:checked ~ div {
+        max-height: 350px;
+    }
+
+    input[data-id='']:checked ~ div[data-parent='setup.py'] {
+        max-height: 382px;
+    }
+
     
 
     input[data-id='ccalcmodule.c']:checked ~ div {
@@ -612,21 +624,11 @@ __pycache__
 
     
 
-    input[data-id='README.rst']:checked ~ div {
+    input[data-id='.gitignore']:checked ~ div {
         max-height: 350px;
     }
 
-    input[data-id='']:checked ~ div[data-parent='README.rst'] {
-        max-height: 382px;
-    }
-
-    
-
-    input[data-id='setup.py']:checked ~ div {
-        max-height: 350px;
-    }
-
-    input[data-id='']:checked ~ div[data-parent='setup.py'] {
+    input[data-id='']:checked ~ div[data-parent='.gitignore'] {
         max-height: 382px;
     }
 
@@ -652,11 +654,11 @@ __pycache__
 
     
 
-    input[data-id='.gitignore']:checked ~ div {
+    input[data-id='README.rst']:checked ~ div {
         max-height: 350px;
     }
 
-    input[data-id='']:checked ~ div[data-parent='.gitignore'] {
+    input[data-id='']:checked ~ div[data-parent='README.rst'] {
         max-height: 382px;
     }
 
