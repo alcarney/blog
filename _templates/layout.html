@@ -1,7 +1,8 @@
 {%- extends "basic/layout.html" %}
 
 {% block css %}
-{# Overide the default css implementation, just to exclude the stylesheet for the "basic" theme. #}
+{# Overide the default css implementation, just to exclude the stylesheet for the "basic" theme.
+   TODO: Can I remove this?#}
 {%- for css in css_files %}
   {%- if css|attr("filename") %}
     {%- if not css.filename.endswith("basic.css") %}
@@ -11,6 +12,10 @@
     <link rel="stylesheet" href="{{ pathto(css, 1)|e }}" type="text/css" />
   {%- endif %}
 {%- endfor %}
+{% endblock %}
+
+{% block extrahead %}
+    <meta name="fediverse:creator" content="@alcarney@mastodon.social">
 {% endblock %}
 
 {% block body_tag %}
