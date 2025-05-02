@@ -106,3 +106,17 @@ All thanks to :gh:`magit/forge/discussions/544`, it's possible to define an auth
      (advice-add 'auth-source-backend-parse :before-until #'auth-source-ghcli-backend-parse))
 
    (setq auth-sources '(gh-cli))
+
+
+``alc-git``
+-----------
+
+I also have a few utility functions defined in a local package
+
+.. code-block:: elisp
+   :filename: emacs/init.el
+
+   (use-package alc-git
+     :ensure nil
+     :load-path "lisp/"
+     :bind ("C-x v w" . alc-git-permalink-to-kill-ring))
