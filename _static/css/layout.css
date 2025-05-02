@@ -81,6 +81,12 @@ a.tag span.count {
     color: var(--fg-main);
 }
 
+blockquote.pull-quote {
+    padding: 0 1em;
+    font-style: italic;
+    border-left: solid var(--fg-accent);
+}
+
 h1 {
     font-size: 2rem;
     font-weight: 500;
