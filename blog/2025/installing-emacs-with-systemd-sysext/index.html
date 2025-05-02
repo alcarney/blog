@@ -142,6 +142,7 @@
 <article>
   <section id="intstalling-emacs-with-systemd-sysext">
 <h1>Intstalling Emacs with systemd-sysext<a class="headerlink" href="#intstalling-emacs-with-systemd-sysext" title="Link to this heading">¶</a></h1>
+<div class="post-teaser docutils container">
 <p>One issue with building <a class="reference internal" href="../../../notes/20250409T205418/" title="Building Emacs from Source">Emacs from source</a>, or more specifically my hack to ensure that the required system libraries are available on Aurora, is that in some situations the system version of Emacs “wins”.</p>
 <p>For example, I wanted to experiment with running the Emacs daemon through systemd:</p>
 <div class="highlight-none notranslate"><div class="highlight"><pre><span></span>$ systemctl --user start emacs
@@ -149,6 +150,8 @@
 </div>
 <p>Which failed to load my config correctly.
 It was only after a closer look did I realise that despite specifying the <code class="docutils literal notranslate"><span class="pre">--user</span></code> flag, systemd was defaulting to the <code class="docutils literal notranslate"><span class="pre">emacs.service</span></code> file provided by the system emacs package in <code class="docutils literal notranslate"><span class="pre">/usr/...</span></code> and was therefore running Emacs v29 and not my v30 build.</p>
+<p>But then I stumbled across systemd-sysext</p>
+</div>
 <section id="enter-systemd-sysext">
 <h2>Enter systemd-sysext<a class="headerlink" href="#enter-systemd-sysext" title="Link to this heading">¶</a></h2>
 <p>I can’t really tell you what a sysext is… I just know that they are yet another potential way to install software on an image based OS.
