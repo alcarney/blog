@@ -9,7 +9,7 @@
 
     <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=02ca0aaa" />
     <link id="pygments_dark_css" media="(prefers-color-scheme: dark)" rel="stylesheet" type="text/css" href="../../_static/pygments_dark.css?v=d8568271" />
-    <link rel="stylesheet" type="text/css" href="../../_static/css/layout.css?v=fec7d310" />
+    <link rel="stylesheet" type="text/css" href="../../_static/css/layout.css?v=1de8b1e4" />
 
     <script src="../../_static/documentation_options.js?v=187304be"></script>
     <script src="../../_static/doctools.js?v=9bcbadda"></script>
@@ -113,6 +113,7 @@
 <li><a class="reference internal" href="#forge">Forge</a></li>
 </ul>
 </li>
+<li><a class="reference internal" href="#alc-git"><code class="docutils literal notranslate"><span class="pre">alc-git</span></code></a></li>
 </ul>
 
 </nav>
@@ -238,6 +239,20 @@
 </div>
 </div>
 </section>
+</section>
+<section id="alc-git">
+<h1><code class="docutils literal notranslate"><span class="pre">alc-git</span></code><a class="headerlink" href="#alc-git" title="Link to this heading">¶</a></h1>
+<p>I also have a few utility functions defined in a local package</p>
+<div class="awdur-codeblock docutils container">
+<div class="awdur-codeblock-header docutils container">
+<code class="awdur-codeblock-filename docutils literal notranslate"><span class="pre">emacs/init.el</span></code></div>
+<div class="highlight-elisp notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="nb">use-package</span><span class="w"> </span><span class="nv">alc-git</span>
+<span class="w">  </span><span class="nb">:ensure</span><span class="w"> </span><span class="no">nil</span>
+<span class="w">  </span><span class="nb">:load-path</span><span class="w"> </span><span class="s">&quot;lisp/&quot;</span>
+<span class="w">  </span><span class="nb">:bind</span><span class="w"> </span><span class="p">(</span><span class="s">&quot;C-x v w&quot;</span><span class="w"> </span><span class="o">.</span><span class="w"> </span><span class="nv">alc-git-permalink-to-kill-ring</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
 </section>
 
   <footer>

@@ -8,7 +8,7 @@
 
     <link rel="stylesheet" type="text/css" href="../../../../../_static/pygments.css?v=02ca0aaa" />
     <link id="pygments_dark_css" media="(prefers-color-scheme: dark)" rel="stylesheet" type="text/css" href="../../../../../_static/pygments_dark.css?v=d8568271" />
-    <link rel="stylesheet" type="text/css" href="../../../../../_static/css/layout.css?v=fec7d310" />
+    <link rel="stylesheet" type="text/css" href="../../../../../_static/css/layout.css?v=1de8b1e4" />
 
     <script src="../../../../../_static/documentation_options.js?v=187304be"></script>
     <script src="../../../../../_static/doctools.js?v=9bcbadda"></script>
@@ -452,6 +452,11 @@
 <span class="w">  </span><span class="p">(</span><span class="nv">advice-add</span><span class="w"> </span><span class="ss">&#39;auth-source-backend-parse</span><span class="w"> </span><span class="nb">:before-until</span><span class="w"> </span><span class="nf">#&#39;</span><span class="nv">auth-source-ghcli-backend-parse</span><span class="p">))</span>
 
 <span class="p">(</span><span class="k">setq</span><span class="w"> </span><span class="nv">auth-sources</span><span class="w"> </span><span class="o">&#39;</span><span class="p">(</span><span class="nv">gh-cli</span><span class="p">))</span>
+
+<span class="p">(</span><span class="nb">use-package</span><span class="w"> </span><span class="nv">alc-git</span>
+<span class="w">  </span><span class="nb">:ensure</span><span class="w"> </span><span class="no">nil</span>
+<span class="w">  </span><span class="nb">:load-path</span><span class="w"> </span><span class="s">&quot;lisp/&quot;</span>
+<span class="w">  </span><span class="nb">:bind</span><span class="w"> </span><span class="p">(</span><span class="s">&quot;C-x v w&quot;</span><span class="w"> </span><span class="o">.</span><span class="w"> </span><span class="nv">alc-git-permalink-to-kill-ring</span><span class="p">))</span>
 
 <span class="p">(</span><span class="nb">use-package</span><span class="w"> </span><span class="nv">alc-modeline</span>
 <span class="w">  </span><span class="nb">:after</span><span class="w"> </span><span class="p">(</span><span class="nv">modus-themes</span><span class="p">)</span>

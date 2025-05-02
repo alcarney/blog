@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+
+<html lang="en" data-content_root="../../../">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Intstalling Emacs with systemd-sysext &#8212; Alex Carney</title>
+
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=02ca0aaa" />
+    <link id="pygments_dark_css" media="(prefers-color-scheme: dark)" rel="stylesheet" type="text/css" href="../../../_static/pygments_dark.css?v=d8568271" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/css/layout.css?v=1de8b1e4" />
+
+    <script src="../../../_static/documentation_options.js?v=187304be"></script>
+    <script src="../../../_static/doctools.js?v=9bcbadda"></script>
+    <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../../_static/js/theme.js?v=94324b12"></script>
+    <script src="../../../_static/js/htmx-2.0.4.min.js?v=be6ab97a"></script>
+    <link rel="icon" href="../../../_static/favicon.ico"/>
+    <link rel="index" title="Index" href="../../../genindex/" />
+    <link rel="search" title="Search" href="../../../search/" />
+    <meta name="fediverse:creator" content="@alcarney@mastodon.social">
+
+  </head>
+  <body>
+
+<input type="checkbox" id="menu-toggle" class="hidden" />
+<aside>
+  <div class="sidebar"><div id="profile-card">
+    <img src="/_static/avatar.jpg"/>
+    <h2>
+      <a href="/">Alex Carney</a>
+    </h2>
+    <nav class="social">
+  <a target="_blank" rel="noreferrer noopener" href="https://github.com/alcarney" title="GitHub">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="24px" height="24px">
+      <path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/>
+    </svg>
+  </a>
+
+  <a target="_blank" rel="noreferrer noopener me" href="https://mastodon.social/@alcarney" title="Mastodon">
+    <svg role="img" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" width="24px" height="24px" fill="currentColor">
+      <title>Mastodon</title>
+      <path d="M23.268 5.313c-.35-2.578-2.617-4.61-5.304-5.004C17.51.242 15.792 0 11.813 0h-.03c-3.98 0-4.835.242-5.288.309C3.882.692 1.496 2.518.917 5.127.64 6.412.61 7.837.661 9.143c.074 1.874.088 3.745.26 5.611.118 1.24.325 2.47.62 3.68.55 2.237 2.777 4.098 4.96 4.857 2.336.792 4.849.923 7.256.38.265-.061.527-.132.786-.213.585-.184 1.27-.39 1.774-.753a.057.057 0 0 0 .023-.043v-1.809a.052.052 0 0 0-.02-.041.053.053 0 0 0-.046-.01 20.282 20.282 0 0 1-4.709.545c-2.73 0-3.463-1.284-3.674-1.818a5.593 5.593 0 0 1-.319-1.433.053.053 0 0 1 .066-.054c1.517.363 3.072.546 4.632.546.376 0 .75 0 1.125-.01 1.57-.044 3.224-.124 4.768-.422.038-.008.077-.015.11-.024 2.435-.464 4.753-1.92 4.989-5.604.008-.145.03-1.52.03-1.67.002-.512.167-3.63-.024-5.545zm-3.748 9.195h-2.561V8.29c0-1.309-.55-1.976-1.67-1.976-1.23 0-1.846.79-1.846 2.35v3.403h-2.546V8.663c0-1.56-.617-2.35-1.848-2.35-1.112 0-1.668.668-1.67 1.977v6.218H4.822V8.102c0-1.31.337-2.35 1.011-3.12.696-.77 1.608-1.164 2.74-1.164 1.311 0 2.302.5 2.962 1.498l.638 1.06.638-1.06c.66-.999 1.65-1.498 2.96-1.498 1.13 0 2.043.395 2.74 1.164.675.77 1.012 1.81 1.012 3.12z"/>
+    </svg>
+  </a>
+
+  <a target="_blank" rel="noreferrer noopener" href="https://pixelfed.social/i/web/profile/795173629619860860" title="Pixelfed">
+    <svg width="24px" height="24px" viewBox="0 0 50 50" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path d="M25 50C11.193 50 0 38.807 0 25S11.193 0 25 0s25 11.193 25 25-11.193 25-25 25zm-1.985-19.542h4.586c4.32 0 7.823-3.41 7.823-7.615 0-4.206-3.502-7.616-7.823-7.616h-6.619c-2.492 0-4.513 1.967-4.513 4.394v17.1l6.546-6.263z" fill-rule="evenodd"/></svg>
+  </a>
+
+  <a target="_blank" rel="noreferrer noopener" href="https://www.youtube.com/channel/UC5GPflgRWhnCxA0BllfP5CA" title="YouTube">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24px" height="24px" fill="currentColor">
+      <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
+    </svg>
+  </a>
+
+  <a href="/blog/atom.xml" title="RSS Feed">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24px" height="24px" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
+      <path d="M4 11a9 9 0 0 1 9 9M4 4a16 16 0 0 1 16 16"/>
+      <circle cx="5" cy="19" r="1"/>
+    </svg>
+  </a>
+</nav>
+</div>
+<search id="searchbox" style="display: none" role="search">
+    <div class="searchformwrapper">
+    <form class="search" action="../../../search/" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" placeholder="Search"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</search>
+<script>document.getElementById('searchbox').style.display = "block"</script><nav class="site">
+  <ul>
+    <li>
+      <a href="/blog">Blog</a>
+    </li>
+    <li>
+      <a href="/code">Code</a>
+    </li>
+    <li>
+      <a href="/dotfiles">Dotfiles</a>
+    </li>
+    <li>
+      <a href="/notes">Notes</a>
+    </li>
+  </ul>
+</nav>
+<section class="post-metadata">
+    <h5 style="grid-column: span 2">Metadata</h5><svg xmlns="http://www.w3.org/2000/svg" width="2em" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+</svg>
+    <time style="align-self: center; text-align: right;" datetime="2025-05-02 00:00:00">May 02, 2025</time><svg xmlns="http://www.w3.org/2000/svg" width="2em" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z" />
+</svg>
+    <ul class="taglist">
+        <li>
+            <a class="tag" href="../../../tag/emacs/">
+                #emacs
+            </a>
+        </li>
+        <li>
+            <a class="tag" href="../../../tag/systemd/">
+                #systemd
+            </a>
+        </li>
+    </ul>
+</section><nav id="localtoc">
+    <ul>
+<li><a class="reference internal" href="#">Intstalling Emacs with systemd-sysext</a><ul>
+<li><a class="reference internal" href="#enter-systemd-sysext">Enter systemd-sysext</a><ul>
+<li><a class="reference internal" href="#initial-setup">Initial Setup</a></li>
+<li><a class="reference internal" href="#install-the-sysext">Install the sysext</a></li>
+<li><a class="reference internal" href="#enabling-the-sysext">Enabling the sysext</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#digging-deeper">Digging Deeper</a><ul>
+<li><a class="reference internal" href="#what-s-in-a-sysext">What’s in a sysext?</a></li>
+<li><a class="reference internal" href="#compatibility-checks">Compatibility Checks</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#hacking-it-in">Hacking it in</a></li>
+</ul>
+</li>
+</ul>
+
+</nav>
+  </div>
+</aside>
+
+<div class="content" style="min-width: 0">
+    <header class="site">
+        <label for="menu-toggle">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="2em" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </label>
+    </header>
+
+    <div role="main">
+
+<article>
+  <section id="intstalling-emacs-with-systemd-sysext">
+<h1>Intstalling Emacs with systemd-sysext<a class="headerlink" href="#intstalling-emacs-with-systemd-sysext" title="Link to this heading">¶</a></h1>
+<p>One issue with building <a class="reference internal" href="../../../notes/20250409T205418/" title="Building Emacs from Source">Emacs from source</a>, or more specifically my hack to ensure that the required system libraries are available on Aurora, is that in some situations the system version of Emacs “wins”.</p>
+<p>For example, I wanted to experiment with running the Emacs daemon through systemd:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>$ systemctl --user start emacs
+</pre></div>
+</div>
+<p>Which failed to load my config correctly.
+It was only after a closer look did I realise that despite specifying the <code class="docutils literal notranslate"><span class="pre">--user</span></code> flag, systemd was defaulting to the <code class="docutils literal notranslate"><span class="pre">emacs.service</span></code> file provided by the system emacs package in <code class="docutils literal notranslate"><span class="pre">/usr/...</span></code> and was therefore running Emacs v29 and not my v30 build.</p>
+<section id="enter-systemd-sysext">
+<h2>Enter systemd-sysext<a class="headerlink" href="#enter-systemd-sysext" title="Link to this heading">¶</a></h2>
+<p>I can’t really tell you what a sysext is… I just know that they are yet another potential way to install software on an image based OS.
+To quote the <a class="reference external" href="https://extensions.fcos.fr/">extensions.fcos.fr</a> website</p>
+<blockquote class="pull-quote">
+<div><p>systemd system extensions (sysexts) are filesystem images that bundle content (binaries, libraries and configuration files) that can be overlayed on demand on image based systems. The content of the sysexts are “merged” with the base content of the OS using an overlayfs mount.</p>
+<p>If you want to know more about sysexts, you can watch the <a class="reference external" href="https://cfp.all-systems-go.io/all-systems-go-2024/talk/HJLF3C/">Waiter, an OS please, with some sysext sprinkled on top (video)</a> talk at All systems go! Berlin 2024.</p>
+</div></blockquote>
+<p>I saw that there was an Emacs layer(?), so thought I may as well give it a go!</p>
+<section id="initial-setup">
+<h3>Initial Setup<a class="headerlink" href="#initial-setup" title="Link to this heading">¶</a></h3>
+<p>It looks like a “proper” frontend to these things is still <a class="reference external" href="https://github.com/bootc-dev/bootc/issues/7">under development</a> so for now we need to do the setup ourselves.
+Thankfully the page for the <a class="reference external" href="https://travier.github.io/fedora-sysexts/">emacs sysext</a> provides the steps for us</p>
+<p><strong>Create folders to manage sysexts</strong></p>
+<p>This step is only necessary when you set up your very first sysext</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>$ sudo install -d -m 0755 -o 0 -g 0 /var/lib/extensions /var/lib/extensions.d
+$ sudo restorecon -RFv /var/lib/extensions /var/lib/extensions.d
+</pre></div>
+</div>
+<p><strong>Tell systemd about the sysext</strong></p>
+<p>First we create a folder under <code class="docutils literal notranslate"><span class="pre">/etc</span></code> where we can place a <code class="docutils literal notranslate"><span class="pre">*.conf</span></code> file</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>$ sudo install -d -m 0755 -o 0 -g 0 /etc/sysupdate.emacs.d
+$ sudo restorecon -RFv /etc/sysupdate.emacs.d
+</pre></div>
+</div>
+<p>I’m not sure why you would create a folder here per sysext, but I’m sure there must be a good reason to.
+In this folder, we place an <code class="docutils literal notranslate"><span class="pre">emacs.conf</span></code> file with the following contents</p>
+<div class="highlight-systemd notranslate"><div class="highlight"><pre><span></span><span class="k">[Transfer]</span>
+<span class="na">Verify</span><span class="o">=</span><span class="s">false</span>
+
+<span class="k">[Source]</span>
+<span class="na">Type</span><span class="o">=</span><span class="s">url-file</span>
+<span class="na">Path</span><span class="o">=</span><span class="s">https://extensions.fcos.fr/extensions/emacs/</span>
+<span class="na">MatchPattern</span><span class="o">=</span><span class="s">emacs-@v-%w-%a.raw</span>
+
+<span class="k">[Target]</span>
+<span class="na">InstancesMax</span><span class="o">=</span><span class="s">2</span>
+<span class="na">Type</span><span class="o">=</span><span class="s">regular-file</span>
+<span class="na">Path</span><span class="o">=</span><span class="s">/var/lib/extensions.d/</span>
+<span class="na">MatchPattern</span><span class="o">=</span><span class="s">emacs-@v-%w-%a.raw</span>
+<span class="na">CurrentSymlink</span><span class="o">=</span><span class="s">/var/lib/extensions/emacs.raw</span>
+</pre></div>
+</div>
+<p>Again, I don’t really know the details, but the <code class="docutils literal notranslate"><span class="pre">[Source]</span></code> block appears to be telling systemd where to fetch the emacs sysext from and the <code class="docutils literal notranslate"><span class="pre">[Target]</span></code> block seems to be telling it where to put it on disk.</p>
+</section>
+<section id="install-the-sysext">
+<h3>Install the sysext<a class="headerlink" href="#install-the-sysext" title="Link to this heading">¶</a></h3>
+<p>We’ve now given systemd enough information to fetch the sysext:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>$ sudo /usr/lib/systemd/systemd-sysupdate update --component emacs
+Discovering installed instances…
+Discovering available instances…
+⤵️ Acquiring manifest file https://extensions.fcos.fr/extensions/emacs/SHA256SUMS…
+Pulling &#39;https://extensions.fcos.fr/extensions/emacs/SHA256SUMS&#39;.
+Downloading 406B for https://extensions.fcos.fr/extensions/emacs/SHA256SUMS.
+Acquired 406B.
+Download of https://extensions.fcos.fr/extensions/emacs/SHA256SUMS complete.
+Operation completed successfully.
+Exiting.
+Determining installed update sets…
+Determining available update sets…
+Selected update &#39;1-29.4-44.fc41&#39; for install.
+Making room for 1 updates…
+Removed no instances.
+⤵️ Acquiring https://extensions.fcos.fr/extensions/emacs/emacs-1-29.4-44.fc41-41-x86-64.raw → /var/lib/extensions.d/emacs-1-29.4-44.fc41-41-x86-64.raw...
+Pulling &#39;https://extensions.fcos.fr/extensions/emacs/emacs-1-29.4-44.fc41-41-x86-64.raw&#39;, saving as &#39;/var/lib/extensions.d/.#sysupdateemacs-1-29.4-44.fc41-41-x86-64.raw6b5d6dfbd735d210&#39;.
+Downloading 286.2M for https://extensions.fcos.fr/extensions/emacs/emacs-1-29.4-44.fc41-41-x86-64.raw.
+Got 1% of https://extensions.fcos.fr/extensions/emacs/emacs-1-29.4-44.fc41-41-x86-64.raw.
+...
+Got 98% of https://extensions.fcos.fr/extensions/emacs/emacs-1-29.4-44.fc41-41-x86-64.raw. 268ms left at 17.4M/s.
+Acquired 286.2M.
+Download of https://extensions.fcos.fr/extensions/emacs/emacs-1-29.4-44.fc41-41-x86-64.raw complete.
+Operation completed successfully.
+Exiting.
+Successfully acquired &#39;https://extensions.fcos.fr/extensions/emacs/emacs-1-29.4-44.fc41-41-x86-64.raw&#39;.
+Successfully installed &#39;https://extensions.fcos.fr/extensions/emacs/emacs-1-29.4-44.fc41-41-x86-64.raw&#39; (url-file) as &#39;/var/lib/extensions.d/emacs-1-29.4-44.fc41-41-x86-64.raw&#39; (regular-file).
+Updated symlink &#39;/var/lib/extensions/emacs.raw&#39; → &#39;../extensions.d/emacs-1-29.4-44.fc41-41-x86-64.raw&#39;.
+✨ Successfully installed update &#39;1-29.4-44.fc41&#39;.
+</pre></div>
+</div>
+<p>However, while we can see the sysext on disk…</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>$  ls /var/lib/extensions -l
+lrwxrwxrwx. 1 root root 50 Apr 27 19:44 emacs.raw -&gt; ../extensions.d/emacs-1-29.4-44.fc41-41-x86-64.raw
+</pre></div>
+</div>
+<p>Emacs itself is still not available</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>$ emacs
+bash: emacs: command not found
+</pre></div>
+</div>
+</section>
+<section id="enabling-the-sysext">
+<h3>Enabling the sysext<a class="headerlink" href="#enabling-the-sysext" title="Link to this heading">¶</a></h3>
+<p>The sysext still needs to be enabled - or “merged”</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>$ sudo systemctl restart systemd-sysext.service
+</pre></div>
+</div>
+<p>Which, in theory, would finally make Emacs available to my system however running <code class="docutils literal notranslate"><span class="pre">systemd-sysext</span> <span class="pre">status</span></code> showed no extensions</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>$ systemd-sysext status
+HIERARCHY EXTENSIONS SINCE
+/opt      none       -
+/usr      none       -
+</pre></div>
+</div>
+<p>And there were errors in the <code class="docutils literal notranslate"><span class="pre">systemd-sysext.service</span></code></p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>$ systemctl status systemd-sysext.service
+● systemd-sysext.service - Merge System Extension Images into /usr/ and /opt/
+     Loaded: loaded (/usr/lib/systemd/system/systemd-sysext.service; enabled; preset: enabled)
+    Drop-In: /usr/lib/systemd/system/service.d
+             └─10-timeout-abort.conf, 50-keep-warm.conf
+     Active: active (exited) since Sun 2025-04-27 19:56:39 BST; 1min 0s ago
+ Invocation: 3d34eb06a325454b954ff1697193ba9c
+       Docs: man:systemd-sysext.service(8)
+    Process: 9596 ExecStart=systemd-sysext refresh (code=exited, status=0/SUCCESS)
+   Main PID: 9596 (code=exited, status=0/SUCCESS)
+   Mem peak: 4.1M
+        CPU: 34ms
+
+Apr 27 19:56:38 aurora systemd[1]: Starting systemd-sysext.service - Merge System Extension Images into /usr/ and /opt/...
+Apr 27 19:56:39 aurora (sd-merge)[9612]: No suitable extensions found (1 ignored due to incompatible image(s)).
+Apr 27 19:56:39 aurora systemd[1]: Finished systemd-sysext.service - Merge System Extension Images into /usr/ and /opt/.
+</pre></div>
+</div>
+</section>
+</section>
+<section id="digging-deeper">
+<h2>Digging Deeper<a class="headerlink" href="#digging-deeper" title="Link to this heading">¶</a></h2>
+<p>Without much to go on I started googling around for some more information.</p>
+<section id="what-s-in-a-sysext">
+<h3>What’s in a sysext?<a class="headerlink" href="#what-s-in-a-sysext" title="Link to this heading">¶</a></h3>
+<p>Eventually I found myself on the <a class="reference external" href="https://www.freedesktop.org/software/systemd/man/latest/systemd-sysext.html">manpage</a> for <code class="docutils literal notranslate"><span class="pre">systemd-sysext</span></code>, trying to get a feel for what this <code class="docutils literal notranslate"><span class="pre">*.raw</span></code> file I downloaded actually looked like.</p>
+<blockquote class="pull-quote">
+<div><p>System extension images may be provided in the following formats:</p>
+<ol class="arabic simple">
+<li><p>Plain directories or btrfs subvolumes containing the OS tree</p></li>
+<li><p>Disk images with a GPT disk label, following the Discoverable Partitions Specification</p></li>
+<li><p>Disk images lacking a partition table, with a naked Linux file system (e.g. erofs, squashfs or ext4)</p></li>
+</ol>
+</div></blockquote>
+<p>Oh, so some kind of file system then?</p>
+<p>Digging around in the GitHub Action workflows of the <code class="docutils literal notranslate"><span class="pre">fedora-sysexts</span></code> project, I <a class="reference external" href="https://github.com/travier/fedora-sysexts/blob/c1c589e5214793295c2d0be36c03b5082eed2c67/sysext.just#L634">found</a> where the <code class="docutils literal notranslate"><span class="pre">*.raw</span></code> files were actually produced:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>${SUDO} mkfs.erofs -z{{compression}} {{name}}-${version}-${version_id}-${arch}.raw rootfs &gt; /dev/null
+</pre></div>
+</div>
+<p>Seeing this I wondered if I could just mount this file and take a look around:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>$ sudo mkdir /run/media/img
+$ sudo mount /var/lib/extensions.d/emacs-1-29.4-44.fc41-41-x86-64.raw /run/media/img
+$ tree -L 2 /run/media/img
+/run/media/img/
+└── usr
+    ├── bin
+    ├── etc
+    ├── include
+    ├── lib
+    ├── lib64
+    ├── libexec
+    └── share
+</pre></div>
+</div>
+<p>Sure enough, it was just a folder hierarchy that contained an installation of Emacs.
+While it was nice to get some more details on what I was dealing with, it didn’t actually help me get any closer to figuring out what was wrong - so I kept reading.</p>
+</section>
+<section id="compatibility-checks">
+<h3>Compatibility Checks<a class="headerlink" href="#compatibility-checks" title="Link to this heading">¶</a></h3>
+<p>There is a simple check performed when merging a sysext in an attempt to ensure it’s compatible with the base system.</p>
+<blockquote class="pull-quote">
+<div><p>A system extension image must carry a <code class="docutils literal notranslate"><span class="pre">/usr/lib/extension-release.d/extension-release.NAME</span></code> file, which must match its image name, that is compared with the host os-release file: the contained <code class="docutils literal notranslate"><span class="pre">ID=</span></code> fields have to match unless <code class="docutils literal notranslate"><span class="pre">&quot;_any&quot;</span></code> is set for the extension.</p>
+</div></blockquote>
+<p>And here was my issue:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>$ grep &#39;^ID=&#39; /etc/os-release
+ID=aurora
+
+$ grep &#39;^ID=&#39; /run/media/img/usr/lib/extension-release.d/extension-release.emacs
+ID=&quot;fedora&quot;
+</pre></div>
+</div>
+<p>As far as systemd was concerned I am running an incompatible OS, so it refuses to enable the sysext.</p>
+</section>
+</section>
+<section id="hacking-it-in">
+<h2>Hacking it in<a class="headerlink" href="#hacking-it-in" title="Link to this heading">¶</a></h2>
+<p>Just to check that my assumption was correct, I edited my <code class="docutils literal notranslate"><span class="pre">/etc/os-release</span></code> file so that the <code class="docutils literal notranslate"><span class="pre">ID</span></code> field was set to <code class="docutils literal notranslate"><span class="pre">fedora</span></code> and tried restarting the <code class="docutils literal notranslate"><span class="pre">systemd-sysext.service</span></code> again:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>Apr 27 23:26:46 aurora systemd[1]: Starting systemd-sysext.service - Merge System Extension Images into /usr/ and /opt/...
+Apr 27 23:26:46 aurora (sd-merge)[15118]: Using extensions &#39;emacs&#39;.
+Apr 27 23:26:46 aurora (sd-merge)[15118]: Merged extensions into &#39;/usr&#39;.
+Apr 27 23:26:46 aurora systemd[1]: Finished systemd-sysext.service - Merge System Extension Images into /usr/ and /opt/.
+</pre></div>
+</div>
+<p>Which looked promising!
+I could even see the extension now using the <code class="docutils literal notranslate"><span class="pre">systemd-sysext</span></code> command:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>$ systemd-sysext list
+NAME  TYPE PATH                          TIME
+emacs raw  /var/lib/extensions/emacs.raw Sat 2025-04-26 14:30:33 BST
+</pre></div>
+</div>
+<p>And the <code class="docutils literal notranslate"><span class="pre">emacs</span></code> command was available!</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>$ emacs --version
+GNU Emacs 29.4
+Copyright (C) 2024 Free Software Foundation, Inc.
+GNU Emacs comes with ABSOLUTELY NO WARRANTY.
+You may redistribute copies of GNU Emacs
+under the terms of the GNU General Public License.
+For more information about these matters, see the file named COPYING.
+</pre></div>
+</div>
+<p>The only issue now is that it’s still not Emacs v30!
+While I saw both Emacs v29 and v30 builds were available as sysexts I didn’t think to check which fedora versions they were built for! 🤦‍♂️</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>emacs-1-29.4-44.fc41-41-aarch64.raw
+emacs-1-29.4-44.fc41-41-x86-64.raw
+emacs-1-30.1-11.fc42-42-aarch64.raw
+emacs-1-30.1-11.fc42-42-x86-64.raw
+</pre></div>
+</div>
+<p>It turns out Emacs v30 is only available on Fedora 42 - regardless of the installation method used! 😅</p>
+</section>
+</section>
+
+  <footer>
+    <script src="https://giscus.app/client.js"
+            data-repo="alcarney/blog"
+            data-repo-id="MDEwOlJlcG9zaXRvcnk2Njk3NzM3MQ=="
+            data-category="Comments"
+            data-category-id="DIC_kwDOA_3-W84B_XOl"
+            data-mapping="pathname"
+            data-reactions-enabled="1"
+            data-emit-metadata="0"
+            data-theme="preferred_color_scheme"
+            crossorigin="anonymous"
+            async>
+    </script>
+  </footer>
+
+</article>
+
+    </div>
+
+    <footer class="site">
+      <div>
+        <h6>Links</h6>
+        <ul>
+          <li>
+            <a href="../../../_sources/content/20250427T185812--installing-emacs-with-systemd-sysext__blog_emacs_systemd.rst.txt" rel="nofollow">
+              Page Source
+            </a>
+          </li>
+          <li>
+            <a href="https://github.com/alcarney/blog" rel="nofollow">
+              Source Code
+            </a>
+          </li>
+        </ul>
+      </div>
+
+      <div>
+        <h6>
+          Built with
+        </h6>
+        <ul>
+          <li>
+            <a href="https://www.sphinx-doc.org/en/master/">
+              Sphinx
+            </a>
+            v8.2.3
+          </li>
+          <li>
+            <a href="https://feathericons.com/">
+              Feather Icons
+            </a>
+          </li>
+        </ul>
+      </div>
+    </footer>
+</div>
+  </body>
+</html>

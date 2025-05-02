@@ -2,13 +2,21 @@
 <feed xmlns="http://www.w3.org/2005/Atom" xml:lang="en">
   <id>https://www.alcarney.me/</id>
   <title>Alex Carney | Blog</title>
-  <updated>2025-04-30T17:57:32.010838+00:00</updated>
+  <updated>2025-05-02T20:20:07.004512+00:00</updated>
   <link href="https://www.alcarney.me/" />
   <link href="https://www.alcarney.me/blog/atom.xml" rel="self" />
   <author>
     <name>Alex Carney</name>
   </author>
   <generator uri="https://www.sphinx-doc.org/en/master/" version="8">Sphinx</generator>
+  
+  <entry>
+    <id>https://www.alcarney.me/blog/2025/installing-emacs-with-systemd-sysext/</id>
+    <link href="https://www.alcarney.me/blog/2025/installing-emacs-with-systemd-sysext" rel="alternate" />
+    <published>2025-05-02T00:00:00</published>
+    <updated>2025-05-02T00:00:00</updated>
+    <title>Intstalling Emacs with systemd-sysext</title>
+  </entry>
   
   <entry>
     <id>https://www.alcarney.me/blog/2025/til-navigating-history-with-magit/</id>
