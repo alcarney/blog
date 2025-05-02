@@ -8,14 +8,18 @@ Intstalling Emacs with systemd-sysext
 
 .. highlight:: none
 
-One issue with building :denote:link:`Emacs from source <20250409T205418>`, or more specifically my hack to ensure that the required system libraries are available on Aurora, is that in some situations the system version of Emacs "wins".
+.. container:: post-teaser
 
-For example, I wanted to experiment with running the Emacs daemon through systemd::
+   One issue with building :denote:link:`Emacs from source <20250409T205418>`, or more specifically my hack to ensure that the required system libraries are available on Aurora, is that in some situations the system version of Emacs "wins".
 
-   $ systemctl --user start emacs
+   For example, I wanted to experiment with running the Emacs daemon through systemd::
 
-Which failed to load my config correctly.
-It was only after a closer look did I realise that despite specifying the ``--user`` flag, systemd was defaulting to the ``emacs.service`` file provided by the system emacs package in ``/usr/...`` and was therefore running Emacs v29 and not my v30 build.
+      $ systemctl --user start emacs
+
+   Which failed to load my config correctly.
+   It was only after a closer look did I realise that despite specifying the ``--user`` flag, systemd was defaulting to the ``emacs.service`` file provided by the system emacs package in ``/usr/...`` and was therefore running Emacs v29 and not my v30 build.
+
+   But then I stumbled across systemd-sysext
 
 Enter systemd-sysext
 --------------------
