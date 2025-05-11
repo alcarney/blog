@@ -14,7 +14,7 @@
 
 
 .hidden { display: none; }
-
+.line-through { text-decoration: line-through; }
 
 @media(prefers-color-scheme: dark) {
     :root {

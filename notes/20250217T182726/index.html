@@ -5,11 +5,11 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>Integrating denote Filenames with Sphinx &#8212; Alex Carney</title>
+    <title>Blogging with Sphinx and denote.el &#8212; Alex Carney</title>
 
     <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=02ca0aaa" />
     <link id="pygments_dark_css" media="(prefers-color-scheme: dark)" rel="stylesheet" type="text/css" href="../../_static/pygments_dark.css?v=d8568271" />
-    <link rel="stylesheet" type="text/css" href="../../_static/css/layout.css?v=1de8b1e4" />
+    <link rel="stylesheet" type="text/css" href="../../_static/css/layout.css?v=0505aae9" />
 
     <script src="../../_static/documentation_options.js?v=187304be"></script>
     <script src="../../_static/doctools.js?v=9bcbadda"></script>
@@ -91,18 +91,13 @@
     <h5 style="grid-column: span 2">Metadata</h5><svg xmlns="http://www.w3.org/2000/svg" width="2em" fill="none" viewBox="0 0 24 24" stroke="currentColor">
     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
 </svg>
-    <time style="align-self: center; text-align: right;" datetime="2025-02-17 00:00:00">Feb 17, 2025</time><svg xmlns="http://www.w3.org/2000/svg" width="2em" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+    <time style="align-self: center; text-align: right;" datetime="2025-04-09 00:00:00">Apr 09, 2025</time><svg xmlns="http://www.w3.org/2000/svg" width="2em" fill="none" viewBox="0 0 24 24" stroke="currentColor">
     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z" />
 </svg>
     <ul class="taglist">
         <li>
             <a class="tag" href="../../tag/blogging/">
                 #blogging
-            </a>
-        </li>
-        <li>
-            <a class="tag" href="../../tag/denote/">
-                #denote
             </a>
         </li>
         <li>
@@ -118,9 +113,16 @@
     </ul>
 </section><nav id="localtoc">
     <ul>
-<li><a class="reference internal" href="#">Integrating <code class="docutils literal notranslate"><span class="pre">denote</span></code> Filenames with Sphinx</a><ul>
-<li><a class="reference internal" href="#denote-basics"><code class="docutils literal notranslate"><span class="pre">denote</span></code> basics</a></li>
-<li><a class="reference internal" href="#restructuredtext-and-denote-el">reStructuredText and <code class="docutils literal notranslate"><span class="pre">denote.el</span></code></a></li>
+<li><a class="reference internal" href="#">Blogging with Sphinx and <code class="docutils literal notranslate"><span class="pre">denote.el</span></code></a><ul>
+<li><a class="reference internal" href="#denote-el-basics"><code class="docutils literal notranslate"><span class="pre">denote.el</span></code> basics</a></li>
+<li><a class="reference internal" href="#restructuredtext-and-denote-el">reStructuredText and <code class="docutils literal notranslate"><span class="pre">denote.el</span></code></a><ul>
+<li><a class="reference internal" href="#using-tags-to-mark-blog-posts">Using Tags to Mark Blog Posts</a></li>
+<li><a class="reference internal" href="#pretty-urls">Pretty URLs</a></li>
+<li><a class="reference internal" href="#cross-references">Cross References</a></li>
+<li><a class="reference internal" href="#generating-feeds-and-archives">Generating Feeds and Archives</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#still-to-come">Still to Come</a></li>
 </ul>
 </li>
 </ul>
@@ -140,33 +142,35 @@
     <div role="main">
 
 <article>
-  <section id="integrating-denote-filenames-with-sphinx">
-<h1>Integrating <code class="docutils literal notranslate"><span class="pre">denote</span></code> Filenames with Sphinx<a class="headerlink" href="#integrating-denote-filenames-with-sphinx" title="Link to this heading">¶</a></h1>
+  <section id="blogging-with-sphinx-and-denote-el">
+<h1>Blogging with Sphinx and <code class="docutils literal notranslate"><span class="pre">denote.el</span></code><a class="headerlink" href="#blogging-with-sphinx-and-denote-el" title="Link to this heading">¶</a></h1>
 <div class="post-teaser docutils container">
-<p>If you have spent any time following the Emacs community, you will have likely come across Protesilaos Stavrou (aka Prot) and his <a class="reference external" href="https://protesilaos.com/emacs/denote">denote</a> project.
-<code class="docutils literal notranslate"><span class="pre">denote</span></code> defines a clever file naming scheme and provides a number of utilities for working with these files from within Emacs.</p>
-<p>I found the simplicity of the approach instantly appealing and before long I found myself wanting to use the <code class="docutils literal notranslate"><span class="pre">denote</span></code> naming scheme to organise the content on this website.
-In this post I outline how I went about integrating <code class="docutils literal notranslate"><span class="pre">denote</span></code> with my (perhaps unconventional) static site generator of choice - <a class="reference external" href="https://www.sphinx-doc.org/en/master/index.html">Sphinx</a></p>
+<p>If you have spent any time following the Emacs community, you will have likely come across the <a class="reference external" href="https://protesilaos.com/emacs/denote">denote.el</a> project.
+<code class="docutils literal notranslate"><span class="pre">denote.el</span></code>, primarily, is a clever file-naming scheme with an associate Emacs package which provides utilities for managing files that follow this naming scheme.</p>
+<p>In this blog post I outline how I have adopted this file-naming scheme to manage the content on this site and how I’ve extended <a class="reference external" href="https://www.sphinx-doc.org/en/master/index.html">Sphinx</a> to take advantage of the information encoded in the file names.</p>
 </div>
-<section id="denote-basics">
-<h2><code class="docutils literal notranslate"><span class="pre">denote</span></code> basics<a class="headerlink" href="#denote-basics" title="Link to this heading">¶</a></h2>
-<p>For an in-depth introduction to <code class="docutils literal notranslate"><span class="pre">denote</span></code> be sure to check out <a class="reference external" href="https://www.youtube.com/watch?v=mLzFJcLpDFI&amp;list=PL8Bwba5vnQK0F6gR0AGOQH48xbLRe_qWC&amp;index=2">this video</a> from Prot himself however, at the core of <code class="docutils literal notranslate"><span class="pre">denote</span></code> is the file-naming sheme:</p>
+<section id="denote-el-basics">
+<h2><code class="docutils literal notranslate"><span class="pre">denote.el</span></code> basics<a class="headerlink" href="#denote-el-basics" title="Link to this heading">¶</a></h2>
+<p>For an in-depth introduction to <code class="docutils literal notranslate"><span class="pre">denote.el</span></code> be sure to check out <a class="reference external" href="https://www.youtube.com/watch?v=mLzFJcLpDFI&amp;list=PL8Bwba5vnQK0F6gR0AGOQH48xbLRe_qWC&amp;index=2">this video</a> however, as mentioned in the introduction, the core of <code class="docutils literal notranslate"><span class="pre">denote.el</span></code> is the file-naming sheme:</p>
 <div class="highlight-none notranslate"><div class="highlight"><pre><span></span>&lt;timestamp&gt;--&lt;title&gt;__&lt;tags&gt;.ext
 </pre></div>
 </div>
 <p>where</p>
 <ul class="simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">&lt;timestamp&gt;</span></code> captures the date and time the file was created and doubles as the file’s unique identifier</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">&lt;timestamp&gt;</span></code> captures the date and time the file was created and acts as the file’s unique identifier</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">&lt;title&gt;</span></code> a lowercase <code class="docutils literal notranslate"><span class="pre">-</span></code> separated string which captures your traditional file name</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">&lt;tags&gt;</span></code> (called keywords by denote) which is a <code class="docutils literal notranslate"><span class="pre">_</span></code> separated string</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">&lt;tags&gt;</span></code> (called keywords by denote) is a <code class="docutils literal notranslate"><span class="pre">_</span></code> separated string of tag names</p></li>
 </ul>
-<p>As an example the filename for this blog post is <code class="docutils literal notranslate"><span class="pre">20250217T182726--denote-filenames-with-sphinx__blog_blogging_denote_emacs_sphinx.rst</span></code></p>
+<p>As an example the filename for this blog post is:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>20250217T182726--blogging-with-sphinx-and-denoteel__blog_blogging_emacs_sphinx.rst
+</pre></div>
+</div>
 <p>The main benefit in naming your files in this way is that you can perform some fairly sophisticated queries across your files with simple text based searches.</p>
 </section>
 <section id="restructuredtext-and-denote-el">
 <h2>reStructuredText and <code class="docutils literal notranslate"><span class="pre">denote.el</span></code><a class="headerlink" href="#restructuredtext-and-denote-el" title="Link to this heading">¶</a></h2>
-<p>While I don’t use Emacs all the time, I think it’s safe to say it’s my default editor when working on personal projects.
-So it would be nice to be able to make use of the utilities provided by the <a class="reference external" href="https://github.com/protesilaos/denote">denote.el</a> package when working on this site.</p>
+<p>While I don’t use Emacs all the time, it’s safe to say that it has become my default editor when working on personal projects.
+So it’s nice to be able to make use of the utilities provided by the <a class="reference external" href="https://github.com/protesilaos/denote">denote.el</a> package when working on this site.</p>
 <p>One of the main features provided by the package is to insert <a class="reference external" href="https://protesilaos.com/emacs/denote#h:13218826-56a5-482a-9b91-5b6de4f14261">front matter</a> into your notes corresponding to the information encoded in the filename <strong>and</strong> to keep the two in sync when either one changes.</p>
 <p><code class="docutils literal notranslate"><span class="pre">denote.el</span></code> has built in support for several markup formats however, the <a class="reference external" href="https://www.sphinx-doc.org/en/master/usage/restructuredtext/basics.html#rst-primer" title="(in Sphinx v8.3.0)"><span class="xref std std-ref">reStructuredText</span></a> syntax used by Sphinx is not one of them.
 Of course, being an Emacs package this isn’t something that a few lines of lisp cannot solve!</p>
@@ -185,7 +189,9 @@ Of course, being an Emacs package this isn’t something that a few lines of lis
 <span class="w">  </span><span class="c1">;; Add reStructuredText support to denote</span>
 <span class="w">  </span><span class="p">(</span><span class="nv">add-to-list</span><span class="w"> </span><span class="ss">&#39;denote-file-types</span><span class="w"> </span><span class="o">`</span><span class="p">(</span><span class="nv">rst</span>
 <span class="w">                                    </span><span class="nb">:extension</span><span class="w"> </span><span class="s">&quot;.rst&quot;</span>
-<span class="w">                                    </span><span class="nb">:date-function</span><span class="w"> </span><span class="nv">denote-date-iso-8601</span>
+<span class="w">                                    </span><span class="nb">:date-key-regexp</span><span class="w"> </span><span class="s">&quot;^:date:&quot;</span>
+<span class="w">                                    </span><span class="nb">:date-value-function</span><span class="w"> </span><span class="nv">denote-date-iso-8601</span>
+<span class="w">                                    </span><span class="nb">:date-value-reverse-function</span><span class="w"> </span><span class="nv">denote-extract-date-from-front-matter</span>
 <span class="w">                                    </span><span class="nb">:front-matter</span><span class="w"> </span><span class="s">&quot;:title: %s\n:date: %s\n:tags: %s\n:identifier: %s\n\n&quot;</span>
 <span class="w">                                    </span><span class="nb">:title-key-regexp</span><span class="w"> </span><span class="s">&quot;^:title:&quot;</span>
 <span class="w">                                    </span><span class="nb">:title-value-function</span><span class="w"> </span><span class="nf">identity</span>
@@ -193,13 +199,142 @@ Of course, being an Emacs package this isn’t something that a few lines of lis
 <span class="w">                                    </span><span class="nb">:keywords-key-regexp</span><span class="w"> </span><span class="s">&quot;^:tags:&quot;</span>
 <span class="w">                                    </span><span class="nb">:keywords-value-function</span><span class="w"> </span><span class="o">,</span><span class="p">(</span><span class="nb">lambda</span><span class="w"> </span><span class="p">(</span><span class="nv">ks</span><span class="p">)</span><span class="w"> </span><span class="p">(</span><span class="nv">string-join</span><span class="w"> </span><span class="nv">ks</span><span class="w"> </span><span class="s">&quot;, &quot;</span><span class="p">))</span>
 <span class="w">                                    </span><span class="nb">:keywords-value-reverse-function</span><span class="w"> </span><span class="nv">denote-extract-keywords-from-front-matter</span>
+<span class="w">                                    </span><span class="nb">:identifier-key-regexp</span><span class="w"> </span><span class="s">&quot;^:identifier:&quot;</span>
+<span class="w">                                    </span><span class="nb">:identifier-value-function</span><span class="w"> </span><span class="nf">identity</span>
+<span class="w">                                    </span><span class="nb">:identifier-value-reverse-function</span><span class="w"> </span><span class="nv">denote-trim-whitespace</span>
 <span class="w">                                    </span><span class="nb">:link</span><span class="w"> </span><span class="s">&quot;:denote:link:`%2$s &lt;%1$s&gt;`&quot;</span>
 <span class="w">                                    </span><span class="nb">:link-in-context-regexp</span><span class="w"> </span><span class="o">,</span><span class="p">(</span><span class="nf">concat</span><span class="w"> </span><span class="s">&quot;:denote:link:`.*?&lt;\\(?1:&quot;</span><span class="w"> </span><span class="nv">denote-id-regexp</span><span class="w"> </span><span class="s">&quot;\\)&gt;`&quot;</span><span class="p">))))</span>
 </pre></div>
 </div>
 </div>
-<p>Which instructs denote to make use of reStructuredText’s <a class="reference external" href="https://www.sphinx-doc.org/en/master/usage/restructuredtext/basics.html#rst-field-lists" title="(in Sphinx v8.3.0)"><span class="xref std std-ref">field list</span></a> syntax when inserting front matter.</p>
+<p>Which gives denote the information it needs to read and write its metadata using reStructuredText’s <a class="reference external" href="https://www.sphinx-doc.org/en/master/usage/restructuredtext/basics.html#rst-field-lists" title="(in Sphinx v8.3.0)"><span class="xref std std-ref">field list</span></a> syntax.</p>
+<div class="highlight-rst notranslate"><div class="highlight"><pre><span></span><span class="nc">:title:</span> Blogging with Sphinx and denote.el
+<span class="nc">:date:</span> 2025-04-09
+<span class="nc">:tags:</span> blogging, emacs, sphinx
+<span class="nc">:identifier:</span> 20250217T182726
+</pre></div>
+</div>
 <p>It also instructs <code class="docutils literal notranslate"><span class="pre">denote</span></code> to use a role called <code class="docutils literal notranslate"><span class="pre">denote:link</span></code> when inserting a link to another note, but we’ll come back to that a bit later on.</p>
+<dl class="simple">
+<dt>Sphinx and <code class="docutils literal notranslate"><span class="pre">denote.el</span></code></dt><dd></dd>
+</dl>
+<p>Again, denote is primarily a file-naming scheme, so you don’t <em>have</em> to do anything special to get it to work with Sphinx - it will just work<sup>TM</sup>.
+However, by extending Sphinx I get to smooth off some rough edges and take advantage of the metadata in the filename to build some nice features.</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="#denote-sphinx-mark-posts"><span class="std std-ref">Using Tags to Mark Blog Posts</span></a></p></li>
+<li><p><a class="reference internal" href="#denote-sphinx-pretty-urls"><span class="std std-ref">Pretty URLs</span></a></p></li>
+<li><p><a class="reference internal" href="#denote-sphinx-cross-references"><span class="std std-ref">Cross References</span></a></p></li>
+</ul>
+<p>I’m only going to elaborate on some aspects of the code underpinning this, so if you want the full details be sure to take a look at the <a class="reference external" href="https://github.com/alcarney/blog/blob/6fecce876ffbb808390a6b59a62ae081abaaf395/extensions/denote">complete implementation</a> of the denote extension.</p>
+<section id="using-tags-to-mark-blog-posts">
+<span id="denote-sphinx-mark-posts"></span><h3>Using Tags to Mark Blog Posts<a class="headerlink" href="#using-tags-to-mark-blog-posts" title="Link to this heading">¶</a></h3>
+<p>There are currently two main sections to this site - blog posts and notes.</p>
+<p>The obvious solution to this would be to create a <code class="docutils literal notranslate"><span class="pre">blog/</span></code> folder and a <code class="docutils literal notranslate"><span class="pre">notes/</span></code> folder and call it a day.
+However, denote lends itself well to having just a folder full of files and I quite liked the idea of dumping all the content into a single folder and using the presence of a special tag to indicate the content type.</p>
+<p>This allows for a nice workflow where something can start of as a note but grow into a fully fledged blog post over time.</p>
+<p>To implement this, I have a simple <a class="reference external" href="https://github.com/alcarney/blog/blob/6fecce876ffbb808390a6b59a62ae081abaaf395/extensions/denote/record.py#L15">Record</a>
+dataclass that captures the information encoded in a denote filename.
+Then when constructing an instance of this class from the filename it’s easy enough to look for a <code class="docutils literal notranslate"><span class="pre">blog</span></code> tag and use it to set a flag indicating that the file represents a blog post.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="nd">@classmethod</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">parse</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">filename</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Record</span> <span class="o">|</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Parse an instance of a record from the given filename&quot;&quot;&quot;</span>
+
+    <span class="k">if</span> <span class="p">(</span><span class="n">match</span> <span class="o">:=</span> <span class="n">FILENAME_PATTERN</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="n">filename</span><span class="p">))</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">return</span> <span class="kc">None</span>
+
+    <span class="n">identifier</span> <span class="o">=</span> <span class="n">match</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="s2">&quot;identifier&quot;</span><span class="p">)</span>
+    <span class="n">date</span><span class="p">,</span> <span class="n">time</span> <span class="o">=</span> <span class="n">identifier</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;T&quot;</span><span class="p">)</span>
+    <span class="n">dt</span> <span class="o">=</span> <span class="n">datetime</span><span class="p">(</span>
+        <span class="n">year</span><span class="o">=</span><span class="nb">int</span><span class="p">(</span><span class="n">date</span><span class="p">[:</span><span class="mi">4</span><span class="p">]),</span>
+        <span class="n">month</span><span class="o">=</span><span class="nb">int</span><span class="p">(</span><span class="n">date</span><span class="p">[</span><span class="mi">4</span><span class="p">:</span><span class="mi">6</span><span class="p">]),</span>
+        <span class="n">day</span><span class="o">=</span><span class="nb">int</span><span class="p">(</span><span class="n">date</span><span class="p">[</span><span class="mi">6</span><span class="p">:</span><span class="mi">8</span><span class="p">]),</span>
+        <span class="n">hour</span><span class="o">=</span><span class="nb">int</span><span class="p">(</span><span class="n">time</span><span class="p">[:</span><span class="mi">2</span><span class="p">]),</span>
+        <span class="n">minute</span><span class="o">=</span><span class="nb">int</span><span class="p">(</span><span class="n">time</span><span class="p">[</span><span class="mi">2</span><span class="p">:</span><span class="mi">4</span><span class="p">]),</span>
+        <span class="n">second</span><span class="o">=</span><span class="nb">int</span><span class="p">(</span><span class="n">time</span><span class="p">[</span><span class="mi">4</span><span class="p">:</span><span class="mi">6</span><span class="p">]),</span>
+        <span class="n">tzinfo</span><span class="o">=</span><span class="n">UTC</span><span class="p">,</span>
+    <span class="p">)</span>
+
+    <span class="n">slug</span> <span class="o">=</span> <span class="n">match</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="s2">&quot;title&quot;</span><span class="p">)</span>
+    <span class="n">tags</span> <span class="o">=</span> <span class="n">match</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="s2">&quot;tags&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;_&quot;</span><span class="p">)</span>
+    <span class="n">title</span> <span class="o">=</span> <span class="s2">&quot; &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">c</span><span class="o">.</span><span class="n">title</span><span class="p">()</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">slug</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;-&quot;</span><span class="p">))</span>
+
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">tags</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="s2">&quot;blog&quot;</span><span class="p">)</span>
+        <span class="n">is_blogpost</span> <span class="o">=</span> <span class="kc">True</span>
+    <span class="k">except</span> <span class="ne">ValueError</span><span class="p">:</span>
+        <span class="n">is_blogpost</span> <span class="o">=</span> <span class="kc">False</span>
+
+    <span class="k">return</span> <span class="bp">cls</span><span class="p">(</span>
+        <span class="n">identifier</span><span class="o">=</span><span class="n">identifier</span><span class="p">,</span>
+        <span class="n">slug</span><span class="o">=</span><span class="n">slug</span><span class="p">,</span>
+        <span class="n">timestamp</span><span class="o">=</span><span class="n">dt</span><span class="p">,</span>
+        <span class="n">title</span><span class="o">=</span><span class="n">title</span><span class="p">,</span>
+        <span class="n">tags</span><span class="o">=</span><span class="n">tags</span><span class="p">,</span>
+        <span class="n">is_blogpost</span><span class="o">=</span><span class="n">is_blogpost</span><span class="p">,</span>
+    <span class="p">)</span>
+
+</pre></div>
+</div>
+</section>
+<section id="pretty-urls">
+<span id="denote-sphinx-pretty-urls"></span><h3>Pretty URLs<a class="headerlink" href="#pretty-urls" title="Link to this heading">¶</a></h3>
+<p>You may have noticed that the url to this page is not</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>https://www.alcarney.me/content/20250217T182726--blogging-with-sphinx-and-denoteel__blog_blogging_emacs_sphinx/
+</pre></div>
+</div>
+</section>
+<section id="cross-references">
+<span id="denote-sphinx-cross-references"></span><h3>Cross References<a class="headerlink" href="#cross-references" title="Link to this heading">¶</a></h3>
+</section>
+<section id="generating-feeds-and-archives">
+<h3>Generating Feeds and Archives<a class="headerlink" href="#generating-feeds-and-archives" title="Link to this heading">¶</a></h3>
+<p>This is mainly <span class="line-through">stolen from</span> inspired by the <a class="reference external" href="https://ablog.readthedocs.io/en/stable/">ablog</a> extension (which is a fantastic option if you want a Sphinx-powered blog by the way)</p>
+<p>Using the <code class="docutils literal notranslate"><span class="pre">html-collect-pages</span></code> event it’s possible to generate entirely new pages during the build process and since all of denote’s metadata is right there in the filename it’s easy to select just the subsets you are interested in</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">generate_collections</span><span class="p">(</span><span class="n">app</span><span class="p">:</span> <span class="n">Sphinx</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Generate collections of records according to some criteria&quot;&quot;&quot;</span>
+
+    <span class="n">domain</span><span class="p">:</span> <span class="n">Denote</span> <span class="o">=</span> <span class="n">app</span><span class="o">.</span><span class="n">env</span><span class="o">.</span><span class="n">domains</span><span class="p">[</span><span class="s2">&quot;denote&quot;</span><span class="p">]</span>
+
+    <span class="c1"># Emit an all blog posts page</span>
+    <span class="n">context</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;collection&quot;</span><span class="p">:</span> <span class="nb">list</span><span class="p">(</span><span class="n">domain</span><span class="o">.</span><span class="n">posts</span><span class="o">.</span><span class="n">all</span><span class="p">()),</span> <span class="s2">&quot;title&quot;</span><span class="p">:</span> <span class="s2">&quot;Blog&quot;</span><span class="p">}</span>
+    <span class="k">yield</span> <span class="p">(</span><span class="s2">&quot;blog&quot;</span><span class="p">,</span> <span class="n">context</span><span class="p">,</span> <span class="s2">&quot;blog/collection.html&quot;</span><span class="p">)</span>
+
+    <span class="n">context</span><span class="o">.</span><span class="n">update</span><span class="p">(</span>
+        <span class="p">{</span>
+            <span class="s2">&quot;baseurl&quot;</span><span class="p">:</span> <span class="n">app</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">blog_baseurl</span><span class="p">,</span>
+            <span class="s2">&quot;title&quot;</span><span class="p">:</span> <span class="n">app</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">blog_title</span><span class="p">,</span>
+            <span class="s2">&quot;now&quot;</span><span class="p">:</span> <span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">(</span><span class="n">tz</span><span class="o">=</span><span class="n">UTC</span><span class="p">),</span>
+            <span class="s2">&quot;relurl&quot;</span><span class="p">:</span> <span class="s2">&quot;blog/atom.xml&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;sphinx_version&quot;</span><span class="p">:</span> <span class="s2">&quot;8&quot;</span><span class="p">,</span>
+        <span class="p">}</span>
+    <span class="p">)</span>
+    <span class="k">yield</span> <span class="p">(</span><span class="s2">&quot;blog/atom&quot;</span><span class="p">,</span> <span class="n">context</span><span class="p">,</span> <span class="s2">&quot;blog/atom.xml&quot;</span><span class="p">)</span>
+
+    <span class="c1"># Emit a page for each year</span>
+    <span class="n">by_year</span> <span class="o">=</span> <span class="n">domain</span><span class="o">.</span><span class="n">posts</span><span class="o">.</span><span class="n">by_year</span><span class="p">()</span>
+    <span class="k">for</span> <span class="n">year</span><span class="p">,</span> <span class="n">collection</span> <span class="ow">in</span> <span class="n">by_year</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+        <span class="n">context</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;collection&quot;</span><span class="p">:</span> <span class="n">collection</span><span class="p">,</span> <span class="s2">&quot;title&quot;</span><span class="p">:</span> <span class="sa">f</span><span class="s2">&quot;Posts in </span><span class="si">{</span><span class="n">year</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">}</span>
+        <span class="k">yield</span> <span class="p">(</span><span class="sa">f</span><span class="s2">&quot;blog/</span><span class="si">{</span><span class="n">year</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">context</span><span class="p">,</span> <span class="s2">&quot;blog/collection.html&quot;</span><span class="p">)</span>
+
+    <span class="c1"># Emit a page for each tag - include both notes and posts on these pages</span>
+    <span class="n">by_tag</span> <span class="o">=</span> <span class="n">domain</span><span class="o">.</span><span class="n">records</span><span class="o">.</span><span class="n">by_tag</span><span class="p">()</span>
+    <span class="k">yield</span> <span class="p">(</span><span class="s2">&quot;tag&quot;</span><span class="p">,</span> <span class="p">{</span><span class="s2">&quot;tags&quot;</span><span class="p">:</span> <span class="n">by_tag</span><span class="p">},</span> <span class="s2">&quot;blog/tags.html&quot;</span><span class="p">)</span>
+
+    <span class="k">for</span> <span class="n">tag</span><span class="p">,</span> <span class="n">collection</span> <span class="ow">in</span> <span class="n">by_tag</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+        <span class="n">context</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;collection&quot;</span><span class="p">:</span> <span class="n">collection</span><span class="p">,</span> <span class="s2">&quot;title&quot;</span><span class="p">:</span> <span class="sa">f</span><span class="s2">&quot;Tagged with: </span><span class="si">{</span><span class="n">tag</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">}</span>
+        <span class="k">yield</span> <span class="p">(</span><span class="sa">f</span><span class="s2">&quot;tag/</span><span class="si">{</span><span class="n">tag</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">context</span><span class="p">,</span> <span class="s2">&quot;blog/collection.html&quot;</span><span class="p">)</span>
+
+
+</pre></div>
+</div>
+</section>
+</section>
+<section id="still-to-come">
+<h2>Still to Come<a class="headerlink" href="#still-to-come" title="Link to this heading">¶</a></h2>
+<ul class="simple">
+<li><p>Fixing search</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">denote-sequence</span></code></p></li>
+</ul>
 </section>
 </section>
 
@@ -214,7 +349,7 @@ Of course, being an Emacs package this isn’t something that a few lines of lis
         <h6>Links</h6>
         <ul>
           <li>
-            <a href="../../_sources/content/20250217T182726--denote-filenames-with-sphinx__blogging_denote_emacs_sphinx.rst.txt" rel="nofollow">
+            <a href="../../_sources/content/20250217T182726--blogging-with-sphinx-and-denoteel__blogging_emacs_sphinx.rst.txt" rel="nofollow">
               Page Source
             </a>
           </li>

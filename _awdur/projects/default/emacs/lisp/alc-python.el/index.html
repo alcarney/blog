@@ -8,7 +8,7 @@
 
     <link rel="stylesheet" type="text/css" href="../../../../../../_static/pygments.css?v=02ca0aaa" />
     <link id="pygments_dark_css" media="(prefers-color-scheme: dark)" rel="stylesheet" type="text/css" href="../../../../../../_static/pygments_dark.css?v=d8568271" />
-    <link rel="stylesheet" type="text/css" href="../../../../../../_static/css/layout.css?v=1de8b1e4" />
+    <link rel="stylesheet" type="text/css" href="../../../../../../_static/css/layout.css?v=0505aae9" />
 
     <script src="../../../../../../_static/documentation_options.js?v=187304be"></script>
     <script src="../../../../../../_static/doctools.js?v=9bcbadda"></script>
@@ -249,15 +249,11 @@
 <span class="w">            </span><span class="p">(</span><span class="nv">poetry-exe</span><span class="w"> </span><span class="p">(</span><span class="nv">executable-find</span><span class="w"> </span><span class="s">&quot;poetry&quot;</span><span class="p">)))</span>
 <span class="w">    </span><span class="p">(</span><span class="nv">string-trim</span><span class="w"> </span><span class="p">(</span><span class="nv">shell-command-to-string</span><span class="w"> </span><span class="p">(</span><span class="nf">format</span><span class="w"> </span><span class="s">&quot;%s env info --executable&quot;</span><span class="w"> </span><span class="nv">poetry-exe</span><span class="p">)))))</span>
 
-<span class="p">(</span><span class="nb">defun</span><span class="w"> </span><span class="nv">alc-python-library-file-p</span><span class="w"> </span><span class="p">()</span>
-<span class="w">  </span><span class="s">&quot;Determine if the current buffer is a library file&quot;</span>
-<span class="w">  </span><span class="p">(</span><span class="nv">if-let</span><span class="w"> </span><span class="p">((</span><span class="nv">file-name</span><span class="w"> </span><span class="p">(</span><span class="nf">buffer-file-name</span><span class="p">)))</span>
-<span class="w">      </span><span class="p">(</span><span class="k">or</span>
-<span class="w">       </span><span class="p">(</span><span class="nv">string-match-p</span><span class="w"> </span><span class="s">&quot;site-packages/&quot;</span><span class="w"> </span><span class="nv">file-name</span><span class="p">)</span>
+<span class="p">(</span><span class="nb">defun</span><span class="w"> </span><span class="nv">alc-python-library-file-p</span><span class="w"> </span><span class="p">(</span><span class="nv">file-name</span><span class="p">)</span>
+<span class="w">  </span><span class="s">&quot;Determine if the given FILE-NAME is a library file&quot;</span>
+<span class="w">  </span><span class="p">(</span><span class="k">or</span><span class="w">  </span><span class="p">(</span><span class="nv">string-match-p</span><span class="w"> </span><span class="s">&quot;site-packages/&quot;</span><span class="w"> </span><span class="nv">file-name</span><span class="p">)</span>
 <span class="w">       </span><span class="p">(</span><span class="nv">string-match-p</span><span class="w"> </span><span class="s">&quot;typeshed-fallback/&quot;</span><span class="w"> </span><span class="nv">file-name</span><span class="p">)</span>
-<span class="w">       </span><span class="p">(</span><span class="nv">string-match-p</span><span class="w"> </span><span class="s">&quot;/usr/lib\\(64\\)?/&quot;</span><span class="w"> </span><span class="nv">file-name</span><span class="p">))</span>
-<span class="w">    </span><span class="c1">;; For now, consider buffers that do not visit a file a &quot;library&quot; as well</span>
-<span class="w">    </span><span class="no">t</span><span class="p">))</span>
+<span class="w">       </span><span class="p">(</span><span class="nv">string-match-p</span><span class="w"> </span><span class="s">&quot;/usr/lib\\(64\\)?/&quot;</span><span class="w"> </span><span class="nv">file-name</span><span class="p">)))</span>
 
 <span class="p">(</span><span class="nb">defun</span><span class="w"> </span><span class="nv">alc-python-load-toml</span><span class="w"> </span><span class="p">(</span><span class="nv">filename</span><span class="p">)</span>
 <span class="w">  </span><span class="s">&quot;Load the toml in FILENAME as json, utilising the TOML parser in the</span>

@@ -9,7 +9,7 @@
 
     <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=02ca0aaa" />
     <link id="pygments_dark_css" media="(prefers-color-scheme: dark)" rel="stylesheet" type="text/css" href="../../_static/pygments_dark.css?v=d8568271" />
-    <link rel="stylesheet" type="text/css" href="../../_static/css/layout.css?v=1de8b1e4" />
+    <link rel="stylesheet" type="text/css" href="../../_static/css/layout.css?v=0505aae9" />
 
     <script src="../../_static/documentation_options.js?v=187304be"></script>
     <script src="../../_static/doctools.js?v=9bcbadda"></script>
@@ -148,7 +148,8 @@
 </pre></div>
 </div>
 </div>
-<p>Use ruff for formatting.</p>
+<p>Use ruff for formatting by default.
+However, this can be overriden on a per-project basis by setting <code class="docutils literal notranslate"><span class="pre">apheleia-formatter</span></code> in a <code class="docutils literal notranslate"><span class="pre">.dir-locals.el</span></code> file.</p>
 <div class="awdur-codeblock docutils container">
 <div class="awdur-codeblock-header docutils container">
 <code class="awdur-codeblock-filename docutils literal notranslate"><span class="pre">emacs/init.el</span></code></div>
@@ -170,9 +171,14 @@
 <span class="w">  </span><span class="c1">;; Files in site-packages/ etc. should be read only by default.</span>
 <span class="w">  </span><span class="c1">;; Also do not start eglot in these locations to cut down on the</span>
 <span class="w">  </span><span class="c1">;; number of server instances.</span>
-<span class="w">  </span><span class="p">(</span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="nv">alc-python-library-file-p</span><span class="p">)</span>
-<span class="w">      </span><span class="p">(</span><span class="nv">read-only-mode</span><span class="p">)</span>
-<span class="w">    </span><span class="p">(</span><span class="nv">eglot-ensure</span><span class="p">)))</span>
+<span class="w">  </span><span class="c1">;;</span>
+<span class="w">  </span><span class="c1">;; However, make sure this only runs for buffer&#39;s associated with a</span>
+<span class="w">  </span><span class="c1">;; file. Previous versions of this code would set `(with-temp-buffer ...)`</span>
+<span class="w">  </span><span class="c1">;; buffers read-only which breaks functions like `python-shell-send-region&#39;!</span>
+<span class="w">  </span><span class="p">(</span><span class="nv">if-let</span><span class="w"> </span><span class="p">((</span><span class="nv">file-name</span><span class="w"> </span><span class="p">(</span><span class="nf">buffer-file-name</span><span class="p">)))</span>
+<span class="w">    </span><span class="p">(</span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="nv">alc-python-library-file-p</span><span class="w"> </span><span class="nv">file-name</span><span class="p">)</span>
+<span class="w">        </span><span class="p">(</span><span class="nv">read-only-mode</span><span class="p">)</span>
+<span class="w">      </span><span class="p">(</span><span class="nv">eglot-ensure</span><span class="p">))))</span>
 </pre></div>
 </div>
 </div>
@@ -341,15 +347,11 @@ Oh well, for the projects I use poetry with currently, I can assume that thereâ€
 <div class="awdur-codeblock docutils container">
 <div class="awdur-codeblock-header docutils container">
 <code class="awdur-codeblock-filename docutils literal notranslate"><span class="pre">emacs/lisp/alc-python.el</span></code></div>
-<div class="highlight-elisp notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="nb">defun</span><span class="w"> </span><span class="nv">alc-python-library-file-p</span><span class="w"> </span><span class="p">()</span>
-<span class="w">  </span><span class="s">&quot;Determine if the current buffer is a library file&quot;</span>
-<span class="w">  </span><span class="p">(</span><span class="nv">if-let</span><span class="w"> </span><span class="p">((</span><span class="nv">file-name</span><span class="w"> </span><span class="p">(</span><span class="nf">buffer-file-name</span><span class="p">)))</span>
-<span class="w">      </span><span class="p">(</span><span class="k">or</span>
-<span class="w">       </span><span class="p">(</span><span class="nv">string-match-p</span><span class="w"> </span><span class="s">&quot;site-packages/&quot;</span><span class="w"> </span><span class="nv">file-name</span><span class="p">)</span>
+<div class="highlight-elisp notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="nb">defun</span><span class="w"> </span><span class="nv">alc-python-library-file-p</span><span class="w"> </span><span class="p">(</span><span class="nv">file-name</span><span class="p">)</span>
+<span class="w">  </span><span class="s">&quot;Determine if the given FILE-NAME is a library file&quot;</span>
+<span class="w">  </span><span class="p">(</span><span class="k">or</span><span class="w">  </span><span class="p">(</span><span class="nv">string-match-p</span><span class="w"> </span><span class="s">&quot;site-packages/&quot;</span><span class="w"> </span><span class="nv">file-name</span><span class="p">)</span>
 <span class="w">       </span><span class="p">(</span><span class="nv">string-match-p</span><span class="w"> </span><span class="s">&quot;typeshed-fallback/&quot;</span><span class="w"> </span><span class="nv">file-name</span><span class="p">)</span>
-<span class="w">       </span><span class="p">(</span><span class="nv">string-match-p</span><span class="w"> </span><span class="s">&quot;/usr/lib\\(64\\)?/&quot;</span><span class="w"> </span><span class="nv">file-name</span><span class="p">))</span>
-<span class="w">    </span><span class="c1">;; For now, consider buffers that do not visit a file a &quot;library&quot; as well</span>
-<span class="w">    </span><span class="no">t</span><span class="p">))</span>
+<span class="w">       </span><span class="p">(</span><span class="nv">string-match-p</span><span class="w"> </span><span class="s">&quot;/usr/lib\\(64\\)?/&quot;</span><span class="w"> </span><span class="nv">file-name</span><span class="p">)))</span>
 </pre></div>
 </div>
 </div>

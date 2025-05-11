@@ -172,12 +172,12 @@ The excellent `modus-themes <https://protesilaos.com/emacs/modus-themes>`__ are 
 .. code-block:: elisp
    :filename: emacs/init.el
 
-   ;; Use `setopt' has modus supports automatically reloading the theme when these
+   ;; Use `setopt' since modus supports automatically reloading the theme when these
    ;; are changed via the `customize' framework
    (setopt modus-themes-bold-constructs t
            modus-themes-italic-constructs t
            modus-themes-prompts '(bold italic)
-           modus-themes-variable-pitch-ui t)
+           modus-themes-variable-pitch-ui nil)
 
 Loading them seems slighty complicated though?
 
