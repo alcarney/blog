@@ -18,7 +18,8 @@ Settings for Python files
      :custom
      (python-shell-dedicated 'project))
 
-Use ruff for formatting.
+Use ruff for formatting by default.
+However, this can be overriden on a per-project basis by setting ``apheleia-formatter`` in a ``.dir-locals.el`` file.
 
 .. code-block:: elisp
    :filename: emacs/init.el
@@ -40,9 +41,14 @@ A function to run each time a Python file is visited.
      ;; Files in site-packages/ etc. should be read only by default.
      ;; Also do not start eglot in these locations to cut down on the
      ;; number of server instances.
-     (if (alc-python-library-file-p)
-         (read-only-mode)
-       (eglot-ensure)))
+     ;;
+     ;; However, make sure this only runs for buffer's associated with a
+     ;; file. Previous versions of this code would set `(with-temp-buffer ...)`
+     ;; buffers read-only which breaks functions like `python-shell-send-region'!
+     (if-let ((file-name (buffer-file-name)))
+       (if (alc-python-library-file-p file-name)
+           (read-only-mode)
+         (eglot-ensure))))
 
 Python Environments
 -------------------
@@ -200,15 +206,11 @@ A function that tries to distinguish between library code and project code
 .. code-block:: elisp
    :filename: emacs/lisp/alc-python.el
 
-   (defun alc-python-library-file-p ()
-     "Determine if the current buffer is a library file"
-     (if-let ((file-name (buffer-file-name)))
-         (or
-          (string-match-p "site-packages/" file-name)
+   (defun alc-python-library-file-p (file-name)
+     "Determine if the given FILE-NAME is a library file"
+     (or  (string-match-p "site-packages/" file-name)
           (string-match-p "typeshed-fallback/" file-name)
-          (string-match-p "/usr/lib\\(64\\)?/" file-name))
-       ;; For now, consider buffers that do not visit a file a "library" as well
-       t))
+          (string-match-p "/usr/lib\\(64\\)?/" file-name)))
 
 A function that uses the Python standard library to parse a TOML file as JSON.
 
