@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom" xml:lang="en">
   <id>https://www.alcarney.me/</id>
   <title>Alex Carney | Blog</title>
-  <updated>2025-05-11T14:19:32.829434+00:00</updated>
+  <updated>2025-05-17T12:00:14.673090+00:00</updated>
   <link href="https://www.alcarney.me/" />
   <link href="https://www.alcarney.me/blog/atom.xml" rel="self" />
   <author>
@@ -32,6 +32,14 @@
     <published>2025-02-21T00:00:00</published>
     <updated>2025-02-21T00:00:00</updated>
     <title>TIL: Additional magit keybindings</title>
+  </entry>
+  
+  <entry>
+    <id>https://www.alcarney.me/blog/2025/blogging-with-sphinx-and-denoteel/</id>
+    <link href="https://www.alcarney.me/blog/2025/blogging-with-sphinx-and-denoteel" rel="alternate" />
+    <published>2025-05-17T00:00:00</published>
+    <updated>2025-05-17T00:00:00</updated>
+    <title>Blogging with Sphinx and denote.el</title>
   </entry>
   
   <entry>

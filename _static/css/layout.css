@@ -13,6 +13,12 @@
 }
 
 
+.guilabel {
+    font-style: italic;
+    color: var(--fg-accent);
+    font-weight: bold;
+}
+
 .hidden { display: none; }
 .line-through { text-decoration: line-through; }
 

@@ -3,8 +3,8 @@
 :tags: emacs
 :identifier: 20250216T190756
 
-Emacs
-=====
+My Emacs Configuration
+======================
 
 Add a ``Makefile`` rule to setup the configuration on a new machine
 
@@ -167,7 +167,6 @@ Theme
 ^^^^^
 
 The excellent `modus-themes <https://protesilaos.com/emacs/modus-themes>`__ are available out of the box in recent Emacs versions.
-
 
 .. code-block:: elisp
    :filename: emacs/init.el
@@ -429,11 +428,9 @@ Combobulate
    :filename: emacs/lisp/alc-treesitter.el
 
     (use-package combobulate
-     ;; This assumes that the `mickeynp/combobulate` package has already been cloned to
-     ;; ~/.emacs.d/elpa/combobulate.
-     ;; TODO: Look into using the `:vc` tag when Emacs 30 is released
-     :load-path ("elpa/combobulate/")
-     :hook ((python-ts-mode . combobulate-mode)))
+     :vc (:url "https://github.com/mickeynp/combobulate")
+     :hook ((python-ts-mode . combobulate-mode)
+            (typescript-ts-mode . combobulate-mode)))
 
 .. code-block:: elisp
    :filename: emacs/lisp/alc-treesitter.el
