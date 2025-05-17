@@ -3,8 +3,8 @@
 :tags: emacs
 :identifier: 20250216T190756
 
-Emacs
-=====
+My Emacs Configuration
+======================
 
 Add a ``Makefile`` rule to setup the configuration on a new machine
 
