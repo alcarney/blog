@@ -168,7 +168,7 @@ ul.taglist li {
     margin: 0;
 }
 
-.post-metadata {
+.content .post-metadata {
     color: var(--fg-main);
 }
 
