@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom" xml:lang="en">
   <id>https://www.alcarney.me/</id>
   <title>Alex Carney | Blog</title>
-  <updated>2025-05-17T12:00:57.548424+00:00</updated>
+  <updated>2025-05-17T12:43:01.337071+00:00</updated>
   <link href="https://www.alcarney.me/" />
   <link href="https://www.alcarney.me/blog/atom.xml" rel="self" />
   <author>
@@ -11,218 +11,218 @@
   <generator uri="https://www.sphinx-doc.org/en/master/" version="8">Sphinx</generator>
   
   <entry>
+    <id>https://www.alcarney.me/blog/2025/blogging-with-sphinx-and-denoteel/</id>
+    <link href="https://www.alcarney.me/blog/2025/blogging-with-sphinx-and-denoteel" rel="alternate" />
+    <published>2025-05-17T00:00:00+00:00</published>
+    <updated>2025-05-17T00:00:00+00:00</updated>
+    <title>Blogging with Sphinx and denote.el</title>
+  </entry>
+  
+  <entry>
     <id>https://www.alcarney.me/blog/2025/installing-emacs-with-systemd-sysext/</id>
     <link href="https://www.alcarney.me/blog/2025/installing-emacs-with-systemd-sysext" rel="alternate" />
-    <published>2025-05-02T00:00:00</published>
-    <updated>2025-05-02T00:00:00</updated>
+    <published>2025-05-02T00:00:00+00:00</published>
+    <updated>2025-05-02T00:00:00+00:00</updated>
     <title>Intstalling Emacs with systemd-sysext</title>
   </entry>
   
   <entry>
     <id>https://www.alcarney.me/blog/2025/til-navigating-history-with-magit/</id>
     <link href="https://www.alcarney.me/blog/2025/til-navigating-history-with-magit" rel="alternate" />
-    <published>2025-02-27T00:00:00</published>
-    <updated>2025-02-27T00:00:00</updated>
+    <published>2025-02-27T00:00:00+00:00</published>
+    <updated>2025-02-27T00:00:00+00:00</updated>
     <title>TIL: Navigating History with Magit</title>
   </entry>
   
   <entry>
     <id>https://www.alcarney.me/blog/2025/til-additional-magit-keybindings/</id>
     <link href="https://www.alcarney.me/blog/2025/til-additional-magit-keybindings" rel="alternate" />
-    <published>2025-02-21T00:00:00</published>
-    <updated>2025-02-21T00:00:00</updated>
+    <published>2025-02-21T00:00:00+00:00</published>
+    <updated>2025-02-21T00:00:00+00:00</updated>
     <title>TIL: Additional magit keybindings</title>
-  </entry>
-  
-  <entry>
-    <id>https://www.alcarney.me/blog/2025/blogging-with-sphinx-and-denoteel/</id>
-    <link href="https://www.alcarney.me/blog/2025/blogging-with-sphinx-and-denoteel" rel="alternate" />
-    <published>2025-05-17T00:00:00</published>
-    <updated>2025-05-17T00:00:00</updated>
-    <title>Blogging with Sphinx and denote.el</title>
   </entry>
   
   <entry>
     <id>https://www.alcarney.me/blog/2025/january-2025/</id>
     <link href="https://www.alcarney.me/blog/2025/january-2025" rel="alternate" />
-    <published>2025-02-09T00:00:00</published>
-    <updated>2025-02-09T00:00:00</updated>
+    <published>2025-02-09T00:00:00+00:00</published>
+    <updated>2025-02-09T00:00:00+00:00</updated>
     <title>Notes for December/January</title>
   </entry>
   
   <entry>
     <id>https://www.alcarney.me/blog/2025/debugging-go-with-gdb/</id>
     <link href="https://www.alcarney.me/blog/2025/debugging-go-with-gdb" rel="alternate" />
-    <published>2025-01-03T00:00:00</published>
-    <updated>2025-01-03T00:00:00</updated>
+    <published>2025-01-03T00:00:00+00:00</published>
+    <updated>2025-01-03T00:00:00+00:00</updated>
     <title>TIL: Debugging go programs with gdb</title>
   </entry>
   
   <entry>
     <id>https://www.alcarney.me/blog/2024/notes-november/</id>
     <link href="https://www.alcarney.me/blog/2024/notes-november" rel="alternate" />
-    <published>2024-12-04T00:00:00</published>
-    <updated>2024-12-04T00:00:00</updated>
+    <published>2024-12-04T00:00:00+00:00</published>
+    <updated>2024-12-04T00:00:00+00:00</updated>
     <title>Notes for November 2024</title>
   </entry>
   
   <entry>
     <id>https://www.alcarney.me/blog/2024/inspecting-python-threads/</id>
     <link href="https://www.alcarney.me/blog/2024/inspecting-python-threads" rel="alternate" />
-    <published>2024-12-01T00:00:00</published>
-    <updated>2024-12-01T00:00:00</updated>
+    <published>2024-12-01T00:00:00+00:00</published>
+    <updated>2024-12-01T00:00:00+00:00</updated>
     <title>TIL: Inspecting Python Threads</title>
   </entry>
   
   <entry>
     <id>https://www.alcarney.me/blog/2024/local-llms-with-ollama-and-gptel/</id>
     <link href="https://www.alcarney.me/blog/2024/local-llms-with-ollama-and-gptel" rel="alternate" />
-    <published>2024-11-16T00:00:00</published>
-    <updated>2024-11-16T00:00:00</updated>
+    <published>2024-11-16T00:00:00+00:00</published>
+    <updated>2024-11-16T00:00:00+00:00</updated>
     <title>TIL: Local LLMs with Ollama and gptel</title>
   </entry>
   
   <entry>
     <id>https://www.alcarney.me/blog/2024/notes-october/</id>
     <link href="https://www.alcarney.me/blog/2024/notes-october" rel="alternate" />
-    <published>2024-11-03T00:00:00</published>
-    <updated>2024-11-03T00:00:00</updated>
+    <published>2024-11-03T00:00:00+00:00</published>
+    <updated>2024-11-03T00:00:00+00:00</updated>
     <title>Notes for October</title>
   </entry>
   
   <entry>
     <id>https://www.alcarney.me/blog/2023/python-wasi-nix/</id>
     <link href="https://www.alcarney.me/blog/2023/python-wasi-nix" rel="alternate" />
-    <published>2023-09-18T00:00:00</published>
-    <updated>2023-09-18T00:00:00</updated>
+    <published>2023-09-18T00:00:00+00:00</published>
+    <updated>2023-09-18T00:00:00+00:00</updated>
     <title>Setting up a Python WASI Environment with Nix</title>
   </entry>
   
   <entry>
     <id>https://www.alcarney.me/blog/2023/nix-day-to-day/</id>
     <link href="https://www.alcarney.me/blog/2023/nix-day-to-day" rel="alternate" />
-    <published>2023-07-27T00:00:00</published>
-    <updated>2023-07-27T00:00:00</updated>
+    <published>2023-07-27T00:00:00+00:00</published>
+    <updated>2023-07-27T00:00:00+00:00</updated>
     <title>Nix: Day to Day Usage</title>
   </entry>
   
   <entry>
     <id>https://www.alcarney.me/blog/2023/integrate-esbonio-nvim-with-nix/</id>
     <link href="https://www.alcarney.me/blog/2023/integrate-esbonio-nvim-with-nix" rel="alternate" />
-    <published>2023-04-21T00:00:00</published>
-    <updated>2023-04-21T00:00:00</updated>
+    <published>2023-04-21T00:00:00+00:00</published>
+    <updated>2023-04-21T00:00:00+00:00</updated>
     <title>Integrating Esbonio with Neovim Using Nix</title>
   </entry>
   
   <entry>
     <id>https://www.alcarney.me/blog/2023/nix-overlays-p2/</id>
     <link href="https://www.alcarney.me/blog/2023/nix-overlays-p2" rel="alternate" />
-    <published>2023-04-02T00:00:00</published>
-    <updated>2023-04-02T00:00:00</updated>
+    <published>2023-04-02T00:00:00+00:00</published>
+    <updated>2023-04-02T00:00:00+00:00</updated>
     <title>Nix Overlays: A follow up</title>
   </entry>
   
   <entry>
     <id>https://www.alcarney.me/blog/2023/nix-overlays/</id>
     <link href="https://www.alcarney.me/blog/2023/nix-overlays" rel="alternate" />
-    <published>2023-01-25T00:00:00</published>
-    <updated>2023-01-25T00:00:00</updated>
+    <published>2023-01-25T00:00:00+00:00</published>
+    <updated>2023-01-25T00:00:00+00:00</updated>
     <title>My Next Steps with Nix: Overlays</title>
   </entry>
   
   <entry>
     <id>https://www.alcarney.me/blog/2022/first-steps-with-nix/</id>
     <link href="https://www.alcarney.me/blog/2022/first-steps-with-nix" rel="alternate" />
-    <published>2022-12-27T00:00:00</published>
-    <updated>2022-12-27T00:00:00</updated>
+    <published>2022-12-27T00:00:00+00:00</published>
+    <updated>2022-12-27T00:00:00+00:00</updated>
     <title>My First Steps with Nix</title>
   </entry>
   
   <entry>
     <id>https://www.alcarney.me/blog/2021/bringing-esbonio-to-the-browser/</id>
     <link href="https://www.alcarney.me/blog/2021/bringing-esbonio-to-the-browser" rel="alternate" />
-    <published>2021-10-25T00:00:00</published>
-    <updated>2021-10-25T00:00:00</updated>
+    <published>2021-10-25T00:00:00+00:00</published>
+    <updated>2021-10-25T00:00:00+00:00</updated>
     <title>Bringing Esbonio to the Browser</title>
   </entry>
   
   <entry>
     <id>https://www.alcarney.me/blog/2021/ast-python-frontend/</id>
     <link href="https://www.alcarney.me/blog/2021/ast-python-frontend" rel="alternate" />
-    <published>2021-01-13T00:00:00</published>
-    <updated>2021-01-13T00:00:00</updated>
+    <published>2021-01-13T00:00:00+00:00</published>
+    <updated>2021-01-13T00:00:00+00:00</updated>
     <title>Creating a CPython Extension</title>
   </entry>
   
   <entry>
     <id>https://www.alcarney.me/blog/2020/ast-simple-eval/</id>
     <link href="https://www.alcarney.me/blog/2020/ast-simple-eval" rel="alternate" />
-    <published>2020-12-17T00:00:00</published>
-    <updated>2020-12-17T00:00:00</updated>
+    <published>2020-12-17T00:00:00+00:00</published>
+    <updated>2020-12-17T00:00:00+00:00</updated>
     <title>Evaluating a Simple Abstract Syntax Tree</title>
   </entry>
   
   <entry>
     <id>https://www.alcarney.me/blog/2020/passing-strings-between-tinygo-wasm/</id>
     <link href="https://www.alcarney.me/blog/2020/passing-strings-between-tinygo-wasm" rel="alternate" />
-    <published>2020-05-06T00:00:00</published>
-    <updated>2020-05-06T00:00:00</updated>
+    <published>2020-05-06T00:00:00+00:00</published>
+    <updated>2020-05-06T00:00:00+00:00</updated>
     <title>Passing strings between TinyGo and JavaScript</title>
   </entry>
   
   <entry>
     <id>https://www.alcarney.me/blog/2020/hello-world-tinygo-wasm/</id>
     <link href="https://www.alcarney.me/blog/2020/hello-world-tinygo-wasm" rel="alternate" />
-    <published>2020-04-28T00:00:00</published>
-    <updated>2020-04-28T00:00:00</updated>
+    <published>2020-04-28T00:00:00+00:00</published>
+    <updated>2020-04-28T00:00:00+00:00</updated>
     <title>Saying ‘Hello, World!’ with TinyGo and WebAssembly</title>
   </entry>
   
   <entry>
     <id>https://www.alcarney.me/blog/2020/learning-vulkan-p1/</id>
     <link href="https://www.alcarney.me/blog/2020/learning-vulkan-p1" rel="alternate" />
-    <published>2020-01-08T00:00:00</published>
-    <updated>2020-01-08T00:00:00</updated>
+    <published>2020-01-08T00:00:00+00:00</published>
+    <updated>2020-01-08T00:00:00+00:00</updated>
     <title>Learning Vulkan: Enumerating Physical Devices</title>
   </entry>
   
   <entry>
     <id>https://www.alcarney.me/blog/2020/learning-vulkan-p0/</id>
     <link href="https://www.alcarney.me/blog/2020/learning-vulkan-p0" rel="alternate" />
-    <published>2020-01-01T00:00:00</published>
-    <updated>2020-01-01T00:00:00</updated>
+    <published>2020-01-01T00:00:00+00:00</published>
+    <updated>2020-01-01T00:00:00+00:00</updated>
     <title>Learning Vulkan: Overview</title>
   </entry>
   
   <entry>
     <id>https://www.alcarney.me/blog/2019/click-drag-vanilla-js/</id>
     <link href="https://www.alcarney.me/blog/2019/click-drag-vanilla-js" rel="alternate" />
-    <published>2019-07-07T00:00:00</published>
-    <updated>2019-07-07T00:00:00</updated>
+    <published>2019-07-07T00:00:00+00:00</published>
+    <updated>2019-07-07T00:00:00+00:00</updated>
     <title>Implementing Click &amp; Drag with Vanilla JS</title>
   </entry>
   
   <entry>
     <id>https://www.alcarney.me/blog/2019/til-python-cmd/</id>
     <link href="https://www.alcarney.me/blog/2019/til-python-cmd" rel="alternate" />
-    <published>2019-01-05T00:00:00</published>
-    <updated>2019-01-05T00:00:00</updated>
+    <published>2019-01-05T00:00:00+00:00</published>
+    <updated>2019-01-05T00:00:00+00:00</updated>
     <title>TIL: Python has a cmd module</title>
   </entry>
   
   <entry>
     <id>https://www.alcarney.me/blog/2018/introducing-stylo-doodles/</id>
     <link href="https://www.alcarney.me/blog/2018/introducing-stylo-doodles" rel="alternate" />
-    <published>2018-10-12T00:00:00</published>
-    <updated>2018-10-12T00:00:00</updated>
+    <published>2018-10-12T00:00:00+00:00</published>
+    <updated>2018-10-12T00:00:00+00:00</updated>
     <title>Introducing Stylo Doodles!</title>
   </entry>
   
   <entry>
     <id>https://www.alcarney.me/blog/2018/first-article/</id>
     <link href="https://www.alcarney.me/blog/2018/first-article" rel="alternate" />
-    <published>2018-09-22T00:00:00</published>
-    <updated>2018-09-22T00:00:00</updated>
+    <published>2018-09-22T00:00:00+00:00</published>
+    <updated>2018-09-22T00:00:00+00:00</updated>
     <title>I’ve Started a Blog… Again!</title>
   </entry>
   
