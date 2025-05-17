@@ -48,8 +48,8 @@ class RecordCollection(collections.UserDict[str, Record]):
             return self.get(self._by_identifier.get(identifier))
 
     def all(self):
-        for k in sorted(self.keys(), reverse=True):
-            yield self[k]
+        items = [self[k] for k in self.keys()]
+        return self._date_sort(items)
 
     def by_tag(self) -> dict[int, list[Record]]:
         """Return all records, grouped by tag"""
@@ -57,11 +57,8 @@ class RecordCollection(collections.UserDict[str, Record]):
 
         for tag, keys in self._by_tag.items():
             # Some keys may have been deleted, only consider those that are still present.
-            records[tag] = [
-                record
-                for k in sorted(keys, reverse=True)
-                if (record := self.get(k)) is not None
-            ]
+            items = [record for k in keys if (record := self.get(k)) is not None]
+            records[tag] = self._date_sort(items)
 
         return records
 
@@ -71,13 +68,16 @@ class RecordCollection(collections.UserDict[str, Record]):
 
         for year, keys in self._by_year.items():
             # Some keys may have been deleted, only consider those that are still present.
-            records[year] = [
-                record
-                for k in sorted(keys, reverse=True)
-                if (record := self.get(k)) is not None
-            ]
+            items = [record for k in keys if (record := self.get(k)) is not None]
+            records[year] = self._date_sort(items)
 
         return records
+
+    def _date_sort(self, items: list[Record]) -> list[Record]:
+        """Ensure all records are sorted by post date."""
+        # Use the timestamp field, as some posts may use the :date: field to override
+        # the original timestamp in the identifier
+        return sorted(items, key=lambda r: r.timestamp, reverse=True)
 
 
 class Denote(Domain):
