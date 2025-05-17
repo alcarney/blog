@@ -52,6 +52,10 @@ def parse_records(app: Sphinx, doctree):
     if (date := metadata.get("date")) is not None:
         record.timestamp = datetime.fromisoformat(date)
 
+        # Assume UTC if no timezone available
+        if record.timestamp.tzinfo is None:
+            record.timestamp = record.timestamp.replace(tzinfo=UTC)
+
 
 def generate_collections(app: Sphinx):
     """Generate collections of records according to some criteria"""
