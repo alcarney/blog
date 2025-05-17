@@ -168,6 +168,10 @@ ul.taglist li {
     margin: 0;
 }
 
+.post-metadata {
+    color: var(--fg-main);
+}
+
 .post-metadata ul.taglist {
     justify-content: flex-end;
 }
