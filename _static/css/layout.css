@@ -289,8 +289,11 @@ aside div.sidebar {
     overflow-y: auto;
 }
 
-section.post-metadata {
+div.sidebar > section {
     margin-bottom: 1em;
+}
+
+section.post-metadata {
     display: grid;
     grid-template-columns: 2em auto;
 }

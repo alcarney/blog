@@ -7,7 +7,13 @@ from datetime import datetime, timezone
 
 UTC = timezone.utc
 FILENAME_PATTERN = re.compile(
-    r"(?P<identifier>\d{8}T\d{6})--(?P<title>[^_]+)__(?P<tags>[^.]+)", re.VERBOSE
+    r"""
+    (?P<identifier>\d{8}T\d{6})
+    (==(?P<signature>[^-]+))?
+    --(?P<title>[^_]+)
+    __(?P<tags>[^.]+)
+    """,
+    re.VERBOSE,
 )
 
 
@@ -29,6 +35,12 @@ class Record:
 
     title: str
     """The 'pretty' version of the record's title."""
+
+    signature: str | None
+    """The signature part of the denote-style filename"""
+
+    sequence: tuple[int, ...] | None
+    """The note's sequence number, if available"""
 
     is_blogpost: bool = dataclasses.field(default=False)
     """Indicates if this record represents a blog post."""
@@ -59,6 +71,10 @@ class Record:
         tags = match.group("tags").split("_")
         title = " ".join(c.title() for c in slug.split("-"))
 
+        sequence = None
+        if (signature := match.group("signature")) is not None:
+            sequence = tuple(int(s) for s in signature.split("="))
+
         try:
             tags.remove("blog")
             is_blogpost = True
@@ -71,6 +87,8 @@ class Record:
             timestamp=dt,
             title=title,
             tags=tags,
+            signature=signature,
+            sequence=sequence,
             is_blogpost=is_blogpost,
         )
 
@@ -86,3 +104,14 @@ class Record:
             url = str(dirname / self.identifier)
 
         return url
+
+
+@dataclasses.dataclass
+class Sequence:
+    """Used to represent the hierarchy described by a sequence."""
+
+    identifier: str | None = dataclasses.field(default=None)
+    """The identifier of the note at this node in the sequence, if known"""
+
+    children: dict[int, Sequence] = dataclasses.field(default_factory=dict)
+    """The list of child nodes in the sequence, if any"""
