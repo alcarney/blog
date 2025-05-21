@@ -1,5 +1,6 @@
 :title: learning-vulkan-p0
 :identifier: 20200101T120000
+:signature: 2
 :date: 2020-01-01
 :tags: blog, c, graphics, vulkan
 :author: Alex Carney
