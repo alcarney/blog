@@ -1,7 +1,8 @@
 :title: Notes November
 :identifier: 20241204T120000
+:signature: 3=2
 :date: 2024-12-04
-:tags: blog, esbonio, lspdevtools, monthnotes, pytestlsp
+:tags: blog, esbonio, lspdevtools, pytestlsp
 :author: Alex Carney
 :language: en
 

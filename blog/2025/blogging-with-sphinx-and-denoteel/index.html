@@ -9,7 +9,7 @@
 
     <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=02ca0aaa" />
     <link id="pygments_dark_css" media="(prefers-color-scheme: dark)" rel="stylesheet" type="text/css" href="../../../_static/pygments_dark.css?v=d8568271" />
-    <link rel="stylesheet" type="text/css" href="../../../_static/css/layout.css?v=cb1d00dc" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/css/layout.css?v=bb0282e7" />
 
     <script src="../../../_static/documentation_options.js?v=187304be"></script>
     <script src="../../../_static/doctools.js?v=9bcbadda"></script>
@@ -116,7 +116,8 @@
             </a>
         </li>
     </ul>
-</section><nav id="localtoc">
+</section><section id="post-contents">
+  <nav id="localtoc">
     <ul>
 <li><a class="reference internal" href="#">Blogging with Sphinx and <code class="docutils literal notranslate"><span class="pre">denote.el</span></code></a><ul>
 <li><a class="reference internal" href="#denote-el-basics"><code class="docutils literal notranslate"><span class="pre">denote.el</span></code> basics</a></li>
@@ -134,7 +135,30 @@
 </li>
 </ul>
 
-</nav>
+  </nav>
+</section>
+<section id="post-related">
+  <h5>Related</h5>
+  
+  <details open>
+    <summary>
+      
+    Blogging with Sphinx and denote.el
+  
+
+    </summary>
+    <ul>
+      <li>
+    
+  <a class="reference internal" href="../../../notes/20250520T192340/">
+    Series and Hierarchies with denote-sequence
+  </a>
+  
+</li>
+    </ul>
+  </details>
+  
+</section>
   </div>
 </aside>
 
@@ -185,9 +209,6 @@ Of course, being an Emacs package this isn’t something that a few lines of lis
 <p class="admonition-title">What about Markdown?</p>
 <p>Yes, both <code class="docutils literal notranslate"><span class="pre">denote.el</span></code> and <a class="reference external" href="https://www.sphinx-doc.org/en/master/usage/markdown.html#markdown" title="(in Sphinx v8.3.0)"><span class="xref std std-ref">Sphinx support</span></a> Markdown however, I simply prefer reStructuredText 😅</p>
 </div>
-<div class="awdur-codeblock docutils container">
-<div class="awdur-codeblock-header docutils container">
-<code class="awdur-codeblock-filename docutils literal notranslate"><span class="pre">emacs/init.el</span></code></div>
 <div class="highlight-elisp notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="nb">use-package</span><span class="w"> </span><span class="nv">denote</span>
 <span class="w">  </span><span class="nb">:ensure</span><span class="w"> </span><span class="no">t</span>
 <span class="w">  </span><span class="nb">:hook</span><span class="w"> </span><span class="p">((</span><span class="nv">dired-mode</span><span class="w"> </span><span class="o">.</span><span class="w"> </span><span class="nv">denote-dired-mode</span><span class="p">))</span>
@@ -212,7 +233,6 @@ Of course, being an Emacs package this isn’t something that a few lines of lis
 <span class="w">                                    </span><span class="nb">:link</span><span class="w"> </span><span class="s">&quot;:denote:link:`%2$s &lt;%1$s&gt;`&quot;</span>
 <span class="w">                                    </span><span class="nb">:link-in-context-regexp</span><span class="w"> </span><span class="o">,</span><span class="p">(</span><span class="nf">concat</span><span class="w"> </span><span class="s">&quot;:denote:link:`.*?&lt;\\(?1:&quot;</span><span class="w"> </span><span class="nv">denote-id-regexp</span><span class="w"> </span><span class="s">&quot;\\)&gt;`&quot;</span><span class="p">))))</span>
 </pre></div>
-</div>
 </div>
 <p>Which gives denote the information it needs to read and write its metadata using reStructuredText’s <a class="reference external" href="https://www.sphinx-doc.org/en/master/usage/restructuredtext/basics.html#rst-field-lists" title="(in Sphinx v8.3.0)"><span class="xref std std-ref">field list</span></a> syntax.</p>
 <div class="highlight-rst notranslate"><div class="highlight"><pre><span></span><span class="nc">:title:</span> Blogging with Sphinx and denote.el
@@ -392,7 +412,7 @@ However, denote lends itself well to having just a folder full of files and I qu
 
    See below for how this looks in the source for this page
 
-<span class="p">   ..</span> <span class="ow">literalinclude</span><span class="p">::</span> ./20250217T182726--blogging-with-sphinx-and-denoteel__blog_blogging_denote_emacs_sphinx.rst
+<span class="p">   ..</span> <span class="ow">literalinclude</span><span class="p">::</span> ./20250217T182726==1--blogging-with-sphinx-and-denoteel__blog_blogging_denote_emacs_sphinx.rst
       <span class="nc">:language:</span> rst
       <span class="nc">:start-at:</span> .. admonition:: Example
       <span class="nc">:end-at:</span> Generating
@@ -515,7 +535,7 @@ If nothing else it would be a fun excerise to try and build a similar view for t
         <h6>Links</h6>
         <ul>
           <li>
-            <a href="../../../_sources/content/20250217T182726--blogging-with-sphinx-and-denoteel__blog_blogging_denote_emacs_sphinx.rst.txt" rel="nofollow">
+            <a href="../../../_sources/content/20250217T182726==1--blogging-with-sphinx-and-denoteel__blog_blogging_denote_emacs_sphinx.rst.txt" rel="nofollow">
               Page Source
             </a>
           </li>

@@ -1,5 +1,6 @@
 :title: Python WASI Nix
 :identifier: 20230918T120000
+:signature: 4=5
 :date: 2023-09-18
 :tags: blog, nix, python, wasm
 :author: Alex Carney

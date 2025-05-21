@@ -2,6 +2,7 @@
 :date: 2025-02-21
 :tags: emacs, git
 :identifier: 20250221T184014
+:signature: 5=1
 
 Using ``git`` from Emacs
 ------------------------

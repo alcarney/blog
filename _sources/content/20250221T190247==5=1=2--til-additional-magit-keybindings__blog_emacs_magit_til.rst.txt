@@ -2,6 +2,7 @@
 :date: 2025-02-21
 :tags: blog, emacs, magit, til
 :identifier: 20250221T190247
+:signature: 5=1=2
 
 TIL: Additional magit keybindings
 =================================
