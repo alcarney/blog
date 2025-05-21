@@ -2,6 +2,7 @@
 :date: 2025-04-30
 :tags: emacs, git
 :identifier: 20250430T213500
+:signature: 5=1=1
 
 Getting the permalink URL to a line of code
 ===========================================

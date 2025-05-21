@@ -1,5 +1,6 @@
 :title: Local LLMs with Ollama and gptel
 :identifier: 20241116T120000
+:signature: 5=6
 :date: 2024-11-16
 :tags: blog, emacs, llms, til
 :author: Alex Carney

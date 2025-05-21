@@ -2,6 +2,7 @@
 :date: 2025-02-27
 :tags: blog, emacs, magit
 :identifier: 20250222T125328
+:signature: 5=1=3
 
 TIL: Navigating History with Magit
 ==================================
