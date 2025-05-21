@@ -2,6 +2,7 @@
 :date: 2025-05-17
 :tags: blog, blogging, denote, emacs, sphinx
 :identifier: 20250217T182726
+:signature: 1
 
 Blogging with Sphinx and ``denote.el``
 ======================================
@@ -52,7 +53,6 @@ Of course, being an Emacs package this isn't something that a few lines of lisp 
    Yes, both ``denote.el`` and :external+sphinx:std:ref:`Sphinx support <markdown>` Markdown however, I simply prefer reStructuredText 😅
 
 .. code-block:: elisp
-   :filename: emacs/init.el
 
    (use-package denote
      :ensure t
@@ -80,7 +80,7 @@ Of course, being an Emacs package this isn't something that a few lines of lisp 
 
 Which gives denote the information it needs to read and write its metadata using reStructuredText's :external+sphinx:std:ref:`field list <rst-field-lists>` syntax.
 
-.. literalinclude:: ./20250217T182726--blogging-with-sphinx-and-denoteel__blog_blogging_denote_emacs_sphinx.rst
+.. literalinclude:: ./20250217T182726==1--blogging-with-sphinx-and-denoteel__blog_blogging_denote_emacs_sphinx.rst
    :language: rst
    :end-at: :identifier:
 
@@ -231,7 +231,7 @@ and implement the :external:py:meth:`~sphinx.domains.Domain.resolve_xref` method
 
    See below for how this looks in the source for this page
 
-   .. literalinclude:: ./20250217T182726--blogging-with-sphinx-and-denoteel__blog_blogging_denote_emacs_sphinx.rst
+   .. literalinclude:: ./20250217T182726==1--blogging-with-sphinx-and-denoteel__blog_blogging_denote_emacs_sphinx.rst
       :language: rst
       :start-at: .. admonition:: Example
       :end-at: Generating
