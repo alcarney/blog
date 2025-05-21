@@ -15,7 +15,7 @@ if typing.TYPE_CHECKING:
     from sphinx.builders import Builder
     from sphinx.environment import BuildEnvironment
 
-from .record import Record
+from .record import Record, Sequence
 
 logger = getLogger("denote")
 
@@ -28,7 +28,8 @@ class RecordCollection(collections.UserDict[str, Record]):
 
         self._by_tag = {}
         self._by_year = {}
-        self._by_identifier = {}
+        self._by_identifier: dict[str, str] = {}
+        self._by_sequence: Sequence = Sequence()
 
     def __setitem__(self, key: str, item: Record) -> None:
         super().__setitem__(key, item)
@@ -40,6 +41,17 @@ class RecordCollection(collections.UserDict[str, Record]):
 
         for tag in item.tags:
             self._by_tag.setdefault(tag, []).append(key)
+
+        if (sequence := item.sequence) is not None:
+            node = self._by_sequence
+
+            for idx in sequence:
+                if idx not in node.children:
+                    node.children[idx] = Sequence()
+
+                node = node.children[idx]
+
+            node.identifier = item.identifier
 
     def find(self, *, identifier: str | None = None) -> Record | None:
         """Find records by various criteria."""
@@ -72,6 +84,10 @@ class RecordCollection(collections.UserDict[str, Record]):
             records[year] = self._date_sort(items)
 
         return records
+
+    def sequence_hierarchy(self, key: tuple[int, ...]) -> Sequence:
+        """Return the hierarchy of all posts in a sequence"""
+        return self._by_sequence.children[key[0]]
 
     def _date_sort(self, items: list[Record]) -> list[Record]:
         """Ensure all records are sorted by post date."""

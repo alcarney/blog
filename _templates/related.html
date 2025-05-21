@@ -1,0 +1,36 @@
+{% macro render_node(node) -%}
+  {% if node.identifier != record.identifier %}
+  <a class="reference internal" href="{{ pathto(node.url) }}">
+    {{ node.title }}
+  </a>
+  {% else %}
+    {{ node.title }}
+  {% endif %}
+{% endmacro -%}
+
+{% macro render_sequence(node) -%}
+  {%- set item = denote.records.find(identifier=node.identifier) %}
+  {%- if node.children | length > 0 %}
+  <details {% if record.signature.startswith(item.signature) %}open{% endif %}>
+    <summary>
+      {{ render_node(item) }}
+    </summary>
+    <ul>
+      {%- for child in node.children.values() %}
+      <li>{{ render_sequence(child) }}</li>
+      {%- endfor %}
+    </ul>
+  </details>
+  {% else %}
+    {{ render_node(item) }}
+  {%- endif %}
+
+{%- endmacro %}
+
+{%- if record and record.sequence %}
+<section id="post-related">
+  <h5>Related</h5>
+  {%- set sequence = denote.records.sequence_hierarchy(record.sequence) %}
+  {{ render_sequence(sequence) }}
+</section>
+{%- endif %}
