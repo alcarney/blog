@@ -1,5 +1,6 @@
 :title: First Steps with Nix
 :identifier: 20221227T120000
+:sequence: 4
 :date: 2022-12-27
 :tags: blog, esbonio, nix, python
 :author: Alex Carney
