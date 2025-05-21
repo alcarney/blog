@@ -1,7 +1,8 @@
 :title: January 2025
 :date: 2025-02-09
-:tags: blog, monthnotes
+:tags: blog, esbonio, pygls
 :identifier: 20250209T000309
+:signature: 3=3
 
 Notes for December/January
 ==========================

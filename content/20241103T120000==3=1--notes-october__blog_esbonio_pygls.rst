@@ -1,7 +1,8 @@
 :title: Notes October
 :identifier: 20241103T120000
+:signature: 3=1
 :date: 2024-11-03
-:tags: blog, esbonio, monthnotes, pygls
+:tags: blog, esbonio, pygls
 :author: Alex Carney
 :language: en
 
