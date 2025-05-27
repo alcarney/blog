@@ -10,6 +10,10 @@ endif
 
 default: html
 
+.PHONY: clean-env
+clean-env:
+	hatch env remove blog
+
 .PHONY: clean
 clean:
 	-test -d _build/doctrees && rm -r _build/doctrees
