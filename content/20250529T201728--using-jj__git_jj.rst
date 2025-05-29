@@ -1,0 +1,24 @@
+:title: Using jj
+:date: 2025-05-29
+:tags: git, jj
+:identifier: 20250529T201728
+
+Using Jujutsu
+=============
+
+.. code-block:: toml
+   :filename: jj/config.toml
+
+   "$schema" = "https://jj-vcs.github.io/jj/latest/config-schema.json"
+
+   [user]
+   name = "Alex Carney"
+   email = "alcarneyme@gmail.com"
+
+   [ui]
+   editor = "emacsclient"
+   conflict-marker-style = "git"
+   default-command = "status"
+
+   [ui.diff]
+   format = "git"
