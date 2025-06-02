@@ -465,7 +465,16 @@ However, denote lends itself well to having just a folder full of files and I qu
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">by_tag</span> <span class="o">=</span> <span class="n">domain</span><span class="o">.</span><span class="n">records</span><span class="o">.</span><span class="n">by_tag</span><span class="p">()</span>
 <span class="k">yield</span> <span class="p">(</span><span class="s2">&quot;tag&quot;</span><span class="p">,</span> <span class="p">{</span><span class="s2">&quot;tags&quot;</span><span class="p">:</span> <span class="n">by_tag</span><span class="p">},</span> <span class="s2">&quot;blog/tags.html&quot;</span><span class="p">)</span>
 
+<span class="n">nodes</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="n">links</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="n">all_records</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
 <span class="k">for</span> <span class="n">tag</span><span class="p">,</span> <span class="n">collection</span> <span class="ow">in</span> <span class="n">by_tag</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+    <span class="n">nodes</span><span class="o">.</span><span class="n">append</span><span class="p">({</span><span class="s2">&quot;id&quot;</span><span class="p">:</span> <span class="n">tag</span><span class="p">,</span> <span class="s2">&quot;kind&quot;</span><span class="p">:</span> <span class="s2">&quot;tag&quot;</span><span class="p">})</span>
+
+    <span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="n">collection</span><span class="p">:</span>
+        <span class="n">links</span><span class="o">.</span><span class="n">append</span><span class="p">({</span><span class="s2">&quot;source&quot;</span><span class="p">:</span> <span class="n">r</span><span class="o">.</span><span class="n">identifier</span><span class="p">,</span> <span class="s2">&quot;target&quot;</span><span class="p">:</span> <span class="n">tag</span><span class="p">})</span>
+        <span class="n">all_records</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">r</span><span class="o">.</span><span class="n">identifier</span><span class="p">)</span>
+
     <span class="n">context</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;collection&quot;</span><span class="p">:</span> <span class="n">collection</span><span class="p">,</span> <span class="s2">&quot;title&quot;</span><span class="p">:</span> <span class="sa">f</span><span class="s2">&quot;Tagged with: </span><span class="si">{</span><span class="n">tag</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">}</span>
     <span class="k">yield</span> <span class="p">(</span><span class="sa">f</span><span class="s2">&quot;tag/</span><span class="si">{</span><span class="n">tag</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">context</span><span class="p">,</span> <span class="s2">&quot;blog/collection.html&quot;</span><span class="p">)</span>
 </pre></div>
