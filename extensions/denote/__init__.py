@@ -6,6 +6,7 @@ generated, notes created etc.
 
 from __future__ import annotations
 
+import json
 import pathlib
 import typing
 from datetime import datetime, timezone
@@ -87,10 +88,23 @@ def generate_collections(app: Sphinx):
     by_tag = domain.records.by_tag()
     yield ("tag", {"tags": by_tag}, "blog/tags.html")
 
+    nodes = []
+    links = []
+    all_records = set()
     for tag, collection in by_tag.items():
+        nodes.append({"id": tag, "kind": "tag"})
+
+        for r in collection:
+            links.append({"source": r.identifier, "target": tag})
+            all_records.add(r.identifier)
+
         context = {"collection": collection, "title": f"Tagged with: {tag}"}
         yield (f"tag/{tag}", context, "blog/collection.html")
 
+    nodes.extend({"id": r, "kind": "record"} for r in all_records)
+    context = { "nodes": json.dumps(nodes), "links": json.dumps(links) }
+
+    yield ("notes", context, "blog/graph.html")
 
 def update_html_context(
     app: Sphinx,
