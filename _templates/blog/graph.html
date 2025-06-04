@@ -26,7 +26,11 @@
         .attr("viewBox", [-width / 2, -height / 2, width, height])
         .attr("style", "max-width: 100%; height: auto;");
 
-  const link = svg.append("g")
+  // Parent element to place the whole graph under
+  // enables pan + zoom later on
+  const g = svg.append('g');
+
+  const link = g.append("g")
         .attr("stroke", "#999")
         .attr("stroke-opacity", 0.6)
         .selectAll()
@@ -34,7 +38,7 @@
         .join("line")
         .attr("stroke-width", 1);
 
-  const node = svg.append("g")
+  const node = g.append("g")
         .selectAll("g")
         .data(nodes)
         .join("g")
@@ -75,5 +79,16 @@
   }
 
   container.append(svg.node())
+
+  // Pan + zoom
+  svg.call(d3.zoom()
+           .extent([[-width / 2, -height / 2], [width, height]])
+           .scaleExtent([1, 8])
+           .on("zoom", zoomed));
+
+  function zoomed({transform}) {
+      g.attr("transform", transform)
+  }
+
 </script>
 {%- endblock %}
