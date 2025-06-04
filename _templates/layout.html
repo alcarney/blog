@@ -39,7 +39,7 @@
   </div>
 </aside>
 
-<div class="content" style="min-width: 0">
+<div class="content">
     <header class="site">
         <label for="menu-toggle">
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="2em" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round">
@@ -47,7 +47,7 @@
         </label>
     </header>
 
-    <div role="main">
+    <div role="main" style="flex-grow: 1">
       {%- block body %}
         {{body}}
       {%- endblock %}
