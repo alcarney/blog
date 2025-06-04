@@ -1,11 +1,14 @@
 {%- extends "layout.html" %}
 {%- block body %}
-<div id="graph"></div>
+<div style="height:100%" id="graph"></div>
 <script type="module">
   import * as d3 from "https://cdn.jsdelivr.net/npm/d3@7/+esm"
 
-  const width = 640
-  const height = 400
+  const container = document.querySelector("#graph")
+  const bbox = container.getBoundingClientRect()
+
+  const width = bbox.width
+  const height = bbox.height
 
   const nodes = JSON.parse('{{ nodes }}')
   const links = JSON.parse('{{ links }}')
@@ -32,40 +35,35 @@
         .attr("stroke-width", 1);
 
   const node = svg.append("g")
-        .attr("stroke", "#fff")
-        .attr("stroke-width", 1.5)
         .selectAll("g")
         .data(nodes)
         .join("g")
 
   node.append("circle")
         .attr("r", 5)
+        .attr("stroke", "var(--border-color)")
+        .attr("stroke-width", 0.5)
         .attr("fill", d => {
             if (d.kind === 'tag') {
-                return 'green'
+                return 'var(--fg-accent)'
             } else {
-                return 'gray'
+                return 'var(--border-color)'
             }
         });
 
   node.append("text")
     .attr("x", 0)
     .attr("font-size", "0.5em")
-    .attr("font-weight", "300")
     .attr("text-anchor", "middle")
+    .attr("fill", "var(--fg-main)")
     .attr("y", 12)
     .text(d => {
         if (d.kind === 'tag') {
             return `#${d.id}`
         } else {
-            return d.id
+            return "" // d.id
         }
     })
-
-    //.clone(true).lower()
-    //.attr("fill", "none")
-    //.attr("stroke", "white")
-    //.attr("stroke-width", 3);
 
   function ticked() {
    link.attr("x1", d => d.source.x)
@@ -76,6 +74,6 @@
    node.attr("transform", d => `translate(${d.x},${d.y})`);
   }
 
-  document.querySelector("#graph").append(svg.node())
+  container.append(svg.node())
 </script>
 {%- endblock %}
