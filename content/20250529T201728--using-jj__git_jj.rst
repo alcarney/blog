@@ -6,19 +6,91 @@
 Using Jujutsu
 =============
 
+.. highlight:: console
+
+After playing around with `Jujutsu <https://jj-vcs.github.io/jj/latest/>`__ (aka ``jj``) for a while I have to say I *really* like it!
+
+If I had to sum up the difference between ``git`` and ``jj`` I would say that it's like the difference imperative and declarative programming.
+In git I have to spell out every operation it has to perform to get the commit graph I want - over and over again as I make changes.
+While in `jj`, I tell it **once** what I want the commit graph to look like and I can make changes throughout history and it will maintain that graph for me automatically in the background.
+
+Command Reference
+-----------------
+
+For now I want to use git and jj side by side::
+
+  $ jj git init --colocate
+
+Branches occur when you have multiple changes that share a single parent::
+
+  $ jj new parent -m "Commit one"
+  $ jj new parent -m "Commit two"
+
+To merge branches, create a new change with multiple parents::
+
+  $ jj new <rev1> <rev2> [... <revN>]
+
+You only really need name a branch (aka ``bookmark``) when you want to push your changes somewhere::
+
+  $ jj bookmark set -r <rev> <name>
+  $ jj git push -b <name> --remote <remote> --allow-new
+
+To push again after you've made additional changes::
+
+  $ jj bookmark set -r <rev> <name>  # Unlike git branches, bookmarks don't move each time you commit
+  $ jj git push -b <name> --remote <remote>
+
+User Config
+-----------
+
+Here lies my user config for ``jj``
+
+As with git, you need to set a name and email for your commits
+
 .. code-block:: toml
    :filename: jj/config.toml
 
    "$schema" = "https://jj-vcs.github.io/jj/latest/config-schema.json"
 
-   [user]
-   name = "Alex Carney"
-   email = "alcarneyme@gmail.com"
+   user.name = "Alex Carney"
+   user.email = "alcarneyme@gmail.com"
 
-   [ui]
-   editor = "emacsclient"
-   conflict-marker-style = "git"
-   default-command = "status"
+Use emacs as my editor
 
-   [ui.diff]
-   format = "git"
+.. code-block:: toml
+   :filename: jj/config.toml
+
+   ui.editor = "emacsclient"
+
+By default, running ``jj`` with no arguments shows you the log, I prefer this to be the status command
+
+.. code-block:: toml
+   :filename: jj/config.toml
+
+   ui.default-command = "status"
+
+
+For compatibilty with other tools, it's best to render diffs and conflicts as git would
+
+.. code-block:: toml
+   :filename: jj/config.toml
+
+   ui.conflict-marker-style = "git"
+   ui.diff-formatter = ":git"
+
+Repo Config
+-----------
+
+.. tip::
+
+   Edit the configuration for the current repo by running::
+
+     jj config edit --repo
+
+Considering how easy it is to rewrite history in ``jj`` it's easy to imagine accidentally creating a mess for yourself.
+So, by default ``jj`` will mark changes belonging to the revset ``trunk()`` as immutable.
+
+.. code-block:: toml
+
+   [revset-aliases]
+   "trunk()" = "develop@upstream"
