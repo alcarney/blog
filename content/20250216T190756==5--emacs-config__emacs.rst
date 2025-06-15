@@ -429,7 +429,7 @@ Combobulate
    :filename: emacs/lisp/alc-treesitter.el
 
     (use-package combobulate
-     :vc (:url "https://github.com/mickeynp/combobulate")
+     :vc (:url "https://github.com/mickeynp/combobulate" :rev "master")
      :hook ((python-ts-mode . combobulate-mode)
             (typescript-ts-mode . combobulate-mode)))
 
