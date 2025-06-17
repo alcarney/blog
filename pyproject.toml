@@ -8,6 +8,7 @@ skip-install = true
 dependencies = [
   "sphinx==8.2.*",
   "myst-parser",
+  "rich @ git+https://github.com/alcarney/rich@fix-from-ansi",
   "awdur @ git+https://github.com/swyddfa/awdur@develop#subdirectory=lib/awdur"
 ]
 

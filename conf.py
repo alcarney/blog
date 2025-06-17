@@ -40,6 +40,7 @@ extensions = [
     "coderepo",
     "denote",
     "htmlext",
+    "termshot",
 ]
 
 primary_domain = "denote"
