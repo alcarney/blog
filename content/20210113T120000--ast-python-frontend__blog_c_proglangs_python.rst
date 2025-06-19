@@ -268,61 +268,60 @@ to build and install the extension into my virtual environment.
 
 .. {{< command command="python setup.py install" prompt="(.env) $" >}}
 
-.. code-block:: none
-   :class: dropdown
+.. details:: (.env) $ python setup.py install
 
-   (.env) $ python setup.py install
+   .. code-block:: none
 
-   running install
-   running bdist_egg
-   running egg_info
-   creating ccalc.egg-info
-   writing ccalc.egg-info/PKG-INFO
-   writing dependency_links to ccalc.egg-info/dependency_links.txt
-   writing top-level names to ccalc.egg-info/top_level.txt
-   writing manifest file 'ccalc.egg-info/SOURCES.txt'
-   reading manifest file 'ccalc.egg-info/SOURCES.txt'
-   writing manifest file 'ccalc.egg-info/SOURCES.txt'
-   installing library code to build/bdist.linux-x86_64/egg
-   running install_lib
-   running build_py
-   creating build
-   creating build/lib.linux-x86_64-3.8
-   creating build/lib.linux-x86_64-3.8/ccalc
-   copying ccalc/__init__.py -> build/lib.linux-x86_64-3.8/ccalc
-   running build_ext
-   building '_ccalc' extension
-   creating build/temp.linux-x86_64-3.8
-   x86_64-linux-gnu-gcc -pthread -Wno-unused-result -Wsign-compare -DNDEBUG -g -fwrapv -O2 -Wall -g -fstack-protector-strong -Wformat -Werror=format-security -g -fwrapv -O2 -g -fstack-protector-strong -Wformat -Werror=format-security -Wdate-time -D_FORTIFY_SOURCE=2 -fPIC -I/home/alex/Projects/scratch/.env/include -I/usr/include/python3.8 -c ccalcmodule.c -o build/temp.linux-x86_64-3.8/ccalcmodule.o
-   x86_64-linux-gnu-gcc -pthread -shared -Wl,-O1 -Wl,-Bsymbolic-functions -Wl,-Bsymbolic-functions -Wl,-z,relro -g -fwrapv -O2 -Wl,-Bsymbolic-functions -Wl,-z,relro -g -fwrapv -O2 -g -fstack-protector-strong -Wformat -Werror=format-security -Wdate-time -D_FORTIFY_SOURCE=2 build/temp.linux-x86_64-3.8/ccalcmodule.o -o build/lib.linux-x86_64-3.8/_ccalc.cpython-38-x86_64-linux-gnu.so
-   creating build/bdist.linux-x86_64
-   creating build/bdist.linux-x86_64/egg
-   creating build/bdist.linux-x86_64/egg/ccalc
-   copying build/lib.linux-x86_64-3.8/ccalc/__init__.py -> build/bdist.linux-x86_64/egg/ccalc
-   copying build/lib.linux-x86_64-3.8/_ccalc.cpython-38-x86_64-linux-gnu.so -> build/bdist.linux-x86_64/egg
-   byte-compiling build/bdist.linux-x86_64/egg/ccalc/__init__.py to __init__.cpython-38.pyc
-   creating stub loader for _ccalc.cpython-38-x86_64-linux-gnu.so
-   byte-compiling build/bdist.linux-x86_64/egg/_ccalc.py to _ccalc.cpython-38.pyc
-   creating build/bdist.linux-x86_64/egg/EGG-INFO
-   copying ccalc.egg-info/PKG-INFO -> build/bdist.linux-x86_64/egg/EGG-INFO
-   copying ccalc.egg-info/SOURCES.txt -> build/bdist.linux-x86_64/egg/EGG-INFO
-   copying ccalc.egg-info/dependency_links.txt -> build/bdist.linux-x86_64/egg/EGG-INFO
-   copying ccalc.egg-info/top_level.txt -> build/bdist.linux-x86_64/egg/EGG-INFO
-   writing build/bdist.linux-x86_64/egg/EGG-INFO/native_libs.txt
-   zip_safe flag not set; analyzing archive contents...
-   __pycache__._ccalc.cpython-38: module references __file__
-   creating dist
-   creating 'dist/ccalc-1.0.0-py3.8-linux-x86_64.egg' and adding 'build/bdist.linux-x86_64/egg' to it
-   removing 'build/bdist.linux-x86_64/egg' (and everything under it)
-   Processing ccalc-1.0.0-py3.8-linux-x86_64.egg
-   removing '/home/alex/Projects/scratch/.env/lib/python3.8/site-packages/ccalc-1.0.0-py3.8-linux-x86_64.egg' (and everything under it)
-   creating /home/alex/Projects/scratch/.env/lib/python3.8/site-packages/ccalc-1.0.0-py3.8-linux-x86_64.egg
-   Extracting ccalc-1.0.0-py3.8-linux-x86_64.egg to /home/alex/Projects/scratch/.env/lib/python3.8/site-packages
-   ccalc 1.0.0 is already the active version in easy-install.pth
+      running install
+      running bdist_egg
+      running egg_info
+      creating ccalc.egg-info
+      writing ccalc.egg-info/PKG-INFO
+      writing dependency_links to ccalc.egg-info/dependency_links.txt
+      writing top-level names to ccalc.egg-info/top_level.txt
+      writing manifest file 'ccalc.egg-info/SOURCES.txt'
+      reading manifest file 'ccalc.egg-info/SOURCES.txt'
+      writing manifest file 'ccalc.egg-info/SOURCES.txt'
+      installing library code to build/bdist.linux-x86_64/egg
+      running install_lib
+      running build_py
+      creating build
+      creating build/lib.linux-x86_64-3.8
+      creating build/lib.linux-x86_64-3.8/ccalc
+      copying ccalc/__init__.py -> build/lib.linux-x86_64-3.8/ccalc
+      running build_ext
+      building '_ccalc' extension
+      creating build/temp.linux-x86_64-3.8
+      x86_64-linux-gnu-gcc -pthread -Wno-unused-result -Wsign-compare -DNDEBUG -g -fwrapv -O2 -Wall -g -fstack-protector-strong -Wformat -Werror=format-security -g -fwrapv -O2 -g -fstack-protector-strong -Wformat -Werror=format-security -Wdate-time -D_FORTIFY_SOURCE=2 -fPIC -I/home/alex/Projects/scratch/.env/include -I/usr/include/python3.8 -c ccalcmodule.c -o build/temp.linux-x86_64-3.8/ccalcmodule.o
+      x86_64-linux-gnu-gcc -pthread -shared -Wl,-O1 -Wl,-Bsymbolic-functions -Wl,-Bsymbolic-functions -Wl,-z,relro -g -fwrapv -O2 -Wl,-Bsymbolic-functions -Wl,-z,relro -g -fwrapv -O2 -g -fstack-protector-strong -Wformat -Werror=format-security -Wdate-time -D_FORTIFY_SOURCE=2 build/temp.linux-x86_64-3.8/ccalcmodule.o -o build/lib.linux-x86_64-3.8/_ccalc.cpython-38-x86_64-linux-gnu.so
+      creating build/bdist.linux-x86_64
+      creating build/bdist.linux-x86_64/egg
+      creating build/bdist.linux-x86_64/egg/ccalc
+      copying build/lib.linux-x86_64-3.8/ccalc/__init__.py -> build/bdist.linux-x86_64/egg/ccalc
+      copying build/lib.linux-x86_64-3.8/_ccalc.cpython-38-x86_64-linux-gnu.so -> build/bdist.linux-x86_64/egg
+      byte-compiling build/bdist.linux-x86_64/egg/ccalc/__init__.py to __init__.cpython-38.pyc
+      creating stub loader for _ccalc.cpython-38-x86_64-linux-gnu.so
+      byte-compiling build/bdist.linux-x86_64/egg/_ccalc.py to _ccalc.cpython-38.pyc
+      creating build/bdist.linux-x86_64/egg/EGG-INFO
+      copying ccalc.egg-info/PKG-INFO -> build/bdist.linux-x86_64/egg/EGG-INFO
+      copying ccalc.egg-info/SOURCES.txt -> build/bdist.linux-x86_64/egg/EGG-INFO
+      copying ccalc.egg-info/dependency_links.txt -> build/bdist.linux-x86_64/egg/EGG-INFO
+      copying ccalc.egg-info/top_level.txt -> build/bdist.linux-x86_64/egg/EGG-INFO
+      writing build/bdist.linux-x86_64/egg/EGG-INFO/native_libs.txt
+      zip_safe flag not set; analyzing archive contents...
+      __pycache__._ccalc.cpython-38: module references __file__
+      creating dist
+      creating 'dist/ccalc-1.0.0-py3.8-linux-x86_64.egg' and adding 'build/bdist.linux-x86_64/egg' to it
+      removing 'build/bdist.linux-x86_64/egg' (and everything under it)
+      Processing ccalc-1.0.0-py3.8-linux-x86_64.egg
+      removing '/home/alex/Projects/scratch/.env/lib/python3.8/site-packages/ccalc-1.0.0-py3.8-linux-x86_64.egg' (and everything under it)
+      creating /home/alex/Projects/scratch/.env/lib/python3.8/site-packages/ccalc-1.0.0-py3.8-linux-x86_64.egg
+      Extracting ccalc-1.0.0-py3.8-linux-x86_64.egg to /home/alex/Projects/scratch/.env/lib/python3.8/site-packages
+      ccalc 1.0.0 is already the active version in easy-install.pth
 
-   Installed /home/alex/Projects/scratch/.env/lib/python3.8/site-packages/ccalc-1.0.0-py3.8-linux-x86_64.egg
-   Processing dependencies for ccalc==1.0.0
-   Finished processing dependencies for ccalc==1.0.0
+      Installed /home/alex/Projects/scratch/.env/lib/python3.8/site-packages/ccalc-1.0.0-py3.8-linux-x86_64.egg
+      Processing dependencies for ccalc==1.0.0
+      Finished processing dependencies for ccalc==1.0.0
 
 With the C code sorted and building, we can import it in Python code and call
 functions from it just as we would with any other module.
