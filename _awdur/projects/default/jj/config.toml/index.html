@@ -8,7 +8,7 @@
 
     <link rel="stylesheet" type="text/css" href="../../../../../_static/pygments.css?v=02ca0aaa" />
     <link id="pygments_dark_css" media="(prefers-color-scheme: dark)" rel="stylesheet" type="text/css" href="../../../../../_static/pygments_dark.css?v=d8568271" />
-    <link rel="stylesheet" type="text/css" href="../../../../../_static/css/layout.css?v=595ba024" />
+    <link rel="stylesheet" type="text/css" href="../../../../../_static/css/layout.css?v=faddea3e" />
 
     <script src="../../../../../_static/documentation_options.js?v=187304be"></script>
     <script src="../../../../../_static/doctools.js?v=9bcbadda"></script>
@@ -150,17 +150,15 @@
   <div class="awdur-codeblock">
     <div class="highlight"><pre style="margin: 0"><span></span><span class="s2">&quot;$schema&quot;</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;https://jj-vcs.github.io/jj/latest/config-schema.json&quot;</span>
 
-<span class="k">[user]</span>
-<span class="n">name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;Alex Carney&quot;</span>
-<span class="n">email</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;alcarneyme@gmail.com&quot;</span>
+<span class="n">user</span><span class="p">.</span><span class="n">name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;Alex Carney&quot;</span>
+<span class="n">user</span><span class="p">.</span><span class="n">email</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;alcarneyme@gmail.com&quot;</span>
 
-<span class="k">[ui]</span>
-<span class="n">editor</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;emacsclient&quot;</span>
-<span class="n">conflict-marker-style</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;git&quot;</span>
-<span class="n">default-command</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;status&quot;</span>
+<span class="n">ui</span><span class="p">.</span><span class="n">editor</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;emacsclient&quot;</span>
 
-<span class="k">[ui.diff]</span>
-<span class="n">format</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;git&quot;</span>
+<span class="n">ui</span><span class="p">.</span><span class="n">default-command</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;status&quot;</span>
+
+<span class="n">ui</span><span class="p">.</span><span class="n">conflict-marker-style</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;git&quot;</span>
+<span class="n">ui</span><span class="p">.</span><span class="n">diff-formatter</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;:git&quot;</span>
 </pre></div>
 
   </div>

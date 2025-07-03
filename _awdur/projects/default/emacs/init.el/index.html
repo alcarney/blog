@@ -8,7 +8,7 @@
 
     <link rel="stylesheet" type="text/css" href="../../../../../_static/pygments.css?v=02ca0aaa" />
     <link id="pygments_dark_css" media="(prefers-color-scheme: dark)" rel="stylesheet" type="text/css" href="../../../../../_static/pygments_dark.css?v=d8568271" />
-    <link rel="stylesheet" type="text/css" href="../../../../../_static/css/layout.css?v=595ba024" />
+    <link rel="stylesheet" type="text/css" href="../../../../../_static/css/layout.css?v=faddea3e" />
 
     <script src="../../../../../_static/documentation_options.js?v=187304be"></script>
     <script src="../../../../../_static/doctools.js?v=9bcbadda"></script>
@@ -259,6 +259,12 @@
 
 <span class="p">(</span><span class="k">setq</span><span class="w"> </span><span class="nv">compilation-always-kill</span><span class="w"> </span><span class="no">t</span>
 <span class="w">      </span><span class="nv">compilation-scroll-output</span><span class="w"> </span><span class="no">t</span><span class="p">)</span>
+
+<span class="p">(</span><span class="nv">add-to-list</span><span class="w"> </span><span class="ss">&#39;display-buffer-alist</span>
+<span class="w">             </span><span class="o">&#39;</span><span class="p">(</span><span class="s">&quot;\\*compilation\\*&quot;</span>
+<span class="w">               </span><span class="p">(</span><span class="nv">display-buffer-in-previous-window</span><span class="w"> </span><span class="nv">display-buffer-at-bottom</span><span class="p">)</span>
+<span class="w">               </span><span class="p">(</span><span class="nv">inhibit-same-window</span><span class="w"> </span><span class="o">.</span><span class="w"> </span><span class="no">t</span><span class="p">)</span>
+<span class="w">               </span><span class="p">(</span><span class="nv">window-height</span><span class="w"> </span><span class="o">.</span><span class="w"> </span><span class="mf">0.25</span><span class="p">)))</span>
 
 <span class="p">(</span><span class="nv">keymap-global-set</span><span class="w"> </span><span class="s">&quot;&lt;f5&gt;&quot;</span><span class="w"> </span><span class="ss">&#39;recompile</span><span class="p">)</span>
 

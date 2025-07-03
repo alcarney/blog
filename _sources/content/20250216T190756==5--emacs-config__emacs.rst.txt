@@ -347,6 +347,12 @@ Basic settings for Emacs' compilation framework
    (setq compilation-always-kill t
          compilation-scroll-output t)
 
+   (add-to-list 'display-buffer-alist
+                '("\\*compilation\\*"
+                  (display-buffer-in-previous-window display-buffer-at-bottom)
+                  (inhibit-same-window . t)
+                  (window-height . 0.25)))
+
 Make :kbd:`F5` call ``recompile``
 
 .. code-block:: elisp
@@ -429,7 +435,7 @@ Combobulate
    :filename: emacs/lisp/alc-treesitter.el
 
     (use-package combobulate
-     :vc (:url "https://github.com/mickeynp/combobulate")
+     :vc (:url "https://github.com/mickeynp/combobulate" :rev "master")
      :hook ((python-ts-mode . combobulate-mode)
             (typescript-ts-mode . combobulate-mode)))
 

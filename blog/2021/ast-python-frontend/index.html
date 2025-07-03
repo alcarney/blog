@@ -9,7 +9,7 @@
 
     <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=02ca0aaa" />
     <link id="pygments_dark_css" media="(prefers-color-scheme: dark)" rel="stylesheet" type="text/css" href="../../../_static/pygments_dark.css?v=d8568271" />
-    <link rel="stylesheet" type="text/css" href="../../../_static/css/layout.css?v=595ba024" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/css/layout.css?v=faddea3e" />
 
     <script src="../../../_static/documentation_options.js?v=187304be"></script>
     <script src="../../../_static/doctools.js?v=9bcbadda"></script>
@@ -388,9 +388,7 @@ information about the extension itself</p>
 </div>
 <p>With the packaging defined a <code class="docutils literal notranslate"><span class="pre">python</span> <span class="pre">setup.py</span> <span class="pre">install</span></code> was all that was needed
 to build and install the extension into my virtual environment.</p>
-<div class="dropdown highlight-none notranslate"><div class="highlight"><pre><span></span>(.env) $ python setup.py install
-
-running install
+<details><summary>(.env) $ python setup.py install</summary><div class="highlight-none notranslate"><div class="highlight"><pre><span></span>running install
 running bdist_egg
 running egg_info
 creating ccalc.egg-info
@@ -442,7 +440,7 @@ Processing dependencies for ccalc==1.0.0
 Finished processing dependencies for ccalc==1.0.0
 </pre></div>
 </div>
-<p>With the C code sorted and building, we can import it in Python code and call
+</details><p>With the C code sorted and building, we can import it in Python code and call
 functions from it just as we would with any other module.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span><span class="w"> </span><span class="nn">_ccalc</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">_ccalc</span><span class="o">.</span><span class="n">hello_world</span><span class="p">()</span>

@@ -9,7 +9,7 @@
 
     <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=02ca0aaa" />
     <link id="pygments_dark_css" media="(prefers-color-scheme: dark)" rel="stylesheet" type="text/css" href="../../_static/pygments_dark.css?v=d8568271" />
-    <link rel="stylesheet" type="text/css" href="../../_static/css/layout.css?v=595ba024" />
+    <link rel="stylesheet" type="text/css" href="../../_static/css/layout.css?v=faddea3e" />
 
     <script src="../../_static/documentation_options.js?v=187304be"></script>
     <script src="../../_static/doctools.js?v=9bcbadda"></script>
@@ -109,7 +109,12 @@
 </section><section id="post-contents">
   <nav id="localtoc">
     <ul>
-<li><a class="reference internal" href="#">Using Jujutsu</a></li>
+<li><a class="reference internal" href="#">Using Jujutsu</a><ul>
+<li><a class="reference internal" href="#command-reference">Command Reference</a></li>
+<li><a class="reference internal" href="#user-config">User Config</a></li>
+<li><a class="reference internal" href="#repo-config">Repo Config</a></li>
+</ul>
+</li>
 </ul>
 
   </nav>
@@ -130,25 +135,92 @@
 <article>
   <section id="using-jujutsu">
 <h1>Using Jujutsu<a class="headerlink" href="#using-jujutsu" title="Link to this heading">¶</a></h1>
+<p>After playing around with <a class="reference external" href="https://jj-vcs.github.io/jj/latest/">Jujutsu</a> (aka <code class="docutils literal notranslate"><span class="pre">jj</span></code>) for a while I have to say I <em>really</em> like it!</p>
+<p>If I had to sum up the difference between <code class="docutils literal notranslate"><span class="pre">git</span></code> and <code class="docutils literal notranslate"><span class="pre">jj</span></code> I would say that it’s like the difference imperative and declarative programming.
+In git I have to spell out every operation it has to perform to get the commit graph I want - over and over again as I make changes.
+While in <cite>jj</cite>, I tell it <strong>once</strong> what I want the commit graph to look like and I can make changes throughout history and it will maintain that graph for me automatically in the background.</p>
+<section id="command-reference">
+<h2>Command Reference<a class="headerlink" href="#command-reference" title="Link to this heading">¶</a></h2>
+<p>For now I want to use git and jj side by side:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>jj<span class="w"> </span>git<span class="w"> </span>init<span class="w"> </span>--colocate
+</pre></div>
+</div>
+<p>Branches occur when you have multiple changes that share a single parent:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>jj<span class="w"> </span>new<span class="w"> </span>parent<span class="w"> </span>-m<span class="w"> </span><span class="s2">&quot;Commit one&quot;</span>
+<span class="gp">$ </span>jj<span class="w"> </span>new<span class="w"> </span>parent<span class="w"> </span>-m<span class="w"> </span><span class="s2">&quot;Commit two&quot;</span>
+</pre></div>
+</div>
+<p>To merge branches, create a new change with multiple parents:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>jj<span class="w"> </span>new<span class="w"> </span>&lt;rev1&gt;<span class="w"> </span>&lt;rev2&gt;<span class="w"> </span><span class="o">[</span>...<span class="w"> </span>&lt;revN&gt;<span class="o">]</span>
+</pre></div>
+</div>
+<p>You only really need name a branch (aka <code class="docutils literal notranslate"><span class="pre">bookmark</span></code>) when you want to push your changes somewhere:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>jj<span class="w"> </span>bookmark<span class="w"> </span><span class="nb">set</span><span class="w"> </span>-r<span class="w"> </span>&lt;rev&gt;<span class="w"> </span>&lt;name&gt;
+<span class="gp">$ </span>jj<span class="w"> </span>git<span class="w"> </span>push<span class="w"> </span>-b<span class="w"> </span>&lt;name&gt;<span class="w"> </span>--remote<span class="w"> </span>&lt;remote&gt;<span class="w"> </span>--allow-new
+</pre></div>
+</div>
+<p>To push again after you’ve made additional changes:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>jj<span class="w"> </span>bookmark<span class="w"> </span><span class="nb">set</span><span class="w"> </span>-r<span class="w"> </span>&lt;rev&gt;<span class="w"> </span>&lt;name&gt;<span class="w">  </span><span class="c1"># Unlike git branches, bookmarks don&#39;t move each time you commit</span>
+<span class="gp">$ </span>jj<span class="w"> </span>git<span class="w"> </span>push<span class="w"> </span>-b<span class="w"> </span>&lt;name&gt;<span class="w"> </span>--remote<span class="w"> </span>&lt;remote&gt;
+</pre></div>
+</div>
+</section>
+<section id="user-config">
+<h2>User Config<a class="headerlink" href="#user-config" title="Link to this heading">¶</a></h2>
+<p>Here lies my user config for <code class="docutils literal notranslate"><span class="pre">jj</span></code></p>
+<p>As with git, you need to set a name and email for your commits</p>
 <div class="awdur-codeblock docutils container">
 <div class="awdur-codeblock-header docutils container">
 <code class="awdur-codeblock-filename docutils literal notranslate"><span class="pre">jj/config.toml</span></code></div>
 <div class="highlight-toml notranslate"><div class="highlight"><pre><span></span><span class="s2">&quot;$schema&quot;</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;https://jj-vcs.github.io/jj/latest/config-schema.json&quot;</span>
 
-<span class="k">[user]</span>
-<span class="n">name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;Alex Carney&quot;</span>
-<span class="n">email</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;alcarneyme@gmail.com&quot;</span>
-
-<span class="k">[ui]</span>
-<span class="n">editor</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;emacsclient&quot;</span>
-<span class="n">conflict-marker-style</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;git&quot;</span>
-<span class="n">default-command</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;status&quot;</span>
-
-<span class="k">[ui.diff]</span>
-<span class="n">format</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;git&quot;</span>
+<span class="n">user</span><span class="p">.</span><span class="n">name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;Alex Carney&quot;</span>
+<span class="n">user</span><span class="p">.</span><span class="n">email</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;alcarneyme@gmail.com&quot;</span>
 </pre></div>
 </div>
 </div>
+<p>Use emacs as my editor</p>
+<div class="awdur-codeblock docutils container">
+<div class="awdur-codeblock-header docutils container">
+<code class="awdur-codeblock-filename docutils literal notranslate"><span class="pre">jj/config.toml</span></code></div>
+<div class="highlight-toml notranslate"><div class="highlight"><pre><span></span><span class="n">ui</span><span class="p">.</span><span class="n">editor</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;emacsclient&quot;</span>
+</pre></div>
+</div>
+</div>
+<p>By default, running <code class="docutils literal notranslate"><span class="pre">jj</span></code> with no arguments shows you the log, I prefer this to be the status command</p>
+<div class="awdur-codeblock docutils container">
+<div class="awdur-codeblock-header docutils container">
+<code class="awdur-codeblock-filename docutils literal notranslate"><span class="pre">jj/config.toml</span></code></div>
+<div class="highlight-toml notranslate"><div class="highlight"><pre><span></span><span class="n">ui</span><span class="p">.</span><span class="n">default-command</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;status&quot;</span>
+</pre></div>
+</div>
+</div>
+<p>For compatibilty with other tools, it’s best to render diffs and conflicts as git would</p>
+<div class="awdur-codeblock docutils container">
+<div class="awdur-codeblock-header docutils container">
+<code class="awdur-codeblock-filename docutils literal notranslate"><span class="pre">jj/config.toml</span></code></div>
+<div class="highlight-toml notranslate"><div class="highlight"><pre><span></span><span class="n">ui</span><span class="p">.</span><span class="n">conflict-marker-style</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;git&quot;</span>
+<span class="n">ui</span><span class="p">.</span><span class="n">diff-formatter</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;:git&quot;</span>
+</pre></div>
+</div>
+</div>
+</section>
+<section id="repo-config">
+<h2>Repo Config<a class="headerlink" href="#repo-config" title="Link to this heading">¶</a></h2>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>Edit the configuration for the current repo by running:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">jj config edit --repo</span>
+</pre></div>
+</div>
+</div>
+<p>Considering how easy it is to rewrite history in <code class="docutils literal notranslate"><span class="pre">jj</span></code> it’s easy to imagine accidentally creating a mess for yourself.
+So, by default <code class="docutils literal notranslate"><span class="pre">jj</span></code> will mark changes belonging to the revset <code class="docutils literal notranslate"><span class="pre">trunk()</span></code> as immutable.</p>
+<div class="highlight-toml notranslate"><div class="highlight"><pre><span></span><span class="k">[revset-aliases]</span>
+<span class="s2">&quot;trunk()&quot;</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;develop@upstream&quot;</span>
+</pre></div>
+</div>
+</section>
 </section>
 
   <footer>
