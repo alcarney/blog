@@ -157,6 +157,24 @@ dd p:first-child {
     margin-top: 0
 }
 
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+thead tr {
+    border-bottom: solid 1px var(--border-color);
+}
+
+td, th {
+    padding: 0 0.5em;
+    border-right: 1px solid var(--border-color);
+}
+
+td:last-child, th:last-child {
+    border-right: none;
+}
+
 ul.taglist {
     display: flex;
     gap: 1em;
