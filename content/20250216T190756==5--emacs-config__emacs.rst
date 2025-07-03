@@ -349,8 +349,10 @@ Basic settings for Emacs' compilation framework
 
    (add-to-list 'display-buffer-alist
                 '("\\*compilation\\*"
-                  (display-buffer-in-previous-window display-buffer-at-bottom)
-                  (inhibit-same-window . t)
+                  (display-buffer-reuse-window
+                   display-buffer-in-previous-window
+                   display-buffer-reuse-mode-window
+                   display-buffer-at-bottom)
                   (window-height . 0.25)))
 
 Make :kbd:`F5` call ``recompile``
