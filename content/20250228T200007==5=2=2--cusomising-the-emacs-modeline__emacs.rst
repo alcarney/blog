@@ -2,42 +2,12 @@
 :date: 2025-02-28
 :tags: emacs
 :identifier: 20250228T200007
-:signature: 5=2
+:signature: 5=2=2
 
 Cusomising the Emacs Modeline
 =============================
 
 Heavily inspired by Protesilaos' excellent `tutorial <https://protesilaos.com/codelog/2023-07-29-emacs-custom-modeline-tutorial>`__ on writing custom modelines.
-
-For reference, here are the components that were in the default modeline
-
-- ``mode-line-mule-info``
-- ``mode-line-client``
-- ``mode-line-frame-identification``
-- ``mode-line-position``
-- ``mode-line-misc-info``
-- ``mode-line-end-spaces``
-
-.. code-block:: elisp
-   :filename: emacs/init.el
-
-   (use-package alc-modeline
-     :after (modus-themes)
-     :load-path "lisp"
-     :config
-     (setq-default mode-line-format
-                '("%e"
-                  mode-line-front-space
-                  alc-modeline-window-dedicated
-                  alc-modeline-project-identification
-                  "  "
-                  alc-modeline-remote-indication
-                  alc-modeline-buffer-identification
-                  " "
-                  alc-modeline-buffer-position
-                  "      "
-                  mode-line-modes
-                  )))
 
 And now for the definition of my custom components
 
