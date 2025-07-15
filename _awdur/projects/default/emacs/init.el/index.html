@@ -168,79 +168,6 @@
 
 <span class="p">(</span><span class="nv">setenv</span><span class="w"> </span><span class="s">&quot;PATH&quot;</span><span class="w"> </span><span class="p">(</span><span class="nv">string-join</span><span class="w"> </span><span class="nv">exec-path</span><span class="w"> </span><span class="s">&quot;:&quot;</span><span class="p">))</span>
 
-<span class="p">(</span><span class="nv">set-face-attribute</span><span class="w"> </span><span class="ss">&#39;default</span><span class="w"> </span><span class="no">nil</span><span class="w"> </span><span class="nb">:family</span><span class="w"> </span><span class="s">&quot;UbuntuMonoNerdFont&quot;</span><span class="w"> </span><span class="nb">:height</span><span class="w"> </span><span class="mi">120</span><span class="p">)</span>
-<span class="p">(</span><span class="nv">set-face-attribute</span><span class="w"> </span><span class="ss">&#39;fixed-pitch</span><span class="w"> </span><span class="no">nil</span><span class="w"> </span><span class="nb">:family</span><span class="w"> </span><span class="s">&quot;UbuntuMonoNerdFont&quot;</span><span class="w"> </span><span class="nb">:height</span><span class="w"> </span><span class="mi">120</span><span class="p">)</span>
-<span class="p">(</span><span class="nv">set-face-attribute</span><span class="w"> </span><span class="ss">&#39;variable-pitch</span><span class="w"> </span><span class="no">nil</span><span class="w"> </span><span class="nb">:family</span><span class="w"> </span><span class="s">&quot;UbuntuSansNerdFont&quot;</span><span class="w"> </span><span class="nb">:weight</span><span class="w"> </span><span class="ss">&#39;light</span><span class="w"> </span><span class="nb">:height</span><span class="w"> </span><span class="mi">120</span><span class="p">)</span>
-
-<span class="p">(</span><span class="nb">use-package</span><span class="w"> </span><span class="nv">nerd-icons</span>
-<span class="w">  </span><span class="nb">:ensure</span><span class="w"> </span><span class="no">t</span><span class="p">)</span>
-
-<span class="p">(</span><span class="nv">add-hook</span><span class="w"> </span><span class="ss">&#39;prog-mode-hook</span><span class="w"> </span><span class="p">(</span><span class="nb">lambda</span><span class="w"> </span><span class="p">()</span><span class="w"> </span><span class="p">(</span><span class="nv">display-line-numbers-mode</span><span class="w"> </span><span class="no">t</span><span class="p">)))</span>
-
-<span class="p">(</span><span class="k">setq-default</span><span class="w"> </span><span class="nv">display-line-numbers-widen</span><span class="w"> </span><span class="no">t</span>
-<span class="w">              </span><span class="nv">display-line-numbers-width</span><span class="w"> </span><span class="mi">4</span><span class="p">)</span>
-
-<span class="p">(</span><span class="k">setq</span><span class="w"> </span><span class="nv">pixel-scroll-precision-use-momentum</span><span class="w"> </span><span class="no">nil</span>
-<span class="w">      </span><span class="nv">pixel-scroll-precision-interpolate-page</span><span class="w"> </span><span class="no">t</span>
-<span class="w">      </span><span class="nv">pixel-scroll-precision-momentum-seconds</span><span class="w"> </span><span class="mf">0.5</span><span class="p">)</span>
-<span class="p">(</span><span class="nv">pixel-scroll-precision-mode</span><span class="w"> </span><span class="no">t</span><span class="p">)</span>
-
-<span class="p">(</span><span class="k">setq</span><span class="w"> </span><span class="nv">tab-bar-format</span><span class="w"> </span><span class="o">&#39;</span><span class="p">(</span><span class="nv">tab-bar-format-tabs-groups</span>
-<span class="w">                       </span><span class="nv">tab-bar-format-align-right</span>
-<span class="w">                       </span><span class="nv">tab-bar-format-global</span>
-<span class="w">                       </span><span class="nv">tab-bar-format-menu-bar</span><span class="p">))</span>
-
-<span class="c1">;; Disable the menu-bar, since it&#39;s accessible via the tab bar.</span>
-<span class="p">(</span><span class="nv">menu-bar-mode</span><span class="w"> </span><span class="mi">-1</span><span class="p">)</span>
-<span class="p">(</span><span class="nv">add-hook</span><span class="w"> </span><span class="ss">&#39;after-init-hook</span><span class="w"> </span><span class="nf">#&#39;</span><span class="nv">tab-bar-mode</span><span class="p">)</span>
-
-<span class="p">(</span><span class="nv">display-battery-mode</span><span class="p">)</span>
-
-<span class="p">(</span><span class="k">setq</span><span class="w"> </span><span class="nv">display-time-format</span><span class="w"> </span><span class="s">&quot;%H:%M %d/%m/%y&quot;</span>
-<span class="w">      </span><span class="nv">display-time-default-load-average</span><span class="w"> </span><span class="no">nil</span><span class="p">)</span>
-<span class="p">(</span><span class="nv">display-time-mode</span><span class="p">)</span>
-
-<span class="c1">;; Use `setopt&#39; since modus supports automatically reloading the theme when these</span>
-<span class="c1">;; are changed via the `customize&#39; framework</span>
-<span class="p">(</span><span class="nv">setopt</span><span class="w"> </span><span class="nv">modus-themes-bold-constructs</span><span class="w"> </span><span class="no">t</span>
-<span class="w">        </span><span class="nv">modus-themes-italic-constructs</span><span class="w"> </span><span class="no">t</span>
-<span class="w">        </span><span class="nv">modus-themes-prompts</span><span class="w"> </span><span class="o">&#39;</span><span class="p">(</span><span class="nv">bold</span><span class="w"> </span><span class="nv">italic</span><span class="p">)</span>
-<span class="w">        </span><span class="nv">modus-themes-variable-pitch-ui</span><span class="w"> </span><span class="no">nil</span><span class="p">)</span>
-
-<span class="p">(</span><span class="nb">defun</span><span class="w"> </span><span class="nv">alc-theme-load-theme</span><span class="w"> </span><span class="p">(</span><span class="nv">variant</span><span class="p">)</span>
-<span class="w">  </span><span class="s">&quot;Load the light or dark theme according to VARIANT.&quot;</span>
-<span class="w">  </span><span class="p">(</span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="nf">eq</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="nv">variant</span><span class="p">)</span>
-<span class="w">     </span><span class="p">(</span><span class="k">progn</span>
-<span class="w">       </span><span class="p">(</span><span class="nv">load-theme</span><span class="w"> </span><span class="ss">&#39;modus-vivendi</span><span class="w"> </span><span class="no">t</span><span class="p">)</span>
-<span class="w">       </span><span class="p">(</span><span class="nv">modus-themes-load-theme</span><span class="w"> </span><span class="ss">&#39;modus-vivendi</span><span class="p">))</span>
-<span class="w">    </span><span class="p">(</span><span class="nv">load-theme</span><span class="w"> </span><span class="ss">&#39;modus-operandi</span><span class="w"> </span><span class="no">t</span><span class="p">)</span>
-<span class="w">    </span><span class="p">(</span><span class="nv">modus-themes-load-theme</span><span class="w"> </span><span class="ss">&#39;modus-operandi</span><span class="p">)))</span>
-
-<span class="p">(</span><span class="nb">when</span><span class="w"> </span><span class="p">(</span><span class="nv">display-graphic-p</span><span class="p">)</span>
-<span class="w">  </span><span class="p">(</span><span class="nv">alc-theme-load-theme</span>
-<span class="w">    </span><span class="p">(</span><span class="nv">caar</span><span class="w"> </span><span class="p">(</span><span class="nv">dbus-call-method</span>
-<span class="w">           </span><span class="nb">:session</span>
-<span class="w">           </span><span class="s">&quot;org.freedesktop.portal.Desktop&quot;</span>
-<span class="w">           </span><span class="s">&quot;/org/freedesktop/portal/desktop&quot;</span>
-<span class="w">           </span><span class="s">&quot;org.freedesktop.portal.Settings&quot;</span><span class="w"> </span><span class="s">&quot;Read&quot;</span>
-<span class="w">           </span><span class="s">&quot;org.freedesktop.appearance&quot;</span><span class="w"> </span><span class="s">&quot;color-scheme&quot;</span><span class="p">))))</span>
-
-<span class="p">(</span><span class="nb">when</span><span class="w"> </span><span class="p">(</span><span class="nv">display-graphic-p</span><span class="p">)</span>
-<span class="w">   </span><span class="p">(</span><span class="k">setq</span><span class="w"> </span><span class="nv">alc-theme-dbus-listener</span>
-<span class="w">         </span><span class="p">(</span><span class="nv">dbus-register-signal</span>
-<span class="w">          </span><span class="nb">:session</span>
-<span class="w">          </span><span class="s">&quot;org.freedesktop.portal.Desktop&quot;</span>
-<span class="w">          </span><span class="s">&quot;/org/freedesktop/portal/desktop&quot;</span>
-<span class="w">          </span><span class="s">&quot;org.freedesktop.portal.Settings&quot;</span>
-<span class="w">          </span><span class="s">&quot;SettingChanged&quot;</span>
-<span class="w">          </span><span class="p">(</span><span class="nb">lambda</span><span class="w"> </span><span class="p">(</span><span class="nv">path</span><span class="w"> </span><span class="nv">var</span><span class="w"> </span><span class="nv">val</span><span class="p">)</span>
-<span class="w">            </span><span class="p">(</span><span class="nb">when</span><span class="w"> </span><span class="p">(</span><span class="k">and</span><span class="w"> </span><span class="p">(</span><span class="nf">string=</span><span class="w"> </span><span class="nv">path</span><span class="w"> </span><span class="s">&quot;org.freedesktop.appearance&quot;</span><span class="p">)</span>
-<span class="w">                       </span><span class="p">(</span><span class="nf">string=</span><span class="w"> </span><span class="nv">var</span><span class="w"> </span><span class="s">&quot;color-scheme&quot;</span><span class="p">))</span>
-<span class="w">              </span><span class="p">(</span><span class="nv">alc-theme-load-theme</span><span class="w"> </span><span class="p">(</span><span class="nf">car</span><span class="w"> </span><span class="nv">val</span><span class="p">)))))))</span>
-
-<span class="p">(</span><span class="nb">unless</span><span class="w"> </span><span class="p">(</span><span class="nv">display-graphic-p</span><span class="p">)</span>
-<span class="w">  </span><span class="p">(</span><span class="nv">alc-theme-load-theme</span><span class="w"> </span><span class="mi">1</span><span class="p">))</span><span class="w"> </span><span class="c1">; dark</span>
-
 <span class="p">(</span><span class="nv">recentf-mode</span><span class="w"> </span><span class="no">t</span><span class="p">)</span>
 <span class="p">(</span><span class="nv">savehist-mode</span><span class="w"> </span><span class="no">t</span><span class="p">)</span>
 <span class="p">(</span><span class="nv">save-place-mode</span><span class="w"> </span><span class="no">t</span><span class="p">)</span>
@@ -262,8 +189,10 @@
 
 <span class="p">(</span><span class="nv">add-to-list</span><span class="w"> </span><span class="ss">&#39;display-buffer-alist</span>
 <span class="w">             </span><span class="o">&#39;</span><span class="p">(</span><span class="s">&quot;\\*compilation\\*&quot;</span>
-<span class="w">               </span><span class="p">(</span><span class="nv">display-buffer-in-previous-window</span><span class="w"> </span><span class="nv">display-buffer-at-bottom</span><span class="p">)</span>
-<span class="w">               </span><span class="p">(</span><span class="nv">inhibit-same-window</span><span class="w"> </span><span class="o">.</span><span class="w"> </span><span class="no">t</span><span class="p">)</span>
+<span class="w">               </span><span class="p">(</span><span class="nv">display-buffer-reuse-window</span>
+<span class="w">                </span><span class="nv">display-buffer-in-previous-window</span>
+<span class="w">                </span><span class="nv">display-buffer-reuse-mode-window</span>
+<span class="w">                </span><span class="nv">display-buffer-at-bottom</span><span class="p">)</span>
 <span class="w">               </span><span class="p">(</span><span class="nv">window-height</span><span class="w"> </span><span class="o">.</span><span class="w"> </span><span class="mf">0.25</span><span class="p">)))</span>
 
 <span class="p">(</span><span class="nv">keymap-global-set</span><span class="w"> </span><span class="s">&quot;&lt;f5&gt;&quot;</span><span class="w"> </span><span class="ss">&#39;recompile</span><span class="p">)</span>
@@ -322,13 +251,13 @@
 <span class="w">        </span><span class="p">(</span><span class="nv">dired-mode</span><span class="w"> </span><span class="o">.</span><span class="w"> </span><span class="nv">hl-line-mode</span><span class="p">))</span>
 <span class="w"> </span><span class="nb">:config</span>
 <span class="w"> </span><span class="p">(</span><span class="k">setq</span><span class="w"> </span><span class="nv">dired-dwim-target</span><span class="w"> </span><span class="no">t</span>
+<span class="w">       </span><span class="nv">dired-maybe-use-globstar</span><span class="w"> </span><span class="no">t</span>
+<span class="w">       </span><span class="nv">dired-isearch-filenames</span><span class="w"> </span><span class="ss">&#39;dwim</span>
 <span class="w">       </span><span class="c1">;; -A, all files - except &#39;.&#39; &amp; &#39;..&#39;</span>
-<span class="w">       </span><span class="c1">;; -F, add symbols denoting object type (file, directory, etc.)</span>
 <span class="w">       </span><span class="c1">;; -G, omit owning group</span>
 <span class="w">       </span><span class="c1">;; -h, human readable file sizes</span>
 <span class="w">       </span><span class="c1">;; -l, long listing, required for dired.</span>
-<span class="w">       </span><span class="c1">;; -v, natural sort of (version) numbers within text</span>
-<span class="w">       </span><span class="nv">dired-listing-switches</span><span class="w"> </span><span class="s">&quot;-AFGhlvX --group-directories-first --time-style=long-iso&quot;</span><span class="p">))</span>
+<span class="w">       </span><span class="nv">dired-listing-switches</span><span class="w"> </span><span class="s">&quot;-AGhl --group-directories-first --time-style=long-iso&quot;</span><span class="p">))</span>
 
 <span class="p">(</span><span class="k">setq</span><span class="w"> </span><span class="nv">project-vc-extra-root-markers</span><span class="w"> </span><span class="o">&#39;</span><span class="p">(</span><span class="s">&quot;Cargo.toml&quot;</span>
 <span class="w">                                      </span><span class="s">&quot;package.json&quot;</span>
@@ -447,24 +376,6 @@
 <span class="w">  </span><span class="nb">:load-path</span><span class="w"> </span><span class="s">&quot;lisp/&quot;</span>
 <span class="w">  </span><span class="nb">:bind</span><span class="w"> </span><span class="p">(</span><span class="s">&quot;C-x v w&quot;</span><span class="w"> </span><span class="o">.</span><span class="w"> </span><span class="nv">alc-git-permalink-to-kill-ring</span><span class="p">))</span>
 
-<span class="p">(</span><span class="nb">use-package</span><span class="w"> </span><span class="nv">alc-modeline</span>
-<span class="w">  </span><span class="nb">:after</span><span class="w"> </span><span class="p">(</span><span class="nv">modus-themes</span><span class="p">)</span>
-<span class="w">  </span><span class="nb">:load-path</span><span class="w"> </span><span class="s">&quot;lisp&quot;</span>
-<span class="w">  </span><span class="nb">:config</span>
-<span class="w">  </span><span class="p">(</span><span class="k">setq-default</span><span class="w"> </span><span class="nv">mode-line-format</span>
-<span class="w">             </span><span class="o">&#39;</span><span class="p">(</span><span class="s">&quot;%e&quot;</span>
-<span class="w">               </span><span class="nv">mode-line-front-space</span>
-<span class="w">               </span><span class="nv">alc-modeline-window-dedicated</span>
-<span class="w">               </span><span class="nv">alc-modeline-project-identification</span>
-<span class="w">               </span><span class="s">&quot;  &quot;</span>
-<span class="w">               </span><span class="nv">alc-modeline-remote-indication</span>
-<span class="w">               </span><span class="nv">alc-modeline-buffer-identification</span>
-<span class="w">               </span><span class="s">&quot; &quot;</span>
-<span class="w">               </span><span class="nv">alc-modeline-buffer-position</span>
-<span class="w">               </span><span class="s">&quot;      &quot;</span>
-<span class="w">               </span><span class="nv">mode-line-modes</span>
-<span class="w">               </span><span class="p">)))</span>
-
 <span class="p">(</span><span class="nb">use-package</span><span class="w"> </span><span class="nv">python</span>
 <span class="w">  </span><span class="nb">:hook</span><span class="w"> </span><span class="p">((</span><span class="nv">python-mode</span><span class="w"> </span><span class="o">.</span><span class="w"> </span><span class="nv">alc-python-mode-hook</span><span class="p">)</span>
 <span class="w">         </span><span class="p">(</span><span class="nv">python-ts-mode</span><span class="w"> </span><span class="o">.</span><span class="w"> </span><span class="nv">alc-python-mode-hook</span><span class="p">))</span>
@@ -565,6 +476,82 @@
 <span class="w">  </span><span class="nb">:after</span><span class="w"> </span><span class="nv">denote</span>
 <span class="w">  </span><span class="nb">:custom</span>
 <span class="w">  </span><span class="p">(</span><span class="nv">denote-sequence-scheme</span><span class="w"> </span><span class="ss">&#39;numeric</span><span class="p">))</span>
+
+<span class="p">(</span><span class="nb">use-package</span><span class="w"> </span><span class="nv">eat</span>
+<span class="w">  </span><span class="nb">:ensure</span><span class="w"> </span><span class="no">t</span>
+<span class="w">  </span><span class="nb">:hook</span><span class="w"> </span><span class="p">(</span><span class="nv">eshell-load</span><span class="w"> </span><span class="o">.</span><span class="w"> </span><span class="nv">eat-eshell-mode</span><span class="p">))</span>
+
+<span class="p">(</span><span class="nv">set-face-attribute</span><span class="w"> </span><span class="ss">&#39;default</span><span class="w"> </span><span class="no">nil</span><span class="w"> </span><span class="nb">:family</span><span class="w"> </span><span class="s">&quot;UbuntuMonoNerdFont&quot;</span><span class="w"> </span><span class="nb">:height</span><span class="w"> </span><span class="mi">120</span><span class="p">)</span>
+<span class="p">(</span><span class="nv">set-face-attribute</span><span class="w"> </span><span class="ss">&#39;fixed-pitch</span><span class="w"> </span><span class="no">nil</span><span class="w"> </span><span class="nb">:family</span><span class="w"> </span><span class="s">&quot;UbuntuMonoNerdFont&quot;</span><span class="w"> </span><span class="nb">:height</span><span class="w"> </span><span class="mi">120</span><span class="p">)</span>
+<span class="p">(</span><span class="nv">set-face-attribute</span><span class="w"> </span><span class="ss">&#39;variable-pitch</span><span class="w"> </span><span class="no">nil</span><span class="w"> </span><span class="nb">:family</span><span class="w"> </span><span class="s">&quot;UbuntuSansNerdFont&quot;</span><span class="w"> </span><span class="nb">:weight</span><span class="w"> </span><span class="ss">&#39;light</span><span class="w"> </span><span class="nb">:height</span><span class="w"> </span><span class="mi">120</span><span class="p">)</span>
+
+<span class="p">(</span><span class="nb">use-package</span><span class="w"> </span><span class="nv">nerd-icons</span>
+<span class="w">  </span><span class="nb">:ensure</span><span class="w"> </span><span class="no">t</span><span class="p">)</span>
+
+<span class="p">(</span><span class="nb">use-package</span><span class="w"> </span><span class="nv">alc-theme</span>
+<span class="w">  </span><span class="nb">:load-path</span><span class="w"> </span><span class="s">&quot;lisp&quot;</span>
+<span class="w">  </span><span class="nb">:config</span>
+<span class="w">  </span><span class="p">(</span><span class="nv">add-to-list</span><span class="w"> </span><span class="ss">&#39;after-make-frame-functions</span><span class="w"> </span><span class="ss">&#39;alc-theme-sync-to-system-theme</span><span class="p">))</span>
+
+<span class="p">(</span><span class="nv">add-hook</span><span class="w"> </span><span class="ss">&#39;prog-mode-hook</span><span class="w"> </span><span class="p">(</span><span class="nb">lambda</span><span class="w"> </span><span class="p">()</span><span class="w"> </span><span class="p">(</span><span class="nv">display-line-numbers-mode</span><span class="w"> </span><span class="no">t</span><span class="p">)))</span>
+
+<span class="p">(</span><span class="k">setq-default</span><span class="w"> </span><span class="nv">display-line-numbers-widen</span><span class="w"> </span><span class="no">t</span>
+<span class="w">              </span><span class="nv">display-line-numbers-width</span><span class="w"> </span><span class="mi">4</span><span class="p">)</span>
+
+<span class="p">(</span><span class="k">setq</span><span class="w"> </span><span class="nv">pixel-scroll-precision-use-momentum</span><span class="w"> </span><span class="no">nil</span>
+<span class="w">      </span><span class="nv">pixel-scroll-precision-interpolate-page</span><span class="w"> </span><span class="no">t</span>
+<span class="w">      </span><span class="nv">pixel-scroll-precision-momentum-seconds</span><span class="w"> </span><span class="mf">0.5</span><span class="p">)</span>
+<span class="p">(</span><span class="nv">pixel-scroll-precision-mode</span><span class="w"> </span><span class="no">t</span><span class="p">)</span>
+
+<span class="p">(</span><span class="k">setq</span><span class="w"> </span><span class="nv">tab-bar-close-button-show</span><span class="w"> </span><span class="no">nil</span><span class="p">)</span>
+<span class="p">(</span><span class="k">setq</span><span class="w"> </span><span class="nv">tab-bar-tab-hints</span><span class="w"> </span><span class="no">t</span><span class="p">)</span>
+<span class="p">(</span><span class="k">setq</span><span class="w"> </span><span class="nv">tab-bar-auto-width</span><span class="w"> </span><span class="no">nil</span><span class="p">)</span>
+<span class="p">(</span><span class="k">setq</span><span class="w"> </span><span class="nv">tab-bar-format</span><span class="w"> </span><span class="o">&#39;</span><span class="p">(</span><span class="nv">tab-bar-format-tabs-groups</span>
+<span class="w">                       </span><span class="nv">tab-bar-separator</span>
+<span class="w">                       </span><span class="nv">tab-bar-format-align-right</span>
+<span class="w">                       </span><span class="nv">tab-bar-format-global</span>
+<span class="w">                       </span><span class="nv">tab-bar-format-menu-bar</span><span class="p">))</span>
+
+<span class="p">(</span><span class="nb">defun</span><span class="w"> </span><span class="nv">alc-tab-bar-tab-name-format-hints</span><span class="w"> </span><span class="p">(</span><span class="nv">name</span><span class="w"> </span><span class="nv">_tab</span><span class="w"> </span><span class="nv">i</span><span class="p">)</span>
+<span class="w">  </span><span class="p">(</span><span class="k">if</span><span class="w"> </span><span class="nv">tab-bar-tab-hints</span><span class="w"> </span><span class="p">(</span><span class="nf">concat</span><span class="w"> </span><span class="p">(</span><span class="nf">format</span><span class="w"> </span><span class="s">&quot;-%d-&quot;</span><span class="w"> </span><span class="nv">i</span><span class="p">)</span><span class="w"> </span><span class="s">&quot;&quot;</span><span class="p">)</span><span class="w"> </span><span class="nv">name</span><span class="p">))</span>
+
+<span class="p">(</span><span class="nb">defun</span><span class="w"> </span><span class="nv">alc-tab-bar-tab-group-format-function</span><span class="w"> </span><span class="p">(</span><span class="nv">tab</span><span class="w"> </span><span class="nv">i</span><span class="w"> </span><span class="kp">&amp;optional</span><span class="w"> </span><span class="nv">current-p</span><span class="p">)</span>
+<span class="w">  </span><span class="p">(</span><span class="nf">propertize</span>
+<span class="w">   </span><span class="p">(</span><span class="nf">concat</span><span class="w"> </span><span class="p">(</span><span class="nf">funcall</span><span class="w"> </span><span class="nv">tab-bar-tab-group-function</span><span class="w"> </span><span class="nv">tab</span><span class="p">))</span>
+<span class="w">   </span><span class="ss">&#39;face</span><span class="w"> </span><span class="p">(</span><span class="k">if</span><span class="w"> </span><span class="nv">current-p</span><span class="w"> </span><span class="ss">&#39;tab-bar-tab-group-current</span><span class="w"> </span><span class="ss">&#39;tab-bar-tab-group-inactive</span><span class="p">)))</span>
+
+<span class="p">(</span><span class="k">setq</span><span class="w"> </span><span class="nv">tab-bar-tab-group-format-function</span><span class="w"> </span><span class="ss">&#39;alc-tab-bar-tab-group-format-function</span><span class="p">)</span>
+<span class="p">(</span><span class="k">setq</span><span class="w"> </span><span class="nv">tab-bar-tab-name-format-functions</span><span class="w"> </span><span class="o">&#39;</span><span class="p">(</span><span class="nv">alc-tab-bar-tab-name-format-hints</span>
+<span class="w">                                          </span><span class="nv">tab-bar-tab-name-format-close-button</span>
+<span class="w">                                          </span><span class="nv">tab-bar-tab-name-format-face</span><span class="p">))</span>
+
+<span class="c1">;; Disable the menu-bar, since it&#39;s accessible via the tab bar.</span>
+<span class="p">(</span><span class="nv">menu-bar-mode</span><span class="w"> </span><span class="mi">-1</span><span class="p">)</span>
+<span class="p">(</span><span class="nv">add-hook</span><span class="w"> </span><span class="ss">&#39;after-init-hook</span><span class="w"> </span><span class="nf">#&#39;</span><span class="nv">tab-bar-mode</span><span class="p">)</span>
+
+<span class="p">(</span><span class="nv">display-battery-mode</span><span class="p">)</span>
+
+<span class="p">(</span><span class="k">setq</span><span class="w"> </span><span class="nv">display-time-format</span><span class="w"> </span><span class="s">&quot;%H:%M %d/%m/%y&quot;</span>
+<span class="w">      </span><span class="nv">display-time-default-load-average</span><span class="w"> </span><span class="no">nil</span><span class="p">)</span>
+<span class="p">(</span><span class="nv">display-time-mode</span><span class="p">)</span>
+
+<span class="p">(</span><span class="nb">use-package</span><span class="w"> </span><span class="nv">alc-modeline</span>
+<span class="w">  </span><span class="nb">:after</span><span class="w"> </span><span class="nv">alc-theme</span>
+<span class="w">  </span><span class="nb">:load-path</span><span class="w"> </span><span class="s">&quot;lisp&quot;</span>
+<span class="w">  </span><span class="nb">:config</span>
+<span class="w">  </span><span class="p">(</span><span class="k">setq-default</span><span class="w"> </span><span class="nv">mode-line-format</span>
+<span class="w">             </span><span class="o">&#39;</span><span class="p">(</span><span class="s">&quot;%e&quot;</span>
+<span class="w">               </span><span class="nv">mode-line-front-space</span>
+<span class="w">               </span><span class="nv">alc-modeline-window-dedicated</span>
+<span class="w">               </span><span class="nv">alc-modeline-project-identification</span>
+<span class="w">               </span><span class="s">&quot;  &quot;</span>
+<span class="w">               </span><span class="nv">alc-modeline-remote-indication</span>
+<span class="w">               </span><span class="nv">alc-modeline-buffer-identification</span>
+<span class="w">               </span><span class="s">&quot; &quot;</span>
+<span class="w">               </span><span class="nv">alc-modeline-buffer-position</span>
+<span class="w">               </span><span class="s">&quot;      &quot;</span>
+<span class="w">               </span><span class="nv">mode-line-modes</span>
+<span class="w">               </span><span class="p">)))</span>
 </pre></div>
 
   </div>

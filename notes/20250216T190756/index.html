@@ -105,15 +105,6 @@
   <nav id="localtoc">
     <ul>
 <li><a class="reference internal" href="#">My Emacs Configuration</a><ul>
-<li><a class="reference internal" href="#appearance">Appearance</a><ul>
-<li><a class="reference internal" href="#fonts">Fonts</a></li>
-<li><a class="reference internal" href="#line-numbers">Line Numbers</a></li>
-<li><a class="reference internal" href="#scrolling">Scrolling</a></li>
-<li><a class="reference internal" href="#tab-bar">Tab Bar</a></li>
-<li><a class="reference internal" href="#theme">Theme</a></li>
-<li><a class="reference internal" href="#miscellaneous">Miscellaneous</a></li>
-</ul>
-</li>
 <li><a class="reference internal" href="#basic-editing">Basic Editing</a><ul>
 <li><a class="reference internal" href="#backup-files">Backup Files</a></li>
 <li><a class="reference internal" href="#repeat-mode">Repeat Mode</a></li>
@@ -201,12 +192,33 @@
   </details>
   </li>
       <li>
+  <details >
+    <summary>
+      
+  <a class="reference internal" href="../20250708T202145/">
+    Emacs Appearance
+  </a>
+  
+
+    </summary>
+    <ul>
+      <li>
     
   <a class="reference internal" href="../20250228T200007/">
     Cusomising the Emacs Modeline
   </a>
   
 </li>
+      <li>
+    
+  <a class="reference internal" href="../20250708T133920/">
+    Themes
+  </a>
+  
+</li>
+    </ul>
+  </details>
+  </li>
       <li>
     
   <a class="reference internal" href="../20250303T122920/">
@@ -236,6 +248,27 @@
     
   <a class="reference internal" href="../../blog/2025/installing-emacs-with-systemd-sysext/">
     Intstalling Emacs with systemd-sysext
+  </a>
+  
+</li>
+    </ul>
+  </details>
+  </li>
+      <li>
+  <details >
+    <summary>
+      
+  <a class="reference internal" href="../20250705T225452/">
+    Running shells and terminals
+  </a>
+  
+
+    </summary>
+    <ul>
+      <li>
+    
+  <a class="reference internal" href="../20250705T225630/">
+    Eat: Emulate a Terminal
   </a>
   
 </li>
@@ -331,203 +364,6 @@ However, this does not happen when launching Emacs via krunner and so it fails t
 </div>
 </div>
 </div>
-<section id="appearance">
-<h2>Appearance<a class="headerlink" href="#appearance" title="Link to this heading">¶</a></h2>
-<section id="fonts">
-<h3>Fonts<a class="headerlink" href="#fonts" title="Link to this heading">¶</a></h3>
-<p>I quite like the Ubuntu family of fonts, but use the “Nerd Font” version to get some extra icons</p>
-<div class="awdur-codeblock docutils container">
-<div class="awdur-codeblock-header docutils container">
-<code class="awdur-codeblock-filename docutils literal notranslate"><span class="pre">emacs/init.el</span></code></div>
-<div class="highlight-elisp notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="nv">set-face-attribute</span><span class="w"> </span><span class="ss">&#39;default</span><span class="w"> </span><span class="no">nil</span><span class="w"> </span><span class="nb">:family</span><span class="w"> </span><span class="s">&quot;UbuntuMonoNerdFont&quot;</span><span class="w"> </span><span class="nb">:height</span><span class="w"> </span><span class="mi">120</span><span class="p">)</span>
-<span class="p">(</span><span class="nv">set-face-attribute</span><span class="w"> </span><span class="ss">&#39;fixed-pitch</span><span class="w"> </span><span class="no">nil</span><span class="w"> </span><span class="nb">:family</span><span class="w"> </span><span class="s">&quot;UbuntuMonoNerdFont&quot;</span><span class="w"> </span><span class="nb">:height</span><span class="w"> </span><span class="mi">120</span><span class="p">)</span>
-<span class="p">(</span><span class="nv">set-face-attribute</span><span class="w"> </span><span class="ss">&#39;variable-pitch</span><span class="w"> </span><span class="no">nil</span><span class="w"> </span><span class="nb">:family</span><span class="w"> </span><span class="s">&quot;UbuntuSansNerdFont&quot;</span><span class="w"> </span><span class="nb">:weight</span><span class="w"> </span><span class="ss">&#39;light</span><span class="w"> </span><span class="nb">:height</span><span class="w"> </span><span class="mi">120</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-<p>Make it easy to get relevant nerd icons</p>
-<div class="awdur-codeblock docutils container">
-<div class="awdur-codeblock-header docutils container">
-<code class="awdur-codeblock-filename docutils literal notranslate"><span class="pre">emacs/init.el</span></code></div>
-<div class="highlight-elisp notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="nb">use-package</span><span class="w"> </span><span class="nv">nerd-icons</span>
-<span class="w">  </span><span class="nb">:ensure</span><span class="w"> </span><span class="no">t</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-</section>
-<section id="line-numbers">
-<h3>Line Numbers<a class="headerlink" href="#line-numbers" title="Link to this heading">¶</a></h3>
-<p>Enable line numbers for programming modes</p>
-<div class="awdur-codeblock docutils container">
-<div class="awdur-codeblock-header docutils container">
-<code class="awdur-codeblock-filename docutils literal notranslate"><span class="pre">emacs/init.el</span></code></div>
-<div class="highlight-elisp notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="nv">add-hook</span><span class="w"> </span><span class="ss">&#39;prog-mode-hook</span><span class="w"> </span><span class="p">(</span><span class="nb">lambda</span><span class="w"> </span><span class="p">()</span><span class="w"> </span><span class="p">(</span><span class="nv">display-line-numbers-mode</span><span class="w"> </span><span class="no">t</span><span class="p">)))</span>
-</pre></div>
-</div>
-</div>
-<p>Reserve enough space to display a line number that is 4 digits long and when a buffer is narrowed, always display the actual line number.</p>
-<div class="awdur-codeblock docutils container">
-<div class="awdur-codeblock-header docutils container">
-<code class="awdur-codeblock-filename docutils literal notranslate"><span class="pre">emacs/init.el</span></code></div>
-<div class="highlight-elisp notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="k">setq-default</span><span class="w"> </span><span class="nv">display-line-numbers-widen</span><span class="w"> </span><span class="no">t</span>
-<span class="w">              </span><span class="nv">display-line-numbers-width</span><span class="w"> </span><span class="mi">4</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-</section>
-<section id="scrolling">
-<h3>Scrolling<a class="headerlink" href="#scrolling" title="Link to this heading">¶</a></h3>
-<p>With Emacs 29 came <code class="docutils literal notranslate"><span class="pre">pixel-scroll-precision-mode</span></code> which makes the scrolling with a touchpad experience much nicer overall.</p>
-<div class="awdur-codeblock docutils container">
-<div class="awdur-codeblock-header docutils container">
-<code class="awdur-codeblock-filename docutils literal notranslate"><span class="pre">emacs/init.el</span></code></div>
-<div class="highlight-elisp notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="k">setq</span><span class="w"> </span><span class="nv">pixel-scroll-precision-use-momentum</span><span class="w"> </span><span class="no">nil</span>
-<span class="w">      </span><span class="nv">pixel-scroll-precision-interpolate-page</span><span class="w"> </span><span class="no">t</span>
-<span class="w">      </span><span class="nv">pixel-scroll-precision-momentum-seconds</span><span class="w"> </span><span class="mf">0.5</span><span class="p">)</span>
-<span class="p">(</span><span class="nv">pixel-scroll-precision-mode</span><span class="w"> </span><span class="no">t</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-</section>
-<section id="tab-bar">
-<h3>Tab Bar<a class="headerlink" href="#tab-bar" title="Link to this heading">¶</a></h3>
-<p>Not to be confused with the tabs you see in editors like VSCode, tabs allow for easy switching between different collections of windows - like workspaces.</p>
-<p>As well as using the tab bar to show… well tabs, I also make use of the <code class="docutils literal notranslate"><span class="pre">tab-bar-format-global</span></code> variable to show global status information like battery levels.</p>
-<div class="awdur-codeblock docutils container">
-<div class="awdur-codeblock-header docutils container">
-<code class="awdur-codeblock-filename docutils literal notranslate"><span class="pre">emacs/init.el</span></code></div>
-<div class="highlight-elisp notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="k">setq</span><span class="w"> </span><span class="nv">tab-bar-format</span><span class="w"> </span><span class="o">&#39;</span><span class="p">(</span><span class="nv">tab-bar-format-tabs-groups</span>
-<span class="w">                       </span><span class="nv">tab-bar-format-align-right</span>
-<span class="w">                       </span><span class="nv">tab-bar-format-global</span>
-<span class="w">                       </span><span class="nv">tab-bar-format-menu-bar</span><span class="p">))</span>
-
-<span class="c1">;; Disable the menu-bar, since it&#39;s accessible via the tab bar.</span>
-<span class="p">(</span><span class="nv">menu-bar-mode</span><span class="w"> </span><span class="mi">-1</span><span class="p">)</span>
-<span class="p">(</span><span class="nv">add-hook</span><span class="w"> </span><span class="ss">&#39;after-init-hook</span><span class="w"> </span><span class="nf">#&#39;</span><span class="nv">tab-bar-mode</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-<p><strong>Battery Info</strong></p>
-<div class="awdur-codeblock docutils container">
-<div class="awdur-codeblock-header docutils container">
-<code class="awdur-codeblock-filename docutils literal notranslate"><span class="pre">emacs/init.el</span></code></div>
-<div class="highlight-elisp notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="nv">display-battery-mode</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-<p><strong>Time</strong></p>
-<div class="awdur-codeblock docutils container">
-<div class="awdur-codeblock-header docutils container">
-<code class="awdur-codeblock-filename docutils literal notranslate"><span class="pre">emacs/init.el</span></code></div>
-<div class="highlight-elisp notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="k">setq</span><span class="w"> </span><span class="nv">display-time-format</span><span class="w"> </span><span class="s">&quot;%H:%M %d/%m/%y&quot;</span>
-<span class="w">      </span><span class="nv">display-time-default-load-average</span><span class="w"> </span><span class="no">nil</span><span class="p">)</span>
-<span class="p">(</span><span class="nv">display-time-mode</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-</section>
-<section id="theme">
-<h3>Theme<a class="headerlink" href="#theme" title="Link to this heading">¶</a></h3>
-<p>The excellent <a class="reference external" href="https://protesilaos.com/emacs/modus-themes">modus-themes</a> are available out of the box in recent Emacs versions.</p>
-<div class="awdur-codeblock docutils container">
-<div class="awdur-codeblock-header docutils container">
-<code class="awdur-codeblock-filename docutils literal notranslate"><span class="pre">emacs/init.el</span></code></div>
-<div class="highlight-elisp notranslate"><div class="highlight"><pre><span></span><span class="c1">;; Use `setopt&#39; since modus supports automatically reloading the theme when these</span>
-<span class="c1">;; are changed via the `customize&#39; framework</span>
-<span class="p">(</span><span class="nv">setopt</span><span class="w"> </span><span class="nv">modus-themes-bold-constructs</span><span class="w"> </span><span class="no">t</span>
-<span class="w">        </span><span class="nv">modus-themes-italic-constructs</span><span class="w"> </span><span class="no">t</span>
-<span class="w">        </span><span class="nv">modus-themes-prompts</span><span class="w"> </span><span class="o">&#39;</span><span class="p">(</span><span class="nv">bold</span><span class="w"> </span><span class="nv">italic</span><span class="p">)</span>
-<span class="w">        </span><span class="nv">modus-themes-variable-pitch-ui</span><span class="w"> </span><span class="no">nil</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-<p>Loading them seems slighty complicated though?</p>
-<p>I want to run one of the <code class="docutils literal notranslate"><span class="pre">modus-themes-load-&lt;variant&gt;</span></code> functions so that the <code class="docutils literal notranslate"><span class="pre">modus-themes-after-load-theme-hook</span></code> hook is run however, these functions are not initially loaded by Emacs.
-<code class="docutils literal notranslate"><span class="pre">(require</span> <span class="pre">'modus-themes)</span></code> does not work either, so I first have to run <code class="docutils literal notranslate"><span class="pre">(load-theme</span> <span class="pre">'modus-&lt;variant&gt;</span> <span class="pre">t)</span></code> which will load the relevant module and then load the theme a second time with <code class="docutils literal notranslate"><span class="pre">(modus-themes-load-&lt;variant&gt;)</span></code>.</p>
-<div class="awdur-codeblock docutils container">
-<div class="awdur-codeblock-header docutils container">
-<code class="awdur-codeblock-filename docutils literal notranslate"><span class="pre">emacs/init.el</span></code></div>
-<div class="highlight-elisp notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="nb">defun</span><span class="w"> </span><span class="nv">alc-theme-load-theme</span><span class="w"> </span><span class="p">(</span><span class="nv">variant</span><span class="p">)</span>
-<span class="w">  </span><span class="s">&quot;Load the light or dark theme according to VARIANT.&quot;</span>
-<span class="w">  </span><span class="p">(</span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="nf">eq</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="nv">variant</span><span class="p">)</span>
-<span class="w">     </span><span class="p">(</span><span class="k">progn</span>
-<span class="w">       </span><span class="p">(</span><span class="nv">load-theme</span><span class="w"> </span><span class="ss">&#39;modus-vivendi</span><span class="w"> </span><span class="no">t</span><span class="p">)</span>
-<span class="w">       </span><span class="p">(</span><span class="nv">modus-themes-load-theme</span><span class="w"> </span><span class="ss">&#39;modus-vivendi</span><span class="p">))</span>
-<span class="w">    </span><span class="p">(</span><span class="nv">load-theme</span><span class="w"> </span><span class="ss">&#39;modus-operandi</span><span class="w"> </span><span class="no">t</span><span class="p">)</span>
-<span class="w">    </span><span class="p">(</span><span class="nv">modus-themes-load-theme</span><span class="w"> </span><span class="ss">&#39;modus-operandi</span><span class="p">)))</span>
-</pre></div>
-</div>
-</div>
-<p>Specifics of theme loading aside, let’s pick a variant based on the current system theme.
-(Thanks to <a class="reference external" href="https://github.com/LionyxML/auto-dark-emacs">auto-dark-emacs</a> for the DBus specifics.)</p>
-<div class="awdur-codeblock docutils container">
-<div class="awdur-codeblock-header docutils container">
-<code class="awdur-codeblock-filename docutils literal notranslate"><span class="pre">emacs/init.el</span></code></div>
-<div class="highlight-elisp notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="nb">when</span><span class="w"> </span><span class="p">(</span><span class="nv">display-graphic-p</span><span class="p">)</span>
-<span class="w">  </span><span class="p">(</span><span class="nv">alc-theme-load-theme</span>
-<span class="w">    </span><span class="p">(</span><span class="nv">caar</span><span class="w"> </span><span class="p">(</span><span class="nv">dbus-call-method</span>
-<span class="w">           </span><span class="nb">:session</span>
-<span class="w">           </span><span class="s">&quot;org.freedesktop.portal.Desktop&quot;</span>
-<span class="w">           </span><span class="s">&quot;/org/freedesktop/portal/desktop&quot;</span>
-<span class="w">           </span><span class="s">&quot;org.freedesktop.portal.Settings&quot;</span><span class="w"> </span><span class="s">&quot;Read&quot;</span>
-<span class="w">           </span><span class="s">&quot;org.freedesktop.appearance&quot;</span><span class="w"> </span><span class="s">&quot;color-scheme&quot;</span><span class="p">))))</span>
-</pre></div>
-</div>
-</div>
-<p>Also, set up a listener so that Emacs automatically updates if the preference changes (again, thanks to <code class="docutils literal notranslate"><span class="pre">auto-dark-emacs</span></code> for the DBus incantation)</p>
-<div class="awdur-codeblock docutils container">
-<div class="awdur-codeblock-header docutils container">
-<code class="awdur-codeblock-filename docutils literal notranslate"><span class="pre">emacs/init.el</span></code></div>
-<div class="highlight-elisp notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="nb">when</span><span class="w"> </span><span class="p">(</span><span class="nv">display-graphic-p</span><span class="p">)</span>
-<span class="w">   </span><span class="p">(</span><span class="k">setq</span><span class="w"> </span><span class="nv">alc-theme-dbus-listener</span>
-<span class="w">         </span><span class="p">(</span><span class="nv">dbus-register-signal</span>
-<span class="w">          </span><span class="nb">:session</span>
-<span class="w">          </span><span class="s">&quot;org.freedesktop.portal.Desktop&quot;</span>
-<span class="w">          </span><span class="s">&quot;/org/freedesktop/portal/desktop&quot;</span>
-<span class="w">          </span><span class="s">&quot;org.freedesktop.portal.Settings&quot;</span>
-<span class="w">          </span><span class="s">&quot;SettingChanged&quot;</span>
-<span class="w">          </span><span class="p">(</span><span class="nb">lambda</span><span class="w"> </span><span class="p">(</span><span class="nv">path</span><span class="w"> </span><span class="nv">var</span><span class="w"> </span><span class="nv">val</span><span class="p">)</span>
-<span class="w">            </span><span class="p">(</span><span class="nb">when</span><span class="w"> </span><span class="p">(</span><span class="k">and</span><span class="w"> </span><span class="p">(</span><span class="nf">string=</span><span class="w"> </span><span class="nv">path</span><span class="w"> </span><span class="s">&quot;org.freedesktop.appearance&quot;</span><span class="p">)</span>
-<span class="w">                       </span><span class="p">(</span><span class="nf">string=</span><span class="w"> </span><span class="nv">var</span><span class="w"> </span><span class="s">&quot;color-scheme&quot;</span><span class="p">))</span>
-<span class="w">              </span><span class="p">(</span><span class="nv">alc-theme-load-theme</span><span class="w"> </span><span class="p">(</span><span class="nf">car</span><span class="w"> </span><span class="nv">val</span><span class="p">)))))))</span>
-</pre></div>
-</div>
-</div>
-<p>If I ever need to, the listener can be disabled by running <code class="docutils literal notranslate"><span class="pre">(dbus-unregister-object</span> <span class="pre">alc-theme-dbus-listener)</span></code></p>
-<p>However, the dbus code fails when I am SSH-ing into my Raspberry Pi so in that case we just want a theme loaded and be done with it.</p>
-<div class="awdur-codeblock docutils container">
-<div class="awdur-codeblock-header docutils container">
-<code class="awdur-codeblock-filename docutils literal notranslate"><span class="pre">emacs/init.el</span></code></div>
-<div class="highlight-elisp notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="nb">unless</span><span class="w"> </span><span class="p">(</span><span class="nv">display-graphic-p</span><span class="p">)</span>
-<span class="w">  </span><span class="p">(</span><span class="nv">alc-theme-load-theme</span><span class="w"> </span><span class="mi">1</span><span class="p">))</span><span class="w"> </span><span class="c1">; dark</span>
-</pre></div>
-</div>
-</div>
-</section>
-<section id="miscellaneous">
-<h3>Miscellaneous<a class="headerlink" href="#miscellaneous" title="Link to this heading">¶</a></h3>
-<p>Disable some GUI elements</p>
-<div class="awdur-codeblock docutils container">
-<div class="awdur-codeblock-header docutils container">
-<code class="awdur-codeblock-filename docutils literal notranslate"><span class="pre">emacs/early-init.el</span></code></div>
-<div class="highlight-elisp notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="nv">blink-cursor-mode</span><span class="w"> </span><span class="mi">-1</span><span class="p">)</span>
-<span class="p">(</span><span class="nv">tool-bar-mode</span><span class="w"> </span><span class="mi">-1</span><span class="p">)</span>
-
-<span class="p">(</span><span class="k">setq</span><span class="w"> </span><span class="nv">inhibit-x-resources</span><span class="w"> </span><span class="no">t</span>
-<span class="w">      </span><span class="nv">inhibit-startup-message</span><span class="w"> </span><span class="no">t</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-<p>And enable others</p>
-<div class="awdur-codeblock docutils container">
-<div class="awdur-codeblock-header docutils container">
-<code class="awdur-codeblock-filename docutils literal notranslate"><span class="pre">emacs/early-init.el</span></code></div>
-<div class="highlight-elisp notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="nv">context-menu-mode</span><span class="w"> </span><span class="no">t</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-</section>
-</section>
 <section id="basic-editing">
 <h2>Basic Editing<a class="headerlink" href="#basic-editing" title="Link to this heading">¶</a></h2>
 <div class="awdur-codeblock docutils container">
@@ -614,8 +450,10 @@ Uses <code class="docutils literal notranslate"><span class="pre">whitespace-dis
 
 <span class="p">(</span><span class="nv">add-to-list</span><span class="w"> </span><span class="ss">&#39;display-buffer-alist</span>
 <span class="w">             </span><span class="o">&#39;</span><span class="p">(</span><span class="s">&quot;\\*compilation\\*&quot;</span>
-<span class="w">               </span><span class="p">(</span><span class="nv">display-buffer-in-previous-window</span><span class="w"> </span><span class="nv">display-buffer-at-bottom</span><span class="p">)</span>
-<span class="w">               </span><span class="p">(</span><span class="nv">inhibit-same-window</span><span class="w"> </span><span class="o">.</span><span class="w"> </span><span class="no">t</span><span class="p">)</span>
+<span class="w">               </span><span class="p">(</span><span class="nv">display-buffer-reuse-window</span>
+<span class="w">                </span><span class="nv">display-buffer-in-previous-window</span>
+<span class="w">                </span><span class="nv">display-buffer-reuse-mode-window</span>
+<span class="w">                </span><span class="nv">display-buffer-at-bottom</span><span class="p">)</span>
 <span class="w">               </span><span class="p">(</span><span class="nv">window-height</span><span class="w"> </span><span class="o">.</span><span class="w"> </span><span class="mf">0.25</span><span class="p">)))</span>
 </pre></div>
 </div>
@@ -825,13 +663,13 @@ However, once it is open keep it updated and only focus it on the second complet
 <span class="w">        </span><span class="p">(</span><span class="nv">dired-mode</span><span class="w"> </span><span class="o">.</span><span class="w"> </span><span class="nv">hl-line-mode</span><span class="p">))</span>
 <span class="w"> </span><span class="nb">:config</span>
 <span class="w"> </span><span class="p">(</span><span class="k">setq</span><span class="w"> </span><span class="nv">dired-dwim-target</span><span class="w"> </span><span class="no">t</span>
+<span class="w">       </span><span class="nv">dired-maybe-use-globstar</span><span class="w"> </span><span class="no">t</span>
+<span class="w">       </span><span class="nv">dired-isearch-filenames</span><span class="w"> </span><span class="ss">&#39;dwim</span>
 <span class="w">       </span><span class="c1">;; -A, all files - except &#39;.&#39; &amp; &#39;..&#39;</span>
-<span class="w">       </span><span class="c1">;; -F, add symbols denoting object type (file, directory, etc.)</span>
 <span class="w">       </span><span class="c1">;; -G, omit owning group</span>
 <span class="w">       </span><span class="c1">;; -h, human readable file sizes</span>
 <span class="w">       </span><span class="c1">;; -l, long listing, required for dired.</span>
-<span class="w">       </span><span class="c1">;; -v, natural sort of (version) numbers within text</span>
-<span class="w">       </span><span class="nv">dired-listing-switches</span><span class="w"> </span><span class="s">&quot;-AFGhlvX --group-directories-first --time-style=long-iso&quot;</span><span class="p">))</span>
+<span class="w">       </span><span class="nv">dired-listing-switches</span><span class="w"> </span><span class="s">&quot;-AGhl --group-directories-first --time-style=long-iso&quot;</span><span class="p">))</span>
 </pre></div>
 </div>
 </div>

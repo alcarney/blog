@@ -5,7 +5,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>Building Emacs from Source &#8212; Alex Carney</title>
+    <title>Starship config &#8212; Alex Carney</title>
 
     <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=02ca0aaa" />
     <link id="pygments_dark_css" media="(prefers-color-scheme: dark)" rel="stylesheet" type="text/css" href="../../_static/pygments_dark.css?v=d8568271" />
@@ -91,164 +91,29 @@
     <h5 style="grid-column: span 2">Metadata</h5><svg xmlns="http://www.w3.org/2000/svg" width="2em" fill="none" viewBox="0 0 24 24" stroke="currentColor">
     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
 </svg>
-    <time style="align-self: center; text-align: right;" datetime="2025-04-09 00:00:00+00:00">Apr 09, 2025</time><svg xmlns="http://www.w3.org/2000/svg" width="2em" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+    <time style="align-self: center; text-align: right;" datetime="2025-07-07 00:00:00+00:00">Jul 07, 2025</time><svg xmlns="http://www.w3.org/2000/svg" width="2em" fill="none" viewBox="0 0 24 24" stroke="currentColor">
     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z" />
 </svg>
     <ul class="taglist">
         <li>
-            <a class="tag" href="../../tag/emacs/">
-                #emacs
+            <a class="tag" href="../../tag/cli/">
+                #cli
             </a>
         </li>
     </ul>
 </section><section id="post-contents">
   <nav id="localtoc">
     <ul>
-<li><a class="reference internal" href="#">Building Emacs from Source</a></li>
+<li><a class="reference internal" href="#">Starship config</a><ul>
+<li><a class="reference internal" href="#config">Config</a><ul>
+<li><a class="reference internal" href="#jujutsu">Jujutsu</a></li>
+</ul>
+</li>
+</ul>
+</li>
 </ul>
 
   </nav>
-</section>
-<section id="post-related">
-  <h5>Related</h5>
-  
-  <details open>
-    <summary>
-      
-  <a class="reference internal" href="../20250216T190756/">
-    My Emacs Configuration
-  </a>
-  
-
-    </summary>
-    <ul>
-      <li>
-    
-  <a class="reference internal" href="../../blog/2024/local-llms-with-ollama-and-gptel/">
-    TIL: Local LLMs with Ollama and gptel
-  </a>
-  
-</li>
-      <li>
-  <details >
-    <summary>
-      
-  <a class="reference internal" href="../20250221T184014/">
-    Using git from Emacs
-  </a>
-  
-
-    </summary>
-    <ul>
-      <li>
-    
-  <a class="reference internal" href="../../blog/2025/til-additional-magit-keybindings/">
-    TIL: Additional magit keybindings
-  </a>
-  
-</li>
-      <li>
-    
-  <a class="reference internal" href="../../blog/2025/til-navigating-history-with-magit/">
-    TIL: Navigating History with Magit
-  </a>
-  
-</li>
-      <li>
-    
-  <a class="reference internal" href="../20250430T213500/">
-    Getting the permalink URL to a line of code
-  </a>
-  
-</li>
-    </ul>
-  </details>
-  </li>
-      <li>
-  <details >
-    <summary>
-      
-  <a class="reference internal" href="../20250708T202145/">
-    Emacs Appearance
-  </a>
-  
-
-    </summary>
-    <ul>
-      <li>
-    
-  <a class="reference internal" href="../20250228T200007/">
-    Cusomising the Emacs Modeline
-  </a>
-  
-</li>
-      <li>
-    
-  <a class="reference internal" href="../20250708T133920/">
-    Themes
-  </a>
-  
-</li>
-    </ul>
-  </details>
-  </li>
-      <li>
-    
-  <a class="reference internal" href="../20250303T122920/">
-    Python in Emacs
-  </a>
-  
-</li>
-      <li>
-    
-  <a class="reference internal" href="../20250305T195742/">
-    Language Servers in Emacs
-  </a>
-  
-</li>
-      <li>
-  <details open>
-    <summary>
-      
-    Building Emacs from Source
-  
-
-    </summary>
-    <ul>
-      <li>
-    
-  <a class="reference internal" href="../../blog/2025/installing-emacs-with-systemd-sysext/">
-    Intstalling Emacs with systemd-sysext
-  </a>
-  
-</li>
-    </ul>
-  </details>
-  </li>
-      <li>
-  <details >
-    <summary>
-      
-  <a class="reference internal" href="../20250705T225452/">
-    Running shells and terminals
-  </a>
-  
-
-    </summary>
-    <ul>
-      <li>
-    
-  <a class="reference internal" href="../20250705T225630/">
-    Eat: Emulate a Terminal
-  </a>
-  
-</li>
-    </ul>
-  </details>
-  </li>
-    </ul>
-  </details>
-  
 </section>
   </div>
 </aside>
@@ -264,58 +129,85 @@
     <div role="main" style="flex-grow: 1">
 
 <article>
-  <section id="building-emacs-from-source">
-<h1>Building Emacs from Source<a class="headerlink" href="#building-emacs-from-source" title="Link to this heading">¶</a></h1>
-<p>I suppose it was bound to happen sooner or later, the following is a simple script for building Emacs from source and installing it under <code class="docutils literal notranslate"><span class="pre">${HOME}/.local</span></code></p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/bin/bash</span>
-<span class="nb">set</span><span class="w"> </span>-eux
-
-<span class="nv">SRC</span><span class="o">=</span><span class="s2">&quot;</span><span class="si">${</span><span class="nv">HOME</span><span class="si">}</span><span class="s2">/Projects/gnu/emacs/master&quot;</span>
-<span class="nv">PREFIX</span><span class="o">=</span><span class="s2">&quot;</span><span class="si">${</span><span class="nv">HOME</span><span class="si">}</span><span class="s2">/.local&quot;</span>
-
-<span class="nb">pushd</span><span class="w"> </span><span class="s2">&quot;</span><span class="nv">$SRC</span><span class="s2">&quot;</span>
-
-<span class="c1"># Install build dependencies...</span>
-sudo<span class="w"> </span>dnf<span class="w"> </span>builddep<span class="w"> </span>-y<span class="w"> </span>emacs
-
-./configure<span class="w"> </span><span class="se">\</span>
-<span class="w">    </span>--prefix<span class="o">=</span><span class="s2">&quot;</span><span class="si">${</span><span class="nv">PREFIX</span><span class="si">}</span><span class="s2">&quot;</span><span class="w"> </span><span class="se">\</span>
-<span class="w">    </span>--disable-gc-mark-trace<span class="w"> </span><span class="se">\</span>
-<span class="w">    </span>--with-pgtk<span class="w"> </span><span class="se">\</span>
-<span class="w">    </span>--with-native-compilation<span class="o">=</span>aot<span class="w"> </span><span class="se">\</span>
-<span class="w">    </span>--without-x
-
-<span class="nb">read</span><span class="w"> </span>-p<span class="w"> </span><span class="s2">&quot;Continue? [y/N] &quot;</span><span class="w"> </span>-n<span class="w"> </span><span class="m">1</span><span class="w"> </span>-r
-
-<span class="k">if</span><span class="w"> </span><span class="o">[[</span><span class="w"> </span><span class="nv">$REPLY</span><span class="w"> </span><span class="o">=</span>~<span class="w"> </span>^<span class="o">[</span>Yy<span class="o">]</span>$<span class="w"> </span><span class="o">]]</span>
-<span class="k">then</span>
-<span class="w">    </span>make<span class="w"> </span>-j<span class="w"> </span><span class="k">$(</span>nproc<span class="k">)</span>
-<span class="k">fi</span>
+  <section id="starship-config">
+<h1>Starship config<a class="headerlink" href="#starship-config" title="Link to this heading">¶</a></h1>
+<p><a class="reference external" href="https://starship.rs/">Starship</a> is an all singing, all dancing framework for customising your shell prompt</p>
+<section id="config">
+<h2>Config<a class="headerlink" href="#config" title="Link to this heading">¶</a></h2>
+<p>Tell editors that support completions in TOML files where to find the schema.</p>
+<div class="awdur-codeblock docutils container">
+<div class="awdur-codeblock-header docutils container">
+<code class="awdur-codeblock-filename docutils literal notranslate"><span class="pre">starship.toml</span></code></div>
+<div class="highlight-toml notranslate"><div class="highlight"><pre><span></span><span class="s2">&quot;$schema&quot;</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;https://starship.rs/config-schema.json&#39;</span>
 </pre></div>
 </div>
-<p>Using Aurora as my OS poses a few challenges, so in order to make the above work</p>
-<ul>
-<li><p>The build itself was executed in a fedora distrobox</p></li>
-<li><p>I still have the fedora <code class="docutils literal notranslate"><span class="pre">emacs</span></code> package layered:</p>
-<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>$ rpm-ostree status
-State: idle
-AutomaticUpdates: stage; rpm-ostreed-automatic.timer: no runs since boot
-Deployments:
-
-● ostree-image-signed:docker://ghcr.io/ublue-os/aurora-dx:stable
-                   Digest: sha256:87643ac3caee7c17334a08dea4203266e81ab9c8de7a55ea5aed59a77ec28588
-                  Version: 41.20250330.1 (2025-03-30T06:02:52Z)
-          LayeredPackages: emacs
-
-  ostree-image-signed:docker://ghcr.io/ublue-os/aurora-dx:stable
-                   Digest: sha256:0b48d807d1e773328de4d82f344c2b53415c96249fac4eb3c9167522aede911d
-                  Version: 41.20250316.1 (2025-03-16T06:06:05Z)
-          LayeredPackages: emacs
+</div>
+<p>Ensure that there’s a blank link between prompts.</p>
+<div class="awdur-codeblock docutils container">
+<div class="awdur-codeblock-header docutils container">
+<code class="awdur-codeblock-filename docutils literal notranslate"><span class="pre">starship.toml</span></code></div>
+<div class="highlight-toml notranslate"><div class="highlight"><pre><span></span><span class="n">add_newline</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">true</span>
 </pre></div>
 </div>
-<p>I have not un-layered the package to test it, but my assumption is that this enables the version of Emacs I compile to work by ensuring all the runtime dependencies are present.</p>
-</li>
-</ul>
+</div>
+<section id="jujutsu">
+<h3>Jujutsu<a class="headerlink" href="#jujutsu" title="Link to this heading">¶</a></h3>
+<p>The following was pieced together using examples from the <a class="reference external" href="https://github.com/jj-vcs/jj/wiki/Starship">jj wiki</a></p>
+<div class="awdur-codeblock docutils container">
+<div class="awdur-codeblock-header docutils container">
+<code class="awdur-codeblock-filename docutils literal notranslate"><span class="pre">starship.toml</span></code></div>
+<div class="highlight-toml notranslate"><div class="highlight"><pre><span></span><span class="k">[custom.jj]</span>
+<span class="n">ignore_timeout</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">true</span>
+<span class="n">description</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;The current jj status&quot;</span>
+<span class="n">when</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;jj root --ignore-working-copy&quot;</span>
+<span class="n">symbol</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;jj &quot;</span>
+<span class="n">command</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;&#39;&#39;</span>
+<span class="s1">jj log --revisions @ --no-graph --ignore-working-copy --color always --limit 1 --template &#39;</span>
+<span class="s1">  separate(&quot; &quot;,</span>
+<span class="s1">    change_id.shortest(8),</span>
+<span class="s1">    bookmarks,</span>
+<span class="s1">    &quot;|&quot;,</span>
+<span class="s1">    concat(</span>
+<span class="s1">      if(conflict, &quot;✘&quot;),</span>
+<span class="s1">      if(divergent, &quot;&quot;),</span>
+<span class="s1">      if(hidden, &quot;&quot;),</span>
+<span class="s1">      if(immutable, &quot;◆&quot;),</span>
+<span class="s1">    ),</span>
+<span class="s1">    raw_escape_sequence(&quot;\x1b[1;32m&quot;) ++ if(empty, &quot;(empty)&quot;) ++ raw_escape_sequence(&quot;\x1b[0m&quot;),</span>
+<span class="s1">    raw_escape_sequence(&quot;\x1b[1;32m&quot;) ++ coalesce(</span>
+<span class="s1">      truncate_end(29, description.first_line(), &quot;…&quot;),</span>
+<span class="s1">      &quot;(no description set)&quot;,</span>
+<span class="s1">    ) ++ raw_escape_sequence(&quot;\x1b[0m&quot;),</span>
+<span class="s1">  )</span>
+<span class="s1">&#39;</span>
+<span class="s1">&#39;&#39;&#39;</span>
+</pre></div>
+</div>
+</div>
+<p>Of course, if we have git and jj co-located, we only want one to show</p>
+<div class="awdur-codeblock docutils container">
+<div class="awdur-codeblock-header docutils container">
+<code class="awdur-codeblock-filename docutils literal notranslate"><span class="pre">starship.toml</span></code></div>
+<div class="highlight-toml notranslate"><div class="highlight"><pre><span></span><span class="k">[git_state]</span>
+<span class="n">disabled</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">true</span>
+
+<span class="k">[git_commit]</span>
+<span class="n">disabled</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">true</span>
+
+<span class="k">[git_metrics]</span>
+<span class="n">disabled</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">true</span>
+
+<span class="k">[git_branch]</span>
+<span class="n">disabled</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">true</span>
+
+<span class="k">[custom.git_branch]</span>
+<span class="n">when</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">true</span>
+<span class="n">command</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;jj root --ignore-working-copy &gt;/dev/null 2&gt;&amp;1 || starship module git_branch&quot;</span>
+</pre></div>
+</div>
+</div>
+</section>
+</section>
 </section>
 
   <footer>
@@ -329,7 +221,7 @@ Deployments:
         <h6>Links</h6>
         <ul>
           <li>
-            <a href="../../_sources/content/20250409T205418==5=5--building-emacs-from-source__emacs.rst.txt" rel="nofollow">
+            <a href="../../_sources/content/20250707T194905--starship-config__cli.rst.txt" rel="nofollow">
               Page Source
             </a>
           </li>

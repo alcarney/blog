@@ -104,7 +104,15 @@
 </section><section id="post-contents">
   <nav id="localtoc">
     <ul>
-<li><a class="reference internal" href="#">Cusomising the Emacs Modeline</a></li>
+<li><a class="reference internal" href="#">Cusomising the Emacs Modeline</a><ul>
+<li><a class="reference internal" href="#project-indentification">Project Indentification</a></li>
+<li><a class="reference internal" href="#remote-indication">Remote Indication</a></li>
+<li><a class="reference internal" href="#buffer-identification">Buffer Identification</a></li>
+<li><a class="reference internal" href="#buffer-position">Buffer Position</a></li>
+<li><a class="reference internal" href="#dedidcated-windows">Dedidcated Windows</a></li>
+<li><a class="reference internal" href="#modus-theme-integration">Modus Theme Integration</a></li>
+</ul>
+</li>
 </ul>
 
   </nav>
@@ -165,10 +173,31 @@
   </details>
   </li>
       <li>
+  <details open>
+    <summary>
+      
+  <a class="reference internal" href="../20250708T202145/">
+    Emacs Appearance
+  </a>
+  
+
+    </summary>
+    <ul>
+      <li>
     
     Cusomising the Emacs Modeline
   
 </li>
+      <li>
+    
+  <a class="reference internal" href="../20250708T133920/">
+    Themes
+  </a>
+  
+</li>
+    </ul>
+  </details>
+  </li>
       <li>
     
   <a class="reference internal" href="../20250303T122920/">
@@ -204,6 +233,27 @@
     </ul>
   </details>
   </li>
+      <li>
+  <details >
+    <summary>
+      
+  <a class="reference internal" href="../20250705T225452/">
+    Running shells and terminals
+  </a>
+  
+
+    </summary>
+    <ul>
+      <li>
+    
+  <a class="reference internal" href="../20250705T225630/">
+    Eat: Emulate a Terminal
+  </a>
+  
+</li>
+    </ul>
+  </details>
+  </li>
     </ul>
   </details>
   
@@ -225,38 +275,6 @@
   <section id="cusomising-the-emacs-modeline">
 <h1>Cusomising the Emacs Modeline<a class="headerlink" href="#cusomising-the-emacs-modeline" title="Link to this heading">¶</a></h1>
 <p>Heavily inspired by Protesilaos’ excellent <a class="reference external" href="https://protesilaos.com/codelog/2023-07-29-emacs-custom-modeline-tutorial">tutorial</a> on writing custom modelines.</p>
-<p>For reference, here are the components that were in the default modeline</p>
-<ul class="simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">mode-line-mule-info</span></code></p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">mode-line-client</span></code></p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">mode-line-frame-identification</span></code></p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">mode-line-position</span></code></p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">mode-line-misc-info</span></code></p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">mode-line-end-spaces</span></code></p></li>
-</ul>
-<div class="awdur-codeblock docutils container">
-<div class="awdur-codeblock-header docutils container">
-<code class="awdur-codeblock-filename docutils literal notranslate"><span class="pre">emacs/init.el</span></code></div>
-<div class="highlight-elisp notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="nb">use-package</span><span class="w"> </span><span class="nv">alc-modeline</span>
-<span class="w">  </span><span class="nb">:after</span><span class="w"> </span><span class="p">(</span><span class="nv">modus-themes</span><span class="p">)</span>
-<span class="w">  </span><span class="nb">:load-path</span><span class="w"> </span><span class="s">&quot;lisp&quot;</span>
-<span class="w">  </span><span class="nb">:config</span>
-<span class="w">  </span><span class="p">(</span><span class="k">setq-default</span><span class="w"> </span><span class="nv">mode-line-format</span>
-<span class="w">             </span><span class="o">&#39;</span><span class="p">(</span><span class="s">&quot;%e&quot;</span>
-<span class="w">               </span><span class="nv">mode-line-front-space</span>
-<span class="w">               </span><span class="nv">alc-modeline-window-dedicated</span>
-<span class="w">               </span><span class="nv">alc-modeline-project-identification</span>
-<span class="w">               </span><span class="s">&quot;  &quot;</span>
-<span class="w">               </span><span class="nv">alc-modeline-remote-indication</span>
-<span class="w">               </span><span class="nv">alc-modeline-buffer-identification</span>
-<span class="w">               </span><span class="s">&quot; &quot;</span>
-<span class="w">               </span><span class="nv">alc-modeline-buffer-position</span>
-<span class="w">               </span><span class="s">&quot;      &quot;</span>
-<span class="w">               </span><span class="nv">mode-line-modes</span>
-<span class="w">               </span><span class="p">)))</span>
-</pre></div>
-</div>
-</div>
 <p>And now for the definition of my custom components</p>
 <div class="awdur-codeblock docutils container">
 <div class="awdur-codeblock-header docutils container">
@@ -274,8 +292,16 @@
 </pre></div>
 </div>
 </div>
-<p><strong>Project Indentification</strong></p>
-<p>If the current buffer is associated with a project, show the name of the project.</p>
+<section id="project-indentification">
+<h2>Project Indentification<a class="headerlink" href="#project-indentification" title="Link to this heading">¶</a></h2>
+<p>If the current buffer is associated with a project, show the name of the project, as returned by <code class="docutils literal notranslate"><span class="pre">(project-name</span> <span class="pre">pr)</span></code></p>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>By default a VC backed project will report the name of the folder containing the project which for me can be confusing sometimes.
+I’ve started organising my projects in the following structure <code class="docutils literal notranslate"><span class="pre">Projects/&lt;owner&gt;/&lt;repo&gt;/&lt;branch&gt;</span></code>, where each <code class="docutils literal notranslate"><span class="pre">&lt;branch&gt;</span></code> is a <a class="reference external" href="https://git-scm.com/docs/git-worktree">git worktree</a>.
+This can lead to multiple projects showing as <code class="docutils literal notranslate"><span class="pre">main</span></code> or <code class="docutils literal notranslate"><span class="pre">develop</span></code> etc.</p>
+<p>However, this name can be overridden by setting <code class="docutils literal notranslate"><span class="pre">project-vc-name</span></code> in a <code class="docutils literal notranslate"><span class="pre">.dir-locals.el</span></code> file.</p>
+</div>
 <div class="awdur-codeblock docutils container">
 <div class="awdur-codeblock-header docutils container">
 <code class="awdur-codeblock-filename docutils literal notranslate"><span class="pre">emacs/lisp/alc-modeline.el</span></code></div>
@@ -294,7 +320,9 @@
 </pre></div>
 </div>
 </div>
-<p><strong>Remote Indication</strong></p>
+</section>
+<section id="remote-indication">
+<h2>Remote Indication<a class="headerlink" href="#remote-indication" title="Link to this heading">¶</a></h2>
 <p>Replaces the default <code class="docutils literal notranslate"><span class="pre">mode-line-remote</span></code> and indicates if the current buffer is visiting a remote file</p>
 <div class="awdur-codeblock docutils container">
 <div class="awdur-codeblock-header docutils container">
@@ -308,7 +336,9 @@
 </pre></div>
 </div>
 </div>
-<p><strong>Buffer Identification</strong></p>
+</section>
+<section id="buffer-identification">
+<h2>Buffer Identification<a class="headerlink" href="#buffer-identification" title="Link to this heading">¶</a></h2>
 <p>Intended to replace the default <code class="docutils literal notranslate"><span class="pre">mode-line-buffer-identification</span></code> and <code class="docutils literal notranslate"><span class="pre">mode-line-modified</span></code> components this displays the name of the buffer and a face depending on if the buffer is unsaved, read only etc.</p>
 <div class="awdur-codeblock docutils container">
 <div class="awdur-codeblock-header docutils container">
@@ -329,7 +359,9 @@
 </pre></div>
 </div>
 </div>
-<p><strong>Buffer Position</strong></p>
+</section>
+<section id="buffer-position">
+<h2>Buffer Position<a class="headerlink" href="#buffer-position" title="Link to this heading">¶</a></h2>
 <p>Shows line and column number for the position in the current buffer</p>
 <div class="awdur-codeblock docutils container">
 <div class="awdur-codeblock-header docutils container">
@@ -348,7 +380,9 @@
 </pre></div>
 </div>
 </div>
-<p><strong>Dedidcated Windows</strong></p>
+</section>
+<section id="dedidcated-windows">
+<h2>Dedidcated Windows<a class="headerlink" href="#dedidcated-windows" title="Link to this heading">¶</a></h2>
 <p>Indicates if the current window is dedicated.</p>
 <div class="awdur-codeblock docutils container">
 <div class="awdur-codeblock-header docutils container">
@@ -367,7 +401,9 @@
 </pre></div>
 </div>
 </div>
-<p><strong>Modus Theme Integration</strong></p>
+</section>
+<section id="modus-theme-integration">
+<h2>Modus Theme Integration<a class="headerlink" href="#modus-theme-integration" title="Link to this heading">¶</a></h2>
 <p>The following code will only run if one of the <code class="docutils literal notranslate"><span class="pre">modus-themes</span></code> is active.
 If they are active, then it will use colors from the theme to style elements of the modeline</p>
 <div class="awdur-codeblock docutils container">
@@ -403,6 +439,7 @@ If they are active, then it will use colors from the theme to style elements of 
 </div>
 </div>
 </section>
+</section>
 
   <footer>
 
@@ -415,7 +452,7 @@ If they are active, then it will use colors from the theme to style elements of 
         <h6>Links</h6>
         <ul>
           <li>
-            <a href="../../_sources/content/20250228T200007==5=2--cusomising-the-emacs-modeline__emacs.rst.txt" rel="nofollow">
+            <a href="../../_sources/content/20250228T200007==5=2=2--cusomising-the-emacs-modeline__emacs.rst.txt" rel="nofollow">
               Page Source
             </a>
           </li>

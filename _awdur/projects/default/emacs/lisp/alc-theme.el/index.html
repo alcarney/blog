@@ -1,23 +1,23 @@
 <!DOCTYPE html>
 
-<html lang="en" data-content_root="../../../../../">
+<html lang="en" data-content_root="../../../../../../">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title> &#8212; Alex Carney</title>
 
-    <link rel="stylesheet" type="text/css" href="../../../../../_static/pygments.css?v=02ca0aaa" />
-    <link id="pygments_dark_css" media="(prefers-color-scheme: dark)" rel="stylesheet" type="text/css" href="../../../../../_static/pygments_dark.css?v=d8568271" />
-    <link rel="stylesheet" type="text/css" href="../../../../../_static/css/layout.css?v=faddea3e" />
+    <link rel="stylesheet" type="text/css" href="../../../../../../_static/pygments.css?v=02ca0aaa" />
+    <link id="pygments_dark_css" media="(prefers-color-scheme: dark)" rel="stylesheet" type="text/css" href="../../../../../../_static/pygments_dark.css?v=d8568271" />
+    <link rel="stylesheet" type="text/css" href="../../../../../../_static/css/layout.css?v=faddea3e" />
 
-    <script src="../../../../../_static/documentation_options.js?v=187304be"></script>
-    <script src="../../../../../_static/doctools.js?v=9bcbadda"></script>
-    <script src="../../../../../_static/sphinx_highlight.js?v=dc90522c"></script>
-    <script src="../../../../../_static/js/theme.js?v=94324b12"></script>
-    <script src="../../../../../_static/js/htmx-2.0.4.min.js?v=be6ab97a"></script>
-    <link rel="icon" href="../../../../../_static/favicon.ico"/>
-    <link rel="index" title="Index" href="../../../../../genindex/" />
-    <link rel="search" title="Search" href="../../../../../search/" />
+    <script src="../../../../../../_static/documentation_options.js?v=187304be"></script>
+    <script src="../../../../../../_static/doctools.js?v=9bcbadda"></script>
+    <script src="../../../../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../../../../../_static/js/theme.js?v=94324b12"></script>
+    <script src="../../../../../../_static/js/htmx-2.0.4.min.js?v=be6ab97a"></script>
+    <link rel="icon" href="../../../../../../_static/favicon.ico"/>
+    <link rel="index" title="Index" href="../../../../../../genindex/" />
+    <link rel="search" title="Search" href="../../../../../../search/" />
     <meta name="fediverse:creator" content="@alcarney@mastodon.social">
 
   </head>
@@ -64,7 +64,7 @@
 </div>
 <search id="searchbox" style="display: none" role="search">
     <div class="searchformwrapper">
-    <form class="search" action="../../../../../search/" method="get">
+    <form class="search" action="../../../../../../search/" method="get">
       <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" placeholder="Search"/>
       <input type="submit" value="Go" />
     </form>
@@ -93,7 +93,7 @@
 <search id="searchbox" style="display: none" role="search">
   <h3 id="searchlabel">Quick search</h3>
     <div class="searchformwrapper">
-    <form class="search" action="../../../../../search/" method="get">
+    <form class="search" action="../../../../../../search/" method="get">
       <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
       <input type="submit" value="Go" />
     </form>
@@ -113,7 +113,7 @@
 
     <div role="main" style="flex-grow: 1">
 <div class="awdur-container">
-  <div class="awdur-directory-header">
+  <div class="awdur-codeblock-header">
     <a hx-boost="true"
    href="/_awdur/projects/default">
   default
@@ -143,57 +143,59 @@
 
 
 
+<span class="awdur-pathsep">/</span>
+
+
+
+
+
+<a hx-boost="true"
+   href="/_awdur/projects/default/emacs/lisp/alc-theme.el">
+  alc-theme.el
+</a>
+
+
+
 
 
   </div>
 
-  <ul class="awdur-directory-listing">
+  <div class="awdur-codeblock">
+    <div class="highlight"><pre style="margin: 0"><span></span><span class="p">(</span><span class="nb">require</span><span class="w"> </span><span class="ss">&#39;dbus</span><span class="p">)</span><span class="w"> </span><span class="c1">; needed for later</span>
+<span class="c1">;; Use `setopt&#39; since modus supports automatically reloading the theme when these</span>
+<span class="c1">;; are changed via the `customize&#39; framework</span>
+<span class="p">(</span><span class="nv">setopt</span><span class="w"> </span><span class="nv">modus-themes-bold-constructs</span><span class="w"> </span><span class="no">t</span>
+<span class="w">        </span><span class="nv">modus-themes-italic-constructs</span><span class="w"> </span><span class="no">t</span>
+<span class="w">        </span><span class="nv">modus-themes-prompts</span><span class="w"> </span><span class="o">&#39;</span><span class="p">(</span><span class="nv">bold</span><span class="w"> </span><span class="nv">italic</span><span class="p">)</span>
+<span class="w">        </span><span class="nv">modus-themes-variable-pitch-ui</span><span class="w"> </span><span class="no">nil</span><span class="p">)</span>
 
-    
+<span class="p">(</span><span class="nb">defun</span><span class="w"> </span><span class="nv">alc-theme-load-theme</span><span class="w"> </span><span class="p">(</span><span class="nv">variant</span><span class="p">)</span>
+<span class="w">  </span><span class="s">&quot;Load the light or dark theme according to VARIANT.&quot;</span>
+<span class="w">  </span><span class="p">(</span><span class="nv">require-theme</span><span class="w"> </span><span class="ss">&#39;modus-themes</span><span class="w"> </span><span class="no">t</span><span class="p">)</span>
+<span class="w">  </span><span class="p">(</span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="nf">eq</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="nv">variant</span><span class="p">)</span>
+<span class="w">     </span><span class="p">(</span><span class="k">progn</span>
+<span class="w">       </span><span class="p">(</span><span class="nv">modus-themes-load-theme</span><span class="w"> </span><span class="ss">&#39;modus-vivendi</span><span class="p">))</span>
+<span class="w">    </span><span class="p">(</span><span class="nv">modus-themes-load-theme</span><span class="w"> </span><span class="ss">&#39;modus-operandi</span><span class="p">)))</span>
 
-    
-    <li class="awdur-file">
-      <a hx-boost="true"
-         href="/_awdur/projects/default/emacs/lisp/alc-git.el"
-         class="awdur-filename">
-        alc-git.el
-      </a>
-    </li>
-    
-    <li class="awdur-file">
-      <a hx-boost="true"
-         href="/_awdur/projects/default/emacs/lisp/alc-modeline.el"
-         class="awdur-filename">
-        alc-modeline.el
-      </a>
-    </li>
-    
-    <li class="awdur-file">
-      <a hx-boost="true"
-         href="/_awdur/projects/default/emacs/lisp/alc-python.el"
-         class="awdur-filename">
-        alc-python.el
-      </a>
-    </li>
-    
-    <li class="awdur-file">
-      <a hx-boost="true"
-         href="/_awdur/projects/default/emacs/lisp/alc-theme.el"
-         class="awdur-filename">
-        alc-theme.el
-      </a>
-    </li>
-    
-    <li class="awdur-file">
-      <a hx-boost="true"
-         href="/_awdur/projects/default/emacs/lisp/alc-treesitter.el"
-         class="awdur-filename">
-        alc-treesitter.el
-      </a>
-    </li>
-    
-  </ul>
+<span class="p">(</span><span class="nb">defun</span><span class="w"> </span><span class="nv">alc-theme-sync-to-system-theme</span><span class="w"> </span><span class="p">(</span><span class="nv">_frame</span><span class="p">)</span>
+<span class="w">  </span><span class="s">&quot;Choose a light/dark theme based on the current system preference.&quot;</span>
+<span class="w">  </span><span class="p">(</span><span class="nv">alc-theme-load-theme</span>
+<span class="w">    </span><span class="p">(</span><span class="nv">caar</span><span class="w"> </span><span class="p">(</span><span class="nv">dbus-call-method</span>
+<span class="w">           </span><span class="nb">:session</span>
+<span class="w">           </span><span class="s">&quot;org.freedesktop.portal.Desktop&quot;</span>
+<span class="w">           </span><span class="s">&quot;/org/freedesktop/portal/desktop&quot;</span>
+<span class="w">           </span><span class="s">&quot;org.freedesktop.portal.Settings&quot;</span><span class="w"> </span><span class="s">&quot;Read&quot;</span>
+<span class="w">           </span><span class="s">&quot;org.freedesktop.appearance&quot;</span><span class="w"> </span><span class="s">&quot;color-scheme&quot;</span><span class="p">))))</span>
+
+<span class="p">(</span><span class="nb">unless</span><span class="w"> </span><span class="p">(</span><span class="nv">display-graphic-p</span><span class="p">)</span>
+<span class="w">  </span><span class="p">(</span><span class="nv">alc-theme-load-theme</span><span class="w"> </span><span class="mi">1</span><span class="p">))</span><span class="w"> </span><span class="c1">; dark</span>
+
+<span class="p">(</span><span class="nb">provide</span><span class="w"> </span><span class="ss">&#39;alc-theme</span><span class="p">)</span>
+</pre></div>
+
+  </div>
 </div>
+
 
     </div>
 

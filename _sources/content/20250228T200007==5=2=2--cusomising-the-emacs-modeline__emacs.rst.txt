@@ -2,42 +2,12 @@
 :date: 2025-02-28
 :tags: emacs
 :identifier: 20250228T200007
-:signature: 5=2
+:signature: 5=2=2
 
 Cusomising the Emacs Modeline
 =============================
 
 Heavily inspired by Protesilaos' excellent `tutorial <https://protesilaos.com/codelog/2023-07-29-emacs-custom-modeline-tutorial>`__ on writing custom modelines.
-
-For reference, here are the components that were in the default modeline
-
-- ``mode-line-mule-info``
-- ``mode-line-client``
-- ``mode-line-frame-identification``
-- ``mode-line-position``
-- ``mode-line-misc-info``
-- ``mode-line-end-spaces``
-
-.. code-block:: elisp
-   :filename: emacs/init.el
-
-   (use-package alc-modeline
-     :after (modus-themes)
-     :load-path "lisp"
-     :config
-     (setq-default mode-line-format
-                '("%e"
-                  mode-line-front-space
-                  alc-modeline-window-dedicated
-                  alc-modeline-project-identification
-                  "  "
-                  alc-modeline-remote-indication
-                  alc-modeline-buffer-identification
-                  " "
-                  alc-modeline-buffer-position
-                  "      "
-                  mode-line-modes
-                  )))
 
 And now for the definition of my custom components
 
@@ -56,9 +26,19 @@ And now for the definition of my custom components
      :group 'alc-modeline)
 
 
-**Project Indentification**
+Project Indentification
+-----------------------
 
-If the current buffer is associated with a project, show the name of the project.
+If the current buffer is associated with a project, show the name of the project, as returned by ``(project-name pr)``
+
+.. tip::
+
+   By default a VC backed project will report the name of the folder containing the project which for me can be confusing sometimes.
+   I've started organising my projects in the following structure ``Projects/<owner>/<repo>/<branch>``, where each ``<branch>`` is a `git worktree <https://git-scm.com/docs/git-worktree>`__.
+   This can lead to multiple projects showing as ``main`` or ``develop`` etc.
+
+   However, this name can be overridden by setting ``project-vc-name`` in a ``.dir-locals.el`` file.
+
 
 .. code-block:: elisp
    :filename: emacs/lisp/alc-modeline.el
@@ -76,7 +56,8 @@ If the current buffer is associated with a project, show the name of the project
                       'face 'alc-modeline-project-id-face))))
    (put 'alc-modeline-project-identification 'risky-local-variable t)
 
-**Remote Indication**
+Remote Indication
+-----------------
 
 Replaces the default ``mode-line-remote`` and indicates if the current buffer is visiting a remote file
 
@@ -90,7 +71,8 @@ Replaces the default ``mode-line-remote`` and indicates if the current buffer is
                         'face '(bold)))))
    (put 'alc-modeline-remote-indication 'risky-local-variable t)
 
-**Buffer Identification**
+Buffer Identification
+---------------------
 
 Intended to replace the default ``mode-line-buffer-identification`` and ``mode-line-modified`` components this displays the name of the buffer and a face depending on if the buffer is unsaved, read only etc.
 
@@ -111,7 +93,8 @@ Intended to replace the default ``mode-line-buffer-identification`` and ``mode-l
                       'face (alc-modeline-buffer-identification-face))))
    (put 'alc-modeline-buffer-identification 'risky-local-variable t)
 
-**Buffer Position**
+Buffer Position
+---------------
 
 Shows line and column number for the position in the current buffer
 
@@ -130,7 +113,8 @@ Shows line and column number for the position in the current buffer
                      'face (alc-modeline-buffer-position-face))))
    (put 'alc-modeline-buffer-position 'risky-local-variable t)
 
-**Dedidcated Windows**
+Dedidcated Windows
+------------------
 
 Indicates if the current window is dedicated.
 
@@ -150,7 +134,8 @@ Indicates if the current window is dedicated.
    (put 'alc-modeline-window-dedicated 'risky-local-variable t)
 
 
-**Modus Theme Integration**
+Modus Theme Integration
+-----------------------
 
 The following code will only run if one of the ``modus-themes`` is active.
 If they are active, then it will use colors from the theme to style elements of the modeline
