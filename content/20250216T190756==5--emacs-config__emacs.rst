@@ -67,6 +67,15 @@ And install some utility libraries
       (if (file-exists-p "/home/linuxbrew/.linuxbrew/bin")
           (add-to-list 'exec-path "/home/linuxbrew/.linuxbrew/bin"))
 
+   Now that I've started running the Emacs server via ``systemctl --user``, ``$HOME/.local/bin`` does not appear to be on the ``PATH`` either.
+   (No idea why, so let's just add it here and move on.)
+
+   .. code-block:: elisp
+      :filename: emacs/init.el
+
+      (if (file-exists-p "/home/alex/.local/bin")
+          (add-to-list 'exec-path "/home/alex/.local/bin"))
+
    However, this isn't enough to let functions like ``shell-command`` find the command, we also need to update Emacs' version of ``PATH``
 
    .. code-block:: elisp
