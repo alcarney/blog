@@ -9,7 +9,7 @@
 
     <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=02ca0aaa" />
     <link id="pygments_dark_css" media="(prefers-color-scheme: dark)" rel="stylesheet" type="text/css" href="../../_static/pygments_dark.css?v=d8568271" />
-    <link rel="stylesheet" type="text/css" href="../../_static/css/layout.css?v=faddea3e" />
+    <link rel="stylesheet" type="text/css" href="../../_static/css/layout.css?v=38d4b379" />
 
     <script src="../../_static/documentation_options.js?v=187304be"></script>
     <script src="../../_static/doctools.js?v=9bcbadda"></script>
@@ -192,7 +192,10 @@ I’ve been using it for a while however, my config is fairly minimal.</p>
 <div class="awdur-codeblock docutils container">
 <div class="awdur-codeblock-header docutils container">
 <code class="awdur-codeblock-filename docutils literal notranslate"><span class="pre">wezterm/wezterm.lua</span></code></div>
-<div class="hidden highlight-lua notranslate"><div class="highlight"><pre><span></span><span class="kr">return</span><span class="w"> </span><span class="nv">config</span>
+<div class="hidden highlight-lua notranslate"><div class="highlight"><pre><span></span><span class="kd">local</span><span class="w"> </span><span class="nv">screenshot_command</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">require</span><span class="w"> </span><span class="s1">&#39;commands.screenshot&#39;</span>
+<span class="nv">screenshot_command</span><span class="p">.</span><span class="nf">setup</span><span class="p">()</span>
+
+<span class="kr">return</span><span class="w"> </span><span class="nv">config</span>
 </pre></div>
 </div>
 </div>

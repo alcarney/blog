@@ -66,5 +66,7 @@ Rather than mess around with my user's default shell, just tell wezterm to start
    :class: hidden
    :filename: wezterm/wezterm.lua
 
-   return config
+   local screenshot_command = require 'commands.screenshot'
+   screenshot_command.setup()
 
+   return config

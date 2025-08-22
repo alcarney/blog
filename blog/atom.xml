@@ -2,13 +2,21 @@
 <feed xmlns="http://www.w3.org/2005/Atom" xml:lang="en">
   <id>https://www.alcarney.me/</id>
   <title>Alex Carney | Blog</title>
-  <updated>2025-07-15T17:54:36.816420+00:00</updated>
+  <updated>2025-08-22T22:37:55.896205+00:00</updated>
   <link href="https://www.alcarney.me/" />
   <link href="https://www.alcarney.me/blog/atom.xml" rel="self" />
   <author>
     <name>Alex Carney</name>
   </author>
   <generator uri="https://www.sphinx-doc.org/en/master/" version="8">Sphinx</generator>
+  
+  <entry>
+    <id>https://www.alcarney.me/blog/2025/rich-screenshots-with-wezterm/</id>
+    <link href="https://www.alcarney.me/blog/2025/rich-screenshots-with-wezterm" rel="alternate" />
+    <published>2025-08-22T00:00:00+00:00</published>
+    <updated>2025-08-22T00:00:00+00:00</updated>
+    <title>Taking Rich Screenshots with Wezterm</title>
+  </entry>
   
   <entry>
     <id>https://www.alcarney.me/blog/2025/blogging-with-sphinx-and-denoteel/</id>

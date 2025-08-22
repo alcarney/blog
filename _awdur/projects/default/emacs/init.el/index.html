@@ -8,7 +8,7 @@
 
     <link rel="stylesheet" type="text/css" href="../../../../../_static/pygments.css?v=02ca0aaa" />
     <link id="pygments_dark_css" media="(prefers-color-scheme: dark)" rel="stylesheet" type="text/css" href="../../../../../_static/pygments_dark.css?v=d8568271" />
-    <link rel="stylesheet" type="text/css" href="../../../../../_static/css/layout.css?v=faddea3e" />
+    <link rel="stylesheet" type="text/css" href="../../../../../_static/css/layout.css?v=38d4b379" />
 
     <script src="../../../../../_static/documentation_options.js?v=187304be"></script>
     <script src="../../../../../_static/doctools.js?v=9bcbadda"></script>
@@ -166,6 +166,9 @@
 <span class="p">(</span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="nf">file-exists-p</span><span class="w"> </span><span class="s">&quot;/home/linuxbrew/.linuxbrew/bin&quot;</span><span class="p">)</span>
 <span class="w">    </span><span class="p">(</span><span class="nv">add-to-list</span><span class="w"> </span><span class="ss">&#39;exec-path</span><span class="w"> </span><span class="s">&quot;/home/linuxbrew/.linuxbrew/bin&quot;</span><span class="p">))</span>
 
+<span class="p">(</span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="nf">file-exists-p</span><span class="w"> </span><span class="s">&quot;/home/alex/.local/bin&quot;</span><span class="p">)</span>
+<span class="w">    </span><span class="p">(</span><span class="nv">add-to-list</span><span class="w"> </span><span class="ss">&#39;exec-path</span><span class="w"> </span><span class="s">&quot;/home/alex/.local/bin&quot;</span><span class="p">))</span>
+
 <span class="p">(</span><span class="nv">setenv</span><span class="w"> </span><span class="s">&quot;PATH&quot;</span><span class="w"> </span><span class="p">(</span><span class="nv">string-join</span><span class="w"> </span><span class="nv">exec-path</span><span class="w"> </span><span class="s">&quot;:&quot;</span><span class="p">))</span>
 
 <span class="p">(</span><span class="nv">recentf-mode</span><span class="w"> </span><span class="no">t</span><span class="p">)</span>
@@ -186,6 +189,8 @@
 
 <span class="p">(</span><span class="k">setq</span><span class="w"> </span><span class="nv">compilation-always-kill</span><span class="w"> </span><span class="no">t</span>
 <span class="w">      </span><span class="nv">compilation-scroll-output</span><span class="w"> </span><span class="no">t</span><span class="p">)</span>
+
+<span class="p">(</span><span class="nv">add-hook</span><span class="w"> </span><span class="ss">&#39;compilation-filter-hook</span><span class="w"> </span><span class="ss">&#39;ansi-color-compilation-filter</span><span class="p">)</span>
 
 <span class="p">(</span><span class="nv">add-to-list</span><span class="w"> </span><span class="ss">&#39;display-buffer-alist</span>
 <span class="w">             </span><span class="o">&#39;</span><span class="p">(</span><span class="s">&quot;\\*compilation\\*&quot;</span>

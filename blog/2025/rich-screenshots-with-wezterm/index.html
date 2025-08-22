@@ -1,0 +1,1121 @@
+<!DOCTYPE html>
+
+<html lang="en" data-content_root="../../../">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Taking Rich Screenshots with Wezterm &#8212; Alex Carney</title>
+
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=02ca0aaa" />
+    <link id="pygments_dark_css" media="(prefers-color-scheme: dark)" rel="stylesheet" type="text/css" href="../../../_static/pygments_dark.css?v=d8568271" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/css/layout.css?v=38d4b379" />
+
+    <script src="../../../_static/documentation_options.js?v=187304be"></script>
+    <script src="../../../_static/doctools.js?v=9bcbadda"></script>
+    <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../../_static/js/theme.js?v=94324b12"></script>
+    <script src="../../../_static/js/htmx-2.0.4.min.js?v=be6ab97a"></script>
+    <link rel="icon" href="../../../_static/favicon.ico"/>
+    <link rel="index" title="Index" href="../../../genindex/" />
+    <link rel="search" title="Search" href="../../../search/" />
+    <meta name="fediverse:creator" content="@alcarney@mastodon.social">
+
+  </head>
+  <body>
+
+<input type="checkbox" id="menu-toggle" class="hidden" />
+<aside>
+  <div class="sidebar"><div id="profile-card">
+    <img src="/_static/avatar.jpg"/>
+    <h2>
+      <a href="/">Alex Carney</a>
+    </h2>
+    <nav class="social">
+  <a target="_blank" rel="noreferrer noopener" href="https://github.com/alcarney" title="GitHub">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="24px" height="24px">
+      <path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/>
+    </svg>
+  </a>
+
+  <a target="_blank" rel="noreferrer noopener me" href="https://mastodon.social/@alcarney" title="Mastodon">
+    <svg role="img" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" width="24px" height="24px" fill="currentColor">
+      <title>Mastodon</title>
+      <path d="M23.268 5.313c-.35-2.578-2.617-4.61-5.304-5.004C17.51.242 15.792 0 11.813 0h-.03c-3.98 0-4.835.242-5.288.309C3.882.692 1.496 2.518.917 5.127.64 6.412.61 7.837.661 9.143c.074 1.874.088 3.745.26 5.611.118 1.24.325 2.47.62 3.68.55 2.237 2.777 4.098 4.96 4.857 2.336.792 4.849.923 7.256.38.265-.061.527-.132.786-.213.585-.184 1.27-.39 1.774-.753a.057.057 0 0 0 .023-.043v-1.809a.052.052 0 0 0-.02-.041.053.053 0 0 0-.046-.01 20.282 20.282 0 0 1-4.709.545c-2.73 0-3.463-1.284-3.674-1.818a5.593 5.593 0 0 1-.319-1.433.053.053 0 0 1 .066-.054c1.517.363 3.072.546 4.632.546.376 0 .75 0 1.125-.01 1.57-.044 3.224-.124 4.768-.422.038-.008.077-.015.11-.024 2.435-.464 4.753-1.92 4.989-5.604.008-.145.03-1.52.03-1.67.002-.512.167-3.63-.024-5.545zm-3.748 9.195h-2.561V8.29c0-1.309-.55-1.976-1.67-1.976-1.23 0-1.846.79-1.846 2.35v3.403h-2.546V8.663c0-1.56-.617-2.35-1.848-2.35-1.112 0-1.668.668-1.67 1.977v6.218H4.822V8.102c0-1.31.337-2.35 1.011-3.12.696-.77 1.608-1.164 2.74-1.164 1.311 0 2.302.5 2.962 1.498l.638 1.06.638-1.06c.66-.999 1.65-1.498 2.96-1.498 1.13 0 2.043.395 2.74 1.164.675.77 1.012 1.81 1.012 3.12z"/>
+    </svg>
+  </a>
+
+  <a target="_blank" rel="noreferrer noopener" href="https://pixelfed.social/i/web/profile/795173629619860860" title="Pixelfed">
+    <svg width="24px" height="24px" viewBox="0 0 50 50" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path d="M25 50C11.193 50 0 38.807 0 25S11.193 0 25 0s25 11.193 25 25-11.193 25-25 25zm-1.985-19.542h4.586c4.32 0 7.823-3.41 7.823-7.615 0-4.206-3.502-7.616-7.823-7.616h-6.619c-2.492 0-4.513 1.967-4.513 4.394v17.1l6.546-6.263z" fill-rule="evenodd"/></svg>
+  </a>
+
+  <a target="_blank" rel="noreferrer noopener" href="https://www.youtube.com/channel/UC5GPflgRWhnCxA0BllfP5CA" title="YouTube">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24px" height="24px" fill="currentColor">
+      <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
+    </svg>
+  </a>
+
+  <a href="/blog/atom.xml" title="RSS Feed">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24px" height="24px" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
+      <path d="M4 11a9 9 0 0 1 9 9M4 4a16 16 0 0 1 16 16"/>
+      <circle cx="5" cy="19" r="1"/>
+    </svg>
+  </a>
+</nav>
+</div>
+<search id="searchbox" style="display: none" role="search">
+    <div class="searchformwrapper">
+    <form class="search" action="../../../search/" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" placeholder="Search"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</search>
+<script>document.getElementById('searchbox').style.display = "block"</script><nav class="site">
+  <ul>
+    <li>
+      <a href="/blog">Blog</a>
+    </li>
+    <li>
+      <a href="/code">Code</a>
+    </li>
+    <li>
+      <a href="/dotfiles">Dotfiles</a>
+    </li>
+    <li>
+      <a href="/notes">Notes</a>
+    </li>
+  </ul>
+</nav>
+<section class="post-metadata">
+    <h5 style="grid-column: span 2">Metadata</h5><svg xmlns="http://www.w3.org/2000/svg" width="2em" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+</svg>
+    <time style="align-self: center; text-align: right;" datetime="2025-08-22 00:00:00+00:00">Aug 22, 2025</time><svg xmlns="http://www.w3.org/2000/svg" width="2em" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z" />
+</svg>
+    <ul class="taglist">
+        <li>
+            <a class="tag" href="../../../tag/blogging/">
+                #blogging
+            </a>
+        </li>
+        <li>
+            <a class="tag" href="../../../tag/rich/">
+                #rich
+            </a>
+        </li>
+        <li>
+            <a class="tag" href="../../../tag/sphinx/">
+                #sphinx
+            </a>
+        </li>
+        <li>
+            <a class="tag" href="../../../tag/wezterm/">
+                #wezterm
+            </a>
+        </li>
+    </ul>
+</section><section id="post-contents">
+  <nav id="localtoc">
+    <ul>
+<li><a class="reference internal" href="#">Taking Rich Screenshots with Wezterm</a><ul>
+<li><a class="reference internal" href="#taking-the-screenshot">Taking the screenshot</a></li>
+<li><a class="reference internal" href="#rendering-the-screenshot">Rendering the Screenshot</a><ul>
+<li><a class="reference internal" href="#width-and-height">Width and Height</a></li>
+<li><a class="reference internal" href="#sgr-codes">SGR Codes</a></li>
+<li><a class="reference internal" href="#colour-palette">Colour Palette</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#sphinx-integration">Sphinx Integration</a></li>
+</ul>
+</li>
+</ul>
+
+  </nav>
+</section>
+  </div>
+</aside>
+
+<div class="content">
+    <header class="site">
+        <label for="menu-toggle">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="2em" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </label>
+    </header>
+
+    <div role="main" style="flex-grow: 1">
+
+<article>
+  <section id="taking-rich-screenshots-with-wezterm">
+<h1>Taking Rich Screenshots with Wezterm<a class="headerlink" href="#taking-rich-screenshots-with-wezterm" title="Link to this heading">¶</a></h1>
+<div class="post-teaser docutils container">
+<p>When working on this site, I’ve often wanted to include a screenshot or two.
+But since git doesn’t work well with binary files and I don’t want to have to deal with media hosting I’ve tended to shy away from it.</p>
+<p>However, a lot of what I want to take a screenshot of can be rendered in a terminal.</p>
+<p>Which is suddenly quite interesting as a terminal’s contents can be entirely described in plain(-ish) text.
+Surely it must be possible to capture the contents of a terminal window and then render it as some kind of image? Perhaps an SVG?</p>
+<svg class="rich-terminal" viewBox="0 0 933 782.0" xmlns="http://www.w3.org/2000/svg">
+    <!-- Generated with Rich https://www.textualize.io -->
+    <style>
+
+    @font-face {
+        font-family: "Fira Code";
+        src: local("FiraCode-Regular"),
+                url("https://cdnjs.cloudflare.com/ajax/libs/firacode/6.2.0/woff2/FiraCode-Regular.woff2") format("woff2"),
+                url("https://cdnjs.cloudflare.com/ajax/libs/firacode/6.2.0/woff/FiraCode-Regular.woff") format("woff");
+        font-style: normal;
+        font-weight: 400;
+    }
+    @font-face {
+        font-family: "Fira Code";
+        src: local("FiraCode-Bold"),
+                url("https://cdnjs.cloudflare.com/ajax/libs/firacode/6.2.0/woff2/FiraCode-Bold.woff2") format("woff2"),
+                url("https://cdnjs.cloudflare.com/ajax/libs/firacode/6.2.0/woff/FiraCode-Bold.woff") format("woff");
+        font-style: bold;
+        font-weight: 700;
+    }
+
+    .terminal-2273859275-matrix {
+        font-family: Fira Code, monospace;
+        font-size: 20px;
+        line-height: 24.4px;
+        font-variant-east-asian: full-width;
+    }
+
+    .terminal-2273859275-title {
+        font-size: 18px;
+        font-weight: bold;
+        font-family: arial;
+    }
+
+    .terminal-2273859275-r1 { fill: #ffffff }
+.terminal-2273859275-r2 { fill: #ffffff;font-weight: bold }
+.terminal-2273859275-r3 { fill: #6ae4b9;font-weight: bold;font-style: italic; }
+.terminal-2273859275-r4 { fill: #989898 }
+.terminal-2273859275-r5 { fill: #989898;font-style: italic; }
+.terminal-2273859275-r6 { fill: #fec43f;font-style: italic; }
+.terminal-2273859275-r7 { fill: #00d3d0 }
+.terminal-2273859275-r8 { fill: #f78fe7;font-weight: bold }
+.terminal-2273859275-r9 { fill: #b6a0ff;font-weight: bold }
+.terminal-2273859275-r10 { fill: #ff3030 }
+.terminal-2273859275-r11 { fill: #969696 }
+.terminal-2273859275-r12 { fill: #2fafff;font-weight: bold }
+.terminal-2273859275-r13 { fill: #969696;font-weight: bold }
+.terminal-2273859275-r14 { fill: #ff5f59;font-weight: bold }
+.terminal-2273859275-r15 { fill: #fec43f;font-weight: bold }
+.terminal-2273859275-r16 { fill: #6ae4b9;font-weight: bold }
+    </style>
+
+    <defs>
+    <clipPath id="terminal-2273859275-clip-terminal">
+      <rect x="0" y="0" width="914.0" height="731.0" />
+    </clipPath>
+    <clipPath id="terminal-2273859275-line-0">
+    <rect x="0" y="1.5" width="915" height="24.65"/>
+            </clipPath>
+<clipPath id="terminal-2273859275-line-1">
+    <rect x="0" y="25.9" width="915" height="24.65"/>
+            </clipPath>
+<clipPath id="terminal-2273859275-line-2">
+    <rect x="0" y="50.3" width="915" height="24.65"/>
+            </clipPath>
+<clipPath id="terminal-2273859275-line-3">
+    <rect x="0" y="74.7" width="915" height="24.65"/>
+            </clipPath>
+<clipPath id="terminal-2273859275-line-4">
+    <rect x="0" y="99.1" width="915" height="24.65"/>
+            </clipPath>
+<clipPath id="terminal-2273859275-line-5">
+    <rect x="0" y="123.5" width="915" height="24.65"/>
+            </clipPath>
+<clipPath id="terminal-2273859275-line-6">
+    <rect x="0" y="147.9" width="915" height="24.65"/>
+            </clipPath>
+<clipPath id="terminal-2273859275-line-7">
+    <rect x="0" y="172.3" width="915" height="24.65"/>
+            </clipPath>
+<clipPath id="terminal-2273859275-line-8">
+    <rect x="0" y="196.7" width="915" height="24.65"/>
+            </clipPath>
+<clipPath id="terminal-2273859275-line-9">
+    <rect x="0" y="221.1" width="915" height="24.65"/>
+            </clipPath>
+<clipPath id="terminal-2273859275-line-10">
+    <rect x="0" y="245.5" width="915" height="24.65"/>
+            </clipPath>
+<clipPath id="terminal-2273859275-line-11">
+    <rect x="0" y="269.9" width="915" height="24.65"/>
+            </clipPath>
+<clipPath id="terminal-2273859275-line-12">
+    <rect x="0" y="294.3" width="915" height="24.65"/>
+            </clipPath>
+<clipPath id="terminal-2273859275-line-13">
+    <rect x="0" y="318.7" width="915" height="24.65"/>
+            </clipPath>
+<clipPath id="terminal-2273859275-line-14">
+    <rect x="0" y="343.1" width="915" height="24.65"/>
+            </clipPath>
+<clipPath id="terminal-2273859275-line-15">
+    <rect x="0" y="367.5" width="915" height="24.65"/>
+            </clipPath>
+<clipPath id="terminal-2273859275-line-16">
+    <rect x="0" y="391.9" width="915" height="24.65"/>
+            </clipPath>
+<clipPath id="terminal-2273859275-line-17">
+    <rect x="0" y="416.3" width="915" height="24.65"/>
+            </clipPath>
+<clipPath id="terminal-2273859275-line-18">
+    <rect x="0" y="440.7" width="915" height="24.65"/>
+            </clipPath>
+<clipPath id="terminal-2273859275-line-19">
+    <rect x="0" y="465.1" width="915" height="24.65"/>
+            </clipPath>
+<clipPath id="terminal-2273859275-line-20">
+    <rect x="0" y="489.5" width="915" height="24.65"/>
+            </clipPath>
+<clipPath id="terminal-2273859275-line-21">
+    <rect x="0" y="513.9" width="915" height="24.65"/>
+            </clipPath>
+<clipPath id="terminal-2273859275-line-22">
+    <rect x="0" y="538.3" width="915" height="24.65"/>
+            </clipPath>
+<clipPath id="terminal-2273859275-line-23">
+    <rect x="0" y="562.7" width="915" height="24.65"/>
+            </clipPath>
+<clipPath id="terminal-2273859275-line-24">
+    <rect x="0" y="587.1" width="915" height="24.65"/>
+            </clipPath>
+<clipPath id="terminal-2273859275-line-25">
+    <rect x="0" y="611.5" width="915" height="24.65"/>
+            </clipPath>
+<clipPath id="terminal-2273859275-line-26">
+    <rect x="0" y="635.9" width="915" height="24.65"/>
+            </clipPath>
+<clipPath id="terminal-2273859275-line-27">
+    <rect x="0" y="660.3" width="915" height="24.65"/>
+            </clipPath>
+<clipPath id="terminal-2273859275-line-28">
+    <rect x="0" y="684.7" width="915" height="24.65"/>
+            </clipPath>
+    </defs>
+
+    <rect fill="#000000" stroke="rgba(255,255,255,0.35)" stroke-width="1" x="1" y="1" width="931" height="780" rx="8"/><text class="terminal-2273859275-title" fill="#ffffff" text-anchor="middle" x="465" y="27">M-x&#160;pdb</text>
+            <g transform="translate(26,22)">
+            <circle cx="0" cy="0" r="7" fill="#ff5f57"/>
+            <circle cx="22" cy="0" r="7" fill="#febc2e"/>
+            <circle cx="44" cy="0" r="7" fill="#28c840"/>
+            </g>
+        
+    <g transform="translate(9, 41)" clip-path="url(#terminal-2273859275-clip-terminal)">
+    <rect fill="#313131" x="0" y="1.5" width="12.2" height="24.65" shape-rendering="crispEdges"/><rect fill="#1e1e1e" x="12.2" y="1.5" width="231.8" height="24.65" shape-rendering="crispEdges"/><rect fill="#313131" x="244" y="1.5" width="671" height="24.65" shape-rendering="crispEdges"/><rect fill="#1e1e1e" x="0" y="25.9" width="915" height="24.65" shape-rendering="crispEdges"/><rect fill="#1e1e1e" x="0" y="50.3" width="73.2" height="24.65" shape-rendering="crispEdges"/><rect fill="#1e1e1e" x="73.2" y="50.3" width="841.8" height="24.65" shape-rendering="crispEdges"/><rect fill="#1e1e1e" x="0" y="74.7" width="915" height="24.65" shape-rendering="crispEdges"/><rect fill="#1e1e1e" x="0" y="99.1" width="915" height="24.65" shape-rendering="crispEdges"/><rect fill="#1e1e1e" x="0" y="123.5" width="915" height="24.65" shape-rendering="crispEdges"/><rect fill="#1e1e1e" x="0" y="147.9" width="73.2" height="24.65" shape-rendering="crispEdges"/><rect fill="#1e1e1e" x="73.2" y="147.9" width="841.8" height="24.65" shape-rendering="crispEdges"/><rect fill="#1e1e1e" x="0" y="172.3" width="915" height="24.65" shape-rendering="crispEdges"/><rect fill="#1e1e1e" x="0" y="196.7" width="915" height="24.65" shape-rendering="crispEdges"/><rect fill="#1e1e1e" x="0" y="221.1" width="915" height="24.65" shape-rendering="crispEdges"/><rect fill="#1e1e1e" x="0" y="245.5" width="73.2" height="24.65" shape-rendering="crispEdges"/><rect fill="#1e1e1e" x="73.2" y="245.5" width="36.6" height="24.65" shape-rendering="crispEdges"/><rect fill="#1e1e1e" x="109.8" y="245.5" width="805.2" height="24.65" shape-rendering="crispEdges"/><rect fill="#1e1e1e" x="0" y="269.9" width="915" height="24.65" shape-rendering="crispEdges"/><rect fill="#1e1e1e" x="0" y="294.3" width="73.2" height="24.65" shape-rendering="crispEdges"/><rect fill="#1e1e1e" x="73.2" y="294.3" width="841.8" height="24.65" shape-rendering="crispEdges"/><rect fill="#1e1e1e" x="0" y="318.7" width="915" height="24.65" shape-rendering="crispEdges"/><rect fill="#535353" x="0" y="343.1" width="36.6" height="24.65" shape-rendering="crispEdges"/><rect fill="#535353" x="36.6" y="343.1" width="122" height="24.65" shape-rendering="crispEdges"/><rect fill="#535353" x="158.6" y="343.1" width="756.4" height="24.65" shape-rendering="crispEdges"/><rect fill="#237f3f" x="0" y="367.5" width="12.2" height="24.65" shape-rendering="crispEdges"/><rect fill="#1e1e1e" x="12.2" y="367.5" width="12.2" height="24.65" shape-rendering="crispEdges"/><rect fill="#1e1e1e" x="24.4" y="367.5" width="73.2" height="24.65" shape-rendering="crispEdges"/><rect fill="#1e1e1e" x="97.6" y="367.5" width="97.6" height="24.65" shape-rendering="crispEdges"/><rect fill="#1e1e1e" x="195.2" y="367.5" width="475.8" height="24.65" shape-rendering="crispEdges"/><rect fill="#1e1e1e" x="671" y="367.5" width="244" height="24.65" shape-rendering="crispEdges"/><rect fill="#237f3f" x="0" y="391.9" width="12.2" height="24.65" shape-rendering="crispEdges"/><rect fill="#1e1e1e" x="12.2" y="391.9" width="12.2" height="24.65" shape-rendering="crispEdges"/><rect fill="#1e1e1e" x="24.4" y="391.9" width="73.2" height="24.65" shape-rendering="crispEdges"/><rect fill="#1e1e1e" x="97.6" y="391.9" width="97.6" height="24.65" shape-rendering="crispEdges"/><rect fill="#1e1e1e" x="195.2" y="391.9" width="12.2" height="24.65" shape-rendering="crispEdges"/><rect fill="#1e1e1e" x="207.4" y="391.9" width="707.6" height="24.65" shape-rendering="crispEdges"/><rect fill="#237f3f" x="0" y="416.3" width="12.2" height="24.65" shape-rendering="crispEdges"/><rect fill="#1e1e1e" x="12.2" y="416.3" width="12.2" height="24.65" shape-rendering="crispEdges"/><rect fill="#1e1e1e" x="24.4" y="416.3" width="73.2" height="24.65" shape-rendering="crispEdges"/><rect fill="#1e1e1e" x="97.6" y="416.3" width="97.6" height="24.65" shape-rendering="crispEdges"/><rect fill="#1e1e1e" x="195.2" y="416.3" width="707.6" height="24.65" shape-rendering="crispEdges"/><rect fill="#1e1e1e" x="902.8" y="416.3" width="12.2" height="24.65" shape-rendering="crispEdges"/><rect fill="#1e1e1e" x="0" y="440.7" width="24.4" height="24.65" shape-rendering="crispEdges"/><rect fill="#1e1e1e" x="24.4" y="440.7" width="73.2" height="24.65" shape-rendering="crispEdges"/><rect fill="#1e1e1e" x="97.6" y="440.7" width="170.8" height="24.65" shape-rendering="crispEdges"/><rect fill="#1e1e1e" x="268.4" y="440.7" width="12.2" height="24.65" shape-rendering="crispEdges"/><rect fill="#1e1e1e" x="280.6" y="440.7" width="73.2" height="24.65" shape-rendering="crispEdges"/><rect fill="#1e1e1e" x="353.8" y="440.7" width="561.2" height="24.65" shape-rendering="crispEdges"/><rect fill="#237f3f" x="0" y="465.1" width="12.2" height="24.65" shape-rendering="crispEdges"/><rect fill="#1e1e1e" x="12.2" y="465.1" width="12.2" height="24.65" shape-rendering="crispEdges"/><rect fill="#1e1e1e" x="24.4" y="465.1" width="73.2" height="24.65" shape-rendering="crispEdges"/><rect fill="#1e1e1e" x="97.6" y="465.1" width="97.6" height="24.65" shape-rendering="crispEdges"/><rect fill="#1e1e1e" x="195.2" y="465.1" width="183" height="24.65" shape-rendering="crispEdges"/><rect fill="#1e1e1e" x="378.2" y="465.1" width="36.6" height="24.65" shape-rendering="crispEdges"/><rect fill="#1e1e1e" x="414.8" y="465.1" width="36.6" height="24.65" shape-rendering="crispEdges"/><rect fill="#1e1e1e" x="451.4" y="465.1" width="463.6" height="24.65" shape-rendering="crispEdges"/><rect fill="#237f3f" x="0" y="489.5" width="12.2" height="24.65" shape-rendering="crispEdges"/><rect fill="#1e1e1e" x="12.2" y="489.5" width="12.2" height="24.65" shape-rendering="crispEdges"/><rect fill="#1e1e1e" x="24.4" y="489.5" width="73.2" height="24.65" shape-rendering="crispEdges"/><rect fill="#1e1e1e" x="97.6" y="489.5" width="97.6" height="24.65" shape-rendering="crispEdges"/><rect fill="#1e1e1e" x="195.2" y="489.5" width="61" height="24.65" shape-rendering="crispEdges"/><rect fill="#1e1e1e" x="256.2" y="489.5" width="12.2" height="24.65" shape-rendering="crispEdges"/><rect fill="#1e1e1e" x="268.4" y="489.5" width="36.6" height="24.65" shape-rendering="crispEdges"/><rect fill="#1e1e1e" x="305" y="489.5" width="610" height="24.65" shape-rendering="crispEdges"/><rect fill="#237f3f" x="0" y="513.9" width="12.2" height="24.65" shape-rendering="crispEdges"/><rect fill="#1e1e1e" x="12.2" y="513.9" width="12.2" height="24.65" shape-rendering="crispEdges"/><rect fill="#1e1e1e" x="24.4" y="513.9" width="73.2" height="24.65" shape-rendering="crispEdges"/><rect fill="#1e1e1e" x="97.6" y="513.9" width="146.4" height="24.65" shape-rendering="crispEdges"/><rect fill="#1e1e1e" x="244" y="513.9" width="183" height="24.65" shape-rendering="crispEdges"/><rect fill="#1e1e1e" x="427" y="513.9" width="36.6" height="24.65" shape-rendering="crispEdges"/><rect fill="#1e1e1e" x="463.6" y="513.9" width="36.6" height="24.65" shape-rendering="crispEdges"/><rect fill="#1e1e1e" x="500.2" y="513.9" width="414.8" height="24.65" shape-rendering="crispEdges"/><rect fill="#237f3f" x="0" y="538.3" width="12.2" height="24.65" shape-rendering="crispEdges"/><rect fill="#1e1e1e" x="12.2" y="538.3" width="12.2" height="24.65" shape-rendering="crispEdges"/><rect fill="#1e1e1e" x="24.4" y="538.3" width="73.2" height="24.65" shape-rendering="crispEdges"/><rect fill="#1e1e1e" x="97.6" y="538.3" width="146.4" height="24.65" shape-rendering="crispEdges"/><rect fill="#8b1a1a" x="244" y="538.3" width="122" height="24.65" shape-rendering="crispEdges"/><rect fill="#1e1e1e" x="366" y="538.3" width="549" height="24.65" shape-rendering="crispEdges"/><rect fill="#237f3f" x="0" y="562.7" width="12.2" height="24.65" shape-rendering="crispEdges"/><rect fill="#1e1e1e" x="12.2" y="562.7" width="12.2" height="24.65" shape-rendering="crispEdges"/><rect fill="#1e1e1e" x="24.4" y="562.7" width="73.2" height="24.65" shape-rendering="crispEdges"/><rect fill="#1e1e1e" x="97.6" y="562.7" width="146.4" height="24.65" shape-rendering="crispEdges"/><rect fill="#1e1e1e" x="244" y="562.7" width="24.4" height="24.65" shape-rendering="crispEdges"/><rect fill="#1e1e1e" x="268.4" y="562.7" width="12.2" height="24.65" shape-rendering="crispEdges"/><rect fill="#1e1e1e" x="280.6" y="562.7" width="36.6" height="24.65" shape-rendering="crispEdges"/><rect fill="#1e1e1e" x="317.2" y="562.7" width="597.8" height="24.65" shape-rendering="crispEdges"/><rect fill="#237f3f" x="0" y="587.1" width="12.2" height="24.65" shape-rendering="crispEdges"/><rect fill="#1e1e1e" x="12.2" y="587.1" width="12.2" height="24.65" shape-rendering="crispEdges"/><rect fill="#1e1e1e" x="24.4" y="587.1" width="73.2" height="24.65" shape-rendering="crispEdges"/><rect fill="#1e1e1e" x="97.6" y="587.1" width="195.2" height="24.65" shape-rendering="crispEdges"/><rect fill="#1e1e1e" x="292.8" y="587.1" width="24.4" height="24.65" shape-rendering="crispEdges"/><rect fill="#1e1e1e" x="317.2" y="587.1" width="24.4" height="24.65" shape-rendering="crispEdges"/><rect fill="#1e1e1e" x="341.6" y="587.1" width="36.6" height="24.65" shape-rendering="crispEdges"/><rect fill="#1e1e1e" x="378.2" y="587.1" width="536.8" height="24.65" shape-rendering="crispEdges"/><rect fill="#237f3f" x="0" y="611.5" width="12.2" height="24.65" shape-rendering="crispEdges"/><rect fill="#1e1e1e" x="12.2" y="611.5" width="12.2" height="24.65" shape-rendering="crispEdges"/><rect fill="#1e1e1e" x="24.4" y="611.5" width="73.2" height="24.65" shape-rendering="crispEdges"/><rect fill="#1e1e1e" x="97.6" y="611.5" width="244" height="24.65" shape-rendering="crispEdges"/><rect fill="#1e1e1e" x="341.6" y="611.5" width="73.2" height="24.65" shape-rendering="crispEdges"/><rect fill="#1e1e1e" x="414.8" y="611.5" width="500.2" height="24.65" shape-rendering="crispEdges"/><rect fill="#237f3f" x="0" y="635.9" width="12.2" height="24.65" shape-rendering="crispEdges"/><rect fill="#1e1e1e" x="12.2" y="635.9" width="12.2" height="24.65" shape-rendering="crispEdges"/><rect fill="#1e1e1e" x="24.4" y="635.9" width="73.2" height="24.65" shape-rendering="crispEdges"/><rect fill="#1e1e1e" x="97.6" y="635.9" width="817.4" height="24.65" shape-rendering="crispEdges"/><rect fill="#237f3f" x="0" y="660.3" width="12.2" height="24.65" shape-rendering="crispEdges"/><rect fill="#1e1e1e" x="12.2" y="660.3" width="36.6" height="24.65" shape-rendering="crispEdges"/><rect fill="#535353" x="48.8" y="660.3" width="48.8" height="24.65" shape-rendering="crispEdges"/><rect fill="#1e1e1e" x="97.6" y="660.3" width="195.2" height="24.65" shape-rendering="crispEdges"/><rect fill="#1e1e1e" x="292.8" y="660.3" width="48.8" height="24.65" shape-rendering="crispEdges"/><rect fill="#1e1e1e" x="341.6" y="660.3" width="573.4" height="24.65" shape-rendering="crispEdges"/><rect fill="#303030" x="0" y="684.7" width="12.2" height="24.65" shape-rendering="crispEdges"/><rect fill="#303030" x="12.2" y="684.7" width="183" height="24.65" shape-rendering="crispEdges"/><rect fill="#303030" x="195.2" y="684.7" width="24.4" height="24.65" shape-rendering="crispEdges"/><rect fill="#303030" x="219.6" y="684.7" width="109.8" height="24.65" shape-rendering="crispEdges"/><rect fill="#303030" x="329.4" y="684.7" width="341.6" height="24.65" shape-rendering="crispEdges"/><rect fill="#303030" x="671" y="684.7" width="12.2" height="24.65" shape-rendering="crispEdges"/><rect fill="#303030" x="683.2" y="684.7" width="12.2" height="24.65" shape-rendering="crispEdges"/><rect fill="#303030" x="695.4" y="684.7" width="12.2" height="24.65" shape-rendering="crispEdges"/><rect fill="#303030" x="707.6" y="684.7" width="12.2" height="24.65" shape-rendering="crispEdges"/><rect fill="#303030" x="719.8" y="684.7" width="12.2" height="24.65" shape-rendering="crispEdges"/><rect fill="#303030" x="732" y="684.7" width="183" height="24.65" shape-rendering="crispEdges"/><rect fill="#1e1e1e" x="0" y="709.1" width="902.8" height="24.65" shape-rendering="crispEdges"/>
+    <g class="terminal-2273859275-matrix">
+    <text class="terminal-2273859275-r1" x="0" y="20" textLength="12.2" clip-path="url(#terminal-2273859275-line-0)">|</text><text class="terminal-2273859275-r2" x="12.2" y="20" textLength="231.8" clip-path="url(#terminal-2273859275-line-0)">*gud-test*&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;x</text><text class="terminal-2273859275-r1" x="244" y="20" textLength="671" clip-path="url(#terminal-2273859275-line-0)">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;[37%]&#160;15:41&#160;21/06/25&#160;☰</text><text class="terminal-2273859275-r1" x="915" y="20" textLength="12.2" clip-path="url(#terminal-2273859275-line-0)">
+</text><text class="terminal-2273859275-r1" x="0" y="44.4" textLength="915" clip-path="url(#terminal-2273859275-line-1)">-&gt;&#160;if&#160;not&#160;state.headers_complete:&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;</text><text class="terminal-2273859275-r1" x="915" y="44.4" textLength="12.2" clip-path="url(#terminal-2273859275-line-1)">
+</text><text class="terminal-2273859275-r3" x="0" y="68.8" textLength="73.2" clip-path="url(#terminal-2273859275-line-2)">(Pdb)&#160;</text><text class="terminal-2273859275-r1" x="915" y="68.8" textLength="12.2" clip-path="url(#terminal-2273859275-line-2)">
+</text><text class="terminal-2273859275-r1" x="0" y="93.2" textLength="915" clip-path="url(#terminal-2273859275-line-3)">&gt;&#160;/var/home/alex/Projects/swyddfa/lsp-devtools/develop/lib/lsp-devtools/ls\</text><text class="terminal-2273859275-r1" x="915" y="93.2" textLength="12.2" clip-path="url(#terminal-2273859275-line-3)">
+</text><text class="terminal-2273859275-r1" x="0" y="117.6" textLength="915" clip-path="url(#terminal-2273859275-line-4)">p_devtools/agent/server.py(166)feed()&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;</text><text class="terminal-2273859275-r1" x="915" y="117.6" textLength="12.2" clip-path="url(#terminal-2273859275-line-4)">
+</text><text class="terminal-2273859275-r1" x="0" y="142" textLength="915" clip-path="url(#terminal-2273859275-line-5)">-&gt;&#160;if&#160;(idx&#160;:=&#160;state.buffer.find(SEP))&#160;==&#160;-1:&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;</text><text class="terminal-2273859275-r1" x="915" y="142" textLength="12.2" clip-path="url(#terminal-2273859275-line-5)">
+</text><text class="terminal-2273859275-r3" x="0" y="166.4" textLength="73.2" clip-path="url(#terminal-2273859275-line-6)">(Pdb)&#160;</text><text class="terminal-2273859275-r1" x="915" y="166.4" textLength="12.2" clip-path="url(#terminal-2273859275-line-6)">
+</text><text class="terminal-2273859275-r1" x="0" y="190.8" textLength="915" clip-path="url(#terminal-2273859275-line-7)">&gt;&#160;/var/home/alex/Projects/swyddfa/lsp-devtools/develop/lib/lsp-devtools/ls\</text><text class="terminal-2273859275-r1" x="915" y="190.8" textLength="12.2" clip-path="url(#terminal-2273859275-line-7)">
+</text><text class="terminal-2273859275-r1" x="0" y="215.2" textLength="915" clip-path="url(#terminal-2273859275-line-8)">p_devtools/agent/server.py(169)feed()&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;</text><text class="terminal-2273859275-r1" x="915" y="215.2" textLength="12.2" clip-path="url(#terminal-2273859275-line-8)">
+</text><text class="terminal-2273859275-r1" x="0" y="239.6" textLength="915" clip-path="url(#terminal-2273859275-line-9)">-&gt;&#160;line,&#160;state.buffer&#160;=&#160;state.buffer[:idx],&#160;state.buffer[idx&#160;+&#160;len(SEP)&#160;:]&#160;</text><text class="terminal-2273859275-r1" x="915" y="239.6" textLength="12.2" clip-path="url(#terminal-2273859275-line-9)">
+</text><text class="terminal-2273859275-r3" x="0" y="264" textLength="73.2" clip-path="url(#terminal-2273859275-line-10)">(Pdb)&#160;</text><text class="terminal-2273859275-r2" x="73.2" y="264" textLength="36.6" clip-path="url(#terminal-2273859275-line-10)">idx</text><text class="terminal-2273859275-r1" x="915" y="264" textLength="12.2" clip-path="url(#terminal-2273859275-line-10)">
+</text><text class="terminal-2273859275-r1" x="0" y="288.4" textLength="915" clip-path="url(#terminal-2273859275-line-11)">30&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;</text><text class="terminal-2273859275-r1" x="915" y="288.4" textLength="12.2" clip-path="url(#terminal-2273859275-line-11)">
+</text><text class="terminal-2273859275-r3" x="0" y="312.8" textLength="73.2" clip-path="url(#terminal-2273859275-line-12)">(Pdb)&#160;</text><text class="terminal-2273859275-r1" x="915" y="312.8" textLength="12.2" clip-path="url(#terminal-2273859275-line-12)">
+</text><text class="terminal-2273859275-r1" x="915" y="337.2" textLength="12.2" clip-path="url(#terminal-2273859275-line-13)">
+</text><text class="terminal-2273859275-r1" x="0" y="361.6" textLength="36.6" clip-path="url(#terminal-2273859275-line-14)">-&#160;&#160;</text><text class="terminal-2273859275-r2" x="36.6" y="361.6" textLength="122" clip-path="url(#terminal-2273859275-line-14)">*gud-test*</text><text class="terminal-2273859275-r1" x="158.6" y="361.6" textLength="756.4" clip-path="url(#terminal-2273859275-line-14)">&#160;25:6&#160;&#160;&#160;&#160;&#160;&#160;(Debugger:run&#160;Apheleia)&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;</text><text class="terminal-2273859275-r1" x="915" y="361.6" textLength="12.2" clip-path="url(#terminal-2273859275-line-14)">
+</text><text class="terminal-2273859275-r1" x="0" y="386" textLength="12.2" clip-path="url(#terminal-2273859275-line-15)">+</text><text class="terminal-2273859275-r4" x="24.4" y="386" textLength="73.2" clip-path="url(#terminal-2273859275-line-15)">&#160;&#160;158&#160;</text><text class="terminal-2273859275-r5" x="195.2" y="386" textLength="475.8" clip-path="url(#terminal-2273859275-line-15)">#&#160;messages&#160;to&#160;be&#160;stuck&#160;in&#160;the&#160;buffer...</text><text class="terminal-2273859275-r1" x="915" y="386" textLength="12.2" clip-path="url(#terminal-2273859275-line-15)">
+</text><text class="terminal-2273859275-r1" x="0" y="410.4" textLength="12.2" clip-path="url(#terminal-2273859275-line-16)">+</text><text class="terminal-2273859275-r4" x="24.4" y="410.4" textLength="73.2" clip-path="url(#terminal-2273859275-line-16)">&#160;&#160;159&#160;</text><text class="terminal-2273859275-r5" x="195.2" y="410.4" textLength="12.2" clip-path="url(#terminal-2273859275-line-16)">#</text><text class="terminal-2273859275-r1" x="915" y="410.4" textLength="12.2" clip-path="url(#terminal-2273859275-line-16)">
+</text><text class="terminal-2273859275-r1" x="0" y="434.8" textLength="12.2" clip-path="url(#terminal-2273859275-line-17)">+</text><text class="terminal-2273859275-r4" x="24.4" y="434.8" textLength="73.2" clip-path="url(#terminal-2273859275-line-17)">&#160;&#160;160&#160;</text><text class="terminal-2273859275-r5" x="195.2" y="434.8" textLength="707.6" clip-path="url(#terminal-2273859275-line-17)">#&#160;So&#160;we&#160;will&#160;keep&#160;running&#160;that&#160;parser&#160;as&#160;long&#160;as&#160;the&#160;buffe</text><text class="terminal-2273859275-r1" x="902.8" y="434.8" textLength="12.2" clip-path="url(#terminal-2273859275-line-17)">\</text><text class="terminal-2273859275-r1" x="915" y="434.8" textLength="12.2" clip-path="url(#terminal-2273859275-line-17)">
+</text><text class="terminal-2273859275-r5" x="97.6" y="459.2" textLength="170.8" clip-path="url(#terminal-2273859275-line-18)">r&#160;continues&#160;to</text><text class="terminal-2273859275-r5" x="280.6" y="459.2" textLength="73.2" clip-path="url(#terminal-2273859275-line-18)">shrink</text><text class="terminal-2273859275-r1" x="915" y="459.2" textLength="12.2" clip-path="url(#terminal-2273859275-line-18)">
+</text><text class="terminal-2273859275-r1" x="0" y="483.6" textLength="12.2" clip-path="url(#terminal-2273859275-line-19)">+</text><text class="terminal-2273859275-r4" x="24.4" y="483.6" textLength="73.2" clip-path="url(#terminal-2273859275-line-19)">&#160;&#160;161&#160;</text><text class="terminal-2273859275-r7" x="195.2" y="483.6" textLength="183" clip-path="url(#terminal-2273859275-line-19)">previous_length</text><text class="terminal-2273859275-r1" x="378.2" y="483.6" textLength="36.6" clip-path="url(#terminal-2273859275-line-19)">&#160;=&#160;</text><text class="terminal-2273859275-r8" x="414.8" y="483.6" textLength="36.6" clip-path="url(#terminal-2273859275-line-19)">len</text><text class="terminal-2273859275-r1" x="451.4" y="483.6" textLength="463.6" clip-path="url(#terminal-2273859275-line-19)">(state.buffer)&#160;+&#160;1&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;</text><text class="terminal-2273859275-r1" x="915" y="483.6" textLength="12.2" clip-path="url(#terminal-2273859275-line-19)">
+</text><text class="terminal-2273859275-r1" x="0" y="508" textLength="12.2" clip-path="url(#terminal-2273859275-line-20)">+</text><text class="terminal-2273859275-r4" x="24.4" y="508" textLength="73.2" clip-path="url(#terminal-2273859275-line-20)">&#160;&#160;162&#160;</text><text class="terminal-2273859275-r9" x="195.2" y="508" textLength="61" clip-path="url(#terminal-2273859275-line-20)">while</text><text class="terminal-2273859275-r8" x="268.4" y="508" textLength="36.6" clip-path="url(#terminal-2273859275-line-20)">len</text><text class="terminal-2273859275-r1" x="305" y="508" textLength="610" clip-path="url(#terminal-2273859275-line-20)">(state.buffer)&#160;&lt;&#160;previous_length:&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;</text><text class="terminal-2273859275-r1" x="915" y="508" textLength="12.2" clip-path="url(#terminal-2273859275-line-20)">
+</text><text class="terminal-2273859275-r1" x="0" y="532.4" textLength="12.2" clip-path="url(#terminal-2273859275-line-21)">+</text><text class="terminal-2273859275-r4" x="24.4" y="532.4" textLength="73.2" clip-path="url(#terminal-2273859275-line-21)">&#160;&#160;163&#160;</text><text class="terminal-2273859275-r7" x="244" y="532.4" textLength="183" clip-path="url(#terminal-2273859275-line-21)">previous_length</text><text class="terminal-2273859275-r1" x="427" y="532.4" textLength="36.6" clip-path="url(#terminal-2273859275-line-21)">&#160;=&#160;</text><text class="terminal-2273859275-r8" x="463.6" y="532.4" textLength="36.6" clip-path="url(#terminal-2273859275-line-21)">len</text><text class="terminal-2273859275-r1" x="500.2" y="532.4" textLength="414.8" clip-path="url(#terminal-2273859275-line-21)">(state.buffer)&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;</text><text class="terminal-2273859275-r1" x="915" y="532.4" textLength="12.2" clip-path="url(#terminal-2273859275-line-21)">
+</text><text class="terminal-2273859275-r1" x="0" y="556.8" textLength="12.2" clip-path="url(#terminal-2273859275-line-22)">+</text><text class="terminal-2273859275-r4" x="24.4" y="556.8" textLength="73.2" clip-path="url(#terminal-2273859275-line-22)">&#160;&#160;164&#160;</text><text class="terminal-2273859275-r10" x="244" y="556.8" textLength="122" clip-path="url(#terminal-2273859275-line-22)">breakpoint</text><text class="terminal-2273859275-r1" x="366" y="556.8" textLength="549" clip-path="url(#terminal-2273859275-line-22)">()&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;</text><text class="terminal-2273859275-r1" x="915" y="556.8" textLength="12.2" clip-path="url(#terminal-2273859275-line-22)">
+</text><text class="terminal-2273859275-r1" x="0" y="581.2" textLength="12.2" clip-path="url(#terminal-2273859275-line-23)">+</text><text class="terminal-2273859275-r4" x="24.4" y="581.2" textLength="73.2" clip-path="url(#terminal-2273859275-line-23)">&#160;&#160;165&#160;</text><text class="terminal-2273859275-r9" x="244" y="581.2" textLength="24.4" clip-path="url(#terminal-2273859275-line-23)">if</text><text class="terminal-2273859275-r9" x="280.6" y="581.2" textLength="36.6" clip-path="url(#terminal-2273859275-line-23)">not</text><text class="terminal-2273859275-r1" x="317.2" y="581.2" textLength="597.8" clip-path="url(#terminal-2273859275-line-23)">&#160;state.headers_complete:&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;</text><text class="terminal-2273859275-r1" x="915" y="581.2" textLength="12.2" clip-path="url(#terminal-2273859275-line-23)">
+</text><text class="terminal-2273859275-r1" x="0" y="605.6" textLength="12.2" clip-path="url(#terminal-2273859275-line-24)">+</text><text class="terminal-2273859275-r4" x="24.4" y="605.6" textLength="73.2" clip-path="url(#terminal-2273859275-line-24)">&#160;&#160;166&#160;</text><text class="terminal-2273859275-r9" x="292.8" y="605.6" textLength="24.4" clip-path="url(#terminal-2273859275-line-24)">if</text><text class="terminal-2273859275-r1" x="317.2" y="605.6" textLength="24.4" clip-path="url(#terminal-2273859275-line-24)">&#160;(</text><text class="terminal-2273859275-r7" x="341.6" y="605.6" textLength="36.6" clip-path="url(#terminal-2273859275-line-24)">idx</text><text class="terminal-2273859275-r1" x="378.2" y="605.6" textLength="536.8" clip-path="url(#terminal-2273859275-line-24)">&#160;:=&#160;state.buffer.find(SEP))&#160;==&#160;-1:&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;</text><text class="terminal-2273859275-r1" x="915" y="605.6" textLength="12.2" clip-path="url(#terminal-2273859275-line-24)">
+</text><text class="terminal-2273859275-r1" x="0" y="630" textLength="12.2" clip-path="url(#terminal-2273859275-line-25)">+</text><text class="terminal-2273859275-r4" x="24.4" y="630" textLength="73.2" clip-path="url(#terminal-2273859275-line-25)">&#160;&#160;167&#160;</text><text class="terminal-2273859275-r9" x="341.6" y="630" textLength="73.2" clip-path="url(#terminal-2273859275-line-25)">return</text><text class="terminal-2273859275-r1" x="915" y="630" textLength="12.2" clip-path="url(#terminal-2273859275-line-25)">
+</text><text class="terminal-2273859275-r1" x="0" y="654.4" textLength="12.2" clip-path="url(#terminal-2273859275-line-26)">+</text><text class="terminal-2273859275-r4" x="24.4" y="654.4" textLength="73.2" clip-path="url(#terminal-2273859275-line-26)">&#160;&#160;168&#160;</text><text class="terminal-2273859275-r1" x="915" y="654.4" textLength="12.2" clip-path="url(#terminal-2273859275-line-26)">
+</text><text class="terminal-2273859275-r1" x="0" y="678.8" textLength="12.2" clip-path="url(#terminal-2273859275-line-27)">+</text><text class="terminal-2273859275-r1" x="12.2" y="678.8" textLength="36.6" clip-path="url(#terminal-2273859275-line-27)">&#160;=&gt;</text><text class="terminal-2273859275-r2" x="48.8" y="678.8" textLength="48.8" clip-path="url(#terminal-2273859275-line-27)">169&#160;</text><text class="terminal-2273859275-r7" x="292.8" y="678.8" textLength="48.8" clip-path="url(#terminal-2273859275-line-27)">line</text><text class="terminal-2273859275-r1" x="341.6" y="678.8" textLength="573.4" clip-path="url(#terminal-2273859275-line-27)">,&#160;state.buffer&#160;=&#160;state.buffer[:idx],&#160;state.buf\</text><text class="terminal-2273859275-r1" x="915" y="678.8" textLength="12.2" clip-path="url(#terminal-2273859275-line-27)">
+</text><text class="terminal-2273859275-r11" x="0" y="703.2" textLength="12.2" clip-path="url(#terminal-2273859275-line-28)">-</text><text class="terminal-2273859275-r12" x="12.2" y="703.2" textLength="183" clip-path="url(#terminal-2273859275-line-28)">🖿&#160;lsp-devtools&#160;</text><text class="terminal-2273859275-r13" x="219.6" y="703.2" textLength="109.8" clip-path="url(#terminal-2273859275-line-28)">server.py</text><text class="terminal-2273859275-r11" x="329.4" y="703.2" textLength="341.6" clip-path="url(#terminal-2273859275-line-28)">&#160;169:0&#160;&#160;&#160;&#160;&#160;&#160;(Python&#160;Flymake[</text><text class="terminal-2273859275-r14" x="671" y="703.2" textLength="12.2" clip-path="url(#terminal-2273859275-line-28)">0</text><text class="terminal-2273859275-r15" x="695.4" y="703.2" textLength="12.2" clip-path="url(#terminal-2273859275-line-28)">0</text><text class="terminal-2273859275-r16" x="719.8" y="703.2" textLength="12.2" clip-path="url(#terminal-2273859275-line-28)">1</text><text class="terminal-2273859275-r11" x="732" y="703.2" textLength="183" clip-path="url(#terminal-2273859275-line-28)">]&#160;ws&#160;Apheleia©&#160;</text><text class="terminal-2273859275-r1" x="915" y="703.2" textLength="12.2" clip-path="url(#terminal-2273859275-line-28)">
+</text>
+    </g>
+    </g>
+</svg>
+<p>Yes it is!</p>
+<p>In this blog post I describe how I arrived at the workflow I used to include the above screenshot on this website.</p>
+</div>
+<section id="taking-the-screenshot">
+<h2>Taking the screenshot<a class="headerlink" href="#taking-the-screenshot" title="Link to this heading">¶</a></h2>
+<p>I’ll admit it, this whole idea started out as a solution in search of a problem!</p>
+<p>I’ve been using <a class="reference external" href="https://wezterm.org">WezTerm</a> as my terminal emulator for a while now, but I wasn’t taking advantage of the fact that it is configured using Lua and so I was looking for an excuse to try something non-trivial.</p>
+<p>Before long I found it - <code class="docutils literal notranslate"><span class="pre">pane:get_lines_as_escapes()</span></code>.</p>
+<p>The above function returns the current contents of the terminal pane as a string, including all the escape codes that control the formatting!
+By
+<a class="reference external" href="https://wezterm.org/config/lua/window-events/augment-command-palette.html#adding-a-rename-tab-entry-to-the-palette">mashing</a>
+together a couple of
+<a class="reference external" href="https://wezterm.org/config/lua/pane/get_lines_as_escapes.html">examples</a>
+from the documentation I soon had a custom command I could invoke through the command palette which would dump the contents of the active pane to a text file.</p>
+<div class="highlight-lua notranslate"><div class="highlight"><pre><span></span><span class="nv">wezterm</span><span class="p">.</span><span class="nf">on</span><span class="p">(</span><span class="s1">&#39;augment-command-palette&#39;</span><span class="p">,</span><span class="w"> </span><span class="kr">function</span><span class="p">(</span><span class="nv">window</span><span class="p">,</span><span class="w"> </span><span class="nv">pane</span><span class="p">)</span>
+<span class="w">  </span><span class="kr">return</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">      </span><span class="nv">brief</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;Take screenshot&#39;</span><span class="p">,</span>
+<span class="w">      </span><span class="nv">icon</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;cod_device_camera&#39;</span><span class="p">,</span>
+
+<span class="w">      </span><span class="nv">action</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">act</span><span class="p">.</span><span class="py">PromptInputLine</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="nv">description</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;Screenshot name&#39;</span><span class="p">,</span>
+<span class="w">        </span><span class="nv">action</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">wezterm</span><span class="p">.</span><span class="nf">action_callback</span><span class="p">(</span><span class="kr">function</span><span class="p">(</span><span class="nv">window</span><span class="p">,</span><span class="w"> </span><span class="nv">pane</span><span class="p">,</span><span class="w"> </span><span class="nv">line</span><span class="p">)</span>
+<span class="w">          </span><span class="kr">if</span><span class="w"> </span><span class="nv">line</span><span class="w"> </span><span class="kr">then</span>
+<span class="w">            </span><span class="kd">local</span><span class="w"> </span><span class="nv">text</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">pane</span><span class="p">:</span><span class="nf">get_lines_as_escapes</span><span class="p">()</span>
+<span class="w">            </span><span class="kd">local</span><span class="w"> </span><span class="nv">f</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">io.open</span><span class="p">(</span><span class="nv">line</span><span class="w"> </span><span class="o">..</span><span class="w"> </span><span class="s1">&#39;.txt&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;w+&#39;</span><span class="p">)</span>
+
+<span class="w">            </span><span class="nv">f</span><span class="p">:</span><span class="nf">write</span><span class="p">(</span><span class="nv">text</span><span class="p">)</span>
+<span class="w">            </span><span class="nv">f</span><span class="p">:</span><span class="nf">flush</span><span class="p">()</span>
+<span class="w">            </span><span class="nv">f</span><span class="p">:</span><span class="nf">close</span><span class="p">()</span>
+<span class="w">          </span><span class="kr">end</span>
+<span class="w">        </span><span class="kr">end</span><span class="p">),</span>
+<span class="w">      </span><span class="p">},</span>
+<span class="w">    </span><span class="p">},</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="kr">end</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="admonition-flatpak-permissions admonition">
+<p class="admonition-title">Flatpak permissions…</p>
+<p>I have the <a class="reference external" href="https://flathub.org/apps/org.wezfurlong.wezterm">Flatpak</a> version of  WezTerm installed.</p>
+<p>This led to a bizarre issue where the call to <code class="docutils literal notranslate"><span class="pre">io.open()</span></code> kept failing silently by returning <code class="docutils literal notranslate"><span class="pre">nil</span></code>.
+<a class="reference external" href="https://stackoverflow.com/a/75390601">Apparently</a>, in order to get an actual error message you need to wrap the call in an <code class="docutils literal notranslate"><span class="pre">assert()</span></code>.</p>
+<p>Eventually, I was able to spot that WezTerm was complaining that the filesystem was read-only.
+Thankfully, the KDE System Settings app allowed me to grant WezTerm write access to my filesystem without too much hassle.</p>
+</div>
+<p>After running the command and giving it a filename I was left with a plain-ish text file that looked something like the following</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>\x1b[38:2::255:255:255m\x1b[48:2::49:49:49m|\x1b(B\x1b[0;1m\x1b[38:2::255:255:255m\x1b[40m*gud-test*        x\x1b(B\x1b[0m\x1b[&#39;z...
+</pre></div>
+</div>
+</section>
+<section id="rendering-the-screenshot">
+<h2>Rendering the Screenshot<a class="headerlink" href="#rendering-the-screenshot" title="Link to this heading">¶</a></h2>
+<p>Now that we have the raw data, there are lots of ways we could approach rendering it, for example you could dump it into <a class="reference external" href="https://github.com/xtermjs/xterm.js">xterm.js</a>.</p>
+<p>However, while I have nothing against JavaScript it’s always nice not to rely on it unnecessarily.
+Since this is a static screenshot anyway it makes sense to render it offline and embed the result in the page.</p>
+<p>Using the <a class="reference external" href="https://github.com/textualize/rich">rich</a> Python library, it only takes a few lines of code to convert the screenshot from plain-ish text to an SVG.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">io</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">pathlib</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">rich.console</span><span class="w"> </span><span class="kn">import</span> <span class="n">Console</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">rich.text</span><span class="w"> </span><span class="kn">import</span> <span class="n">Text</span>
+
+<span class="n">content</span> <span class="o">=</span> <span class="n">pathlib</span><span class="o">.</span><span class="n">Path</span><span class="p">(</span><span class="s1">&#39;&lt;filepath&gt;&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">read_text</span><span class="p">()</span>
+<span class="n">text</span> <span class="o">=</span> <span class="n">Text</span><span class="o">.</span><span class="n">from_ansi</span><span class="p">(</span><span class="n">content</span><span class="p">)</span>
+
+<span class="n">console</span> <span class="o">=</span> <span class="n">Console</span><span class="p">(</span>
+    <span class="n">file</span><span class="o">=</span><span class="n">io</span><span class="o">.</span><span class="n">StringIO</span><span class="p">(),</span>
+    <span class="n">force_terminal</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+    <span class="n">record</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+    <span class="n">width</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="n">height</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="n">console</span><span class="o">.</span><span class="n">print</span><span class="p">(</span><span class="n">text</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">)</span>
+<span class="n">svg</span> <span class="o">=</span> <span class="n">console</span><span class="o">.</span><span class="n">export_svg</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="s2">&quot;Example screenshot&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>There is one small issue… passing <code class="docutils literal notranslate"><span class="pre">None</span></code> for the <code class="docutils literal notranslate"><span class="pre">width</span></code> and <code class="docutils literal notranslate"><span class="pre">height</span></code> of the <code class="docutils literal notranslate"><span class="pre">Console</span></code> object means that it will use the dimensions of the current terminal executing the code rather than the dimensions of the terminal the screenshot was captured from!</p>
+<section id="width-and-height">
+<h3>Width and Height<a class="headerlink" href="#width-and-height" title="Link to this heading">¶</a></h3>
+<p>In order for the captured data to be rendered correctly, rich’s <code class="docutils literal notranslate"><span class="pre">Console</span></code> object needs to use the same <code class="docutils literal notranslate"><span class="pre">width</span></code> and <code class="docutils literal notranslate"><span class="pre">height</span></code> as the original terminal.</p>
+<p>This means that when we take the screenshot, we also need to capture the dimensions of the terminal pane.
+Easy enough with WezTerm’s Lua API, but where to store the values?</p>
+<p>Rather than try and invent a file format, why not reuse the <a class="reference external" href="https://docs.asciinema.org/manual/asciicast/v3/">asciicast</a> format from <a class="reference external" href="https://asciinema.org/">asciinema</a>?
+After all a screenshot is just a single frame screencast!</p>
+<p>We don’t need to worry too much about the details of the format, the following snippet should be enough for this use case.</p>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span><span class="nt">&quot;version&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">3</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;term&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="nt">&quot;cols&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;&lt;width&gt;&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;rows&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;&lt;height&gt;&quot;</span><span class="p">}}</span>
+<span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;o&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;&lt;captured_output&gt;&quot;</span><span class="p">]</span>
+</pre></div>
+</div>
+<p>Which we can modify our custom WezTerm command to produce.</p>
+<div class="highlight-lua notranslate"><div class="highlight"><pre><span></span><span class="nv">wezterm</span><span class="p">.</span><span class="nf">on</span><span class="p">(</span><span class="s1">&#39;augment-command-palette&#39;</span><span class="p">,</span><span class="w"> </span><span class="kr">function</span><span class="p">(</span><span class="nv">window</span><span class="p">,</span><span class="w"> </span><span class="nv">pane</span><span class="p">)</span>
+<span class="w">  </span><span class="kr">return</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">      </span><span class="nv">brief</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;Take screenshot&#39;</span><span class="p">,</span>
+<span class="w">      </span><span class="nv">icon</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;cod_device_camera&#39;</span><span class="p">,</span>
+
+<span class="w">      </span><span class="nv">action</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">act</span><span class="p">.</span><span class="py">PromptInputLine</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="nv">description</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;Screenshot name&#39;</span><span class="p">,</span>
+<span class="w">        </span><span class="nv">action</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">wezterm</span><span class="p">.</span><span class="nf">action_callback</span><span class="p">(</span><span class="kr">function</span><span class="p">(</span><span class="nv">window</span><span class="p">,</span><span class="w"> </span><span class="nv">pane</span><span class="p">,</span><span class="w"> </span><span class="nv">line</span><span class="p">)</span>
+<span class="w">          </span><span class="kr">if</span><span class="w"> </span><span class="nv">line</span><span class="w"> </span><span class="kr">then</span>
+<span class="w">            </span><span class="kd">local</span><span class="w"> </span><span class="nv">dimensions</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">pane</span><span class="p">:</span><span class="nf">get_dimensions</span><span class="p">()</span>
+<span class="w">            </span><span class="kd">local</span><span class="w"> </span><span class="nv">body</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;o&quot;</span><span class="p">,</span><span class="w"> </span><span class="nv">pane</span><span class="p">:</span><span class="nf">get_lines_as_escapes</span><span class="p">()}</span>
+
+<span class="w">            </span><span class="kd">local</span><span class="w"> </span><span class="nv">header</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span>
+<span class="w">              </span><span class="nv">version</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">3</span><span class="p">,</span>
+<span class="w">              </span><span class="nv">term</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span>
+<span class="w">                </span><span class="nv">cols</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">dimensions</span><span class="p">.</span><span class="py">cols</span><span class="p">,</span>
+<span class="w">                </span><span class="nv">rows</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">dimensions</span><span class="p">.</span><span class="py">viewport_rows</span><span class="p">,</span>
+<span class="w">              </span><span class="p">},</span>
+<span class="w">            </span><span class="p">}</span>
+
+<span class="w">            </span><span class="kd">local</span><span class="w"> </span><span class="nv">f</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">io.open</span><span class="p">(</span><span class="nv">line</span><span class="w"> </span><span class="o">..</span><span class="w"> </span><span class="s1">&#39;.cast&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;w+&#39;</span><span class="p">)</span>
+<span class="w">            </span><span class="nv">f</span><span class="p">:</span><span class="nf">write</span><span class="p">(</span><span class="nv">wezterm</span><span class="p">.</span><span class="nf">json_encode</span><span class="p">(</span><span class="nv">header</span><span class="p">)</span><span class="w"> </span><span class="o">..</span><span class="w"> </span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+<span class="w">            </span><span class="nv">f</span><span class="p">:</span><span class="nf">write</span><span class="p">(</span><span class="nv">wezterm</span><span class="p">.</span><span class="nf">json_encode</span><span class="p">(</span><span class="nv">body</span><span class="p">))</span>
+<span class="w">            </span><span class="nv">f</span><span class="p">:</span><span class="nf">flush</span><span class="p">()</span>
+<span class="w">            </span><span class="nv">f</span><span class="p">:</span><span class="nf">close</span><span class="p">()</span>
+<span class="w">          </span><span class="kr">end</span>
+<span class="w">        </span><span class="kr">end</span><span class="p">),</span>
+<span class="w">      </span><span class="p">},</span>
+<span class="w">    </span><span class="p">},</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="kr">end</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>And update our Python code accordingly</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">fpath</span> <span class="o">=</span> <span class="n">pathlib</span><span class="o">.</span><span class="n">Path</span><span class="p">(</span><span class="s1">&#39;&lt;filepath&gt;&#39;</span><span class="p">)</span>
+<span class="k">with</span> <span class="n">fpath</span><span class="o">.</span><span class="n">open</span><span class="p">()</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+   <span class="n">header</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="n">f</span><span class="o">.</span><span class="n">readline</span><span class="p">())</span>
+   <span class="n">body</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="n">f</span><span class="o">.</span><span class="n">readline</span><span class="p">())</span>
+
+<span class="n">text</span> <span class="o">=</span> <span class="n">Text</span><span class="o">.</span><span class="n">from_ansi</span><span class="p">(</span><span class="n">body</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span>
+
+<span class="n">console</span> <span class="o">=</span> <span class="n">Console</span><span class="p">(</span>
+    <span class="n">file</span><span class="o">=</span><span class="n">io</span><span class="o">.</span><span class="n">StringIO</span><span class="p">(),</span>
+    <span class="n">force_terminal</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+    <span class="n">record</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+    <span class="n">width</span><span class="o">=</span><span class="n">header</span><span class="p">[</span><span class="s2">&quot;term&quot;</span><span class="p">][</span><span class="s2">&quot;cols&quot;</span><span class="p">],</span>
+    <span class="n">height</span><span class="o">=</span><span class="n">header</span><span class="p">[</span><span class="s2">&quot;term&quot;</span><span class="p">][</span><span class="s2">&quot;rows&quot;</span><span class="p">],</span>
+<span class="p">)</span>
+<span class="n">console</span><span class="o">.</span><span class="n">print</span><span class="p">(</span><span class="n">text</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">)</span>
+<span class="n">svg</span> <span class="o">=</span> <span class="n">console</span><span class="o">.</span><span class="n">export_svg</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">options</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;title&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">))</span>
+</pre></div>
+</div>
+<p>At this point you’d think it would be job done, but there is one more detail to consider…</p>
+<svg version="1.0"  class="rich-terminal" viewBox="0 0 933 684.4" xmlns="http://www.w3.org/2000/svg">
+    <!-- Generated with Rich https://www.textualize.io -->
+    <style>
+
+    @font-face {
+        font-family: "Fira Code";
+        src: local("FiraCode-Regular"),
+                url("https://cdnjs.cloudflare.com/ajax/libs/firacode/6.2.0/woff2/FiraCode-Regular.woff2") format("woff2"),
+                url("https://cdnjs.cloudflare.com/ajax/libs/firacode/6.2.0/woff/FiraCode-Regular.woff") format("woff");
+        font-style: normal;
+        font-weight: 400;
+    }
+    @font-face {
+        font-family: "Fira Code";
+        src: local("FiraCode-Bold"),
+                url("https://cdnjs.cloudflare.com/ajax/libs/firacode/6.2.0/woff2/FiraCode-Bold.woff2") format("woff2"),
+                url("https://cdnjs.cloudflare.com/ajax/libs/firacode/6.2.0/woff/FiraCode-Bold.woff") format("woff");
+        font-style: bold;
+        font-weight: 700;
+    }
+
+    .terminal-3457234609-matrix {
+        font-family: Fira Code, monospace;
+        font-size: 20px;
+        line-height: 24.4px;
+        font-variant-east-asian: full-width;
+    }
+
+    .terminal-3457234609-title {
+        font-size: 18px;
+        font-weight: bold;
+        font-family: arial;
+    }
+
+    .terminal-3457234609-r1 { fill: #c5c8c6 }
+.terminal-3457234609-r2 { fill: #c5c8c6;font-weight: bold }
+.terminal-3457234609-r3 { fill: #c5c8c6;font-weight: bold;font-style: italic; }
+.terminal-3457234609-r4 { fill: #c5c8c6;font-style: italic; }
+    </style>
+
+    <defs>
+    <clipPath id="terminal-3457234609-clip-terminal">
+      <rect x="0" y="0" width="914.0" height="633.4"></rect>
+    </clipPath>
+    <clipPath id="terminal-3457234609-line-0">
+    <rect x="0" y="1.5" width="915" height="24.65"></rect>
+            </clipPath>
+<clipPath id="terminal-3457234609-line-1">
+    <rect x="0" y="25.9" width="915" height="24.65"></rect>
+            </clipPath>
+<clipPath id="terminal-3457234609-line-2">
+    <rect x="0" y="50.3" width="915" height="24.65"></rect>
+            </clipPath>
+<clipPath id="terminal-3457234609-line-3">
+    <rect x="0" y="74.7" width="915" height="24.65"></rect>
+            </clipPath>
+<clipPath id="terminal-3457234609-line-4">
+    <rect x="0" y="99.1" width="915" height="24.65"></rect>
+            </clipPath>
+<clipPath id="terminal-3457234609-line-5">
+    <rect x="0" y="123.5" width="915" height="24.65"></rect>
+            </clipPath>
+<clipPath id="terminal-3457234609-line-6">
+    <rect x="0" y="147.9" width="915" height="24.65"></rect>
+            </clipPath>
+<clipPath id="terminal-3457234609-line-7">
+    <rect x="0" y="172.3" width="915" height="24.65"></rect>
+            </clipPath>
+<clipPath id="terminal-3457234609-line-8">
+    <rect x="0" y="196.7" width="915" height="24.65"></rect>
+            </clipPath>
+<clipPath id="terminal-3457234609-line-9">
+    <rect x="0" y="221.1" width="915" height="24.65"></rect>
+            </clipPath>
+<clipPath id="terminal-3457234609-line-10">
+    <rect x="0" y="245.5" width="915" height="24.65"></rect>
+            </clipPath>
+<clipPath id="terminal-3457234609-line-11">
+    <rect x="0" y="269.9" width="915" height="24.65"></rect>
+            </clipPath>
+<clipPath id="terminal-3457234609-line-12">
+    <rect x="0" y="294.3" width="915" height="24.65"></rect>
+            </clipPath>
+<clipPath id="terminal-3457234609-line-13">
+    <rect x="0" y="318.7" width="915" height="24.65"></rect>
+            </clipPath>
+<clipPath id="terminal-3457234609-line-14">
+    <rect x="0" y="343.1" width="915" height="24.65"></rect>
+            </clipPath>
+<clipPath id="terminal-3457234609-line-15">
+    <rect x="0" y="367.5" width="915" height="24.65"></rect>
+            </clipPath>
+<clipPath id="terminal-3457234609-line-16">
+    <rect x="0" y="391.9" width="915" height="24.65"></rect>
+            </clipPath>
+<clipPath id="terminal-3457234609-line-17">
+    <rect x="0" y="416.3" width="915" height="24.65"></rect>
+            </clipPath>
+<clipPath id="terminal-3457234609-line-18">
+    <rect x="0" y="440.7" width="915" height="24.65"></rect>
+            </clipPath>
+<clipPath id="terminal-3457234609-line-19">
+    <rect x="0" y="465.1" width="915" height="24.65"></rect>
+            </clipPath>
+<clipPath id="terminal-3457234609-line-20">
+    <rect x="0" y="489.5" width="915" height="24.65"></rect>
+            </clipPath>
+<clipPath id="terminal-3457234609-line-21">
+    <rect x="0" y="513.9" width="915" height="24.65"></rect>
+            </clipPath>
+<clipPath id="terminal-3457234609-line-22">
+    <rect x="0" y="538.3" width="915" height="24.65"></rect>
+            </clipPath>
+<clipPath id="terminal-3457234609-line-23">
+    <rect x="0" y="562.7" width="915" height="24.65"></rect>
+            </clipPath>
+<clipPath id="terminal-3457234609-line-24">
+    <rect x="0" y="587.1" width="915" height="24.65"></rect>
+            </clipPath>
+    </defs>
+
+    <rect fill="#292929" stroke="rgba(255,255,255,0.35)" stroke-width="1" x="1" y="1" width="931" height="682.4" rx="8"></rect>
+            <g transform="translate(26,22)">
+            <circle cx="0" cy="0" r="7" fill="#ff5f57"></circle>
+            <circle cx="22" cy="0" r="7" fill="#febc2e"></circle>
+            <circle cx="44" cy="0" r="7" fill="#28c840"></circle>
+            </g>
+
+    <g transform="translate(9, 41)" clip-path="url(#terminal-3457234609-clip-terminal)">
+    <rect fill="#4b4e55" x="12.2" y="1.5" width="231.8" height="24.65" shape-rendering="crispEdges"></rect><rect fill="#4b4e55" x="0" y="25.9" width="73.2" height="24.65" shape-rendering="crispEdges"></rect><rect fill="#4b4e55" x="73.2" y="25.9" width="12.2" height="24.65" shape-rendering="crispEdges"></rect><rect fill="#4b4e55" x="85.4" y="25.9" width="829.6" height="24.65" shape-rendering="crispEdges"></rect><rect fill="#4b4e55" x="0" y="50.3" width="915" height="24.65" shape-rendering="crispEdges"></rect><rect fill="#4b4e55" x="0" y="74.7" width="915" height="24.65" shape-rendering="crispEdges"></rect><rect fill="#4b4e55" x="0" y="99.1" width="915" height="24.65" shape-rendering="crispEdges"></rect><rect fill="#4b4e55" x="0" y="123.5" width="73.2" height="24.65" shape-rendering="crispEdges"></rect><rect fill="#4b4e55" x="73.2" y="123.5" width="12.2" height="24.65" shape-rendering="crispEdges"></rect><rect fill="#4b4e55" x="85.4" y="123.5" width="829.6" height="24.65" shape-rendering="crispEdges"></rect><rect fill="#4b4e55" x="0" y="147.9" width="915" height="24.65" shape-rendering="crispEdges"></rect><rect fill="#4b4e55" x="0" y="172.3" width="915" height="24.65" shape-rendering="crispEdges"></rect><rect fill="#4b4e55" x="0" y="196.7" width="915" height="24.65" shape-rendering="crispEdges"></rect><rect fill="#4b4e55" x="0" y="221.1" width="73.2" height="24.65" shape-rendering="crispEdges"></rect><rect fill="#4b4e55" x="73.2" y="221.1" width="36.6" height="24.65" shape-rendering="crispEdges"></rect><rect fill="#4b4e55" x="109.8" y="221.1" width="805.2" height="24.65" shape-rendering="crispEdges"></rect><rect fill="#4b4e55" x="0" y="245.5" width="915" height="24.65" shape-rendering="crispEdges"></rect><rect fill="#4b4e55" x="0" y="269.9" width="73.2" height="24.65" shape-rendering="crispEdges"></rect><rect fill="#4b4e55" x="73.2" y="269.9" width="841.8" height="24.65" shape-rendering="crispEdges"></rect><rect fill="#4b4e55" x="0" y="294.3" width="36.6" height="24.65" shape-rendering="crispEdges"></rect><rect fill="#4b4e55" x="0" y="318.7" width="24.4" height="24.65" shape-rendering="crispEdges"></rect><rect fill="#4b4e55" x="24.4" y="318.7" width="73.2" height="24.65" shape-rendering="crispEdges"></rect><rect fill="#4b4e55" x="97.6" y="318.7" width="97.6" height="24.65" shape-rendering="crispEdges"></rect><rect fill="#4b4e55" x="195.2" y="318.7" width="707.6" height="24.65" shape-rendering="crispEdges"></rect><rect fill="#4b4e55" x="902.8" y="318.7" width="12.2" height="24.65" shape-rendering="crispEdges"></rect><rect fill="#4b4e55" x="0" y="343.1" width="24.4" height="24.65" shape-rendering="crispEdges"></rect><rect fill="#4b4e55" x="24.4" y="343.1" width="73.2" height="24.65" shape-rendering="crispEdges"></rect><rect fill="#4b4e55" x="97.6" y="343.1" width="170.8" height="24.65" shape-rendering="crispEdges"></rect><rect fill="#4b4e55" x="268.4" y="343.1" width="12.2" height="24.65" shape-rendering="crispEdges"></rect><rect fill="#4b4e55" x="280.6" y="343.1" width="73.2" height="24.65" shape-rendering="crispEdges"></rect><rect fill="#4b4e55" x="353.8" y="343.1" width="561.2" height="24.65" shape-rendering="crispEdges"></rect><rect fill="#4b4e55" x="0" y="367.5" width="24.4" height="24.65" shape-rendering="crispEdges"></rect><rect fill="#4b4e55" x="24.4" y="367.5" width="73.2" height="24.65" shape-rendering="crispEdges"></rect><rect fill="#4b4e55" x="97.6" y="367.5" width="97.6" height="24.65" shape-rendering="crispEdges"></rect><rect fill="#4b4e55" x="195.2" y="367.5" width="183" height="24.65" shape-rendering="crispEdges"></rect><rect fill="#4b4e55" x="378.2" y="367.5" width="36.6" height="24.65" shape-rendering="crispEdges"></rect><rect fill="#4b4e55" x="414.8" y="367.5" width="36.6" height="24.65" shape-rendering="crispEdges"></rect><rect fill="#4b4e55" x="451.4" y="367.5" width="463.6" height="24.65" shape-rendering="crispEdges"></rect><rect fill="#4b4e55" x="0" y="391.9" width="24.4" height="24.65" shape-rendering="crispEdges"></rect><rect fill="#4b4e55" x="24.4" y="391.9" width="73.2" height="24.65" shape-rendering="crispEdges"></rect><rect fill="#4b4e55" x="97.6" y="391.9" width="97.6" height="24.65" shape-rendering="crispEdges"></rect><rect fill="#4b4e55" x="195.2" y="391.9" width="61" height="24.65" shape-rendering="crispEdges"></rect><rect fill="#4b4e55" x="256.2" y="391.9" width="12.2" height="24.65" shape-rendering="crispEdges"></rect><rect fill="#4b4e55" x="268.4" y="391.9" width="36.6" height="24.65" shape-rendering="crispEdges"></rect><rect fill="#4b4e55" x="305" y="391.9" width="610" height="24.65" shape-rendering="crispEdges"></rect><rect fill="#4b4e55" x="0" y="416.3" width="24.4" height="24.65" shape-rendering="crispEdges"></rect><rect fill="#4b4e55" x="24.4" y="416.3" width="73.2" height="24.65" shape-rendering="crispEdges"></rect><rect fill="#4b4e55" x="97.6" y="416.3" width="146.4" height="24.65" shape-rendering="crispEdges"></rect><rect fill="#4b4e55" x="244" y="416.3" width="183" height="24.65" shape-rendering="crispEdges"></rect><rect fill="#4b4e55" x="427" y="416.3" width="36.6" height="24.65" shape-rendering="crispEdges"></rect><rect fill="#4b4e55" x="463.6" y="416.3" width="36.6" height="24.65" shape-rendering="crispEdges"></rect><rect fill="#4b4e55" x="500.2" y="416.3" width="414.8" height="24.65" shape-rendering="crispEdges"></rect><rect fill="#4b4e55" x="0" y="440.7" width="24.4" height="24.65" shape-rendering="crispEdges"></rect><rect fill="#4b4e55" x="24.4" y="440.7" width="73.2" height="24.65" shape-rendering="crispEdges"></rect><rect fill="#4b4e55" x="97.6" y="440.7" width="146.4" height="24.65" shape-rendering="crispEdges"></rect><rect fill="#4b4e55" x="244" y="440.7" width="122" height="24.65" shape-rendering="crispEdges"></rect><rect fill="#4b4e55" x="366" y="440.7" width="549" height="24.65" shape-rendering="crispEdges"></rect><rect fill="#4b4e55" x="0" y="465.1" width="24.4" height="24.65" shape-rendering="crispEdges"></rect><rect fill="#4b4e55" x="24.4" y="465.1" width="73.2" height="24.65" shape-rendering="crispEdges"></rect><rect fill="#4b4e55" x="97.6" y="465.1" width="146.4" height="24.65" shape-rendering="crispEdges"></rect><rect fill="#4b4e55" x="244" y="465.1" width="24.4" height="24.65" shape-rendering="crispEdges"></rect><rect fill="#4b4e55" x="268.4" y="465.1" width="12.2" height="24.65" shape-rendering="crispEdges"></rect><rect fill="#4b4e55" x="280.6" y="465.1" width="36.6" height="24.65" shape-rendering="crispEdges"></rect><rect fill="#4b4e55" x="317.2" y="465.1" width="597.8" height="24.65" shape-rendering="crispEdges"></rect><rect fill="#4b4e55" x="0" y="489.5" width="24.4" height="24.65" shape-rendering="crispEdges"></rect><rect fill="#4b4e55" x="24.4" y="489.5" width="73.2" height="24.65" shape-rendering="crispEdges"></rect><rect fill="#4b4e55" x="97.6" y="489.5" width="195.2" height="24.65" shape-rendering="crispEdges"></rect><rect fill="#4b4e55" x="292.8" y="489.5" width="24.4" height="24.65" shape-rendering="crispEdges"></rect><rect fill="#4b4e55" x="317.2" y="489.5" width="24.4" height="24.65" shape-rendering="crispEdges"></rect><rect fill="#4b4e55" x="341.6" y="489.5" width="36.6" height="24.65" shape-rendering="crispEdges"></rect><rect fill="#4b4e55" x="378.2" y="489.5" width="268.4" height="24.65" shape-rendering="crispEdges"></rect><rect fill="#4b4e55" x="646.6" y="489.5" width="36.6" height="24.65" shape-rendering="crispEdges"></rect><rect fill="#4b4e55" x="683.2" y="489.5" width="231.8" height="24.65" shape-rendering="crispEdges"></rect><rect fill="#4b4e55" x="0" y="513.9" width="24.4" height="24.65" shape-rendering="crispEdges"></rect><rect fill="#4b4e55" x="24.4" y="513.9" width="73.2" height="24.65" shape-rendering="crispEdges"></rect><rect fill="#4b4e55" x="97.6" y="513.9" width="244" height="24.65" shape-rendering="crispEdges"></rect><rect fill="#4b4e55" x="341.6" y="513.9" width="73.2" height="24.65" shape-rendering="crispEdges"></rect><rect fill="#4b4e55" x="414.8" y="513.9" width="500.2" height="24.65" shape-rendering="crispEdges"></rect><rect fill="#4b4e55" x="0" y="538.3" width="24.4" height="24.65" shape-rendering="crispEdges"></rect><rect fill="#4b4e55" x="24.4" y="538.3" width="73.2" height="24.65" shape-rendering="crispEdges"></rect><rect fill="#4b4e55" x="97.6" y="538.3" width="817.4" height="24.65" shape-rendering="crispEdges"></rect><rect fill="#4b4e55" x="0" y="562.7" width="48.8" height="24.65" shape-rendering="crispEdges"></rect><rect fill="#4b4e55" x="97.6" y="562.7" width="195.2" height="24.65" shape-rendering="crispEdges"></rect><rect fill="#4b4e55" x="292.8" y="562.7" width="48.8" height="24.65" shape-rendering="crispEdges"></rect><rect fill="#4b4e55" x="341.6" y="562.7" width="573.4" height="24.65" shape-rendering="crispEdges"></rect><rect fill="#4b4e55" x="0" y="587.1" width="12.2" height="24.65" shape-rendering="crispEdges"></rect><rect fill="#4b4e55" x="0" y="611.5" width="902.8" height="24.65" shape-rendering="crispEdges"></rect>
+    <g class="terminal-3457234609-matrix">
+    <text class="terminal-3457234609-r1" x="0" y="20" textLength="12.2" clip-path="url(#terminal-3457234609-line-0)">|</text><text class="terminal-3457234609-r2" x="12.2" y="20" textLength="231.8" clip-path="url(#terminal-3457234609-line-0)">*gud-test*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;x</text><text class="terminal-3457234609-r1" x="244" y="20" textLength="671" clip-path="url(#terminal-3457234609-line-0)">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[89%]&nbsp;21:17&nbsp;18/06/25&nbsp;☰</text><text class="terminal-3457234609-r1" x="915" y="20" textLength="12.2" clip-path="url(#terminal-3457234609-line-0)">
+</text><text class="terminal-3457234609-r3" x="0" y="44.4" textLength="73.2" clip-path="url(#terminal-3457234609-line-1)">(Pdb)&nbsp;</text><text class="terminal-3457234609-r2" x="73.2" y="44.4" textLength="12.2" clip-path="url(#terminal-3457234609-line-1)">n</text><text class="terminal-3457234609-r1" x="915" y="44.4" textLength="12.2" clip-path="url(#terminal-3457234609-line-1)">
+</text><text class="terminal-3457234609-r1" x="0" y="68.8" textLength="915" clip-path="url(#terminal-3457234609-line-2)">&gt;&nbsp;/var/home/alex/Projects/swyddfa/lsp-devtools/develop/lib/lsp-devtools/ls\</text><text class="terminal-3457234609-r1" x="915" y="68.8" textLength="12.2" clip-path="url(#terminal-3457234609-line-2)">
+</text><text class="terminal-3457234609-r1" x="0" y="93.2" textLength="915" clip-path="url(#terminal-3457234609-line-3)">p_devtools/agent/server.py(166)feed()&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</text><text class="terminal-3457234609-r1" x="915" y="93.2" textLength="12.2" clip-path="url(#terminal-3457234609-line-3)">
+</text><text class="terminal-3457234609-r1" x="0" y="117.6" textLength="915" clip-path="url(#terminal-3457234609-line-4)">-&gt;&nbsp;if&nbsp;(idx&nbsp;:=&nbsp;state.buffer.find(SEP))&nbsp;==&nbsp;-1:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</text><text class="terminal-3457234609-r1" x="915" y="117.6" textLength="12.2" clip-path="url(#terminal-3457234609-line-4)">
+</text><text class="terminal-3457234609-r3" x="0" y="142" textLength="73.2" clip-path="url(#terminal-3457234609-line-5)">(Pdb)&nbsp;</text><text class="terminal-3457234609-r2" x="73.2" y="142" textLength="12.2" clip-path="url(#terminal-3457234609-line-5)">n</text><text class="terminal-3457234609-r1" x="915" y="142" textLength="12.2" clip-path="url(#terminal-3457234609-line-5)">
+</text><text class="terminal-3457234609-r1" x="0" y="166.4" textLength="915" clip-path="url(#terminal-3457234609-line-6)">&gt;&nbsp;/var/home/alex/Projects/swyddfa/lsp-devtools/develop/lib/lsp-devtools/ls\</text><text class="terminal-3457234609-r1" x="915" y="166.4" textLength="12.2" clip-path="url(#terminal-3457234609-line-6)">
+</text><text class="terminal-3457234609-r1" x="0" y="190.8" textLength="915" clip-path="url(#terminal-3457234609-line-7)">p_devtools/agent/server.py(169)feed()&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</text><text class="terminal-3457234609-r1" x="915" y="190.8" textLength="12.2" clip-path="url(#terminal-3457234609-line-7)">
+</text><text class="terminal-3457234609-r1" x="0" y="215.2" textLength="915" clip-path="url(#terminal-3457234609-line-8)">-&gt;&nbsp;line,&nbsp;state.buffer&nbsp;=&nbsp;state.buffer[:idx],&nbsp;state.buffer[idx&nbsp;+&nbsp;len(SEP)&nbsp;:]&nbsp;</text><text class="terminal-3457234609-r1" x="915" y="215.2" textLength="12.2" clip-path="url(#terminal-3457234609-line-8)">
+</text><text class="terminal-3457234609-r3" x="0" y="239.6" textLength="73.2" clip-path="url(#terminal-3457234609-line-9)">(Pdb)&nbsp;</text><text class="terminal-3457234609-r2" x="73.2" y="239.6" textLength="36.6" clip-path="url(#terminal-3457234609-line-9)">idx</text><text class="terminal-3457234609-r1" x="915" y="239.6" textLength="12.2" clip-path="url(#terminal-3457234609-line-9)">
+</text><text class="terminal-3457234609-r1" x="0" y="264" textLength="915" clip-path="url(#terminal-3457234609-line-10)">30&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</text><text class="terminal-3457234609-r1" x="915" y="264" textLength="12.2" clip-path="url(#terminal-3457234609-line-10)">
+</text><text class="terminal-3457234609-r3" x="0" y="288.4" textLength="73.2" clip-path="url(#terminal-3457234609-line-11)">(Pdb)&nbsp;</text><text class="terminal-3457234609-r1" x="915" y="288.4" textLength="12.2" clip-path="url(#terminal-3457234609-line-11)">
+</text><text class="terminal-3457234609-r1" x="0" y="312.8" textLength="36.6" clip-path="url(#terminal-3457234609-line-12)">-&nbsp;&nbsp;</text><text class="terminal-3457234609-r2" x="36.6" y="312.8" textLength="122" clip-path="url(#terminal-3457234609-line-12)">*gud-test*</text><text class="terminal-3457234609-r1" x="158.6" y="312.8" textLength="756.4" clip-path="url(#terminal-3457234609-line-12)">&nbsp;60:6&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(Debugger:run&nbsp;Apheleia)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</text><text class="terminal-3457234609-r1" x="915" y="312.8" textLength="12.2" clip-path="url(#terminal-3457234609-line-12)">
+</text><text class="terminal-3457234609-r1" x="24.4" y="337.2" textLength="73.2" clip-path="url(#terminal-3457234609-line-13)">&nbsp;&nbsp;160&nbsp;</text><text class="terminal-3457234609-r4" x="195.2" y="337.2" textLength="707.6" clip-path="url(#terminal-3457234609-line-13)">#&nbsp;So&nbsp;we&nbsp;will&nbsp;keep&nbsp;running&nbsp;that&nbsp;parser&nbsp;as&nbsp;long&nbsp;as&nbsp;the&nbsp;buffe</text><text class="terminal-3457234609-r1" x="902.8" y="337.2" textLength="12.2" clip-path="url(#terminal-3457234609-line-13)">\</text><text class="terminal-3457234609-r1" x="915" y="337.2" textLength="12.2" clip-path="url(#terminal-3457234609-line-13)">
+</text><text class="terminal-3457234609-r4" x="97.6" y="361.6" textLength="170.8" clip-path="url(#terminal-3457234609-line-14)">r&nbsp;continues&nbsp;to</text><text class="terminal-3457234609-r4" x="280.6" y="361.6" textLength="73.2" clip-path="url(#terminal-3457234609-line-14)">shrink</text><text class="terminal-3457234609-r1" x="915" y="361.6" textLength="12.2" clip-path="url(#terminal-3457234609-line-14)">
+</text><text class="terminal-3457234609-r1" x="24.4" y="386" textLength="73.2" clip-path="url(#terminal-3457234609-line-15)">&nbsp;&nbsp;161&nbsp;</text><text class="terminal-3457234609-r1" x="195.2" y="386" textLength="183" clip-path="url(#terminal-3457234609-line-15)">previous_length</text><text class="terminal-3457234609-r1" x="378.2" y="386" textLength="36.6" clip-path="url(#terminal-3457234609-line-15)">&nbsp;=&nbsp;</text><text class="terminal-3457234609-r2" x="414.8" y="386" textLength="36.6" clip-path="url(#terminal-3457234609-line-15)">len</text><text class="terminal-3457234609-r1" x="451.4" y="386" textLength="463.6" clip-path="url(#terminal-3457234609-line-15)">(state.buffer)&nbsp;+&nbsp;1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</text><text class="terminal-3457234609-r1" x="915" y="386" textLength="12.2" clip-path="url(#terminal-3457234609-line-15)">
+</text><text class="terminal-3457234609-r1" x="24.4" y="410.4" textLength="73.2" clip-path="url(#terminal-3457234609-line-16)">&nbsp;&nbsp;162&nbsp;</text><text class="terminal-3457234609-r2" x="195.2" y="410.4" textLength="61" clip-path="url(#terminal-3457234609-line-16)">while</text><text class="terminal-3457234609-r2" x="268.4" y="410.4" textLength="36.6" clip-path="url(#terminal-3457234609-line-16)">len</text><text class="terminal-3457234609-r1" x="305" y="410.4" textLength="610" clip-path="url(#terminal-3457234609-line-16)">(state.buffer)&nbsp;&lt;&nbsp;previous_length:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</text><text class="terminal-3457234609-r1" x="915" y="410.4" textLength="12.2" clip-path="url(#terminal-3457234609-line-16)">
+</text><text class="terminal-3457234609-r1" x="24.4" y="434.8" textLength="73.2" clip-path="url(#terminal-3457234609-line-17)">&nbsp;&nbsp;163&nbsp;</text><text class="terminal-3457234609-r1" x="244" y="434.8" textLength="183" clip-path="url(#terminal-3457234609-line-17)">previous_length</text><text class="terminal-3457234609-r1" x="427" y="434.8" textLength="36.6" clip-path="url(#terminal-3457234609-line-17)">&nbsp;=&nbsp;</text><text class="terminal-3457234609-r2" x="463.6" y="434.8" textLength="36.6" clip-path="url(#terminal-3457234609-line-17)">len</text><text class="terminal-3457234609-r1" x="500.2" y="434.8" textLength="414.8" clip-path="url(#terminal-3457234609-line-17)">(state.buffer)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</text><text class="terminal-3457234609-r1" x="915" y="434.8" textLength="12.2" clip-path="url(#terminal-3457234609-line-17)">
+</text><text class="terminal-3457234609-r1" x="24.4" y="459.2" textLength="73.2" clip-path="url(#terminal-3457234609-line-18)">&nbsp;&nbsp;164&nbsp;</text><text class="terminal-3457234609-r1" x="244" y="459.2" textLength="122" clip-path="url(#terminal-3457234609-line-18)">breakpoint</text><text class="terminal-3457234609-r1" x="366" y="459.2" textLength="549" clip-path="url(#terminal-3457234609-line-18)">()&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</text><text class="terminal-3457234609-r1" x="915" y="459.2" textLength="12.2" clip-path="url(#terminal-3457234609-line-18)">
+</text><text class="terminal-3457234609-r1" x="24.4" y="483.6" textLength="73.2" clip-path="url(#terminal-3457234609-line-19)">&nbsp;&nbsp;165&nbsp;</text><text class="terminal-3457234609-r2" x="244" y="483.6" textLength="24.4" clip-path="url(#terminal-3457234609-line-19)">if</text><text class="terminal-3457234609-r2" x="280.6" y="483.6" textLength="36.6" clip-path="url(#terminal-3457234609-line-19)">not</text><text class="terminal-3457234609-r1" x="317.2" y="483.6" textLength="597.8" clip-path="url(#terminal-3457234609-line-19)">&nbsp;state.headers_complete:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</text><text class="terminal-3457234609-r1" x="915" y="483.6" textLength="12.2" clip-path="url(#terminal-3457234609-line-19)">
+</text><text class="terminal-3457234609-r1" x="24.4" y="508" textLength="73.2" clip-path="url(#terminal-3457234609-line-20)">&nbsp;&nbsp;166&nbsp;</text><text class="terminal-3457234609-r2" x="292.8" y="508" textLength="24.4" clip-path="url(#terminal-3457234609-line-20)">if</text><text class="terminal-3457234609-r1" x="317.2" y="508" textLength="24.4" clip-path="url(#terminal-3457234609-line-20)">&nbsp;(</text><text class="terminal-3457234609-r1" x="341.6" y="508" textLength="36.6" clip-path="url(#terminal-3457234609-line-20)">idx</text><text class="terminal-3457234609-r1" x="378.2" y="508" textLength="268.4" clip-path="url(#terminal-3457234609-line-20)">&nbsp;:=&nbsp;state.buffer.find(</text><text class="terminal-3457234609-r2" x="646.6" y="508" textLength="36.6" clip-path="url(#terminal-3457234609-line-20)">SEP</text><text class="terminal-3457234609-r1" x="683.2" y="508" textLength="231.8" clip-path="url(#terminal-3457234609-line-20)">))&nbsp;==&nbsp;-1:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</text><text class="terminal-3457234609-r1" x="915" y="508" textLength="12.2" clip-path="url(#terminal-3457234609-line-20)">
+</text><text class="terminal-3457234609-r1" x="24.4" y="532.4" textLength="73.2" clip-path="url(#terminal-3457234609-line-21)">&nbsp;&nbsp;167&nbsp;</text><text class="terminal-3457234609-r2" x="341.6" y="532.4" textLength="73.2" clip-path="url(#terminal-3457234609-line-21)">return</text><text class="terminal-3457234609-r1" x="915" y="532.4" textLength="12.2" clip-path="url(#terminal-3457234609-line-21)">
+</text><text class="terminal-3457234609-r1" x="24.4" y="556.8" textLength="73.2" clip-path="url(#terminal-3457234609-line-22)">&nbsp;&nbsp;168&nbsp;</text><text class="terminal-3457234609-r1" x="915" y="556.8" textLength="12.2" clip-path="url(#terminal-3457234609-line-22)">
+</text><text class="terminal-3457234609-r1" x="0" y="581.2" textLength="48.8" clip-path="url(#terminal-3457234609-line-23)">&nbsp;&nbsp;=&gt;</text><text class="terminal-3457234609-r2" x="48.8" y="581.2" textLength="48.8" clip-path="url(#terminal-3457234609-line-23)">169&nbsp;</text><text class="terminal-3457234609-r1" x="292.8" y="581.2" textLength="48.8" clip-path="url(#terminal-3457234609-line-23)">line</text><text class="terminal-3457234609-r1" x="341.6" y="581.2" textLength="573.4" clip-path="url(#terminal-3457234609-line-23)">,&nbsp;state.buffer&nbsp;=&nbsp;state.buffer[:idx],&nbsp;state.buf\</text><text class="terminal-3457234609-r1" x="915" y="581.2" textLength="12.2" clip-path="url(#terminal-3457234609-line-23)">
+</text><text class="terminal-3457234609-r1" x="0" y="605.6" textLength="12.2" clip-path="url(#terminal-3457234609-line-24)">-</text><text class="terminal-3457234609-r2" x="12.2" y="605.6" textLength="183" clip-path="url(#terminal-3457234609-line-24)">🖿&nbsp;lsp-devtools&nbsp;</text><text class="terminal-3457234609-r2" x="219.6" y="605.6" textLength="109.8" clip-path="url(#terminal-3457234609-line-24)">server.py</text><text class="terminal-3457234609-r1" x="329.4" y="605.6" textLength="341.6" clip-path="url(#terminal-3457234609-line-24)">&nbsp;169:0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(Python&nbsp;Flymake[</text><text class="terminal-3457234609-r2" x="671" y="605.6" textLength="12.2" clip-path="url(#terminal-3457234609-line-24)">0</text><text class="terminal-3457234609-r2" x="695.4" y="605.6" textLength="12.2" clip-path="url(#terminal-3457234609-line-24)">0</text><text class="terminal-3457234609-r2" x="719.8" y="605.6" textLength="12.2" clip-path="url(#terminal-3457234609-line-24)">1</text><text class="terminal-3457234609-r1" x="732" y="605.6" textLength="183" clip-path="url(#terminal-3457234609-line-24)">]&nbsp;ws&nbsp;Apheleia©&nbsp;</text><text class="terminal-3457234609-r1" x="915" y="605.6" textLength="12.2" clip-path="url(#terminal-3457234609-line-24)">
+</text>
+    </g>
+    </g>
+</svg>
+<p>My terminal colours are not being preserved!</p>
+</section>
+<section id="sgr-codes">
+<h3>SGR Codes<a class="headerlink" href="#sgr-codes" title="Link to this heading">¶</a></h3>
+<p>I’m not the right person to try and explain how terminal rendering works.
+I only know enough to say that the story is long and built up using many layers of escape codes…</p>
+<p>The codes that matter for this tale are something called <a class="reference external" href="https://strasis.com/documentation/limelight-xe/reference/ecma-48-sgr-codes">SGR codes</a> and they control various formatting properties including colour.
+Most documentation I’ve found will say that to set the text colour to… red for example, you need to use the following escape sequence:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>\x1b[38;2;255;0;0m
+</pre></div>
+</div>
+<p>However, there are some places that specify an alternative representation:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>\x1b[38:2::255:0:0m
+</pre></div>
+</div>
+<p>It turns out that WezTerm uses this second style, which <code class="docutils literal notranslate"><span class="pre">rich</span></code> does not recognise, resulting in the colourless image you saw above.
+To fix this, <a class="reference external" href="https://github.com/Textualize/rich/pull/3789">I tweaked</a> the way rich parsed escape codes to allow for both styles, resulting in the image you see below.</p>
+<svg class="rich-terminal" viewBox="0 0 933 684.4" xmlns="http://www.w3.org/2000/svg">
+    <!-- Generated with Rich https://www.textualize.io -->
+    <style>
+
+    @font-face {
+        font-family: "Fira Code";
+        src: local("FiraCode-Regular"),
+                url("https://cdnjs.cloudflare.com/ajax/libs/firacode/6.2.0/woff2/FiraCode-Regular.woff2") format("woff2"),
+                url("https://cdnjs.cloudflare.com/ajax/libs/firacode/6.2.0/woff/FiraCode-Regular.woff") format("woff");
+        font-style: normal;
+        font-weight: 400;
+    }
+    @font-face {
+        font-family: "Fira Code";
+        src: local("FiraCode-Bold"),
+                url("https://cdnjs.cloudflare.com/ajax/libs/firacode/6.2.0/woff2/FiraCode-Bold.woff2") format("woff2"),
+                url("https://cdnjs.cloudflare.com/ajax/libs/firacode/6.2.0/woff/FiraCode-Bold.woff") format("woff");
+        font-style: bold;
+        font-weight: 700;
+    }
+
+    .terminal-3357607941-matrix {
+        font-family: Fira Code, monospace;
+        font-size: 20px;
+        line-height: 24.4px;
+        font-variant-east-asian: full-width;
+    }
+
+    .terminal-3357607941-title {
+        font-size: 18px;
+        font-weight: bold;
+        font-family: arial;
+    }
+
+    .terminal-3357607941-r1 { fill: #ffffff }
+.terminal-3357607941-r2 { fill: #ffffff;font-weight: bold }
+.terminal-3357607941-r3 { fill: #c5c8c6 }
+.terminal-3357607941-r4 { fill: #6ae4b9;font-weight: bold;font-style: italic; }
+.terminal-3357607941-r5 { fill: #989898 }
+.terminal-3357607941-r6 { fill: #989898;font-style: italic; }
+.terminal-3357607941-r7 { fill: #fec43f;font-style: italic; }
+.terminal-3357607941-r8 { fill: #00d3d0 }
+.terminal-3357607941-r9 { fill: #f78fe7;font-weight: bold }
+.terminal-3357607941-r10 { fill: #b6a0ff;font-weight: bold }
+.terminal-3357607941-r11 { fill: #ff3030 }
+.terminal-3357607941-r12 { fill: #969696 }
+.terminal-3357607941-r13 { fill: #2fafff;font-weight: bold }
+.terminal-3357607941-r14 { fill: #969696;font-weight: bold }
+.terminal-3357607941-r15 { fill: #ff5f59;font-weight: bold }
+.terminal-3357607941-r16 { fill: #fec43f;font-weight: bold }
+.terminal-3357607941-r17 { fill: #6ae4b9;font-weight: bold }
+    </style>
+
+    <defs>
+    <clipPath id="terminal-3357607941-clip-terminal">
+      <rect x="0" y="0" width="914.0" height="633.4"></rect>
+    </clipPath>
+    <clipPath id="terminal-3357607941-line-0">
+    <rect x="0" y="1.5" width="915" height="24.65"></rect>
+            </clipPath>
+<clipPath id="terminal-3357607941-line-1">
+    <rect x="0" y="25.9" width="915" height="24.65"></rect>
+            </clipPath>
+<clipPath id="terminal-3357607941-line-2">
+    <rect x="0" y="50.3" width="915" height="24.65"></rect>
+            </clipPath>
+<clipPath id="terminal-3357607941-line-3">
+    <rect x="0" y="74.7" width="915" height="24.65"></rect>
+            </clipPath>
+<clipPath id="terminal-3357607941-line-4">
+    <rect x="0" y="99.1" width="915" height="24.65"></rect>
+            </clipPath>
+<clipPath id="terminal-3357607941-line-5">
+    <rect x="0" y="123.5" width="915" height="24.65"></rect>
+            </clipPath>
+<clipPath id="terminal-3357607941-line-6">
+    <rect x="0" y="147.9" width="915" height="24.65"></rect>
+            </clipPath>
+<clipPath id="terminal-3357607941-line-7">
+    <rect x="0" y="172.3" width="915" height="24.65"></rect>
+            </clipPath>
+<clipPath id="terminal-3357607941-line-8">
+    <rect x="0" y="196.7" width="915" height="24.65"></rect>
+            </clipPath>
+<clipPath id="terminal-3357607941-line-9">
+    <rect x="0" y="221.1" width="915" height="24.65"></rect>
+            </clipPath>
+<clipPath id="terminal-3357607941-line-10">
+    <rect x="0" y="245.5" width="915" height="24.65"></rect>
+            </clipPath>
+<clipPath id="terminal-3357607941-line-11">
+    <rect x="0" y="269.9" width="915" height="24.65"></rect>
+            </clipPath>
+<clipPath id="terminal-3357607941-line-12">
+    <rect x="0" y="294.3" width="915" height="24.65"></rect>
+            </clipPath>
+<clipPath id="terminal-3357607941-line-13">
+    <rect x="0" y="318.7" width="915" height="24.65"></rect>
+            </clipPath>
+<clipPath id="terminal-3357607941-line-14">
+    <rect x="0" y="343.1" width="915" height="24.65"></rect>
+            </clipPath>
+<clipPath id="terminal-3357607941-line-15">
+    <rect x="0" y="367.5" width="915" height="24.65"></rect>
+            </clipPath>
+<clipPath id="terminal-3357607941-line-16">
+    <rect x="0" y="391.9" width="915" height="24.65"></rect>
+            </clipPath>
+<clipPath id="terminal-3357607941-line-17">
+    <rect x="0" y="416.3" width="915" height="24.65"></rect>
+            </clipPath>
+<clipPath id="terminal-3357607941-line-18">
+    <rect x="0" y="440.7" width="915" height="24.65"></rect>
+            </clipPath>
+<clipPath id="terminal-3357607941-line-19">
+    <rect x="0" y="465.1" width="915" height="24.65"></rect>
+            </clipPath>
+<clipPath id="terminal-3357607941-line-20">
+    <rect x="0" y="489.5" width="915" height="24.65"></rect>
+            </clipPath>
+<clipPath id="terminal-3357607941-line-21">
+    <rect x="0" y="513.9" width="915" height="24.65"></rect>
+            </clipPath>
+<clipPath id="terminal-3357607941-line-22">
+    <rect x="0" y="538.3" width="915" height="24.65"></rect>
+            </clipPath>
+<clipPath id="terminal-3357607941-line-23">
+    <rect x="0" y="562.7" width="915" height="24.65"></rect>
+            </clipPath>
+<clipPath id="terminal-3357607941-line-24">
+    <rect x="0" y="587.1" width="915" height="24.65"></rect>
+            </clipPath>
+    </defs>
+
+    <rect fill="#292929" stroke="rgba(255,255,255,0.35)" stroke-width="1" x="1" y="1" width="931" height="682.4" rx="8"></rect>
+            <g transform="translate(26,22)">
+            <circle cx="0" cy="0" r="7" fill="#ff5f57"></circle>
+            <circle cx="22" cy="0" r="7" fill="#febc2e"></circle>
+            <circle cx="44" cy="0" r="7" fill="#28c840"></circle>
+            </g>
+
+    <g transform="translate(9, 41)" clip-path="url(#terminal-3357607941-clip-terminal)">
+    <rect fill="#313131" x="0" y="1.5" width="12.2" height="24.65" shape-rendering="crispEdges"></rect><rect fill="#4b4e55" x="12.2" y="1.5" width="231.8" height="24.65" shape-rendering="crispEdges"></rect><rect fill="#313131" x="244" y="1.5" width="671" height="24.65" shape-rendering="crispEdges"></rect><rect fill="#4b4e55" x="0" y="25.9" width="73.2" height="24.65" shape-rendering="crispEdges"></rect><rect fill="#4b4e55" x="73.2" y="25.9" width="12.2" height="24.65" shape-rendering="crispEdges"></rect><rect fill="#4b4e55" x="85.4" y="25.9" width="829.6" height="24.65" shape-rendering="crispEdges"></rect><rect fill="#4b4e55" x="0" y="50.3" width="915" height="24.65" shape-rendering="crispEdges"></rect><rect fill="#4b4e55" x="0" y="74.7" width="915" height="24.65" shape-rendering="crispEdges"></rect><rect fill="#4b4e55" x="0" y="99.1" width="915" height="24.65" shape-rendering="crispEdges"></rect><rect fill="#4b4e55" x="0" y="123.5" width="73.2" height="24.65" shape-rendering="crispEdges"></rect><rect fill="#4b4e55" x="73.2" y="123.5" width="12.2" height="24.65" shape-rendering="crispEdges"></rect><rect fill="#4b4e55" x="85.4" y="123.5" width="829.6" height="24.65" shape-rendering="crispEdges"></rect><rect fill="#4b4e55" x="0" y="147.9" width="915" height="24.65" shape-rendering="crispEdges"></rect><rect fill="#4b4e55" x="0" y="172.3" width="915" height="24.65" shape-rendering="crispEdges"></rect><rect fill="#4b4e55" x="0" y="196.7" width="915" height="24.65" shape-rendering="crispEdges"></rect><rect fill="#4b4e55" x="0" y="221.1" width="73.2" height="24.65" shape-rendering="crispEdges"></rect><rect fill="#4b4e55" x="73.2" y="221.1" width="36.6" height="24.65" shape-rendering="crispEdges"></rect><rect fill="#4b4e55" x="109.8" y="221.1" width="805.2" height="24.65" shape-rendering="crispEdges"></rect><rect fill="#4b4e55" x="0" y="245.5" width="915" height="24.65" shape-rendering="crispEdges"></rect><rect fill="#4b4e55" x="0" y="269.9" width="73.2" height="24.65" shape-rendering="crispEdges"></rect><rect fill="#4b4e55" x="73.2" y="269.9" width="841.8" height="24.65" shape-rendering="crispEdges"></rect><rect fill="#535353" x="0" y="294.3" width="36.6" height="24.65" shape-rendering="crispEdges"></rect><rect fill="#535353" x="36.6" y="294.3" width="122" height="24.65" shape-rendering="crispEdges"></rect><rect fill="#535353" x="158.6" y="294.3" width="756.4" height="24.65" shape-rendering="crispEdges"></rect><rect fill="#4b4e55" x="0" y="318.7" width="24.4" height="24.65" shape-rendering="crispEdges"></rect><rect fill="#1e1e1e" x="24.4" y="318.7" width="73.2" height="24.65" shape-rendering="crispEdges"></rect><rect fill="#4b4e55" x="97.6" y="318.7" width="97.6" height="24.65" shape-rendering="crispEdges"></rect><rect fill="#4b4e55" x="195.2" y="318.7" width="707.6" height="24.65" shape-rendering="crispEdges"></rect><rect fill="#4b4e55" x="902.8" y="318.7" width="12.2" height="24.65" shape-rendering="crispEdges"></rect><rect fill="#4b4e55" x="0" y="343.1" width="24.4" height="24.65" shape-rendering="crispEdges"></rect><rect fill="#1e1e1e" x="24.4" y="343.1" width="73.2" height="24.65" shape-rendering="crispEdges"></rect><rect fill="#4b4e55" x="97.6" y="343.1" width="170.8" height="24.65" shape-rendering="crispEdges"></rect><rect fill="#4b4e55" x="268.4" y="343.1" width="12.2" height="24.65" shape-rendering="crispEdges"></rect><rect fill="#4b4e55" x="280.6" y="343.1" width="73.2" height="24.65" shape-rendering="crispEdges"></rect><rect fill="#4b4e55" x="353.8" y="343.1" width="561.2" height="24.65" shape-rendering="crispEdges"></rect><rect fill="#4b4e55" x="0" y="367.5" width="24.4" height="24.65" shape-rendering="crispEdges"></rect><rect fill="#1e1e1e" x="24.4" y="367.5" width="73.2" height="24.65" shape-rendering="crispEdges"></rect><rect fill="#4b4e55" x="97.6" y="367.5" width="97.6" height="24.65" shape-rendering="crispEdges"></rect><rect fill="#4b4e55" x="195.2" y="367.5" width="183" height="24.65" shape-rendering="crispEdges"></rect><rect fill="#4b4e55" x="378.2" y="367.5" width="36.6" height="24.65" shape-rendering="crispEdges"></rect><rect fill="#4b4e55" x="414.8" y="367.5" width="36.6" height="24.65" shape-rendering="crispEdges"></rect><rect fill="#4b4e55" x="451.4" y="367.5" width="463.6" height="24.65" shape-rendering="crispEdges"></rect><rect fill="#4b4e55" x="0" y="391.9" width="24.4" height="24.65" shape-rendering="crispEdges"></rect><rect fill="#1e1e1e" x="24.4" y="391.9" width="73.2" height="24.65" shape-rendering="crispEdges"></rect><rect fill="#4b4e55" x="97.6" y="391.9" width="97.6" height="24.65" shape-rendering="crispEdges"></rect><rect fill="#4b4e55" x="195.2" y="391.9" width="61" height="24.65" shape-rendering="crispEdges"></rect><rect fill="#4b4e55" x="256.2" y="391.9" width="12.2" height="24.65" shape-rendering="crispEdges"></rect><rect fill="#4b4e55" x="268.4" y="391.9" width="36.6" height="24.65" shape-rendering="crispEdges"></rect><rect fill="#4b4e55" x="305" y="391.9" width="610" height="24.65" shape-rendering="crispEdges"></rect><rect fill="#4b4e55" x="0" y="416.3" width="24.4" height="24.65" shape-rendering="crispEdges"></rect><rect fill="#1e1e1e" x="24.4" y="416.3" width="73.2" height="24.65" shape-rendering="crispEdges"></rect><rect fill="#4b4e55" x="97.6" y="416.3" width="146.4" height="24.65" shape-rendering="crispEdges"></rect><rect fill="#4b4e55" x="244" y="416.3" width="183" height="24.65" shape-rendering="crispEdges"></rect><rect fill="#4b4e55" x="427" y="416.3" width="36.6" height="24.65" shape-rendering="crispEdges"></rect><rect fill="#4b4e55" x="463.6" y="416.3" width="36.6" height="24.65" shape-rendering="crispEdges"></rect><rect fill="#4b4e55" x="500.2" y="416.3" width="414.8" height="24.65" shape-rendering="crispEdges"></rect><rect fill="#4b4e55" x="0" y="440.7" width="24.4" height="24.65" shape-rendering="crispEdges"></rect><rect fill="#1e1e1e" x="24.4" y="440.7" width="73.2" height="24.65" shape-rendering="crispEdges"></rect><rect fill="#4b4e55" x="97.6" y="440.7" width="146.4" height="24.65" shape-rendering="crispEdges"></rect><rect fill="#8b1a1a" x="244" y="440.7" width="122" height="24.65" shape-rendering="crispEdges"></rect><rect fill="#4b4e55" x="366" y="440.7" width="549" height="24.65" shape-rendering="crispEdges"></rect><rect fill="#4b4e55" x="0" y="465.1" width="24.4" height="24.65" shape-rendering="crispEdges"></rect><rect fill="#1e1e1e" x="24.4" y="465.1" width="73.2" height="24.65" shape-rendering="crispEdges"></rect><rect fill="#4b4e55" x="97.6" y="465.1" width="146.4" height="24.65" shape-rendering="crispEdges"></rect><rect fill="#4b4e55" x="244" y="465.1" width="24.4" height="24.65" shape-rendering="crispEdges"></rect><rect fill="#4b4e55" x="268.4" y="465.1" width="12.2" height="24.65" shape-rendering="crispEdges"></rect><rect fill="#4b4e55" x="280.6" y="465.1" width="36.6" height="24.65" shape-rendering="crispEdges"></rect><rect fill="#4b4e55" x="317.2" y="465.1" width="597.8" height="24.65" shape-rendering="crispEdges"></rect><rect fill="#4b4e55" x="0" y="489.5" width="24.4" height="24.65" shape-rendering="crispEdges"></rect><rect fill="#1e1e1e" x="24.4" y="489.5" width="73.2" height="24.65" shape-rendering="crispEdges"></rect><rect fill="#4b4e55" x="97.6" y="489.5" width="195.2" height="24.65" shape-rendering="crispEdges"></rect><rect fill="#4b4e55" x="292.8" y="489.5" width="24.4" height="24.65" shape-rendering="crispEdges"></rect><rect fill="#4b4e55" x="317.2" y="489.5" width="24.4" height="24.65" shape-rendering="crispEdges"></rect><rect fill="#4b4e55" x="341.6" y="489.5" width="36.6" height="24.65" shape-rendering="crispEdges"></rect><rect fill="#4b4e55" x="378.2" y="489.5" width="268.4" height="24.65" shape-rendering="crispEdges"></rect><rect fill="#4b4e55" x="646.6" y="489.5" width="36.6" height="24.65" shape-rendering="crispEdges"></rect><rect fill="#4b4e55" x="683.2" y="489.5" width="231.8" height="24.65" shape-rendering="crispEdges"></rect><rect fill="#4b4e55" x="0" y="513.9" width="24.4" height="24.65" shape-rendering="crispEdges"></rect><rect fill="#1e1e1e" x="24.4" y="513.9" width="73.2" height="24.65" shape-rendering="crispEdges"></rect><rect fill="#4b4e55" x="97.6" y="513.9" width="244" height="24.65" shape-rendering="crispEdges"></rect><rect fill="#4b4e55" x="341.6" y="513.9" width="73.2" height="24.65" shape-rendering="crispEdges"></rect><rect fill="#4b4e55" x="414.8" y="513.9" width="500.2" height="24.65" shape-rendering="crispEdges"></rect><rect fill="#4b4e55" x="0" y="538.3" width="24.4" height="24.65" shape-rendering="crispEdges"></rect><rect fill="#1e1e1e" x="24.4" y="538.3" width="73.2" height="24.65" shape-rendering="crispEdges"></rect><rect fill="#4b4e55" x="97.6" y="538.3" width="817.4" height="24.65" shape-rendering="crispEdges"></rect><rect fill="#4b4e55" x="0" y="562.7" width="48.8" height="24.65" shape-rendering="crispEdges"></rect><rect fill="#535353" x="48.8" y="562.7" width="48.8" height="24.65" shape-rendering="crispEdges"></rect><rect fill="#4b4e55" x="97.6" y="562.7" width="195.2" height="24.65" shape-rendering="crispEdges"></rect><rect fill="#4b4e55" x="292.8" y="562.7" width="48.8" height="24.65" shape-rendering="crispEdges"></rect><rect fill="#4b4e55" x="341.6" y="562.7" width="573.4" height="24.65" shape-rendering="crispEdges"></rect><rect fill="#303030" x="0" y="587.1" width="12.2" height="24.65" shape-rendering="crispEdges"></rect><rect fill="#303030" x="12.2" y="587.1" width="183" height="24.65" shape-rendering="crispEdges"></rect><rect fill="#303030" x="195.2" y="587.1" width="24.4" height="24.65" shape-rendering="crispEdges"></rect><rect fill="#303030" x="219.6" y="587.1" width="109.8" height="24.65" shape-rendering="crispEdges"></rect><rect fill="#303030" x="329.4" y="587.1" width="341.6" height="24.65" shape-rendering="crispEdges"></rect><rect fill="#303030" x="671" y="587.1" width="12.2" height="24.65" shape-rendering="crispEdges"></rect><rect fill="#303030" x="683.2" y="587.1" width="12.2" height="24.65" shape-rendering="crispEdges"></rect><rect fill="#303030" x="695.4" y="587.1" width="12.2" height="24.65" shape-rendering="crispEdges"></rect><rect fill="#303030" x="707.6" y="587.1" width="12.2" height="24.65" shape-rendering="crispEdges"></rect><rect fill="#303030" x="719.8" y="587.1" width="12.2" height="24.65" shape-rendering="crispEdges"></rect><rect fill="#303030" x="732" y="587.1" width="183" height="24.65" shape-rendering="crispEdges"></rect><rect fill="#4b4e55" x="0" y="611.5" width="902.8" height="24.65" shape-rendering="crispEdges"></rect>
+    <g class="terminal-3357607941-matrix">
+    <text class="terminal-3357607941-r1" x="0" y="20" textLength="12.2" clip-path="url(#terminal-3357607941-line-0)">|</text><text class="terminal-3357607941-r2" x="12.2" y="20" textLength="231.8" clip-path="url(#terminal-3357607941-line-0)">*gud-test*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;x</text><text class="terminal-3357607941-r1" x="244" y="20" textLength="671" clip-path="url(#terminal-3357607941-line-0)">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[89%]&nbsp;21:17&nbsp;18/06/25&nbsp;☰</text><text class="terminal-3357607941-r3" x="915" y="20" textLength="12.2" clip-path="url(#terminal-3357607941-line-0)">
+</text><text class="terminal-3357607941-r4" x="0" y="44.4" textLength="73.2" clip-path="url(#terminal-3357607941-line-1)">(Pdb)&nbsp;</text><text class="terminal-3357607941-r2" x="73.2" y="44.4" textLength="12.2" clip-path="url(#terminal-3357607941-line-1)">n</text><text class="terminal-3357607941-r3" x="915" y="44.4" textLength="12.2" clip-path="url(#terminal-3357607941-line-1)">
+</text><text class="terminal-3357607941-r1" x="0" y="68.8" textLength="915" clip-path="url(#terminal-3357607941-line-2)">&gt;&nbsp;/var/home/alex/Projects/swyddfa/lsp-devtools/develop/lib/lsp-devtools/ls\</text><text class="terminal-3357607941-r3" x="915" y="68.8" textLength="12.2" clip-path="url(#terminal-3357607941-line-2)">
+</text><text class="terminal-3357607941-r1" x="0" y="93.2" textLength="915" clip-path="url(#terminal-3357607941-line-3)">p_devtools/agent/server.py(166)feed()&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</text><text class="terminal-3357607941-r3" x="915" y="93.2" textLength="12.2" clip-path="url(#terminal-3357607941-line-3)">
+</text><text class="terminal-3357607941-r1" x="0" y="117.6" textLength="915" clip-path="url(#terminal-3357607941-line-4)">-&gt;&nbsp;if&nbsp;(idx&nbsp;:=&nbsp;state.buffer.find(SEP))&nbsp;==&nbsp;-1:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</text><text class="terminal-3357607941-r3" x="915" y="117.6" textLength="12.2" clip-path="url(#terminal-3357607941-line-4)">
+</text><text class="terminal-3357607941-r4" x="0" y="142" textLength="73.2" clip-path="url(#terminal-3357607941-line-5)">(Pdb)&nbsp;</text><text class="terminal-3357607941-r2" x="73.2" y="142" textLength="12.2" clip-path="url(#terminal-3357607941-line-5)">n</text><text class="terminal-3357607941-r3" x="915" y="142" textLength="12.2" clip-path="url(#terminal-3357607941-line-5)">
+</text><text class="terminal-3357607941-r1" x="0" y="166.4" textLength="915" clip-path="url(#terminal-3357607941-line-6)">&gt;&nbsp;/var/home/alex/Projects/swyddfa/lsp-devtools/develop/lib/lsp-devtools/ls\</text><text class="terminal-3357607941-r3" x="915" y="166.4" textLength="12.2" clip-path="url(#terminal-3357607941-line-6)">
+</text><text class="terminal-3357607941-r1" x="0" y="190.8" textLength="915" clip-path="url(#terminal-3357607941-line-7)">p_devtools/agent/server.py(169)feed()&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</text><text class="terminal-3357607941-r3" x="915" y="190.8" textLength="12.2" clip-path="url(#terminal-3357607941-line-7)">
+</text><text class="terminal-3357607941-r1" x="0" y="215.2" textLength="915" clip-path="url(#terminal-3357607941-line-8)">-&gt;&nbsp;line,&nbsp;state.buffer&nbsp;=&nbsp;state.buffer[:idx],&nbsp;state.buffer[idx&nbsp;+&nbsp;len(SEP)&nbsp;:]&nbsp;</text><text class="terminal-3357607941-r3" x="915" y="215.2" textLength="12.2" clip-path="url(#terminal-3357607941-line-8)">
+</text><text class="terminal-3357607941-r4" x="0" y="239.6" textLength="73.2" clip-path="url(#terminal-3357607941-line-9)">(Pdb)&nbsp;</text><text class="terminal-3357607941-r2" x="73.2" y="239.6" textLength="36.6" clip-path="url(#terminal-3357607941-line-9)">idx</text><text class="terminal-3357607941-r3" x="915" y="239.6" textLength="12.2" clip-path="url(#terminal-3357607941-line-9)">
+</text><text class="terminal-3357607941-r1" x="0" y="264" textLength="915" clip-path="url(#terminal-3357607941-line-10)">30&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</text><text class="terminal-3357607941-r3" x="915" y="264" textLength="12.2" clip-path="url(#terminal-3357607941-line-10)">
+</text><text class="terminal-3357607941-r4" x="0" y="288.4" textLength="73.2" clip-path="url(#terminal-3357607941-line-11)">(Pdb)&nbsp;</text><text class="terminal-3357607941-r3" x="915" y="288.4" textLength="12.2" clip-path="url(#terminal-3357607941-line-11)">
+</text><text class="terminal-3357607941-r1" x="0" y="312.8" textLength="36.6" clip-path="url(#terminal-3357607941-line-12)">-&nbsp;&nbsp;</text><text class="terminal-3357607941-r2" x="36.6" y="312.8" textLength="122" clip-path="url(#terminal-3357607941-line-12)">*gud-test*</text><text class="terminal-3357607941-r1" x="158.6" y="312.8" textLength="756.4" clip-path="url(#terminal-3357607941-line-12)">&nbsp;60:6&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(Debugger:run&nbsp;Apheleia)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</text><text class="terminal-3357607941-r3" x="915" y="312.8" textLength="12.2" clip-path="url(#terminal-3357607941-line-12)">
+</text><text class="terminal-3357607941-r5" x="24.4" y="337.2" textLength="73.2" clip-path="url(#terminal-3357607941-line-13)">&nbsp;&nbsp;160&nbsp;</text><text class="terminal-3357607941-r6" x="195.2" y="337.2" textLength="707.6" clip-path="url(#terminal-3357607941-line-13)">#&nbsp;So&nbsp;we&nbsp;will&nbsp;keep&nbsp;running&nbsp;that&nbsp;parser&nbsp;as&nbsp;long&nbsp;as&nbsp;the&nbsp;buffe</text><text class="terminal-3357607941-r1" x="902.8" y="337.2" textLength="12.2" clip-path="url(#terminal-3357607941-line-13)">\</text><text class="terminal-3357607941-r3" x="915" y="337.2" textLength="12.2" clip-path="url(#terminal-3357607941-line-13)">
+</text><text class="terminal-3357607941-r6" x="97.6" y="361.6" textLength="170.8" clip-path="url(#terminal-3357607941-line-14)">r&nbsp;continues&nbsp;to</text><text class="terminal-3357607941-r6" x="280.6" y="361.6" textLength="73.2" clip-path="url(#terminal-3357607941-line-14)">shrink</text><text class="terminal-3357607941-r3" x="915" y="361.6" textLength="12.2" clip-path="url(#terminal-3357607941-line-14)">
+</text><text class="terminal-3357607941-r5" x="24.4" y="386" textLength="73.2" clip-path="url(#terminal-3357607941-line-15)">&nbsp;&nbsp;161&nbsp;</text><text class="terminal-3357607941-r8" x="195.2" y="386" textLength="183" clip-path="url(#terminal-3357607941-line-15)">previous_length</text><text class="terminal-3357607941-r1" x="378.2" y="386" textLength="36.6" clip-path="url(#terminal-3357607941-line-15)">&nbsp;=&nbsp;</text><text class="terminal-3357607941-r9" x="414.8" y="386" textLength="36.6" clip-path="url(#terminal-3357607941-line-15)">len</text><text class="terminal-3357607941-r1" x="451.4" y="386" textLength="463.6" clip-path="url(#terminal-3357607941-line-15)">(state.buffer)&nbsp;+&nbsp;1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</text><text class="terminal-3357607941-r3" x="915" y="386" textLength="12.2" clip-path="url(#terminal-3357607941-line-15)">
+</text><text class="terminal-3357607941-r5" x="24.4" y="410.4" textLength="73.2" clip-path="url(#terminal-3357607941-line-16)">&nbsp;&nbsp;162&nbsp;</text><text class="terminal-3357607941-r10" x="195.2" y="410.4" textLength="61" clip-path="url(#terminal-3357607941-line-16)">while</text><text class="terminal-3357607941-r9" x="268.4" y="410.4" textLength="36.6" clip-path="url(#terminal-3357607941-line-16)">len</text><text class="terminal-3357607941-r1" x="305" y="410.4" textLength="610" clip-path="url(#terminal-3357607941-line-16)">(state.buffer)&nbsp;&lt;&nbsp;previous_length:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</text><text class="terminal-3357607941-r3" x="915" y="410.4" textLength="12.2" clip-path="url(#terminal-3357607941-line-16)">
+</text><text class="terminal-3357607941-r5" x="24.4" y="434.8" textLength="73.2" clip-path="url(#terminal-3357607941-line-17)">&nbsp;&nbsp;163&nbsp;</text><text class="terminal-3357607941-r8" x="244" y="434.8" textLength="183" clip-path="url(#terminal-3357607941-line-17)">previous_length</text><text class="terminal-3357607941-r1" x="427" y="434.8" textLength="36.6" clip-path="url(#terminal-3357607941-line-17)">&nbsp;=&nbsp;</text><text class="terminal-3357607941-r9" x="463.6" y="434.8" textLength="36.6" clip-path="url(#terminal-3357607941-line-17)">len</text><text class="terminal-3357607941-r1" x="500.2" y="434.8" textLength="414.8" clip-path="url(#terminal-3357607941-line-17)">(state.buffer)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</text><text class="terminal-3357607941-r3" x="915" y="434.8" textLength="12.2" clip-path="url(#terminal-3357607941-line-17)">
+</text><text class="terminal-3357607941-r5" x="24.4" y="459.2" textLength="73.2" clip-path="url(#terminal-3357607941-line-18)">&nbsp;&nbsp;164&nbsp;</text><text class="terminal-3357607941-r11" x="244" y="459.2" textLength="122" clip-path="url(#terminal-3357607941-line-18)">breakpoint</text><text class="terminal-3357607941-r1" x="366" y="459.2" textLength="549" clip-path="url(#terminal-3357607941-line-18)">()&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</text><text class="terminal-3357607941-r3" x="915" y="459.2" textLength="12.2" clip-path="url(#terminal-3357607941-line-18)">
+</text><text class="terminal-3357607941-r5" x="24.4" y="483.6" textLength="73.2" clip-path="url(#terminal-3357607941-line-19)">&nbsp;&nbsp;165&nbsp;</text><text class="terminal-3357607941-r10" x="244" y="483.6" textLength="24.4" clip-path="url(#terminal-3357607941-line-19)">if</text><text class="terminal-3357607941-r10" x="280.6" y="483.6" textLength="36.6" clip-path="url(#terminal-3357607941-line-19)">not</text><text class="terminal-3357607941-r1" x="317.2" y="483.6" textLength="597.8" clip-path="url(#terminal-3357607941-line-19)">&nbsp;state.headers_complete:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</text><text class="terminal-3357607941-r3" x="915" y="483.6" textLength="12.2" clip-path="url(#terminal-3357607941-line-19)">
+</text><text class="terminal-3357607941-r5" x="24.4" y="508" textLength="73.2" clip-path="url(#terminal-3357607941-line-20)">&nbsp;&nbsp;166&nbsp;</text><text class="terminal-3357607941-r10" x="292.8" y="508" textLength="24.4" clip-path="url(#terminal-3357607941-line-20)">if</text><text class="terminal-3357607941-r1" x="317.2" y="508" textLength="24.4" clip-path="url(#terminal-3357607941-line-20)">&nbsp;(</text><text class="terminal-3357607941-r8" x="341.6" y="508" textLength="36.6" clip-path="url(#terminal-3357607941-line-20)">idx</text><text class="terminal-3357607941-r1" x="378.2" y="508" textLength="268.4" clip-path="url(#terminal-3357607941-line-20)">&nbsp;:=&nbsp;state.buffer.find(</text><text class="terminal-3357607941-r2" x="646.6" y="508" textLength="36.6" clip-path="url(#terminal-3357607941-line-20)">SEP</text><text class="terminal-3357607941-r1" x="683.2" y="508" textLength="231.8" clip-path="url(#terminal-3357607941-line-20)">))&nbsp;==&nbsp;-1:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</text><text class="terminal-3357607941-r3" x="915" y="508" textLength="12.2" clip-path="url(#terminal-3357607941-line-20)">
+</text><text class="terminal-3357607941-r5" x="24.4" y="532.4" textLength="73.2" clip-path="url(#terminal-3357607941-line-21)">&nbsp;&nbsp;167&nbsp;</text><text class="terminal-3357607941-r10" x="341.6" y="532.4" textLength="73.2" clip-path="url(#terminal-3357607941-line-21)">return</text><text class="terminal-3357607941-r3" x="915" y="532.4" textLength="12.2" clip-path="url(#terminal-3357607941-line-21)">
+</text><text class="terminal-3357607941-r5" x="24.4" y="556.8" textLength="73.2" clip-path="url(#terminal-3357607941-line-22)">&nbsp;&nbsp;168&nbsp;</text><text class="terminal-3357607941-r3" x="915" y="556.8" textLength="12.2" clip-path="url(#terminal-3357607941-line-22)">
+</text><text class="terminal-3357607941-r1" x="0" y="581.2" textLength="48.8" clip-path="url(#terminal-3357607941-line-23)">&nbsp;&nbsp;=&gt;</text><text class="terminal-3357607941-r2" x="48.8" y="581.2" textLength="48.8" clip-path="url(#terminal-3357607941-line-23)">169&nbsp;</text><text class="terminal-3357607941-r8" x="292.8" y="581.2" textLength="48.8" clip-path="url(#terminal-3357607941-line-23)">line</text><text class="terminal-3357607941-r1" x="341.6" y="581.2" textLength="573.4" clip-path="url(#terminal-3357607941-line-23)">,&nbsp;state.buffer&nbsp;=&nbsp;state.buffer[:idx],&nbsp;state.buf\</text><text class="terminal-3357607941-r3" x="915" y="581.2" textLength="12.2" clip-path="url(#terminal-3357607941-line-23)">
+</text><text class="terminal-3357607941-r12" x="0" y="605.6" textLength="12.2" clip-path="url(#terminal-3357607941-line-24)">-</text><text class="terminal-3357607941-r13" x="12.2" y="605.6" textLength="183" clip-path="url(#terminal-3357607941-line-24)">🖿&nbsp;lsp-devtools&nbsp;</text><text class="terminal-3357607941-r14" x="219.6" y="605.6" textLength="109.8" clip-path="url(#terminal-3357607941-line-24)">server.py</text><text class="terminal-3357607941-r12" x="329.4" y="605.6" textLength="341.6" clip-path="url(#terminal-3357607941-line-24)">&nbsp;169:0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(Python&nbsp;Flymake[</text><text class="terminal-3357607941-r15" x="671" y="605.6" textLength="12.2" clip-path="url(#terminal-3357607941-line-24)">0</text><text class="terminal-3357607941-r16" x="695.4" y="605.6" textLength="12.2" clip-path="url(#terminal-3357607941-line-24)">0</text><text class="terminal-3357607941-r17" x="719.8" y="605.6" textLength="12.2" clip-path="url(#terminal-3357607941-line-24)">1</text><text class="terminal-3357607941-r12" x="732" y="605.6" textLength="183" clip-path="url(#terminal-3357607941-line-24)">]&nbsp;ws&nbsp;Apheleia©&nbsp;</text><text class="terminal-3357607941-r3" x="915" y="605.6" textLength="12.2" clip-path="url(#terminal-3357607941-line-24)">
+</text>
+    </g>
+    </g>
+</svg><p>Which is better, but it still isn’t an accurate representation of what I see in my terminal.</p>
+</section>
+<section id="colour-palette">
+<h3>Colour Palette<a class="headerlink" href="#colour-palette" title="Link to this heading">¶</a></h3>
+<p>Aside from providing specific RGB values, SGR codes also allow for applications to choose from a palette of 16 colours - 8 “normal” and 8 “bright” colours.</p>
+<p>The specific colours in this palette are of course dependent on whatever theme you have configured in your terminal emulator, so the final step is to ensure that <code class="docutils literal notranslate"><span class="pre">rich</span></code> uses the same colour palette as my terminal.</p>
+<p>Thankfully the asciicast format supports recording this information alongside the width and height, all we need to do is extend the screenshot command in WezTerm to populate it.</p>
+<div class="highlight-lua notranslate"><div class="highlight"><pre><span></span><span class="kd">local</span><span class="w"> </span><span class="nv">dimensions</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">pane</span><span class="p">:</span><span class="nf">get_dimensions</span><span class="p">()</span>
+<span class="kd">local</span><span class="w"> </span><span class="nv">theme</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">wezterm</span><span class="p">.</span><span class="nf">get_builtin_color_schemes</span><span class="p">()[</span><span class="nv">window</span><span class="p">:</span><span class="nf">effective_config</span><span class="p">().</span><span class="nv">color_scheme</span><span class="p">]</span>
+<span class="kd">local</span><span class="w"> </span><span class="nv">body</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;o&quot;</span><span class="p">,</span><span class="w"> </span><span class="nv">pane</span><span class="p">:</span><span class="nf">get_lines_as_escapes</span><span class="p">()}</span>
+
+<span class="kd">local</span><span class="w"> </span><span class="nv">header</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="nv">version</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">3</span><span class="p">,</span>
+<span class="w">  </span><span class="nv">term</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nv">cols</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">dimensions</span><span class="p">.</span><span class="py">cols</span><span class="p">,</span>
+<span class="w">    </span><span class="nv">rows</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">dimensions</span><span class="p">.</span><span class="py">viewport_rows</span><span class="p">,</span>
+<span class="w">    </span><span class="nv">theme</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="nv">fg</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">theme</span><span class="p">.</span><span class="py">foreground</span><span class="p">,</span>
+<span class="w">      </span><span class="nv">bg</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">theme</span><span class="p">.</span><span class="py">background</span><span class="p">,</span>
+<span class="w">      </span><span class="nv">palette</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">table.concat</span><span class="p">(</span><span class="nf">append_tables</span><span class="p">(</span><span class="nv">theme</span><span class="p">.</span><span class="py">ansi</span><span class="p">,</span><span class="w"> </span><span class="nv">theme</span><span class="p">.</span><span class="py">brights</span><span class="p">),</span><span class="w"> </span><span class="s1">&#39;:&#39;</span><span class="p">),</span>
+<span class="w">    </span><span class="p">},</span>
+<span class="w">  </span><span class="p">},</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<details><summary>Expand to see the complete command implementation</summary><div class="awdur-codeblock docutils container">
+<div class="awdur-codeblock-header docutils container">
+<code class="awdur-codeblock-filename docutils literal notranslate"><span class="pre">wezterm/commands/screenshot.lua</span></code></div>
+<div class="highlight-lua notranslate"><div class="highlight"><pre><span></span><span class="kd">local</span><span class="w"> </span><span class="nv">wezterm</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">require</span><span class="w"> </span><span class="s1">&#39;wezterm&#39;</span>
+<span class="kd">local</span><span class="w"> </span><span class="nv">io</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">require</span><span class="w"> </span><span class="s1">&#39;io&#39;</span>
+<span class="kd">local</span><span class="w"> </span><span class="nv">os</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">require</span><span class="w"> </span><span class="s1">&#39;os&#39;</span>
+<span class="kd">local</span><span class="w"> </span><span class="nv">act</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">wezterm</span><span class="p">.</span><span class="py">action</span>
+
+<span class="kd">local</span><span class="w"> </span><span class="nv">M</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{}</span>
+
+<span class="kd">local</span><span class="w"> </span><span class="kr">function</span><span class="w"> </span><span class="nf">append_tables</span><span class="p">(...)</span>
+<span class="w"> </span><span class="kd">local</span><span class="w"> </span><span class="nv">result</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{}</span>
+<span class="w"> </span><span class="kr">for</span><span class="w"> </span><span class="nv">_</span><span class="p">,</span><span class="w"> </span><span class="nv">tbl</span><span class="w"> </span><span class="kr">in</span><span class="w"> </span><span class="nb">ipairs</span><span class="p">({...})</span><span class="w"> </span><span class="kr">do</span>
+<span class="w">     </span><span class="kr">for</span><span class="w"> </span><span class="nv">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="o">#</span><span class="nv">tbl</span><span class="w"> </span><span class="kr">do</span>
+<span class="w">         </span><span class="nv">result</span><span class="p">[</span><span class="o">#</span><span class="nv">result</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">tbl</span><span class="p">[</span><span class="nv">i</span><span class="p">]</span>
+<span class="w">     </span><span class="kr">end</span>
+<span class="w"> </span><span class="kr">end</span>
+<span class="w"> </span><span class="kr">return</span><span class="w"> </span><span class="nv">result</span>
+<span class="kr">end</span>
+
+<span class="kr">function</span><span class="w"> </span><span class="nc">M</span><span class="p">.</span><span class="nf">setup</span><span class="p">()</span>
+
+<span class="w">  </span><span class="nv">wezterm</span><span class="p">.</span><span class="nf">on</span><span class="p">(</span><span class="s1">&#39;augment-command-palette&#39;</span><span class="p">,</span><span class="w"> </span><span class="kr">function</span><span class="p">(</span><span class="nv">window</span><span class="p">,</span><span class="w"> </span><span class="nv">pane</span><span class="p">)</span>
+<span class="w">    </span><span class="kr">return</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="p">{</span>
+<span class="w">        </span><span class="nv">brief</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;Take screenshot&#39;</span><span class="p">,</span>
+<span class="w">        </span><span class="nv">icon</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;cod_device_camera&#39;</span><span class="p">,</span>
+
+<span class="w">        </span><span class="nv">action</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">act</span><span class="p">.</span><span class="py">PromptInputLine</span><span class="w"> </span><span class="p">{</span>
+<span class="w">          </span><span class="nv">description</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;Screenshot name&#39;</span><span class="p">,</span>
+<span class="w">          </span><span class="c1">-- initial_value = os.date(&#39;%Y%m%dT%H%M%S--terminal-screenshot&#39;), -- apparently this requires a nightly build</span>
+<span class="w">          </span><span class="nv">action</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">wezterm</span><span class="p">.</span><span class="nf">action_callback</span><span class="p">(</span><span class="kr">function</span><span class="p">(</span><span class="nv">window</span><span class="p">,</span><span class="w"> </span><span class="nv">pane</span><span class="p">,</span><span class="w"> </span><span class="nv">line</span><span class="p">)</span>
+<span class="w">            </span><span class="kr">if</span><span class="w"> </span><span class="nv">line</span><span class="w"> </span><span class="kr">then</span>
+<span class="w">              </span><span class="kd">local</span><span class="w"> </span><span class="nv">dimensions</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">pane</span><span class="p">:</span><span class="nf">get_dimensions</span><span class="p">()</span>
+<span class="w">              </span><span class="kd">local</span><span class="w"> </span><span class="nv">theme</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">wezterm</span><span class="p">.</span><span class="nf">get_builtin_color_schemes</span><span class="p">()[</span><span class="nv">window</span><span class="p">:</span><span class="nf">effective_config</span><span class="p">().</span><span class="nv">color_scheme</span><span class="p">]</span>
+<span class="w">              </span><span class="kd">local</span><span class="w"> </span><span class="nv">body</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;o&quot;</span><span class="p">,</span><span class="w"> </span><span class="nv">pane</span><span class="p">:</span><span class="nf">get_lines_as_escapes</span><span class="p">()}</span>
+
+<span class="w">              </span><span class="kd">local</span><span class="w"> </span><span class="nv">header</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span>
+<span class="w">                </span><span class="nv">version</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">3</span><span class="p">,</span>
+<span class="w">                </span><span class="nv">term</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span>
+<span class="w">                  </span><span class="nv">cols</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">dimensions</span><span class="p">.</span><span class="py">cols</span><span class="p">,</span>
+<span class="w">                  </span><span class="nv">rows</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">dimensions</span><span class="p">.</span><span class="py">viewport_rows</span><span class="p">,</span>
+<span class="w">                  </span><span class="nv">theme</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span>
+<span class="w">                    </span><span class="nv">fg</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">theme</span><span class="p">.</span><span class="py">foreground</span><span class="p">,</span>
+<span class="w">                    </span><span class="nv">bg</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">theme</span><span class="p">.</span><span class="py">background</span><span class="p">,</span>
+<span class="w">                    </span><span class="nv">palette</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">table.concat</span><span class="p">(</span><span class="nf">append_tables</span><span class="p">(</span><span class="nv">theme</span><span class="p">.</span><span class="py">ansi</span><span class="p">,</span><span class="w"> </span><span class="nv">theme</span><span class="p">.</span><span class="py">brights</span><span class="p">),</span><span class="w"> </span><span class="s1">&#39;:&#39;</span><span class="p">),</span>
+<span class="w">                  </span><span class="p">},</span>
+<span class="w">                </span><span class="p">},</span>
+<span class="w">              </span><span class="p">}</span>
+
+<span class="w">              </span><span class="kd">local</span><span class="w"> </span><span class="nv">f</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">io.open</span><span class="p">(</span><span class="nv">line</span><span class="w"> </span><span class="o">..</span><span class="w"> </span><span class="s1">&#39;.cast&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;w+&#39;</span><span class="p">)</span>
+<span class="w">              </span><span class="nv">f</span><span class="p">:</span><span class="nf">write</span><span class="p">(</span><span class="nv">wezterm</span><span class="p">.</span><span class="nf">json_encode</span><span class="p">(</span><span class="nv">header</span><span class="p">)</span><span class="w"> </span><span class="o">..</span><span class="w"> </span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+<span class="w">              </span><span class="nv">f</span><span class="p">:</span><span class="nf">write</span><span class="p">(</span><span class="nv">wezterm</span><span class="p">.</span><span class="nf">json_encode</span><span class="p">(</span><span class="nv">body</span><span class="p">))</span>
+<span class="w">              </span><span class="nv">f</span><span class="p">:</span><span class="nf">flush</span><span class="p">()</span>
+<span class="w">              </span><span class="nv">f</span><span class="p">:</span><span class="nf">close</span><span class="p">()</span>
+<span class="w">            </span><span class="kr">end</span>
+<span class="w">          </span><span class="kr">end</span><span class="p">),</span>
+<span class="w">        </span><span class="p">},</span>
+<span class="w">      </span><span class="p">},</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">  </span><span class="kr">end</span><span class="p">)</span>
+<span class="kr">end</span>
+
+<span class="kr">return</span><span class="w"> </span><span class="nv">M</span>
+</pre></div>
+</div>
+</div>
+</details><p>Which of course requires a similar update to the rendering code</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">term</span> <span class="o">=</span> <span class="n">header</span><span class="p">[</span><span class="s2">&quot;term&quot;</span><span class="p">]</span>
+<span class="n">ansi_colors</span> <span class="o">=</span> <span class="n">term</span><span class="p">[</span><span class="s2">&quot;theme&quot;</span><span class="p">][</span><span class="s2">&quot;palette&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;:&quot;</span><span class="p">)</span>
+<span class="n">theme</span> <span class="o">=</span> <span class="n">TerminalTheme</span><span class="p">(</span>
+    <span class="n">background</span><span class="o">=</span><span class="n">Color</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="n">term</span><span class="p">[</span><span class="s2">&quot;theme&quot;</span><span class="p">][</span><span class="s2">&quot;bg&quot;</span><span class="p">])</span><span class="o">.</span><span class="n">triplet</span><span class="p">,</span>
+    <span class="n">foreground</span><span class="o">=</span><span class="n">Color</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="n">term</span><span class="p">[</span><span class="s2">&quot;theme&quot;</span><span class="p">][</span><span class="s2">&quot;fg&quot;</span><span class="p">])</span><span class="o">.</span><span class="n">triplet</span><span class="p">,</span>
+    <span class="n">normal</span><span class="o">=</span><span class="p">[</span><span class="n">Color</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="n">col</span><span class="p">)</span><span class="o">.</span><span class="n">triplet</span> <span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="n">ansi_colors</span><span class="p">[:</span><span class="mi">8</span><span class="p">]],</span>
+    <span class="n">bright</span><span class="o">=</span><span class="p">[</span><span class="n">Color</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="n">col</span><span class="p">)</span><span class="o">.</span><span class="n">triplet</span> <span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="n">ansi_colors</span><span class="p">[</span><span class="mi">8</span><span class="p">:]],</span>
+<span class="p">)</span>
+
+<span class="o">...</span>
+
+<span class="n">svg</span> <span class="o">=</span> <span class="n">console</span><span class="o">.</span><span class="n">export_svg</span><span class="p">(</span>
+    <span class="n">title</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">options</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;title&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">),</span>
+    <span class="n">theme</span><span class="o">=</span><span class="n">theme</span><span class="p">,</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+<p>Which, finally, results in the SVG you saw at the start of this blog post!</p>
+</section>
+</section>
+<section id="sphinx-integration">
+<h2>Sphinx Integration<a class="headerlink" href="#sphinx-integration" title="Link to this heading">¶</a></h2>
+<p>When working on a post for this site, I want to be able to just include the <code class="docutils literal notranslate"><span class="pre">*.cast</span></code> file produced by WezTerm as I would with any other image</p>
+<div class="highlight-rst notranslate"><div class="highlight"><pre><span></span><span class="p">..</span> <span class="ow">termshot</span><span class="p">::</span> /images/example.cast
+   <span class="nc">:title:</span> Example
+</pre></div>
+</div>
+<p>and have Sphinx perform the conversion to SVG automatically during the build.
+This can be done by creating a custom <a class="reference external" href="https://docutils.sourceforge.io/docs/howto/rst-directives.html">directive</a>.</p>
+<p>The following class defintion defines the interface for the directive, we want it accept a single argument (<code class="docutils literal notranslate"><span class="pre">/images/example.cast</span></code>)
+and have the option to specify a <code class="docutils literal notranslate"><span class="pre">:title:</span></code>.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">class</span><span class="w"> </span><span class="nc">Termshot</span><span class="p">(</span><span class="n">SphinxDirective</span><span class="p">):</span>
+    <span class="n">required_arguments</span> <span class="o">=</span> <span class="mi">1</span>
+    <span class="n">optional_arguments</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="n">final_argument_whitespace</span> <span class="o">=</span> <span class="kc">True</span>
+
+    <span class="n">option_spec</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s2">&quot;title&quot;</span><span class="p">:</span> <span class="n">directives</span><span class="o">.</span><span class="n">unchanged</span><span class="p">,</span>
+    <span class="p">}</span>
+
+</pre></div>
+</div>
+<p>Each directive has a <code class="docutils literal notranslate"><span class="pre">run()</span></code> method, which should return a list of nodes which are inserted into the document at the location where the directive was used.</p>
+<p>Other Sphinx directives like <code class="docutils literal notranslate"><span class="pre">..</span> <span class="pre">figure::</span></code> or <code class="docutils literal notranslate"><span class="pre">..</span> <span class="pre">include::</span></code> interpret absolute paths as paths relative to the project root.
+I want the <code class="docutils literal notranslate"><span class="pre">..</span> <span class="pre">termshot::</span></code> directive to behave in the same way, so I pass the given filepath through the <code class="docutils literal notranslate"><span class="pre">self.env.relfn2path</span></code> function which handles that for me</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="n">_</span><span class="p">,</span> <span class="n">fpath</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">env</span><span class="o">.</span><span class="n">relfn2path</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">arguments</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+</pre></div>
+</div>
+<p>Once the svg has been generated, it needs to be included in the final HTML somehow, there are many way to approach this but for simplicity I’ve opted to inline the SVG code using a <code class="docutils literal notranslate"><span class="pre">raw</span></code> docutils node.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">svg</span> <span class="o">=</span> <span class="n">console</span><span class="o">.</span><span class="n">export_svg</span><span class="p">(</span>
+    <span class="n">title</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">options</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;title&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">),</span>
+    <span class="n">theme</span><span class="o">=</span><span class="n">theme</span><span class="p">,</span>
+<span class="p">)</span>
+
+<span class="n">node</span> <span class="o">=</span> <span class="n">nodes</span><span class="o">.</span><span class="n">raw</span><span class="p">(</span><span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="n">svg</span><span class="p">,</span> <span class="nb">format</span><span class="o">=</span><span class="s2">&quot;html&quot;</span><span class="p">)</span>
+<span class="k">return</span> <span class="p">[</span><span class="n">node</span><span class="p">]</span>
+</pre></div>
+</div>
+<details><summary>Expand to see the complete implementation</summary><div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">__future__</span><span class="w"> </span><span class="kn">import</span> <span class="n">annotations</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">io</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">json</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">pathlib</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">typing</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">os.path</span><span class="w"> </span><span class="kn">import</span> <span class="n">abspath</span><span class="p">,</span> <span class="n">relpath</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">docutils</span><span class="w"> </span><span class="kn">import</span> <span class="n">nodes</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">docutils.parsers.rst</span><span class="w"> </span><span class="kn">import</span> <span class="n">directives</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">rich.color</span><span class="w"> </span><span class="kn">import</span> <span class="n">Color</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">rich.console</span><span class="w"> </span><span class="kn">import</span> <span class="n">Console</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">rich.terminal_theme</span><span class="w"> </span><span class="kn">import</span> <span class="n">TerminalTheme</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">rich.text</span><span class="w"> </span><span class="kn">import</span> <span class="n">Text</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sphinx.util.docutils</span><span class="w"> </span><span class="kn">import</span> <span class="n">SphinxDirective</span>
+
+<span class="k">if</span> <span class="n">typing</span><span class="o">.</span><span class="n">TYPE_CHECKING</span><span class="p">:</span>
+    <span class="kn">from</span><span class="w"> </span><span class="nn">sphinx.application</span><span class="w"> </span><span class="kn">import</span> <span class="n">Sphinx</span>
+
+
+<span class="k">class</span><span class="w"> </span><span class="nc">Termshot</span><span class="p">(</span><span class="n">SphinxDirective</span><span class="p">):</span>
+    <span class="n">required_arguments</span> <span class="o">=</span> <span class="mi">1</span>
+    <span class="n">optional_arguments</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="n">final_argument_whitespace</span> <span class="o">=</span> <span class="kc">True</span>
+
+    <span class="n">option_spec</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s2">&quot;title&quot;</span><span class="p">:</span> <span class="n">directives</span><span class="o">.</span><span class="n">unchanged</span><span class="p">,</span>
+    <span class="p">}</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">_</span><span class="p">,</span> <span class="n">fpath</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">env</span><span class="o">.</span><span class="n">relfn2path</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">arguments</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+        <span class="k">with</span> <span class="n">pathlib</span><span class="o">.</span><span class="n">Path</span><span class="p">(</span><span class="n">fpath</span><span class="p">)</span><span class="o">.</span><span class="n">open</span><span class="p">()</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+            <span class="n">header</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="n">f</span><span class="o">.</span><span class="n">readline</span><span class="p">())</span>
+            <span class="n">body</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="n">f</span><span class="o">.</span><span class="n">readline</span><span class="p">())</span>
+
+        <span class="n">term</span> <span class="o">=</span> <span class="n">header</span><span class="p">[</span><span class="s2">&quot;term&quot;</span><span class="p">]</span>
+        <span class="n">ansi_colors</span> <span class="o">=</span> <span class="n">term</span><span class="p">[</span><span class="s2">&quot;theme&quot;</span><span class="p">][</span><span class="s2">&quot;palette&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;:&quot;</span><span class="p">)</span>
+
+        <span class="n">text</span> <span class="o">=</span> <span class="n">Text</span><span class="o">.</span><span class="n">from_ansi</span><span class="p">(</span><span class="n">body</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span>
+        <span class="n">theme</span> <span class="o">=</span> <span class="n">TerminalTheme</span><span class="p">(</span>
+            <span class="n">background</span><span class="o">=</span><span class="n">Color</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="n">term</span><span class="p">[</span><span class="s2">&quot;theme&quot;</span><span class="p">][</span><span class="s2">&quot;bg&quot;</span><span class="p">])</span><span class="o">.</span><span class="n">triplet</span><span class="p">,</span>
+            <span class="n">foreground</span><span class="o">=</span><span class="n">Color</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="n">term</span><span class="p">[</span><span class="s2">&quot;theme&quot;</span><span class="p">][</span><span class="s2">&quot;fg&quot;</span><span class="p">])</span><span class="o">.</span><span class="n">triplet</span><span class="p">,</span>
+            <span class="n">normal</span><span class="o">=</span><span class="p">[</span><span class="n">Color</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="n">col</span><span class="p">)</span><span class="o">.</span><span class="n">triplet</span> <span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="n">ansi_colors</span><span class="p">[:</span><span class="mi">8</span><span class="p">]],</span>
+            <span class="n">bright</span><span class="o">=</span><span class="p">[</span><span class="n">Color</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="n">col</span><span class="p">)</span><span class="o">.</span><span class="n">triplet</span> <span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="n">ansi_colors</span><span class="p">[</span><span class="mi">8</span><span class="p">:]],</span>
+        <span class="p">)</span>
+
+        <span class="n">console</span> <span class="o">=</span> <span class="n">Console</span><span class="p">(</span>
+            <span class="n">file</span><span class="o">=</span><span class="n">io</span><span class="o">.</span><span class="n">StringIO</span><span class="p">(),</span>
+            <span class="n">force_terminal</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+            <span class="n">record</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+            <span class="n">width</span><span class="o">=</span><span class="n">term</span><span class="p">[</span><span class="s2">&quot;cols&quot;</span><span class="p">],</span>
+            <span class="n">height</span><span class="o">=</span><span class="n">term</span><span class="p">[</span><span class="s2">&quot;rows&quot;</span><span class="p">],</span>
+        <span class="p">)</span>
+        <span class="n">console</span><span class="o">.</span><span class="n">print</span><span class="p">(</span><span class="n">text</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">)</span>
+        <span class="n">svg</span> <span class="o">=</span> <span class="n">console</span><span class="o">.</span><span class="n">export_svg</span><span class="p">(</span>
+            <span class="n">title</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">options</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;title&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">),</span>
+            <span class="n">theme</span><span class="o">=</span><span class="n">theme</span><span class="p">,</span>
+        <span class="p">)</span>
+
+        <span class="n">node</span> <span class="o">=</span> <span class="n">nodes</span><span class="o">.</span><span class="n">raw</span><span class="p">(</span><span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="n">svg</span><span class="p">,</span> <span class="nb">format</span><span class="o">=</span><span class="s2">&quot;html&quot;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="p">[</span><span class="n">node</span><span class="p">]</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">setup</span><span class="p">(</span><span class="n">app</span><span class="p">:</span> <span class="n">Sphinx</span><span class="p">):</span>
+    <span class="n">app</span><span class="o">.</span><span class="n">add_directive</span><span class="p">(</span><span class="s2">&quot;termshot&quot;</span><span class="p">,</span> <span class="n">Termshot</span><span class="p">)</span>
+    <span class="k">return</span> <span class="p">{</span><span class="s2">&quot;version&quot;</span><span class="p">:</span> <span class="s2">&quot;1.0&quot;</span><span class="p">,</span> <span class="s2">&quot;parallel_read_safe&quot;</span><span class="p">:</span> <span class="kc">True</span><span class="p">}</span>
+</pre></div>
+</div>
+</details></section>
+</section>
+
+  <footer>
+    <script src="https://giscus.app/client.js"
+            data-repo="alcarney/blog"
+            data-repo-id="MDEwOlJlcG9zaXRvcnk2Njk3NzM3MQ=="
+            data-category="Comments"
+            data-category-id="DIC_kwDOA_3-W84B_XOl"
+            data-mapping="pathname"
+            data-reactions-enabled="1"
+            data-emit-metadata="0"
+            data-theme="preferred_color_scheme"
+            crossorigin="anonymous"
+            async>
+    </script>
+  </footer>
+
+</article>
+
+    </div>
+
+    <footer class="site">
+      <div>
+        <h6>Links</h6>
+        <ul>
+          <li>
+            <a href="../../../_sources/content/20250615T230801--rich-screenshots-with-wezterm__blog_blogging_rich_sphinx_wezterm.rst.txt" rel="nofollow">
+              Page Source
+            </a>
+          </li>
+          <li>
+            <a href="https://github.com/alcarney/blog" rel="nofollow">
+              Source Code
+            </a>
+          </li>
+        </ul>
+      </div>
+
+      <div>
+        <h6>
+          Built with
+        </h6>
+        <ul>
+          <li>
+            <a href="https://www.sphinx-doc.org/en/master/">
+              Sphinx
+            </a>
+            v8.2.3
+          </li>
+          <li>
+            <a href="https://feathericons.com/">
+              Feather Icons
+            </a>
+          </li>
+        </ul>
+      </div>
+    </footer>
+</div>
+  </body>
+</html>

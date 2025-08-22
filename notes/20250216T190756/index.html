@@ -9,7 +9,7 @@
 
     <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=02ca0aaa" />
     <link id="pygments_dark_css" media="(prefers-color-scheme: dark)" rel="stylesheet" type="text/css" href="../../_static/pygments_dark.css?v=d8568271" />
-    <link rel="stylesheet" type="text/css" href="../../_static/css/layout.css?v=faddea3e" />
+    <link rel="stylesheet" type="text/css" href="../../_static/css/layout.css?v=38d4b379" />
 
     <script src="../../_static/documentation_options.js?v=187304be"></script>
     <script src="../../_static/doctools.js?v=9bcbadda"></script>
@@ -220,12 +220,26 @@
   </details>
   </li>
       <li>
-    
+  <details >
+    <summary>
+      
   <a class="reference internal" href="../20250303T122920/">
     Python in Emacs
   </a>
   
+
+    </summary>
+    <ul>
+      <li>
+    
+  <a class="reference internal" href="../20250615T135327/">
+    Debugging Python Code
+  </a>
+  
 </li>
+    </ul>
+  </details>
+  </li>
       <li>
     
   <a class="reference internal" href="../20250305T195742/">
@@ -355,6 +369,16 @@ However, this does not happen when launching Emacs via krunner and so it fails t
 </pre></div>
 </div>
 </div>
+<p>Now that I’ve started running the Emacs server via <code class="docutils literal notranslate"><span class="pre">systemctl</span> <span class="pre">--user</span></code>, <code class="docutils literal notranslate"><span class="pre">$HOME/.local/bin</span></code> does not appear to be on the <code class="docutils literal notranslate"><span class="pre">PATH</span></code> either.
+(No idea why, so let’s just add it here and move on.)</p>
+<div class="awdur-codeblock docutils container">
+<div class="awdur-codeblock-header docutils container">
+<code class="awdur-codeblock-filename docutils literal notranslate"><span class="pre">emacs/init.el</span></code></div>
+<div class="highlight-elisp notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="nf">file-exists-p</span><span class="w"> </span><span class="s">&quot;/home/alex/.local/bin&quot;</span><span class="p">)</span>
+<span class="w">    </span><span class="p">(</span><span class="nv">add-to-list</span><span class="w"> </span><span class="ss">&#39;exec-path</span><span class="w"> </span><span class="s">&quot;/home/alex/.local/bin&quot;</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
 <p>However, this isn’t enough to let functions like <code class="docutils literal notranslate"><span class="pre">shell-command</span></code> find the command, we also need to update Emacs’ version of <code class="docutils literal notranslate"><span class="pre">PATH</span></code></p>
 <div class="awdur-codeblock docutils container">
 <div class="awdur-codeblock-header docutils container">
@@ -447,8 +471,22 @@ Uses <code class="docutils literal notranslate"><span class="pre">whitespace-dis
 <code class="awdur-codeblock-filename docutils literal notranslate"><span class="pre">emacs/init.el</span></code></div>
 <div class="highlight-elisp notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="k">setq</span><span class="w"> </span><span class="nv">compilation-always-kill</span><span class="w"> </span><span class="no">t</span>
 <span class="w">      </span><span class="nv">compilation-scroll-output</span><span class="w"> </span><span class="no">t</span><span class="p">)</span>
-
-<span class="p">(</span><span class="nv">add-to-list</span><span class="w"> </span><span class="ss">&#39;display-buffer-alist</span>
+</pre></div>
+</div>
+</div>
+<p>Enable coloured output in compilation buffers</p>
+<div class="awdur-codeblock docutils container">
+<div class="awdur-codeblock-header docutils container">
+<code class="awdur-codeblock-filename docutils literal notranslate"><span class="pre">emacs/init.el</span></code></div>
+<div class="highlight-elisp notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="nv">add-hook</span><span class="w"> </span><span class="ss">&#39;compilation-filter-hook</span><span class="w"> </span><span class="ss">&#39;ansi-color-compilation-filter</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<p>Attempt at a sane <code class="docutils literal notranslate"><span class="pre">display-buffer-alist</span></code> rule for compilation windows</p>
+<div class="awdur-codeblock docutils container">
+<div class="awdur-codeblock-header docutils container">
+<code class="awdur-codeblock-filename docutils literal notranslate"><span class="pre">emacs/init.el</span></code></div>
+<div class="highlight-elisp notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="nv">add-to-list</span><span class="w"> </span><span class="ss">&#39;display-buffer-alist</span>
 <span class="w">             </span><span class="o">&#39;</span><span class="p">(</span><span class="s">&quot;\\*compilation\\*&quot;</span>
 <span class="w">               </span><span class="p">(</span><span class="nv">display-buffer-reuse-window</span>
 <span class="w">                </span><span class="nv">display-buffer-in-previous-window</span>
