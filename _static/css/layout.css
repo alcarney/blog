@@ -132,6 +132,12 @@ kbd {
     color: var(--fg-accent);
 }
 
+details > :not(summary) {
+    border-left: solid 1px var(--border-color);
+    padding: 0 1em;
+    margin: 0 0.2em;
+}
+
 figure.align-center img {
     display: block;
     margin: auto;
