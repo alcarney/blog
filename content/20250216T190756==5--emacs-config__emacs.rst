@@ -169,6 +169,18 @@ Basic settings for Emacs' compilation framework
    (setq compilation-always-kill t
          compilation-scroll-output t)
 
+Enable coloured output in compilation buffers
+
+.. code-block:: elisp
+   :filename: emacs/init.el
+
+   (add-hook 'compilation-filter-hook 'ansi-color-compilation-filter)
+
+Attempt at a sane ``display-buffer-alist`` rule for compilation windows
+
+.. code-block:: elisp
+   :filename: emacs/init.el
+
    (add-to-list 'display-buffer-alist
                 '("\\*compilation\\*"
                   (display-buffer-reuse-window
