@@ -31,7 +31,7 @@ Make it easy to get relevant nerd icons
 Theme
 -----
 
-Load my theme related customisations
+Load my theme related customisations, see :denote:link:`Emacs Themes <20250708T133920>` for details.
 
 .. code-block:: elisp
    :filename: emacs/init.el
@@ -39,6 +39,18 @@ Load my theme related customisations
    (use-package alc-theme
      :load-path "lisp"
      :config
+     (require-theme 'modus-themes t)
+
+     (setopt modus-themes-bold-constructs t
+             modus-themes-italic-constructs t
+             modus-themes-prompts '(bold italic)
+             modus-themes-variable-pitch-ui nil)
+
+     (setq alc-theme-load-light-theme-function
+           (lambda () (modus-themes-load-theme 'modus-operandi))
+           alc-theme-load-dark-theme-function
+           (lambda () (modus-themes-load-theme 'modus-vivendi)))
+
      (add-to-list 'after-make-frame-functions 'alc-theme-sync-to-system-theme))
 
 Line Numbers
