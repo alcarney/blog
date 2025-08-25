@@ -63,6 +63,7 @@ blog_title = "Alex Carney | Blog"
 # -- Options for ExtLinks extension ---------------------------------------------
 extlinks = {
     "gh": ("https://github.com/%s", "%s"),
+    "pypi": ("https://pypi.org/project/%s", "%s"),
 }
 
 # -- Options for InterSphinx extension ---------------------------------------------
@@ -98,15 +99,6 @@ html_js_files = [
 ]
 
 
-def pypi_role(name, rawtext, text, lineno, inliner, options={}, content=[]):
-    """An easy way to link to projects on pypi."""
-
-    ref = f"https://pypi.org/project/{text}"
-
-    node = nodes.reference(rawtext, text, refuri=ref, **options)
-    return [node], []
-
-
 def template_override(app, pagename, templatename, context, doctree):
     """Allows for page templates to be overridden based on a ``:template: xxx``
     field in a document.
@@ -129,7 +121,5 @@ def template_override(app, pagename, templatename, context, doctree):
 
 def setup(app: Sphinx):
     app.add_css_file("css/layout.css", priority=800)
-
-    app.add_role("pypi", pypi_role)
 
     app.connect("html-page-context", template_override)
