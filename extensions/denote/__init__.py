@@ -13,6 +13,7 @@ import typing
 from datetime import datetime, timezone
 
 from docutils import nodes
+from docutils.io import StringOutput
 from sphinx import addnodes
 from sphinx.util.osutil import relative_uri
 
@@ -24,6 +25,7 @@ if typing.TYPE_CHECKING:
     from typing import Any
 
     from sphinx.application import Sphinx
+    from sphinx.builders.html import StandaloneHTMLBuilder
 
 
 UTC = timezone.utc
@@ -78,6 +80,38 @@ def render_summary(app: Sphinx, record: Record, relative_to: str) -> str:
     return html["body"]
 
 
+def render_content(app: Sphinx, record: Record) -> str:
+    """Render a summary of the content in the given record"""
+
+    if record.docname is None:
+        return ""
+
+    # Don't modify the original document
+    doctree = app.env.get_doctree(record.docname)
+    doctree = doctree.deepcopy()
+
+    # Make references relative to the parent document
+    for ref in doctree.findall(addnodes.pending_xref):
+        ref["refdoc"] = ""
+
+    app.env.resolve_references(doctree, "", app.builder)
+
+    # We also need to fix the base image url
+    builder: StandaloneHTMLBuilder = app.builder
+    original_imgpath = builder.imgpath
+    builder.imgpath = f"{app.config.blog_baseurl}/_images"
+
+    dest = StringOutput(encoding="utf-8")
+    doctree.settings = builder.docsettings
+    builder.docwriter.write(doctree, dest)
+    builder.docwriter.assemble_parts()
+
+    html = builder.docwriter.parts["fragment"]
+
+    builder.imgpath = original_imgpath
+    return html
+
+
 def parse_records(app: Sphinx, doctree):
     """Extract additional information from a document's content"""
 
@@ -129,6 +163,7 @@ def generate_collections(app: Sphinx):
             "now": datetime.now(tz=UTC),
             "relurl": "blog/atom.xml",
             "sphinx_version": "8",
+            "render_content": functools.partial(render_content, app),
         }
     )
     yield ("blog/atom", context, "blog/atom.xml")
