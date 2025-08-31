@@ -149,12 +149,12 @@
 </section>
     </aside>
 
-    
-    <div hx-trigger="intersect once"
-         hx-get="../../blog/2023/python-wasi-nix/"
-         hx-select=".post-teaser"
-         hx-swap="innerHTML ignoreTitle:true"
-         style="min-width: 0">
+    <div style="min-width: 0">
+      <div class="post-teaser docutils container">
+<p>In this blog post I look at setting up a local development environment for the <a class="reference external" href="https://github.com/brettcannon/cpython-wasi-build">WASI build of Python</a>  using Nix.
+You can see the final result <a class="reference external" href="https://github.com/alcarney/python-wasi-nix">here</a></p>
+</div>
+
     </div>
 
     <footer>
@@ -203,12 +203,16 @@
 </section>
     </aside>
 
-    
-    <div hx-trigger="intersect once"
-         hx-get="../../blog/2020/passing-strings-between-tinygo-wasm/"
-         hx-select=".post-teaser"
-         hx-swap="innerHTML ignoreTitle:true"
-         style="min-width: 0">
+    <div style="min-width: 0">
+      <div class="post-teaser docutils container">
+<p>After getting a <a class="reference internal" href="../../blog/2020/hello-world-tinygo-wasm/" title="Saying ‘Hello, World!’ with TinyGo and WebAssembly">&quot;Hello, World!&quot;</a> WebAssembly
+application working I thought it would be fun to try and implement a toy programming
+language in the browser. However before I could even start thinking about parsers,
+abstract syntax trees and the like I had to be able to pass strings between my
+WebAssembly module and the surrounding JavaScript.</p>
+<p>Turns out that is much trickier than I expected.</p>
+</div>
+
     </div>
 
     <footer>
@@ -262,12 +266,16 @@
 </section>
     </aside>
 
-    
-    <div hx-trigger="intersect once"
-         hx-get="../../blog/2020/hello-world-tinygo-wasm/"
-         hx-select=".post-teaser"
-         hx-swap="innerHTML ignoreTitle:true"
-         style="min-width: 0">
+    <div style="min-width: 0">
+      <div class="post-teaser docutils container">
+<p>WebAssembly is something I’ve wanted to play with for quite a while now and
+I’ve finally got around to taking a look at it. In this post I describe how I
+managed to use <a class="reference external" href="https://tinygo.org/">TinyGo</a> to compile a “Hello, World!” Go program into
+WebAssembly and execute it in the browser. So that I have something to refer
+back to I also describe setting up my development environment as a container
+using <a class="reference external" href="https://linuxcontainers.org/">LXD</a>.</p>
+</div>
+
     </div>
 
     <footer>

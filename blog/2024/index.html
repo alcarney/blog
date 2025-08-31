@@ -196,12 +196,11 @@
 </section>
     </aside>
 
-    
-    <div hx-trigger="intersect once"
-         hx-get="notes-november/"
-         hx-select=".post-teaser"
-         hx-swap="innerHTML ignoreTitle:true"
-         style="min-width: 0">
+    <div style="min-width: 0">
+      <div class="post-teaser docutils container">
+<p>Doubling my streak of writing notes on the <a class="reference internal" href="notes-october/" title="Notes for October">previous month</a> to 2, here are some of the things I worked on in November.</p>
+</div>
+
     </div>
 
     <footer>
@@ -240,12 +239,14 @@
 </section>
     </aside>
 
-    
-    <div hx-trigger="intersect once"
-         hx-get="inspecting-python-threads/"
-         hx-select=".post-teaser"
-         hx-swap="innerHTML ignoreTitle:true"
-         style="min-width: 0">
+    <div style="min-width: 0">
+      <div class="post-teaser docutils container">
+<p>One of my favourite things about Python is that pretty much everything about the language can be inspected at runtime and today I found out this is true even for threads.</p>
+<p>While working on <a class="reference external" href="https://github.com/swyddfa/esbonio/pull/928">this PR</a> I kept running into issues where the <code class="docutils literal notranslate"><span class="pre">esbonio</span></code> process would not terminate, despite everything to my knowledge at least, was being shutdown as expected.
+Having encountered issues like this before, I knew the culprit was likely to be some background thread was stuck on something and keeping the process alive.
+The problem was I had no idea which thread it could be or what it was doing.</p>
+</div>
+
     </div>
 
     <footer>
@@ -289,12 +290,12 @@
 </section>
     </aside>
 
-    
-    <div hx-trigger="intersect once"
-         hx-get="local-llms-with-ollama-and-gptel/"
-         hx-select=".post-teaser"
-         hx-swap="innerHTML ignoreTitle:true"
-         style="min-width: 0">
+    <div style="min-width: 0">
+      <div class="post-teaser docutils container">
+<p>LLMs don’t look like they’re going to go away anytime soon, so I may as well start playing around with them.
+Since I am also using Emacs more and more it also makes sense to try using it as the interface to any models.</p>
+</div>
+
     </div>
 
     <footer>
@@ -333,12 +334,11 @@
 </section>
     </aside>
 
-    
-    <div hx-trigger="intersect once"
-         hx-get="notes-october/"
-         hx-select=".post-teaser"
-         hx-swap="innerHTML ignoreTitle:true"
-         style="min-width: 0">
+    <div style="min-width: 0">
+      <div class="post-teaser docutils container">
+<p>I want to try and get into the habit of writing more, so taking inspiration from Simon Willison’s <a class="reference external" href="https://simonwillison.net/tags/weeknotes/">weeknotes</a> here’s a quick writeup of what I have been doing in the month of October.</p>
+</div>
+
     </div>
 
     <footer>

@@ -159,12 +159,16 @@
 </section>
     </aside>
 
-    
-    <div hx-trigger="intersect once"
-         hx-get="../../blog/2020/hello-world-tinygo-wasm/"
-         hx-select=".post-teaser"
-         hx-swap="innerHTML ignoreTitle:true"
-         style="min-width: 0">
+    <div style="min-width: 0">
+      <div class="post-teaser docutils container">
+<p>WebAssembly is something I’ve wanted to play with for quite a while now and
+I’ve finally got around to taking a look at it. In this post I describe how I
+managed to use <a class="reference external" href="https://tinygo.org/">TinyGo</a> to compile a “Hello, World!” Go program into
+WebAssembly and execute it in the browser. So that I have something to refer
+back to I also describe setting up my development environment as a container
+using <a class="reference external" href="https://linuxcontainers.org/">LXD</a>.</p>
+</div>
+
     </div>
 
     <footer>

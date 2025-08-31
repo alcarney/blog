@@ -161,34 +161,55 @@
   </div>
 
   <div class="awdur-codeblock">
-    <div class="highlight"><pre style="margin: 0"><span></span><span class="p">(</span><span class="nb">require</span><span class="w"> </span><span class="ss">&#39;dbus</span><span class="p">)</span><span class="w"> </span><span class="c1">; needed for later</span>
-<span class="c1">;; Use `setopt&#39; since modus supports automatically reloading the theme when these</span>
-<span class="c1">;; are changed via the `customize&#39; framework</span>
-<span class="p">(</span><span class="nv">setopt</span><span class="w"> </span><span class="nv">modus-themes-bold-constructs</span><span class="w"> </span><span class="no">t</span>
-<span class="w">        </span><span class="nv">modus-themes-italic-constructs</span><span class="w"> </span><span class="no">t</span>
-<span class="w">        </span><span class="nv">modus-themes-prompts</span><span class="w"> </span><span class="o">&#39;</span><span class="p">(</span><span class="nv">bold</span><span class="w"> </span><span class="nv">italic</span><span class="p">)</span>
-<span class="w">        </span><span class="nv">modus-themes-variable-pitch-ui</span><span class="w"> </span><span class="no">nil</span><span class="p">)</span>
+    <div class="highlight"><pre style="margin: 0"><span></span><span class="p">(</span><span class="k">defvar</span><span class="w"> </span><span class="nv">alc-theme-load-light-theme-function</span><span class="w"> </span><span class="no">nil</span>
+<span class="w">  </span><span class="s">&quot;The function to call in order to load the configured light theme&quot;</span><span class="p">)</span>
+
+<span class="p">(</span><span class="k">defvar</span><span class="w"> </span><span class="nv">alc-theme-load-dark-theme-function</span><span class="w"> </span><span class="no">nil</span>
+<span class="w">  </span><span class="s">&quot;The function to call in order to load the configured dark theme&quot;</span><span class="p">)</span>
 
 <span class="p">(</span><span class="nb">defun</span><span class="w"> </span><span class="nv">alc-theme-load-theme</span><span class="w"> </span><span class="p">(</span><span class="nv">variant</span><span class="p">)</span>
 <span class="w">  </span><span class="s">&quot;Load the light or dark theme according to VARIANT.&quot;</span>
-<span class="w">  </span><span class="p">(</span><span class="nv">require-theme</span><span class="w"> </span><span class="ss">&#39;modus-themes</span><span class="w"> </span><span class="no">t</span><span class="p">)</span>
-<span class="w">  </span><span class="p">(</span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="nf">eq</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="nv">variant</span><span class="p">)</span>
-<span class="w">     </span><span class="p">(</span><span class="k">progn</span>
-<span class="w">       </span><span class="p">(</span><span class="nv">modus-themes-load-theme</span><span class="w"> </span><span class="ss">&#39;modus-vivendi</span><span class="p">))</span>
-<span class="w">    </span><span class="p">(</span><span class="nv">modus-themes-load-theme</span><span class="w"> </span><span class="ss">&#39;modus-operandi</span><span class="p">)))</span>
+<span class="w">  </span><span class="p">(</span><span class="nb">pcase</span><span class="w"> </span><span class="nv">variant</span>
+<span class="w">    </span><span class="p">(</span><span class="ss">&#39;light</span><span class="w"> </span><span class="p">(</span><span class="nf">funcall</span><span class="w"> </span><span class="nv">alc-theme-load-light-theme-function</span><span class="p">))</span>
+<span class="w">    </span><span class="p">(</span><span class="ss">&#39;dark</span><span class="w"> </span><span class="p">(</span><span class="nf">funcall</span><span class="w"> </span><span class="nv">alc-theme-load-dark-theme-function</span><span class="p">))</span>
+<span class="w">    </span><span class="p">(</span><span class="nv">_</span><span class="w"> </span><span class="p">(</span><span class="ne">error</span><span class="w"> </span><span class="s">&quot;Unknown theme variant: %s&quot;</span><span class="w"> </span><span class="nv">variant</span><span class="p">))))</span>
 
+<span class="p">(</span><span class="nb">defun</span><span class="w"> </span><span class="nv">alc-theme--system-preference-to-variant</span><span class="w"> </span><span class="p">(</span><span class="nv">pref</span><span class="p">)</span>
+<span class="w">  </span><span class="s">&quot;Simple helper function for converting the system PREF into the</span>
+<span class="s">corresponding variant.&quot;</span>
+<span class="w">  </span><span class="p">(</span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="nf">eq</span><span class="w"> </span><span class="nv">pref</span><span class="w"> </span><span class="mi">1</span><span class="p">)</span><span class="w"> </span><span class="ss">&#39;dark</span><span class="w"> </span><span class="ss">&#39;light</span><span class="p">))</span>
+
+<span class="p">(</span><span class="nb">require</span><span class="w"> </span><span class="ss">&#39;dbus</span><span class="p">)</span>
 <span class="p">(</span><span class="nb">defun</span><span class="w"> </span><span class="nv">alc-theme-sync-to-system-theme</span><span class="w"> </span><span class="p">(</span><span class="nv">_frame</span><span class="p">)</span>
 <span class="w">  </span><span class="s">&quot;Choose a light/dark theme based on the current system preference.&quot;</span>
-<span class="w">  </span><span class="p">(</span><span class="nv">alc-theme-load-theme</span>
-<span class="w">    </span><span class="p">(</span><span class="nv">caar</span><span class="w"> </span><span class="p">(</span><span class="nv">dbus-call-method</span>
+<span class="w">  </span><span class="p">(</span><span class="k">let</span><span class="w"> </span><span class="p">((</span><span class="nv">pref</span><span class="w"> </span><span class="p">(</span><span class="nv">caar</span><span class="w"> </span><span class="p">(</span><span class="nv">dbus-call-method</span>
+<span class="w">                     </span><span class="nb">:session</span>
+<span class="w">                     </span><span class="s">&quot;org.freedesktop.portal.Desktop&quot;</span>
+<span class="w">                     </span><span class="s">&quot;/org/freedesktop/portal/desktop&quot;</span>
+<span class="w">                     </span><span class="s">&quot;org.freedesktop.portal.Settings&quot;</span><span class="w"> </span><span class="s">&quot;Read&quot;</span>
+<span class="w">                     </span><span class="s">&quot;org.freedesktop.appearance&quot;</span><span class="w"> </span><span class="s">&quot;color-scheme&quot;</span><span class="p">))))</span>
+<span class="w">    </span><span class="p">(</span><span class="nv">alc-theme-load-theme</span><span class="w"> </span><span class="p">(</span><span class="nv">alc-theme--system-preference-to-variant</span><span class="w"> </span><span class="nv">pref</span><span class="p">))</span>
+<span class="w">    </span><span class="p">(</span><span class="nv">alc-theme--register-dbus-listener</span><span class="p">)))</span>
+
+<span class="p">(</span><span class="k">defvar</span><span class="w"> </span><span class="nv">alc-theme--dbus-listener</span><span class="w"> </span><span class="no">nil</span>
+<span class="w">  </span><span class="s">&quot;Variable in which to store the dbus listener.&quot;</span><span class="p">)</span>
+
+<span class="p">(</span><span class="nb">defun</span><span class="w"> </span><span class="nv">alc-theme--register-dbus-listener</span><span class="w"> </span><span class="p">()</span>
+<span class="w">  </span><span class="s">&quot;Register (if necessary) a DBus listener to react to changes in the</span>
+<span class="s">system&#39;s light/dark preference.&quot;</span>
+<span class="w">  </span><span class="p">(</span><span class="nb">unless</span><span class="w"> </span><span class="nv">alc-theme--dbus-listener</span>
+<span class="w">    </span><span class="p">(</span><span class="k">setq</span><span class="w"> </span><span class="nv">alc-theme--dbus-listener</span>
+<span class="w">          </span><span class="p">(</span><span class="nv">dbus-register-signal</span>
 <span class="w">           </span><span class="nb">:session</span>
 <span class="w">           </span><span class="s">&quot;org.freedesktop.portal.Desktop&quot;</span>
 <span class="w">           </span><span class="s">&quot;/org/freedesktop/portal/desktop&quot;</span>
-<span class="w">           </span><span class="s">&quot;org.freedesktop.portal.Settings&quot;</span><span class="w"> </span><span class="s">&quot;Read&quot;</span>
-<span class="w">           </span><span class="s">&quot;org.freedesktop.appearance&quot;</span><span class="w"> </span><span class="s">&quot;color-scheme&quot;</span><span class="p">))))</span>
-
-<span class="p">(</span><span class="nb">unless</span><span class="w"> </span><span class="p">(</span><span class="nv">display-graphic-p</span><span class="p">)</span>
-<span class="w">  </span><span class="p">(</span><span class="nv">alc-theme-load-theme</span><span class="w"> </span><span class="mi">1</span><span class="p">))</span><span class="w"> </span><span class="c1">; dark</span>
+<span class="w">           </span><span class="s">&quot;org.freedesktop.portal.Settings&quot;</span>
+<span class="w">           </span><span class="s">&quot;SettingChanged&quot;</span>
+<span class="w">           </span><span class="p">(</span><span class="nb">lambda</span><span class="w"> </span><span class="p">(</span><span class="nv">path</span><span class="w"> </span><span class="nv">var</span><span class="w"> </span><span class="nv">val</span><span class="p">)</span>
+<span class="w">             </span><span class="p">(</span><span class="nb">when</span><span class="w"> </span><span class="p">(</span><span class="k">and</span><span class="w"> </span><span class="p">(</span><span class="nf">string=</span><span class="w"> </span><span class="nv">path</span><span class="w"> </span><span class="s">&quot;org.freedesktop.appearance&quot;</span><span class="p">)</span>
+<span class="w">                        </span><span class="p">(</span><span class="nf">string=</span><span class="w"> </span><span class="nv">var</span><span class="w"> </span><span class="s">&quot;color-scheme&quot;</span><span class="p">))</span>
+<span class="w">               </span><span class="p">(</span><span class="nv">alc-theme-load-theme</span>
+<span class="w">                </span><span class="p">(</span><span class="nv">alc-theme--system-preference-to-variant</span><span class="w"> </span><span class="p">(</span><span class="nf">car</span><span class="w"> </span><span class="nv">val</span><span class="p">)))))))))</span>
 
 <span class="p">(</span><span class="nb">provide</span><span class="w"> </span><span class="ss">&#39;alc-theme</span><span class="p">)</span>
 </pre></div>

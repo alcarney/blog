@@ -5,7 +5,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>Themes &#8212; Alex Carney</title>
+    <title>Emacs Themes &#8212; Alex Carney</title>
 
     <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=02ca0aaa" />
     <link id="pygments_dark_css" media="(prefers-color-scheme: dark)" rel="stylesheet" type="text/css" href="../../_static/pygments_dark.css?v=d8568271" />
@@ -104,9 +104,13 @@
 </section><section id="post-contents">
   <nav id="localtoc">
     <ul>
-<li><a class="reference internal" href="#">Themes</a><ul>
+<li><a class="reference internal" href="#">Emacs Themes</a><ul>
+<li><a class="reference internal" href="#automatic-theme-switching">Automatic Theme Switching</a></li>
+<li><a class="reference internal" href="#theme-customisations">Theme Customisations</a><ul>
 <li><a class="reference internal" href="#doric-themes">Doric Themes</a></li>
 <li><a class="reference internal" href="#modus-themes">Modus Themes</a></li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>
@@ -188,7 +192,7 @@
 </li>
       <li>
     
-    Themes
+    Emacs Themes
   
 </li>
     </ul>
@@ -282,91 +286,108 @@
     <div role="main" style="flex-grow: 1">
 
 <article>
-  <section id="themes">
-<h1>Themes<a class="headerlink" href="#themes" title="Link to this heading">¶</a></h1>
-<section id="doric-themes">
-<h2>Doric Themes<a class="headerlink" href="#doric-themes" title="Link to this heading">¶</a></h2>
-<p>Prot’s new <a class="reference external" href="https://protesilaos.com/emacs/doric-themes">doric-themes</a> are worth exploring</p>
-<div class="highlight-elisp notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="nb">use-package</span><span class="w"> </span><span class="nv">doric-themes</span><span class="w"> </span><span class="nb">:ensure</span><span class="w"> </span><span class="no">t</span><span class="p">)</span>
+  <section id="emacs-themes">
+<h1>Emacs Themes<a class="headerlink" href="#emacs-themes" title="Link to this heading">¶</a></h1>
+<section id="automatic-theme-switching">
+<h2>Automatic Theme Switching<a class="headerlink" href="#automatic-theme-switching" title="Link to this heading">¶</a></h2>
+<p>I’m often switching between a light and a dark theme depending on light levels and time of day so the more applications that can automatically sync with the system setting the better.
+Of course, with Emacs, it’s possible to wire up a couple of DBus incantations to both query and detect changes to the system’s light/dark preference.</p>
+<p>But first, let’s create a few options to control which themes I want to load, plus a function to automatically call the right one given a preference.</p>
+<div class="awdur-codeblock docutils container">
+<div class="awdur-codeblock-header docutils container">
+<code class="awdur-codeblock-filename docutils literal notranslate"><span class="pre">emacs/lisp/alc-theme.el</span></code></div>
+<div class="highlight-elisp notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="k">defvar</span><span class="w"> </span><span class="nv">alc-theme-load-light-theme-function</span><span class="w"> </span><span class="no">nil</span>
+<span class="w">  </span><span class="s">&quot;The function to call in order to load the configured light theme&quot;</span><span class="p">)</span>
+
+<span class="p">(</span><span class="k">defvar</span><span class="w"> </span><span class="nv">alc-theme-load-dark-theme-function</span><span class="w"> </span><span class="no">nil</span>
+<span class="w">  </span><span class="s">&quot;The function to call in order to load the configured dark theme&quot;</span><span class="p">)</span>
+
+<span class="p">(</span><span class="nb">defun</span><span class="w"> </span><span class="nv">alc-theme-load-theme</span><span class="w"> </span><span class="p">(</span><span class="nv">variant</span><span class="p">)</span>
+<span class="w">  </span><span class="s">&quot;Load the light or dark theme according to VARIANT.&quot;</span>
+<span class="w">  </span><span class="p">(</span><span class="nb">pcase</span><span class="w"> </span><span class="nv">variant</span>
+<span class="w">    </span><span class="p">(</span><span class="ss">&#39;light</span><span class="w"> </span><span class="p">(</span><span class="nf">funcall</span><span class="w"> </span><span class="nv">alc-theme-load-light-theme-function</span><span class="p">))</span>
+<span class="w">    </span><span class="p">(</span><span class="ss">&#39;dark</span><span class="w"> </span><span class="p">(</span><span class="nf">funcall</span><span class="w"> </span><span class="nv">alc-theme-load-dark-theme-function</span><span class="p">))</span>
+<span class="w">    </span><span class="p">(</span><span class="nv">_</span><span class="w"> </span><span class="p">(</span><span class="ne">error</span><span class="w"> </span><span class="s">&quot;Unknown theme variant: %s&quot;</span><span class="w"> </span><span class="nv">variant</span><span class="p">))))</span>
+
+<span class="p">(</span><span class="nb">defun</span><span class="w"> </span><span class="nv">alc-theme--system-preference-to-variant</span><span class="w"> </span><span class="p">(</span><span class="nv">pref</span><span class="p">)</span>
+<span class="w">  </span><span class="s">&quot;Simple helper function for converting the system PREF into the</span>
+<span class="s">corresponding variant.&quot;</span>
+<span class="w">  </span><span class="p">(</span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="nf">eq</span><span class="w"> </span><span class="nv">pref</span><span class="w"> </span><span class="mi">1</span><span class="p">)</span><span class="w"> </span><span class="ss">&#39;dark</span><span class="w"> </span><span class="ss">&#39;light</span><span class="p">))</span>
 </pre></div>
 </div>
+</div>
+<div class="admonition-why-use-functions admonition">
+<p class="admonition-title">Why use functions?</p>
+<p>As you will see below, I almost exclusively use themes created by <cite>Protesilaos &lt;https://protesilaos.com/&gt;</cite> and these themes often provide a <code class="docutils literal notranslate"><span class="pre">load-theme</span></code> function that will run some hooks after the theme is loaded, allowing for further customisation.</p>
+<p>Plus, with a function there’s room to perform any arbitrary setup you might need.</p>
+</div>
+<p>Next, a function that will call the relevant function for the given theme variant
+(Thanks to <a class="reference external" href="https://github.com/LionyxML/auto-dark-emacs">auto-dark-emacs</a> for the DBus specifics!)</p>
+<div class="awdur-codeblock docutils container">
+<div class="awdur-codeblock-header docutils container">
+<code class="awdur-codeblock-filename docutils literal notranslate"><span class="pre">emacs/lisp/alc-theme.el</span></code></div>
+<div class="highlight-elisp notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="nb">require</span><span class="w"> </span><span class="ss">&#39;dbus</span><span class="p">)</span>
+<span class="p">(</span><span class="nb">defun</span><span class="w"> </span><span class="nv">alc-theme-sync-to-system-theme</span><span class="w"> </span><span class="p">(</span><span class="nv">_frame</span><span class="p">)</span>
+<span class="w">  </span><span class="s">&quot;Choose a light/dark theme based on the current system preference.&quot;</span>
+<span class="w">  </span><span class="p">(</span><span class="k">let</span><span class="w"> </span><span class="p">((</span><span class="nv">pref</span><span class="w"> </span><span class="p">(</span><span class="nv">caar</span><span class="w"> </span><span class="p">(</span><span class="nv">dbus-call-method</span>
+<span class="w">                     </span><span class="nb">:session</span>
+<span class="w">                     </span><span class="s">&quot;org.freedesktop.portal.Desktop&quot;</span>
+<span class="w">                     </span><span class="s">&quot;/org/freedesktop/portal/desktop&quot;</span>
+<span class="w">                     </span><span class="s">&quot;org.freedesktop.portal.Settings&quot;</span><span class="w"> </span><span class="s">&quot;Read&quot;</span>
+<span class="w">                     </span><span class="s">&quot;org.freedesktop.appearance&quot;</span><span class="w"> </span><span class="s">&quot;color-scheme&quot;</span><span class="p">))))</span>
+<span class="w">    </span><span class="p">(</span><span class="nv">alc-theme-load-theme</span><span class="w"> </span><span class="p">(</span><span class="nv">alc-theme--system-preference-to-variant</span><span class="w"> </span><span class="nv">pref</span><span class="p">))</span>
+<span class="w">    </span><span class="p">(</span><span class="nv">alc-theme--register-dbus-listener</span><span class="p">)))</span>
+</pre></div>
+</div>
+</div>
+<p>The above function takes an unused <code class="docutils literal notranslate"><span class="pre">_frame</span></code> parameter since I currently add this to the <code class="docutils literal notranslate"><span class="pre">after-make-frame-functions</span></code> hook.
+I’m not an expert in Emacs’ startup, but based on my experience so far, it seems to be the best time to have this function execute.</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">alc-theme--register-dbus-listener</span></code> function, defined below, is repsonsible for setting up a dbus listener that will automatically rerun the <code class="docutils literal notranslate"><span class="pre">alc-theme-load-theme</span></code> function when the system preference changes.
+Again, thank you to <code class="docutils literal notranslate"><span class="pre">auto-dark-emacs</span></code> for the DBus specifics.</p>
+<div class="awdur-codeblock docutils container">
+<div class="awdur-codeblock-header docutils container">
+<code class="awdur-codeblock-filename docutils literal notranslate"><span class="pre">emacs/lisp/alc-theme.el</span></code></div>
+<div class="highlight-elisp notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="k">defvar</span><span class="w"> </span><span class="nv">alc-theme--dbus-listener</span><span class="w"> </span><span class="no">nil</span>
+<span class="w">  </span><span class="s">&quot;Variable in which to store the dbus listener.&quot;</span><span class="p">)</span>
+
+<span class="p">(</span><span class="nb">defun</span><span class="w"> </span><span class="nv">alc-theme--register-dbus-listener</span><span class="w"> </span><span class="p">()</span>
+<span class="w">  </span><span class="s">&quot;Register (if necessary) a DBus listener to react to changes in the</span>
+<span class="s">system&#39;s light/dark preference.&quot;</span>
+<span class="w">  </span><span class="p">(</span><span class="nb">unless</span><span class="w"> </span><span class="nv">alc-theme--dbus-listener</span>
+<span class="w">    </span><span class="p">(</span><span class="k">setq</span><span class="w"> </span><span class="nv">alc-theme--dbus-listener</span>
+<span class="w">          </span><span class="p">(</span><span class="nv">dbus-register-signal</span>
+<span class="w">           </span><span class="nb">:session</span>
+<span class="w">           </span><span class="s">&quot;org.freedesktop.portal.Desktop&quot;</span>
+<span class="w">           </span><span class="s">&quot;/org/freedesktop/portal/desktop&quot;</span>
+<span class="w">           </span><span class="s">&quot;org.freedesktop.portal.Settings&quot;</span>
+<span class="w">           </span><span class="s">&quot;SettingChanged&quot;</span>
+<span class="w">           </span><span class="p">(</span><span class="nb">lambda</span><span class="w"> </span><span class="p">(</span><span class="nv">path</span><span class="w"> </span><span class="nv">var</span><span class="w"> </span><span class="nv">val</span><span class="p">)</span>
+<span class="w">             </span><span class="p">(</span><span class="nb">when</span><span class="w"> </span><span class="p">(</span><span class="k">and</span><span class="w"> </span><span class="p">(</span><span class="nf">string=</span><span class="w"> </span><span class="nv">path</span><span class="w"> </span><span class="s">&quot;org.freedesktop.appearance&quot;</span><span class="p">)</span>
+<span class="w">                        </span><span class="p">(</span><span class="nf">string=</span><span class="w"> </span><span class="nv">var</span><span class="w"> </span><span class="s">&quot;color-scheme&quot;</span><span class="p">))</span>
+<span class="w">               </span><span class="p">(</span><span class="nv">alc-theme-load-theme</span>
+<span class="w">                </span><span class="p">(</span><span class="nv">alc-theme--system-preference-to-variant</span><span class="w"> </span><span class="p">(</span><span class="nf">car</span><span class="w"> </span><span class="nv">val</span><span class="p">)))))))))</span>
+</pre></div>
+</div>
+</div>
+<p>If I ever need to, the listener can be disabled by running <code class="docutils literal notranslate"><span class="pre">(dbus-unregister-object</span> <span class="pre">alc-theme--dbus-listener)</span></code></p>
+</section>
+<section id="theme-customisations">
+<h2>Theme Customisations<a class="headerlink" href="#theme-customisations" title="Link to this heading">¶</a></h2>
+<section id="doric-themes">
+<h3>Doric Themes<a class="headerlink" href="#doric-themes" title="Link to this heading">¶</a></h3>
+<p>Prot’s new <a class="reference external" href="https://protesilaos.com/emacs/doric-themes">doric-themes</a> are worth exploring</p>
 </section>
 <section id="modus-themes">
-<h2>Modus Themes<a class="headerlink" href="#modus-themes" title="Link to this heading">¶</a></h2>
+<h3>Modus Themes<a class="headerlink" href="#modus-themes" title="Link to this heading">¶</a></h3>
 <p>The excellent <a class="reference external" href="https://protesilaos.com/emacs/modus-themes">modus-themes</a> are available out of the box in recent Emacs versions.</p>
 <div class="awdur-codeblock docutils container">
 <div class="awdur-codeblock-header docutils container">
 <code class="awdur-codeblock-filename docutils literal notranslate"><span class="pre">emacs/lisp/alc-theme.el</span></code></div>
-<div class="highlight-elisp notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="nb">require</span><span class="w"> </span><span class="ss">&#39;dbus</span><span class="p">)</span><span class="w"> </span><span class="c1">; needed for later</span>
-<span class="c1">;; Use `setopt&#39; since modus supports automatically reloading the theme when these</span>
-<span class="c1">;; are changed via the `customize&#39; framework</span>
-<span class="p">(</span><span class="nv">setopt</span><span class="w"> </span><span class="nv">modus-themes-bold-constructs</span><span class="w"> </span><span class="no">t</span>
-<span class="w">        </span><span class="nv">modus-themes-italic-constructs</span><span class="w"> </span><span class="no">t</span>
-<span class="w">        </span><span class="nv">modus-themes-prompts</span><span class="w"> </span><span class="o">&#39;</span><span class="p">(</span><span class="nv">bold</span><span class="w"> </span><span class="nv">italic</span><span class="p">)</span>
-<span class="w">        </span><span class="nv">modus-themes-variable-pitch-ui</span><span class="w"> </span><span class="no">nil</span><span class="p">)</span>
+<div class="highlight-elisp notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="nb">provide</span><span class="w"> </span><span class="ss">&#39;alc-theme</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
-<p>Loading them seems slighty complicated though?</p>
-<p>I want to run one of the <code class="docutils literal notranslate"><span class="pre">modus-themes-load-&lt;variant&gt;</span></code> functions so that the <code class="docutils literal notranslate"><span class="pre">modus-themes-after-load-theme-hook</span></code> hook is run however, these functions are not initially loaded by Emacs.
-<code class="docutils literal notranslate"><span class="pre">(require</span> <span class="pre">'modus-themes)</span></code> does not work either, so I first have to run <code class="docutils literal notranslate"><span class="pre">(load-theme</span> <span class="pre">'modus-&lt;variant&gt;</span> <span class="pre">t)</span></code> which will load the relevant module and then load the theme a second time with <code class="docutils literal notranslate"><span class="pre">(modus-themes-load-&lt;variant&gt;)</span></code>.</p>
-<div class="awdur-codeblock docutils container">
-<div class="awdur-codeblock-header docutils container">
-<code class="awdur-codeblock-filename docutils literal notranslate"><span class="pre">emacs/lisp/alc-theme.el</span></code></div>
-<div class="highlight-elisp notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="nb">defun</span><span class="w"> </span><span class="nv">alc-theme-load-theme</span><span class="w"> </span><span class="p">(</span><span class="nv">variant</span><span class="p">)</span>
-<span class="w">  </span><span class="s">&quot;Load the light or dark theme according to VARIANT.&quot;</span>
-<span class="w">  </span><span class="p">(</span><span class="nv">require-theme</span><span class="w"> </span><span class="ss">&#39;modus-themes</span><span class="w"> </span><span class="no">t</span><span class="p">)</span>
-<span class="w">  </span><span class="p">(</span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="nf">eq</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="nv">variant</span><span class="p">)</span>
-<span class="w">     </span><span class="p">(</span><span class="k">progn</span>
-<span class="w">       </span><span class="p">(</span><span class="nv">modus-themes-load-theme</span><span class="w"> </span><span class="ss">&#39;modus-vivendi</span><span class="p">))</span>
-<span class="w">    </span><span class="p">(</span><span class="nv">modus-themes-load-theme</span><span class="w"> </span><span class="ss">&#39;modus-operandi</span><span class="p">)))</span>
-</pre></div>
-</div>
-</div>
-<p>Specifics of theme loading aside, let’s pick a variant based on the current system theme.
-(Thanks to <a class="reference external" href="https://github.com/LionyxML/auto-dark-emacs">auto-dark-emacs</a> for the DBus specifics.)</p>
-<div class="awdur-codeblock docutils container">
-<div class="awdur-codeblock-header docutils container">
-<code class="awdur-codeblock-filename docutils literal notranslate"><span class="pre">emacs/lisp/alc-theme.el</span></code></div>
-<div class="highlight-elisp notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="nb">defun</span><span class="w"> </span><span class="nv">alc-theme-sync-to-system-theme</span><span class="w"> </span><span class="p">(</span><span class="nv">_frame</span><span class="p">)</span>
-<span class="w">  </span><span class="s">&quot;Choose a light/dark theme based on the current system preference.&quot;</span>
-<span class="w">  </span><span class="p">(</span><span class="nv">alc-theme-load-theme</span>
-<span class="w">    </span><span class="p">(</span><span class="nv">caar</span><span class="w"> </span><span class="p">(</span><span class="nv">dbus-call-method</span>
-<span class="w">           </span><span class="nb">:session</span>
-<span class="w">           </span><span class="s">&quot;org.freedesktop.portal.Desktop&quot;</span>
-<span class="w">           </span><span class="s">&quot;/org/freedesktop/portal/desktop&quot;</span>
-<span class="w">           </span><span class="s">&quot;org.freedesktop.portal.Settings&quot;</span><span class="w"> </span><span class="s">&quot;Read&quot;</span>
-<span class="w">           </span><span class="s">&quot;org.freedesktop.appearance&quot;</span><span class="w"> </span><span class="s">&quot;color-scheme&quot;</span><span class="p">))))</span>
-</pre></div>
-</div>
-</div>
-<p>Also, set up a listener so that Emacs automatically updates if the preference changes (again, thanks to <code class="docutils literal notranslate"><span class="pre">auto-dark-emacs</span></code> for the DBus incantation)</p>
-<div class="highlight-elisp notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="nb">when</span><span class="w"> </span><span class="p">(</span><span class="nv">display-graphic-p</span><span class="p">)</span>
-<span class="w">   </span><span class="p">(</span><span class="k">setq</span><span class="w"> </span><span class="nv">alc-theme-dbus-listener</span>
-<span class="w">         </span><span class="p">(</span><span class="nv">dbus-register-signal</span>
-<span class="w">          </span><span class="nb">:session</span>
-<span class="w">          </span><span class="s">&quot;org.freedesktop.portal.Desktop&quot;</span>
-<span class="w">          </span><span class="s">&quot;/org/freedesktop/portal/desktop&quot;</span>
-<span class="w">          </span><span class="s">&quot;org.freedesktop.portal.Settings&quot;</span>
-<span class="w">          </span><span class="s">&quot;SettingChanged&quot;</span>
-<span class="w">          </span><span class="p">(</span><span class="nb">lambda</span><span class="w"> </span><span class="p">(</span><span class="nv">path</span><span class="w"> </span><span class="nv">var</span><span class="w"> </span><span class="nv">val</span><span class="p">)</span>
-<span class="w">            </span><span class="p">(</span><span class="nb">when</span><span class="w"> </span><span class="p">(</span><span class="k">and</span><span class="w"> </span><span class="p">(</span><span class="nf">string=</span><span class="w"> </span><span class="nv">path</span><span class="w"> </span><span class="s">&quot;org.freedesktop.appearance&quot;</span><span class="p">)</span>
-<span class="w">                       </span><span class="p">(</span><span class="nf">string=</span><span class="w"> </span><span class="nv">var</span><span class="w"> </span><span class="s">&quot;color-scheme&quot;</span><span class="p">))</span>
-<span class="w">              </span><span class="p">(</span><span class="nv">alc-theme-load-theme</span><span class="w"> </span><span class="p">(</span><span class="nf">car</span><span class="w"> </span><span class="nv">val</span><span class="p">)))))))</span>
-</pre></div>
-</div>
-<p>If I ever need to, the listener can be disabled by running <code class="docutils literal notranslate"><span class="pre">(dbus-unregister-object</span> <span class="pre">alc-theme-dbus-listener)</span></code></p>
-<p>However, the dbus code fails when I am SSH-ing into my Raspberry Pi so in that case we just want a theme loaded and be done with it.</p>
-<div class="awdur-codeblock docutils container">
-<div class="awdur-codeblock-header docutils container">
-<code class="awdur-codeblock-filename docutils literal notranslate"><span class="pre">emacs/lisp/alc-theme.el</span></code></div>
-<div class="highlight-elisp notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="nb">unless</span><span class="w"> </span><span class="p">(</span><span class="nv">display-graphic-p</span><span class="p">)</span>
-<span class="w">  </span><span class="p">(</span><span class="nv">alc-theme-load-theme</span><span class="w"> </span><span class="mi">1</span><span class="p">))</span><span class="w"> </span><span class="c1">; dark</span>
-
-<span class="p">(</span><span class="nb">provide</span><span class="w"> </span><span class="ss">&#39;alc-theme</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
+</section>
 </section>
 </section>
 

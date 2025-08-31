@@ -149,12 +149,27 @@
 </section>
     </aside>
 
-    
-    <div hx-trigger="intersect once"
-         hx-get="../../blog/2025/debugging-go-with-gdb/"
-         hx-select=".post-teaser"
-         hx-swap="innerHTML ignoreTitle:true"
-         style="min-width: 0">
+    <div style="min-width: 0">
+      <div class="post-teaser docutils container">
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>gdb<span class="w"> </span>--args<span class="w"> </span>podman<span class="w"> </span>info
+<span class="gp gp-VirtualEnv">(gdb)</span> <span class="go">run</span>
+<span class="go">Starting program: /usr/bin/podman info</span>
+<span class="go">[Thread debugging using libthread_db enabled]</span>
+<span class="go">...</span>
+<span class="go">WARN[0000] Found incomplete layer &quot;6748b9a4e6f2d75763acd0d8351dfb92d4281a0b3546cc68042fb8cb5e1b7c3c&quot;, deleting it</span>
+
+<span class="go">Thread 9 &quot;podman&quot; received signal SIGSEGV, Segmentation fault.</span>
+<span class="go">[Switching to Thread 0x7fbacbfff6c0 (LWP 10496)]</span>
+<span class="go">Downloading source file /usr/src/debug/podman-5.3.1-1.fc41.x86_64/vendor/github.com/containers/storage/layers.go</span>
+<span class="go">github.com/containers/storage.(*layerStore).load (r=0xc00024c140, lockedForWriting=true, ~r0=&lt;optimized out&gt;, ~r0=&lt;optimized out&gt;, ~r1=..., ~r1=...) at /usr/src/debug/podman-5.3.1-1.fc41.x86_64/vendor/github.com/containers/storage/layers.go:917</span>
+<span class="go">917                     if layer.Flags == nil {</span>
+</pre></div>
+</div>
+<p><em>&lt;Freeze frame, record scratch&gt;</em></p>
+<p><em>You might be wondering how I got here…</em></p>
+<p>And no, I wasn’t trying to work on <a class="reference external" href="https://github.com/containers/podman">podman</a>!</p>
+</div>
+
     </div>
 
     <footer>
@@ -203,12 +218,16 @@
 </section>
     </aside>
 
-    
-    <div hx-trigger="intersect once"
-         hx-get="../../blog/2020/passing-strings-between-tinygo-wasm/"
-         hx-select=".post-teaser"
-         hx-swap="innerHTML ignoreTitle:true"
-         style="min-width: 0">
+    <div style="min-width: 0">
+      <div class="post-teaser docutils container">
+<p>After getting a <a class="reference internal" href="../../blog/2020/hello-world-tinygo-wasm/" title="Saying ‘Hello, World!’ with TinyGo and WebAssembly">&quot;Hello, World!&quot;</a> WebAssembly
+application working I thought it would be fun to try and implement a toy programming
+language in the browser. However before I could even start thinking about parsers,
+abstract syntax trees and the like I had to be able to pass strings between my
+WebAssembly module and the surrounding JavaScript.</p>
+<p>Turns out that is much trickier than I expected.</p>
+</div>
+
     </div>
 
     <footer>
@@ -262,12 +281,16 @@
 </section>
     </aside>
 
-    
-    <div hx-trigger="intersect once"
-         hx-get="../../blog/2020/hello-world-tinygo-wasm/"
-         hx-select=".post-teaser"
-         hx-swap="innerHTML ignoreTitle:true"
-         style="min-width: 0">
+    <div style="min-width: 0">
+      <div class="post-teaser docutils container">
+<p>WebAssembly is something I’ve wanted to play with for quite a while now and
+I’ve finally got around to taking a look at it. In this post I describe how I
+managed to use <a class="reference external" href="https://tinygo.org/">TinyGo</a> to compile a “Hello, World!” Go program into
+WebAssembly and execute it in the browser. So that I have something to refer
+back to I also describe setting up my development environment as a container
+using <a class="reference external" href="https://linuxcontainers.org/">LXD</a>.</p>
+</div>
+
     </div>
 
     <footer>

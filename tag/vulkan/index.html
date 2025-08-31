@@ -149,12 +149,23 @@
 </section>
     </aside>
 
-    
-    <div hx-trigger="intersect once"
-         hx-get="../../blog/2020/learning-vulkan-p1/"
-         hx-select=".post-teaser"
-         hx-swap="innerHTML ignoreTitle:true"
-         style="min-width: 0">
+    <div style="min-width: 0">
+      <div class="post-teaser docutils container">
+<p>Being an API for talking to GPUs and other compute devices every Vulkan
+program starts off by looking for an appropriate <a class="reference external" href="https://www.khronos.org/registry/vulkan/specs/1.1-extensions/man/html/VkPhysicalDevice.html">physical device</a>
+to use. In this post I write a little C program that initialises the Vulkan
+API and lists out the available devices in the system.</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>$ vkdevice
+Device Name:            Intel(R) HD Graphics 520 (Skylake GT2)
+  Type:                 Integrated GPU
+  Vendor ID:            32902
+  Device ID:            6422
+  API Version:          v1.1.102
+  Driver Version:       v19.3.1
+</pre></div>
+</div>
+</div>
+
     </div>
 
     <footer>
@@ -198,12 +209,18 @@
 </section>
     </aside>
 
-    
-    <div hx-trigger="intersect once"
-         hx-get="../../blog/2020/learning-vulkan-p0/"
-         hx-select=".post-teaser"
-         hx-swap="innerHTML ignoreTitle:true"
-         style="min-width: 0">
+    <div style="min-width: 0">
+      <div class="post-teaser docutils container">
+<p>I have always been interested in graphics and have on numerous occasions tried
+to dip my toe into the world of OpenGL and more recently Vulkan. However I have
+never been able to get past the “Hello, World” of these technologies - drawing a
+triangle on screen, I think mostly becuase I never really had a goal in mind
+once I got that far…</p>
+<p>But that’s (hopefully) about to change! What better excuse than a new decade to
+jump back into this world for the 100th time and try to get to all those
+interesting ideas I see people playing with all the time!</p>
+</div>
+
     </div>
 
     <footer>

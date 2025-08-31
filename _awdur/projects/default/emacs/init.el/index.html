@@ -493,9 +493,18 @@
 <span class="p">(</span><span class="nb">use-package</span><span class="w"> </span><span class="nv">nerd-icons</span>
 <span class="w">  </span><span class="nb">:ensure</span><span class="w"> </span><span class="no">t</span><span class="p">)</span>
 
+<span class="p">(</span><span class="nb">use-package</span><span class="w"> </span><span class="nv">doric-themes</span><span class="w"> </span><span class="nb">:ensure</span><span class="w"> </span><span class="no">t</span><span class="p">)</span>
+
 <span class="p">(</span><span class="nb">use-package</span><span class="w"> </span><span class="nv">alc-theme</span>
 <span class="w">  </span><span class="nb">:load-path</span><span class="w"> </span><span class="s">&quot;lisp&quot;</span>
 <span class="w">  </span><span class="nb">:config</span>
+<span class="w">  </span><span class="p">(</span><span class="nv">require-theme</span><span class="w"> </span><span class="ss">&#39;doric-themes</span><span class="w"> </span><span class="no">t</span><span class="p">)</span>
+
+<span class="w">  </span><span class="p">(</span><span class="k">setq</span><span class="w"> </span><span class="nv">alc-theme-load-light-theme-function</span>
+<span class="w">        </span><span class="p">(</span><span class="nb">lambda</span><span class="w"> </span><span class="p">()</span><span class="w"> </span><span class="p">(</span><span class="nv">doric-themes-select</span><span class="w"> </span><span class="ss">&#39;doric-light</span><span class="p">))</span>
+<span class="w">        </span><span class="nv">alc-theme-load-dark-theme-function</span>
+<span class="w">        </span><span class="p">(</span><span class="nb">lambda</span><span class="w"> </span><span class="p">()</span><span class="w"> </span><span class="p">(</span><span class="nv">doric-themes-select</span><span class="w"> </span><span class="ss">&#39;doric-dark</span><span class="p">)))</span>
+
 <span class="w">  </span><span class="p">(</span><span class="nv">add-to-list</span><span class="w"> </span><span class="ss">&#39;after-make-frame-functions</span><span class="w"> </span><span class="ss">&#39;alc-theme-sync-to-system-theme</span><span class="p">))</span>
 
 <span class="p">(</span><span class="nv">add-hook</span><span class="w"> </span><span class="ss">&#39;prog-mode-hook</span><span class="w"> </span><span class="p">(</span><span class="nb">lambda</span><span class="w"> </span><span class="p">()</span><span class="w"> </span><span class="p">(</span><span class="nv">display-line-numbers-mode</span><span class="w"> </span><span class="no">t</span><span class="p">)))</span>

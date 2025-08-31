@@ -149,12 +149,37 @@
 </section>
     </aside>
 
-    
-    <div hx-trigger="intersect once"
-         hx-get="../../blog/2019/click-drag-vanilla-js/"
-         hx-select=".post-teaser"
-         hx-swap="innerHTML ignoreTitle:true"
-         style="min-width: 0">
+    <div style="min-width: 0">
+      <div class="post-teaser docutils container">
+<figure>
+  <div id="main-el"></div>
+  <figcaption>
+    <p>Try clicking and dragging on this circle.</p>
+  </figcaption>
+</figure>
+<script type="text/javascript" src="/_static/js/click-drag.js"></script><div class="admonition-disclaimer admonition">
+<p class="admonition-title">Disclaimer</p>
+<p>This post makes use of a number of interactive elements to help illustrate a few
+concepts. Unfortunately these do not yet work on mobile devices - sorry mobile
+users!</p>
+</div>
+<p>I have for quite some time now wanted to play around with web development some
+more, particularly using web technologies to build user interfaces of some
+kind. However there is just <strong>so much</strong> out there it’s been impossible for me to
+really get anywhere past a “Hello, World!” tutorial before I find myself trying
+out the next new shiny.</p>
+<p>So I’ve decided to abandon everything and try a bottom up approach where I see
+how far I can push the core web technologies - HTML, CSS and
+JavaScript. Hopefully then by the time I start using one of the gazillion
+libraries out there I will have a better understanding of why I
+needed it in the first place.</p>
+<p>In this post I will be looking at implementing clicking and dragging
+functionality using only vanilla JavaScript. Clicking and dragging as a concept
+can apply to many kinds of interactions so in this instance I’m specifically
+referring to clicking on an SVG element moving it around on the page as
+illustrated by the demo above.</p>
+</div>
+
     </div>
 
     <footer>

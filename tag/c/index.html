@@ -149,12 +149,19 @@
 </section>
     </aside>
 
-    
-    <div hx-trigger="intersect once"
-         hx-get="../../blog/2021/ast-python-frontend/"
-         hx-select=".post-teaser"
-         hx-swap="innerHTML ignoreTitle:true"
-         style="min-width: 0">
+    <div style="min-width: 0">
+      <div class="post-teaser docutils container">
+<p><a class="reference internal" href="../../blog/2020/ast-simple-eval/" title="Evaluating a Simple Abstract Syntax Tree">Previously</a>, as part of my exploration
+into how programming languages are implemented, I wrote a very simple AST
+evaluator that knew how to add and multiply floats together. Since constructing
+these ASTs by hand is quite painful I thought it would be fun to come up with a
+frontend to my “programming language” which could do it for me.</p>
+<p>Now your typical frontend would be some kind of parser built into the
+compiler/interpreter. However, while I’m definitely interested in parsing I
+don’t quite feel like tackling that just yet. Instead I’m going to have Python
+be the frontend and embed my toy language into it via a <a class="reference external" href="https://docs.python.org/3/extending/extending.html">CPython Extension</a></p>
+</div>
+
     </div>
 
     <footer>
@@ -193,12 +200,15 @@
 </section>
     </aside>
 
-    
-    <div hx-trigger="intersect once"
-         hx-get="../../blog/2020/ast-simple-eval/"
-         hx-select=".post-teaser"
-         hx-swap="innerHTML ignoreTitle:true"
-         style="min-width: 0">
+    <div style="min-width: 0">
+      <div class="post-teaser docutils container">
+<p>Programming languages and their implementation is a topic I’ve been interested
+in for a long time and I thought it would be worth trying to get a bit more
+hands on and play with some of the ideas in this space. Choosing a topic
+somewhat at random I’ve chosen to take a look at implementing an Abstract Syntax
+Tree (AST).</p>
+</div>
+
     </div>
 
     <footer>
@@ -242,12 +252,23 @@
 </section>
     </aside>
 
-    
-    <div hx-trigger="intersect once"
-         hx-get="../../blog/2020/learning-vulkan-p1/"
-         hx-select=".post-teaser"
-         hx-swap="innerHTML ignoreTitle:true"
-         style="min-width: 0">
+    <div style="min-width: 0">
+      <div class="post-teaser docutils container">
+<p>Being an API for talking to GPUs and other compute devices every Vulkan
+program starts off by looking for an appropriate <a class="reference external" href="https://www.khronos.org/registry/vulkan/specs/1.1-extensions/man/html/VkPhysicalDevice.html">physical device</a>
+to use. In this post I write a little C program that initialises the Vulkan
+API and lists out the available devices in the system.</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>$ vkdevice
+Device Name:            Intel(R) HD Graphics 520 (Skylake GT2)
+  Type:                 Integrated GPU
+  Vendor ID:            32902
+  Device ID:            6422
+  API Version:          v1.1.102
+  Driver Version:       v19.3.1
+</pre></div>
+</div>
+</div>
+
     </div>
 
     <footer>
@@ -291,12 +312,18 @@
 </section>
     </aside>
 
-    
-    <div hx-trigger="intersect once"
-         hx-get="../../blog/2020/learning-vulkan-p0/"
-         hx-select=".post-teaser"
-         hx-swap="innerHTML ignoreTitle:true"
-         style="min-width: 0">
+    <div style="min-width: 0">
+      <div class="post-teaser docutils container">
+<p>I have always been interested in graphics and have on numerous occasions tried
+to dip my toe into the world of OpenGL and more recently Vulkan. However I have
+never been able to get past the “Hello, World” of these technologies - drawing a
+triangle on screen, I think mostly becuase I never really had a goal in mind
+once I got that far…</p>
+<p>But that’s (hopefully) about to change! What better excuse than a new decade to
+jump back into this world for the 100th time and try to get to all those
+interesting ideas I see people playing with all the time!</p>
+</div>
+
     </div>
 
     <footer>

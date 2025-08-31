@@ -117,7 +117,7 @@
   <article class="summary">
     <header>
       <a href="../../notes/20250708T133920/">
-        <h2 style="max-width: 33ch" class="mb-4 text-2xl text-green-600">Themes</h2>
+        <h2 style="max-width: 33ch" class="mb-4 text-2xl text-green-600">Emacs Themes</h2>
       </a>
     </header>
     <aside>
@@ -139,12 +139,8 @@
 </section>
     </aside>
 
-    
-    <div hx-trigger="intersect once"
-         hx-get="../../notes/20250708T133920/"
-         hx-select=".post-teaser"
-         hx-swap="innerHTML ignoreTitle:true"
-         style="min-width: 0">
+    <div style="min-width: 0">
+      
     </div>
 
     <footer>
@@ -183,12 +179,8 @@
 </section>
     </aside>
 
-    
-    <div hx-trigger="intersect once"
-         hx-get="../../notes/20250705T225452/"
-         hx-select=".post-teaser"
-         hx-swap="innerHTML ignoreTitle:true"
-         style="min-width: 0">
+    <div style="min-width: 0">
+      
     </div>
 
     <footer>
@@ -222,12 +214,8 @@
 </section>
     </aside>
 
-    
-    <div hx-trigger="intersect once"
-         hx-get="../../notes/20250705T225630/"
-         hx-select=".post-teaser"
-         hx-swap="innerHTML ignoreTitle:true"
-         style="min-width: 0">
+    <div style="min-width: 0">
+      
     </div>
 
     <footer>
@@ -266,12 +254,8 @@
 </section>
     </aside>
 
-    
-    <div hx-trigger="intersect once"
-         hx-get="../../notes/20250615T135327/"
-         hx-select=".post-teaser"
-         hx-swap="innerHTML ignoreTitle:true"
-         style="min-width: 0">
+    <div style="min-width: 0">
+      
     </div>
 
     <footer>
@@ -320,12 +304,13 @@
 </section>
     </aside>
 
-    
-    <div hx-trigger="intersect once"
-         hx-get="../../blog/2025/blogging-with-sphinx-and-denoteel/"
-         hx-select=".post-teaser"
-         hx-swap="innerHTML ignoreTitle:true"
-         style="min-width: 0">
+    <div style="min-width: 0">
+      <div class="post-teaser docutils container">
+<p>If you have spent any time following the Emacs community, you will have likely come across the <a class="reference external" href="https://protesilaos.com/emacs/denote">denote.el</a> project.
+<code class="docutils literal notranslate"><span class="pre">denote.el</span></code> defines a clever file-naming scheme and provides an associated Emacs package containing utilities for managing files which follow this naming scheme.</p>
+<p>In this blog post I outline how I have adopted <code class="docutils literal notranslate"><span class="pre">denote.el</span></code> to manage the content on this site and how I’ve extended <a class="reference external" href="https://www.sphinx-doc.org/en/master/index.html">Sphinx</a> to take advantage this.</p>
+</div>
+
     </div>
 
     <footer>
@@ -364,12 +349,8 @@
 </section>
     </aside>
 
-    
-    <div hx-trigger="intersect once"
-         hx-get="../../notes/20250513T064235/"
-         hx-select=".post-teaser"
-         hx-swap="innerHTML ignoreTitle:true"
-         style="min-width: 0">
+    <div style="min-width: 0">
+      
     </div>
 
     <footer>
@@ -408,12 +389,18 @@
 </section>
     </aside>
 
-    
-    <div hx-trigger="intersect once"
-         hx-get="../../blog/2025/installing-emacs-with-systemd-sysext/"
-         hx-select=".post-teaser"
-         hx-swap="innerHTML ignoreTitle:true"
-         style="min-width: 0">
+    <div style="min-width: 0">
+      <div class="post-teaser docutils container">
+<p>One issue with building <a class="reference internal" href="../../notes/20250409T205418/" title="Building Emacs from Source">Emacs from source</a>, or more specifically my hack to ensure that the required system libraries are available on Aurora, is that in some situations the system version of Emacs “wins”.</p>
+<p>For example, I wanted to experiment with running the Emacs daemon through systemd:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ systemctl --user start emacs
+</pre></div>
+</div>
+<p>Which failed to load my config correctly.
+It was only after a closer look did I realise that despite specifying the <code class="docutils literal notranslate"><span class="pre">--user</span></code> flag, systemd was defaulting to the <code class="docutils literal notranslate"><span class="pre">emacs.service</span></code> file provided by the system emacs package in <code class="docutils literal notranslate"><span class="pre">/usr/...</span></code> and was therefore running Emacs v29 and not my v30 build.</p>
+<p>But then I stumbled across systemd-sysext</p>
+</div>
+
     </div>
 
     <footer>
@@ -452,12 +439,8 @@
 </section>
     </aside>
 
-    
-    <div hx-trigger="intersect once"
-         hx-get="../../notes/20250430T213500/"
-         hx-select=".post-teaser"
-         hx-swap="innerHTML ignoreTitle:true"
-         style="min-width: 0">
+    <div style="min-width: 0">
+      
     </div>
 
     <footer>
@@ -491,12 +474,8 @@
 </section>
     </aside>
 
-    
-    <div hx-trigger="intersect once"
-         hx-get="../../notes/20250409T205418/"
-         hx-select=".post-teaser"
-         hx-swap="innerHTML ignoreTitle:true"
-         style="min-width: 0">
+    <div style="min-width: 0">
+      
     </div>
 
     <footer>
@@ -530,12 +509,8 @@
 </section>
     </aside>
 
-    
-    <div hx-trigger="intersect once"
-         hx-get="../../notes/20250305T195742/"
-         hx-select=".post-teaser"
-         hx-swap="innerHTML ignoreTitle:true"
-         style="min-width: 0">
+    <div style="min-width: 0">
+      
     </div>
 
     <footer>
@@ -574,12 +549,8 @@
 </section>
     </aside>
 
-    
-    <div hx-trigger="intersect once"
-         hx-get="../../notes/20250303T122920/"
-         hx-select=".post-teaser"
-         hx-swap="innerHTML ignoreTitle:true"
-         style="min-width: 0">
+    <div style="min-width: 0">
+      
     </div>
 
     <footer>
@@ -613,12 +584,8 @@
 </section>
     </aside>
 
-    
-    <div hx-trigger="intersect once"
-         hx-get="../../notes/20250228T200007/"
-         hx-select=".post-teaser"
-         hx-swap="innerHTML ignoreTitle:true"
-         style="min-width: 0">
+    <div style="min-width: 0">
+      
     </div>
 
     <footer>
@@ -652,12 +619,8 @@
 </section>
     </aside>
 
-    
-    <div hx-trigger="intersect once"
-         hx-get="../../notes/20250708T202145/"
-         hx-select=".post-teaser"
-         hx-swap="innerHTML ignoreTitle:true"
-         style="min-width: 0">
+    <div style="min-width: 0">
+      
     </div>
 
     <footer>
@@ -696,12 +659,12 @@
 </section>
     </aside>
 
-    
-    <div hx-trigger="intersect once"
-         hx-get="../../blog/2025/til-navigating-history-with-magit/"
-         hx-select=".post-teaser"
-         hx-swap="innerHTML ignoreTitle:true"
-         style="min-width: 0">
+    <div style="min-width: 0">
+      <div class="post-teaser docutils container">
+<p>Building on <a class="reference internal" href="../../blog/2025/til-additional-magit-keybindings/" title="TIL: Additional magit keybindings">my previous discovery</a>, today I figured out a few ways of exploring the history of a project with <code class="docutils literal notranslate"><span class="pre">magit</span></code>.
+<a class="reference external" href="https://github.com/swyddfa/esbonio/issues/965">This issue</a> provided a nice motivating example to have in mind - the <code class="docutils literal notranslate"><span class="pre">exceptiongroup</span></code> Python package was dropped from a <code class="docutils literal notranslate"><span class="pre">requirements.txt</span></code> file - in which commit did it happen?</p>
+</div>
+
     </div>
 
     <footer>
@@ -740,12 +703,8 @@
 </section>
     </aside>
 
-    
-    <div hx-trigger="intersect once"
-         hx-get="../../notes/20250221T184014/"
-         hx-select=".post-teaser"
-         hx-swap="innerHTML ignoreTitle:true"
-         style="min-width: 0">
+    <div style="min-width: 0">
+      
     </div>
 
     <footer>
@@ -789,12 +748,12 @@
 </section>
     </aside>
 
-    
-    <div hx-trigger="intersect once"
-         hx-get="../../blog/2025/til-additional-magit-keybindings/"
-         hx-select=".post-teaser"
-         hx-swap="innerHTML ignoreTitle:true"
-         style="min-width: 0">
+    <div style="min-width: 0">
+      <div class="post-teaser docutils container">
+<p>It always helps to spend the time now and again to read the manual for the tools you use!
+By simply reading the <a class="reference external" href="https://magit.vc/manual/magit/Getting-Started.html">Getting Started</a> section of the <code class="docutils literal notranslate"><span class="pre">magit</span></code> user manual I found not one but two commands I had never come across before!</p>
+</div>
+
     </div>
 
     <footer>
@@ -828,12 +787,8 @@
 </section>
     </aside>
 
-    
-    <div hx-trigger="intersect once"
-         hx-get="../../notes/20250216T190756/"
-         hx-select=".post-teaser"
-         hx-swap="innerHTML ignoreTitle:true"
-         style="min-width: 0">
+    <div style="min-width: 0">
+      
     </div>
 
     <footer>
@@ -867,12 +822,8 @@
 </section>
     </aside>
 
-    
-    <div hx-trigger="intersect once"
-         hx-get="../../notes/20241228T182434/"
-         hx-select=".post-teaser"
-         hx-swap="innerHTML ignoreTitle:true"
-         style="min-width: 0">
+    <div style="min-width: 0">
+      
     </div>
 
     <footer>
@@ -916,12 +867,12 @@
 </section>
     </aside>
 
-    
-    <div hx-trigger="intersect once"
-         hx-get="../../blog/2024/local-llms-with-ollama-and-gptel/"
-         hx-select=".post-teaser"
-         hx-swap="innerHTML ignoreTitle:true"
-         style="min-width: 0">
+    <div style="min-width: 0">
+      <div class="post-teaser docutils container">
+<p>LLMs don’t look like they’re going to go away anytime soon, so I may as well start playing around with them.
+Since I am also using Emacs more and more it also makes sense to try using it as the interface to any models.</p>
+</div>
+
     </div>
 
     <footer>
@@ -955,12 +906,8 @@
 </section>
     </aside>
 
-    
-    <div hx-trigger="intersect once"
-         hx-get="../../notes/20231026T130006/"
-         hx-select=".post-teaser"
-         hx-swap="innerHTML ignoreTitle:true"
-         style="min-width: 0">
+    <div style="min-width: 0">
+      
     </div>
 
     <footer>
