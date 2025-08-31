@@ -33,8 +33,28 @@ Theme
 
 Load my theme related customisations, see :denote:link:`Emacs Themes <20250708T133920>` for details.
 
+**Doric Themes**
+
 .. code-block:: elisp
    :filename: emacs/init.el
+
+   (use-package doric-themes :ensure t)
+
+   (use-package alc-theme
+     :load-path "lisp"
+     :config
+     (require-theme 'doric-themes t)
+
+     (setq alc-theme-load-light-theme-function
+           (lambda () (doric-themes-select 'doric-light))
+           alc-theme-load-dark-theme-function
+           (lambda () (doric-themes-select 'doric-dark)))
+
+     (add-to-list 'after-make-frame-functions 'alc-theme-sync-to-system-theme))
+
+**Modus Themes**
+
+.. code-block:: elisp
 
    (use-package alc-theme
      :load-path "lisp"
