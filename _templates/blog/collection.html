@@ -16,13 +16,8 @@
       {%- endwith %}
     </aside>
 
-    {# Use HTMX to pull a summary from the actual page - at least until I figure out a
-       way to do it in Sphinx #}
-    <div hx-trigger="intersect once"
-         hx-get="{{ pathto(post.docname) }}"
-         hx-select=".post-teaser"
-         hx-swap="innerHTML ignoreTitle:true"
-         style="min-width: 0">
+    <div style="min-width: 0">
+      {{ render_summary(post, relative_to=pagename) }}
     </div>
 
     <footer>
