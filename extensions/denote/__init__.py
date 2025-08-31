@@ -6,12 +6,15 @@ generated, notes created etc.
 
 from __future__ import annotations
 
+import functools
 import json
 import pathlib
 import typing
 from datetime import datetime, timezone
 
 from docutils import nodes
+from sphinx import addnodes
+from sphinx.util.osutil import relative_uri
 
 from .builder import DenoteHTMLBuilder
 from .domain import Denote
@@ -37,6 +40,44 @@ def discover_records(app: Sphinx, docname: str, content: list[str]):
     domain.add_record(docname, record)
 
 
+def find_summary(node: nodes.Node) -> bool:
+    if not isinstance(node, nodes.Element):
+        return False
+
+    return "post-teaser" in node.attributes.get("classes", [])
+
+
+def render_summary(app: Sphinx, record: Record, relative_to: str) -> str:
+    """Render a summary of the content in the given record"""
+
+    if record.docname is None:
+        return ""
+
+    doctree = app.env.get_doctree(record.docname)
+    if (summary := doctree.next_node(condition=find_summary)) is None:
+        return ""
+
+    # Don't modify the original document
+    summary = summary.deepcopy()
+
+    # Make references relative to the parent document
+    for ref in summary.findall(addnodes.pending_xref):
+        ref["refdoc"] = relative_to
+
+    app.env.resolve_references(summary, relative_to, app.builder)
+
+    # We also need to fix the base image url
+    original_imgpath = app.builder.imgpath
+    app.builder.imgpath = relative_uri(
+        app.builder.get_target_uri(relative_to), "_images"
+    )
+
+    html = app.builder.render_partial(summary)
+
+    app.builder.imgpath = original_imgpath
+    return html["body"]
+
+
 def parse_records(app: Sphinx, doctree):
     """Extract additional information from a document's content"""
 
@@ -58,13 +99,27 @@ def parse_records(app: Sphinx, doctree):
             record.timestamp = record.timestamp.replace(tzinfo=UTC)
 
 
+def make_collection_context(
+    collection: list[Record], title: str, app: Sphinx
+) -> dict[str, Any]:
+    """Make the context necessary to pass to the ``blog/collection.html`` template."""
+
+    return {
+        "collection": collection,
+        "title": title,
+        "render_summary": functools.partial(render_summary, app),
+    }
+
+
 def generate_collections(app: Sphinx):
     """Generate collections of records according to some criteria"""
 
     domain: Denote = app.env.domains["denote"]
 
     # Emit an all blog posts page
-    context = {"collection": list(domain.posts.all()), "title": "Blog"}
+    context: dict[str, Any] = make_collection_context(
+        list(domain.posts.all()), "Blog Posts", app
+    )
     yield ("blog", context, "blog/collection.html")
 
     context.update(
@@ -81,7 +136,7 @@ def generate_collections(app: Sphinx):
     # Emit a page for each year
     by_year = domain.posts.by_year()
     for year, collection in by_year.items():
-        context = {"collection": collection, "title": f"Posts in {year}"}
+        context = make_collection_context(collection, f"Posts in {year}", app)
         yield (f"blog/{year}", context, "blog/collection.html")
 
     # Emit a page for each tag - include both notes and posts on these pages
@@ -98,13 +153,15 @@ def generate_collections(app: Sphinx):
             links.append({"source": r.identifier, "target": tag})
             all_records.add(r.identifier)
 
-        context = {"collection": collection, "title": f"Tagged with: {tag}"}
+        context = make_collection_context(collection, f"Tagged with: {tag}", app)
         yield (f"tag/{tag}", context, "blog/collection.html")
 
+    # Placeholder graph view
     nodes.extend({"id": r, "kind": "record"} for r in all_records)
-    context = { "nodes": json.dumps(nodes), "links": json.dumps(links) }
+    context = {"nodes": json.dumps(nodes), "links": json.dumps(links)}
 
     yield ("notes", context, "blog/graph.html")
+
 
 def update_html_context(
     app: Sphinx,
