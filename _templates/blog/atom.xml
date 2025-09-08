@@ -16,6 +16,9 @@
     <published>{{ post.timestamp.isoformat() }}</published>
     <updated>{{ post.timestamp.isoformat() }}</updated>
     <title>{{ post.title|e }}</title>
+    <content type="html">
+      {{ render_content(post) }}
+    </content>
   </entry>
   {% endfor %}
 </feed>

@@ -15,6 +15,10 @@
 {% endblock %}
 
 {% block extrahead %}
+    <link rel="alternate"
+          type="application/atom+xml"
+          title="{{ html_title }} | Blog Posts"
+          href="{{ blog_baseurl }}/blog/atom.xml">
     <meta name="fediverse:creator" content="@alcarney@mastodon.social">
 {% endblock %}
 
