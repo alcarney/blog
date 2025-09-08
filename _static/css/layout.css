@@ -132,6 +132,11 @@ kbd {
     color: var(--fg-accent);
 }
 
+/* Use the <details> open/close marker in place of the list bullet  */
+li:has(details:first-child) {
+    list-style: none;
+}
+
 details > :not(summary) {
     border-left: solid 1px var(--border-color);
     padding: 0 1em;
