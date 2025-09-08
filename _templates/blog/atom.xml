@@ -17,7 +17,7 @@
     <updated>{{ post.timestamp.isoformat() }}</updated>
     <title>{{ post.title|e }}</title>
     <content type="html">
-      {{ render_content(post) }}
+      {{ render_content(post) |e}}
     </content>
   </entry>
   {% endfor %}
