@@ -37,7 +37,8 @@ extensions = [
     "awdur",
     "myst_parser",
     # Local extensions: see `./extensions`
-    "coderepo",
+    "bib",
+    "coderepo",  # TODO: Replace usage with awdur equivalent...
     "denote",
     "htmlext",
     "termshot",
