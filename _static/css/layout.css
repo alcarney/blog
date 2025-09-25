@@ -499,9 +499,11 @@ div.admonition > :not(ol,ul) {
 dl.bib {
     font-size: 12pt;
     display: flex;
-    align-items: flex-start;
+    align-items: stretch;
     flex-direction: row-reverse;
+    justify-content: flex-end;
     gap: 1em;
+    border: solid 1px var(--fg-accent);
 }
 
 dl.bib dt {
@@ -543,8 +545,21 @@ dl.bib .sig-prename span.pre {
 dl.bib dd {
     border: none;
     margin: 0;
-    padding: 0
+    padding: 0;
+    flex-shrink: 0;
+    align-self: stretch;
+    width: 7em;
+    background: white;
 }
+
+dl.bib dd div.cover-image {
+    height: 100%;
+}
+
+dl.bib dd div.cover-image img {
+    object-fit: cover;
+}
+
 
 /* -- Awdur Integration -- */
 

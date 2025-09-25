@@ -32,6 +32,7 @@ class BookDirective(ObjectDescription[str]):
         "author": directives.unchanged,
         "published": directives.unchanged,
         "isbn": directives.unchanged,
+        "cover": directives.unchanged,
         "state": functools.partial(
             directives.choice,
             values=("read", "reading", "to-read", "dnf"),
@@ -40,6 +41,7 @@ class BookDirective(ObjectDescription[str]):
 
     @typing.override
     def handle_signature(self, sig: str, signode: addnodes.desc_signature) -> str:
+        """Write out the nodes that provide the metadata about the book."""
         signode += addnodes.desc_name(text=sig)
 
         if (state := self.options.get("state")) is not None:
@@ -63,6 +65,19 @@ class BookDirective(ObjectDescription[str]):
             signode += addnodes.desc_addname(text=isbn)
 
         return sig
+
+    @typing.override
+    def transform_content(self, content_node: addnodes.desc_content) -> None:
+        """Used to add the book's cover image"""
+
+        container = nodes.container()
+        container["classes"] = ["cover-image"]
+        content_node += container
+
+        if (cover_image := self.options.get("cover")) is None:
+            cover_image = "/images/covers/generic.svg"
+
+        container += nodes.image(uri=cover_image, width="100%", height="100%")
 
     @typing.override
     def add_target_and_index(
