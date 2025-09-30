@@ -3,8 +3,9 @@
 
 <article>
   {{ body }}
+
+  {%- if record and record.is_blogpost %}
   <footer>
-    {%- if record and record.is_blogpost %}
     <script src="https://giscus.app/client.js"
             data-repo="alcarney/blog"
             data-repo-id="MDEwOlJlcG9zaXRvcnk2Njk3NzM3MQ=="
