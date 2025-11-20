@@ -1,0 +1,126 @@
+:title: Tab Bar Setup
+:date: 2025-09-24
+:tags: emacs
+:identifier: 20250924T182310
+:signature: 5=2=3
+
+Tab Bar Utilities
+=================
+
+Not to be confused with the tabs you see in editors like VSCode, ``tab-bar`` tabs allow for easy switching between different collections of windows - like workspaces.
+
+Here I define all the helper functions and utilities I use in my config that I use when working with ``tab-bar`` tabs, for the actual configuration of the ``tab-bar`` itself see :ref:`this section <emacs-appearance-tab-bar>`.
+
+Formatting Tabs
+---------------
+
+`This article <https://www.rahuljuliato.com/posts/emacs-tab-bar-groups>`__
+
+.. code-block:: elisp
+   :filename: emacs/lisp/alc-tab-bar.el
+
+   (defun alc-tab-bar-tab-name-format-hints (name _tab i)
+     (if tab-bar-tab-hints (concat (format "-%d-" i) "") name))
+
+   (defun alc-tab-bar-tab-group-format-function (tab i &optional current-p)
+     (propertize
+      (concat (funcall tab-bar-tab-group-function tab))
+      'face (if current-p 'tab-bar-tab-group-current 'tab-bar-tab-group-inactive)))
+
+Grouping Tabs
+-------------
+
+I'm often switching between multiple projects and I will often have multiple tabs per project, so naturally, I want to group sets of tabs by project.
+
+The ``emacs-solo/tab-group-from-project`` function from `this article <https://www.rahuljuliato.com/posts/emacs-tab-bar-groups>`__ showed that it was possible to group tabs by project, but instead of explicitly moving a tab into the project group, I want tabs to be automatically placed into the correct group as they are created.
+
+After some experimentation I was able to come up with the following function which I bind to :kbd:`C-x t p`, overriding the default ``project-other-tab-command``.
+
+.. code-block:: elisp
+   :filename: emacs/lisp/alc-tab-bar.el
+
+   (defun alc-tab-bar-project-other-tab-command ()
+     "Run a project command, displaying resultant buffer in a new tab.
+
+   This implemented by hacking together parts of
+   `project--other-place-prefix' and `other-tab-prefix'.
+
+   The only difference between this version and `project-other-tab-command'
+   is that new tabs are automatically placed in a group named according to
+   the corresponding project.
+   "
+     (interactive)
+     (prefix-command-preserve-state)
+     (display-buffer-override-next-command
+      (lambda (buffer alist)
+        (cons (progn
+                (display-buffer-in-tab
+                 buffer (append alist '((tab-group . alc-tab-bar-buffer-to-project-name)
+                                        (inhibit-same-window . nil))))
+                (selected-window))
+              'tab))
+      nil "[other-tab]")
+     (message "Display next project command buffer in a new tab...")
+     (set-transient-map project-prefix-map))
+
+- I don't know what ``prefix-command-preserve-state`` does... but ``project--other-place-prefix`` uses it and the docstring makes it sound important
+- ``display-buffer-override-next-command`` does what the name suggests, changing the ``display-buffer`` rules just for the next buffer shown.
+- ``display-buffer-in-tab`` accepts a ``tab-group`` option with ``alc-tab-bar-buffer-to-project-name`` returns the name of the group to place the tab into.
+- ``set-transient-map`` looks *very* interesting, in this case it takes the given keymap and makes it active just for the next command.
+  However, the docstring looks like it is capable of much more!
+
+Here is the implementation of ``alc-tab-bar-buffer-to-project-name``, it uses the ``project-name`` function to return the name of the project associated with the target buffer.
+
+.. code-block:: elisp
+   :filename: emacs/lisp/alc-tab-bar.el
+
+   (defun alc-tab-bar-buffer-to-project-name (buffer alist)
+     "Given BUFFER, return the corresponding project name, if any"
+     (with-current-buffer buffer
+       (if-let ((pr (project-current nil)))
+           (format "[%s]" (project-name pr)))))
+
+.. tip::
+
+   By default ``project-name`` returns the name of the folder the project is stored in but this can be overriden by setting the ``project-vc-name`` variable in the project's ``.dir-locals.el`` file.
+   Often I will set the project name to ``<owner>/<repo>``, for example
+
+   .. code-block:: elisp
+
+      ((nil . ((project-vc-name . "swyddfa/esbonio"))))
+
+   Since I also use ``project-vc-extra-root-markers``, most default project names are not that meaningful so I will also include the subriectory in the name
+
+   .. code-block:: elisp
+
+      ((nil . ((project-vc-name . "swyddfa/esbonio [lib/esbonio]"))))
+
+  Yes, that means names can be quite long, but they are much more useful to me!
+
+
+Global Status Items
+-------------------
+
+As well as using the tab bar to show... well tabs, the ``tab-bar-format-global`` variable can be included in ``tab-bar-format`` to show additional information.
+
+**Battery Info**
+
+.. code-block:: elisp
+   :filename: emacs/lisp/alc-tab-bar.el
+
+   (display-battery-mode)
+
+**Time**
+
+.. code-block:: elisp
+   :filename: emacs/lisp/alc-tab-bar.el
+
+   (setq display-time-format "%H:%M %d/%m/%y"
+         display-time-default-load-average nil)
+   (display-time-mode)
+
+
+.. code-block:: elisp
+   :filename: emacs/lisp/alc-tab-bar.el
+
+   (provide 'alc-tab-bar)

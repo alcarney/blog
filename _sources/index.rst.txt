@@ -42,4 +42,3 @@
 
    code
    dotfiles
-   notes

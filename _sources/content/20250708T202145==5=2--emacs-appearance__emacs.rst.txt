@@ -46,9 +46,9 @@ Load my theme related customisations, see :denote:link:`Emacs Themes <20250708T1
      (require-theme 'doric-themes t)
 
      (setq alc-theme-load-light-theme-function
-           (lambda () (doric-themes-select 'doric-light))
+           (lambda () (doric-themes-select 'doric-oak))
            alc-theme-load-dark-theme-function
-           (lambda () (doric-themes-select 'doric-dark)))
+           (lambda () (doric-themes-select 'doric-pine)))
 
      (add-to-list 'after-make-frame-functions 'alc-theme-sync-to-system-theme))
 
@@ -104,57 +104,41 @@ With Emacs 29 came ``pixel-scroll-precision-mode`` which makes the scrolling wit
          pixel-scroll-precision-momentum-seconds 0.5)
    (pixel-scroll-precision-mode t)
 
+
+.. _emacs-appearance-tab-bar:
+
 Tab Bar
 -------
 
-Not to be confused with the tabs you see in editors like VSCode, tabs allow for easy switching between different collections of windows - like workspaces.
-
-As well as using the tab bar to show... well tabs, I also make use of the ``tab-bar-format-global`` variable to show global status information like battery levels.
+Not to be confused with the tabs you see in editors like VSCode, ``tab-bar`` tabs allow for easy switching between different collections of windows - like workspaces.
 
 .. code-block:: elisp
    :filename: emacs/init.el
 
-   (setq tab-bar-close-button-show nil)
-   (setq tab-bar-tab-hints t)
-   (setq tab-bar-auto-width nil)
-   (setq tab-bar-format '(tab-bar-format-tabs-groups
-                          tab-bar-separator
-                          tab-bar-format-align-right
-                          tab-bar-format-global
-                          tab-bar-format-menu-bar))
+   (use-package alc-tab-bar
+     :demand t
+     :hook (after-init . tab-bar-mode)
+     :bind (:map tab-prefix-map
+            ("p" . alc-tab-bar-project-other-tab-command))
+     :config
+     (setq tab-bar-close-button-show nil)
+     (setq tab-bar-tab-hints t)
+     (setq tab-bar-auto-width nil)
+     (setq tab-bar-format '(tab-bar-format-tabs-groups
+                            tab-bar-separator
+                            tab-bar-format-align-right
+                            tab-bar-format-global
+                            tab-bar-format-menu-bar))
 
-   (defun alc-tab-bar-tab-name-format-hints (name _tab i)
-     (if tab-bar-tab-hints (concat (format "-%d-" i) "") name))
+     (setq tab-bar-tab-group-format-function 'alc-tab-bar-tab-group-format-function)
+     (setq tab-bar-tab-name-format-functions '(alc-tab-bar-tab-name-format-hints
+                                               tab-bar-tab-name-format-close-button
+                                               tab-bar-tab-name-format-face))
 
-   (defun alc-tab-bar-tab-group-format-function (tab i &optional current-p)
-     (propertize
-      (concat (funcall tab-bar-tab-group-function tab))
-      'face (if current-p 'tab-bar-tab-group-current 'tab-bar-tab-group-inactive)))
+     ;; Disable the menu-bar, since it's accessible via the tab bar.
+     (menu-bar-mode -1))
 
-   (setq tab-bar-tab-group-format-function 'alc-tab-bar-tab-group-format-function)
-   (setq tab-bar-tab-name-format-functions '(alc-tab-bar-tab-name-format-hints
-                                             tab-bar-tab-name-format-close-button
-                                             tab-bar-tab-name-format-face))
-
-   ;; Disable the menu-bar, since it's accessible via the tab bar.
-   (menu-bar-mode -1)
-   (add-hook 'after-init-hook #'tab-bar-mode)
-
-**Battery Info**
-
-.. code-block:: elisp
-   :filename: emacs/init.el
-
-   (display-battery-mode)
-
-**Time**
-
-.. code-block:: elisp
-   :filename: emacs/init.el
-
-   (setq display-time-format "%H:%M %d/%m/%y"
-         display-time-default-load-average nil)
-   (display-time-mode)
+See :denote:link:`20250924T182310` for more details
 
 Modeline
 --------
@@ -189,7 +173,7 @@ For reference, here are the components that were in the default modeline
                   mode-line-modes
                   )))
 
-See for more details
+See :denote:link:`20250228T200007` for more details.
 
 Miscellaneous
 -------------

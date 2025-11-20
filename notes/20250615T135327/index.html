@@ -9,7 +9,7 @@
 
     <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=02ca0aaa" />
     <link id="pygments_dark_css" media="(prefers-color-scheme: dark)" rel="stylesheet" type="text/css" href="../../_static/pygments_dark.css?v=d8568271" />
-    <link rel="stylesheet" type="text/css" href="../../_static/css/layout.css?v=dd82510f" />
+    <link rel="stylesheet" type="text/css" href="../../_static/css/layout.css?v=eb6da49f" />
 
     <script src="../../_static/documentation_options.js?v=187304be"></script>
     <script src="../../_static/doctools.js?v=9bcbadda"></script>
@@ -24,6 +24,7 @@
           title=" | Blog Posts"
           href="/blog/atom.xml">
     <meta name="fediverse:creator" content="@alcarney@mastodon.social">
+    <meta name="theme-color" content="#059669">
 
   </head>
   <body>
@@ -199,6 +200,13 @@
     
   <a class="reference internal" href="../20250708T133920/">
     Emacs Themes
+  </a>
+  
+</li>
+      <li>
+    
+  <a class="reference internal" href="../20250924T182310/">
+    Tab Bar Utilities
   </a>
   
 </li>
@@ -488,7 +496,7 @@
     </g>
     </g>
 </svg>
-<p>Emacs supports Python’s built-in <a class="reference external" href="https://docs.python.org/3/library/pdb.html#module-pdb" title="(in Python v3.13)"><code class="xref py py-mod docutils literal notranslate"><span class="pre">pdb</span></code></a> debugger out of the box thanks to the <a class="reference external" href="https://www.gnu.org/software/emacs/manual/html_node/emacs/Debuggers.html">Grand Unified Debugger</a>.</p>
+<p>Emacs supports Python’s built-in <a class="reference external" href="https://docs.python.org/3/library/pdb.html#module-pdb" title="(in Python v3.14)"><code class="xref py py-mod docutils literal notranslate"><span class="pre">pdb</span></code></a> debugger out of the box thanks to the <a class="reference external" href="https://www.gnu.org/software/emacs/manual/html_node/emacs/Debuggers.html">Grand Unified Debugger</a>.</p>
 <p>Since everything is avaialable out of the box, there’s nothing really to setup!
 Just run <code class="docutils literal notranslate"><span class="pre">M-x</span> <span class="pre">pdb</span></code>, Emacs will ask you how you want to invoke <code class="docutils literal notranslate"><span class="pre">pdb</span></code></p>
 <div class="highlight-none notranslate"><div class="highlight"><pre><span></span>Run pdb (like this): python -m pdb
@@ -500,7 +508,7 @@ What’s cool about this is that it can be any <code class="docutils literal not
 <div class="highlight-none notranslate"><div class="highlight"><pre><span></span>Run pdb (like this): hatch test -i py=3.11 -i sphinx=8 -- tests/example/test_example.py::test_this --pdb
 </pre></div>
 </div>
-<p>Breakpoints can be added by adding a call to the built-in <a class="reference external" href="https://docs.python.org/3/library/functions.html#breakpoint" title="(in Python v3.13)"><code class="xref py py-func docutils literal notranslate"><span class="pre">breakpoint()</span></code></a> function.</p>
+<p>Breakpoints can be added by adding a call to the built-in <a class="reference external" href="https://docs.python.org/3/library/functions.html#breakpoint" title="(in Python v3.14)"><code class="xref py py-func docutils literal notranslate"><span class="pre">breakpoint()</span></code></a> function.</p>
 </section>
 <section id="using-dape">
 <span id="debug-python-code-dape"></span><h2>Using <code class="docutils literal notranslate"><span class="pre">dape</span></code><a class="headerlink" href="#using-dape" title="Link to this heading">¶</a></h2>
@@ -511,7 +519,6 @@ What’s cool about this is that it can be any <code class="docutils literal not
 </section>
 </section>
 
-  <footer>
 
 </article>
 
