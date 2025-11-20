@@ -78,6 +78,15 @@ For compatibilty with other tools, it's best to render diffs and conflicts as gi
    ui.conflict-marker-style = "git"
    ui.diff-formatter = ":git"
 
+**Aliases**
+
+.. code-block:: toml
+   :filename: jj/config.toml
+
+   [aliases]
+   push-down = ["new", "-B", "@", "--no-edit"]
+
+
 Repo Config
 -----------
 

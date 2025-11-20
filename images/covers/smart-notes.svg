@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="300" height="400" viewBox="0 0 300 400">
+  <style>
+    text {
+      font-family: sans-serif;
+      font-size: 28pt;
+      fill: white;
+    }
+  </style>
+  <rect width="300" height="400" fill="#1a64af" />
+
+  <text x="10" y="10%"
+        textLength="280"
+        lengthAdjust="spacingAndGlyphs">HOW TO TAKE</text>
+  <text x="10" y="20%"
+        textLength="280"
+        lengthAdjust="spacingAndGlyphs">SMART NOTES</text>
+
+
+  <line x1="5%" x2="95%" y1="35%" y2="35%" stroke="white" stroke-width="2" />
+  <line x1="5%" x2="95%" y1="45%" y2="45%" stroke="white" stroke-width="1" />
+  <line x1="5%" x2="95%" y1="55%" y2="55%" stroke="white" stroke-width="1" />
+  <line x1="5%" x2="95%" y1="65%" y2="65%" stroke="white" stroke-width="1" />
+  <line x1="5%" x2="95%" y1="75%" y2="75%" stroke="white" stroke-width="1" />
+  <line x1="5%" x2="95%" y1="85%" y2="85%" stroke="white" stroke-width="1" />
+  <line x1="5%" x2="95%" y1="95%" y2="95%" stroke="white" stroke-width="2" />
+
+  <line x1="5%" x2="5%" y1="35%" y2="95%" stroke="white" stroke-width="1" />
+  <line x1="27%" x2="27%" y1="35%" y2="95%" stroke="white" stroke-width="1" />
+  <line x1="50%" x2="50%" y1="35%" y2="95%" stroke="white" stroke-width="1" />
+  <line x1="73%" x2="73%" y1="35%" y2="95%" stroke="white" stroke-width="1" />
+  <line x1="95%" x2="95%" y1="35%" y2="95%" stroke="white" stroke-width="1" />
+</svg>
