@@ -3,7 +3,7 @@ pythonCommand = ["hatch", "-e", "blog", "run", "python"]
 
 [tool.hatch.envs.blog]
 installer = "uv"
-python = '3.13'
+python = '3.14'
 skip-install = true
 dependencies = [
   "sphinx==8.2.*",
