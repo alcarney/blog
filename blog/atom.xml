@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom" xml:lang="en">
   <id>https://www.alcarney.me/</id>
   <title>Alex Carney | Blog</title>
-  <updated>2025-11-20T19:36:57.004399+00:00</updated>
+  <updated>2025-11-24T23:52:29.304453+00:00</updated>
   <link href="https://www.alcarney.me/" />
   <link href="https://www.alcarney.me/blog/atom.xml" rel="self" />
   <author>
@@ -1260,7 +1260,7 @@ However, denote lends itself well to having just a folder full of files and I qu
 &lt;h2&gt;Next Steps&lt;a class=&#34;headerlink&#34; href=&#34;#next-steps&#34; title=&#34;Link to this heading&#34;&gt;¶&lt;/a&gt;&lt;/h2&gt;
 &lt;p&gt;As you might guess this is still quite immature and there’s plenty that I’d still like to explore or needs fixing!&lt;/p&gt;
 &lt;ul&gt;
-&lt;li&gt;&lt;p&gt;&lt;strong&gt;Fixing search&lt;/strong&gt;&lt;/p&gt;
+&lt;li&gt;&lt;p&gt;&lt;code class=&#34;xref denote denote-link docutils literal notranslate&#34;&gt;&lt;span class=&#34;pre&#34;&gt;Fixing&lt;/span&gt; &lt;span class=&#34;pre&#34;&gt;Search&lt;/span&gt;&lt;/code&gt;&lt;/p&gt;
 &lt;p&gt;The search bar you see in the sidebar is pretty much useless in its current form.
 Yes, you can type something in and it will take you to a search results page, but all the links on that page will be broken!&lt;/p&gt;
 &lt;/li&gt;

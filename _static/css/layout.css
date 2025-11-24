@@ -5,6 +5,7 @@
     --bg-sidebar: #161b22;
     --fg-sidebar: white;
 
+    --highlight-color: #f0b100;
     --border-color: #657b83;
 
     --fg-accent-dim: #064e3b;
@@ -21,6 +22,14 @@
 
 .hidden { display: none; }
 .line-through { text-decoration: line-through; }
+
+.highlighted {
+    background: var(--highlight-color);
+    color: var(--bg-main);
+    padding: 0 0.5em;
+    border-radius: 3px;
+    border: solid 1px var(--fg-main);
+}
 
 @media(prefers-color-scheme: dark) {
     :root {
@@ -395,6 +404,31 @@ search input[type="text"]:focus {
 
 search input[type="submit"] {
     display: none;
+}
+
+/* -- Search Results -- */
+#search-results {
+    padding: 2em;
+}
+
+p.search-summary {
+    padding: 1em 0;
+}
+
+ul.search {
+    padding: 0;
+}
+
+ul.search li {
+    margin: 1em 0;
+    list-style: none;
+    /* background: var(--bg-sidebar); */
+    padding: 1em;
+    border: solid 1px var(--fg-accent-dim);
+}
+
+ul.search p.context {
+    margin: 0.5em 0;
 }
 
 /* -- Site Nav -- */

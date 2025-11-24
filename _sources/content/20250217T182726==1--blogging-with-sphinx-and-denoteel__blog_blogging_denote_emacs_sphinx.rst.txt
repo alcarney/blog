@@ -378,7 +378,7 @@ Next Steps
 
 As you might guess this is still quite immature and there's plenty that I'd still like to explore or needs fixing!
 
-- **Fixing search**
+- :denote:link:`Fixing Search <20251124T230006>`
 
   The search bar you see in the sidebar is pretty much useless in its current form.
   Yes, you can type something in and it will take you to a search results page, but all the links on that page will be broken!
