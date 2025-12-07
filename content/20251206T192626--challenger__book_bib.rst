@@ -1,4 +1,3 @@
-
 :title: Challenger
 :date: 2025-12-06
 :tags: book, bib
@@ -9,8 +8,7 @@ Challenger
 
 .. bib:book:: Challenger
    :author: Adam Higginbotham
-   :state: to-read 
+   :state: to-read
 
-06/12/2025
-   Added to reading list.
-
+   06/12/2025
+      Added to reading list.
