@@ -18,9 +18,8 @@ if typing.TYPE_CHECKING:
     from sphinx.environment import BuildEnvironment
 
 
-@typing.final
-class BookDirective(ObjectDescription[str]):
-    """Describe a book"""
+class BibDirective(ObjectDescription[str]):
+    """Base directive for bibliographic items."""
 
     has_content = True
 
@@ -29,61 +28,73 @@ class BookDirective(ObjectDescription[str]):
 
     option_spec = {
         **ObjectDescription.option_spec,
-        "author": directives.unchanged,
-        "published": directives.unchanged,
-        "isbn": directives.unchanged,
+        "state": directives.unchanged,
         "cover": directives.unchanged,
-        "state": functools.partial(
-            directives.choice,
-            values=("read", "reading", "to-read", "dnf"),
-        ),
     }
+
+    DEFAULT_COVER = "book.svg"
 
     @typing.override
     def handle_signature(self, sig: str, signode: addnodes.desc_signature) -> str:
-        """Write out the nodes that provide the metadata about the book."""
+        """Write out the nodes that provide the metadata about the entry."""
+
+        # Add a cover image.
+        container = nodes.container(classes=["bib-image"])
+        signode.parent.children.insert(0, container)
+
+        cover = self.options.pop("cover", self.DEFAULT_COVER)
+        container += nodes.image(uri=f"/images/bib/{cover}")
+
+        # Add the state and title
+        state = self.options.pop("state", "")
+        signode += addnodes.desc_addname(text=state, classes=["bib-state"])
+
+        signode += addnodes.desc_sig_space()
         signode += addnodes.desc_name(text=sig)
 
-        if (state := self.options.get("state")) is not None:
-            signode += addnodes.desc_type(text="State")
-            signode += addnodes.desc_sig_space()
-            signode += addnodes.desc_annotation(text=state)
+        # Add all remaining bibliographic fields
+        for key in self.options:
+            if key in ObjectDescription.option_spec:
+                continue
 
-        if (author := self.options.get("author")) is not None:
-            signode += addnodes.desc_type(text="Author")
-            signode += addnodes.desc_sig_space()
-            signode += addnodes.desc_addname(text=author)
+            field_name = " ".join(k.capitalize() for k in key.split("-"))
+            field_value = self.options[key]
+            field_type = self.option_spec[key]
 
-        if (published := self.options.get("published")) is not None:
-            signode += addnodes.desc_type(text="Published")
-            signode += addnodes.desc_sig_space()
-            signode += addnodes.desc_addname(text=published)
+            if field_type == directives.uri:
+                signode += nodes.reference(text=field_name, refuri=field_value)
+                signode += addnodes.desc_sig_space()
+                signode += addnodes.desc_addname(text="", classes=["bib-value"])
 
-        if (isbn := self.options.get("isbn")) is not None:
-            signode += addnodes.desc_type(text="ISBN")
-            signode += addnodes.desc_sig_space()
-            signode += addnodes.desc_addname(text=isbn)
+            else:
+                signode += addnodes.desc_addname(text=field_name, classes=["bib-field"])
+                signode += addnodes.desc_sig_space()
+                signode += addnodes.desc_addname(
+                    text=field_value, classes=["bib-value"]
+                )
 
         return sig
-
-    @typing.override
-    def transform_content(self, content_node: addnodes.desc_content) -> None:
-        """Used to add the book's cover image"""
-
-        container = nodes.container()
-        container["classes"] = ["cover-image"]
-        content_node += container
-
-        if (cover_image := self.options.get("cover")) is None:
-            cover_image = "/images/covers/generic.svg"
-
-        container += nodes.image(uri=cover_image, width="100%", height="100%")
 
     @typing.override
     def add_target_and_index(
         self, name: str, sig: str, signode: addnodes.desc_signature
     ) -> None:
         return super().add_target_and_index(name, sig, signode)
+
+
+@typing.final
+class BookDirective(BibDirective):
+    """Describe a book"""
+
+    option_spec = {
+        **BibDirective.option_spec,
+        "author": directives.unchanged,
+        "authors": directives.unchanged,
+        "published": directives.unchanged,
+        "isbn": directives.unchanged,
+        "cover": directives.unchanged,
+        "read-online": directives.uri,
+    }
 
 
 @typing.final

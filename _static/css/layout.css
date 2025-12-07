@@ -532,12 +532,10 @@ div.admonition > :not(ol,ul) {
 /* -- bib extension --*/
 dl.bib {
     font-size: 12pt;
-    display: flex;
-    align-items: stretch;
-    flex-direction: row-reverse;
-    justify-content: flex-end;
-    gap: 1em;
+    margin: 2em 0;
+    padding: 0;
     border: solid 1px var(--fg-accent);
+    border-radius: 3px;
 }
 
 dl.bib dt {
@@ -545,13 +543,10 @@ dl.bib dt {
     align-items: baseline;
     grid-template-columns: auto 0.5em 1fr;
     margin: 0;
+    padding: 0.5em;
 }
 
-dl.bib em.property {
-/*    grid-column: span 3;*/
-}
-
-dl.bib em.property span.pre {
+dl.bib .bib-state span.pre {
     display: inline-block;
     color: var(--fg-accent-bright);
     background: var(--fg-accent);
@@ -565,32 +560,30 @@ dl.bib em.property span.pre {
 dl.bib .sig-name {
     font-size: 1.25em;
     text-wrap: balance;
-    grid-column: span 3;
 }
 
 dl.bib span.pre {
     font-family: inherit;
 }
 
-dl.bib .sig-prename span.pre {
+dl.bib .bib-value span.pre {
     font-weight: normal;
 }
 
-dl.bib dd {
+dl.bib > dd {
     border: none;
     margin: 0;
-    padding: 0;
-    flex-shrink: 0;
-    align-self: stretch;
-    width: 7em;
+    margin-top: 1em;
+    padding: 0.5em;
+}
+
+dl.bib .bib-image {
     background: white;
 }
 
-dl.bib dd div.cover-image {
-    height: 100%;
-}
-
-dl.bib dd div.cover-image img {
+dl.bib .bib-image img {
+    max-height: 250px;
+    width: 100%;
     object-fit: cover;
 }
 
