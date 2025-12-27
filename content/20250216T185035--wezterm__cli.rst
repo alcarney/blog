@@ -23,6 +23,7 @@ I've been using it for a while however, my config is fairly minimal.
 
    local wezterm = require 'wezterm'
    local config = wezterm.config_builder()
+   config.keys = {}
 
 Appearance
 ----------
@@ -50,7 +51,7 @@ Use the "retro" tab bar.
 .. code-block:: lua
    :filename: wezterm/wezterm.lua
 
-   config.use_fancy_tab_bar = false
+   config.use_fancy_tab_bar = true
 
 Default Program
 ---------------
@@ -61,6 +62,19 @@ Rather than mess around with my user's default shell, just tell wezterm to start
    :filename: wezterm/wezterm.lua
 
    config.default_prog = { '/usr/bin/fish', '-l' }
+
+
+Keybindings
+-----------
+
+Disable the default :kbd:`Alt+Enter` keybinding, it conflicts with Emacs.
+
+.. code-block:: lua
+   :filename: wezterm/wezterm.lua
+
+   table.insert(config.keys, {
+     key = 'Enter', mods = 'ALT', action = wezterm.action.DisableDefaultAssignment,
+   })
 
 .. code-block:: lua
    :class: hidden
