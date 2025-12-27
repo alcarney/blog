@@ -1,0 +1,15 @@
+:title: iBuffer
+:date: 2025-12-13
+:tags:
+:identifier: 20251213T204155
+:signature: 5=8
+
+IBuffer
+=======
+
+``ibuffer`` is an enhacement over the ``list-buffers`` command so we may as well replace the binding.
+
+.. code-block:: elisp
+   :filename: emacs/init.el
+
+   (keymap-global-set "C-x C-b" 'ibuffer)
