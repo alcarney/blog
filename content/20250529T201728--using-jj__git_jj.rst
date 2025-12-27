@@ -40,6 +40,28 @@ To push again after you've made additional changes::
   $ jj bookmark set -r <rev> <name>  # Unlike git branches, bookmarks don't move each time you commit
   $ jj git push -b <name> --remote <remote>
 
+Filesets
+--------
+
+When working with denote-style filenames (especially those involving signatures), ``jj`` often tries to interpret parts of the filename specially, resulting in errors::
+
+   $ jj squash "content/20251213T204155==5=8--ibuffer.rst"
+   Error: Failed to parse fileset: Syntax error
+   Caused by:  --> 1:24
+     |
+   1 | content/20251213T204155==5=8--ibuffer.rst
+     |                        ^---
+     |
+     = expected <EOI>, `|`, `&`, or `~`
+   Hint: See https://docs.jj-vcs.dev/latest/filesets/ or use `jj help -k filesets` for filesets syntax and how to match file paths.
+
+The fix is to wrap the filename in **two** layers of quotes, the first is for the shell, the second layer is for ``jj``::
+
+   $ jj squash "'content/20251213T204155==5=8--ibuffer.rst'"
+   Rebased 1 descendant commits
+   Working copy  (@) now at: znpmlpnx 46e93dff (no description set)
+   Parent commit (@-)      : rympsmzo db0dc66d Add keybinding for ibuffer
+
 User Config
 -----------
 
