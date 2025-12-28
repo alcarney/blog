@@ -592,22 +592,12 @@ dl.bib .bib-image img {
 
 /* -- Awdur Integration -- */
 
-.awdur-container {
-    margin: 1em 0;
+div.awdur-codeblock {
+    border: none;
 }
 
-.awdur-container:not(article *) {
-    padding: 2em;
-    line-height: 1.5;
-    max-width: 100ch;
-}
-
-.awdur-codeblock {
-
-}
-
-.awdur-codeblock-header,
-.awdur-directory-header {
+div.awdur-codeblock-header,
+div.awdur-directory-header {
     padding: 0 0.5em;
     border: solid 1px var(--border-color);
     color: var(--fg-sidebar);
@@ -615,77 +605,82 @@ dl.bib .bib-image img {
     border-top-right-radius: 5px;
     border-bottom: none;
     background: var(--bg-sidebar);
-    /* @apply prose prose-emerald px-2 border-t border-r border-l rounded-t dark:border-gray-600 dark:bg-gray-800 max-w-none */
 }
 
-.awdur-codeblock-header span.pre::before,
-.awdur-codeblock-header span.pre::after {
+div.awdur-codeblock-header span.pre::before,
+div.awdur-codeblock-header span.pre::after {
     content: none;
 }
 
-.awdur-codeblock-filename::after,
-.awdur-codeblock-filename::before {
+div.awdur-codeblock-filename::after,
+div.awdur-codeblock-filename::before {
     display: none;
 }
 
-.awdur-codeblock div.highlight {
+div.awdur-codeblock div.highlight {
     border-top: none;
     border-top-left-radius: 0;
     border-top-right-radius: 0;
     margin-top: 0;
 }
 
-.awdur-directory-listing {
-    margin: 0;
+div.awdur-project-tree {
     padding: 0;
     border: solid 1px var(--border-color);
-    border-top: none;
-    border-bottom-left-radius: 5px;
-    border-bottom-right-radius: 5px;
-    /* @apply prose prose-emerald p-0 m-0 border-r border-b border-l rounded-b dark:border-gray-600 max-w-none */
+    border-radius: 4px;
 }
 
-.awdur-directory-listing li  {
-    margin: 0;
+div.awdur-project-tree details {
+    padding-left: 0.5em;
+}
+
+div.awdur-project-tree details:not(:last-child) {
+    border-bottom: solid 1px var(--border-color);
+}
+
+div.awdur-project-tree div.awdur-directory-contents {
+    padding: 0;
     border-top: solid 1px var(--border-color);
-    /* @apply m-0 border-t dark:border-gray-600 */
+    border-left: solid 1px var(--border-color);
 }
 
-.awdur-directory-listing li {
+div.awdur-project-tree details summary {
     list-style: none;
     position: relative;
-    padding: 0.2em 2em;
+    padding-top: 0.2em;
+    padding-bottom: 0.2em;
+    padding-left: 2em;
 }
 
-.awdur-directory::before {
-    content: '';
+div.awdur-project-tree details summary::before {
     position: absolute;
     left: 3px;
     top: 4px;
     width: 1.5em;
     height: 1.5em;
+    margin-left: 0;
     background-repeat: no-repeat;
+}
+
+div.awdur-project-tree details.awdur-directory summary::before {
+    content: '';
     background-image: url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNCAyNCIgY2xhc3M9InctNiBoLTYiIGZpbGw9Im5vbmUiIHN0cm9rZT0iYmxhY2siIHN0cm9rZS13aWR0aD0iMSIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIj4KICA8cGF0aCBkPSJNMjIgMTlhMiAyIDAgMCAxLTIgMkg0YTIgMiAwIDAgMS0yLTJWNWEyIDIgMCAwIDEgMi0yaDVsMiAzaDlhMiAyIDAgMCAxIDIgMnoiLz4KPC9zdmc+Cg==");
 }
 
-.awdur-file::before {
+div.awdur-project-tree details.awdur-file summary::before {
     content: '';
-    position: absolute;
-    left: 3px;
-    top: 4px;
-    width: 1.5em;
-    height: 1.5em;
-    background-repeat: no-repeat;
     background-image: url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNCAyNCIgY2xhc3M9InctNiBoLTYiIGZpbGw9Im5vbmUiIHN0cm9rZT0iYmxhY2siIHN0cm9rZS13aWR0aD0iMSIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIiA+PHBhdGggZD0iTTE0IDJINmEyIDIgMCAwIDAtMiAydjE2YTIgMiAwIDAgMCAyIDJoMTJhMiAyIDAgMCAwIDItMlY4eiIvPgogIDxwYXRoIGQ9Ik0xNCAydjZoNk0xNiAxM0g4TTE2IDE3SDhNMTAgOUg4Ii8+Cjwvc3ZnPg==");
 }
 
 @media(prefers-color-scheme: dark) {
 
-    .awdur-directory::before {
+    div.awdur-project-tree details.awdur-directory summary::before {
+        content: '';
         background-image: url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNCAyNCIgY2xhc3M9InctNiBoLTYiIGZpbGw9Im5vbmUiIHN0cm9rZT0id2hpdGUiIHN0cm9rZS13aWR0aD0iMSIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIj4KICA8cGF0aCBkPSJNMjIgMTlhMiAyIDAgMCAxLTIgMkg0YTIgMiAwIDAgMS0yLTJWNWEyIDIgMCAwIDEgMi0yaDVsMiAzaDlhMiAyIDAgMCAxIDIgMnoiLz4KPC9zdmc+Cg==");
     }
 
-    .awdur-file::before {
+    div.awdur-project-tree details.awdur-file summary::before {
+        content: '';
         background-image: url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNCAyNCIgY2xhc3M9InctNiBoLTYiIGZpbGw9Im5vbmUiIHN0cm9rZT0id2hpdGUiIHN0cm9rZS13aWR0aD0iMSIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIiA+PHBhdGggZD0iTTE0IDJINmEyIDIgMCAwIDAtMiAydjE2YTIgMiAwIDAgMCAyIDJoMTJhMiAyIDAgMCAwIDItMlY4eiIvPgogIDxwYXRoIGQ9Ik0xNCAydjZoNk0xNiAxM0g4TTE2IDE3SDhNMTAgOUg4Ii8+Cjwvc3ZnPg==");
     }
 

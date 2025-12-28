@@ -34,7 +34,7 @@ extensions = [
     "sphinx.ext.extlinks",
     "sphinx.ext.intersphinx",
     # Third party extensions
-    "awdur",
+    "awdur.sphinxext",
     "myst_parser",
     # Local extensions: see `./extensions`
     "bib",
