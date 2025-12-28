@@ -32,7 +32,7 @@ html:
 
 .PHONY: dotfiles
 dotfiles:
-	$(HATCH) -e blog run sphinx-build -M sources . $(BUILDDIR) $(SPHINX_OPTS)
+	$(HATCH) -e blog run sphinx-build -M awdur . $(BUILDDIR) $(SPHINX_OPTS)
 
 
 preview:
