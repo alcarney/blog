@@ -3,4 +3,4 @@ Dotfiles
 
 Some of my dotfiles
 
-.. awdur:project-browser::
+.. awdur:project-tree::

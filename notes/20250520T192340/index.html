@@ -9,7 +9,8 @@
 
     <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=02ca0aaa" />
     <link id="pygments_dark_css" media="(prefers-color-scheme: dark)" rel="stylesheet" type="text/css" href="../../_static/pygments_dark.css?v=d8568271" />
-    <link rel="stylesheet" type="text/css" href="../../_static/css/layout.css?v=80b8f36a" />
+    <link rel="stylesheet" type="text/css" href="../../_static/awdur-styles.css?v=21b80da3" />
+    <link rel="stylesheet" type="text/css" href="../../_static/css/layout.css?v=48e1058e" />
 
     <script src="../../_static/documentation_options.js?v=187304be"></script>
     <script src="../../_static/doctools.js?v=9bcbadda"></script>
@@ -176,6 +177,49 @@
 <article>
   <section id="series-and-hierarchies-with-denote-sequence">
 <h1>Series and Hierarchies with <code class="docutils literal notranslate"><span class="pre">denote-sequence</span></code><a class="headerlink" href="#series-and-hierarchies-with-denote-sequence" title="Link to this heading">¶</a></h1>
+<div class="awdur-codeblock docutils container">
+<div class="awdur-codeblock-header docutils container">
+<code class="awdur-codeblock-filename docutils literal notranslate"><span class="pre">emacs/init.el</span></code></div>
+<div class="highlight-elisp notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="nb">use-package</span><span class="w"> </span><span class="nv">denote</span>
+<span class="w">  </span><span class="nb">:ensure</span><span class="w"> </span><span class="no">t</span>
+<span class="w">  </span><span class="nb">:hook</span><span class="w"> </span><span class="p">((</span><span class="nv">dired-mode</span><span class="w"> </span><span class="o">.</span><span class="w"> </span><span class="nv">denote-dired-mode</span><span class="p">))</span>
+<span class="w">  </span><span class="nb">:config</span>
+
+<span class="w">  </span><span class="c1">;; Add reStructuredText support to denote</span>
+<span class="w">  </span><span class="p">(</span><span class="nv">add-to-list</span><span class="w"> </span><span class="ss">&#39;denote-file-types</span><span class="w"> </span><span class="o">`</span><span class="p">(</span><span class="nv">rst</span>
+<span class="w">                                    </span><span class="nb">:extension</span><span class="w"> </span><span class="s">&quot;.rst&quot;</span>
+<span class="w">                                    </span><span class="nb">:date-key-regexp</span><span class="w"> </span><span class="s">&quot;^:date:&quot;</span>
+<span class="w">                                    </span><span class="nb">:date-value-function</span><span class="w"> </span><span class="nv">denote-date-iso-8601</span>
+<span class="w">                                    </span><span class="nb">:date-value-reverse-function</span><span class="w"> </span><span class="nv">denote-extract-date-from-front-matter</span>
+<span class="w">                                    </span><span class="nb">:front-matter</span><span class="w"> </span><span class="s">&quot;:title: %s\n:date: %s\n:tags: %s\n:identifier: %s\n:signature: %s\n\n&quot;</span>
+<span class="w">                                    </span><span class="nb">:title-key-regexp</span><span class="w"> </span><span class="s">&quot;^:title:&quot;</span>
+<span class="w">                                    </span><span class="nb">:title-value-function</span><span class="w"> </span><span class="nf">identity</span>
+<span class="w">                                    </span><span class="nb">:title-value-reverse-function</span><span class="w"> </span><span class="nv">denote-trim-whitespace</span>
+<span class="w">                                    </span><span class="nb">:signature-key-regexp</span><span class="w"> </span><span class="s">&quot;:signature:&quot;</span>
+<span class="w">                                    </span><span class="nb">:signature-value-function</span><span class="w"> </span><span class="nf">identity</span>
+<span class="w">                                    </span><span class="nb">:signature-value-reverse-function</span><span class="w"> </span><span class="nv">denote-trim-whitespace</span>
+<span class="w">                                    </span><span class="nb">:keywords-key-regexp</span><span class="w"> </span><span class="s">&quot;^:tags:&quot;</span>
+<span class="w">                                    </span><span class="nb">:keywords-value-function</span><span class="w"> </span><span class="o">,</span><span class="p">(</span><span class="nb">lambda</span><span class="w"> </span><span class="p">(</span><span class="nv">ks</span><span class="p">)</span><span class="w"> </span><span class="p">(</span><span class="nv">string-join</span><span class="w"> </span><span class="nv">ks</span><span class="w"> </span><span class="s">&quot;, &quot;</span><span class="p">))</span>
+<span class="w">                                    </span><span class="nb">:keywords-value-reverse-function</span><span class="w"> </span><span class="nv">denote-extract-keywords-from-front-matter</span>
+<span class="w">                                    </span><span class="nb">:identifier-key-regexp</span><span class="w"> </span><span class="s">&quot;^:identifier:&quot;</span>
+<span class="w">                                    </span><span class="nb">:identifier-value-function</span><span class="w"> </span><span class="nf">identity</span>
+<span class="w">                                    </span><span class="nb">:identifier-value-reverse-function</span><span class="w"> </span><span class="nv">denote-trim-whitespace</span>
+<span class="w">                                    </span><span class="nb">:link</span><span class="w"> </span><span class="s">&quot;:denote:link:`%2$s &lt;%1$s&gt;`&quot;</span>
+<span class="w">                                    </span><span class="nb">:link-in-context-regexp</span><span class="w"> </span><span class="o">,</span><span class="p">(</span><span class="nf">concat</span><span class="w"> </span><span class="s">&quot;:denote:link:`.*?&lt;\\(?1:&quot;</span><span class="w"> </span><span class="nv">denote-id-regexp</span><span class="w"> </span><span class="s">&quot;\\)&gt;`&quot;</span><span class="p">))))</span>
+</pre></div>
+</div>
+</div>
+<div class="awdur-codeblock docutils container">
+<div class="awdur-codeblock-header docutils container">
+<code class="awdur-codeblock-filename docutils literal notranslate"><span class="pre">emacs/init.el</span></code></div>
+<div class="highlight-elisp notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="nb">use-package</span><span class="w"> </span><span class="nv">denote-sequence</span>
+<span class="w">  </span><span class="nb">:ensure</span><span class="w"> </span><span class="no">t</span>
+<span class="w">  </span><span class="nb">:after</span><span class="w"> </span><span class="nv">denote</span>
+<span class="w">  </span><span class="nb">:custom</span>
+<span class="w">  </span><span class="p">(</span><span class="nv">denote-sequence-scheme</span><span class="w"> </span><span class="ss">&#39;numeric</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
 </section>
 
 

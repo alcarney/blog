@@ -9,7 +9,8 @@
 
     <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=02ca0aaa" />
     <link id="pygments_dark_css" media="(prefers-color-scheme: dark)" rel="stylesheet" type="text/css" href="../../_static/pygments_dark.css?v=d8568271" />
-    <link rel="stylesheet" type="text/css" href="../../_static/css/layout.css?v=80b8f36a" />
+    <link rel="stylesheet" type="text/css" href="../../_static/awdur-styles.css?v=21b80da3" />
+    <link rel="stylesheet" type="text/css" href="../../_static/css/layout.css?v=48e1058e" />
 
     <script src="../../_static/documentation_options.js?v=187304be"></script>
     <script src="../../_static/doctools.js?v=9bcbadda"></script>
@@ -313,37 +314,246 @@
   <section id="python-in-emacs">
 <h1>Python in Emacs<a class="headerlink" href="#python-in-emacs" title="Link to this heading">¶</a></h1>
 <p>Settings for Python files</p>
+<div class="awdur-codeblock docutils container">
+<div class="awdur-codeblock-header docutils container">
+<code class="awdur-codeblock-filename docutils literal notranslate"><span class="pre">emacs/init.el</span></code></div>
+<div class="highlight-elisp notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="nb">use-package</span><span class="w"> </span><span class="nv">python</span>
+<span class="w">  </span><span class="nb">:hook</span><span class="w"> </span><span class="p">((</span><span class="nv">python-mode</span><span class="w"> </span><span class="o">.</span><span class="w"> </span><span class="nv">alc-python-mode-hook</span><span class="p">)</span>
+<span class="w">         </span><span class="p">(</span><span class="nv">python-ts-mode</span><span class="w"> </span><span class="o">.</span><span class="w"> </span><span class="nv">alc-python-mode-hook</span><span class="p">))</span>
+<span class="w">  </span><span class="nb">:custom</span>
+<span class="w">  </span><span class="p">(</span><span class="nv">python-shell-dedicated</span><span class="w"> </span><span class="ss">&#39;project</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
 <p>Use ruff for formatting by default.
 However, this can be overriden on a per-project basis by setting <code class="docutils literal notranslate"><span class="pre">apheleia-formatter</span></code> in a <code class="docutils literal notranslate"><span class="pre">.dir-locals.el</span></code> file.</p>
+<div class="awdur-codeblock docutils container">
+<div class="awdur-codeblock-header docutils container">
+<code class="awdur-codeblock-filename docutils literal notranslate"><span class="pre">emacs/init.el</span></code></div>
+<div class="highlight-elisp notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="nb">with-eval-after-load</span><span class="w"> </span><span class="ss">&#39;apheleia</span>
+<span class="w">  </span><span class="p">(</span><span class="nb">setf</span><span class="w"> </span><span class="p">(</span><span class="nv">alist-get</span><span class="w"> </span><span class="ss">&#39;python-ts-mode</span><span class="w"> </span><span class="nv">apheleia-mode-alist</span><span class="p">)</span>
+<span class="w">       </span><span class="o">&#39;</span><span class="p">(</span><span class="nv">ruff-isort</span><span class="w"> </span><span class="nv">ruff</span><span class="p">)))</span>
+</pre></div>
+</div>
+</div>
 <p>A function to run each time a Python file is visited.</p>
+<div class="awdur-codeblock docutils container">
+<div class="awdur-codeblock-header docutils container">
+<code class="awdur-codeblock-filename docutils literal notranslate"><span class="pre">emacs/init.el</span></code></div>
+<div class="highlight-elisp notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="nb">defun</span><span class="w"> </span><span class="nv">alc-python-mode-hook</span><span class="w"> </span><span class="p">()</span>
+<span class="w">  </span><span class="s">&quot;Tweaks and config to run when starting </span><span class="ss">`python-mode&#39;</span><span class="s">&quot;</span>
+<span class="w">  </span><span class="p">(</span><span class="nb">require</span><span class="w"> </span><span class="ss">&#39;alc-python</span><span class="p">)</span>
+<span class="w">  </span><span class="p">(</span><span class="nb">setq-local</span><span class="w"> </span><span class="nv">fill-column</span><span class="w"> </span><span class="mi">88</span><span class="p">)</span>
+
+<span class="w">  </span><span class="c1">;; Files in site-packages/ etc. should be read only by default.</span>
+<span class="w">  </span><span class="c1">;; Also do not start eglot in these locations to cut down on the</span>
+<span class="w">  </span><span class="c1">;; number of server instances.</span>
+<span class="w">  </span><span class="c1">;;</span>
+<span class="w">  </span><span class="c1">;; However, make sure this only runs for buffer&#39;s associated with a</span>
+<span class="w">  </span><span class="c1">;; file. Previous versions of this code would set `(with-temp-buffer ...)`</span>
+<span class="w">  </span><span class="c1">;; buffers read-only which breaks functions like `python-shell-send-region&#39;!</span>
+<span class="w">  </span><span class="p">(</span><span class="nv">if-let</span><span class="w"> </span><span class="p">((</span><span class="nv">file-name</span><span class="w"> </span><span class="p">(</span><span class="nf">buffer-file-name</span><span class="p">)))</span>
+<span class="w">    </span><span class="p">(</span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="nv">alc-python-library-file-p</span><span class="w"> </span><span class="nv">file-name</span><span class="p">)</span>
+<span class="w">        </span><span class="p">(</span><span class="nv">read-only-mode</span><span class="p">)</span>
+<span class="w">      </span><span class="p">(</span><span class="nv">eglot-ensure</span><span class="p">))))</span>
+</pre></div>
+</div>
+</div>
 <section id="python-environments">
 <h2>Python Environments<a class="headerlink" href="#python-environments" title="Link to this heading">¶</a></h2>
+<div class="awdur-codeblock docutils container">
+<div class="awdur-codeblock-header docutils container">
+<code class="awdur-codeblock-filename docutils literal notranslate"><span class="pre">emacs/lisp/alc-python.el</span></code></div>
+<div class="highlight-elisp notranslate"><div class="highlight"><pre><span></span><span class="c1">;;; alc-python.el --- Python configuration -*- lexical-binding: t -*-</span>
+<span class="c1">;;; Code:</span>
+</pre></div>
+</div>
+</div>
 <p>No configuration would be complete without considering the <em>many</em> ways in which you might work with Python environments!</p>
 <p>The following function allows me to use the minibuffer to select an environment from all the environment defined for the current project</p>
+<div class="awdur-codeblock docutils container">
+<div class="awdur-codeblock-header docutils container">
+<code class="awdur-codeblock-filename docutils literal notranslate"><span class="pre">emacs/lisp/alc-python.el</span></code></div>
+<div class="highlight-elisp notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="nb">defun</span><span class="w"> </span><span class="nv">alc-python-env-select</span><span class="w"> </span><span class="p">()</span>
+<span class="w">  </span><span class="s">&quot;Select from a list of available Python environments, return the path to</span>
+<span class="s">the Python executable&quot;</span>
+<span class="w">  </span><span class="p">(</span><span class="nv">if-let</span><span class="w"> </span><span class="p">((</span><span class="nv">prj</span><span class="w"> </span><span class="p">(</span><span class="nv">project-current</span><span class="p">)))</span>
+<span class="w">      </span><span class="p">(</span><span class="k">cond</span><span class="w"> </span><span class="p">((</span><span class="nv">alc-python-project-poetry-p</span><span class="w"> </span><span class="nv">prj</span><span class="p">)</span>
+<span class="w">             </span><span class="p">(</span><span class="nv">alc-python-env-poetry-select</span><span class="w"> </span><span class="nv">prj</span><span class="p">))</span>
+<span class="w">            </span><span class="p">((</span><span class="nv">alc-python-project-hatch-p</span><span class="w"> </span><span class="nv">prj</span><span class="p">)</span>
+<span class="w">             </span><span class="p">(</span><span class="nv">alc-python-env-hatch-select</span><span class="w"> </span><span class="nv">prj</span><span class="p">)))))</span>
+</pre></div>
+</div>
+</div>
 <p>The main use case of course, is to “activate” the chosen environment within the context of the current project.
 It works by updating the <code class="docutils literal notranslate"><span class="pre">.dir-locals.el</span></code> file for the current project</p>
+<div class="awdur-codeblock docutils container">
+<div class="awdur-codeblock-header docutils container">
+<code class="awdur-codeblock-filename docutils literal notranslate"><span class="pre">emacs/lisp/alc-python.el</span></code></div>
+<div class="highlight-elisp notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="nb">defun</span><span class="w"> </span><span class="nv">alc-python-env-activate</span><span class="w"> </span><span class="p">()</span>
+<span class="w">  </span><span class="s">&quot;Select a Python environment and activate it.&quot;</span>
+<span class="w">  </span><span class="p">(</span><span class="k">interactive</span><span class="p">)</span>
+<span class="w">  </span><span class="p">(</span><span class="nv">if-let</span><span class="w"> </span><span class="p">((</span><span class="nv">selected-env</span><span class="w"> </span><span class="p">(</span><span class="nv">alc-python-env-select</span><span class="p">))</span>
+<span class="w">           </span><span class="p">(</span><span class="nv">default-directory</span><span class="w"> </span><span class="p">(</span><span class="nv">project-root</span><span class="w"> </span><span class="p">(</span><span class="nv">project-current</span><span class="p">))))</span>
+<span class="w">      </span><span class="p">(</span><span class="k">progn</span>
+<span class="w">        </span><span class="p">(</span><span class="nb">setq-local</span><span class="w"> </span><span class="nv">python-shell-interpreter</span><span class="w"> </span><span class="nv">selected-env</span><span class="p">)</span>
+<span class="w">        </span><span class="p">(</span><span class="nv">modify-dir-local-variable</span><span class="w"> </span><span class="ss">&#39;python-mode</span>
+<span class="w">                                   </span><span class="ss">&#39;python-shell-interpreter</span>
+<span class="w">                                   </span><span class="nv">selected-env</span>
+<span class="w">                                   </span><span class="ss">&#39;add-or-replace</span><span class="p">)</span>
+<span class="w">        </span><span class="p">(</span><span class="nv">modify-dir-local-variable</span><span class="w"> </span><span class="ss">&#39;python-mode</span>
+<span class="w">                                   </span><span class="ss">&#39;eglot-workspace-configuration</span>
+<span class="w">                                   </span><span class="o">`</span><span class="p">(</span><span class="nb">:python</span>
+<span class="w">                                     </span><span class="p">(</span><span class="nb">:pythonPath</span><span class="w"> </span><span class="o">,</span><span class="nv">selected-env</span><span class="p">)</span>
+<span class="w">                                     </span><span class="nb">:python.analysis</span>
+<span class="w">                                     </span><span class="p">(</span><span class="nb">:logLevel</span><span class="w"> </span><span class="s">&quot;trace&quot;</span><span class="p">))</span>
+<span class="w">                                   </span><span class="ss">&#39;add-or-replace</span><span class="p">)</span>
+<span class="w">        </span><span class="c1">;; Annoyingly, `modify-dir-local-variable&#39; will leave the</span>
+<span class="w">        </span><span class="c1">;; .dir-locals.el file open in an unsaved buffer</span>
+<span class="w">        </span><span class="p">(</span><span class="nv">save-buffer</span><span class="p">)</span>
+<span class="w">        </span><span class="p">(</span><span class="nf">kill-buffer</span><span class="p">))))</span>
+</pre></div>
+</div>
+</div>
 <section id="hatch">
 <h3>Hatch<a class="headerlink" href="#hatch" title="Link to this heading">¶</a></h3>
 <p>Depending on the project, environments can be defined in a <code class="docutils literal notranslate"><span class="pre">hatch.toml</span></code> file, or the <code class="docutils literal notranslate"><span class="pre">tool.hatch</span></code> namespace in <code class="docutils literal notranslate"><span class="pre">pyproject.toml</span></code></p>
+<div class="awdur-codeblock docutils container">
+<div class="awdur-codeblock-header docutils container">
+<code class="awdur-codeblock-filename docutils literal notranslate"><span class="pre">emacs/lisp/alc-python.el</span></code></div>
+<div class="highlight-elisp notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="nb">defun</span><span class="w"> </span><span class="nv">alc-python-project-hatch-p</span><span class="w"> </span><span class="p">(</span><span class="nv">prj</span><span class="p">)</span>
+<span class="w">  </span><span class="s">&quot;Return t if the given Python PRJ is managed by hatch.&quot;</span>
+<span class="w">  </span><span class="p">(</span><span class="k">let</span><span class="w"> </span><span class="p">((</span><span class="nv">root</span><span class="w"> </span><span class="p">(</span><span class="nv">project-root</span><span class="w"> </span><span class="nv">prj</span><span class="p">)))</span>
+<span class="w">    </span><span class="p">(</span><span class="k">or</span><span class="w"> </span><span class="p">(</span><span class="nf">file-exists-p</span><span class="w"> </span><span class="p">(</span><span class="nf">concat</span><span class="w"> </span><span class="nv">root</span><span class="w"> </span><span class="s">&quot;hatch.toml&quot;</span><span class="p">))</span>
+<span class="w">        </span><span class="p">(</span><span class="nv">not</span><span class="w"> </span><span class="p">(</span><span class="nf">null</span><span class="w"> </span><span class="p">(</span><span class="nf">gethash</span><span class="w"> </span><span class="s">&quot;hatch&quot;</span>
+<span class="w">                            </span><span class="p">(</span><span class="nf">gethash</span><span class="w"> </span><span class="s">&quot;tool&quot;</span>
+<span class="w">                                     </span><span class="p">(</span><span class="nv">alc-python-load-toml</span><span class="w"> </span><span class="p">(</span><span class="nf">concat</span><span class="w"> </span><span class="nv">root</span><span class="w"> </span><span class="s">&quot;pyproject.toml&quot;</span><span class="p">))</span>
+<span class="w">                                     </span><span class="p">(</span><span class="nf">make-hash-table</span><span class="p">))))))))</span>
+</pre></div>
+</div>
+</div>
 <p>The <code class="docutils literal notranslate"><span class="pre">hatch</span> <span class="pre">env</span> <span class="pre">show</span></code> command has a <code class="docutils literal notranslate"><span class="pre">--json</span></code> flag and provides plenty of information about the available environments!</p>
+<div class="awdur-codeblock docutils container">
+<div class="awdur-codeblock-header docutils container">
+<code class="awdur-codeblock-filename docutils literal notranslate"><span class="pre">emacs/lisp/alc-python.el</span></code></div>
+<div class="highlight-elisp notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="nb">defun</span><span class="w"> </span><span class="nv">alc-python-env-hatch-discover</span><span class="w"> </span><span class="p">(</span><span class="nv">prj</span><span class="p">)</span>
+<span class="w">  </span><span class="s">&quot;Return a list of hatch managed environments available in PRJ&quot;</span>
+<span class="w">  </span><span class="p">(</span><span class="nv">if-let*</span><span class="w"> </span><span class="p">((</span><span class="nv">default-directory</span><span class="w"> </span><span class="p">(</span><span class="nv">project-root</span><span class="w"> </span><span class="nv">prj</span><span class="p">))</span>
+<span class="w">            </span><span class="p">(</span><span class="nv">hatch-exe</span><span class="w"> </span><span class="p">(</span><span class="nv">executable-find</span><span class="w"> </span><span class="s">&quot;hatch&quot;</span><span class="p">))</span>
+<span class="w">            </span><span class="p">(</span><span class="nv">hatch-cmd</span><span class="w"> </span><span class="p">(</span><span class="nf">format</span><span class="w"> </span><span class="s">&quot;%s env show --json&quot;</span><span class="w"> </span><span class="nv">hatch-exe</span><span class="p">))</span>
+<span class="w">            </span><span class="p">(</span><span class="nv">hatch-envs</span><span class="w"> </span><span class="p">(</span><span class="nv">json-parse-string</span>
+<span class="w">                         </span><span class="p">(</span><span class="nv">shell-command-to-string</span><span class="w"> </span><span class="nv">hatch-cmd</span><span class="p">))))</span>
+<span class="w">      </span><span class="p">(</span><span class="k">let</span><span class="w"> </span><span class="p">((</span><span class="nv">envs</span><span class="w"> </span><span class="p">()))</span>
+<span class="w">        </span><span class="p">(</span><span class="nf">maphash</span><span class="w"> </span><span class="p">(</span><span class="nb">lambda</span><span class="w"> </span><span class="p">(</span><span class="nv">k</span><span class="w"> </span><span class="nv">v</span><span class="p">)</span><span class="w"> </span><span class="p">(</span><span class="nb">push</span><span class="w"> </span><span class="nv">k</span><span class="w"> </span><span class="nv">envs</span><span class="p">))</span>
+<span class="w">                 </span><span class="nv">hatch-envs</span><span class="p">)</span>
+<span class="w">        </span><span class="nv">envs</span><span class="p">)))</span>
+</pre></div>
+</div>
+</div>
 <p>While the <code class="docutils literal notranslate"><span class="pre">hatch</span> <span class="pre">env</span> <span class="pre">find</span></code> command can give us the path to the environment (but not the interpreter), using <code class="docutils literal notranslate"><span class="pre">hatch</span> <span class="pre">env</span> <span class="pre">run</span> <span class="pre">python</span></code> to print the value of <code class="docutils literal notranslate"><span class="pre">sys.executable</span></code> we also ensure that the environment is created if necessary.</p>
 <blockquote>
-<div></div></blockquote>
+<div><div class="awdur-codeblock docutils container">
+<div class="awdur-codeblock-header docutils container">
+<code class="awdur-codeblock-filename docutils literal notranslate"><span class="pre">emacs/lisp/alc-python.el</span></code></div>
+<div class="highlight-elisp notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="nb">defun</span><span class="w"> </span><span class="nv">alc-python-env-hatch-select</span><span class="w"> </span><span class="p">(</span><span class="nv">prj</span><span class="p">)</span>
+<span class="w">  </span><span class="s">&quot;Select a Hatch environment defined by the given PRJ&quot;</span>
+<span class="w">  </span><span class="p">(</span><span class="nv">if-let*</span><span class="w"> </span><span class="p">((</span><span class="nv">default-directory</span><span class="w"> </span><span class="p">(</span><span class="nv">project-root</span><span class="w"> </span><span class="nv">prj</span><span class="p">))</span>
+<span class="w">            </span><span class="p">(</span><span class="nv">hatch-envs</span><span class="w"> </span><span class="p">(</span><span class="nv">alc-python-env-hatch-discover</span><span class="w"> </span><span class="nv">prj</span><span class="p">))</span>
+<span class="w">            </span><span class="p">(</span><span class="nv">selected-env</span><span class="w"> </span><span class="p">(</span><span class="nf">completing-read</span><span class="w"> </span><span class="s">&quot;Select env: &quot;</span><span class="w"> </span><span class="nv">hatch-envs</span><span class="p">))</span>
+<span class="w">            </span><span class="p">(</span><span class="nv">hatch-exe</span><span class="w"> </span><span class="p">(</span><span class="nv">executable-find</span><span class="w"> </span><span class="s">&quot;hatch&quot;</span><span class="p">))</span>
+<span class="w">            </span><span class="p">(</span><span class="nv">hatch-cmd</span><span class="w"> </span><span class="p">(</span><span class="nf">format</span><span class="w"> </span><span class="s">&quot;%s -e %s env run python -- -c &#39;import sys;print(sys.executable)&#39;&quot;</span>
+<span class="w">                               </span><span class="nv">hatch-exe</span><span class="w"> </span><span class="nv">selected-env</span><span class="p">)))</span>
+<span class="w">      </span><span class="p">(</span><span class="nf">car</span><span class="w"> </span><span class="p">(</span><span class="nf">reverse</span><span class="w"> </span><span class="p">(</span><span class="nv">split-string</span>
+<span class="w">                     </span><span class="p">(</span><span class="nv">string-trim</span><span class="w"> </span><span class="p">(</span><span class="nv">shell-command-to-string</span><span class="w"> </span><span class="nv">hatch-cmd</span><span class="p">))</span>
+<span class="w">                     </span><span class="s">&quot;\n&quot;</span><span class="p">)))))</span>
+</pre></div>
+</div>
+</div>
+</div></blockquote>
 </section>
 <section id="poetry">
 <h3>Poetry<a class="headerlink" href="#poetry" title="Link to this heading">¶</a></h3>
 <p>While not foolproof, the presence of a <code class="docutils literal notranslate"><span class="pre">poetry.lock</span></code> file is a pretty good indicator that the current project is using poetry.</p>
+<div class="awdur-codeblock docutils container">
+<div class="awdur-codeblock-header docutils container">
+<code class="awdur-codeblock-filename docutils literal notranslate"><span class="pre">emacs/lisp/alc-python.el</span></code></div>
+<div class="highlight-elisp notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="nb">defun</span><span class="w"> </span><span class="nv">alc-python-project-poetry-p</span><span class="w"> </span><span class="p">(</span><span class="nv">prj</span><span class="p">)</span>
+<span class="w">  </span><span class="s">&quot;Return t if the given Python PRJ is managed by poetry.&quot;</span>
+<span class="w">  </span><span class="p">(</span><span class="nf">file-exists-p</span><span class="w"> </span><span class="p">(</span><span class="nf">concat</span><span class="w"> </span><span class="p">(</span><span class="nv">project-root</span><span class="w"> </span><span class="nv">prj</span><span class="p">)</span><span class="w"> </span><span class="s">&quot;poetry.lock&quot;</span><span class="p">)))</span>
+</pre></div>
+</div>
+</div>
 <p>Poetry provides a command to list environments, but unfortunately does not seem to give a way to return the list as JSON, hopefully the following is robust enough to parse the output.</p>
+<div class="awdur-codeblock docutils container">
+<div class="awdur-codeblock-header docutils container">
+<code class="awdur-codeblock-filename docutils literal notranslate"><span class="pre">emacs/lisp/alc-python.el</span></code></div>
+<div class="highlight-elisp notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="nb">defun</span><span class="w"> </span><span class="nv">alc-python-env-poetry-discover</span><span class="w"> </span><span class="p">(</span><span class="nv">prj</span><span class="p">)</span>
+<span class="w">  </span><span class="s">&quot;Return a list of poetry managed environments available in PRJ&quot;</span>
+<span class="w">  </span><span class="p">(</span><span class="nv">if-let*</span><span class="w"> </span><span class="p">((</span><span class="nv">default-directory</span><span class="w"> </span><span class="p">(</span><span class="nv">project-root</span><span class="w"> </span><span class="nv">prj</span><span class="p">))</span>
+<span class="w">            </span><span class="p">(</span><span class="nv">poetry-exe</span><span class="w"> </span><span class="p">(</span><span class="nv">executable-find</span><span class="w"> </span><span class="s">&quot;poetry&quot;</span><span class="p">))</span>
+<span class="w">            </span><span class="p">(</span><span class="nv">poetry-cmd</span><span class="w"> </span><span class="p">(</span><span class="nf">format</span><span class="w"> </span><span class="s">&quot;%s env list&quot;</span><span class="w"> </span><span class="nv">poetry-exe</span><span class="p">))</span>
+<span class="w">            </span><span class="p">(</span><span class="nv">poetry-envs</span><span class="w"> </span><span class="p">(</span><span class="nv">shell-command-to-string</span><span class="w"> </span><span class="nv">poetry-cmd</span><span class="p">)))</span>
+<span class="w">      </span><span class="p">(</span><span class="nv">seq-filter</span>
+<span class="w">       </span><span class="p">(</span><span class="nb">lambda</span><span class="w"> </span><span class="p">(</span><span class="nv">s</span><span class="p">)</span><span class="w"> </span><span class="p">(</span><span class="nv">not</span><span class="w"> </span><span class="p">(</span><span class="nf">string=</span><span class="w"> </span><span class="nv">s</span><span class="w"> </span><span class="s">&quot;(Activated)&quot;</span><span class="p">)))</span>
+<span class="w">       </span><span class="p">(</span><span class="nv">split-string</span><span class="w"> </span><span class="nv">poetry-envs</span><span class="p">))))</span>
+</pre></div>
+</div>
+</div>
 <p>It does not correctly handle the case where it is called in a project that is not managed by Poetry, but hopefully guarding its use with <code class="docutils literal notranslate"><span class="pre">alx-python-project-poetry-p</span></code> should prevent it from doing the wrong thing.</p>
 <p>It’s only know that I’m writing the function to switch the environment in use that it looks like <code class="docutils literal notranslate"><span class="pre">poetry</span></code> doesn’t want to be used this way?..
 Oh well, for the projects I use poetry with currently, I can assume that there’s only the one environment anyway 😅</p>
 <blockquote>
-<div></div></blockquote>
+<div><div class="awdur-codeblock docutils container">
+<div class="awdur-codeblock-header docutils container">
+<code class="awdur-codeblock-filename docutils literal notranslate"><span class="pre">emacs/lisp/alc-python.el</span></code></div>
+<div class="highlight-elisp notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="nb">defun</span><span class="w"> </span><span class="nv">alc-python-env-poetry-select</span><span class="w"> </span><span class="p">(</span><span class="nv">prj</span><span class="p">)</span>
+<span class="w">  </span><span class="s">&quot;Select a Poetry environment defined by the given PRJ&quot;</span>
+<span class="w">  </span><span class="p">(</span><span class="nv">if-let*</span><span class="w"> </span><span class="p">((</span><span class="nv">default-directory</span><span class="w"> </span><span class="p">(</span><span class="nv">project-root</span><span class="w"> </span><span class="nv">prj</span><span class="p">))</span>
+<span class="w">            </span><span class="p">(</span><span class="nv">poetry-envs</span><span class="w"> </span><span class="p">(</span><span class="nv">alc-python-env-poetry-discover</span><span class="w"> </span><span class="nv">prj</span><span class="p">))</span>
+<span class="w">            </span><span class="p">(</span><span class="nv">selected-env</span><span class="w"> </span><span class="p">(</span><span class="nf">completing-read</span><span class="w"> </span><span class="s">&quot;Select env: &quot;</span><span class="w"> </span><span class="nv">poetry-envs</span><span class="p">))</span>
+<span class="w">            </span><span class="p">(</span><span class="nv">poetry-exe</span><span class="w"> </span><span class="p">(</span><span class="nv">executable-find</span><span class="w"> </span><span class="s">&quot;poetry&quot;</span><span class="p">)))</span>
+<span class="w">    </span><span class="p">(</span><span class="nv">string-trim</span><span class="w"> </span><span class="p">(</span><span class="nv">shell-command-to-string</span><span class="w"> </span><span class="p">(</span><span class="nf">format</span><span class="w"> </span><span class="s">&quot;%s env info --executable&quot;</span><span class="w"> </span><span class="nv">poetry-exe</span><span class="p">)))))</span>
+</pre></div>
+</div>
+</div>
+</div></blockquote>
 </section>
 <section id="helper-functions">
 <h3>Helper Functions<a class="headerlink" href="#helper-functions" title="Link to this heading">¶</a></h3>
 <p>A function that tries to distinguish between library code and project code</p>
+<div class="awdur-codeblock docutils container">
+<div class="awdur-codeblock-header docutils container">
+<code class="awdur-codeblock-filename docutils literal notranslate"><span class="pre">emacs/lisp/alc-python.el</span></code></div>
+<div class="highlight-elisp notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="nb">defun</span><span class="w"> </span><span class="nv">alc-python-library-file-p</span><span class="w"> </span><span class="p">(</span><span class="nv">file-name</span><span class="p">)</span>
+<span class="w">  </span><span class="s">&quot;Determine if the given FILE-NAME is a library file&quot;</span>
+<span class="w">  </span><span class="p">(</span><span class="k">or</span><span class="w">  </span><span class="p">(</span><span class="nv">string-match-p</span><span class="w"> </span><span class="s">&quot;site-packages/&quot;</span><span class="w"> </span><span class="nv">file-name</span><span class="p">)</span>
+<span class="w">       </span><span class="p">(</span><span class="nv">string-match-p</span><span class="w"> </span><span class="s">&quot;typeshed-fallback/&quot;</span><span class="w"> </span><span class="nv">file-name</span><span class="p">)</span>
+<span class="w">       </span><span class="p">(</span><span class="nv">string-match-p</span><span class="w"> </span><span class="s">&quot;/usr/lib\\(64\\)?/&quot;</span><span class="w"> </span><span class="nv">file-name</span><span class="p">)))</span>
+</pre></div>
+</div>
+</div>
 <p>A function that uses the Python standard library to parse a TOML file as JSON.</p>
+<div class="awdur-codeblock docutils container">
+<div class="awdur-codeblock-header docutils container">
+<code class="awdur-codeblock-filename docutils literal notranslate"><span class="pre">emacs/lisp/alc-python.el</span></code></div>
+<div class="highlight-elisp notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="nb">defun</span><span class="w"> </span><span class="nv">alc-python-load-toml</span><span class="w"> </span><span class="p">(</span><span class="nv">filename</span><span class="p">)</span>
+<span class="w">  </span><span class="s">&quot;Load the toml in FILENAME as json, utilising the TOML parser in the</span>
+<span class="s">  Python standard library&quot;</span>
+<span class="w">  </span><span class="p">(</span><span class="k">let</span><span class="w"> </span><span class="p">((</span><span class="nv">cmd</span><span class="w"> </span><span class="p">(</span><span class="nv">string-join</span><span class="w"> </span><span class="o">`</span><span class="p">(</span><span class="s">&quot;python&quot;</span><span class="w"> </span><span class="s">&quot;-c&quot;</span>
+<span class="w">                            </span><span class="s">&quot;&#39;import json,pathlib,sys,tomllib;print(json.dumps(tomllib.loads(pathlib.Path(sys.argv[1]).read_text())))&#39;&quot;</span>
+<span class="w">                            </span><span class="o">,</span><span class="nv">filename</span><span class="p">)</span>
+<span class="w">                          </span><span class="s">&quot; &quot;</span><span class="p">)))</span>
+<span class="w">    </span><span class="p">(</span><span class="nv">json-parse-string</span><span class="w"> </span><span class="p">(</span><span class="nv">shell-command-to-string</span><span class="w"> </span><span class="nv">cmd</span><span class="p">))))</span>
+</pre></div>
+</div>
+</div>
+<div class="awdur-codeblock docutils container">
+<div class="awdur-codeblock-header docutils container">
+<code class="awdur-codeblock-filename docutils literal notranslate"><span class="pre">emacs/lisp/alc-python.el</span></code></div>
+<div class="highlight-elisp notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="nb">provide</span><span class="w"> </span><span class="ss">&#39;alc-python</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
 </section>
 </section>
 </section>

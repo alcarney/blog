@@ -9,7 +9,8 @@
 
     <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=02ca0aaa" />
     <link id="pygments_dark_css" media="(prefers-color-scheme: dark)" rel="stylesheet" type="text/css" href="../../_static/pygments_dark.css?v=d8568271" />
-    <link rel="stylesheet" type="text/css" href="../../_static/css/layout.css?v=80b8f36a" />
+    <link rel="stylesheet" type="text/css" href="../../_static/awdur-styles.css?v=21b80da3" />
+    <link rel="stylesheet" type="text/css" href="../../_static/css/layout.css?v=48e1058e" />
 
     <script src="../../_static/documentation_options.js?v=187304be"></script>
     <script src="../../_static/doctools.js?v=9bcbadda"></script>
@@ -139,13 +140,47 @@
 <article>
   <section id="git">
 <h1>Git<a class="headerlink" href="#git" title="Link to this heading">¶</a></h1>
+<div class="awdur-codeblock docutils container">
+<div class="awdur-codeblock-header docutils container">
+<code class="awdur-codeblock-filename docutils literal notranslate"><span class="pre">Makefile</span></code></div>
+<div class="highlight-make notranslate"><div class="highlight"><pre><span></span><span class="nf">.PHONY</span><span class="o">:</span><span class="w"> </span><span class="n">git</span>
+<span class="nf">git</span><span class="o">:</span>
+<span class="w">     </span><span class="nb">test</span><span class="w"> </span>-L<span class="w"> </span><span class="k">$(</span>HOME<span class="k">)</span>/.gitconfig<span class="w"> </span><span class="o">||</span><span class="w"> </span>ln<span class="w"> </span>-s<span class="w"> </span><span class="k">$(</span>shell<span class="w"> </span><span class="nb">pwd</span><span class="k">)</span>/gitconfig<span class="w"> </span><span class="k">$(</span>HOME<span class="k">)</span>/.gitconfig
+</pre></div>
+</div>
+</div>
 <section id="author">
 <h2>Author<a class="headerlink" href="#author" title="Link to this heading">¶</a></h2>
 <p>Setting basic identity details for commits</p>
+<div class="awdur-codeblock docutils container">
+<div class="awdur-codeblock-header docutils container">
+<code class="awdur-codeblock-filename docutils literal notranslate"><span class="pre">gitconfig</span></code></div>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>[user]
+name  = Alex Carney
+email = alcarneyme@gmail.com
+</pre></div>
+</div>
+</div>
 </section>
 <section id="aliases">
 <h2>Aliases<a class="headerlink" href="#aliases" title="Link to this heading">¶</a></h2>
+<div class="awdur-codeblock docutils container">
+<div class="awdur-codeblock-header docutils container">
+<code class="awdur-codeblock-filename docutils literal notranslate"><span class="pre">gitconfig</span></code></div>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>[alias]
+co = checkout
+amend = commit --amend --no-edit  # Squash changes into the previous commit
+</pre></div>
+</div>
+</div>
 <p>A nice view of a repository’s history</p>
+<div class="awdur-codeblock docutils container">
+<div class="awdur-codeblock-header docutils container">
+<code class="awdur-codeblock-filename docutils literal notranslate"><span class="pre">gitconfig</span></code></div>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>hist = log --branches --remotes --tags --graph --oneline --decorate
+</pre></div>
+</div>
+</div>
 <div class="highlight-none notranslate"><div class="highlight"><pre><span></span>$ git hist
 * 9bbbedca (origin/sphinx-8, sphinx-8) lsp: Drop Sphinx 5.x, add support for Sphinx 8.x
 *   44f758bc (HEAD -&gt; develop, upstream/develop, origin/develop) Merge branch &#39;release&#39; into develop
@@ -163,6 +198,13 @@
 </pre></div>
 </div>
 <p>A better (for some definition of “better”) git status command</p>
+<div class="awdur-codeblock docutils container">
+<div class="awdur-codeblock-header docutils container">
+<code class="awdur-codeblock-filename docutils literal notranslate"><span class="pre">gitconfig</span></code></div>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>s = !git status -sb &amp;&amp; git --no-pager diff --shortstat
+</pre></div>
+</div>
+</div>
 <div class="highlight-none notranslate"><div class="highlight"><pre><span></span>$ git s
 ## release...origin/release [ahead 2]
  M dotfiles.rst
@@ -176,23 +218,75 @@
 <section id="credential-helper">
 <h2>Credential Helper<a class="headerlink" href="#credential-helper" title="Link to this heading">¶</a></h2>
 <p>This tells git to use the <a class="reference external" href="https://cli.github.com/">GitHub CLI</a> to authenticate when pushing/pulling from GitHub</p>
+<div class="awdur-codeblock docutils container">
+<div class="awdur-codeblock-header docutils container">
+<code class="awdur-codeblock-filename docutils literal notranslate"><span class="pre">gitconfig</span></code></div>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>[credential &quot;https://github.com&quot;]
+helper =
+helper = !gh auth git-credential
+</pre></div>
+</div>
+</div>
 </section>
 <section id="diffing">
 <h2>Diffing<a class="headerlink" href="#diffing" title="Link to this heading">¶</a></h2>
 <p>Using the <code class="docutils literal notranslate"><span class="pre">histogram</span></code> algorithm <a class="reference external" href="https://luppeng.wordpress.com/2020/10/10/when-to-use-each-of-the-git-diff-algorithms/">apparently produces nicer diffs</a> when code is moved</p>
+<div class="awdur-codeblock docutils container">
+<div class="awdur-codeblock-header docutils container">
+<code class="awdur-codeblock-filename docutils literal notranslate"><span class="pre">gitconfig</span></code></div>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>[diff]
+algorithm = histogram
+colorMoved = default
+</pre></div>
+</div>
+</div>
 </section>
 <section id="merging">
 <h2>Merging<a class="headerlink" href="#merging" title="Link to this heading">¶</a></h2>
 <p>The following option describes how git should render merge conflicts</p>
+<div class="awdur-codeblock docutils container">
+<div class="awdur-codeblock-header docutils container">
+<code class="awdur-codeblock-filename docutils literal notranslate"><span class="pre">gitconfig</span></code></div>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>[merge]
+conflictstyle = diff3
+</pre></div>
+</div>
+</div>
 <p>Another option that might be worth experimenting with is <code class="docutils literal notranslate"><span class="pre">zdiff3</span></code>, see <a class="reference external" href="https://ductile.systems/zdiff3/">this article</a></p>
 </section>
 <section id="rebasing">
 <h2>Rebasing<a class="headerlink" href="#rebasing" title="Link to this heading">¶</a></h2>
 <p>I rebase all the time most of the time to squash a bunch of <code class="docutils literal notranslate"><span class="pre">fixup!</span></code> commits together.
 The following options remove the need to manually pass <cite>–autosquash</cite> and <cite>–autostash</cite> to the rebase command each time.</p>
+<div class="awdur-codeblock docutils container">
+<div class="awdur-codeblock-header docutils container">
+<code class="awdur-codeblock-filename docutils literal notranslate"><span class="pre">gitconfig</span></code></div>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>[rebase]
+autosquash = true
+autostash = true
+</pre></div>
+</div>
+</div>
 </section>
 <section id="other-options">
 <h2>Other Options<a class="headerlink" href="#other-options" title="Link to this heading">¶</a></h2>
+<div class="awdur-codeblock docutils container">
+<div class="awdur-codeblock-header docutils container">
+<code class="awdur-codeblock-filename docutils literal notranslate"><span class="pre">gitconfig</span></code></div>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>[commit]
+verbose = true
+
+[core]
+editor = nvim
+
+[pull]
+rebase = true
+
+[rerere]
+enabled = true
+</pre></div>
+</div>
+</div>
 </section>
 </section>
 

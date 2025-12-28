@@ -9,7 +9,8 @@
 
     <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=02ca0aaa" />
     <link id="pygments_dark_css" media="(prefers-color-scheme: dark)" rel="stylesheet" type="text/css" href="../../_static/pygments_dark.css?v=d8568271" />
-    <link rel="stylesheet" type="text/css" href="../../_static/css/layout.css?v=80b8f36a" />
+    <link rel="stylesheet" type="text/css" href="../../_static/awdur-styles.css?v=21b80da3" />
+    <link rel="stylesheet" type="text/css" href="../../_static/css/layout.css?v=48e1058e" />
 
     <script src="../../_static/documentation_options.js?v=187304be"></script>
     <script src="../../_static/doctools.js?v=9bcbadda"></script>
@@ -303,10 +304,61 @@
   <section id="language-servers-in-emacs">
 <h1>Language Servers in Emacs<a class="headerlink" href="#language-servers-in-emacs" title="Link to this heading">¶</a></h1>
 <p>I use <code class="docutils literal notranslate"><span class="pre">eglot</span></code> as my language client since it is available out of the box and integrates nicely with core packages like <code class="docutils literal notranslate"><span class="pre">xref</span></code></p>
+<div class="awdur-codeblock docutils container">
+<div class="awdur-codeblock-header docutils container">
+<code class="awdur-codeblock-filename docutils literal notranslate"><span class="pre">emacs/init.el</span></code></div>
+<div class="highlight-elisp notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="nb">use-package</span><span class="w"> </span><span class="nv">eglot</span>
+<span class="w">  </span><span class="nb">:bind</span><span class="w"> </span><span class="p">((</span><span class="s">&quot;&lt;f2&gt;&quot;</span><span class="w"> </span><span class="o">.</span><span class="w"> </span><span class="nv">eglot-rename</span><span class="p">))</span>
+<span class="w">  </span><span class="nb">:custom</span>
+<span class="w">  </span><span class="p">(</span><span class="nv">eglot-autoshutdown</span><span class="w"> </span><span class="no">t</span><span class="p">)</span>
+<span class="w">  </span><span class="p">(</span><span class="nv">eglot-extend-to-xref</span><span class="w"> </span><span class="no">t</span><span class="p">)</span>
+<span class="w">  </span><span class="nb">:config</span>
+<span class="w">  </span><span class="p">(</span><span class="nv">advice-add</span><span class="w"> </span><span class="ss">&#39;eglot--workspace-configuration-plist</span><span class="w"> </span><span class="nb">:around</span><span class="w"> </span><span class="nf">#&#39;</span><span class="nv">alc-eglot-fix-workspace-configuration-scope</span><span class="p">)</span>
+
+<span class="w">  </span><span class="p">(</span><span class="nv">add-to-list</span><span class="w"> </span><span class="ss">&#39;display-buffer-alist</span>
+<span class="w">               </span><span class="o">&#39;</span><span class="p">(</span><span class="s">&quot;\\*EGLOT workspace configuration\\*&quot;</span>
+<span class="w">                 </span><span class="p">(</span><span class="nv">display-buffer-below-selected</span><span class="p">)</span>
+<span class="w">                 </span><span class="p">(</span><span class="nv">dedicated</span><span class="w"> </span><span class="o">.</span><span class="w"> </span><span class="no">t</span><span class="p">))))</span>
+</pre></div>
+</div>
+</div>
 <section id="workspace-configuration">
 <h2>Workspace Configuration<a class="headerlink" href="#workspace-configuration" title="Link to this heading">¶</a></h2>
 <p>Convincing <code class="docutils literal notranslate"><span class="pre">eglot</span></code> to apply the correct <code class="docutils literal notranslate"><span class="pre">workspace/configuration</span></code> settings for the current server and project is the single most frustrating part of using it…</p>
 <p>One issue is making sure <code class="docutils literal notranslate"><span class="pre">eglot</span></code> evaluates settings at the right scope</p>
+<div class="awdur-codeblock docutils container">
+<div class="awdur-codeblock-header docutils container">
+<code class="awdur-codeblock-filename docutils literal notranslate"><span class="pre">emacs/init.el</span></code></div>
+<div class="highlight-elisp notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="nb">require</span><span class="w"> </span><span class="ss">&#39;s</span><span class="p">)</span>
+
+<span class="p">(</span><span class="nb">defun</span><span class="w"> </span><span class="nv">alc-eglot-fix-workspace-configuration-scope</span><span class="w"> </span><span class="p">(</span><span class="nv">orig-fun</span><span class="w"> </span><span class="nv">server</span><span class="w"> </span><span class="kp">&amp;optional</span><span class="w"> </span><span class="nv">path</span><span class="p">)</span>
+<span class="w">  </span><span class="s">&quot;Fix the scopeUri of a workspace/configuration request.</span>
+
+<span class="s">When eglot handles a workspace/configuration request with an</span>
+<span class="s">associated scopeUri it uses the </span><span class="ss">`file-name-directory&#39;</span><span class="s"> function to</span>
+<span class="s">determine the directory from which to resolve the configuration</span>
+<span class="s">values.</span>
+
+<span class="s">This causes an issue for servers like esbonio and pyright which</span>
+<span class="s">set the scopeUri to a directory. For </span><span class="ss">`file-name-directory&#39;</span><span class="s"> to</span>
+<span class="s">treat the path as a directory it must include a trailing slash, a</span>
+<span class="s">convention which these servers do not follow.</span>
+
+<span class="s">Therefore </span><span class="ss">`file-name-directory&#39;</span><span class="s"> treats the path as a file and</span>
+<span class="s">removes the final component, causing eglot to resolve the</span>
+<span class="s">configuration relative to the wrong directory.</span>
+
+<span class="s">This function fixes the issue by advising the</span>
+<span class="ss">`eglot--workspace-configuration-plist&#39;</span><span class="s"> function, ensuring that</span>
+<span class="s">paths referencing directories include the trailing slash.&quot;</span>
+<span class="w">  </span><span class="p">(</span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="k">and</span><span class="w"> </span><span class="nv">path</span>
+<span class="w">           </span><span class="p">(</span><span class="nf">file-directory-p</span><span class="w"> </span><span class="nv">path</span><span class="p">)</span>
+<span class="w">           </span><span class="p">(</span><span class="nv">not</span><span class="w"> </span><span class="p">(</span><span class="nv">s-ends-with?</span><span class="w"> </span><span class="s">&quot;/&quot;</span><span class="w"> </span><span class="nv">path</span><span class="p">)))</span>
+<span class="w">      </span><span class="p">(</span><span class="nf">funcall</span><span class="w"> </span><span class="nv">orig-fun</span><span class="w"> </span><span class="nv">server</span><span class="w"> </span><span class="p">(</span><span class="nf">concat</span><span class="w"> </span><span class="nv">path</span><span class="w"> </span><span class="s">&quot;/&quot;</span><span class="p">))</span>
+<span class="w">    </span><span class="p">(</span><span class="nf">funcall</span><span class="w"> </span><span class="nv">orig-fun</span><span class="w"> </span><span class="nv">server</span><span class="w"> </span><span class="nv">path</span><span class="p">)))</span>
+</pre></div>
+</div>
+</div>
 </section>
 </section>
 
