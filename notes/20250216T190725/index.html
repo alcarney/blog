@@ -140,143 +140,24 @@
   <section id="vscode">
 <h1>VSCode<a class="headerlink" href="#vscode" title="Link to this heading">¶</a></h1>
 <p>Add a <code class="docutils literal notranslate"><span class="pre">Makefile</span></code> rule to setup the configuration on a new machine</p>
-<div class="awdur-codeblock docutils container">
-<div class="awdur-codeblock-header docutils container">
-<code class="awdur-codeblock-filename docutils literal notranslate"><span class="pre">Makefile</span></code></div>
-<div class="highlight-make notranslate"><div class="highlight"><pre><span></span><span class="nf">.PHONY</span><span class="o">:</span><span class="w"> </span><span class="n">vscode</span>
-<span class="nf">vscode</span><span class="o">:</span>
-<span class="w">     </span><span class="nb">test</span><span class="w"> </span>-L<span class="w"> </span><span class="k">$(</span>HOME<span class="k">)</span>/.config/Code/User<span class="w"> </span><span class="o">||</span><span class="w"> </span>ln<span class="w"> </span>-s<span class="w"> </span><span class="k">$(</span>shell<span class="w"> </span><span class="nb">pwd</span><span class="k">)</span>/vscode/<span class="w"> </span><span class="k">$(</span>HOME<span class="k">)</span>/.config/Code/User
-<span class="w">     </span>-code<span class="w"> </span>--install-extension<span class="w"> </span>charliermarsh.ruff
-<span class="w">     </span>-code<span class="w"> </span>--install-extension<span class="w"> </span>eamodio.gitlens
-<span class="w">     </span>-code<span class="w"> </span>--install-extension<span class="w"> </span>github.github-vscode-theme
-<span class="w">     </span>-code<span class="w"> </span>--install-extension<span class="w"> </span>ms-python.python
-<span class="w">     </span>-code<span class="w"> </span>--install-extension<span class="w"> </span>pkief.material-icon-theme
-<span class="w">     </span>-code<span class="w"> </span>--install-extension<span class="w"> </span>tamasfe.even-better-toml
-</pre></div>
-</div>
-</div>
-<div class="awdur-codeblock docutils container">
-<div class="awdur-codeblock-header docutils container">
-<code class="awdur-codeblock-filename docutils literal notranslate"><span class="pre">vscode/settings.json</span></code></div>
-<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
-</pre></div>
-</div>
-</div>
 <section id="appearance">
 <h2>Appearance<a class="headerlink" href="#appearance" title="Link to this heading">¶</a></h2>
 <p>Sync color theme to system theme</p>
-<div class="awdur-codeblock docutils container">
-<div class="awdur-codeblock-header docutils container">
-<code class="awdur-codeblock-filename docutils literal notranslate"><span class="pre">vscode/settings.json</span></code></div>
-<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="nt">&quot;window.autoDetectColorScheme&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span>
-<span class="nt">&quot;workbench.preferredLightColorTheme&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;GitHub Light Default&quot;</span><span class="p">,</span>
-<span class="nt">&quot;workbench.preferredDarkColorTheme&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;GitHub Dark Dimmed&quot;</span><span class="p">,</span>
-</pre></div>
-</div>
-</div>
 <p>Change the icon theme</p>
-<div class="awdur-codeblock docutils container">
-<div class="awdur-codeblock-header docutils container">
-<code class="awdur-codeblock-filename docutils literal notranslate"><span class="pre">vscode/settings.json</span></code></div>
-<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="nt">&quot;workbench.iconTheme&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;material-icon-theme&quot;</span><span class="p">,</span>
-</pre></div>
-</div>
-</div>
 <p>Set the font</p>
-<div class="awdur-codeblock docutils container">
-<div class="awdur-codeblock-header docutils container">
-<code class="awdur-codeblock-filename docutils literal notranslate"><span class="pre">vscode/settings.json</span></code></div>
-<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="nt">&quot;editor.fontFamily&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;&#39;UbuntuMono NF&#39;, &#39;monospace&#39;, monospace&quot;</span><span class="p">,</span>
-<span class="nt">&quot;editor.fontSize&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">12</span><span class="p">,</span>
-<span class="nt">&quot;editor.fontLigatures&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span>
-<span class="nt">&quot;terminal.integrated.fontFamily&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;&#39;Ubuntu Mono NF&#39;, &#39;monospace&#39;, monospace&quot;</span><span class="p">,</span>
-<span class="nt">&quot;terminal.integrated.fontSize&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">12</span><span class="p">,</span>
-<span class="nt">&quot;terminal.integrated.lineHeight&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span>
-</pre></div>
-</div>
-</div>
 <p>Adjust various UI elements</p>
-<div class="awdur-codeblock docutils container">
-<div class="awdur-codeblock-header docutils container">
-<code class="awdur-codeblock-filename docutils literal notranslate"><span class="pre">vscode/settings.json</span></code></div>
-<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="nt">&quot;editor.cursorStyle&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;block&quot;</span><span class="p">,</span>
-<span class="nt">&quot;editor.cursorBlinking&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;solid&quot;</span><span class="p">,</span>
-<span class="nt">&quot;editor.cursorSmoothCaretAnimation&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;on&quot;</span><span class="p">,</span>
-<span class="nt">&quot;editor.minimap.enabled&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span>
-<span class="nt">&quot;editor.smoothScrolling&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span>
-<span class="nt">&quot;debug.toolBarLocation&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;commandCenter&quot;</span><span class="p">,</span>
-<span class="nt">&quot;window.commandCenter&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span>
-<span class="nt">&quot;window.titleBarStyle&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;custom&quot;</span><span class="p">,</span>
-<span class="nt">&quot;workbench.activityBar.location&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;top&quot;</span><span class="p">,</span>
-<span class="nt">&quot;workbench.editor.showTabs&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;single&quot;</span><span class="p">,</span>
-<span class="nt">&quot;workbench.layoutControl.enabled&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span>
-<span class="nt">&quot;workbench.list.smoothScrolling&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span>
-</pre></div>
-</div>
-</div>
 </section>
 <section id="editing">
 <h2>Editing<a class="headerlink" href="#editing" title="Link to this heading">¶</a></h2>
-<div class="awdur-codeblock docutils container">
-<div class="awdur-codeblock-header docutils container">
-<code class="awdur-codeblock-filename docutils literal notranslate"><span class="pre">vscode/settings.json</span></code></div>
-<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="nt">&quot;files.autoSave&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;off&quot;</span><span class="p">,</span>
-<span class="nt">&quot;files.enableTrash&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span>
-<span class="nt">&quot;files.insertFinalNewline&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span>
-<span class="nt">&quot;files.trimTrailingWhitespace&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span>
-<span class="nt">&quot;files.trimFinalNewlines&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span>
-</pre></div>
-</div>
-</div>
 <p>Exclude files that aren’t that useful from the explorer pane</p>
-<div class="awdur-codeblock docutils container">
-<div class="awdur-codeblock-header docutils container">
-<code class="awdur-codeblock-filename docutils literal notranslate"><span class="pre">vscode/settings.json</span></code></div>
-<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="nt">&quot;files.exclude&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">   </span><span class="nt">&quot;**/.hg&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span>
-<span class="w">   </span><span class="nt">&quot;**/.git&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span>
-<span class="w">   </span><span class="nt">&quot;**/.svn&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span>
-<span class="w">   </span><span class="nt">&quot;**/*.pyc&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span>
-<span class="w">   </span><span class="nt">&quot;**/.mypy_cache&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span>
-<span class="w">   </span><span class="nt">&quot;**/__pycache__&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span>
-<span class="p">},</span>
-</pre></div>
-</div>
-</div>
 </section>
 <section id="languages">
 <h2>Languages<a class="headerlink" href="#languages" title="Link to this heading">¶</a></h2>
 <section id="python">
 <h3>Python<a class="headerlink" href="#python" title="Link to this heading">¶</a></h3>
-<div class="awdur-codeblock docutils container">
-<div class="awdur-codeblock-header docutils container">
-<code class="awdur-codeblock-filename docutils literal notranslate"><span class="pre">vscode/settings.json</span></code></div>
-<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="nt">&quot;[python]&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">  </span><span class="nt">&quot;editor.rulers&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w"> </span><span class="mi">89</span><span class="w"> </span><span class="p">]</span>
-<span class="p">},</span>
-</pre></div>
-</div>
-</div>
 </section>
 <section id="restructuredtext">
 <h3>reStructuredText<a class="headerlink" href="#restructuredtext" title="Link to this heading">¶</a></h3>
-<div class="awdur-codeblock docutils container">
-<div class="awdur-codeblock-header docutils container">
-<code class="awdur-codeblock-filename docutils literal notranslate"><span class="pre">vscode/settings.json</span></code></div>
-<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="nt">&quot;[restructuredtext]&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">  </span><span class="nt">&quot;editor.tabSize&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">3</span><span class="p">,</span>
-<span class="w">  </span><span class="nt">&quot;editor.wordBasedSuggestions&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;off&quot;</span><span class="p">,</span>
-<span class="p">},</span>
-</pre></div>
-</div>
-</div>
-<div class="awdur-codeblock docutils container">
-<div class="awdur-codeblock-header docutils container">
-<code class="awdur-codeblock-filename docutils literal notranslate"><span class="pre">vscode/settings.json</span></code></div>
-<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">}</span>
-</pre></div>
-</div>
-</div>
 </section>
 </section>
 </section>

@@ -281,6 +281,13 @@
     </ul>
   </details>
   </li>
+      <li>
+    
+  <a class="reference internal" href="../20251227T122017/">
+    Using jj from Emacs
+  </a>
+  
+</li>
     </ul>
   </details>
   
@@ -304,48 +311,12 @@
 <section id="fonts">
 <h2>Fonts<a class="headerlink" href="#fonts" title="Link to this heading">¶</a></h2>
 <p>I quite like the Ubuntu family of fonts, but use the “Nerd Font” version to get some extra icons</p>
-<div class="awdur-codeblock docutils container">
-<div class="awdur-codeblock-header docutils container">
-<code class="awdur-codeblock-filename docutils literal notranslate"><span class="pre">emacs/init.el</span></code></div>
-<div class="highlight-elisp notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="nv">set-face-attribute</span><span class="w"> </span><span class="ss">&#39;default</span><span class="w"> </span><span class="no">nil</span><span class="w"> </span><span class="nb">:family</span><span class="w"> </span><span class="s">&quot;UbuntuMonoNerdFont&quot;</span><span class="w"> </span><span class="nb">:height</span><span class="w"> </span><span class="mi">120</span><span class="p">)</span>
-<span class="p">(</span><span class="nv">set-face-attribute</span><span class="w"> </span><span class="ss">&#39;fixed-pitch</span><span class="w"> </span><span class="no">nil</span><span class="w"> </span><span class="nb">:family</span><span class="w"> </span><span class="s">&quot;UbuntuMonoNerdFont&quot;</span><span class="w"> </span><span class="nb">:height</span><span class="w"> </span><span class="mi">120</span><span class="p">)</span>
-<span class="p">(</span><span class="nv">set-face-attribute</span><span class="w"> </span><span class="ss">&#39;variable-pitch</span><span class="w"> </span><span class="no">nil</span><span class="w"> </span><span class="nb">:family</span><span class="w"> </span><span class="s">&quot;UbuntuSansNerdFont&quot;</span><span class="w"> </span><span class="nb">:weight</span><span class="w"> </span><span class="ss">&#39;light</span><span class="w"> </span><span class="nb">:height</span><span class="w"> </span><span class="mi">120</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
 <p>Make it easy to get relevant nerd icons</p>
-<div class="awdur-codeblock docutils container">
-<div class="awdur-codeblock-header docutils container">
-<code class="awdur-codeblock-filename docutils literal notranslate"><span class="pre">emacs/init.el</span></code></div>
-<div class="highlight-elisp notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="nb">use-package</span><span class="w"> </span><span class="nv">nerd-icons</span>
-<span class="w">  </span><span class="nb">:ensure</span><span class="w"> </span><span class="no">t</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
 </section>
 <section id="theme">
 <h2>Theme<a class="headerlink" href="#theme" title="Link to this heading">¶</a></h2>
 <p>Load my theme related customisations, see <a class="reference internal" href="../20250708T133920/" title="Emacs Themes">Emacs Themes</a> for details.</p>
 <p><strong>Doric Themes</strong></p>
-<div class="awdur-codeblock docutils container">
-<div class="awdur-codeblock-header docutils container">
-<code class="awdur-codeblock-filename docutils literal notranslate"><span class="pre">emacs/init.el</span></code></div>
-<div class="highlight-elisp notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="nb">use-package</span><span class="w"> </span><span class="nv">doric-themes</span><span class="w"> </span><span class="nb">:ensure</span><span class="w"> </span><span class="no">t</span><span class="p">)</span>
-
-<span class="p">(</span><span class="nb">use-package</span><span class="w"> </span><span class="nv">alc-theme</span>
-<span class="w">  </span><span class="nb">:load-path</span><span class="w"> </span><span class="s">&quot;lisp&quot;</span>
-<span class="w">  </span><span class="nb">:config</span>
-<span class="w">  </span><span class="p">(</span><span class="nv">require-theme</span><span class="w"> </span><span class="ss">&#39;doric-themes</span><span class="w"> </span><span class="no">t</span><span class="p">)</span>
-
-<span class="w">  </span><span class="p">(</span><span class="k">setq</span><span class="w"> </span><span class="nv">alc-theme-load-light-theme-function</span>
-<span class="w">        </span><span class="p">(</span><span class="nb">lambda</span><span class="w"> </span><span class="p">()</span><span class="w"> </span><span class="p">(</span><span class="nv">doric-themes-select</span><span class="w"> </span><span class="ss">&#39;doric-oak</span><span class="p">))</span>
-<span class="w">        </span><span class="nv">alc-theme-load-dark-theme-function</span>
-<span class="w">        </span><span class="p">(</span><span class="nb">lambda</span><span class="w"> </span><span class="p">()</span><span class="w"> </span><span class="p">(</span><span class="nv">doric-themes-select</span><span class="w"> </span><span class="ss">&#39;doric-pine</span><span class="p">)))</span>
-
-<span class="w">  </span><span class="p">(</span><span class="nv">add-to-list</span><span class="w"> </span><span class="ss">&#39;after-make-frame-functions</span><span class="w"> </span><span class="ss">&#39;alc-theme-sync-to-system-theme</span><span class="p">))</span>
-</pre></div>
-</div>
-</div>
 <p><strong>Modus Themes</strong></p>
 <div class="highlight-elisp notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="nb">use-package</span><span class="w"> </span><span class="nv">alc-theme</span>
 <span class="w">  </span><span class="nb">:load-path</span><span class="w"> </span><span class="s">&quot;lisp&quot;</span>
@@ -369,68 +340,15 @@
 <section id="line-numbers">
 <h2>Line Numbers<a class="headerlink" href="#line-numbers" title="Link to this heading">¶</a></h2>
 <p>Enable line numbers for programming modes</p>
-<div class="awdur-codeblock docutils container">
-<div class="awdur-codeblock-header docutils container">
-<code class="awdur-codeblock-filename docutils literal notranslate"><span class="pre">emacs/init.el</span></code></div>
-<div class="highlight-elisp notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="nv">add-hook</span><span class="w"> </span><span class="ss">&#39;prog-mode-hook</span><span class="w"> </span><span class="p">(</span><span class="nb">lambda</span><span class="w"> </span><span class="p">()</span><span class="w"> </span><span class="p">(</span><span class="nv">display-line-numbers-mode</span><span class="w"> </span><span class="no">t</span><span class="p">)))</span>
-</pre></div>
-</div>
-</div>
 <p>Reserve enough space to display a line number that is 4 digits long and when a buffer is narrowed, always display the actual line number.</p>
-<div class="awdur-codeblock docutils container">
-<div class="awdur-codeblock-header docutils container">
-<code class="awdur-codeblock-filename docutils literal notranslate"><span class="pre">emacs/init.el</span></code></div>
-<div class="highlight-elisp notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="k">setq-default</span><span class="w"> </span><span class="nv">display-line-numbers-widen</span><span class="w"> </span><span class="no">t</span>
-<span class="w">              </span><span class="nv">display-line-numbers-width</span><span class="w"> </span><span class="mi">4</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
 </section>
 <section id="scrolling">
 <h2>Scrolling<a class="headerlink" href="#scrolling" title="Link to this heading">¶</a></h2>
 <p>With Emacs 29 came <code class="docutils literal notranslate"><span class="pre">pixel-scroll-precision-mode</span></code> which makes the scrolling with a touchpad experience much nicer overall.</p>
-<div class="awdur-codeblock docutils container">
-<div class="awdur-codeblock-header docutils container">
-<code class="awdur-codeblock-filename docutils literal notranslate"><span class="pre">emacs/init.el</span></code></div>
-<div class="highlight-elisp notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="k">setq</span><span class="w"> </span><span class="nv">pixel-scroll-precision-use-momentum</span><span class="w"> </span><span class="no">nil</span>
-<span class="w">      </span><span class="nv">pixel-scroll-precision-interpolate-page</span><span class="w"> </span><span class="no">t</span>
-<span class="w">      </span><span class="nv">pixel-scroll-precision-momentum-seconds</span><span class="w"> </span><span class="mf">0.5</span><span class="p">)</span>
-<span class="p">(</span><span class="nv">pixel-scroll-precision-mode</span><span class="w"> </span><span class="no">t</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
 </section>
 <section id="tab-bar">
 <span id="emacs-appearance-tab-bar"></span><h2>Tab Bar<a class="headerlink" href="#tab-bar" title="Link to this heading">¶</a></h2>
 <p>Not to be confused with the tabs you see in editors like VSCode, <code class="docutils literal notranslate"><span class="pre">tab-bar</span></code> tabs allow for easy switching between different collections of windows - like workspaces.</p>
-<div class="awdur-codeblock docutils container">
-<div class="awdur-codeblock-header docutils container">
-<code class="awdur-codeblock-filename docutils literal notranslate"><span class="pre">emacs/init.el</span></code></div>
-<div class="highlight-elisp notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="nb">use-package</span><span class="w"> </span><span class="nv">alc-tab-bar</span>
-<span class="w">  </span><span class="nb">:demand</span><span class="w"> </span><span class="no">t</span>
-<span class="w">  </span><span class="nb">:hook</span><span class="w"> </span><span class="p">(</span><span class="nv">after-init</span><span class="w"> </span><span class="o">.</span><span class="w"> </span><span class="nv">tab-bar-mode</span><span class="p">)</span>
-<span class="w">  </span><span class="nb">:bind</span><span class="w"> </span><span class="p">(</span><span class="nb">:map</span><span class="w"> </span><span class="nv">tab-prefix-map</span>
-<span class="w">         </span><span class="p">(</span><span class="s">&quot;p&quot;</span><span class="w"> </span><span class="o">.</span><span class="w"> </span><span class="nv">alc-tab-bar-project-other-tab-command</span><span class="p">))</span>
-<span class="w">  </span><span class="nb">:config</span>
-<span class="w">  </span><span class="p">(</span><span class="k">setq</span><span class="w"> </span><span class="nv">tab-bar-close-button-show</span><span class="w"> </span><span class="no">nil</span><span class="p">)</span>
-<span class="w">  </span><span class="p">(</span><span class="k">setq</span><span class="w"> </span><span class="nv">tab-bar-tab-hints</span><span class="w"> </span><span class="no">t</span><span class="p">)</span>
-<span class="w">  </span><span class="p">(</span><span class="k">setq</span><span class="w"> </span><span class="nv">tab-bar-auto-width</span><span class="w"> </span><span class="no">nil</span><span class="p">)</span>
-<span class="w">  </span><span class="p">(</span><span class="k">setq</span><span class="w"> </span><span class="nv">tab-bar-format</span><span class="w"> </span><span class="o">&#39;</span><span class="p">(</span><span class="nv">tab-bar-format-tabs-groups</span>
-<span class="w">                         </span><span class="nv">tab-bar-separator</span>
-<span class="w">                         </span><span class="nv">tab-bar-format-align-right</span>
-<span class="w">                         </span><span class="nv">tab-bar-format-global</span>
-<span class="w">                         </span><span class="nv">tab-bar-format-menu-bar</span><span class="p">))</span>
-
-<span class="w">  </span><span class="p">(</span><span class="k">setq</span><span class="w"> </span><span class="nv">tab-bar-tab-group-format-function</span><span class="w"> </span><span class="ss">&#39;alc-tab-bar-tab-group-format-function</span><span class="p">)</span>
-<span class="w">  </span><span class="p">(</span><span class="k">setq</span><span class="w"> </span><span class="nv">tab-bar-tab-name-format-functions</span><span class="w"> </span><span class="o">&#39;</span><span class="p">(</span><span class="nv">alc-tab-bar-tab-name-format-hints</span>
-<span class="w">                                            </span><span class="nv">tab-bar-tab-name-format-close-button</span>
-<span class="w">                                            </span><span class="nv">tab-bar-tab-name-format-face</span><span class="p">))</span>
-
-<span class="w">  </span><span class="c1">;; Disable the menu-bar, since it&#39;s accessible via the tab bar.</span>
-<span class="w">  </span><span class="p">(</span><span class="nv">menu-bar-mode</span><span class="w"> </span><span class="mi">-1</span><span class="p">))</span>
-</pre></div>
-</div>
-</div>
 <p>See <a class="reference internal" href="../20250924T182310/" title="Tab Bar Utilities">Tab Bar Utilities</a> for more details</p>
 </section>
 <section id="modeline">
@@ -444,53 +362,12 @@
 <li><p><code class="docutils literal notranslate"><span class="pre">mode-line-misc-info</span></code></p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">mode-line-end-spaces</span></code></p></li>
 </ul>
-<div class="awdur-codeblock docutils container">
-<div class="awdur-codeblock-header docutils container">
-<code class="awdur-codeblock-filename docutils literal notranslate"><span class="pre">emacs/init.el</span></code></div>
-<div class="highlight-elisp notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="nb">use-package</span><span class="w"> </span><span class="nv">alc-modeline</span>
-<span class="w">  </span><span class="nb">:after</span><span class="w"> </span><span class="nv">alc-theme</span>
-<span class="w">  </span><span class="nb">:load-path</span><span class="w"> </span><span class="s">&quot;lisp&quot;</span>
-<span class="w">  </span><span class="nb">:config</span>
-<span class="w">  </span><span class="p">(</span><span class="k">setq-default</span><span class="w"> </span><span class="nv">mode-line-format</span>
-<span class="w">             </span><span class="o">&#39;</span><span class="p">(</span><span class="s">&quot;%e&quot;</span>
-<span class="w">               </span><span class="nv">mode-line-front-space</span>
-<span class="w">               </span><span class="nv">alc-modeline-window-dedicated</span>
-<span class="w">               </span><span class="nv">alc-modeline-project-identification</span>
-<span class="w">               </span><span class="s">&quot;  &quot;</span>
-<span class="w">               </span><span class="nv">alc-modeline-remote-indication</span>
-<span class="w">               </span><span class="nv">alc-modeline-buffer-identification</span>
-<span class="w">               </span><span class="s">&quot; &quot;</span>
-<span class="w">               </span><span class="nv">alc-modeline-buffer-position</span>
-<span class="w">               </span><span class="s">&quot;      &quot;</span>
-<span class="w">               </span><span class="nv">mode-line-modes</span>
-<span class="w">               </span><span class="p">)))</span>
-</pre></div>
-</div>
-</div>
 <p>See <a class="reference internal" href="../20250228T200007/" title="Cusomising the Emacs Modeline">Cusomising the Emacs Modeline</a> for more details.</p>
 </section>
 <section id="miscellaneous">
 <h2>Miscellaneous<a class="headerlink" href="#miscellaneous" title="Link to this heading">¶</a></h2>
 <p>Disable some GUI elements</p>
-<div class="awdur-codeblock docutils container">
-<div class="awdur-codeblock-header docutils container">
-<code class="awdur-codeblock-filename docutils literal notranslate"><span class="pre">emacs/early-init.el</span></code></div>
-<div class="highlight-elisp notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="nv">blink-cursor-mode</span><span class="w"> </span><span class="mi">-1</span><span class="p">)</span>
-<span class="p">(</span><span class="nv">tool-bar-mode</span><span class="w"> </span><span class="mi">-1</span><span class="p">)</span>
-
-<span class="p">(</span><span class="k">setq</span><span class="w"> </span><span class="nv">inhibit-x-resources</span><span class="w"> </span><span class="no">t</span>
-<span class="w">      </span><span class="nv">inhibit-startup-message</span><span class="w"> </span><span class="no">t</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
 <p>And enable others</p>
-<div class="awdur-codeblock docutils container">
-<div class="awdur-codeblock-header docutils container">
-<code class="awdur-codeblock-filename docutils literal notranslate"><span class="pre">emacs/early-init.el</span></code></div>
-<div class="highlight-elisp notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="nv">context-menu-mode</span><span class="w"> </span><span class="no">t</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
 </section>
 </section>
 

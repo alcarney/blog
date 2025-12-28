@@ -280,6 +280,13 @@
     </ul>
   </details>
   </li>
+      <li>
+    
+  <a class="reference internal" href="../20251227T122017/">
+    Using jj from Emacs
+  </a>
+  
+</li>
     </ul>
   </details>
   
@@ -302,22 +309,6 @@
 <h1>Cusomising the Emacs Modeline<a class="headerlink" href="#cusomising-the-emacs-modeline" title="Link to this heading">¶</a></h1>
 <p>Heavily inspired by Protesilaos’ excellent <a class="reference external" href="https://protesilaos.com/codelog/2023-07-29-emacs-custom-modeline-tutorial">tutorial</a> on writing custom modelines.</p>
 <p>And now for the definition of my custom components</p>
-<div class="awdur-codeblock docutils container">
-<div class="awdur-codeblock-header docutils container">
-<code class="awdur-codeblock-filename docutils literal notranslate"><span class="pre">emacs/lisp/alc-modeline.el</span></code></div>
-<div class="highlight-elisp notranslate"><div class="highlight"><pre><span></span><span class="c1">;;; alc-modeline.el --- Modeline configuration -*- lexical-binding: t -*-</span>
-<span class="c1">;;; Code:</span>
-
-<span class="p">(</span><span class="nb">defgroup</span><span class="w"> </span><span class="nv">alc-modeline</span><span class="w"> </span><span class="no">nil</span>
-<span class="w">  </span><span class="s">&quot;My custom modeline&quot;</span>
-<span class="w">  </span><span class="nb">:group</span><span class="w"> </span><span class="ss">&#39;mode-line</span><span class="p">)</span>
-
-<span class="p">(</span><span class="nb">defgroup</span><span class="w"> </span><span class="nv">alc-modeline-faces</span><span class="w"> </span><span class="no">nil</span>
-<span class="w">  </span><span class="s">&quot;Faces for my custom modeline&quot;</span>
-<span class="w">  </span><span class="nb">:group</span><span class="w"> </span><span class="ss">&#39;alc-modeline</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
 <section id="project-indentification">
 <h2>Project Indentification<a class="headerlink" href="#project-indentification" title="Link to this heading">¶</a></h2>
 <p>If the current buffer is associated with a project, show the name of the project, as returned by <code class="docutils literal notranslate"><span class="pre">(project-name</span> <span class="pre">pr)</span></code></p>
@@ -328,142 +319,27 @@ I’ve started organising my projects in the following structure <code class="do
 This can lead to multiple projects showing as <code class="docutils literal notranslate"><span class="pre">main</span></code> or <code class="docutils literal notranslate"><span class="pre">develop</span></code> etc.</p>
 <p>However, this name can be overridden by setting <code class="docutils literal notranslate"><span class="pre">project-vc-name</span></code> in a <code class="docutils literal notranslate"><span class="pre">.dir-locals.el</span></code> file.</p>
 </div>
-<div class="awdur-codeblock docutils container">
-<div class="awdur-codeblock-header docutils container">
-<code class="awdur-codeblock-filename docutils literal notranslate"><span class="pre">emacs/lisp/alc-modeline.el</span></code></div>
-<div class="highlight-elisp notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="nb">defface</span><span class="w"> </span><span class="nv">alc-modeline-project-id-face</span>
-<span class="w">  </span><span class="o">&#39;</span><span class="p">((</span><span class="nv">default</span><span class="w"> </span><span class="nb">:inherit</span><span class="w"> </span><span class="p">(</span><span class="nv">bold</span><span class="p">)))</span>
-<span class="w">  </span><span class="s">&quot;Face for styling the project indicator&quot;</span>
-<span class="w">  </span><span class="nb">:group</span><span class="w"> </span><span class="ss">&#39;alc-modeline-faces</span><span class="p">)</span>
-
-<span class="p">(</span><span class="nb">defvar-local</span><span class="w"> </span><span class="nv">alc-modeline-project-identification</span>
-<span class="w"> </span><span class="o">&#39;</span><span class="p">(</span><span class="nb">:eval</span>
-<span class="w">   </span><span class="p">(</span><span class="nv">if-let</span><span class="w"> </span><span class="p">((</span><span class="nv">pr</span><span class="w"> </span><span class="p">(</span><span class="nv">project-current</span><span class="p">))</span>
-<span class="w">            </span><span class="p">(</span><span class="nv">file</span><span class="w"> </span><span class="p">(</span><span class="nf">buffer-file-name</span><span class="p">)))</span>
-<span class="w">       </span><span class="p">(</span><span class="nf">propertize</span><span class="w"> </span><span class="p">(</span><span class="nf">format</span><span class="w"> </span><span class="s">&quot;🖿 %s &quot;</span><span class="w"> </span><span class="p">(</span><span class="nv">project-name</span><span class="w"> </span><span class="nv">pr</span><span class="p">))</span>
-<span class="w">                   </span><span class="ss">&#39;face</span><span class="w"> </span><span class="ss">&#39;alc-modeline-project-id-face</span><span class="p">))))</span>
-<span class="p">(</span><span class="nf">put</span><span class="w"> </span><span class="ss">&#39;alc-modeline-project-identification</span><span class="w"> </span><span class="ss">&#39;risky-local-variable</span><span class="w"> </span><span class="no">t</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
 </section>
 <section id="remote-indication">
 <h2>Remote Indication<a class="headerlink" href="#remote-indication" title="Link to this heading">¶</a></h2>
 <p>Replaces the default <code class="docutils literal notranslate"><span class="pre">mode-line-remote</span></code> and indicates if the current buffer is visiting a remote file</p>
-<div class="awdur-codeblock docutils container">
-<div class="awdur-codeblock-header docutils container">
-<code class="awdur-codeblock-filename docutils literal notranslate"><span class="pre">emacs/lisp/alc-modeline.el</span></code></div>
-<div class="highlight-elisp notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="nb">defvar-local</span><span class="w"> </span><span class="nv">alc-modeline-remote-indication</span>
-<span class="w">    </span><span class="o">&#39;</span><span class="p">(</span><span class="nb">:eval</span>
-<span class="w">       </span><span class="p">(</span><span class="nb">when</span><span class="w"> </span><span class="p">(</span><span class="nv">file-remote-p</span><span class="w"> </span><span class="nv">default-directory</span><span class="p">)</span>
-<span class="w">         </span><span class="p">(</span><span class="nf">propertize</span><span class="w"> </span><span class="s">&quot; ☁ &quot;</span>
-<span class="w">                     </span><span class="ss">&#39;face</span><span class="w"> </span><span class="o">&#39;</span><span class="p">(</span><span class="nv">bold</span><span class="p">)))))</span>
-<span class="p">(</span><span class="nf">put</span><span class="w"> </span><span class="ss">&#39;alc-modeline-remote-indication</span><span class="w"> </span><span class="ss">&#39;risky-local-variable</span><span class="w"> </span><span class="no">t</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
 </section>
 <section id="buffer-identification">
 <h2>Buffer Identification<a class="headerlink" href="#buffer-identification" title="Link to this heading">¶</a></h2>
 <p>Intended to replace the default <code class="docutils literal notranslate"><span class="pre">mode-line-buffer-identification</span></code> and <code class="docutils literal notranslate"><span class="pre">mode-line-modified</span></code> components this displays the name of the buffer and a face depending on if the buffer is unsaved, read only etc.</p>
-<div class="awdur-codeblock docutils container">
-<div class="awdur-codeblock-header docutils container">
-<code class="awdur-codeblock-filename docutils literal notranslate"><span class="pre">emacs/lisp/alc-modeline.el</span></code></div>
-<div class="highlight-elisp notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="nb">defun</span><span class="w"> </span><span class="nv">alc-modeline-buffer-identification-face</span><span class="w"> </span><span class="p">()</span>
-<span class="w">  </span><span class="s">&quot;Return the face(s) to apply to the buffer name in the modeline.&quot;</span>
-<span class="w">  </span><span class="p">(</span><span class="k">cond</span><span class="w"> </span><span class="p">((</span><span class="k">and</span><span class="w"> </span><span class="p">(</span><span class="nf">buffer-file-name</span><span class="p">)</span>
-<span class="w">              </span><span class="p">(</span><span class="nf">buffer-modified-p</span><span class="p">))</span>
-<span class="w">         </span><span class="ss">&#39;error</span><span class="p">)</span>
-<span class="w">        </span><span class="p">(</span><span class="nv">buffer-read-only</span><span class="w"> </span><span class="o">&#39;</span><span class="p">(</span><span class="nv">italic</span><span class="w"> </span><span class="nv">mode-line-buffer-id</span><span class="p">))</span>
-<span class="w">        </span><span class="p">(</span><span class="no">t</span><span class="w"> </span><span class="ss">&#39;mode-line-buffer-id</span><span class="p">)))</span>
-
-<span class="p">(</span><span class="nb">defvar-local</span><span class="w"> </span><span class="nv">alc-modeline-buffer-identification</span>
-<span class="w">    </span><span class="o">&#39;</span><span class="p">(</span><span class="nb">:eval</span>
-<span class="w">       </span><span class="p">(</span><span class="nf">propertize</span><span class="w"> </span><span class="s">&quot;%b&quot;</span>
-<span class="w">                   </span><span class="ss">&#39;face</span><span class="w"> </span><span class="p">(</span><span class="nv">alc-modeline-buffer-identification-face</span><span class="p">))))</span>
-<span class="p">(</span><span class="nf">put</span><span class="w"> </span><span class="ss">&#39;alc-modeline-buffer-identification</span><span class="w"> </span><span class="ss">&#39;risky-local-variable</span><span class="w"> </span><span class="no">t</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
 </section>
 <section id="buffer-position">
 <h2>Buffer Position<a class="headerlink" href="#buffer-position" title="Link to this heading">¶</a></h2>
 <p>Shows line and column number for the position in the current buffer</p>
-<div class="awdur-codeblock docutils container">
-<div class="awdur-codeblock-header docutils container">
-<code class="awdur-codeblock-filename docutils literal notranslate"><span class="pre">emacs/lisp/alc-modeline.el</span></code></div>
-<div class="highlight-elisp notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="nb">defun</span><span class="w"> </span><span class="nv">alc-modeline-buffer-position-face</span><span class="w"> </span><span class="p">()</span>
-<span class="w">  </span><span class="s">&quot;Return the face(s) to apply to the buffer position in the modeline.&quot;</span>
-<span class="w">  </span><span class="p">(</span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="nv">mode-line-window-selected-p</span><span class="p">)</span>
-<span class="w">      </span><span class="ss">&#39;mode-line</span>
-<span class="w">    </span><span class="ss">&#39;mode-line-inactive</span><span class="p">))</span>
-
-<span class="p">(</span><span class="nb">defvar-local</span><span class="w"> </span><span class="nv">alc-modeline-buffer-position</span>
-<span class="w">    </span><span class="o">&#39;</span><span class="p">(</span><span class="nb">:eval</span>
-<span class="w">      </span><span class="p">(</span><span class="nf">propertize</span><span class="w"> </span><span class="s">&quot;%l:%c&quot;</span>
-<span class="w">                  </span><span class="ss">&#39;face</span><span class="w"> </span><span class="p">(</span><span class="nv">alc-modeline-buffer-position-face</span><span class="p">))))</span>
-<span class="p">(</span><span class="nf">put</span><span class="w"> </span><span class="ss">&#39;alc-modeline-buffer-position</span><span class="w"> </span><span class="ss">&#39;risky-local-variable</span><span class="w"> </span><span class="no">t</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
 </section>
 <section id="dedidcated-windows">
 <h2>Dedidcated Windows<a class="headerlink" href="#dedidcated-windows" title="Link to this heading">¶</a></h2>
 <p>Indicates if the current window is dedicated.</p>
-<div class="awdur-codeblock docutils container">
-<div class="awdur-codeblock-header docutils container">
-<code class="awdur-codeblock-filename docutils literal notranslate"><span class="pre">emacs/lisp/alc-modeline.el</span></code></div>
-<div class="highlight-elisp notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="nb">defface</span><span class="w"> </span><span class="nv">alc-modeline-window-dedicated-face</span>
-<span class="w">  </span><span class="o">&#39;</span><span class="p">((</span><span class="nv">default</span><span class="w"> </span><span class="nb">:inherit</span><span class="w"> </span><span class="p">(</span><span class="nv">bold</span><span class="p">)))</span>
-<span class="w">  </span><span class="s">&quot;Face for styling the dedicated window indicator&quot;</span>
-<span class="w">  </span><span class="nb">:group</span><span class="w"> </span><span class="ss">&#39;alc-modeline-faces</span><span class="p">)</span>
-
-<span class="p">(</span><span class="nb">defvar-local</span><span class="w"> </span><span class="nv">alc-modeline-window-dedicated</span>
-<span class="w">    </span><span class="o">&#39;</span><span class="p">(</span><span class="nb">:eval</span>
-<span class="w">      </span><span class="p">(</span><span class="nb">when</span><span class="w"> </span><span class="p">(</span><span class="nf">window-dedicated-p</span><span class="p">)</span>
-<span class="w">        </span><span class="p">(</span><span class="nf">propertize</span><span class="w"> </span><span class="s">&quot;🖈 &quot;</span>
-<span class="w">                    </span><span class="ss">&#39;face</span><span class="w"> </span><span class="ss">&#39;alc-modeline-window-dedicated-face</span><span class="p">))))</span>
-<span class="p">(</span><span class="nf">put</span><span class="w"> </span><span class="ss">&#39;alc-modeline-window-dedicated</span><span class="w"> </span><span class="ss">&#39;risky-local-variable</span><span class="w"> </span><span class="no">t</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
 </section>
 <section id="modus-theme-integration">
 <h2>Modus Theme Integration<a class="headerlink" href="#modus-theme-integration" title="Link to this heading">¶</a></h2>
 <p>The following code will only run if one of the <code class="docutils literal notranslate"><span class="pre">modus-themes</span></code> is active.
 If they are active, then it will use colors from the theme to style elements of the modeline</p>
-<div class="awdur-codeblock docutils container">
-<div class="awdur-codeblock-header docutils container">
-<code class="awdur-codeblock-filename docutils literal notranslate"><span class="pre">emacs/lisp/alc-modeline.el</span></code></div>
-<div class="highlight-elisp notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="nb">with-eval-after-load</span><span class="w"> </span><span class="ss">&#39;modus-themes</span>
-<span class="w">  </span><span class="p">(</span><span class="nb">defun</span><span class="w"> </span><span class="nv">alc-modeline-apply-modus-colors</span><span class="w"> </span><span class="p">()</span>
-<span class="w">    </span><span class="s">&quot;Style the modeline using colors provided by the </span><span class="ss">`modus-themes&#39;</span><span class="s">&quot;</span>
-<span class="w">    </span><span class="p">(</span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="nv">modus-themes--current-theme</span><span class="p">)</span><span class="w"> </span><span class="c1">; Only if a modus-theme is active.</span>
-<span class="w">        </span><span class="p">(</span><span class="nv">modus-themes-with-colors</span>
-<span class="w">          </span><span class="p">(</span><span class="nv">set-face-attribute</span><span class="w"> </span><span class="ss">&#39;mode-line</span><span class="w"> </span><span class="no">nil</span>
-<span class="w">                              </span><span class="nb">:background</span><span class="w"> </span><span class="nv">bg-active</span>
-<span class="w">                              </span><span class="nb">:overline</span><span class="w"> </span><span class="nv">bg-active</span>
-<span class="w">                              </span><span class="nb">:box</span><span class="w"> </span><span class="o">`</span><span class="p">(</span><span class="nb">:line-width</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="nb">:color</span><span class="w"> </span><span class="o">,</span><span class="nv">bg-active</span><span class="w"> </span><span class="nb">:style</span><span class="w"> </span><span class="no">nil</span><span class="p">))</span>
-<span class="w">          </span><span class="p">(</span><span class="nv">set-face-attribute</span><span class="w"> </span><span class="ss">&#39;mode-line-inactive</span><span class="w"> </span><span class="no">nil</span>
-<span class="w">                              </span><span class="nb">:background</span><span class="w"> </span><span class="nv">bg-inactive</span>
-<span class="w">                              </span><span class="nb">:overline</span><span class="w"> </span><span class="nv">bg-inactive</span>
-<span class="w">                              </span><span class="nb">:box</span><span class="w"> </span><span class="o">`</span><span class="p">(</span><span class="nb">:line-width</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="nb">:color</span><span class="w"> </span><span class="o">,</span><span class="nv">bg-inactive</span><span class="w"> </span><span class="nb">:style</span><span class="w"> </span><span class="no">nil</span><span class="p">))</span>
-<span class="w">          </span><span class="p">(</span><span class="nv">set-face-attribute</span><span class="w"> </span><span class="ss">&#39;alc-modeline-project-id-face</span><span class="w"> </span><span class="no">nil</span>
-<span class="w">                              </span><span class="nb">:background</span><span class="w"> </span><span class="ss">&#39;unspecified</span>
-<span class="w">                              </span><span class="nb">:foreground</span><span class="w"> </span><span class="nv">blue</span><span class="p">))))</span>
-
-<span class="w">  </span><span class="p">(</span><span class="nv">alc-modeline-apply-modus-colors</span><span class="p">)</span>
-<span class="w">  </span><span class="p">(</span><span class="nv">add-hook</span><span class="w"> </span><span class="ss">&#39;modus-themes-after-load-theme-hook</span><span class="w"> </span><span class="nf">#&#39;</span><span class="nv">alc-modeline-apply-modus-colors</span><span class="p">))</span>
-</pre></div>
-</div>
-</div>
-<div class="awdur-codeblock docutils container">
-<div class="awdur-codeblock-header docutils container">
-<code class="awdur-codeblock-filename docutils literal notranslate"><span class="pre">emacs/lisp/alc-modeline.el</span></code></div>
-<div class="highlight-elisp notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="nb">provide</span><span class="w"> </span><span class="ss">&#39;alc-modeline</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
 </section>
 </section>
 

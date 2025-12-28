@@ -283,6 +283,13 @@
     </ul>
   </details>
   </li>
+      <li>
+    
+  <a class="reference internal" href="../20251227T122017/">
+    Using jj from Emacs
+  </a>
+  
+</li>
     </ul>
   </details>
   
@@ -311,47 +318,10 @@ Up until now I’ve always just clicked around the UI until I’ve found the pie
 </pre></div>
 </div>
 <p>So building the URL should be “just” a case of looking up the relevant info and joining it all together!</p>
-<div class="awdur-codeblock docutils container">
-<div class="awdur-codeblock-header docutils container">
-<code class="awdur-codeblock-filename docutils literal notranslate"><span class="pre">emacs/lisp/alc-git.el</span></code></div>
-<div class="highlight-elisp notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="nb">defun</span><span class="w"> </span><span class="nv">alc-git-permalink-to-kill-ring</span><span class="w"> </span><span class="p">()</span>
-<span class="w">  </span><span class="s">&quot;Construct a permalink URL for the current line or region and place it on</span>
-<span class="s">the kill-ring&quot;</span>
-<span class="w">  </span><span class="p">(</span><span class="k">interactive</span><span class="p">)</span>
-<span class="w">  </span><span class="p">(</span><span class="nv">if-let*</span><span class="w"> </span><span class="p">((</span><span class="nv">repo</span><span class="w"> </span><span class="p">(</span><span class="nv">alc-git-get-remote-url</span><span class="p">))</span>
-<span class="w">            </span><span class="p">(</span><span class="nv">commit</span><span class="w"> </span><span class="p">(</span><span class="nv">alc-git-get-commit</span><span class="p">))</span>
-<span class="w">            </span><span class="p">(</span><span class="nv">filepath</span><span class="w"> </span><span class="p">(</span><span class="nv">alc-git-get-filepath</span><span class="p">))</span>
-<span class="w">            </span><span class="p">(</span><span class="nv">pos</span><span class="w"> </span><span class="p">(</span><span class="nv">alc-git-get-position</span><span class="p">))</span>
-<span class="w">            </span><span class="p">(</span><span class="nv">path-start</span><span class="w"> </span><span class="p">(</span><span class="nf">format</span><span class="w"> </span><span class="s">&quot;%s#L%s&quot;</span><span class="w"> </span><span class="nv">filepath</span><span class="w"> </span><span class="p">(</span><span class="nf">nth</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="nv">pos</span><span class="p">)))</span>
-<span class="w">            </span><span class="p">(</span><span class="nv">url</span><span class="w"> </span><span class="p">(</span><span class="nv">s-join</span><span class="w"> </span><span class="s">&quot;/&quot;</span><span class="w"> </span><span class="o">`</span><span class="p">(</span><span class="o">,</span><span class="nv">repo</span><span class="w"> </span><span class="s">&quot;blob&quot;</span><span class="w"> </span><span class="o">,</span><span class="nv">commit</span><span class="w"> </span><span class="o">,</span><span class="nv">path-start</span><span class="p">))))</span>
-<span class="w">      </span><span class="p">(</span><span class="nv">kill-new</span>
-<span class="w">       </span><span class="p">(</span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="nf">nth</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="nv">pos</span><span class="p">)</span>
-<span class="w">           </span><span class="p">(</span><span class="nf">format</span><span class="w"> </span><span class="s">&quot;%s-L%s&quot;</span><span class="w"> </span><span class="nv">url</span><span class="w"> </span><span class="p">(</span><span class="nf">nth</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="nv">pos</span><span class="p">))</span>
-<span class="w">         </span><span class="nv">url</span><span class="p">))</span>
-<span class="w">    </span><span class="p">(</span><span class="nf">message</span><span class="w"> </span><span class="s">&quot;No permalink found&quot;</span><span class="p">)))</span>
-</pre></div>
-</div>
-</div>
 <section id="owner-and-repo">
 <h2>Owner and Repo<a class="headerlink" href="#owner-and-repo" title="Link to this heading">¶</a></h2>
 <p>It’s easy enough to get this information from the configured remotes of the git repository.
 I was a bit surprised not to find a function that already did this in either <code class="docutils literal notranslate"><span class="pre">vc</span></code> or <code class="docutils literal notranslate"><span class="pre">magit</span></code>, though it did finally give me an excuse to learn about <code class="docutils literal notranslate"><span class="pre">condition-case</span></code></p>
-<div class="awdur-codeblock docutils container">
-<div class="awdur-codeblock-header docutils container">
-<code class="awdur-codeblock-filename docutils literal notranslate"><span class="pre">emacs/lisp/alc-git.el</span></code></div>
-<div class="highlight-elisp notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="nb">defun</span><span class="w"> </span><span class="nv">alc-git-get-remote-url</span><span class="w"> </span><span class="p">()</span>
-<span class="w">  </span><span class="s">&quot;Return the url of the remote associated with the current buffer.</span>
-
-<span class="s">Prioritizes &#39;upstream&#39; but will fall back to &#39;origin&#39; if it is unavailable.&quot;</span>
-<span class="w">  </span><span class="p">(</span><span class="k">condition-case</span><span class="w"> </span><span class="nv">err</span>
-<span class="w">      </span><span class="p">(</span><span class="nv">vc-git-repository-url</span><span class="w"> </span><span class="nf">buffer-file-name</span><span class="w"> </span><span class="s">&quot;upstream&quot;</span><span class="p">)</span>
-<span class="w">    </span><span class="p">(</span><span class="ne">error</span><span class="w"> </span><span class="nv">err</span>
-<span class="w">           </span><span class="p">(</span><span class="k">condition-case</span><span class="w"> </span><span class="nv">err</span>
-<span class="w">               </span><span class="p">(</span><span class="nv">vc-git-repository-url</span><span class="w"> </span><span class="nf">buffer-file-name</span><span class="w"> </span><span class="s">&quot;origin&quot;</span><span class="p">)</span>
-<span class="w">             </span><span class="p">(</span><span class="ne">error</span><span class="w"> </span><span class="nv">err</span><span class="w"> </span><span class="no">nil</span><span class="p">)))))</span>
-</pre></div>
-</div>
-</div>
 </section>
 <section id="commit">
 <h2>Commit<a class="headerlink" href="#commit" title="Link to this heading">¶</a></h2>
@@ -360,52 +330,13 @@ I was a bit surprised not to find a function that already did this in either <co
 <li><p>to adapt this to also work when viewing an older version of a file with magit</p></li>
 <li><p>to check if the current commit exists on the remote</p></li>
 </ul>
-<div class="awdur-codeblock docutils container">
-<div class="awdur-codeblock-header docutils container">
-<code class="awdur-codeblock-filename docutils literal notranslate"><span class="pre">emacs/lisp/alc-git.el</span></code></div>
-<div class="highlight-elisp notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="nb">defun</span><span class="w"> </span><span class="nv">alc-git-get-commit</span><span class="w"> </span><span class="p">()</span>
-<span class="w">  </span><span class="s">&quot;Return the commit hash for the current file&quot;</span>
-<span class="w">  </span><span class="p">(</span><span class="nv">vc-working-revision</span><span class="w"> </span><span class="nv">buffer-file-truename</span><span class="p">))</span>
-</pre></div>
-</div>
-</div>
 </section>
 <section id="filepath">
 <h2>Filepath<a class="headerlink" href="#filepath" title="Link to this heading">¶</a></h2>
 <p>The filepath of course needs to be relative to the root of the repository</p>
-<div class="awdur-codeblock docutils container">
-<div class="awdur-codeblock-header docutils container">
-<code class="awdur-codeblock-filename docutils literal notranslate"><span class="pre">emacs/lisp/alc-git.el</span></code></div>
-<div class="highlight-elisp notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="nb">defun</span><span class="w"> </span><span class="nv">alc-git-get-filepath</span><span class="w"> </span><span class="p">()</span>
-<span class="w">  </span><span class="s">&quot;Return the filepath of the current buffer relative to the root of the</span>
-<span class="s">repository&quot;</span>
-<span class="w">  </span><span class="p">(</span><span class="nv">string-remove-prefix</span><span class="w"> </span><span class="p">(</span><span class="nv">vc-git-root</span><span class="w"> </span><span class="nv">buffer-file-truename</span><span class="p">)</span>
-<span class="w">                        </span><span class="nv">buffer-file-truename</span><span class="p">))</span>
-</pre></div>
-</div>
-</div>
 </section>
 <section id="start-and-end">
 <h2>Start and End<a class="headerlink" href="#start-and-end" title="Link to this heading">¶</a></h2>
-<div class="awdur-codeblock docutils container">
-<div class="awdur-codeblock-header docutils container">
-<code class="awdur-codeblock-filename docutils literal notranslate"><span class="pre">emacs/lisp/alc-git.el</span></code></div>
-<div class="highlight-elisp notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="nb">defun</span><span class="w"> </span><span class="nv">alc-git-get-position</span><span class="w"> </span><span class="p">()</span>
-<span class="w">  </span><span class="s">&quot;Return the start and end line number&quot;</span>
-<span class="w">  </span><span class="p">(</span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="nv">region-active-p</span><span class="p">)</span>
-<span class="w">      </span><span class="o">`</span><span class="p">(</span><span class="o">,</span><span class="p">(</span><span class="nv">line-number-at-pos</span><span class="w"> </span><span class="p">(</span><span class="nf">region-beginning</span><span class="p">))</span>
-<span class="w">        </span><span class="o">,</span><span class="p">(</span><span class="nv">line-number-at-pos</span><span class="w"> </span><span class="p">(</span><span class="nf">region-end</span><span class="p">)))</span>
-<span class="w">    </span><span class="o">`</span><span class="p">(</span><span class="o">,</span><span class="p">(</span><span class="nv">line-number-at-pos</span><span class="p">)</span><span class="w"> </span><span class="no">nil</span><span class="p">)))</span>
-</pre></div>
-</div>
-</div>
-<div class="awdur-codeblock docutils container">
-<div class="awdur-codeblock-header docutils container">
-<code class="awdur-codeblock-filename docutils literal notranslate"><span class="pre">emacs/lisp/alc-git.el</span></code></div>
-<div class="highlight-elisp notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="nb">provide</span><span class="w"> </span><span class="ss">&#39;alc-git</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
 </section>
 </section>
 

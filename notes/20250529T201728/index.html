@@ -116,6 +116,7 @@
     <ul>
 <li><a class="reference internal" href="#">Using Jujutsu</a><ul>
 <li><a class="reference internal" href="#command-reference">Command Reference</a></li>
+<li><a class="reference internal" href="#filesets">Filesets</a></li>
 <li><a class="reference internal" href="#user-config">User Config</a></li>
 <li><a class="reference internal" href="#repo-config">Repo Config</a></li>
 </ul>
@@ -170,54 +171,36 @@ While in <cite>jj</cite>, I tell it <strong>once</strong> what I want the commit
 </pre></div>
 </div>
 </section>
+<section id="filesets">
+<h2>Filesets<a class="headerlink" href="#filesets" title="Link to this heading">¶</a></h2>
+<p>When working with denote-style filenames (especially those involving signatures), <code class="docutils literal notranslate"><span class="pre">jj</span></code> often tries to interpret parts of the filename specially, resulting in errors:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>jj<span class="w"> </span>squash<span class="w"> </span><span class="s2">&quot;content/20251213T204155==5=8--ibuffer.rst&quot;</span>
+<span class="go">Error: Failed to parse fileset: Syntax error</span>
+<span class="go">Caused by:  --&gt; 1:24</span>
+<span class="go">  |</span>
+<span class="go">1 | content/20251213T204155==5=8--ibuffer.rst</span>
+<span class="go">  |                        ^---</span>
+<span class="go">  |</span>
+<span class="go">  = expected &lt;EOI&gt;, `|`, `&amp;`, or `~`</span>
+<span class="go">Hint: See https://docs.jj-vcs.dev/latest/filesets/ or use `jj help -k filesets` for filesets syntax and how to match file paths.</span>
+</pre></div>
+</div>
+<p>The fix is to wrap the filename in <strong>two</strong> layers of quotes, the first is for the shell, the second layer is for <code class="docutils literal notranslate"><span class="pre">jj</span></code>:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>jj<span class="w"> </span>squash<span class="w"> </span><span class="s2">&quot;&#39;content/20251213T204155==5=8--ibuffer.rst&#39;&quot;</span>
+<span class="go">Rebased 1 descendant commits</span>
+<span class="go">Working copy  (@) now at: znpmlpnx 46e93dff (no description set)</span>
+<span class="go">Parent commit (@-)      : rympsmzo db0dc66d Add keybinding for ibuffer</span>
+</pre></div>
+</div>
+</section>
 <section id="user-config">
 <h2>User Config<a class="headerlink" href="#user-config" title="Link to this heading">¶</a></h2>
 <p>Here lies my user config for <code class="docutils literal notranslate"><span class="pre">jj</span></code></p>
 <p>As with git, you need to set a name and email for your commits</p>
-<div class="awdur-codeblock docutils container">
-<div class="awdur-codeblock-header docutils container">
-<code class="awdur-codeblock-filename docutils literal notranslate"><span class="pre">jj/config.toml</span></code></div>
-<div class="highlight-toml notranslate"><div class="highlight"><pre><span></span><span class="s2">&quot;$schema&quot;</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;https://jj-vcs.github.io/jj/latest/config-schema.json&quot;</span>
-
-<span class="n">user</span><span class="p">.</span><span class="n">name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;Alex Carney&quot;</span>
-<span class="n">user</span><span class="p">.</span><span class="n">email</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;alcarneyme@gmail.com&quot;</span>
-</pre></div>
-</div>
-</div>
 <p>Use emacs as my editor</p>
-<div class="awdur-codeblock docutils container">
-<div class="awdur-codeblock-header docutils container">
-<code class="awdur-codeblock-filename docutils literal notranslate"><span class="pre">jj/config.toml</span></code></div>
-<div class="highlight-toml notranslate"><div class="highlight"><pre><span></span><span class="n">ui</span><span class="p">.</span><span class="n">editor</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;emacsclient&quot;</span>
-</pre></div>
-</div>
-</div>
 <p>By default, running <code class="docutils literal notranslate"><span class="pre">jj</span></code> with no arguments shows you the log, I prefer this to be the status command</p>
-<div class="awdur-codeblock docutils container">
-<div class="awdur-codeblock-header docutils container">
-<code class="awdur-codeblock-filename docutils literal notranslate"><span class="pre">jj/config.toml</span></code></div>
-<div class="highlight-toml notranslate"><div class="highlight"><pre><span></span><span class="n">ui</span><span class="p">.</span><span class="n">default-command</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;status&quot;</span>
-</pre></div>
-</div>
-</div>
 <p>For compatibilty with other tools, it’s best to render diffs and conflicts as git would</p>
-<div class="awdur-codeblock docutils container">
-<div class="awdur-codeblock-header docutils container">
-<code class="awdur-codeblock-filename docutils literal notranslate"><span class="pre">jj/config.toml</span></code></div>
-<div class="highlight-toml notranslate"><div class="highlight"><pre><span></span><span class="n">ui</span><span class="p">.</span><span class="n">conflict-marker-style</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;git&quot;</span>
-<span class="n">ui</span><span class="p">.</span><span class="n">diff-formatter</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;:git&quot;</span>
-</pre></div>
-</div>
-</div>
 <p><strong>Aliases</strong></p>
-<div class="awdur-codeblock docutils container">
-<div class="awdur-codeblock-header docutils container">
-<code class="awdur-codeblock-filename docutils literal notranslate"><span class="pre">jj/config.toml</span></code></div>
-<div class="highlight-toml notranslate"><div class="highlight"><pre><span></span><span class="k">[aliases]</span>
-<span class="n">push-down</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;new&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;-B&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;@&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;--no-edit&quot;</span><span class="p">]</span>
-</pre></div>
-</div>
-</div>
 </section>
 <section id="repo-config">
 <h2>Repo Config<a class="headerlink" href="#repo-config" title="Link to this heading">¶</a></h2>

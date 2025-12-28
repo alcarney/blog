@@ -5,7 +5,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>Using git from Emacs &#8212; Alex Carney</title>
+    <title>Using jj from Emacs &#8212; Alex Carney</title>
 
     <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=02ca0aaa" />
     <link id="pygments_dark_css" media="(prefers-color-scheme: dark)" rel="stylesheet" type="text/css" href="../../_static/pygments_dark.css?v=d8568271" />
@@ -96,30 +96,26 @@
     <h5 style="grid-column: span 2">Metadata</h5><svg xmlns="http://www.w3.org/2000/svg" width="2em" fill="none" viewBox="0 0 24 24" stroke="currentColor">
     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
 </svg>
-    <time style="align-self: center; text-align: right;" datetime="2025-02-21 00:00:00+00:00">Feb 21, 2025</time><svg xmlns="http://www.w3.org/2000/svg" width="2em" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+    <time style="align-self: center; text-align: right;" datetime="2025-12-27 00:00:00+00:00">Dec 27, 2025</time><svg xmlns="http://www.w3.org/2000/svg" width="2em" fill="none" viewBox="0 0 24 24" stroke="currentColor">
     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z" />
 </svg>
     <ul class="taglist">
         <li>
-            <a class="tag" href="../../tag/emacs/">
-                #emacs
-            </a>
-        </li>
-        <li>
-            <a class="tag" href="../../tag/git/">
-                #git
+            <a class="tag" href="../../tag/jj/">
+                #jj
             </a>
         </li>
     </ul>
 </section><section id="post-contents">
   <nav id="localtoc">
     <ul>
-<li><a class="reference internal" href="#">Using <code class="docutils literal notranslate"><span class="pre">git</span></code> from Emacs</a><ul>
-<li><a class="reference internal" href="#diff-hl"><code class="docutils literal notranslate"><span class="pre">diff-hl</span></code></a></li>
-<li><a class="reference internal" href="#forge">Forge</a></li>
+<li><a class="reference internal" href="#">Using <code class="docutils literal notranslate"><span class="pre">jj</span></code> from Emacs</a><ul>
+<li><a class="reference internal" href="#eshell-helpers"><code class="docutils literal notranslate"><span class="pre">eshell</span></code> helpers</a><ul>
+<li><a class="reference internal" href="#jj-diff"><code class="docutils literal notranslate"><span class="pre">jj-diff</span></code></a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#alc-git"><code class="docutils literal notranslate"><span class="pre">alc-git</span></code></a></li>
+</ul>
+</li>
 </ul>
 
   </nav>
@@ -145,10 +141,12 @@
   
 </li>
       <li>
-  <details open>
+  <details >
     <summary>
       
+  <a class="reference internal" href="../20250221T184014/">
     Using git from Emacs
+  </a>
   
 
     </summary>
@@ -284,9 +282,7 @@
   </li>
       <li>
     
-  <a class="reference internal" href="../20251227T122017/">
     Using jj from Emacs
-  </a>
   
 </li>
     </ul>
@@ -307,30 +303,31 @@
     <div role="main" style="flex-grow: 1">
 
 <article>
-  <section id="using-git-from-emacs">
-<h1>Using <code class="docutils literal notranslate"><span class="pre">git</span></code> from Emacs<a class="headerlink" href="#using-git-from-emacs" title="Link to this heading">¶</a></h1>
-<p>Of course, no Emacs config would be complete without <a class="extlink-gh reference external" href="https://github.com/magit/magit">magit/magit</a></p>
-<section id="diff-hl">
-<h2><code class="docutils literal notranslate"><span class="pre">diff-hl</span></code><a class="headerlink" href="#diff-hl" title="Link to this heading">¶</a></h2>
-<p><a class="extlink-gh reference external" href="https://github.com/dgutov/diff-hl">dgutov/diff-hl</a> highlights regions of the buffer that have changed relative to some reference commit (typically <code class="docutils literal notranslate"><span class="pre">HEAD</span></code>)</p>
-<div class="admonition seealso">
-<p class="admonition-title">See also</p>
-<p><a class="reference external" href="https://karthinks.com/software/fringe-matters-finding-the-right-difference/">This article</a> from Karthink shows how you can change the reference commit</p>
+  <section id="using-jj-from-emacs">
+<h1>Using <code class="docutils literal notranslate"><span class="pre">jj</span></code> from Emacs<a class="headerlink" href="#using-jj-from-emacs" title="Link to this heading">¶</a></h1>
+<p>As I’m starting to use <a class="reference external" href="https://docs.jj-vcs.dev/latest/">jj</a> more and more, it’s inevitable that I’m going to want some integration between <code class="docutils literal notranslate"><span class="pre">jj</span></code> and Emacs.
+There are many packages already available that do this, including but not limited to</p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://github.com/bennyandresen/jujutsu.el">jujutsu.el</a></p></li>
+<li><p><a class="reference external" href="https://github.com/bolivier/jj-mode.el">jj-mode</a></p></li>
+<li><p><a class="reference external" href="https://elpa.gnu.org/packages/vc-jj.html">vc-jj</a></p></li>
+</ul>
+<p>However, I want to use this as an excuse to learn how to write my own extensions/utilities for Emacs.</p>
+<section id="eshell-helpers">
+<h2><code class="docutils literal notranslate"><span class="pre">eshell</span></code> helpers<a class="headerlink" href="#eshell-helpers" title="Link to this heading">¶</a></h2>
+<p>I’m trying to use <code class="docutils literal notranslate"><span class="pre">eshell</span></code> more and more, it’s very cool being able to seamlessly switch between regular shell commands like <code class="docutils literal notranslate"><span class="pre">cd</span></code>, <code class="docutils literal notranslate"><span class="pre">ls</span></code> etc. and calling Emacs functions like <code class="docutils literal notranslate"><span class="pre">find-file</span></code> or <code class="docutils literal notranslate"><span class="pre">compile</span></code>!</p>
+<p>So, after seeing <a class="reference external" href="https://youtu.be/M6o1N2kfmuc">this episode</a> of Álvaro Ramírez’s Bending Emacs series I’ve been eager to find an excuse to try it out.</p>
+<section id="jj-diff">
+<h3><code class="docutils literal notranslate"><span class="pre">jj-diff</span></code><a class="headerlink" href="#jj-diff" title="Link to this heading">¶</a></h3>
+<p>Rather than dumping the output of <code class="docutils literal notranslate"><span class="pre">jj</span> <span class="pre">diff</span></code> into the eshell window, wouldn’t it be great to redirect it to a dedicated buffer instead?</p>
+<p><em>What, like this?</em></p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>jj<span class="w"> </span>diff<span class="w"> </span>--no-pager<span class="w"> </span>--color<span class="w"> </span>never<span class="w"> </span>&gt;<span class="w"> </span><span class="c1">#&lt;buffer *jj-diff*&gt;</span>
+</pre></div>
 </div>
-</section>
-<section id="forge">
-<h2>Forge<a class="headerlink" href="#forge" title="Link to this heading">¶</a></h2>
-<p>I’ve also started playing around with <a class="extlink-gh reference external" href="https://github.com/magit/forge">magit/forge</a></p>
-<div class="admonition important">
-<p class="admonition-title">Important</p>
-<p>Forge looks for your GitHub username in your <code class="docutils literal notranslate"><span class="pre">gitconfig</span></code></p>
-</div>
-<p>All thanks to <a class="extlink-gh reference external" href="https://github.com/magit/forge/discussions/544">magit/forge/discussions/544</a>, it’s possible to define an auth source that uses the <code class="docutils literal notranslate"><span class="pre">gh</span></code> cli to authenticate with the API!</p>
+<p>Well, yes but that’s a lot to type, plus the buffer is created uses <code class="docutils literal notranslate"><span class="pre">fundamental-mode</span></code> it would be nice to have it automatically enable <code class="docutils literal notranslate"><span class="pre">diff-mode</span></code> at least.
+A better option would be to define my own eshell command that wrapped the underlying <code class="docutils literal notranslate"><span class="pre">jj</span></code> command to handle this for me.</p>
 </section>
 </section>
-<section id="alc-git">
-<h1><code class="docutils literal notranslate"><span class="pre">alc-git</span></code><a class="headerlink" href="#alc-git" title="Link to this heading">¶</a></h1>
-<p>I also have a few utility functions defined in a local package</p>
 </section>
 
 
@@ -343,7 +340,7 @@
         <h6>Links</h6>
         <ul>
           <li>
-            <a href="../../_sources/content/20250221T184014==5=1--using-git-from-emacs__emacs_git.rst.txt" rel="nofollow">
+            <a href="../../_sources/content/20251227T122017==5=9--using-jj-from-emacs__jj.rst.txt" rel="nofollow">
               Page Source
             </a>
           </li>
