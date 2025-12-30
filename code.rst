@@ -20,3 +20,11 @@ An experiment in implementing clicking and dragging SVG elements using vanilla J
 .. awdur:project-tree:: click-drag-vanilla-js
 
 
+.. _code-simple-ast:
+
+Simple AST
+----------
+
+An experiment in representing and evaluating a toy abstract syntax tree using C code, see :link:`20201217T120000` for details.
+
+.. awdur:project-tree:: simple-ast
