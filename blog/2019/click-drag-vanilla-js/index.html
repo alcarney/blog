@@ -193,6 +193,9 @@ loading the code we write.</p>
 </div>
 <p>Then the first step is to create our SVG image element to act as our “canvas”
 that we can draw on.</p>
+<div class="awdur-codeblock docutils container">
+<div class="awdur-codeblock-header docutils container">
+<code class="awdur-codeblock-filename docutils literal notranslate"><span class="pre">click-drag.js</span></code></div>
 <div class="highlight-js notranslate"><div class="highlight"><pre><span></span><span class="kd">const</span><span class="w"> </span><span class="nx">svgns</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;http://www.w3.org/2000/svg&quot;</span>
 <span class="kd">const</span><span class="w"> </span><span class="nx">main</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="s2">&quot;main&quot;</span><span class="p">)</span>
 
@@ -203,6 +206,7 @@ that we can draw on.</p>
 
 <span class="nx">main</span><span class="p">.</span><span class="nx">appendChild</span><span class="p">(</span><span class="nx">canvas</span><span class="p">)</span>
 </pre></div>
+</div>
 </div>
 <p>A few things to note:</p>
 <ul class="simple">
@@ -230,26 +234,41 @@ accurately track the cursor, either racing away from or lagging behind it.</p>
 our <code class="docutils literal notranslate"><span class="pre">&lt;svg&gt;</span></code> element - so how can we know its proportions? Thankfully once the
 <code class="docutils literal notranslate"><span class="pre">&lt;svg&gt;</span></code> as been added to the page we can ask the browser for the bounding box
 around the element.</p>
+<div class="awdur-codeblock docutils container">
+<div class="awdur-codeblock-header docutils container">
+<code class="awdur-codeblock-filename docutils literal notranslate"><span class="pre">click-drag.js</span></code></div>
 <div class="highlight-js notranslate"><div class="highlight"><pre><span></span><span class="kd">let</span><span class="w"> </span><span class="nx">bbox</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">canvas</span><span class="p">.</span><span class="nx">getBoundingClientRect</span><span class="p">()</span>
 </pre></div>
+</div>
 </div>
 <p>Among other properties that are outlined on <a class="reference external" href="https://developer.mozilla.org/en-US/docs/Web/API/Element/getBoundingClientRect">this</a> page we can get the width and
 height of the rendered image in pixels from which its easy to calculate the
 aspect ratio.</p>
+<div class="awdur-codeblock docutils container">
+<div class="awdur-codeblock-header docutils container">
+<code class="awdur-codeblock-filename docutils literal notranslate"><span class="pre">click-drag.js</span></code></div>
 <div class="highlight-js notranslate"><div class="highlight"><pre><span></span><span class="kd">const</span><span class="w"> </span><span class="nx">aspectRatio</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">bbox</span><span class="p">.</span><span class="nx">width</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="nx">bbox</span><span class="p">.</span><span class="nx">height</span>
 </pre></div>
+</div>
 </div>
 <p>We’re free to choose whichever scale we want for the vertical height of the
 <code class="docutils literal notranslate"><span class="pre">viewBox</span></code> into the <code class="docutils literal notranslate"><span class="pre">&lt;svg&gt;</span></code> element. I have chosen <code class="docutils literal notranslate"><span class="pre">100</span></code> simply because it feels
 like a nice round number. Once we’ve decided on a scale for the height, it’s
 easy enough to calculate the corresponding width from our aspect ratio.</p>
+<div class="awdur-codeblock docutils container">
+<div class="awdur-codeblock-header docutils container">
+<code class="awdur-codeblock-filename docutils literal notranslate"><span class="pre">click-drag.js</span></code></div>
 <div class="highlight-js notranslate"><div class="highlight"><pre><span></span><span class="kd">const</span><span class="w"> </span><span class="nx">height</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">100</span>
 <span class="kd">const</span><span class="w"> </span><span class="nx">width</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">height</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="nx">aspectRatio</span>
 </pre></div>
 </div>
+</div>
 <p>With the dimensions of the <code class="docutils literal notranslate"><span class="pre">viewBox</span></code> taken care of all that is left to do is
 decide on the coordinates to assign to the top left corner of the <code class="docutils literal notranslate"><span class="pre">&lt;svg&gt;</span></code>
 element and assign the view box to our canvas.</p>
+<div class="awdur-codeblock docutils container">
+<div class="awdur-codeblock-header docutils container">
+<code class="awdur-codeblock-filename docutils literal notranslate"><span class="pre">click-drag.js</span></code></div>
 <div class="highlight-js notranslate"><div class="highlight"><pre><span></span><span class="kd">const</span><span class="w"> </span><span class="nx">viewBox</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="nx">minX</span><span class="o">:</span><span class="w"> </span><span class="mf">0</span><span class="p">,</span><span class="w"> </span><span class="nx">minY</span><span class="o">:</span><span class="w"> </span><span class="mf">0</span><span class="p">,</span><span class="w"> </span><span class="nx">width</span><span class="o">:</span><span class="w"> </span><span class="nx">width</span><span class="p">,</span><span class="w"> </span><span class="nx">height</span><span class="o">:</span><span class="w"> </span><span class="nx">height</span><span class="p">}</span>
 
 <span class="kd">const</span><span class="w"> </span><span class="nx">viewBoxStr</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[</span>
@@ -259,6 +278,7 @@ element and assign the view box to our canvas.</p>
 <span class="nx">canvas</span><span class="p">.</span><span class="nx">setAttribute</span><span class="p">(</span><span class="s2">&quot;viewBox&quot;</span><span class="p">,</span><span class="w"> </span><span class="nx">viewBoxStr</span><span class="p">)</span>
 </pre></div>
 </div>
+</div>
 </section>
 <section id="something-to-click-on">
 <h2>Something to Click on<a class="headerlink" href="#something-to-click-on" title="Link to this heading">¶</a></h2>
@@ -266,6 +286,9 @@ element and assign the view box to our canvas.</p>
 something for us to interact with. To keep things simple I will stick to a <code class="docutils literal notranslate"><span class="pre">&lt;circle&gt;</span></code>
 element, though the method we use here should apply to any SVG element (or any
 collection of elements under a <code class="docutils literal notranslate"><span class="pre">&lt;g&gt;</span></code> tag).</p>
+<div class="awdur-codeblock docutils container">
+<div class="awdur-codeblock-header docutils container">
+<code class="awdur-codeblock-filename docutils literal notranslate"><span class="pre">click-drag.js</span></code></div>
 <div class="highlight-js notranslate"><div class="highlight"><pre><span></span><span class="kd">const</span><span class="w"> </span><span class="nx">circle</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">document</span><span class="p">.</span><span class="nx">createElementNS</span><span class="p">(</span><span class="nx">svgns</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;circle&quot;</span><span class="p">)</span>
 <span class="nx">circle</span><span class="p">.</span><span class="nx">setAttribute</span><span class="p">(</span><span class="s2">&quot;cx&quot;</span><span class="p">,</span><span class="w"> </span><span class="nx">viewBox</span><span class="p">.</span><span class="nx">width</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="mf">2</span><span class="p">)</span>
 <span class="nx">circle</span><span class="p">.</span><span class="nx">setAttribute</span><span class="p">(</span><span class="s2">&quot;cy&quot;</span><span class="p">,</span><span class="w"> </span><span class="nx">viewBox</span><span class="p">.</span><span class="nx">height</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="mf">2</span><span class="p">)</span>
@@ -274,6 +297,7 @@ collection of elements under a <code class="docutils literal notranslate"><span 
 
 <span class="nx">canvas</span><span class="p">.</span><span class="nx">appendChild</span><span class="p">(</span><span class="nx">circle</span><span class="p">)</span>
 </pre></div>
+</div>
 </div>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
@@ -296,8 +320,12 @@ to cope with two situations, the cursor moving when the user has clicked and the
 cursor moving when the user has not clicked.</p>
 <p>To do this we will declare a variable called <code class="docutils literal notranslate"><span class="pre">clicked</span></code> outside the scope of our
 function.</p>
+<div class="awdur-codeblock docutils container">
+<div class="awdur-codeblock-header docutils container">
+<code class="awdur-codeblock-filename docutils literal notranslate"><span class="pre">click-drag.js</span></code></div>
 <div class="highlight-js notranslate"><div class="highlight"><pre><span></span><span class="kd">let</span><span class="w"> </span><span class="nx">clicked</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">false</span>
 </pre></div>
+</div>
 </div>
 <p>For the moment we will ignore the details around how this variable is updated
 (it is covered in the next section), instead let’s focus on what we do while the
@@ -464,6 +492,9 @@ that system and assign the result to our circle’s position!</p>
 </div>
 <p>Bringing all that together we end up with the following implementation of our
 <code class="docutils literal notranslate"><span class="pre">mousemove</span></code> event handler.</p>
+<div class="awdur-codeblock docutils container">
+<div class="awdur-codeblock-header docutils container">
+<code class="awdur-codeblock-filename docutils literal notranslate"><span class="pre">click-drag.js</span></code></div>
 <div class="highlight-js notranslate"><div class="highlight"><pre><span></span><span class="nx">canvas</span><span class="p">.</span><span class="nx">addEventListener</span><span class="p">(</span><span class="s2">&quot;mousemove&quot;</span><span class="p">,</span><span class="w"> </span><span class="p">(</span><span class="nx">event</span><span class="p">)</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">{</span>
 
 <span class="w">   </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="o">!</span><span class="nx">clicked</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
@@ -480,6 +511,7 @@ that system and assign the result to our circle’s position!</p>
 <span class="p">})</span>
 </pre></div>
 </div>
+</div>
 <p>Nearly there! The only thing left to do is decide on how we want to update the
 <code class="docutils literal notranslate"><span class="pre">clicked</span></code> variable.</p>
 </section>
@@ -494,16 +526,24 @@ simple I will go with a fairly simple interaction model</p>
 <li><p>If the mouse is over the circle and the user clicks then start dragging</p></li>
 <li><p>If the user releases the mouse button then stop dragging</p></li>
 </ul>
+<div class="awdur-codeblock docutils container">
+<div class="awdur-codeblock-header docutils container">
+<code class="awdur-codeblock-filename docutils literal notranslate"><span class="pre">click-drag.js</span></code></div>
 <div class="highlight-js notranslate"><div class="highlight"><pre><span></span><span class="nx">circle</span><span class="p">.</span><span class="nx">addEventListener</span><span class="p">(</span><span class="s2">&quot;mousedown&quot;</span><span class="p">,</span><span class="w">  </span><span class="p">(</span><span class="nx">_</span><span class="p">)</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">clicked</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">true</span><span class="w"> </span><span class="p">})</span>
 <span class="nx">circle</span><span class="p">.</span><span class="nx">addEventListener</span><span class="p">(</span><span class="s2">&quot;mouseup&quot;</span><span class="p">,</span><span class="w"> </span><span class="p">(</span><span class="nx">_</span><span class="p">)</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">clicked</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">false</span><span class="w"> </span><span class="p">})</span>
 </pre></div>
+</div>
 </div>
 <p>Additionally I will impose one final condition</p>
 <ul class="simple">
 <li><p>If the mouse leaves the bounds of the canvas then stop dragging.</p></li>
 </ul>
+<div class="awdur-codeblock docutils container">
+<div class="awdur-codeblock-header docutils container">
+<code class="awdur-codeblock-filename docutils literal notranslate"><span class="pre">click-drag.js</span></code></div>
 <div class="highlight-js notranslate"><div class="highlight"><pre><span></span><span class="nx">canvas</span><span class="p">.</span><span class="nx">addEventListener</span><span class="p">(</span><span class="s2">&quot;mouseleave&quot;</span><span class="p">,</span><span class="w"> </span><span class="p">(</span><span class="nx">_</span><span class="p">)</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">clicked</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">false</span><span class="w"> </span><span class="p">})</span>
 </pre></div>
+</div>
 </div>
 <p>This last point is to work around an issue that arises when the user moves the
 cursor out of the bounds of the canvas and releases the mouse button. Since the
@@ -582,9 +622,7 @@ like this</p>
 <p>I’m sure there are more edge cases and considerations to think of but this post
 is long enough already! - Perhaps this is why people use libraries for this kind
 of thing 🤔…</p>
-<p>I will leave you with the final version of the code that went into the demo you
-saw at the start of this blog post so you can see it all in context. Hopefully
-you found this useful and I’ll see you in the next one!</p>
+<p>If you are interested you can find the final version of the code <a class="reference internal" href="../../../code/#code-click-drag"><span class="std std-ref">here</span></a>.</p>
 </section>
 </section>
 

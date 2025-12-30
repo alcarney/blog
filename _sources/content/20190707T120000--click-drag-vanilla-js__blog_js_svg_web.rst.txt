@@ -64,6 +64,8 @@ that we can draw on.
 .. <a id="code-snippet--create-canvas"></a>
 
 .. code-block:: js
+   :project: click-drag-vanilla-js
+   :filename: click-drag.js
 
    const svgns = "http://www.w3.org/2000/svg"
    const main = document.getElementById("main")
@@ -108,6 +110,8 @@ around the element.
 .. <a id="code-snippet--set-viewbox"></a>
 
 .. code-block:: js
+   :project: click-drag-vanilla-js
+   :filename: click-drag.js
 
    let bbox = canvas.getBoundingClientRect()
 
@@ -118,6 +122,8 @@ aspect ratio.
 .. <a id="code-snippet--set-viewbox"></a>
 
 .. code-block:: js
+   :project: click-drag-vanilla-js
+   :filename: click-drag.js
 
    const aspectRatio = bbox.width / bbox.height
 
@@ -129,6 +135,8 @@ easy enough to calculate the corresponding width from our aspect ratio.
 .. <a id="code-snippet--set-viewbox"></a>
 
 .. code-block:: js
+   :project: click-drag-vanilla-js
+   :filename: click-drag.js
 
    const height = 100
    const width = height * aspectRatio
@@ -140,6 +148,8 @@ element and assign the view box to our canvas.
 .. <a id="code-snippet--set-viewbox"></a>
 
 .. code-block:: js
+   :project: click-drag-vanilla-js
+   :filename: click-drag.js
 
    const viewBox = {minX: 0, minY: 0, width: width, height: height}
 
@@ -160,6 +170,8 @@ collection of elements under a ``<g>`` tag).
 .. <a id="code-snippet--add-circle"></a>
 
 .. code-block:: js
+   :project: click-drag-vanilla-js
+   :filename: click-drag.js
 
    const circle = document.createElementNS(svgns, "circle")
    circle.setAttribute("cx", viewBox.width / 2)
@@ -198,6 +210,8 @@ function.
 .. <a id="code-snippet--dragging"></a>
 
 .. code-block:: js
+   :project: click-drag-vanilla-js
+   :filename: click-drag.js
 
    let clicked = false
 
@@ -405,6 +419,8 @@ Bringing all that together we end up with the following implementation of our
 .. <a id="code-snippet--dragging"></a>
 
 .. code-block:: js
+   :project: click-drag-vanilla-js
+   :filename: click-drag.js
 
    canvas.addEventListener("mousemove", (event) => {
 
@@ -439,6 +455,8 @@ simple I will go with a fairly simple interaction model
 .. <a id="code-snippet--clicking"></a>
 
 .. code-block:: js
+   :project: click-drag-vanilla-js
+   :filename: click-drag.js
 
    circle.addEventListener("mousedown",  (_) => { clicked = true })
    circle.addEventListener("mouseup", (_) => { clicked = false })
@@ -450,6 +468,8 @@ Additionally I will impose one final condition
 .. <a id="code-snippet--clicking"></a>
 
 .. code-block:: js
+   :project: click-drag-vanilla-js
+   :filename: click-drag.js
 
    canvas.addEventListener("mouseleave", (_) => { clicked = false })
 
@@ -541,9 +561,7 @@ I'm sure there are more edge cases and considerations to think of but this post
 is long enough already! - Perhaps this is why people use libraries for this kind
 of thing 🤔...
 
-I will leave you with the final version of the code that went into the demo you
-saw at the start of this blog post so you can see it all in context. Hopefully
-you found this useful and I'll see you in the next one!
+If you are interested you can find the final version of the code :ref:`here <code-click-drag>`.
 
 .. _document.createElement(): https://developer.mozilla.org/en-US/docs/Web/API/Document/createElement
 .. _document.createElementNS(): https://developer.mozilla.org/en-US/docs/Web/API/Document/createElementNS

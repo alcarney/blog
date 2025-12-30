@@ -111,15 +111,184 @@
 <article>
   <section id="code">
 <h1>Code<a class="headerlink" href="#code" title="Link to this heading">¶</a></h1>
-<p>A group of small programming projects that typically have one or more blog posts assoicated with them.</p>
+<p>Programming projects that typically have one or more blog posts assoicated with them.</p>
 <div class="toctree-wrapper compound">
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="ccalc/">CCalc Extension</a></li>
-<li class="toctree-l1"><a class="reference internal" href="click-drag/">Click Drag</a></li>
 <li class="toctree-l1"><a class="reference internal" href="hello-lsp-web/">Hello LSP Web</a></li>
-<li class="toctree-l1"><a class="reference internal" href="simple-ast/">Simple AST</a></li>
 </ul>
 </div>
+<section id="click-drag-with-vanilla-js">
+<span id="code-click-drag"></span><h2>Click &amp; Drag with Vanilla JS<a class="headerlink" href="#click-drag-with-vanilla-js" title="Link to this heading">¶</a></h2>
+<p>An experiment in implementing clicking and dragging SVG elements using vanilla JavaScript, see <a class="reference internal" href="../blog/2019/click-drag-vanilla-js/" title="Implementing Click &amp; Drag with Vanilla JS">Implementing Click &amp; Drag with Vanilla JS</a> for details.</p>
+<div class="awdur-project-tree">
+    <details class="awdur-file"><summary>click-drag.js</summary>
+      <pre class="code literal-block"><code>
+const svgns = &#34;http://www.w3.org/2000/svg&#34;
+const main = document.getElementById(&#34;main&#34;)
+
+const canvas = document.createElementNS(svgns, &#34;svg&#34;)
+canvas.setAttribute(&#34;width&#34;, &#34;100%&#34;)
+canvas.setAttribute(&#34;height&#34;, &#34;100%&#34;)
+canvas.style.border = &#34;solid 2px #242930&#34;
+
+main.appendChild(canvas)
+
+let bbox = canvas.getBoundingClientRect()
+
+const aspectRatio = bbox.width / bbox.height
+
+const height = 100
+const width = height * aspectRatio
+
+const viewBox = {minX: 0, minY: 0, width: width, height: height}
+
+const viewBoxStr = [
+  viewBox.minX, viewBox.minY, viewBox.width, viewBox.height
+].join(&#34; &#34;)
+
+canvas.setAttribute(&#34;viewBox&#34;, viewBoxStr)
+
+const circle = document.createElementNS(svgns, &#34;circle&#34;)
+circle.setAttribute(&#34;cx&#34;, viewBox.width / 2)
+circle.setAttribute(&#34;cy&#34;, viewBox.height / 2)
+circle.setAttribute(&#34;r&#34;, 15)
+circle.setAttribute(&#34;fill&#34;, &#34;#57cc8a&#34;)
+
+canvas.appendChild(circle)
+
+let clicked = false
+
+canvas.addEventListener(&#34;mousemove&#34;, (event) =&gt; {
+
+   if (!clicked) {
+      return
+   }
+
+   bbox = canvas.getBoundingClientRect()
+
+   const x = (event.clientX - bbox.left) / bbox.width
+   const y = (event.clientY - bbox.top) / bbox.height
+
+   circle.setAttribute(&#34;cx&#34;, x * viewBox.width)
+   circle.setAttribute(&#34;cy&#34;, y * viewBox.height)
+})
+
+circle.addEventListener(&#34;mousedown&#34;,  (_) =&gt; { clicked = true })
+circle.addEventListener(&#34;mouseup&#34;, (_) =&gt; { clicked = false })
+
+canvas.addEventListener(&#34;mouseleave&#34;, (_) =&gt; { clicked = false })
+</code></pre>
+    </details>
+</div></section>
+<section id="simple-ast">
+<span id="code-simple-ast"></span><h2>Simple AST<a class="headerlink" href="#simple-ast" title="Link to this heading">¶</a></h2>
+<p>An experiment in representing and evaluating a toy abstract syntax tree using C code, see <a class="reference internal" href="../blog/2020/ast-simple-eval/" title="Evaluating a Simple Abstract Syntax Tree">Evaluating a Simple Abstract Syntax Tree</a> for details.</p>
+<div class="awdur-project-tree">
+    <details class="awdur-file"><summary>simple-ast.c</summary>
+      <pre class="code literal-block"><code>
+#include &lt;stdio.h&gt;
+
+typedef enum {
+    AST_LITERAL,
+    AST_PLUS,
+    AST_MULTIPLY,
+} AstNodeType;
+
+typedef struct _ast {
+    /* The type of node this represents e.g.
+       a literal, an operator etc. */
+    AstNodeType type;
+
+    /* In the case of a literal value, this field
+       holds the actual value */
+    float value;
+
+    /* In the case of an operator, this pointer
+       refers to the left child node */
+    struct _ast *left;
+
+    /* In the case of an operator, this pointer
+       refers to the right child node */
+    struct _ast *right;
+} AstNode;
+
+void
+ast_print(AstNode *ast, int level)
+{
+    for (int i = 0; i &lt; level; i++) {
+        printf(&#34;  &#34;);
+    }
+
+switch(ast-&gt;type) {
+case AST_LITERAL:
+    printf(&#34;%.2f\n&#34;, ast-&gt;value);
+    break;
+
+case AST_PLUS:
+    printf(&#34;+\n&#34;);
+    ast_print(ast-&gt;left, level + 1);
+    ast_print(ast-&gt;right, level + 1);
+    break;
+
+    case AST_MULTIPLY:
+        printf(&#34;*\n&#34;);
+        ast_print(ast-&gt;left, level + 1);
+        ast_print(ast-&gt;right, level + 1);
+        break;
+    }
+}
+
+float
+ast_evaluate(AstNode *ast)
+{
+    switch(ast-&gt;type) {
+    case AST_LITERAL:
+        return ast-&gt;value;
+
+case AST_PLUS: {
+    float a = ast_evaluate(ast-&gt;left);
+    float b = ast_evaluate(ast-&gt;right);
+
+    return a + b;
+}
+
+    case AST_MULTIPLY: {
+        float a = ast_evaluate(ast-&gt;left);
+        float b = ast_evaluate(ast-&gt;right);
+
+        return a * b;
+    }
+    }
+}
+
+int
+main()
+{
+    AstNode one = { .type = AST_LITERAL, .value = 1.0f };
+    AstNode two = { .type = AST_LITERAL, .value = 2.0f };
+    AstNode three = { .type = AST_LITERAL, .value = 3.0f };
+
+    AstNode plus1 = { .type = AST_PLUS, .left = &amp;one, .right = &amp;two};
+    AstNode example1 = { .type = AST_MULTIPLY, .left = &amp;plus1, .right = &amp;three};
+
+    AstNode mul1 = { .type = AST_MULTIPLY, .left = &amp;two, .right = &amp;three};
+    AstNode example2 = { .type = AST_PLUS, .left = &amp;one, .right = &amp;mul1};
+
+    float result1 = ast_evaluate(&amp;example1);
+    float result2 = ast_evaluate(&amp;example2);
+
+    ast_print(&amp;example1, 0);
+    printf(&#34;Example 1: %.2f\n&#34;, result1);
+
+    ast_print(&amp;example2, 0);
+    printf(&#34;Example 2: %.2f\n&#34;, result2);
+
+    return 0;
+}
+</code></pre>
+    </details>
+</div></section>
 </section>
 
 
