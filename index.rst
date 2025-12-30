@@ -15,9 +15,9 @@
       My dotfiles as literate configuration, a testing ground for `awdur <https://github.com/swyddfa/awdur>`__
 
 
-   .. admonition:: :doc:`/notes`
+   .. admonition:: `Notes </notes>`__
 
-      A random collection of items that I find useful to refer back to from time to time, but aren't necessarily interesting enough to made into fully fledged blog posts.
+      Anything that doesn't fit into the above categories
 
 
 .. raw:: html
