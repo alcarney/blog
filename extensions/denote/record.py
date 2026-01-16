@@ -11,7 +11,7 @@ FILENAME_PATTERN = re.compile(
     (?P<identifier>\d{8}T\d{6})
     (==(?P<signature>[^-]+))?
     --(?P<title>[^_]+)
-    __(?P<tags>[^.]+)
+    (__(?P<tags>[^.]+))?
     """,
     re.VERBOSE,
 )
@@ -68,15 +68,19 @@ class Record:
         )
 
         slug = match.group("title")
-        tags = match.group("tags").split("_")
         title = " ".join(c.title() for c in slug.split("-"))
 
         sequence = None
         if (signature := match.group("signature")) is not None:
             sequence = tuple(int(s) for s in signature.split("="))
 
+        if (tag_str := match.group("tags")) is not None:
+            tags = tag_str.split("_")
+        else:
+            tags = []
+
         try:
-            tags.remove("blog")
+            _ = tags.remove("blog")
             is_blogpost = True
         except ValueError:
             is_blogpost = False
