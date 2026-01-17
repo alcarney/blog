@@ -34,6 +34,9 @@ class RecordCollection(collections.UserDict[str, Record]):
     def __setitem__(self, key: str, item: Record) -> None:
         super().__setitem__(key, item)
 
+        if item.identifier in self._by_identifier:
+            return
+
         self._by_identifier[item.identifier] = key
 
         year = item.timestamp.year
