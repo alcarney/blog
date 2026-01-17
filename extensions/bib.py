@@ -30,6 +30,8 @@ class BibDirective(ObjectDescription[str]):
         **ObjectDescription.option_spec,
         "state": directives.unchanged,
         "cover": directives.unchanged,
+        "no-cover": directives.flag,
+        "link": directives.uri,
     }
 
     DEFAULT_COVER = "book.svg"
@@ -39,11 +41,12 @@ class BibDirective(ObjectDescription[str]):
         """Write out the nodes that provide the metadata about the entry."""
 
         # Add a cover image.
-        container = nodes.container(classes=["bib-image"])
-        signode.parent.children.insert(0, container)
+        if not self.options.pop("no-cover", False):
+            container = nodes.container(classes=["bib-image"])
+            signode.parent.children.insert(0, container)
 
-        cover = self.options.pop("cover", self.DEFAULT_COVER)
-        container += nodes.image(uri=f"/images/bib/{cover}")
+            cover = self.options.pop("cover", self.DEFAULT_COVER)
+            container += nodes.image(uri=f"/images/bib/{cover}")
 
         # Add the state and title
         state = self.options.pop("state", "")
@@ -92,9 +95,38 @@ class BookDirective(BibDirective):
         "authors": directives.unchanged,
         "published": directives.unchanged,
         "isbn": directives.unchanged,
-        "cover": directives.unchanged,
         "read-online": directives.uri,
     }
+
+
+@typing.final
+@typing.final
+class YoutubeDirective(BibDirective):
+    """Describe a YouTube video."""
+
+    option_spec = {
+        **BibDirective.option_spec,
+        "video-id": directives.unchanged,
+    }
+
+    def handle_signature(self, sig: str, signode: addnodes.desc_signature) -> str:
+        # Disable the default cover image
+        self.options["no-cover"] = True
+
+        # And embed the video instead.
+        if (video_id := self.options.pop("video-id", None)) is not None:
+            container = nodes.container(classes=["bib-video"])
+            _ = signode.parent.children.insert(0, container)
+
+            iframe = f"""<iframe width="100%" height="100%" frameborder="0"
+                                 src="https://www.youtube.com/embed/{video_id}"
+                                 title="YouTube video player"
+                                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin"
+                                 allowfullscreen></iframe>
+            """
+            container += nodes.raw("", iframe, format="html")
+
+        return super().handle_signature(sig, signode)
 
 
 @typing.final
@@ -114,6 +146,7 @@ class BibDomain(Domain):
 
     directives = {
         "book": BookDirective,
+        "youtube": YoutubeDirective,
     }
 
     def resolve_xref(

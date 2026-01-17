@@ -577,6 +577,10 @@ dl.bib > dd {
     padding: 0.5em;
 }
 
+dl.bib .bib-video {
+    aspect-ratio: 16/9;
+}
+
 dl.bib .bib-image {
     height: 250px;
     background: white;
