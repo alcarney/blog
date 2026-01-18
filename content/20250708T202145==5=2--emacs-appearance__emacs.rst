@@ -13,7 +13,8 @@ Fonts
 I quite like the Ubuntu family of fonts, but use the "Nerd Font" version to get some extra icons
 
 .. code-block:: elisp
-   :filename: emacs/init.el
+   :project: emacs
+   :filename: init.el
 
    (set-face-attribute 'default nil :family "UbuntuMonoNerdFont" :height 120)
    (set-face-attribute 'fixed-pitch nil :family "UbuntuMonoNerdFont" :height 120)
@@ -22,7 +23,8 @@ I quite like the Ubuntu family of fonts, but use the "Nerd Font" version to get 
 Make it easy to get relevant nerd icons
 
 .. code-block:: elisp
-   :filename: emacs/init.el
+   :project: emacs
+   :filename: init.el
 
    (use-package nerd-icons
      :ensure t)
@@ -36,7 +38,8 @@ Load my theme related customisations, see :denote:link:`Emacs Themes <20250708T1
 **Doric Themes**
 
 .. code-block:: elisp
-   :filename: emacs/init.el
+   :project: emacs
+   :filename: init.el
 
    (use-package doric-themes :ensure t)
 
@@ -79,14 +82,16 @@ Line Numbers
 Enable line numbers for programming modes
 
 .. code-block:: elisp
-   :filename: emacs/init.el
+   :project: emacs
+   :filename: init.el
 
    (add-hook 'prog-mode-hook (lambda () (display-line-numbers-mode t)))
 
 Reserve enough space to display a line number that is 4 digits long and when a buffer is narrowed, always display the actual line number.
 
 .. code-block:: elisp
-   :filename: emacs/init.el
+   :project: emacs
+   :filename: init.el
 
    (setq-default display-line-numbers-widen t
                  display-line-numbers-width 4)
@@ -97,7 +102,8 @@ Scrolling
 With Emacs 29 came ``pixel-scroll-precision-mode`` which makes the scrolling with a touchpad experience much nicer overall.
 
 .. code-block:: elisp
-   :filename: emacs/init.el
+   :project: emacs
+   :filename: init.el
 
    (setq pixel-scroll-precision-use-momentum nil
          pixel-scroll-precision-interpolate-page t
@@ -113,7 +119,8 @@ Tab Bar
 Not to be confused with the tabs you see in editors like VSCode, ``tab-bar`` tabs allow for easy switching between different collections of windows - like workspaces.
 
 .. code-block:: elisp
-   :filename: emacs/init.el
+   :project: emacs
+   :filename: init.el
 
    (use-package alc-tab-bar
      :demand t
@@ -153,7 +160,8 @@ For reference, here are the components that were in the default modeline
 - ``mode-line-end-spaces``
 
 .. code-block:: elisp
-   :filename: emacs/init.el
+   :project: emacs
+   :filename: init.el
 
    (use-package alc-modeline
      :after alc-theme
@@ -181,7 +189,8 @@ Miscellaneous
 Disable some GUI elements
 
 .. code-block:: elisp
-   :filename: emacs/early-init.el
+   :project: emacs
+   :filename: early-init.el
 
    (blink-cursor-mode -1)
    (tool-bar-mode -1)
@@ -192,6 +201,7 @@ Disable some GUI elements
 And enable others
 
 .. code-block:: elisp
-   :filename: emacs/early-init.el
+   :project: emacs
+   :filename: early-init.el
 
    (context-menu-mode t)

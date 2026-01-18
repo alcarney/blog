@@ -12,7 +12,8 @@ The `emacs-eat <https://codeberg.org/akib/emacs-eat>`__ is a terminal emulator w
 One of its best features is to turn eshell into a complete terminal environment
 
 .. code-block:: elisp
-   :filename: emacs/init.el
+   :project: emacs
+   :filename: init.el
 
    (use-package eat
      :ensure t

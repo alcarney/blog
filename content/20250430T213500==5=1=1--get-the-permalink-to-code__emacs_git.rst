@@ -21,7 +21,8 @@ Permalinks on GitHub have the following structure::
 So building the URL should be "just" a case of looking up the relevant info and joining it all together!
 
 .. code-block:: elisp
-   :filename: emacs/lisp/alc-git.el
+   :project: emacs
+   :filename: lisp/alc-git.el
 
    (defun alc-git-permalink-to-kill-ring ()
      "Construct a permalink URL for the current line or region and place it on
@@ -46,7 +47,8 @@ It's easy enough to get this information from the configured remotes of the git 
 I was a bit surprised not to find a function that already did this in either ``vc`` or ``magit``, though it did finally give me an excuse to learn about ``condition-case``
 
 .. code-block:: elisp
-   :filename: emacs/lisp/alc-git.el
+   :project: emacs
+   :filename: lisp/alc-git.el
 
    (defun alc-git-get-remote-url ()
      "Return the url of the remote associated with the current buffer.
@@ -68,7 +70,8 @@ Getting the commit of the current file is easy enough with ``vc-working-revision
 - to check if the current commit exists on the remote
 
 .. code-block:: elisp
-   :filename: emacs/lisp/alc-git.el
+   :project: emacs
+   :filename: lisp/alc-git.el
 
    (defun alc-git-get-commit ()
      "Return the commit hash for the current file"
@@ -80,7 +83,8 @@ Filepath
 The filepath of course needs to be relative to the root of the repository
 
 .. code-block:: elisp
-   :filename: emacs/lisp/alc-git.el
+   :project: emacs
+   :filename: lisp/alc-git.el
 
    (defun alc-git-get-filepath ()
      "Return the filepath of the current buffer relative to the root of the
@@ -93,7 +97,8 @@ Start and End
 -------------
 
 .. code-block:: elisp
-   :filename: emacs/lisp/alc-git.el
+   :project: emacs
+   :filename: lisp/alc-git.el
 
    (defun alc-git-get-position ()
      "Return the start and end line number"
@@ -104,6 +109,7 @@ Start and End
 
 
 .. code-block:: elisp
-   :filename: emacs/lisp/alc-git.el
+   :project: emacs
+   :filename: lisp/alc-git.el
 
    (provide 'alc-git)

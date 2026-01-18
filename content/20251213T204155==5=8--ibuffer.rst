@@ -10,6 +10,7 @@ IBuffer
 ``ibuffer`` is an enhacement over the ``list-buffers`` command so we may as well replace the binding.
 
 .. code-block:: elisp
-   :filename: emacs/init.el
+   :project: emacs
+   :filename: init.el
 
    (keymap-global-set "C-x C-b" 'ibuffer)

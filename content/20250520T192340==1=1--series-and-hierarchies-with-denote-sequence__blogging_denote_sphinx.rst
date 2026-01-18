@@ -9,7 +9,8 @@ Series and Hierarchies with ``denote-sequence``
 
 
 .. code-block:: elisp
-   :filename: emacs/init.el
+   :project: emacs
+   :filename: init.el
 
    (use-package denote
      :ensure t
@@ -40,7 +41,8 @@ Series and Hierarchies with ``denote-sequence``
 
 
 .. code-block:: elisp
-   :filename: emacs/init.el
+   :project: emacs
+   :filename: init.el
 
    (use-package denote-sequence
      :ensure t
