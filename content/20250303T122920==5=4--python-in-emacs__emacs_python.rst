@@ -11,7 +11,8 @@ Python in Emacs
 Settings for Python files
 
 .. code-block:: elisp
-   :filename: emacs/init.el
+   :project: emacs
+   :filename: init.el
 
    (use-package python
      :hook ((python-mode . alc-python-mode-hook)
@@ -23,7 +24,8 @@ Use ruff for formatting by default.
 However, this can be overriden on a per-project basis by setting ``apheleia-formatter`` in a ``.dir-locals.el`` file.
 
 .. code-block:: elisp
-   :filename: emacs/init.el
+   :project: emacs
+   :filename: init.el
 
    (with-eval-after-load 'apheleia
      (setf (alist-get 'python-ts-mode apheleia-mode-alist)
@@ -32,7 +34,8 @@ However, this can be overriden on a per-project basis by setting ``apheleia-form
 A function to run each time a Python file is visited.
 
 .. code-block:: elisp
-   :filename: emacs/init.el
+   :project: emacs
+   :filename: init.el
 
    (defun alc-python-mode-hook ()
      "Tweaks and config to run when starting `python-mode'"
@@ -55,7 +58,8 @@ Python Environments
 -------------------
 
 .. code-block:: elisp
-   :filename: emacs/lisp/alc-python.el
+   :project: emacs
+   :filename: lisp/alc-python.el
 
    ;;; alc-python.el --- Python configuration -*- lexical-binding: t -*-
    ;;; Code:
@@ -65,7 +69,8 @@ No configuration would be complete without considering the *many* ways in which 
 The following function allows me to use the minibuffer to select an environment from all the environment defined for the current project
 
 .. code-block:: elisp
-   :filename: emacs/lisp/alc-python.el
+   :project: emacs
+   :filename: lisp/alc-python.el
 
    (defun alc-python-env-select ()
      "Select from a list of available Python environments, return the path to
@@ -80,7 +85,8 @@ The main use case of course, is to "activate" the chosen environment within the 
 It works by updating the ``.dir-locals.el`` file for the current project
 
 .. code-block:: elisp
-   :filename: emacs/lisp/alc-python.el
+   :project: emacs
+   :filename: lisp/alc-python.el
 
    (defun alc-python-env-activate ()
      "Select a Python environment and activate it."
@@ -111,7 +117,8 @@ Hatch
 Depending on the project, environments can be defined in a ``hatch.toml`` file, or the ``tool.hatch`` namespace in ``pyproject.toml``
 
 .. code-block:: elisp
-   :filename: emacs/lisp/alc-python.el
+   :project: emacs
+   :filename: lisp/alc-python.el
 
    (defun alc-python-project-hatch-p (prj)
      "Return t if the given Python PRJ is managed by hatch."
@@ -125,7 +132,8 @@ Depending on the project, environments can be defined in a ``hatch.toml`` file, 
 The ``hatch env show`` command has a ``--json`` flag and provides plenty of information about the available environments!
 
 .. code-block:: elisp
-   :filename: emacs/lisp/alc-python.el
+   :project: emacs
+   :filename: lisp/alc-python.el
 
    (defun alc-python-env-hatch-discover (prj)
      "Return a list of hatch managed environments available in PRJ"
@@ -142,7 +150,8 @@ The ``hatch env show`` command has a ``--json`` flag and provides plenty of info
 While the ``hatch env find`` command can give us the path to the environment (but not the interpreter), using ``hatch env run python`` to print the value of ``sys.executable`` we also ensure that the environment is created if necessary.
 
    .. code-block:: elisp
-      :filename: emacs/lisp/alc-python.el
+      :project: emacs
+      :filename: lisp/alc-python.el
 
       (defun alc-python-env-hatch-select (prj)
         "Select a Hatch environment defined by the given PRJ"
@@ -162,7 +171,8 @@ Poetry
 While not foolproof, the presence of a ``poetry.lock`` file is a pretty good indicator that the current project is using poetry.
 
 .. code-block:: elisp
-   :filename: emacs/lisp/alc-python.el
+   :project: emacs
+   :filename: lisp/alc-python.el
 
    (defun alc-python-project-poetry-p (prj)
      "Return t if the given Python PRJ is managed by poetry."
@@ -171,7 +181,8 @@ While not foolproof, the presence of a ``poetry.lock`` file is a pretty good ind
 Poetry provides a command to list environments, but unfortunately does not seem to give a way to return the list as JSON, hopefully the following is robust enough to parse the output.
 
 .. code-block:: elisp
-   :filename: emacs/lisp/alc-python.el
+   :project: emacs
+   :filename: lisp/alc-python.el
 
    (defun alc-python-env-poetry-discover (prj)
      "Return a list of poetry managed environments available in PRJ"
@@ -189,7 +200,8 @@ It's only know that I'm writing the function to switch the environment in use th
 Oh well, for the projects I use poetry with currently, I can assume that there's only the one environment anyway 😅
 
    .. code-block:: elisp
-      :filename: emacs/lisp/alc-python.el
+      :project: emacs
+      :filename: lisp/alc-python.el
 
       (defun alc-python-env-poetry-select (prj)
         "Select a Poetry environment defined by the given PRJ"
@@ -205,7 +217,8 @@ Helper Functions
 A function that tries to distinguish between library code and project code
 
 .. code-block:: elisp
-   :filename: emacs/lisp/alc-python.el
+   :project: emacs
+   :filename: lisp/alc-python.el
 
    (defun alc-python-library-file-p (file-name)
      "Determine if the given FILE-NAME is a library file"
@@ -216,7 +229,8 @@ A function that tries to distinguish between library code and project code
 A function that uses the Python standard library to parse a TOML file as JSON.
 
 .. code-block:: elisp
-   :filename: emacs/lisp/alc-python.el
+   :project: emacs
+   :filename: lisp/alc-python.el
 
    (defun alc-python-load-toml (filename)
      "Load the toml in FILENAME as json, utilising the TOML parser in the
@@ -229,6 +243,7 @@ A function that uses the Python standard library to parse a TOML file as JSON.
 
 
 .. code-block:: elisp
-   :filename: emacs/lisp/alc-python.el
+   :project: emacs
+   :filename: lisp/alc-python.el
 
    (provide 'alc-python)

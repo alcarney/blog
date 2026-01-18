@@ -10,7 +10,8 @@ Language Servers in Emacs
 I use ``eglot`` as my language client since it is available out of the box and integrates nicely with core packages like ``xref``
 
 .. code-block:: elisp
-   :filename: emacs/init.el
+   :project: emacs
+   :filename: init.el
 
    (use-package eglot
      :bind (("<f2>" . eglot-rename))
@@ -33,7 +34,8 @@ Convincing ``eglot`` to apply the correct ``workspace/configuration`` settings f
 One issue is making sure ``eglot`` evaluates settings at the right scope
 
 .. code-block:: elisp
-   :filename: emacs/init.el
+   :project: emacs
+   :filename: init.el
 
    (require 's)
 
