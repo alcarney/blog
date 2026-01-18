@@ -17,6 +17,7 @@ But first, let's create a few options to control which themes I want to load, pl
 
 .. code-block:: elisp
    :project: emacs
+   :template: elisp-module
    :filename: lisp/alc-theme.el
 
    (defvar alc-theme-load-light-theme-function nil
@@ -93,25 +94,3 @@ Again, thank you to ``auto-dark-emacs`` for the DBus specifics.
                    (alc-theme--system-preference-to-variant (car val)))))))))
 
 If I ever need to, the listener can be disabled by running ``(dbus-unregister-object alc-theme--dbus-listener)``
-
-Theme Customisations
---------------------
-
-
-Doric Themes
-^^^^^^^^^^^^
-
-Prot's new `doric-themes <https://protesilaos.com/emacs/doric-themes>`__ are worth exploring
-
-
-Modus Themes
-^^^^^^^^^^^^
-
-The excellent `modus-themes <https://protesilaos.com/emacs/modus-themes>`__ are available out of the box in recent Emacs versions.
-
-
-.. code-block:: elisp
-   :project: emacs
-   :filename: lisp/alc-theme.el
-
-   (provide 'alc-theme)

@@ -18,6 +18,7 @@ Formatting Tabs
 
 .. code-block:: elisp
    :project: emacs
+   :template: elisp-module
    :filename: lisp/alc-tab-bar.el
 
    (defun alc-tab-bar-tab-name-format-hints (name _tab i)
@@ -123,10 +124,3 @@ As well as using the tab bar to show... well tabs, the ``tab-bar-format-global``
    (setq display-time-format "%H:%M %d/%m/%y"
          display-time-default-load-average nil)
    (display-time-mode)
-
-
-.. code-block:: elisp
-   :project: emacs
-   :filename: lisp/alc-tab-bar.el
-
-   (provide 'alc-tab-bar)

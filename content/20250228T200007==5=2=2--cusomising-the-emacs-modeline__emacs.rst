@@ -13,10 +13,8 @@ And now for the definition of my custom components
 
 .. code-block:: elisp
    :project: emacs
+   :template: elisp-module
    :filename: lisp/alc-modeline.el
-
-   ;;; alc-modeline.el --- Modeline configuration -*- lexical-binding: t -*-
-   ;;; Code:
 
    (defgroup alc-modeline nil
      "My custom modeline"
@@ -169,10 +167,3 @@ If they are active, then it will use colors from the theme to style elements of 
 
      (alc-modeline-apply-modus-colors)
      (add-hook 'modus-themes-after-load-theme-hook #'alc-modeline-apply-modus-colors))
-
-
-.. code-block:: elisp
-   :project: emacs
-   :filename: lisp/alc-modeline.el
-
-   (provide 'alc-modeline)

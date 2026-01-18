@@ -4,7 +4,6 @@
 :identifier: 20250303T122920
 :signature: 5=4
 
-
 Python in Emacs
 ===============
 
@@ -57,19 +56,13 @@ A function to run each time a Python file is visited.
 Python Environments
 -------------------
 
-.. code-block:: elisp
-   :project: emacs
-   :filename: lisp/alc-python.el
-
-   ;;; alc-python.el --- Python configuration -*- lexical-binding: t -*-
-   ;;; Code:
-
 No configuration would be complete without considering the *many* ways in which you might work with Python environments!
 
 The following function allows me to use the minibuffer to select an environment from all the environment defined for the current project
 
 .. code-block:: elisp
    :project: emacs
+   :template: elisp-module
    :filename: lisp/alc-python.el
 
    (defun alc-python-env-select ()
@@ -240,10 +233,3 @@ A function that uses the Python standard library to parse a TOML file as JSON.
                                ,filename)
                              " ")))
        (json-parse-string (shell-command-to-string cmd))))
-
-
-.. code-block:: elisp
-   :project: emacs
-   :filename: lisp/alc-python.el
-
-   (provide 'alc-python)

@@ -22,6 +22,7 @@ So building the URL should be "just" a case of looking up the relevant info and 
 
 .. code-block:: elisp
    :project: emacs
+   :template: elisp-module
    :filename: lisp/alc-git.el
 
    (defun alc-git-permalink-to-kill-ring ()
@@ -106,10 +107,3 @@ Start and End
          `(,(line-number-at-pos (region-beginning))
            ,(line-number-at-pos (region-end)))
        `(,(line-number-at-pos) nil)))
-
-
-.. code-block:: elisp
-   :project: emacs
-   :filename: lisp/alc-git.el
-
-   (provide 'alc-git)
