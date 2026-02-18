@@ -10,7 +10,7 @@
     <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=02ca0aaa" />
     <link id="pygments_dark_css" media="(prefers-color-scheme: dark)" rel="stylesheet" type="text/css" href="../../_static/pygments_dark.css?v=d8568271" />
     <link rel="stylesheet" type="text/css" href="../../_static/awdur-styles.css?v=21b80da3" />
-    <link rel="stylesheet" type="text/css" href="../../_static/css/layout.css?v=48e1058e" />
+    <link rel="stylesheet" type="text/css" href="../../_static/css/layout.css?v=cf053816" />
 
     <script src="../../_static/documentation_options.js?v=187304be"></script>
     <script src="../../_static/doctools.js?v=9bcbadda"></script>
@@ -286,8 +286,22 @@
   </li>
       <li>
     
+  <a class="reference internal" href="../20251213T204155/">
+    IBuffer
+  </a>
+  
+</li>
+      <li>
+    
   <a class="reference internal" href="../20251227T122017/">
     Using jj from Emacs
+  </a>
+  
+</li>
+      <li>
+    
+  <a class="reference internal" href="../20260118T133600/">
+    Treesitter
   </a>
   
 </li>
@@ -321,7 +335,7 @@ Up until now I’ve always just clicked around the UI until I’ve found the pie
 <p>So building the URL should be “just” a case of looking up the relevant info and joining it all together!</p>
 <div class="awdur-codeblock docutils container">
 <div class="awdur-codeblock-header docutils container">
-<code class="awdur-codeblock-filename docutils literal notranslate"><span class="pre">emacs/lisp/alc-git.el</span></code></div>
+<code class="awdur-codeblock-filename docutils literal notranslate"><span class="pre">lisp/alc-git.el</span></code></div>
 <div class="highlight-elisp notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="nb">defun</span><span class="w"> </span><span class="nv">alc-git-permalink-to-kill-ring</span><span class="w"> </span><span class="p">()</span>
 <span class="w">  </span><span class="s">&quot;Construct a permalink URL for the current line or region and place it on</span>
 <span class="s">the kill-ring&quot;</span>
@@ -346,7 +360,7 @@ Up until now I’ve always just clicked around the UI until I’ve found the pie
 I was a bit surprised not to find a function that already did this in either <code class="docutils literal notranslate"><span class="pre">vc</span></code> or <code class="docutils literal notranslate"><span class="pre">magit</span></code>, though it did finally give me an excuse to learn about <code class="docutils literal notranslate"><span class="pre">condition-case</span></code></p>
 <div class="awdur-codeblock docutils container">
 <div class="awdur-codeblock-header docutils container">
-<code class="awdur-codeblock-filename docutils literal notranslate"><span class="pre">emacs/lisp/alc-git.el</span></code></div>
+<code class="awdur-codeblock-filename docutils literal notranslate"><span class="pre">lisp/alc-git.el</span></code></div>
 <div class="highlight-elisp notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="nb">defun</span><span class="w"> </span><span class="nv">alc-git-get-remote-url</span><span class="w"> </span><span class="p">()</span>
 <span class="w">  </span><span class="s">&quot;Return the url of the remote associated with the current buffer.</span>
 
@@ -370,7 +384,7 @@ I was a bit surprised not to find a function that already did this in either <co
 </ul>
 <div class="awdur-codeblock docutils container">
 <div class="awdur-codeblock-header docutils container">
-<code class="awdur-codeblock-filename docutils literal notranslate"><span class="pre">emacs/lisp/alc-git.el</span></code></div>
+<code class="awdur-codeblock-filename docutils literal notranslate"><span class="pre">lisp/alc-git.el</span></code></div>
 <div class="highlight-elisp notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="nb">defun</span><span class="w"> </span><span class="nv">alc-git-get-commit</span><span class="w"> </span><span class="p">()</span>
 <span class="w">  </span><span class="s">&quot;Return the commit hash for the current file&quot;</span>
 <span class="w">  </span><span class="p">(</span><span class="nv">vc-working-revision</span><span class="w"> </span><span class="nv">buffer-file-truename</span><span class="p">))</span>
@@ -383,7 +397,7 @@ I was a bit surprised not to find a function that already did this in either <co
 <p>The filepath of course needs to be relative to the root of the repository</p>
 <div class="awdur-codeblock docutils container">
 <div class="awdur-codeblock-header docutils container">
-<code class="awdur-codeblock-filename docutils literal notranslate"><span class="pre">emacs/lisp/alc-git.el</span></code></div>
+<code class="awdur-codeblock-filename docutils literal notranslate"><span class="pre">lisp/alc-git.el</span></code></div>
 <div class="highlight-elisp notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="nb">defun</span><span class="w"> </span><span class="nv">alc-git-get-filepath</span><span class="w"> </span><span class="p">()</span>
 <span class="w">  </span><span class="s">&quot;Return the filepath of the current buffer relative to the root of the</span>
 <span class="s">repository&quot;</span>
@@ -397,20 +411,13 @@ I was a bit surprised not to find a function that already did this in either <co
 <h2>Start and End<a class="headerlink" href="#start-and-end" title="Link to this heading">¶</a></h2>
 <div class="awdur-codeblock docutils container">
 <div class="awdur-codeblock-header docutils container">
-<code class="awdur-codeblock-filename docutils literal notranslate"><span class="pre">emacs/lisp/alc-git.el</span></code></div>
+<code class="awdur-codeblock-filename docutils literal notranslate"><span class="pre">lisp/alc-git.el</span></code></div>
 <div class="highlight-elisp notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="nb">defun</span><span class="w"> </span><span class="nv">alc-git-get-position</span><span class="w"> </span><span class="p">()</span>
 <span class="w">  </span><span class="s">&quot;Return the start and end line number&quot;</span>
 <span class="w">  </span><span class="p">(</span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="nv">region-active-p</span><span class="p">)</span>
 <span class="w">      </span><span class="o">`</span><span class="p">(</span><span class="o">,</span><span class="p">(</span><span class="nv">line-number-at-pos</span><span class="w"> </span><span class="p">(</span><span class="nf">region-beginning</span><span class="p">))</span>
 <span class="w">        </span><span class="o">,</span><span class="p">(</span><span class="nv">line-number-at-pos</span><span class="w"> </span><span class="p">(</span><span class="nf">region-end</span><span class="p">)))</span>
 <span class="w">    </span><span class="o">`</span><span class="p">(</span><span class="o">,</span><span class="p">(</span><span class="nv">line-number-at-pos</span><span class="p">)</span><span class="w"> </span><span class="no">nil</span><span class="p">)))</span>
-</pre></div>
-</div>
-</div>
-<div class="awdur-codeblock docutils container">
-<div class="awdur-codeblock-header docutils container">
-<code class="awdur-codeblock-filename docutils literal notranslate"><span class="pre">emacs/lisp/alc-git.el</span></code></div>
-<div class="highlight-elisp notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="nb">provide</span><span class="w"> </span><span class="ss">&#39;alc-git</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>

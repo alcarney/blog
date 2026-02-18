@@ -10,7 +10,7 @@
     <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=02ca0aaa" />
     <link id="pygments_dark_css" media="(prefers-color-scheme: dark)" rel="stylesheet" type="text/css" href="../../_static/pygments_dark.css?v=d8568271" />
     <link rel="stylesheet" type="text/css" href="../../_static/awdur-styles.css?v=21b80da3" />
-    <link rel="stylesheet" type="text/css" href="../../_static/css/layout.css?v=48e1058e" />
+    <link rel="stylesheet" type="text/css" href="../../_static/css/layout.css?v=cf053816" />
 
     <script src="../../_static/documentation_options.js?v=187304be"></script>
     <script src="../../_static/doctools.js?v=9bcbadda"></script>
@@ -278,8 +278,22 @@
   </li>
       <li>
     
+  <a class="reference internal" href="../20251213T204155/">
+    IBuffer
+  </a>
+  
+</li>
+      <li>
+    
   <a class="reference internal" href="../20251227T122017/">
     Using jj from Emacs
+  </a>
+  
+</li>
+      <li>
+    
+  <a class="reference internal" href="../20260118T133600/">
+    Treesitter
   </a>
   
 </li>
@@ -306,7 +320,7 @@
 <p>I use <code class="docutils literal notranslate"><span class="pre">eglot</span></code> as my language client since it is available out of the box and integrates nicely with core packages like <code class="docutils literal notranslate"><span class="pre">xref</span></code></p>
 <div class="awdur-codeblock docutils container">
 <div class="awdur-codeblock-header docutils container">
-<code class="awdur-codeblock-filename docutils literal notranslate"><span class="pre">emacs/init.el</span></code></div>
+<code class="awdur-codeblock-filename docutils literal notranslate"><span class="pre">init.el</span></code></div>
 <div class="highlight-elisp notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="nb">use-package</span><span class="w"> </span><span class="nv">eglot</span>
 <span class="w">  </span><span class="nb">:bind</span><span class="w"> </span><span class="p">((</span><span class="s">&quot;&lt;f2&gt;&quot;</span><span class="w"> </span><span class="o">.</span><span class="w"> </span><span class="nv">eglot-rename</span><span class="p">))</span>
 <span class="w">  </span><span class="nb">:custom</span>
@@ -328,7 +342,7 @@
 <p>One issue is making sure <code class="docutils literal notranslate"><span class="pre">eglot</span></code> evaluates settings at the right scope</p>
 <div class="awdur-codeblock docutils container">
 <div class="awdur-codeblock-header docutils container">
-<code class="awdur-codeblock-filename docutils literal notranslate"><span class="pre">emacs/init.el</span></code></div>
+<code class="awdur-codeblock-filename docutils literal notranslate"><span class="pre">init.el</span></code></div>
 <div class="highlight-elisp notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="nb">require</span><span class="w"> </span><span class="ss">&#39;s</span><span class="p">)</span>
 
 <span class="p">(</span><span class="nb">defun</span><span class="w"> </span><span class="nv">alc-eglot-fix-workspace-configuration-scope</span><span class="w"> </span><span class="p">(</span><span class="nv">orig-fun</span><span class="w"> </span><span class="nv">server</span><span class="w"> </span><span class="kp">&amp;optional</span><span class="w"> </span><span class="nv">path</span><span class="p">)</span>

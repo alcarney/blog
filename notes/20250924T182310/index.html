@@ -10,7 +10,7 @@
     <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=02ca0aaa" />
     <link id="pygments_dark_css" media="(prefers-color-scheme: dark)" rel="stylesheet" type="text/css" href="../../_static/pygments_dark.css?v=d8568271" />
     <link rel="stylesheet" type="text/css" href="../../_static/awdur-styles.css?v=21b80da3" />
-    <link rel="stylesheet" type="text/css" href="../../_static/css/layout.css?v=48e1058e" />
+    <link rel="stylesheet" type="text/css" href="../../_static/css/layout.css?v=cf053816" />
 
     <script src="../../_static/documentation_options.js?v=187304be"></script>
     <script src="../../_static/doctools.js?v=9bcbadda"></script>
@@ -280,8 +280,22 @@
   </li>
       <li>
     
+  <a class="reference internal" href="../20251213T204155/">
+    IBuffer
+  </a>
+  
+</li>
+      <li>
+    
   <a class="reference internal" href="../20251227T122017/">
     Using jj from Emacs
+  </a>
+  
+</li>
+      <li>
+    
+  <a class="reference internal" href="../20260118T133600/">
+    Treesitter
   </a>
   
 </li>
@@ -312,7 +326,7 @@
 <p><a class="reference external" href="https://www.rahuljuliato.com/posts/emacs-tab-bar-groups">This article</a></p>
 <div class="awdur-codeblock docutils container">
 <div class="awdur-codeblock-header docutils container">
-<code class="awdur-codeblock-filename docutils literal notranslate"><span class="pre">emacs/lisp/alc-tab-bar.el</span></code></div>
+<code class="awdur-codeblock-filename docutils literal notranslate"><span class="pre">lisp/alc-tab-bar.el</span></code></div>
 <div class="highlight-elisp notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="nb">defun</span><span class="w"> </span><span class="nv">alc-tab-bar-tab-name-format-hints</span><span class="w"> </span><span class="p">(</span><span class="nv">name</span><span class="w"> </span><span class="nv">_tab</span><span class="w"> </span><span class="nv">i</span><span class="p">)</span>
 <span class="w">  </span><span class="p">(</span><span class="k">if</span><span class="w"> </span><span class="nv">tab-bar-tab-hints</span><span class="w"> </span><span class="p">(</span><span class="nf">concat</span><span class="w"> </span><span class="p">(</span><span class="nf">format</span><span class="w"> </span><span class="s">&quot;-%d-&quot;</span><span class="w"> </span><span class="nv">i</span><span class="p">)</span><span class="w"> </span><span class="s">&quot;&quot;</span><span class="p">)</span><span class="w"> </span><span class="nv">name</span><span class="p">))</span>
 
@@ -331,7 +345,7 @@
 <p>After some experimentation I was able to come up with the following function which I bind to <kbd class="kbd docutils literal notranslate">C</kbd>-<kbd class="kbd docutils literal notranslate">x</kbd> <kbd class="kbd docutils literal notranslate">t</kbd> <kbd class="kbd docutils literal notranslate">p</kbd>, overriding the default <code class="docutils literal notranslate"><span class="pre">project-other-tab-command</span></code>.</p>
 <div class="awdur-codeblock docutils container">
 <div class="awdur-codeblock-header docutils container">
-<code class="awdur-codeblock-filename docutils literal notranslate"><span class="pre">emacs/lisp/alc-tab-bar.el</span></code></div>
+<code class="awdur-codeblock-filename docutils literal notranslate"><span class="pre">lisp/alc-tab-bar.el</span></code></div>
 <div class="highlight-elisp notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="nb">defun</span><span class="w"> </span><span class="nv">alc-tab-bar-project-other-tab-command</span><span class="w"> </span><span class="p">()</span>
 <span class="w">  </span><span class="s">&quot;Run a project command, displaying resultant buffer in a new tab.</span>
 
@@ -368,7 +382,7 @@ However, the docstring looks like it is capable of much more!</p></li>
 <p>Here is the implementation of <code class="docutils literal notranslate"><span class="pre">alc-tab-bar-buffer-to-project-name</span></code>, it uses the <code class="docutils literal notranslate"><span class="pre">project-name</span></code> function to return the name of the project associated with the target buffer.</p>
 <div class="awdur-codeblock docutils container">
 <div class="awdur-codeblock-header docutils container">
-<code class="awdur-codeblock-filename docutils literal notranslate"><span class="pre">emacs/lisp/alc-tab-bar.el</span></code></div>
+<code class="awdur-codeblock-filename docutils literal notranslate"><span class="pre">lisp/alc-tab-bar.el</span></code></div>
 <div class="highlight-elisp notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="nb">defun</span><span class="w"> </span><span class="nv">alc-tab-bar-buffer-to-project-name</span><span class="w"> </span><span class="p">(</span><span class="nv">buffer</span><span class="w"> </span><span class="nv">alist</span><span class="p">)</span>
 <span class="w">  </span><span class="s">&quot;Given BUFFER, return the corresponding project name, if any&quot;</span>
 <span class="w">  </span><span class="p">(</span><span class="nb">with-current-buffer</span><span class="w"> </span><span class="nv">buffer</span>
@@ -399,7 +413,7 @@ Often I will set the project name to <code class="docutils literal notranslate">
 <p><strong>Battery Info</strong></p>
 <div class="awdur-codeblock docutils container">
 <div class="awdur-codeblock-header docutils container">
-<code class="awdur-codeblock-filename docutils literal notranslate"><span class="pre">emacs/lisp/alc-tab-bar.el</span></code></div>
+<code class="awdur-codeblock-filename docutils literal notranslate"><span class="pre">lisp/alc-tab-bar.el</span></code></div>
 <div class="highlight-elisp notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="nv">display-battery-mode</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -407,17 +421,10 @@ Often I will set the project name to <code class="docutils literal notranslate">
 <p><strong>Time</strong></p>
 <div class="awdur-codeblock docutils container">
 <div class="awdur-codeblock-header docutils container">
-<code class="awdur-codeblock-filename docutils literal notranslate"><span class="pre">emacs/lisp/alc-tab-bar.el</span></code></div>
+<code class="awdur-codeblock-filename docutils literal notranslate"><span class="pre">lisp/alc-tab-bar.el</span></code></div>
 <div class="highlight-elisp notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="k">setq</span><span class="w"> </span><span class="nv">display-time-format</span><span class="w"> </span><span class="s">&quot;%H:%M %d/%m/%y&quot;</span>
 <span class="w">      </span><span class="nv">display-time-default-load-average</span><span class="w"> </span><span class="no">nil</span><span class="p">)</span>
 <span class="p">(</span><span class="nv">display-time-mode</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-<div class="awdur-codeblock docutils container">
-<div class="awdur-codeblock-header docutils container">
-<code class="awdur-codeblock-filename docutils literal notranslate"><span class="pre">emacs/lisp/alc-tab-bar.el</span></code></div>
-<div class="highlight-elisp notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="nb">provide</span><span class="w"> </span><span class="ss">&#39;alc-tab-bar</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>

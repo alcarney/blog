@@ -10,7 +10,7 @@
     <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=02ca0aaa" />
     <link id="pygments_dark_css" media="(prefers-color-scheme: dark)" rel="stylesheet" type="text/css" href="../../_static/pygments_dark.css?v=d8568271" />
     <link rel="stylesheet" type="text/css" href="../../_static/awdur-styles.css?v=21b80da3" />
-    <link rel="stylesheet" type="text/css" href="../../_static/css/layout.css?v=48e1058e" />
+    <link rel="stylesheet" type="text/css" href="../../_static/css/layout.css?v=cf053816" />
 
     <script src="../../_static/documentation_options.js?v=187304be"></script>
     <script src="../../_static/doctools.js?v=9bcbadda"></script>
@@ -112,11 +112,6 @@
     <ul>
 <li><a class="reference internal" href="#">Emacs Themes</a><ul>
 <li><a class="reference internal" href="#automatic-theme-switching">Automatic Theme Switching</a></li>
-<li><a class="reference internal" href="#theme-customisations">Theme Customisations</a><ul>
-<li><a class="reference internal" href="#doric-themes">Doric Themes</a></li>
-<li><a class="reference internal" href="#modus-themes">Modus Themes</a></li>
-</ul>
-</li>
 </ul>
 </li>
 </ul>
@@ -283,8 +278,22 @@
   </li>
       <li>
     
+  <a class="reference internal" href="../20251213T204155/">
+    IBuffer
+  </a>
+  
+</li>
+      <li>
+    
   <a class="reference internal" href="../20251227T122017/">
     Using jj from Emacs
+  </a>
+  
+</li>
+      <li>
+    
+  <a class="reference internal" href="../20260118T133600/">
+    Treesitter
   </a>
   
 </li>
@@ -315,7 +324,7 @@ Of course, with Emacs, it’s possible to wire up a couple of DBus incantations 
 <p>But first, let’s create a few options to control which themes I want to load, plus a function to automatically call the right one given a preference.</p>
 <div class="awdur-codeblock docutils container">
 <div class="awdur-codeblock-header docutils container">
-<code class="awdur-codeblock-filename docutils literal notranslate"><span class="pre">emacs/lisp/alc-theme.el</span></code></div>
+<code class="awdur-codeblock-filename docutils literal notranslate"><span class="pre">lisp/alc-theme.el</span></code></div>
 <div class="highlight-elisp notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="k">defvar</span><span class="w"> </span><span class="nv">alc-theme-load-light-theme-function</span><span class="w"> </span><span class="no">nil</span>
 <span class="w">  </span><span class="s">&quot;The function to call in order to load the configured light theme&quot;</span><span class="p">)</span>
 
@@ -345,7 +354,7 @@ Of course, with Emacs, it’s possible to wire up a couple of DBus incantations 
 (Thanks to <a class="reference external" href="https://github.com/LionyxML/auto-dark-emacs">auto-dark-emacs</a> for the DBus specifics!)</p>
 <div class="awdur-codeblock docutils container">
 <div class="awdur-codeblock-header docutils container">
-<code class="awdur-codeblock-filename docutils literal notranslate"><span class="pre">emacs/lisp/alc-theme.el</span></code></div>
+<code class="awdur-codeblock-filename docutils literal notranslate"><span class="pre">lisp/alc-theme.el</span></code></div>
 <div class="highlight-elisp notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="nb">require</span><span class="w"> </span><span class="ss">&#39;dbus</span><span class="p">)</span>
 <span class="p">(</span><span class="nb">defun</span><span class="w"> </span><span class="nv">alc-theme-sync-to-system-theme</span><span class="w"> </span><span class="p">(</span><span class="nv">_frame</span><span class="p">)</span>
 <span class="w">  </span><span class="s">&quot;Choose a light/dark theme based on the current system preference.&quot;</span>
@@ -366,7 +375,7 @@ I’m not an expert in Emacs’ startup, but based on my experience so far, it s
 Again, thank you to <code class="docutils literal notranslate"><span class="pre">auto-dark-emacs</span></code> for the DBus specifics.</p>
 <div class="awdur-codeblock docutils container">
 <div class="awdur-codeblock-header docutils container">
-<code class="awdur-codeblock-filename docutils literal notranslate"><span class="pre">emacs/lisp/alc-theme.el</span></code></div>
+<code class="awdur-codeblock-filename docutils literal notranslate"><span class="pre">lisp/alc-theme.el</span></code></div>
 <div class="highlight-elisp notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="k">defvar</span><span class="w"> </span><span class="nv">alc-theme--dbus-listener</span><span class="w"> </span><span class="no">nil</span>
 <span class="w">  </span><span class="s">&quot;Variable in which to store the dbus listener.&quot;</span><span class="p">)</span>
 
@@ -390,24 +399,6 @@ Again, thank you to <code class="docutils literal notranslate"><span class="pre"
 </div>
 </div>
 <p>If I ever need to, the listener can be disabled by running <code class="docutils literal notranslate"><span class="pre">(dbus-unregister-object</span> <span class="pre">alc-theme--dbus-listener)</span></code></p>
-</section>
-<section id="theme-customisations">
-<h2>Theme Customisations<a class="headerlink" href="#theme-customisations" title="Link to this heading">¶</a></h2>
-<section id="doric-themes">
-<h3>Doric Themes<a class="headerlink" href="#doric-themes" title="Link to this heading">¶</a></h3>
-<p>Prot’s new <a class="reference external" href="https://protesilaos.com/emacs/doric-themes">doric-themes</a> are worth exploring</p>
-</section>
-<section id="modus-themes">
-<h3>Modus Themes<a class="headerlink" href="#modus-themes" title="Link to this heading">¶</a></h3>
-<p>The excellent <a class="reference external" href="https://protesilaos.com/emacs/modus-themes">modus-themes</a> are available out of the box in recent Emacs versions.</p>
-<div class="awdur-codeblock docutils container">
-<div class="awdur-codeblock-header docutils container">
-<code class="awdur-codeblock-filename docutils literal notranslate"><span class="pre">emacs/lisp/alc-theme.el</span></code></div>
-<div class="highlight-elisp notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="nb">provide</span><span class="w"> </span><span class="ss">&#39;alc-theme</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-</section>
 </section>
 </section>
 

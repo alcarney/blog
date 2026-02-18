@@ -10,7 +10,7 @@
     <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=02ca0aaa" />
     <link id="pygments_dark_css" media="(prefers-color-scheme: dark)" rel="stylesheet" type="text/css" href="../../_static/pygments_dark.css?v=d8568271" />
     <link rel="stylesheet" type="text/css" href="../../_static/awdur-styles.css?v=21b80da3" />
-    <link rel="stylesheet" type="text/css" href="../../_static/css/layout.css?v=48e1058e" />
+    <link rel="stylesheet" type="text/css" href="../../_static/css/layout.css?v=cf053816" />
 
     <script src="../../_static/documentation_options.js?v=187304be"></script>
     <script src="../../_static/doctools.js?v=9bcbadda"></script>
@@ -111,10 +111,7 @@
   <nav id="localtoc">
     <ul>
 <li><a class="reference internal" href="#">Using <code class="docutils literal notranslate"><span class="pre">jj</span></code> from Emacs</a><ul>
-<li><a class="reference internal" href="#eshell-helpers"><code class="docutils literal notranslate"><span class="pre">eshell</span></code> helpers</a><ul>
-<li><a class="reference internal" href="#jj-diff"><code class="docutils literal notranslate"><span class="pre">jj-diff</span></code></a></li>
-</ul>
-</li>
+<li><a class="reference internal" href="#eshell-jj-diff"><code class="docutils literal notranslate"><span class="pre">eshell/jj-diff</span></code></a></li>
 </ul>
 </li>
 </ul>
@@ -283,7 +280,21 @@
   </li>
       <li>
     
+  <a class="reference internal" href="../20251213T204155/">
+    IBuffer
+  </a>
+  
+</li>
+      <li>
+    
     Using jj from Emacs
+  
+</li>
+      <li>
+    
+  <a class="reference internal" href="../20260118T133600/">
+    Treesitter
+  </a>
   
 </li>
     </ul>
@@ -316,17 +327,16 @@ There are many packages already available that do this, including but not limite
 <p>However, I want to use this as an excuse to learn how to write my own extensions/utilities for Emacs.</p>
 <div class="awdur-codeblock docutils container">
 <div class="awdur-codeblock-header docutils container">
-<code class="awdur-codeblock-filename docutils literal notranslate"><span class="pre">emacs/init.el</span></code></div>
-<div class="highlight-emacs-lisp notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="nb">use-package</span><span class="w"> </span><span class="nv">alc-jj</span><span class="p">)</span>
+<code class="awdur-codeblock-filename docutils literal notranslate"><span class="pre">init.el</span></code></div>
+<div class="highlight-elisp notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="nb">use-package</span><span class="w"> </span><span class="nv">alc-jj</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
-<section id="eshell-helpers">
-<h2><code class="docutils literal notranslate"><span class="pre">eshell</span></code> helpers<a class="headerlink" href="#eshell-helpers" title="Link to this heading">¶</a></h2>
+<section id="eshell-jj-diff">
+<h2><code class="docutils literal notranslate"><span class="pre">eshell/jj-diff</span></code><a class="headerlink" href="#eshell-jj-diff" title="Link to this heading">¶</a></h2>
 <p>I’m trying to use <code class="docutils literal notranslate"><span class="pre">eshell</span></code> more and more, it’s very cool being able to seamlessly switch between regular shell commands like <code class="docutils literal notranslate"><span class="pre">cd</span></code>, <code class="docutils literal notranslate"><span class="pre">ls</span></code> etc. and calling Emacs functions like <code class="docutils literal notranslate"><span class="pre">find-file</span></code> or <code class="docutils literal notranslate"><span class="pre">compile</span></code>!</p>
+<p><a href="#id1"><span class="problematic" id="id2">:bib:cite:`yt-be07`</span></a></p>
 <p>So, after seeing <a class="reference external" href="https://youtu.be/M6o1N2kfmuc">this episode</a> of Álvaro Ramírez’s Bending Emacs series I’ve been eager to find an excuse to try it out.</p>
-<section id="jj-diff">
-<h3><code class="docutils literal notranslate"><span class="pre">jj-diff</span></code><a class="headerlink" href="#jj-diff" title="Link to this heading">¶</a></h3>
 <p>Rather than dumping the output of <code class="docutils literal notranslate"><span class="pre">jj</span> <span class="pre">diff</span></code> into the eshell window, wouldn’t it be great to redirect it to a dedicated buffer instead?</p>
 <p><em>What, like this?</em></p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>jj<span class="w"> </span>diff<span class="w"> </span>--no-pager<span class="w"> </span>--color<span class="w"> </span>never<span class="w"> </span>&gt;<span class="w"> </span><span class="c1">#&lt;buffer *jj-diff*&gt;</span>
@@ -336,8 +346,8 @@ There are many packages already available that do this, including but not limite
 A better option would be to define my own eshell command that wrapped the underlying <code class="docutils literal notranslate"><span class="pre">jj</span></code> command to handle this for me.</p>
 <div class="awdur-codeblock docutils container">
 <div class="awdur-codeblock-header docutils container">
-<code class="awdur-codeblock-filename docutils literal notranslate"><span class="pre">emacs/lisp/alc-jj.el</span></code></div>
-<div class="highlight-emacs-lisp notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="nb">defun</span><span class="w"> </span><span class="nv">eshell/jj-diff</span><span class="w"> </span><span class="p">(</span><span class="kp">&amp;rest</span><span class="w"> </span><span class="nv">args</span><span class="p">)</span>
+<code class="awdur-codeblock-filename docutils literal notranslate"><span class="pre">lisp/alc-jj.el</span></code></div>
+<div class="highlight-elisp notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="nb">defun</span><span class="w"> </span><span class="nv">eshell/jj-diff</span><span class="w"> </span><span class="p">(</span><span class="kp">&amp;rest</span><span class="w"> </span><span class="nv">args</span><span class="p">)</span>
 <span class="w">  </span><span class="s">&quot;Eshell wrapper around &#39;jj diff&#39;&quot;</span>
 <span class="w">  </span><span class="p">(</span><span class="k">let</span><span class="w"> </span><span class="p">((</span><span class="nv">current-dir</span><span class="w"> </span><span class="nv">default-directory</span><span class="p">))</span>
 <span class="w">    </span><span class="p">(</span><span class="nb">with-current-buffer</span><span class="w"> </span><span class="p">(</span><span class="nf">get-buffer-create</span><span class="w"> </span><span class="s">&quot;*jj-diff*&quot;</span><span class="p">)</span>
@@ -349,7 +359,7 @@ A better option would be to define my own eshell command that wrapped the underl
 <span class="w">      </span><span class="p">(</span><span class="nf">erase-buffer</span><span class="p">)</span>
 
 <span class="w">      </span><span class="c1">;; Call jj, insert output into current buffer</span>
-<span class="w">      </span><span class="p">(</span><span class="nf">call-process</span><span class="w"> </span><span class="s">&quot;jj&quot;</span><span class="w"> </span><span class="no">nil</span><span class="w"> </span><span class="no">t</span><span class="w"> </span><span class="no">nil</span><span class="w"> </span><span class="s">&quot;diff&quot;</span><span class="w"> </span><span class="s">&quot;--no-pager&quot;</span><span class="w"> </span><span class="s">&quot;--color&quot;</span><span class="w"> </span><span class="s">&quot;never&quot;</span><span class="p">)</span>
+<span class="w">      </span><span class="p">(</span><span class="nf">apply</span><span class="w"> </span><span class="ss">&#39;call-process</span><span class="w"> </span><span class="s">&quot;jj&quot;</span><span class="w"> </span><span class="no">nil</span><span class="w"> </span><span class="no">t</span><span class="w"> </span><span class="no">nil</span><span class="w"> </span><span class="s">&quot;diff&quot;</span><span class="w"> </span><span class="s">&quot;--no-pager&quot;</span><span class="w"> </span><span class="s">&quot;--color&quot;</span><span class="w"> </span><span class="s">&quot;never&quot;</span><span class="w"> </span><span class="nv">args</span><span class="p">)</span>
 <span class="w">      </span><span class="p">(</span><span class="nv">diff-mode</span><span class="p">)</span>
 
 <span class="w">      </span><span class="c1">;; Re-enable read-only mode and show the buffer</span>
@@ -358,14 +368,6 @@ A better option would be to define my own eshell command that wrapped the underl
 </pre></div>
 </div>
 </div>
-<div class="awdur-codeblock docutils container">
-<div class="awdur-codeblock-header docutils container">
-<code class="awdur-codeblock-filename docutils literal notranslate"><span class="pre">emacs/lisp/alc-jj.el</span></code></div>
-<div class="highlight-emacs-lisp notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="nb">provide</span><span class="w"> </span><span class="ss">&#39;alc-jj</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-</section>
 </section>
 </section>
 

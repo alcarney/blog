@@ -10,7 +10,7 @@
     <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=02ca0aaa" />
     <link id="pygments_dark_css" media="(prefers-color-scheme: dark)" rel="stylesheet" type="text/css" href="../../_static/pygments_dark.css?v=d8568271" />
     <link rel="stylesheet" type="text/css" href="../../_static/awdur-styles.css?v=21b80da3" />
-    <link rel="stylesheet" type="text/css" href="../../_static/css/layout.css?v=48e1058e" />
+    <link rel="stylesheet" type="text/css" href="../../_static/css/layout.css?v=cf053816" />
 
     <script src="../../_static/documentation_options.js?v=187304be"></script>
     <script src="../../_static/doctools.js?v=9bcbadda"></script>
@@ -284,8 +284,22 @@
   </li>
       <li>
     
+  <a class="reference internal" href="../20251213T204155/">
+    IBuffer
+  </a>
+  
+</li>
+      <li>
+    
   <a class="reference internal" href="../20251227T122017/">
     Using jj from Emacs
+  </a>
+  
+</li>
+      <li>
+    
+  <a class="reference internal" href="../20260118T133600/">
+    Treesitter
   </a>
   
 </li>
@@ -314,7 +328,7 @@
 <p>I quite like the Ubuntu family of fonts, but use the “Nerd Font” version to get some extra icons</p>
 <div class="awdur-codeblock docutils container">
 <div class="awdur-codeblock-header docutils container">
-<code class="awdur-codeblock-filename docutils literal notranslate"><span class="pre">emacs/init.el</span></code></div>
+<code class="awdur-codeblock-filename docutils literal notranslate"><span class="pre">init.el</span></code></div>
 <div class="highlight-elisp notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="nv">set-face-attribute</span><span class="w"> </span><span class="ss">&#39;default</span><span class="w"> </span><span class="no">nil</span><span class="w"> </span><span class="nb">:family</span><span class="w"> </span><span class="s">&quot;UbuntuMonoNerdFont&quot;</span><span class="w"> </span><span class="nb">:height</span><span class="w"> </span><span class="mi">120</span><span class="p">)</span>
 <span class="p">(</span><span class="nv">set-face-attribute</span><span class="w"> </span><span class="ss">&#39;fixed-pitch</span><span class="w"> </span><span class="no">nil</span><span class="w"> </span><span class="nb">:family</span><span class="w"> </span><span class="s">&quot;UbuntuMonoNerdFont&quot;</span><span class="w"> </span><span class="nb">:height</span><span class="w"> </span><span class="mi">120</span><span class="p">)</span>
 <span class="p">(</span><span class="nv">set-face-attribute</span><span class="w"> </span><span class="ss">&#39;variable-pitch</span><span class="w"> </span><span class="no">nil</span><span class="w"> </span><span class="nb">:family</span><span class="w"> </span><span class="s">&quot;UbuntuSansNerdFont&quot;</span><span class="w"> </span><span class="nb">:weight</span><span class="w"> </span><span class="ss">&#39;light</span><span class="w"> </span><span class="nb">:height</span><span class="w"> </span><span class="mi">120</span><span class="p">)</span>
@@ -324,7 +338,7 @@
 <p>Make it easy to get relevant nerd icons</p>
 <div class="awdur-codeblock docutils container">
 <div class="awdur-codeblock-header docutils container">
-<code class="awdur-codeblock-filename docutils literal notranslate"><span class="pre">emacs/init.el</span></code></div>
+<code class="awdur-codeblock-filename docutils literal notranslate"><span class="pre">init.el</span></code></div>
 <div class="highlight-elisp notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="nb">use-package</span><span class="w"> </span><span class="nv">nerd-icons</span>
 <span class="w">  </span><span class="nb">:ensure</span><span class="w"> </span><span class="no">t</span><span class="p">)</span>
 </pre></div>
@@ -337,7 +351,7 @@
 <p><strong>Doric Themes</strong></p>
 <div class="awdur-codeblock docutils container">
 <div class="awdur-codeblock-header docutils container">
-<code class="awdur-codeblock-filename docutils literal notranslate"><span class="pre">emacs/init.el</span></code></div>
+<code class="awdur-codeblock-filename docutils literal notranslate"><span class="pre">init.el</span></code></div>
 <div class="highlight-elisp notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="nb">use-package</span><span class="w"> </span><span class="nv">doric-themes</span><span class="w"> </span><span class="nb">:ensure</span><span class="w"> </span><span class="no">t</span><span class="p">)</span>
 
 <span class="p">(</span><span class="nb">use-package</span><span class="w"> </span><span class="nv">alc-theme</span>
@@ -379,7 +393,7 @@
 <p>Enable line numbers for programming modes</p>
 <div class="awdur-codeblock docutils container">
 <div class="awdur-codeblock-header docutils container">
-<code class="awdur-codeblock-filename docutils literal notranslate"><span class="pre">emacs/init.el</span></code></div>
+<code class="awdur-codeblock-filename docutils literal notranslate"><span class="pre">init.el</span></code></div>
 <div class="highlight-elisp notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="nv">add-hook</span><span class="w"> </span><span class="ss">&#39;prog-mode-hook</span><span class="w"> </span><span class="p">(</span><span class="nb">lambda</span><span class="w"> </span><span class="p">()</span><span class="w"> </span><span class="p">(</span><span class="nv">display-line-numbers-mode</span><span class="w"> </span><span class="no">t</span><span class="p">)))</span>
 </pre></div>
 </div>
@@ -387,7 +401,7 @@
 <p>Reserve enough space to display a line number that is 4 digits long and when a buffer is narrowed, always display the actual line number.</p>
 <div class="awdur-codeblock docutils container">
 <div class="awdur-codeblock-header docutils container">
-<code class="awdur-codeblock-filename docutils literal notranslate"><span class="pre">emacs/init.el</span></code></div>
+<code class="awdur-codeblock-filename docutils literal notranslate"><span class="pre">init.el</span></code></div>
 <div class="highlight-elisp notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="k">setq-default</span><span class="w"> </span><span class="nv">display-line-numbers-widen</span><span class="w"> </span><span class="no">t</span>
 <span class="w">              </span><span class="nv">display-line-numbers-width</span><span class="w"> </span><span class="mi">4</span><span class="p">)</span>
 </pre></div>
@@ -399,7 +413,7 @@
 <p>With Emacs 29 came <code class="docutils literal notranslate"><span class="pre">pixel-scroll-precision-mode</span></code> which makes the scrolling with a touchpad experience much nicer overall.</p>
 <div class="awdur-codeblock docutils container">
 <div class="awdur-codeblock-header docutils container">
-<code class="awdur-codeblock-filename docutils literal notranslate"><span class="pre">emacs/init.el</span></code></div>
+<code class="awdur-codeblock-filename docutils literal notranslate"><span class="pre">init.el</span></code></div>
 <div class="highlight-elisp notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="k">setq</span><span class="w"> </span><span class="nv">pixel-scroll-precision-use-momentum</span><span class="w"> </span><span class="no">nil</span>
 <span class="w">      </span><span class="nv">pixel-scroll-precision-interpolate-page</span><span class="w"> </span><span class="no">t</span>
 <span class="w">      </span><span class="nv">pixel-scroll-precision-momentum-seconds</span><span class="w"> </span><span class="mf">0.5</span><span class="p">)</span>
@@ -413,7 +427,7 @@
 <p>Not to be confused with the tabs you see in editors like VSCode, <code class="docutils literal notranslate"><span class="pre">tab-bar</span></code> tabs allow for easy switching between different collections of windows - like workspaces.</p>
 <div class="awdur-codeblock docutils container">
 <div class="awdur-codeblock-header docutils container">
-<code class="awdur-codeblock-filename docutils literal notranslate"><span class="pre">emacs/init.el</span></code></div>
+<code class="awdur-codeblock-filename docutils literal notranslate"><span class="pre">init.el</span></code></div>
 <div class="highlight-elisp notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="nb">use-package</span><span class="w"> </span><span class="nv">alc-tab-bar</span>
 <span class="w">  </span><span class="nb">:demand</span><span class="w"> </span><span class="no">t</span>
 <span class="w">  </span><span class="nb">:hook</span><span class="w"> </span><span class="p">(</span><span class="nv">after-init</span><span class="w"> </span><span class="o">.</span><span class="w"> </span><span class="nv">tab-bar-mode</span><span class="p">)</span>
@@ -454,7 +468,7 @@
 </ul>
 <div class="awdur-codeblock docutils container">
 <div class="awdur-codeblock-header docutils container">
-<code class="awdur-codeblock-filename docutils literal notranslate"><span class="pre">emacs/init.el</span></code></div>
+<code class="awdur-codeblock-filename docutils literal notranslate"><span class="pre">init.el</span></code></div>
 <div class="highlight-elisp notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="nb">use-package</span><span class="w"> </span><span class="nv">alc-modeline</span>
 <span class="w">  </span><span class="nb">:after</span><span class="w"> </span><span class="nv">alc-theme</span>
 <span class="w">  </span><span class="nb">:load-path</span><span class="w"> </span><span class="s">&quot;lisp&quot;</span>
@@ -482,7 +496,7 @@
 <p>Disable some GUI elements</p>
 <div class="awdur-codeblock docutils container">
 <div class="awdur-codeblock-header docutils container">
-<code class="awdur-codeblock-filename docutils literal notranslate"><span class="pre">emacs/early-init.el</span></code></div>
+<code class="awdur-codeblock-filename docutils literal notranslate"><span class="pre">early-init.el</span></code></div>
 <div class="highlight-elisp notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="nv">blink-cursor-mode</span><span class="w"> </span><span class="mi">-1</span><span class="p">)</span>
 <span class="p">(</span><span class="nv">tool-bar-mode</span><span class="w"> </span><span class="mi">-1</span><span class="p">)</span>
 
@@ -494,7 +508,7 @@
 <p>And enable others</p>
 <div class="awdur-codeblock docutils container">
 <div class="awdur-codeblock-header docutils container">
-<code class="awdur-codeblock-filename docutils literal notranslate"><span class="pre">emacs/early-init.el</span></code></div>
+<code class="awdur-codeblock-filename docutils literal notranslate"><span class="pre">early-init.el</span></code></div>
 <div class="highlight-elisp notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="nv">context-menu-mode</span><span class="w"> </span><span class="no">t</span><span class="p">)</span>
 </pre></div>
 </div>

@@ -9,11 +9,20 @@ Using Microsoft Word
 
 Unfortunately I need to use Word a lot as part of my ``$DAYJOB``, so I may as well try and make the most of it!
 
-Multiple Windows
-----------------
+This page contains a growing collection of hints and tips to myself.
 
-Word does actually support having multiple windows open on the same document!
-Click the :guilabel:`New Window` button in the :guilabel:`View` ribbon.
+Formatting
+----------
+
+Page Orientation
+^^^^^^^^^^^^^^^^
+
+Page orientation can be found in the :guilabel:`Layout` ribbon, in the :guilabel:`Page Setup` section.
+
+.. tip::
+
+   Page orientation applies to entire sections of a Word document.
+   To change the orientation for a limited number of pages insert :ref:`section breaks <word-insert-section-break>` before and after the relevant content.
 
 Inserting...
 ------------
@@ -43,3 +52,25 @@ To insert the value of a document property into a Word document
    To update all tables of contents, fields etc. in the documen, select everything using :kbd:`Ctrl+A` and hit :kbd:`F9`
 
    **Note:** Fields in the header/footer may not update, generate a print preview to force this.
+
+.. _word-insert-section-break:
+
+... Section Breaks
+^^^^^^^^^^^^^^^^^^
+
+Unlike page breaks, section breaks are in the :guilabel:`Breaks` dropdown found in the :guilabel:`Page Setup` section of the :guilabel:`Layout` ribbon.
+
+Views
+-----
+
+Multiple Windows
+^^^^^^^^^^^^^^^^
+
+Word actually supports having multiple windows open on the same document!
+Click the :guilabel:`New Window` button in the :guilabel:`View` ribbon.
+
+Split View
+^^^^^^^^^^
+
+Alternatively, you can split a single window horizontally.
+Click :guilabel:`Split` in the :guilabel:`View` ribbon.

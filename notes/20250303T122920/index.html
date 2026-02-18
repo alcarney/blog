@@ -10,7 +10,7 @@
     <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=02ca0aaa" />
     <link id="pygments_dark_css" media="(prefers-color-scheme: dark)" rel="stylesheet" type="text/css" href="../../_static/pygments_dark.css?v=d8568271" />
     <link rel="stylesheet" type="text/css" href="../../_static/awdur-styles.css?v=21b80da3" />
-    <link rel="stylesheet" type="text/css" href="../../_static/css/layout.css?v=48e1058e" />
+    <link rel="stylesheet" type="text/css" href="../../_static/css/layout.css?v=cf053816" />
 
     <script src="../../_static/documentation_options.js?v=187304be"></script>
     <script src="../../_static/doctools.js?v=9bcbadda"></script>
@@ -288,8 +288,22 @@
   </li>
       <li>
     
+  <a class="reference internal" href="../20251213T204155/">
+    IBuffer
+  </a>
+  
+</li>
+      <li>
+    
   <a class="reference internal" href="../20251227T122017/">
     Using jj from Emacs
+  </a>
+  
+</li>
+      <li>
+    
+  <a class="reference internal" href="../20260118T133600/">
+    Treesitter
   </a>
   
 </li>
@@ -316,7 +330,7 @@
 <p>Settings for Python files</p>
 <div class="awdur-codeblock docutils container">
 <div class="awdur-codeblock-header docutils container">
-<code class="awdur-codeblock-filename docutils literal notranslate"><span class="pre">emacs/init.el</span></code></div>
+<code class="awdur-codeblock-filename docutils literal notranslate"><span class="pre">init.el</span></code></div>
 <div class="highlight-elisp notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="nb">use-package</span><span class="w"> </span><span class="nv">python</span>
 <span class="w">  </span><span class="nb">:hook</span><span class="w"> </span><span class="p">((</span><span class="nv">python-mode</span><span class="w"> </span><span class="o">.</span><span class="w"> </span><span class="nv">alc-python-mode-hook</span><span class="p">)</span>
 <span class="w">         </span><span class="p">(</span><span class="nv">python-ts-mode</span><span class="w"> </span><span class="o">.</span><span class="w"> </span><span class="nv">alc-python-mode-hook</span><span class="p">))</span>
@@ -329,7 +343,7 @@
 However, this can be overriden on a per-project basis by setting <code class="docutils literal notranslate"><span class="pre">apheleia-formatter</span></code> in a <code class="docutils literal notranslate"><span class="pre">.dir-locals.el</span></code> file.</p>
 <div class="awdur-codeblock docutils container">
 <div class="awdur-codeblock-header docutils container">
-<code class="awdur-codeblock-filename docutils literal notranslate"><span class="pre">emacs/init.el</span></code></div>
+<code class="awdur-codeblock-filename docutils literal notranslate"><span class="pre">init.el</span></code></div>
 <div class="highlight-elisp notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="nb">with-eval-after-load</span><span class="w"> </span><span class="ss">&#39;apheleia</span>
 <span class="w">  </span><span class="p">(</span><span class="nb">setf</span><span class="w"> </span><span class="p">(</span><span class="nv">alist-get</span><span class="w"> </span><span class="ss">&#39;python-ts-mode</span><span class="w"> </span><span class="nv">apheleia-mode-alist</span><span class="p">)</span>
 <span class="w">       </span><span class="o">&#39;</span><span class="p">(</span><span class="nv">ruff-isort</span><span class="w"> </span><span class="nv">ruff</span><span class="p">)))</span>
@@ -339,7 +353,7 @@ However, this can be overriden on a per-project basis by setting <code class="do
 <p>A function to run each time a Python file is visited.</p>
 <div class="awdur-codeblock docutils container">
 <div class="awdur-codeblock-header docutils container">
-<code class="awdur-codeblock-filename docutils literal notranslate"><span class="pre">emacs/init.el</span></code></div>
+<code class="awdur-codeblock-filename docutils literal notranslate"><span class="pre">init.el</span></code></div>
 <div class="highlight-elisp notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="nb">defun</span><span class="w"> </span><span class="nv">alc-python-mode-hook</span><span class="w"> </span><span class="p">()</span>
 <span class="w">  </span><span class="s">&quot;Tweaks and config to run when starting </span><span class="ss">`python-mode&#39;</span><span class="s">&quot;</span>
 <span class="w">  </span><span class="p">(</span><span class="nb">require</span><span class="w"> </span><span class="ss">&#39;alc-python</span><span class="p">)</span>
@@ -361,19 +375,11 @@ However, this can be overriden on a per-project basis by setting <code class="do
 </div>
 <section id="python-environments">
 <h2>Python Environments<a class="headerlink" href="#python-environments" title="Link to this heading">Â¶</a></h2>
-<div class="awdur-codeblock docutils container">
-<div class="awdur-codeblock-header docutils container">
-<code class="awdur-codeblock-filename docutils literal notranslate"><span class="pre">emacs/lisp/alc-python.el</span></code></div>
-<div class="highlight-elisp notranslate"><div class="highlight"><pre><span></span><span class="c1">;;; alc-python.el --- Python configuration -*- lexical-binding: t -*-</span>
-<span class="c1">;;; Code:</span>
-</pre></div>
-</div>
-</div>
 <p>No configuration would be complete without considering the <em>many</em> ways in which you might work with Python environments!</p>
 <p>The following function allows me to use the minibuffer to select an environment from all the environment defined for the current project</p>
 <div class="awdur-codeblock docutils container">
 <div class="awdur-codeblock-header docutils container">
-<code class="awdur-codeblock-filename docutils literal notranslate"><span class="pre">emacs/lisp/alc-python.el</span></code></div>
+<code class="awdur-codeblock-filename docutils literal notranslate"><span class="pre">lisp/alc-python.el</span></code></div>
 <div class="highlight-elisp notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="nb">defun</span><span class="w"> </span><span class="nv">alc-python-env-select</span><span class="w"> </span><span class="p">()</span>
 <span class="w">  </span><span class="s">&quot;Select from a list of available Python environments, return the path to</span>
 <span class="s">the Python executable&quot;</span>
@@ -389,7 +395,7 @@ However, this can be overriden on a per-project basis by setting <code class="do
 It works by updating the <code class="docutils literal notranslate"><span class="pre">.dir-locals.el</span></code> file for the current project</p>
 <div class="awdur-codeblock docutils container">
 <div class="awdur-codeblock-header docutils container">
-<code class="awdur-codeblock-filename docutils literal notranslate"><span class="pre">emacs/lisp/alc-python.el</span></code></div>
+<code class="awdur-codeblock-filename docutils literal notranslate"><span class="pre">lisp/alc-python.el</span></code></div>
 <div class="highlight-elisp notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="nb">defun</span><span class="w"> </span><span class="nv">alc-python-env-activate</span><span class="w"> </span><span class="p">()</span>
 <span class="w">  </span><span class="s">&quot;Select a Python environment and activate it.&quot;</span>
 <span class="w">  </span><span class="p">(</span><span class="k">interactive</span><span class="p">)</span>
@@ -420,7 +426,7 @@ It works by updating the <code class="docutils literal notranslate"><span class=
 <p>Depending on the project, environments can be defined in a <code class="docutils literal notranslate"><span class="pre">hatch.toml</span></code> file, or the <code class="docutils literal notranslate"><span class="pre">tool.hatch</span></code> namespace in <code class="docutils literal notranslate"><span class="pre">pyproject.toml</span></code></p>
 <div class="awdur-codeblock docutils container">
 <div class="awdur-codeblock-header docutils container">
-<code class="awdur-codeblock-filename docutils literal notranslate"><span class="pre">emacs/lisp/alc-python.el</span></code></div>
+<code class="awdur-codeblock-filename docutils literal notranslate"><span class="pre">lisp/alc-python.el</span></code></div>
 <div class="highlight-elisp notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="nb">defun</span><span class="w"> </span><span class="nv">alc-python-project-hatch-p</span><span class="w"> </span><span class="p">(</span><span class="nv">prj</span><span class="p">)</span>
 <span class="w">  </span><span class="s">&quot;Return t if the given Python PRJ is managed by hatch.&quot;</span>
 <span class="w">  </span><span class="p">(</span><span class="k">let</span><span class="w"> </span><span class="p">((</span><span class="nv">root</span><span class="w"> </span><span class="p">(</span><span class="nv">project-root</span><span class="w"> </span><span class="nv">prj</span><span class="p">)))</span>
@@ -435,7 +441,7 @@ It works by updating the <code class="docutils literal notranslate"><span class=
 <p>The <code class="docutils literal notranslate"><span class="pre">hatch</span> <span class="pre">env</span> <span class="pre">show</span></code> command has a <code class="docutils literal notranslate"><span class="pre">--json</span></code> flag and provides plenty of information about the available environments!</p>
 <div class="awdur-codeblock docutils container">
 <div class="awdur-codeblock-header docutils container">
-<code class="awdur-codeblock-filename docutils literal notranslate"><span class="pre">emacs/lisp/alc-python.el</span></code></div>
+<code class="awdur-codeblock-filename docutils literal notranslate"><span class="pre">lisp/alc-python.el</span></code></div>
 <div class="highlight-elisp notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="nb">defun</span><span class="w"> </span><span class="nv">alc-python-env-hatch-discover</span><span class="w"> </span><span class="p">(</span><span class="nv">prj</span><span class="p">)</span>
 <span class="w">  </span><span class="s">&quot;Return a list of hatch managed environments available in PRJ&quot;</span>
 <span class="w">  </span><span class="p">(</span><span class="nv">if-let*</span><span class="w"> </span><span class="p">((</span><span class="nv">default-directory</span><span class="w"> </span><span class="p">(</span><span class="nv">project-root</span><span class="w"> </span><span class="nv">prj</span><span class="p">))</span>
@@ -454,7 +460,7 @@ It works by updating the <code class="docutils literal notranslate"><span class=
 <blockquote>
 <div><div class="awdur-codeblock docutils container">
 <div class="awdur-codeblock-header docutils container">
-<code class="awdur-codeblock-filename docutils literal notranslate"><span class="pre">emacs/lisp/alc-python.el</span></code></div>
+<code class="awdur-codeblock-filename docutils literal notranslate"><span class="pre">lisp/alc-python.el</span></code></div>
 <div class="highlight-elisp notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="nb">defun</span><span class="w"> </span><span class="nv">alc-python-env-hatch-select</span><span class="w"> </span><span class="p">(</span><span class="nv">prj</span><span class="p">)</span>
 <span class="w">  </span><span class="s">&quot;Select a Hatch environment defined by the given PRJ&quot;</span>
 <span class="w">  </span><span class="p">(</span><span class="nv">if-let*</span><span class="w"> </span><span class="p">((</span><span class="nv">default-directory</span><span class="w"> </span><span class="p">(</span><span class="nv">project-root</span><span class="w"> </span><span class="nv">prj</span><span class="p">))</span>
@@ -476,7 +482,7 @@ It works by updating the <code class="docutils literal notranslate"><span class=
 <p>While not foolproof, the presence of a <code class="docutils literal notranslate"><span class="pre">poetry.lock</span></code> file is a pretty good indicator that the current project is using poetry.</p>
 <div class="awdur-codeblock docutils container">
 <div class="awdur-codeblock-header docutils container">
-<code class="awdur-codeblock-filename docutils literal notranslate"><span class="pre">emacs/lisp/alc-python.el</span></code></div>
+<code class="awdur-codeblock-filename docutils literal notranslate"><span class="pre">lisp/alc-python.el</span></code></div>
 <div class="highlight-elisp notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="nb">defun</span><span class="w"> </span><span class="nv">alc-python-project-poetry-p</span><span class="w"> </span><span class="p">(</span><span class="nv">prj</span><span class="p">)</span>
 <span class="w">  </span><span class="s">&quot;Return t if the given Python PRJ is managed by poetry.&quot;</span>
 <span class="w">  </span><span class="p">(</span><span class="nf">file-exists-p</span><span class="w"> </span><span class="p">(</span><span class="nf">concat</span><span class="w"> </span><span class="p">(</span><span class="nv">project-root</span><span class="w"> </span><span class="nv">prj</span><span class="p">)</span><span class="w"> </span><span class="s">&quot;poetry.lock&quot;</span><span class="p">)))</span>
@@ -486,7 +492,7 @@ It works by updating the <code class="docutils literal notranslate"><span class=
 <p>Poetry provides a command to list environments, but unfortunately does not seem to give a way to return the list as JSON, hopefully the following is robust enough to parse the output.</p>
 <div class="awdur-codeblock docutils container">
 <div class="awdur-codeblock-header docutils container">
-<code class="awdur-codeblock-filename docutils literal notranslate"><span class="pre">emacs/lisp/alc-python.el</span></code></div>
+<code class="awdur-codeblock-filename docutils literal notranslate"><span class="pre">lisp/alc-python.el</span></code></div>
 <div class="highlight-elisp notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="nb">defun</span><span class="w"> </span><span class="nv">alc-python-env-poetry-discover</span><span class="w"> </span><span class="p">(</span><span class="nv">prj</span><span class="p">)</span>
 <span class="w">  </span><span class="s">&quot;Return a list of poetry managed environments available in PRJ&quot;</span>
 <span class="w">  </span><span class="p">(</span><span class="nv">if-let*</span><span class="w"> </span><span class="p">((</span><span class="nv">default-directory</span><span class="w"> </span><span class="p">(</span><span class="nv">project-root</span><span class="w"> </span><span class="nv">prj</span><span class="p">))</span>
@@ -505,7 +511,7 @@ Oh well, for the projects I use poetry with currently, I can assume that thereâ€
 <blockquote>
 <div><div class="awdur-codeblock docutils container">
 <div class="awdur-codeblock-header docutils container">
-<code class="awdur-codeblock-filename docutils literal notranslate"><span class="pre">emacs/lisp/alc-python.el</span></code></div>
+<code class="awdur-codeblock-filename docutils literal notranslate"><span class="pre">lisp/alc-python.el</span></code></div>
 <div class="highlight-elisp notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="nb">defun</span><span class="w"> </span><span class="nv">alc-python-env-poetry-select</span><span class="w"> </span><span class="p">(</span><span class="nv">prj</span><span class="p">)</span>
 <span class="w">  </span><span class="s">&quot;Select a Poetry environment defined by the given PRJ&quot;</span>
 <span class="w">  </span><span class="p">(</span><span class="nv">if-let*</span><span class="w"> </span><span class="p">((</span><span class="nv">default-directory</span><span class="w"> </span><span class="p">(</span><span class="nv">project-root</span><span class="w"> </span><span class="nv">prj</span><span class="p">))</span>
@@ -523,7 +529,7 @@ Oh well, for the projects I use poetry with currently, I can assume that thereâ€
 <p>A function that tries to distinguish between library code and project code</p>
 <div class="awdur-codeblock docutils container">
 <div class="awdur-codeblock-header docutils container">
-<code class="awdur-codeblock-filename docutils literal notranslate"><span class="pre">emacs/lisp/alc-python.el</span></code></div>
+<code class="awdur-codeblock-filename docutils literal notranslate"><span class="pre">lisp/alc-python.el</span></code></div>
 <div class="highlight-elisp notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="nb">defun</span><span class="w"> </span><span class="nv">alc-python-library-file-p</span><span class="w"> </span><span class="p">(</span><span class="nv">file-name</span><span class="p">)</span>
 <span class="w">  </span><span class="s">&quot;Determine if the given FILE-NAME is a library file&quot;</span>
 <span class="w">  </span><span class="p">(</span><span class="k">or</span><span class="w">  </span><span class="p">(</span><span class="nv">string-match-p</span><span class="w"> </span><span class="s">&quot;site-packages/&quot;</span><span class="w"> </span><span class="nv">file-name</span><span class="p">)</span>
@@ -535,7 +541,7 @@ Oh well, for the projects I use poetry with currently, I can assume that thereâ€
 <p>A function that uses the Python standard library to parse a TOML file as JSON.</p>
 <div class="awdur-codeblock docutils container">
 <div class="awdur-codeblock-header docutils container">
-<code class="awdur-codeblock-filename docutils literal notranslate"><span class="pre">emacs/lisp/alc-python.el</span></code></div>
+<code class="awdur-codeblock-filename docutils literal notranslate"><span class="pre">lisp/alc-python.el</span></code></div>
 <div class="highlight-elisp notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="nb">defun</span><span class="w"> </span><span class="nv">alc-python-load-toml</span><span class="w"> </span><span class="p">(</span><span class="nv">filename</span><span class="p">)</span>
 <span class="w">  </span><span class="s">&quot;Load the toml in FILENAME as json, utilising the TOML parser in the</span>
 <span class="s">  Python standard library&quot;</span>
@@ -544,13 +550,6 @@ Oh well, for the projects I use poetry with currently, I can assume that thereâ€
 <span class="w">                            </span><span class="o">,</span><span class="nv">filename</span><span class="p">)</span>
 <span class="w">                          </span><span class="s">&quot; &quot;</span><span class="p">)))</span>
 <span class="w">    </span><span class="p">(</span><span class="nv">json-parse-string</span><span class="w"> </span><span class="p">(</span><span class="nv">shell-command-to-string</span><span class="w"> </span><span class="nv">cmd</span><span class="p">))))</span>
-</pre></div>
-</div>
-</div>
-<div class="awdur-codeblock docutils container">
-<div class="awdur-codeblock-header docutils container">
-<code class="awdur-codeblock-filename docutils literal notranslate"><span class="pre">emacs/lisp/alc-python.el</span></code></div>
-<div class="highlight-elisp notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="nb">provide</span><span class="w"> </span><span class="ss">&#39;alc-python</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>

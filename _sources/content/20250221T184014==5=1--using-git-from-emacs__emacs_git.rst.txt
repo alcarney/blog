@@ -10,7 +10,8 @@ Using ``git`` from Emacs
 Of course, no Emacs config would be complete without :gh:`magit/magit`
 
 .. code-block:: elisp
-   :filename: emacs/init.el
+   :project: emacs
+   :filename: init.el
 
    (use-package magit
      :ensure t
@@ -28,7 +29,8 @@ Of course, no Emacs config would be complete without :gh:`magit/magit`
    `This article <https://karthinks.com/software/fringe-matters-finding-the-right-difference/>`__ from Karthink shows how you can change the reference commit
 
 .. code-block:: elisp
-   :filename: emacs/init.el
+   :project: emacs
+   :filename: init.el
 
    (use-package diff-hl
      :ensure t
@@ -54,7 +56,8 @@ I've also started playing around with :gh:`magit/forge`
 
 
 .. code-block:: elisp
-   :filename: emacs/init.el
+   :project: emacs
+   :filename: init.el
 
    (use-package forge
      :ensure t
@@ -63,7 +66,8 @@ I've also started playing around with :gh:`magit/forge`
 All thanks to :gh:`magit/forge/discussions/544`, it's possible to define an auth source that uses the ``gh`` cli to authenticate with the API!
 
 .. code-block:: elisp
-   :filename: emacs/init.el
+   :project: emacs
+   :filename: init.el
 
    (cl-defun auth-source-ghcli-search (&rest spec
                                              &key backend require
@@ -115,7 +119,8 @@ All thanks to :gh:`magit/forge/discussions/544`, it's possible to define an auth
 I also have a few utility functions defined in a local package
 
 .. code-block:: elisp
-   :filename: emacs/init.el
+   :project: emacs
+   :filename: init.el
 
    (use-package alc-git
      :ensure nil

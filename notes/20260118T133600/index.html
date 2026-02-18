@@ -5,7 +5,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>Building Emacs from Source &#8212; Alex Carney</title>
+    <title>Treesitter &#8212; Alex Carney</title>
 
     <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=02ca0aaa" />
     <link id="pygments_dark_css" media="(prefers-color-scheme: dark)" rel="stylesheet" type="text/css" href="../../_static/pygments_dark.css?v=d8568271" />
@@ -97,20 +97,20 @@
     <h5 style="grid-column: span 2">Metadata</h5><svg xmlns="http://www.w3.org/2000/svg" width="2em" fill="none" viewBox="0 0 24 24" stroke="currentColor">
     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
 </svg>
-    <time style="align-self: center; text-align: right;" datetime="2025-04-09 00:00:00+00:00">Apr 09, 2025</time><svg xmlns="http://www.w3.org/2000/svg" width="2em" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+    <time style="align-self: center; text-align: right;" datetime="2026-01-18 00:00:00+00:00">Jan 18, 2026</time><svg xmlns="http://www.w3.org/2000/svg" width="2em" fill="none" viewBox="0 0 24 24" stroke="currentColor">
     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z" />
 </svg>
     <ul class="taglist">
-        <li>
-            <a class="tag" href="../../tag/emacs/">
-                #emacs
-            </a>
-        </li>
     </ul>
 </section><section id="post-contents">
   <nav id="localtoc">
     <ul>
-<li><a class="reference internal" href="#">Building Emacs from Source</a></li>
+<li><a class="reference internal" href="#">Treesitter</a><ul>
+<li><a class="reference internal" href="#installing-grammars">Installing Grammars</a></li>
+<li><a class="reference internal" href="#major-modes">Major Modes</a></li>
+<li><a class="reference internal" href="#combobulate">Combobulate</a></li>
+</ul>
+</li>
 </ul>
 
   </nav>
@@ -136,7 +136,7 @@
   
 </li>
       <li>
-  <details >
+  <details open>
     <summary>
       
   <a class="reference internal" href="../20250221T184014/">
@@ -234,10 +234,12 @@
   
 </li>
       <li>
-  <details open>
+  <details >
     <summary>
       
+  <a class="reference internal" href="../20250409T205418/">
     Building Emacs from Source
+  </a>
   
 
     </summary>
@@ -289,9 +291,7 @@
 </li>
       <li>
     
-  <a class="reference internal" href="../20260118T133600/">
     Treesitter
-  </a>
   
 </li>
     </ul>
@@ -312,58 +312,73 @@
     <div role="main" style="flex-grow: 1">
 
 <article>
-  <section id="building-emacs-from-source">
-<h1>Building Emacs from Source<a class="headerlink" href="#building-emacs-from-source" title="Link to this heading">¶</a></h1>
-<p>I suppose it was bound to happen sooner or later, the following is a simple script for building Emacs from source and installing it under <code class="docutils literal notranslate"><span class="pre">${HOME}/.local</span></code></p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/bin/bash</span>
-<span class="nb">set</span><span class="w"> </span>-eux
-
-<span class="nv">SRC</span><span class="o">=</span><span class="s2">&quot;</span><span class="si">${</span><span class="nv">HOME</span><span class="si">}</span><span class="s2">/Projects/gnu/emacs/master&quot;</span>
-<span class="nv">PREFIX</span><span class="o">=</span><span class="s2">&quot;</span><span class="si">${</span><span class="nv">HOME</span><span class="si">}</span><span class="s2">/.local&quot;</span>
-
-<span class="nb">pushd</span><span class="w"> </span><span class="s2">&quot;</span><span class="nv">$SRC</span><span class="s2">&quot;</span>
-
-<span class="c1"># Install build dependencies...</span>
-sudo<span class="w"> </span>dnf<span class="w"> </span>builddep<span class="w"> </span>-y<span class="w"> </span>emacs
-
-./configure<span class="w"> </span><span class="se">\</span>
-<span class="w">    </span>--prefix<span class="o">=</span><span class="s2">&quot;</span><span class="si">${</span><span class="nv">PREFIX</span><span class="si">}</span><span class="s2">&quot;</span><span class="w"> </span><span class="se">\</span>
-<span class="w">    </span>--disable-gc-mark-trace<span class="w"> </span><span class="se">\</span>
-<span class="w">    </span>--with-pgtk<span class="w"> </span><span class="se">\</span>
-<span class="w">    </span>--with-native-compilation<span class="o">=</span>aot<span class="w"> </span><span class="se">\</span>
-<span class="w">    </span>--without-x
-
-<span class="nb">read</span><span class="w"> </span>-p<span class="w"> </span><span class="s2">&quot;Continue? [y/N] &quot;</span><span class="w"> </span>-n<span class="w"> </span><span class="m">1</span><span class="w"> </span>-r
-
-<span class="k">if</span><span class="w"> </span><span class="o">[[</span><span class="w"> </span><span class="nv">$REPLY</span><span class="w"> </span><span class="o">=</span>~<span class="w"> </span>^<span class="o">[</span>Yy<span class="o">]</span>$<span class="w"> </span><span class="o">]]</span>
-<span class="k">then</span>
-<span class="w">    </span>make<span class="w"> </span>-j<span class="w"> </span><span class="k">$(</span>nproc<span class="k">)</span>
-<span class="k">fi</span>
+  <section id="treesitter">
+<h1>Treesitter<a class="headerlink" href="#treesitter" title="Link to this heading">¶</a></h1>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<dl class="simple">
+<dt><a class="reference external" href="https://www.masteringemacs.org/article/how-to-get-started-tree-sitter">How To Get Started with Tree Sitter</a></dt><dd><p>Article on Matering Emacs</p>
+</dd>
+<dt><a class="reference external" href="https://www.masteringemacs.org/article/combobulate-structured-movement-editing-treesitter">Combobulate: Structured Movement and Editing with Tree-Sitter</a></dt><dd><p>Another introducing the <code class="docutils literal notranslate"><span class="pre">combobulate</span></code> package</p>
+</dd>
+</dl>
+</div>
+<p>As of version <code class="docutils literal notranslate"><span class="pre">29.1</span></code> Emacs comes with support out of the box (assuming it has been compiled with the <code class="docutils literal notranslate"><span class="pre">--with-tree-sitter</span></code> flag)</p>
+<div class="awdur-codeblock docutils container">
+<div class="awdur-codeblock-header docutils container">
+<code class="awdur-codeblock-filename docutils literal notranslate"><span class="pre">init.el</span></code></div>
+<div class="highlight-elisp notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="nb">use-package</span><span class="w"> </span><span class="nv">alc-treesitter</span>
+<span class="w">  </span><span class="nb">:load-path</span><span class="w"> </span><span class="s">&quot;lisp&quot;</span>
+<span class="w">  </span><span class="nb">:if</span><span class="w"> </span><span class="p">(</span><span class="nv">treesit-available-p</span><span class="p">))</span>
 </pre></div>
 </div>
-<p>Using Aurora as my OS poses a few challenges, so in order to make the above work</p>
-<ul>
-<li><p>The build itself was executed in a fedora distrobox</p></li>
-<li><p>I still have the fedora <code class="docutils literal notranslate"><span class="pre">emacs</span></code> package layered:</p>
-<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>$ rpm-ostree status
-State: idle
-AutomaticUpdates: stage; rpm-ostreed-automatic.timer: no runs since boot
-Deployments:
-
-● ostree-image-signed:docker://ghcr.io/ublue-os/aurora-dx:stable
-                   Digest: sha256:87643ac3caee7c17334a08dea4203266e81ab9c8de7a55ea5aed59a77ec28588
-                  Version: 41.20250330.1 (2025-03-30T06:02:52Z)
-          LayeredPackages: emacs
-
-  ostree-image-signed:docker://ghcr.io/ublue-os/aurora-dx:stable
-                   Digest: sha256:0b48d807d1e773328de4d82f344c2b53415c96249fac4eb3c9167522aede911d
-                  Version: 41.20250316.1 (2025-03-16T06:06:05Z)
-          LayeredPackages: emacs
+</div>
+<section id="installing-grammars">
+<h2>Installing Grammars<a class="headerlink" href="#installing-grammars" title="Link to this heading">¶</a></h2>
+<p>While Emacs supports the tree-sitter library itself, it does not come with any grammars which need to be installed separately.
+Thankfully, Emacs does provide a few utilities to help with this</p>
+<div class="awdur-codeblock docutils container">
+<div class="awdur-codeblock-header docutils container">
+<code class="awdur-codeblock-filename docutils literal notranslate"><span class="pre">lisp/alc-treesitter.el</span></code></div>
+<div class="highlight-elisp notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="k">setq</span><span class="w"> </span><span class="nv">treesit-language-source-alist</span>
+<span class="w">      </span><span class="o">&#39;</span><span class="p">((</span><span class="nv">python</span><span class="w"> </span><span class="s">&quot;https://github.com/tree-sitter/tree-sitter-python&quot;</span><span class="w"> </span><span class="s">&quot;v0.20.4&quot;</span><span class="p">)</span>
+<span class="w">        </span><span class="p">(</span><span class="nv">typescript</span><span class="w"> </span><span class="s">&quot;https://github.com/tree-sitter/tree-sitter-typescript&quot;</span><span class="w"> </span><span class="s">&quot;v0.20.3&quot;</span><span class="w"> </span><span class="s">&quot;typescript/src&quot;</span><span class="p">)))</span>
 </pre></div>
 </div>
-<p>I have not un-layered the package to test it, but my assumption is that this enables the version of Emacs I compile to work by ensuring all the runtime dependencies are present.</p>
-</li>
-</ul>
+</div>
+<p>The <code class="docutils literal notranslate"><span class="pre">treesit-language-source-alist</span></code> variable tells Emacs where it can find a given grammar and what language it is for.
+Once defined (and assuming you have the necessary dependencies) you can use <code class="docutils literal notranslate"><span class="pre">M-x</span> <span class="pre">treesit-install-language-grammar</span></code> command to install one of the grammars you defined.
+Alternatively this snippet will install them all in one go</p>
+<div class="highlight-elisp notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="nf">mapc</span><span class="w"> </span><span class="nf">#&#39;</span><span class="nv">treesit-install-language-grammar</span><span class="w"> </span><span class="p">(</span><span class="nf">mapcar</span><span class="w"> </span><span class="nf">#&#39;car</span><span class="w"> </span><span class="nv">treesit-language-source-alist</span><span class="p">))</span>
+</pre></div>
+</div>
+</section>
+<section id="major-modes">
+<h2>Major Modes<a class="headerlink" href="#major-modes" title="Link to this heading">¶</a></h2>
+<p>Switching to tree-sitter powered major modes by default would not be backwards compatible, so if we actually want to make use of the tree-sitter support we need to opt into it.</p>
+<div class="awdur-codeblock docutils container">
+<div class="awdur-codeblock-header docutils container">
+<code class="awdur-codeblock-filename docutils literal notranslate"><span class="pre">lisp/alc-treesitter.el</span></code></div>
+<div class="highlight-elisp notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="nv">treesit-language-available-p</span><span class="w"> </span><span class="ss">&#39;python</span><span class="p">)</span>
+<span class="w">  </span><span class="p">(</span><span class="nv">add-to-list</span><span class="w"> </span><span class="ss">&#39;major-mode-remap-alist</span><span class="w"> </span><span class="o">&#39;</span><span class="p">(</span><span class="nv">python-mode</span><span class="w"> </span><span class="o">.</span><span class="w"> </span><span class="nv">python-ts-mode</span><span class="p">)))</span>
+</pre></div>
+</div>
+</div>
+</section>
+<section id="combobulate">
+<h2>Combobulate<a class="headerlink" href="#combobulate" title="Link to this heading">¶</a></h2>
+<p><a class="extlink-gh reference external" href="https://github.com/mickeynp/combobulate">mickeynp/combobulate</a> provides a nice set of movement and editing commands that leverage the parse tree generated by tree sitter.</p>
+<div class="awdur-codeblock docutils container">
+<div class="awdur-codeblock-header docutils container">
+<code class="awdur-codeblock-filename docutils literal notranslate"><span class="pre">lisp/alc-treesitter.el</span></code></div>
+<div class="highlight-elisp notranslate"><div class="highlight"><pre><span></span><span class="w"> </span><span class="p">(</span><span class="nb">use-package</span><span class="w"> </span><span class="nv">combobulate</span>
+<span class="w">  </span><span class="nb">:vc</span><span class="w"> </span><span class="p">(</span><span class="nb">:url</span><span class="w"> </span><span class="s">&quot;https://github.com/mickeynp/combobulate&quot;</span><span class="w"> </span><span class="nb">:rev</span><span class="w"> </span><span class="s">&quot;master&quot;</span><span class="p">)</span>
+<span class="w">  </span><span class="nb">:hook</span><span class="w"> </span><span class="p">((</span><span class="nv">python-ts-mode</span><span class="w"> </span><span class="o">.</span><span class="w"> </span><span class="nv">combobulate-mode</span><span class="p">)</span>
+<span class="w">         </span><span class="p">(</span><span class="nv">typescript-ts-mode</span><span class="w"> </span><span class="o">.</span><span class="w"> </span><span class="nv">combobulate-mode</span><span class="p">)))</span>
+</pre></div>
+</div>
+</div>
+</section>
 </section>
 
 
@@ -376,7 +391,7 @@ Deployments:
         <h6>Links</h6>
         <ul>
           <li>
-            <a href="../../_sources/content/20250409T205418==5=5--building-emacs-from-source__emacs.rst.txt" rel="nofollow">
+            <a href="../../_sources/content/20260118T133600==5=10--treesitter.rst.txt" rel="nofollow">
               Page Source
             </a>
           </li>
