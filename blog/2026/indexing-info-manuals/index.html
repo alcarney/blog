@@ -1,0 +1,1018 @@
+<!DOCTYPE html>
+
+<html lang="en" data-content_root="../../../">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Indexing Info Manuals &#8212; Alex Carney</title>
+
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=02ca0aaa" />
+    <link id="pygments_dark_css" media="(prefers-color-scheme: dark)" rel="stylesheet" type="text/css" href="../../../_static/pygments_dark.css?v=d8568271" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/awdur-styles.css?v=21b80da3" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/css/layout.css?v=cf053816" />
+
+    <script src="../../../_static/documentation_options.js?v=187304be"></script>
+    <script src="../../../_static/doctools.js?v=9bcbadda"></script>
+    <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../../_static/js/theme.js?v=94324b12"></script>
+    <script src="../../../_static/js/htmx-2.0.4.min.js?v=be6ab97a"></script>
+    <link rel="icon" href="../../../_static/favicon.ico"/>
+    <link rel="index" title="Index" href="../../../genindex/" />
+    <link rel="search" title="Search" href="../../../search/" />
+    <link rel="alternate"
+          type="application/atom+xml"
+          title=" | Blog Posts"
+          href="/blog/atom.xml">
+    <meta name="fediverse:creator" content="@alcarney@mastodon.social">
+    <meta name="theme-color" content="#059669">
+
+  </head>
+  <body>
+
+<input type="checkbox" id="menu-toggle" class="hidden" />
+<aside>
+  <div class="sidebar"><div id="profile-card">
+    <img src="/_static/avatar.jpg"/>
+    <h2>
+      <a href="/">Alex Carney</a>
+    </h2>
+    <nav class="social">
+  <a target="_blank" rel="noreferrer noopener" href="https://github.com/alcarney" title="GitHub">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="24px" height="24px">
+      <path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/>
+    </svg>
+  </a>
+
+  <a target="_blank" rel="noreferrer noopener me" href="https://mastodon.social/@alcarney" title="Mastodon">
+    <svg role="img" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" width="24px" height="24px" fill="currentColor">
+      <title>Mastodon</title>
+      <path d="M23.268 5.313c-.35-2.578-2.617-4.61-5.304-5.004C17.51.242 15.792 0 11.813 0h-.03c-3.98 0-4.835.242-5.288.309C3.882.692 1.496 2.518.917 5.127.64 6.412.61 7.837.661 9.143c.074 1.874.088 3.745.26 5.611.118 1.24.325 2.47.62 3.68.55 2.237 2.777 4.098 4.96 4.857 2.336.792 4.849.923 7.256.38.265-.061.527-.132.786-.213.585-.184 1.27-.39 1.774-.753a.057.057 0 0 0 .023-.043v-1.809a.052.052 0 0 0-.02-.041.053.053 0 0 0-.046-.01 20.282 20.282 0 0 1-4.709.545c-2.73 0-3.463-1.284-3.674-1.818a5.593 5.593 0 0 1-.319-1.433.053.053 0 0 1 .066-.054c1.517.363 3.072.546 4.632.546.376 0 .75 0 1.125-.01 1.57-.044 3.224-.124 4.768-.422.038-.008.077-.015.11-.024 2.435-.464 4.753-1.92 4.989-5.604.008-.145.03-1.52.03-1.67.002-.512.167-3.63-.024-5.545zm-3.748 9.195h-2.561V8.29c0-1.309-.55-1.976-1.67-1.976-1.23 0-1.846.79-1.846 2.35v3.403h-2.546V8.663c0-1.56-.617-2.35-1.848-2.35-1.112 0-1.668.668-1.67 1.977v6.218H4.822V8.102c0-1.31.337-2.35 1.011-3.12.696-.77 1.608-1.164 2.74-1.164 1.311 0 2.302.5 2.962 1.498l.638 1.06.638-1.06c.66-.999 1.65-1.498 2.96-1.498 1.13 0 2.043.395 2.74 1.164.675.77 1.012 1.81 1.012 3.12z"/>
+    </svg>
+  </a>
+
+  <a target="_blank" rel="noreferrer noopener" href="https://pixelfed.social/i/web/profile/795173629619860860" title="Pixelfed">
+    <svg width="24px" height="24px" viewBox="0 0 50 50" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path d="M25 50C11.193 50 0 38.807 0 25S11.193 0 25 0s25 11.193 25 25-11.193 25-25 25zm-1.985-19.542h4.586c4.32 0 7.823-3.41 7.823-7.615 0-4.206-3.502-7.616-7.823-7.616h-6.619c-2.492 0-4.513 1.967-4.513 4.394v17.1l6.546-6.263z" fill-rule="evenodd"/></svg>
+  </a>
+
+  <a target="_blank" rel="noreferrer noopener" href="https://www.youtube.com/channel/UC5GPflgRWhnCxA0BllfP5CA" title="YouTube">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24px" height="24px" fill="currentColor">
+      <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
+    </svg>
+  </a>
+
+  <a href="/blog/atom.xml" title="RSS Feed">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24px" height="24px" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
+      <path d="M4 11a9 9 0 0 1 9 9M4 4a16 16 0 0 1 16 16"/>
+      <circle cx="5" cy="19" r="1"/>
+    </svg>
+  </a>
+</nav>
+</div>
+<search id="searchbox" style="display: none" role="search">
+    <div class="searchformwrapper">
+    <form class="search" action="../../../search/" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" placeholder="Search"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</search>
+<script>document.getElementById('searchbox').style.display = "block"</script><nav class="site">
+  <ul>
+    <li>
+      <a href="/blog">Blog</a>
+    </li>
+    <li>
+      <a href="/code">Code</a>
+    </li>
+    <li>
+      <a href="/dotfiles">Dotfiles</a>
+    </li>
+    <li>
+      <a href="/notes">Notes</a>
+    </li>
+  </ul>
+</nav>
+<section class="post-metadata">
+    <h5 style="grid-column: span 2">Metadata</h5><svg xmlns="http://www.w3.org/2000/svg" width="2em" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+</svg>
+    <time style="align-self: center; text-align: right;" datetime="2026-03-09 00:00:00+00:00">Mar 09, 2026</time><svg xmlns="http://www.w3.org/2000/svg" width="2em" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z" />
+</svg>
+    <ul class="taglist">
+        <li>
+            <a class="tag" href="../../../tag/emacs/">
+                #emacs
+            </a>
+        </li>
+        <li>
+            <a class="tag" href="../../../tag/info/">
+                #info
+            </a>
+        </li>
+        <li>
+            <a class="tag" href="../../../tag/python/">
+                #python
+            </a>
+        </li>
+    </ul>
+</section><section id="post-contents">
+  <nav id="localtoc">
+    <ul>
+<li><a class="reference internal" href="#">Indexing Info Manuals</a><ul>
+<li><a class="reference internal" href="#dir-files"><code class="docutils literal notranslate"><span class="pre">dir</span></code> files</a></li>
+<li><a class="reference internal" href="#build-info-dir-py"><code class="docutils literal notranslate"><span class="pre">build-info-dir.py</span></code></a></li>
+<li><a class="reference internal" href="#building-and-using-the-index">Building and Using the Index</a></li>
+</ul>
+</li>
+</ul>
+
+  </nav>
+</section>
+<section id="post-related">
+  <h5>Related</h5>
+  
+  <details open>
+    <summary>
+      
+  <a class="reference internal" href="../../../notes/20250216T190756/">
+    My Emacs Configuration
+  </a>
+  
+
+    </summary>
+    <ul>
+      <li>
+    
+  <a class="reference internal" href="../../2024/local-llms-with-ollama-and-gptel/">
+    TIL: Local LLMs with Ollama and gptel
+  </a>
+  
+</li>
+      <li>
+  <details open>
+    <summary>
+      
+  <a class="reference internal" href="../../../notes/20250221T184014/">
+    Using git from Emacs
+  </a>
+  
+
+    </summary>
+    <ul>
+      <li>
+    
+  <a class="reference internal" href="../../2025/til-additional-magit-keybindings/">
+    TIL: Additional magit keybindings
+  </a>
+  
+</li>
+      <li>
+    
+  <a class="reference internal" href="../../2025/til-navigating-history-with-magit/">
+    TIL: Navigating History with Magit
+  </a>
+  
+</li>
+      <li>
+    
+  <a class="reference internal" href="../../../notes/20250430T213500/">
+    Getting the permalink URL to a line of code
+  </a>
+  
+</li>
+    </ul>
+  </details>
+  </li>
+      <li>
+  <details >
+    <summary>
+      
+  <a class="reference internal" href="../../../notes/20250708T202145/">
+    Emacs Appearance
+  </a>
+  
+
+    </summary>
+    <ul>
+      <li>
+    
+  <a class="reference internal" href="../../../notes/20250228T200007/">
+    Cusomising the Emacs Modeline
+  </a>
+  
+</li>
+      <li>
+    
+  <a class="reference internal" href="../../../notes/20250708T133920/">
+    Emacs Themes
+  </a>
+  
+</li>
+      <li>
+    
+  <a class="reference internal" href="../../../notes/20250924T182310/">
+    Tab Bar Utilities
+  </a>
+  
+</li>
+    </ul>
+  </details>
+  </li>
+      <li>
+  <details >
+    <summary>
+      
+  <a class="reference internal" href="../../../notes/20250303T122920/">
+    Python in Emacs
+  </a>
+  
+
+    </summary>
+    <ul>
+      <li>
+    
+  <a class="reference internal" href="../../../notes/20250615T135327/">
+    Debugging Python Code
+  </a>
+  
+</li>
+    </ul>
+  </details>
+  </li>
+      <li>
+    
+  <a class="reference internal" href="../../../notes/20250305T195742/">
+    Language Servers in Emacs
+  </a>
+  
+</li>
+      <li>
+  <details >
+    <summary>
+      
+  <a class="reference internal" href="../../../notes/20250409T205418/">
+    Building Emacs from Source
+  </a>
+  
+
+    </summary>
+    <ul>
+      <li>
+    
+  <a class="reference internal" href="../../2025/installing-emacs-with-systemd-sysext/">
+    Intstalling Emacs with systemd-sysext
+  </a>
+  
+</li>
+    </ul>
+  </details>
+  </li>
+      <li>
+  <details >
+    <summary>
+      
+  <a class="reference internal" href="../../../notes/20250705T225452/">
+    Running shells and terminals
+  </a>
+  
+
+    </summary>
+    <ul>
+      <li>
+    
+  <a class="reference internal" href="../../../notes/20250705T225630/">
+    Eat: Emulate a Terminal
+  </a>
+  
+</li>
+    </ul>
+  </details>
+  </li>
+      <li>
+    
+  <a class="reference internal" href="../../../notes/20251213T204155/">
+    IBuffer
+  </a>
+  
+</li>
+      <li>
+    
+  <a class="reference internal" href="../../../notes/20251227T122017/">
+    Using jj from Emacs
+  </a>
+  
+</li>
+      <li>
+    
+  <a class="reference internal" href="../../../notes/20260118T133600/">
+    Treesitter
+  </a>
+  
+</li>
+      <li>
+    
+    Indexing Info Manuals
+  
+</li>
+    </ul>
+  </details>
+  
+</section>
+  </div>
+</aside>
+
+<div class="content">
+    <header class="site">
+        <label for="menu-toggle">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="2em" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </label>
+    </header>
+
+    <div role="main" style="flex-grow: 1">
+
+<article>
+  <section id="indexing-info-manuals">
+<h1>Indexing Info Manuals<a class="headerlink" href="#indexing-info-manuals" title="Link to this heading">¶</a></h1>
+<div class="post-teaser docutils container">
+<p>I’ve been working around this issue for a while now.</p>
+<p>By default, the <kbd class="kbd docutils literal notranslate">C</kbd>-<kbd class="kbd docutils literal notranslate">h</kbd> <kbd class="kbd docutils literal notranslate">i</kbd> binding in Emacs opens the list of available
+<a class="reference external" href="https://en.wikipedia.org/wiki/Info_(Unix)">info manuals</a> for you to browse through.
+Unfortunately, I would only be shown manuals that had been included with third-party Emacs packages like
+<a class="reference external" href="https://protesilaos.com/emacs/denote">denote</a>.
+System provided manuals, such as the one for Emacs itself, were nowhere to be seen:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>File: dir,        Node: Top       This is the top of the INFO tree
+
+  This (the Directory node) gives a menu of major topics.
+  Typing &quot;q&quot; exits, &quot;H&quot; lists all Info commands, &quot;d&quot; returns here,
+  &quot;h&quot; gives a primer for first-timers,
+  &quot;mEmacs&lt;Return&gt;&quot; visits the Emacs manual, etc.
+
+  In Emacs, you can click mouse button 2 on a menu item or cross reference
+  to select it.
+
+* Menu:
+
+Emacs
+* Denote Sequence: (denote-sequence).
+                                Sequence notes or Folgezettel with Denote.
+* Denote: (denote).             Simple notes with an efficient file-naming
+                                  scheme.
+* Eat: (eat).                   Emulate A Terminal.
+* Embark: (embark).             Emacs Mini-Buffer Actions Rooted in Keymaps.
+* Forge: (forge).               Access Git Forges from Magit.
+* Ghub: (ghub).                 Client library for the Github API.
+* Magit: (magit).               Using Git from Emacs with Magit.
+* Magit-Section: (magit-section).
+                                Use Magit sections in your own packages.
+* Orderless: (orderless).       Completion style for matching regexps in any
+                                  order.
+* Tempel: (tempel).             Simple templates for Emacs.
+* Transient: (transient).       Transient Commands.
+* With-Editor: (with-editor).   Using the Emacsclient as $EDITOR.
+</pre></div>
+</div>
+<p>However, I could clearly see files like <code class="docutils literal notranslate"><span class="pre">/usr/share/info/emacs.info.gz</span></code> on my system and I could access specific info nodes by evaluating expressions like <code class="docutils literal notranslate"><span class="pre">(info</span> <span class="pre">&quot;(emacs)Displaying</span> <span class="pre">Buffers&quot;)</span></code>.</p>
+<p>I’ve now reached the point where it’s bugging me enough to actually dig in and try to figure out what is going on.</p>
+</div>
+<section id="dir-files">
+<h2><code class="docutils literal notranslate"><span class="pre">dir</span></code> files<a class="headerlink" href="#dir-files" title="Link to this heading">¶</a></h2>
+<p>It turns out that the buffer you see when invoking <kbd class="kbd docutils literal notranslate">C</kbd>-<kbd class="kbd docutils literal notranslate">h</kbd> <kbd class="kbd docutils literal notranslate">i</kbd> is assembled from all the places Emacs is configured to search for info manuals (via the <code class="docutils literal notranslate"><span class="pre">Info-directory-list</span></code> variable).
+Each directory is expected to contain a file called <code class="docutils literal notranslate"><span class="pre">dir</span></code> that would provide a list of all info manuals in the directory.
+For example in the <code class="docutils literal notranslate"><span class="pre">denote</span></code> package:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>~/.emacs.d/elpa/denote-4.1.3/ $ cat ./dir
+
+This is the file .../info/dir, which contains the
+topmost node of the Info hierarchy, called (dir)Top.
+The first time you invoke Info you start off looking at this node.
+
+File: dir,    Node: Top       This is the top of the INFO tree
+
+  This (the Directory node) gives a menu of major topics.
+  Typing &quot;q&quot; exits, &quot;H&quot; lists all Info commands, &quot;d&quot; returns here,
+  &quot;h&quot; gives a primer for first-timers,
+  &quot;mEmacs&lt;Return&gt;&quot; visits the Emacs manual, etc.
+
+  In Emacs, you can click mouse button 2 on a menu item or cross reference
+  to select it.
+
+* Menu:
+
+Emacs misc features
+* Denote: (denote).             Simple notes with an efficient file-naming
+                                  scheme.
+</pre></div>
+</div>
+<p>where <code class="docutils literal notranslate"><span class="pre">(denote).</span></code> instructs Emacs to look for a file called <code class="docutils literal notranslate"><span class="pre">denote.info</span></code>.</p>
+<p>Armed with this knowledge, you would expect to find a similar file in <code class="docutils literal notranslate"><span class="pre">/usr/share/info</span></code>, but unsurprsingly, it’s missing in my case.
+The obvious solution then, would be to ensure that a <code class="docutils literal notranslate"><span class="pre">dir</span></code> file is present in the <code class="docutils literal notranslate"><span class="pre">/usr/share/info</span></code> directory however, my Linux flavour of choice (<a class="reference external" href="https://getaurora.dev/en/">Aurora</a>) makes this a bit more interesting:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>$ touch /usr/share/info/dir
+touch: cannot touch &#39;/usr/share/info/dir&#39;: Read-only file system
+</pre></div>
+</div>
+<p>Interestingly however, this didn’t turn out to be a big deal as manually editing the <code class="docutils literal notranslate"><span class="pre">dir</span></code> file provided by denote I proved to myself that you didn’t actually need the <code class="docutils literal notranslate"><span class="pre">.info</span></code> file to be in the same folder as the <code class="docutils literal notranslate"><span class="pre">dir</span></code> file, as long as it was <em>somewhere</em> listed in <code class="docutils literal notranslate"><span class="pre">Info-directory-list</span></code></p>
+<div class="highlight-diff notranslate"><div class="highlight"><pre><span></span><span class="w"> </span> * Menu:
+
+<span class="w"> </span> Emacs misc features
+<span class="gi">+ * Emacs: (emacs).               The Emacs manual.</span>
+<span class="w"> </span> * Denote: (denote).             Simple notes with an efficient file-naming
+<span class="w"> </span>                                 scheme.
+</pre></div>
+</div>
+<p>Now all that’s left is to build a <code class="docutils literal notranslate"><span class="pre">dir</span></code> file indexing all the missing manuals.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The “correct” way to do this is is to use the
+<a class="reference external" href="https://www.gnu.org/software/texinfo/manual/texinfo/html_node/Invoking-install_002dinfo.html">install-info</a>
+command from the
+<a class="reference external" href="https://www.gnu.org/software/texinfo/">texinfo</a> project.</p>
+<p>But since I don’t have the <code class="docutils literal notranslate"><span class="pre">texinfo</span></code> package installed I thought it would be fun to write a small Python script to do the same.</p>
+</div>
+</section>
+<section id="build-info-dir-py">
+<h2><code class="docutils literal notranslate"><span class="pre">build-info-dir.py</span></code><a class="headerlink" href="#build-info-dir-py" title="Link to this heading">¶</a></h2>
+<div class="awdur-codeblock docutils container">
+<div class="awdur-codeblock-header docutils container">
+<code class="awdur-codeblock-filename docutils literal notranslate"><span class="pre">build-info-dir.py</span></code></div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="sd">&quot;&quot;&quot;build-info-dir.py &lt;directory&gt; &lt;output&gt;</span>
+
+<span class="sd">Index all info manuals in a given directory and produce a ``dir`` index file.</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">argparse</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">gzip</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">pathlib</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">sys</span>
+</pre></div>
+</div>
+</div>
+<p>As we can see from the examples above, the format of a <code class="docutils literal notranslate"><span class="pre">dir</span></code> file is quite straightforward, the hardest part is figuring out the title and description of each manual along with which sections to group them under.</p>
+<p>The <a class="reference external" href="https://www.gnu.org/software/texinfo/manual/texinfo/html_node/Installing-Dir-Entries.html">texinfo documentation</a> states that manuals export specific info nodes to the top-level <code class="docutils literal notranslate"><span class="pre">dir</span></code> using the following syntax (example taken from the info file for <code class="docutils literal notranslate"><span class="pre">denote</span></code>):</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>INFO-DIR-SECTION Emacs misc features
+START-INFO-DIR-ENTRY
+* Denote: (denote).     Simple notes with an efficient file-naming scheme.
+END-INFO-DIR-ENTRY
+</pre></div>
+</div>
+<p>Which can be extracted as follows:</p>
+<div class="awdur-codeblock docutils container">
+<div class="awdur-codeblock-header docutils container">
+<code class="awdur-codeblock-filename docutils literal notranslate"><span class="pre">build-info-dir.py</span></code></div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">DIR_SECTION</span> <span class="o">=</span> <span class="s2">&quot;INFO-DIR-SECTION &quot;</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">extract_dir_nodes</span><span class="p">(</span><span class="n">filename</span><span class="p">:</span> <span class="n">pathlib</span><span class="o">.</span><span class="n">Path</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]]:</span>
+    <span class="n">nodes</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]]</span> <span class="o">=</span> <span class="p">{}</span>
+
+    <span class="n">section</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+    <span class="n">entry</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
+
+    <span class="k">with</span> <span class="n">open_info_file</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+        <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">f</span><span class="o">.</span><span class="n">readlines</span><span class="p">():</span>
+            <span class="n">text</span> <span class="o">=</span> <span class="n">line</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="n">errors</span><span class="o">=</span><span class="s2">&quot;ignore&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">rstrip</span><span class="p">()</span>
+            <span class="k">if</span> <span class="n">text</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="n">DIR_SECTION</span><span class="p">):</span>
+                <span class="n">section</span> <span class="o">=</span> <span class="n">text</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="n">DIR_SECTION</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">)</span>
+                <span class="k">continue</span>
+
+            <span class="k">elif</span> <span class="n">text</span> <span class="o">==</span> <span class="s2">&quot;START-INFO-DIR-ENTRY&quot;</span><span class="p">:</span>
+                <span class="n">entry</span> <span class="o">=</span> <span class="p">[]</span>
+                <span class="k">continue</span>
+
+            <span class="k">elif</span> <span class="n">text</span> <span class="o">==</span> <span class="s2">&quot;END-INFO-DIR-ENTRY&quot;</span><span class="p">:</span>
+                <span class="n">nodes</span><span class="o">.</span><span class="n">setdefault</span><span class="p">(</span><span class="n">section</span><span class="p">,</span> <span class="p">[])</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">entry</span><span class="p">)</span>
+                <span class="n">entry</span> <span class="o">=</span> <span class="kc">None</span>
+
+            <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">entry</span><span class="p">,</span> <span class="nb">list</span><span class="p">):</span>
+                <span class="n">entry</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">text</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">nodes</span>
+</pre></div>
+</div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">open_info_file</span></code> is a separate helper function as info manuals can be gzipped.</p>
+<div class="awdur-codeblock docutils container">
+<div class="awdur-codeblock-header docutils container">
+<code class="awdur-codeblock-filename docutils literal notranslate"><span class="pre">build-info-dir.py</span></code></div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">open_info_file</span><span class="p">(</span><span class="n">filename</span><span class="p">:</span> <span class="n">pathlib</span><span class="o">.</span><span class="n">Path</span><span class="p">):</span>
+    <span class="k">if</span> <span class="s2">&quot;.gz&quot;</span> <span class="ow">in</span> <span class="n">filename</span><span class="o">.</span><span class="n">suffix</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">gzip</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">filename</span><span class="o">.</span><span class="n">open</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<p>All that’s left is the infrastructure to find and aggregate the result of each info file.</p>
+<div class="awdur-codeblock docutils container">
+<div class="awdur-codeblock-header docutils container">
+<code class="awdur-codeblock-filename docutils literal notranslate"><span class="pre">build-info-dir.py</span></code></div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">index_info_dir</span><span class="p">(</span><span class="n">info_dir</span><span class="p">:</span> <span class="n">pathlib</span><span class="o">.</span><span class="n">Path</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+    <span class="n">nodes</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]]</span> <span class="o">=</span> <span class="p">{}</span>
+
+    <span class="k">for</span> <span class="n">filename</span> <span class="ow">in</span> <span class="n">info_dir</span><span class="o">.</span><span class="n">glob</span><span class="p">(</span><span class="s2">&quot;*.info*&quot;</span><span class="p">):</span>
+        <span class="c1"># Some manuals are split into mutliple files, we only need to index the top-level file</span>
+        <span class="k">if</span> <span class="s2">&quot;info-&quot;</span> <span class="ow">in</span> <span class="n">filename</span><span class="o">.</span><span class="n">name</span><span class="p">:</span>
+            <span class="k">continue</span>
+
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Indexing </span><span class="si">{</span><span class="n">filename</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2">...&quot;</span><span class="p">,</span> <span class="n">file</span><span class="o">=</span><span class="n">sys</span><span class="o">.</span><span class="n">stderr</span><span class="p">)</span>
+        <span class="n">index</span> <span class="o">=</span> <span class="n">extract_dir_nodes</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">section</span><span class="p">,</span> <span class="n">items</span> <span class="ow">in</span> <span class="n">index</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="n">nodes</span><span class="o">.</span><span class="n">setdefault</span><span class="p">(</span><span class="n">section</span><span class="p">,</span> <span class="p">[])</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">items</span><span class="p">)</span>
+
+    <span class="n">lines</span> <span class="o">=</span> <span class="p">[</span>
+        <span class="nb">chr</span><span class="p">(</span><span class="mh">0x1f</span><span class="p">),</span>
+        <span class="s2">&quot;File: dir</span><span class="se">\t</span><span class="s2">Node: Top</span><span class="se">\t</span><span class="s2">This is the top of the INFO tree&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;* Menu:&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;&quot;</span>
+    <span class="p">]</span>
+
+    <span class="k">for</span> <span class="n">section</span><span class="p">,</span> <span class="n">items</span> <span class="ow">in</span> <span class="n">nodes</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+        <span class="n">lines</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">section</span><span class="p">)</span>
+        <span class="n">lines</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">items</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">lines</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<p>After <strong>much</strong> trial and error, I eventually figured out that the <code class="docutils literal notranslate"><span class="pre">dir</span></code> file <strong>must</strong> contain</p>
+<ul class="simple">
+<li><p>the special character <code class="docutils literal notranslate"><span class="pre">&quot;\x1f&quot;</span></code> (rendered as <code class="docutils literal notranslate"><span class="pre">^_</span></code> by Emacs),</p></li>
+<li><p>the <code class="docutils literal notranslate"><span class="pre">File:</span> <span class="pre">dir...</span></code> header and</p></li>
+<li><p>the <code class="docutils literal notranslate"><span class="pre">*</span> <span class="pre">Menu:</span></code> string</p></li>
+</ul>
+<p>in order to be parsed correctly.</p>
+<p>Other than that, it appears like you can add any other text you’d like and it would be rendered in the final <code class="docutils literal notranslate"><span class="pre">*info*</span></code> buffer.
+I was tempted to add a count of all the manuals found, but since the file we’re generating here isn’t the only source, any counts are unlikely to be accurate.</p>
+<p>Finally, to make the script useful let’s wrap it in a simple CLI interface.</p>
+<div class="awdur-codeblock docutils container">
+<div class="awdur-codeblock-header docutils container">
+<code class="awdur-codeblock-filename docutils literal notranslate"><span class="pre">build-info-dir.py</span></code></div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">main</span><span class="p">():</span>
+    <span class="n">cli</span> <span class="o">=</span> <span class="n">argparse</span><span class="o">.</span><span class="n">ArgumentParser</span><span class="p">()</span>
+    <span class="n">cli</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s2">&quot;infodir&quot;</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="n">pathlib</span><span class="o">.</span><span class="n">Path</span><span class="p">)</span>
+    <span class="n">cli</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s2">&quot;-o&quot;</span><span class="p">,</span> <span class="s2">&quot;--output&quot;</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="n">argparse</span><span class="o">.</span><span class="n">FileType</span><span class="p">(</span><span class="s2">&quot;w&quot;</span><span class="p">),</span> <span class="n">default</span><span class="o">=</span><span class="s2">&quot;-&quot;</span><span class="p">)</span>
+
+    <span class="n">args</span> <span class="o">=</span> <span class="n">cli</span><span class="o">.</span><span class="n">parse_args</span><span class="p">()</span>
+    <span class="n">content</span> <span class="o">=</span> <span class="n">index_info_dir</span><span class="p">(</span><span class="n">args</span><span class="o">.</span><span class="n">infodir</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">content</span><span class="p">,</span> <span class="n">file</span><span class="o">=</span><span class="n">args</span><span class="o">.</span><span class="n">output</span><span class="p">)</span>
+
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
+    <span class="n">main</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</section>
+<section id="building-and-using-the-index">
+<h2>Building and Using the Index<a class="headerlink" href="#building-and-using-the-index" title="Link to this heading">¶</a></h2>
+<p>To get Emacs to use the the index, we of course have to generate it:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>$ mkdir -p ~/.local/share/info
+$ python build-info-dir.py /usr/share/info -o ~/.local/share/info/dir
+...
+Indexing url.info.gz...
+Indexing use-package.info.gz...
+Indexing vhdl-mode.info.gz...
+Indexing vip.info.gz...
+Indexing viper.info.gz...
+Indexing vtable.info.gz...
+Indexing widget.info.gz...
+Indexing wisent.info.gz...
+Indexing woman.info.gz...
+</pre></div>
+</div>
+<p>And make sure Emacs is configured to search the folder</p>
+<div class="awdur-codeblock docutils container">
+<div class="awdur-codeblock-header docutils container">
+<code class="awdur-codeblock-filename docutils literal notranslate"><span class="pre">init.el</span></code></div>
+<div class="highlight-elisp notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="nv">add-to-list</span><span class="w"> </span><span class="ss">&#39;Info-directory-list</span>
+<span class="w">             </span><span class="p">(</span><span class="nf">concat</span><span class="w"> </span><span class="p">(</span><span class="nv">getenv</span><span class="w"> </span><span class="s">&quot;HOME&quot;</span><span class="p">)</span><span class="w"> </span><span class="s">&quot;/.local/share/info/&quot;</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<p>Success!</p>
+<style>
+  #info-dir { max-height: 350px; overflow: scroll; }
+</style><div class="highlight-none notranslate" id="info-dir"><div class="highlight"><pre><span></span>File: dir    Node: Top       This is the top of the INFO tree
+
+* Menu:
+
+Software development
+* As: (as).                     The GNU assembler.
+* Gas: (as).                    The GNU assembler.
+* Bfd: (bfd).                   The Binary File Descriptor library.
+* Binutils: (binutils).         The GNU binary utilities.
+* bison: (bison).       GNU parser generator (Yacc replacement).
+* Cpp: (cpp).                  The GNU C preprocessor.
+* Cpplib: (cppinternals).      Cpplib internals.
+* CTF: (ctf-spec).         The CTF file format.
+* gcc: (gcc).                  The GNU Compiler Collection.
+* g++: (gcc).                  The GNU C++ compiler.
+* gcov: (gcc) Gcov.            ‘gcov’--a test coverage program.
+* gcov-tool: (gcc) Gcov-tool.  ‘gcov-tool’--an offline gcda profile processing program.
+* gcov-dump: (gcc) Gcov-dump.  ‘gcov-dump’--an offline gcda and gcno profile dump tool.
+* lto-dump: (gcc) lto-dump.    ‘lto-dump’--Tool for
+* flex: (flex).      Fast lexical analyzer generator (lex replacement).
+dumping LTO object files.
+* Gccgo: (gccgo).           A GCC-based compiler for the Go language
+* gccinstall: (gccinstall).    Installing the GNU Compiler Collection.
+* gccint: (gccint).            Internals of the GNU Compiler Collection.
+* GNUstep Make: (gnustep-make).         The GNUstep build system.
+* gprof: (gprof).                Profiling your program&#39;s execution
+* Ld: (ld).                       The GNU linker.
+* Ld-Internals: (ldint).     The GNU linker internals.
+* Make: (make).            Remake files automatically.
+* SFrame: (sframe-spec).         The Simple Frame format.
+Basics
+* Bash: (bash).                     The GNU Bourne-Again SHell.
+* Coreutils: (coreutils).       Core GNU (file, text, shell) utilities.
+* Common options: (coreutils)Common options.
+* File permissions: (coreutils)File permissions.  Access modes.
+* Date input formats: (coreutils)Date input formats.
+* Ed: (ed).                     The GNU line editor
+* Finding files: (find).        Operating on files matching certain criteria.
+* Time: (time).                  GNU time utility.
+Math
+* bc: (bc).                    An arbitrary precision calculator language.
+Individual utilities
+* addr2line: (binutils)addr2line. Convert addresses to file and line.
+* ar: (binutils)ar.               Create, modify, and extract from archives.
+* c++filt: (binutils)c++filt.          Filter to demangle encoded C++ symbols.
+* cxxfilt: (binutils)c++filt.     MS-DOS name for c++filt.
+* dlltool: (binutils)dlltool.          Create files needed to build and use DLLs.
+* nm: (binutils)nm.               List symbols from object files.
+* objcopy: (binutils)objcopy.          Copy and translate object files.
+* objdump: (binutils)objdump.     Display information from object files.
+* ranlib: (binutils)ranlib.       Generate index to archive contents.
+* readelf: (binutils)readelf.          Display the contents of ELF format files.
+* size: (binutils)size.           List section sizes and total size.
+* strings: (binutils)strings.     List printable strings from files.
+* strip: (binutils)strip.         Discard symbols.
+* elfedit: (binutils)elfedit.     Update ELF header and property of ELF files.
+* windmc: (binutils)windmc.    Generator for Windows message resources.
+* windres: (binutils)windres.          Manipulate Windows resources.
+* arch: (coreutils)arch invocation.             Print machine hardware name.
+* b2sum: (coreutils)b2sum invocation.           Print or check BLAKE2 digests.
+* base32: (coreutils)base32 invocation.         Base32 encode/decode data.
+* base64: (coreutils)base64 invocation.         Base64 encode/decode data.
+* basename: (coreutils)basename invocation.     Strip directory and suffix.
+* basenc: (coreutils)basenc invocation.         Encoding/decoding of data.
+* cat: (coreutils)cat invocation.               Concatenate and write files.
+* chcon: (coreutils)chcon invocation.           Change SELinux CTX of files.
+* chgrp: (coreutils)chgrp invocation.           Change file groups.
+* chmod: (coreutils)chmod invocation.           Change access permissions.
+* chown: (coreutils)chown invocation.           Change file owners and groups.
+* chroot: (coreutils)chroot invocation.         Specify the root directory.
+* cksum: (coreutils)cksum invocation.           Print POSIX CRC checksum.
+* comm: (coreutils)comm invocation.             Compare sorted files by line.
+* cp: (coreutils)cp invocation.                 Copy files.
+* csplit: (coreutils)csplit invocation.         Split by context.
+* cut: (coreutils)cut invocation.               Print selected parts of lines.
+* date: (coreutils)date invocation.             Print/set system date and time.
+* dd: (coreutils)dd invocation.                 Copy and convert a file.
+* df: (coreutils)df invocation.                 Report file system usage.
+* dir: (coreutils)dir invocation.               List directories briefly.
+* dircolors: (coreutils)dircolors invocation.   Color setup for ls.
+* dirname: (coreutils)dirname invocation.       Strip last file name component.
+* du: (coreutils)du invocation.                 Report file usage.
+* echo: (coreutils)echo invocation.             Print a line of text.
+* env: (coreutils)env invocation.               Modify the environment.
+* expand: (coreutils)expand invocation.         Convert tabs to spaces.
+* expr: (coreutils)expr invocation.             Evaluate expressions.
+* factor: (coreutils)factor invocation.         Print prime factors
+* false: (coreutils)false invocation.           Do nothing, unsuccessfully.
+* fmt: (coreutils)fmt invocation.               Reformat paragraph text.
+* fold: (coreutils)fold invocation.             Wrap long input lines.
+* groups: (coreutils)groups invocation.         Print group names a user is in.
+* head: (coreutils)head invocation.             Output the first part of files.
+* hostid: (coreutils)hostid invocation.         Print numeric host identifier.
+* hostname: (coreutils)hostname invocation.     Print or set system name.
+* id: (coreutils)id invocation.                 Print user identity.
+* install: (coreutils)install invocation.       Copy files and set attributes.
+* join: (coreutils)join invocation.             Join lines on a common field.
+* kill: (coreutils)kill invocation.             Send a signal to processes.
+* link: (coreutils)link invocation.             Make hard links between files.
+* ln: (coreutils)ln invocation.                 Make links between files.
+* logname: (coreutils)logname invocation.       Print current login name.
+* ls: (coreutils)ls invocation.                 List directory contents.
+* md5sum: (coreutils)md5sum invocation.         Print or check MD5 digests.
+* mkdir: (coreutils)mkdir invocation.           Create directories.
+* mkfifo: (coreutils)mkfifo invocation.         Create FIFOs (named pipes).
+* mknod: (coreutils)mknod invocation.           Create special files.
+* mktemp: (coreutils)mktemp invocation.         Create temporary files.
+* mv: (coreutils)mv invocation.                 Rename files.
+* nice: (coreutils)nice invocation.             Modify niceness.
+* nl: (coreutils)nl invocation.                 Number lines and write files.
+* nohup: (coreutils)nohup invocation.           Immunize to hangups.
+* nproc: (coreutils)nproc invocation.           Print the number of processors.
+* numfmt: (coreutils)numfmt invocation.         Reformat numbers.
+* od: (coreutils)od invocation.                 Dump files in octal, etc.
+* paste: (coreutils)paste invocation.           Merge lines of files.
+* pathchk: (coreutils)pathchk invocation.       Check file name portability.
+* pinky: (coreutils)pinky invocation.           Print information about users.
+* pr: (coreutils)pr invocation.                 Paginate or columnate files.
+* printenv: (coreutils)printenv invocation.     Print environment variables.
+* printf: (coreutils)printf invocation.         Format and print data.
+* ptx: (coreutils)ptx invocation.               Produce permuted indexes.
+* pwd: (coreutils)pwd invocation.               Print working directory.
+* readlink: (coreutils)readlink invocation.     Print referent of a symlink.
+* realpath: (coreutils)realpath invocation.     Print resolved file names.
+* rm: (coreutils)rm invocation.                 Remove files.
+* rmdir: (coreutils)rmdir invocation.           Remove empty directories.
+* runcon: (coreutils)runcon invocation.         Run in specified SELinux CTX.
+* seq: (coreutils)seq invocation.               Print numeric sequences
+* sha1sum: (coreutils)sha1sum invocation.       Print or check SHA-1 digests.
+* sha2: (coreutils)sha2 utilities.              Print or check SHA-2 digests.
+* shred: (coreutils)shred invocation.           Remove files more securely.
+* shuf: (coreutils)shuf invocation.             Shuffling text files.
+* sleep: (coreutils)sleep invocation.           Delay for a specified time.
+* sort: (coreutils)sort invocation.             Sort text files.
+* split: (coreutils)split invocation.           Split into pieces.
+* stat: (coreutils)stat invocation.             Report file(system) status.
+* stdbuf: (coreutils)stdbuf invocation.         Modify stdio buffering.
+* stty: (coreutils)stty invocation.             Print/change terminal settings.
+* sum: (coreutils)sum invocation.               Print traditional checksum.
+* sync: (coreutils)sync invocation.             Sync files to stable storage.
+* tac: (coreutils)tac invocation.               Reverse files.
+* tail: (coreutils)tail invocation.             Output the last part of files.
+* tee: (coreutils)tee invocation.               Redirect to multiple files.
+* test: (coreutils)test invocation.             File/string tests.
+* timeout: (coreutils)timeout invocation.       Run with time limit.
+* touch: (coreutils)touch invocation.           Change file timestamps.
+* tr: (coreutils)tr invocation.                 Translate characters.
+* true: (coreutils)true invocation.             Do nothing, successfully.
+* truncate: (coreutils)truncate invocation.     Shrink/extend size of a file.
+* tsort: (coreutils)tsort invocation.           Topological sort.
+* tty: (coreutils)tty invocation.               Print terminal name.
+* uname: (coreutils)uname invocation.           Print system information.
+* unexpand: (coreutils)unexpand invocation.     Convert spaces to tabs.
+* uniq: (coreutils)uniq invocation.             Uniquify files.
+* unlink: (coreutils)unlink invocation.         Removal via unlink(2).
+* uptime: (coreutils)uptime invocation.         Print uptime and load.
+* users: (coreutils)users invocation.           Print current user names.
+* vdir: (coreutils)vdir invocation.             List directories verbosely.
+* wc: (coreutils)wc invocation.                 Line, word, and byte counts.
+* who: (coreutils)who invocation.               Print who is logged in.
+* whoami: (coreutils)whoami invocation.         Print effective user ID.
+* yes: (coreutils)yes invocation.               Print a string indefinitely.
+* cmp: (diffutils)Invoking cmp.                 Compare 2 files byte by byte.
+* diff: (diffutils)Invoking diff.               Compare 2 files line by line.
+* diff3: (diffutils)Invoking diff3.             Compare 3 files line by line.
+* patch: (diffutils)Invoking patch.             Apply a patch to a file.
+* sdiff: (diffutils)Invoking sdiff.             Merge 2 files side-by-side.
+* find: (find)Finding Files.                    Finding and acting on files.
+* locate: (find)Invoking locate.                Finding files in a database.
+* updatedb: (find)Invoking updatedb.            Building the locate database.
+* xargs: (find)Invoking xargs.                  Operating on many files.
+* awk: (gawk)Invoking Gawk.                     Text scanning and processing.
+* Gawk Work Flow: (gawkworkflow)Overview.         Participating in ‘gawk’ development.
+* gunzip: (gzip)Overview.                       Decompression.
+* gzexe: (gzip)Overview.                        Compress executables.
+* zcat: (gzip)Overview.                         Decompression to stdout.
+* zdiff: (gzip)Overview.                        Compare compressed files.
+* zforce: (gzip)Overview.                       Force .gz extension on files.
+* zgrep: (gzip)Overview.                        Search compressed files.
+* zmore: (gzip)Overview.                        Decompression output by pages.
+* tar: (tar)tar invocation.                     Invoking GNU ‘tar’.
+Archiving
+* Cpio: (cpio).                 Copy-in-copy-out archiver to tape or disk.
+* Tar: (tar).                   Making tape (or disk) archives.
+* Xorrecord: (xorrecord).           Emulates CD/DVD/BD program cdrecord
+* Xorriso-dd-target: (xorriso-dd-target). Device evaluator and disk image copier for GNU/Linux
+* Xorriso: (xorriso).           Burns ISO 9660 on CD, DVD, BD.
+* Xorrisofs: (xorrisofs).           Emulates ISO 9660 program mkisofs
+
+* dc: (dc).                   Arbitrary precision RPN &quot;Desktop Calculator&quot;.
+Text creation and manipulation
+* Diffutils: (diffutils).       Comparing and merging files.
+* Gawk: (gawk).                 A text scanning and processing language.
+* Gawk Work Flow: (gawkworkflow).                 Participating in ‘gawk’ development.
+* grep: (grep).                 Print lines that match patterns.
+* M4: (m4).                     A powerful macro processor.
+* pm-gawk: (pm-gawk).    Persistent memory version of gawk.
+* sed: (sed).                   Stream EDitor.
+
+GNU organization
+* Maintaining Findutils: (find-maint).        Maintaining GNU findutils
+Network applications
+* awkinet: (gawkinet).          TCP/IP Internetworking With &#39;gawk&#39;.
+GNU Gettext Utilities
+* gettext: (gettext).                          GNU gettext utilities.
+* autopoint: (gettext)autopoint Invocation.    Copy gettext infrastructure.
+* envsubst: (gettext)envsubst Invocation.      Expand environment variables.
+* gettextize: (gettext)gettextize Invocation.  Prepare a package for gettext.
+* msgattrib: (gettext)msgattrib Invocation.    Select part of a PO file.
+* msgcat: (gettext)msgcat Invocation.          Combine several PO files.
+* msgcmp: (gettext)msgcmp Invocation.          Compare a PO file and template.
+* msgcomm: (gettext)msgcomm Invocation.        Match two PO files.
+* msgconv: (gettext)msgconv Invocation.        Convert PO file to encoding.
+* msgen: (gettext)msgen Invocation.            Create an English PO file.
+* msgexec: (gettext)msgexec Invocation.        Process a PO file.
+* msgfilter: (gettext)msgfilter Invocation.    Pipe a PO file through a filter.
+* msgfmt: (gettext)msgfmt Invocation.          Make MO files out of PO files.
+* msggrep: (gettext)msggrep Invocation.        Select part of a PO file.
+* msginit: (gettext)msginit Invocation.        Create a fresh PO file.
+* msgmerge: (gettext)msgmerge Invocation.      Update a PO file from template.
+* msgunfmt: (gettext)msgunfmt Invocation.      Uncompile MO file into PO file.
+* msguniq: (gettext)msguniq Invocation.        Unify duplicates for PO file.
+* ngettext: (gettext)ngettext Invocation.      Translate a message with plural.
+* xgettext: (gettext)xgettext Invocation.      Extract strings into a PO file.
+* ISO639: (gettext)Language Codes.             ISO 639 language codes.
+* ISO3166: (gettext)Country Codes.             ISO 3166 country codes.
+GNU Utilities
+* gpg2: (gnupg).           OpenPGP encryption and signing tool.
+* gpgsm: (gnupg).          S/MIME encryption and signing tool.
+* gpg-agent: (gnupg).      The secret key daemon.
+* dirmngr: (gnupg).        X.509 CRL and OCSP server.
+* dirmngr-client: (gnupg). X.509 CRL and OCSP client.
+* pinentry: (pinentry).    Securely ask for a passphrase or PIN.
+Kernel
+* grub2-dev: (grub2-dev).                 The GRand Unified Bootloader Dev
+* GRUB2: (grub2).                 The GRand Unified Bootloader
+* grub2-install: (grub2)Invoking grub2-install.    Install GRUB on your drive
+* grub2-mkconfig: (grub2)Invoking grub2-mkconfig.  Generate GRUB configuration
+* grub2-mkpasswd-pbkdf2: (grub2)Invoking grub2-mkpasswd-pbkdf2.
+* grub2-mkrelpath: (grub2)Invoking grub2-mkrelpath.
+* grub2-mkrescue: (grub2)Invoking grub2-mkrescue.  Make a GRUB rescue image
+* grub2-mount: (grub2)Invoking grub2-mount.        Mount a file system using GRUB
+* grub2-probe: (grub2)Invoking grub2-probe.        Probe device information
+* grub2-script-check: (grub2)Invoking grub2-script-check.
+Compression
+* Gzip: (gzip).                 General (de)compression of files (lzw).
+Libraries
+* History: (history).       The GNU history library API.
+* RLuserman: (rluserman).       The GNU readline library User&#39;s Manual.
+* libcdio: (libcdio).           GNU Compact Disc Input, Output, and Control Library.
+* libgomp: (libgomp).          GNU Offloading and Multi Processing Runtime Library.
+* Source-highlight-lib: (source-highlight-lib).  Highlights contents
+* Auth-source: (auth).          The Emacs auth-source library.
+* CL-Lib: (cl).                 Partial Common Lisp support for Emacs Lisp.
+* D-Bus: (dbus).                Using D-Bus in Emacs.
+* Emacs MIME: (emacs-mime).     Emacs MIME de/composition library.
+* SMTP: (smtpmail).             Emacs library for sending mail via SMTP.
+* URL: (url).                   URL loading package.
+* Widget: (widget).             The &quot;widget&quot; package used by the Emacs
+                                  Customization facility.
+Localization
+* libchewing: (libchewing).           The libchewing reference manual.
+Misc
+* Liblouis: (liblouis). A braille translator and back-translator
+DOS
+* Mtools: (mtools).        Mtools: utilities to access DOS disks in Unix.
+Editors
+* nano: (nano).                 Small and friendly text editor.
+Encryption
+* Nettle: (nettle).             A low-level cryptographic library.
+System administration
+* parted: (parted).                         GNU partitioning software
+* Which: (which).                               Show full path of commands.
+Texinfo documentation system
+* Pinfo: (pinfo).           curses based lynx-style info browser.
+Utilities
+* Source-highlight: (source-highlight).  Highlights contents
+* ZSH: (zsh).                     The Z Shell Manual.
+Emacs
+* Autotype: (autotype).         Convenient features for text that you enter
+                                  frequently in Emacs.
+* Bovine: (bovine).             Semantic bovine parser development.
+* Calc: (calc).                 Advanced desk calculator and mathematical tool.
+* Dired-X: (dired-x).           Dired Extra Features.
+* Ebrowse: (ebrowse).           A C++ class browser for Emacs.
+* EDE: (ede).                   The Emacs Development Environment.
+* Ediff: (ediff).               A visual interface for comparing and
+                                  merging programs.
+* EDT: (edt).                   An Emacs emulation of the EDT editor.
+* Eglot: (eglot).             Language Server Protocol client for Emacs.
+* EIEIO: (eieio).               An objects system for Emacs Lisp.
+* EasyPG Assistant: (epa).      An Emacs user interface to GNU Privacy Guard.
+* ERT: (ert).                   Emacs Lisp regression testing tool.
+* Eshell: (eshell).             A command shell implemented in Emacs Lisp.
+* EWW: (eww).      Emacs Web Wowser
+* Flymake: (flymake).           A universal on-the-fly syntax checker.
+* Forms: (forms).               Emacs package for editing data bases
+                                  by filling in forms.
+* Htmlfontify: (htmlfontify).   Convert source code to html.
+* Ido: (ido).                   Interactively do things with buffers and files.
+* Modus Themes: (modus-themes). Elegant, highly legible and customizable themes.
+* PCL-CVS: (pcl-cvs).           Emacs front-end to CVS.
+* RefTeX: (reftex).             Emacs support for LaTeX cross-references
+                                  and citations.
+* Remember: (remember).         Simple information manager for Emacs.
+* Semantic: (semantic).         Source code parser library and utilities.
+* SES: (ses).                   Simple Emacs Spreadsheet.
+* Speedbar: (speedbar).         File/Tag summarizing utility.
+* SRecode: (srecode).           Semantic template code generator.
+* Todo Mode: (todo-mode).       Make and maintain todo lists.
+* Transient: (transient).       Transient Commands.
+* use-package: (use-package). Declarative package configuration for Emacs.
+* VIP: (vip).                   An obsolete VI-emulation for Emacs.
+* VIPER: (viper).               A VI-emulation mode for Emacs.
+* vtable: (vtable).     Variable Pitch Tables.
+* Wisent: (wisent).             Semantic Wisent parser development.
+* WoMan: (woman).               Browse UN*X Manual Pages &quot;W.O. (without) Man&quot;.
+* CC Mode: (ccmode).            Emacs mode for editing C, C++, Objective-C,
+                                  Java, Pike, AWK, and CORBA IDL code.
+* IDLWAVE: (idlwave).           Major mode and shell for IDL files.
+* nXML Mode: (nxml-mode).       XML editing mode with RELAX NG support.
+* Octave mode: (octave-mode).   Emacs mode for editing GNU Octave files.
+* Org Mode: (org).      Outline-based notes management and organizer.
+* VHDL Mode: (vhdl-mode).       Emacs mode for editing VHDL code.
+* Emacs FAQ: (efaq).            Frequently Asked Questions about Emacs.
+* Emacs: (emacs).               The extensible self-documenting text editor.
+* Emacs Lisp Intro: (eintr).    A simple introduction to Emacs Lisp programming.
+* Elisp: (elisp).               The Emacs Lisp Reference Manual.
+* Emacs GnuTLS: (emacs-gnutls). The Emacs GnuTLS integration.
+* ERC: (erc).                   Powerful and extensible IRC client for Emacs.
+* EUDC: (eudc).                 Emacs client for directory servers (LDAP, BBDB).
+* Gnus: (gnus).                 The newsreader Gnus.
+* Mairix: (mairix-el).          Emacs interface to the Mairix mail indexer.
+* Message: (message).           Mail and news composition mode that
+                                  goes with Gnus.
+* MH-E: (mh-e).                 Emacs interface to the MH mail system.
+* Newsticker: (newsticker).     A feed reader for Emacs.
+* PGG: (pgg).                   An obsolete Emacs interface to various
+                                  PGP implementations.
+* Rcirc: (rcirc).               Internet Relay Chat (IRC) client.
+* SASL: (sasl).                 The Emacs SASL library.
+* SC: (sc).                     Supercite lets you cite parts of messages
+                                  you&#39;re replying to, in flexible ways.
+* Sieve: (sieve).               Managing Sieve scripts in Emacs.
+* Tramp: (tramp).               Transparent Remote Access, Multiple Protocol
+                                  Emacs remote file access via ssh and scp.
+* Denote Sequence: (denote-sequence).
+                                Sequence notes or Folgezettel with Denote.
+* Denote: (denote).             Simple notes with an efficient file-naming
+                                  scheme.
+* Eat: (eat).                   Emulate A Terminal.
+* Embark: (embark).             Emacs Mini-Buffer Actions Rooted in Keymaps.
+* Forge: (forge).               Access Git Forges from Magit.
+* Ghub: (ghub).                 Client library for the Github API.
+* Magit: (magit).               Using Git from Emacs with Magit.
+* Magit-Section: (magit-section).
+                                Use Magit sections in your own packages.
+* Orderless: (orderless).       Completion style for matching regexps in any
+                                  order.
+* Tempel: (tempel).             Simple templates for Emacs.
+* With-Editor: (with-editor).   Using the Emacsclient as $EDITOR.
+</pre></div>
+</div>
+</section>
+</section>
+
+  <footer>
+    <script src="https://giscus.app/client.js"
+            data-repo="alcarney/blog"
+            data-repo-id="MDEwOlJlcG9zaXRvcnk2Njk3NzM3MQ=="
+            data-category="Comments"
+            data-category-id="DIC_kwDOA_3-W84B_XOl"
+            data-mapping="pathname"
+            data-reactions-enabled="1"
+            data-emit-metadata="0"
+            data-theme="preferred_color_scheme"
+            crossorigin="anonymous"
+            async>
+    </script>
+  </footer>
+
+</article>
+
+    </div>
+
+    <footer class="site">
+      <div>
+        <h6>Links</h6>
+        <ul>
+          <li>
+            <a href="../../../_sources/content/20260308T125622==5=11--indexing-info-manuals__blog_emacs_info_python.rst.txt" rel="nofollow">
+              Page Source
+            </a>
+          </li>
+          <li>
+            <a href="https://github.com/alcarney/blog" rel="nofollow">
+              Source Code
+            </a>
+          </li>
+        </ul>
+      </div>
+
+      <div>
+        <h6>
+          Built with
+        </h6>
+        <ul>
+          <li>
+            <a href="https://www.sphinx-doc.org/en/master/">
+              Sphinx
+            </a>
+            v8.2.3
+          </li>
+          <li>
+            <a href="https://feathericons.com/">
+              Feather Icons
+            </a>
+          </li>
+        </ul>
+      </div>
+    </footer>
+</div>
+  </body>
+</html>

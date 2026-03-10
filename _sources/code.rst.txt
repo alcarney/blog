@@ -10,6 +10,15 @@ Programming projects that typically have one or more blog posts assoicated with 
    code/*
 
 
+.. _build-info-dir:
+
+``build-info-dir.py``
+---------------------
+
+A simple Python script for indexing ``info`` manuals, see :denote:link:`20260308T125622` for details.
+
+.. awdur:project-tree:: build-info-dir
+
 .. _code-click-drag:
 
 Click & Drag with Vanilla JS
@@ -19,6 +28,14 @@ An experiment in implementing clicking and dragging SVG elements using vanilla J
 
 .. awdur:project-tree:: click-drag-vanilla-js
 
+.. _code-emacs-d:
+
+``.emacs.d/``
+-------------
+
+My Emacs configuration
+
+.. awdur:project-tree:: emacs
 
 .. _code-simple-ast:
 
