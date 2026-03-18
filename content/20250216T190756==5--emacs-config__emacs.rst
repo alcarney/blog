@@ -139,7 +139,7 @@ face
    :filename: init.el
 
    (setq whitespace-style '(face empty trailing lines-char tab-mark))
-   (global-whitespace-mode t)
+   (add-hook 'prog-mode-hook 'whitespace-mode)
 
 Enable automatic whitespace cleanup on each save
 
