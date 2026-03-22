@@ -241,7 +241,7 @@
       <li>
     
   <a class="reference internal" href="../20250615T135327/">
-    Debugging Python Code
+    Using pdb from Emacs
   </a>
   
 </li>
@@ -466,7 +466,7 @@ Uses <code class="docutils literal notranslate"><span class="pre">whitespace-dis
 <div class="awdur-codeblock-header docutils container">
 <code class="awdur-codeblock-filename docutils literal notranslate"><span class="pre">init.el</span></code></div>
 <div class="highlight-elisp notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="k">setq</span><span class="w"> </span><span class="nv">whitespace-style</span><span class="w"> </span><span class="o">&#39;</span><span class="p">(</span><span class="nv">face</span><span class="w"> </span><span class="nv">empty</span><span class="w"> </span><span class="nv">trailing</span><span class="w"> </span><span class="nv">lines-char</span><span class="w"> </span><span class="nv">tab-mark</span><span class="p">))</span>
-<span class="p">(</span><span class="nv">global-whitespace-mode</span><span class="w"> </span><span class="no">t</span><span class="p">)</span>
+<span class="p">(</span><span class="nv">add-hook</span><span class="w"> </span><span class="ss">&#39;prog-mode-hook</span><span class="w"> </span><span class="ss">&#39;whitespace-mode</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>

@@ -5,7 +5,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>Debugging Python Code &#8212; Alex Carney</title>
+    <title>Using pdb from Emacs &#8212; Alex Carney</title>
 
     <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=02ca0aaa" />
     <link id="pygments_dark_css" media="(prefers-color-scheme: dark)" rel="stylesheet" type="text/css" href="../../_static/pygments_dark.css?v=d8568271" />
@@ -115,9 +115,13 @@
 </section><section id="post-contents">
   <nav id="localtoc">
     <ul>
-<li><a class="reference internal" href="#">Debugging Python Code</a><ul>
-<li><a class="reference internal" href="#using-m-x-pdb">Using <code class="docutils literal notranslate"><span class="pre">M-x</span> <span class="pre">pdb</span></code></a></li>
-<li><a class="reference internal" href="#using-dape">Using <code class="docutils literal notranslate"><span class="pre">dape</span></code></a></li>
+<li><a class="reference internal" href="#">Using <code class="docutils literal notranslate"><span class="pre">pdb</span></code> from Emacs</a><ul>
+<li><a class="reference internal" href="#pdb-basics"><code class="docutils literal notranslate"><span class="pre">pdb</span></code> Basics</a></li>
+<li><a class="reference internal" href="#startup-commands">Startup Commands</a></li>
+<li><a class="reference internal" href="#remote-debugging">Remote Debugging</a><ul>
+<li><a class="reference internal" href="#selecting-pids-using-completing-read">Selecting PIDs using <code class="docutils literal notranslate"><span class="pre">completing-read</span></code></a></li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>
@@ -227,7 +231,7 @@
     <ul>
       <li>
     
-    Debugging Python Code
+    Using pdb from Emacs
   
 </li>
     </ul>
@@ -328,16 +332,21 @@
     <div role="main" style="flex-grow: 1">
 
 <article>
-  <section id="debugging-python-code">
-<h1>Debugging Python Code<a class="headerlink" href="#debugging-python-code" title="Link to this heading">¶</a></h1>
-<p>To my knowledge there are two main approaches to debugging some Python code in Emacs.</p>
-<ul class="simple">
-<li><p><a class="reference internal" href="#debug-python-code-pdb"><span class="std std-ref">Using M-x pdb</span></a></p></li>
-<li><p><a class="reference internal" href="#debug-python-code-dape"><span class="std std-ref">Using dape</span></a></p></li>
-</ul>
-<section id="using-m-x-pdb">
-<span id="debug-python-code-pdb"></span><h2>Using <code class="docutils literal notranslate"><span class="pre">M-x</span> <span class="pre">pdb</span></code><a class="headerlink" href="#using-m-x-pdb" title="Link to this heading">¶</a></h2>
-<svg class="rich-terminal" viewBox="0 0 933 782.0" xmlns="http://www.w3.org/2000/svg">
+  <section id="using-pdb-from-emacs">
+<h1>Using <code class="docutils literal notranslate"><span class="pre">pdb</span></code> from Emacs<a class="headerlink" href="#using-pdb-from-emacs" title="Link to this heading">¶</a></h1>
+<div class="post-teaser docutils container">
+<p>I’ve recently been re-discovering Python’s built-in debugger <a class="reference external" href="https://docs.python.org/3/library/pdb.html#module-pdb" title="(in Python v3.14)"><code class="xref py py-mod docutils literal notranslate"><span class="pre">pdb</span></code></a> and thought it was about time I took a look at exploring Emacs’ support for it.</p>
+</div>
+<section id="pdb-basics">
+<h2><code class="docutils literal notranslate"><span class="pre">pdb</span></code> Basics<a class="headerlink" href="#pdb-basics" title="Link to this heading">¶</a></h2>
+<p>Emacs’ <code class="docutils literal notranslate"><span class="pre">pdb</span></code> support is part of the <a class="reference external" href="https://www.gnu.org/software/emacs/manual/html_node/emacs/Debuggers.html">Grand Unified Debugger</a> framework.</p>
+<p>Since everything is available out of the box, there’s nothing really to setup!
+Just run <code class="docutils literal notranslate"><span class="pre">M-x</span> <span class="pre">pdb</span></code> and Emacs will ask you how you want to invoke <code class="docutils literal notranslate"><span class="pre">pdb</span></code></p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>Run pdb (like this): python -m pdb example.py
+</pre></div>
+</div>
+<p>Emacs will then reconfigure itself to display both the pdb prompt in an interactive window, alongside the code you are debugging.</p>
+<svg class="rich-terminal" viewBox="0 0 1726 1026.0" xmlns="http://www.w3.org/2000/svg">
     <!-- Generated with Rich https://www.textualize.io -->
     <style>
 
@@ -358,193 +367,363 @@
         font-weight: 700;
     }
 
-    .terminal-2273859275-matrix {
+    .terminal-3055561968-matrix {
         font-family: Fira Code, monospace;
         font-size: 20px;
         line-height: 24.4px;
         font-variant-east-asian: full-width;
     }
 
-    .terminal-2273859275-title {
+    .terminal-3055561968-title {
         font-size: 18px;
         font-weight: bold;
         font-family: arial;
     }
 
-    .terminal-2273859275-r1 { fill: #ffffff }
-.terminal-2273859275-r2 { fill: #ffffff;font-weight: bold }
-.terminal-2273859275-r3 { fill: #6ae4b9;font-weight: bold;font-style: italic; }
-.terminal-2273859275-r4 { fill: #989898 }
-.terminal-2273859275-r5 { fill: #989898;font-style: italic; }
-.terminal-2273859275-r6 { fill: #fec43f;font-style: italic; }
-.terminal-2273859275-r7 { fill: #00d3d0 }
-.terminal-2273859275-r8 { fill: #f78fe7;font-weight: bold }
-.terminal-2273859275-r9 { fill: #b6a0ff;font-weight: bold }
-.terminal-2273859275-r10 { fill: #ff3030 }
-.terminal-2273859275-r11 { fill: #969696 }
-.terminal-2273859275-r12 { fill: #2fafff;font-weight: bold }
-.terminal-2273859275-r13 { fill: #969696;font-weight: bold }
-.terminal-2273859275-r14 { fill: #ff5f59;font-weight: bold }
-.terminal-2273859275-r15 { fill: #fec43f;font-weight: bold }
-.terminal-2273859275-r16 { fill: #6ae4b9;font-weight: bold }
+    .terminal-3055561968-r1 { fill: #bcbeaf }
+.terminal-3055561968-r2 { fill: #d0e2c8;font-weight: bold }
+.terminal-3055561968-r3 { fill: #c8b399 }
+.terminal-3055561968-r4 { fill: #ffffff }
+.terminal-3055561968-r5 { fill: #d0e2c8 }
+.terminal-3055561968-r6 { fill: #c8b399;font-weight: bold }
+.terminal-3055561968-r7 { fill: #c8b399;text-decoration: underline; }
+.terminal-3055561968-r8 { fill: #c8b399;font-weight: bold;text-decoration: underline; }
+.terminal-3055561968-r9 { fill: #d0e2c8;font-style: italic; }
+.terminal-3055561968-r10 { fill: #bcbeaf;font-weight: bold;font-style: italic; }
+.terminal-3055561968-r11 { fill: #bcbeaf;text-decoration: underline; }
+.terminal-3055561968-r12 { fill: #bcbeaf;font-weight: bold;text-decoration: underline; }
     </style>
 
     <defs>
-    <clipPath id="terminal-2273859275-clip-terminal">
-      <rect x="0" y="0" width="914.0" height="731.0" />
+    <clipPath id="terminal-3055561968-clip-terminal">
+      <rect x="0" y="0" width="1707.0" height="975.0" />
     </clipPath>
-    <clipPath id="terminal-2273859275-line-0">
-    <rect x="0" y="1.5" width="915" height="24.65"/>
+    <clipPath id="terminal-3055561968-line-0">
+    <rect x="0" y="1.5" width="1708" height="24.65"/>
             </clipPath>
-<clipPath id="terminal-2273859275-line-1">
-    <rect x="0" y="25.9" width="915" height="24.65"/>
+<clipPath id="terminal-3055561968-line-1">
+    <rect x="0" y="25.9" width="1708" height="24.65"/>
             </clipPath>
-<clipPath id="terminal-2273859275-line-2">
-    <rect x="0" y="50.3" width="915" height="24.65"/>
+<clipPath id="terminal-3055561968-line-2">
+    <rect x="0" y="50.3" width="1708" height="24.65"/>
             </clipPath>
-<clipPath id="terminal-2273859275-line-3">
-    <rect x="0" y="74.7" width="915" height="24.65"/>
+<clipPath id="terminal-3055561968-line-3">
+    <rect x="0" y="74.7" width="1708" height="24.65"/>
             </clipPath>
-<clipPath id="terminal-2273859275-line-4">
-    <rect x="0" y="99.1" width="915" height="24.65"/>
+<clipPath id="terminal-3055561968-line-4">
+    <rect x="0" y="99.1" width="1708" height="24.65"/>
             </clipPath>
-<clipPath id="terminal-2273859275-line-5">
-    <rect x="0" y="123.5" width="915" height="24.65"/>
+<clipPath id="terminal-3055561968-line-5">
+    <rect x="0" y="123.5" width="1708" height="24.65"/>
             </clipPath>
-<clipPath id="terminal-2273859275-line-6">
-    <rect x="0" y="147.9" width="915" height="24.65"/>
+<clipPath id="terminal-3055561968-line-6">
+    <rect x="0" y="147.9" width="1708" height="24.65"/>
             </clipPath>
-<clipPath id="terminal-2273859275-line-7">
-    <rect x="0" y="172.3" width="915" height="24.65"/>
+<clipPath id="terminal-3055561968-line-7">
+    <rect x="0" y="172.3" width="1708" height="24.65"/>
             </clipPath>
-<clipPath id="terminal-2273859275-line-8">
-    <rect x="0" y="196.7" width="915" height="24.65"/>
+<clipPath id="terminal-3055561968-line-8">
+    <rect x="0" y="196.7" width="1708" height="24.65"/>
             </clipPath>
-<clipPath id="terminal-2273859275-line-9">
-    <rect x="0" y="221.1" width="915" height="24.65"/>
+<clipPath id="terminal-3055561968-line-9">
+    <rect x="0" y="221.1" width="1708" height="24.65"/>
             </clipPath>
-<clipPath id="terminal-2273859275-line-10">
-    <rect x="0" y="245.5" width="915" height="24.65"/>
+<clipPath id="terminal-3055561968-line-10">
+    <rect x="0" y="245.5" width="1708" height="24.65"/>
             </clipPath>
-<clipPath id="terminal-2273859275-line-11">
-    <rect x="0" y="269.9" width="915" height="24.65"/>
+<clipPath id="terminal-3055561968-line-11">
+    <rect x="0" y="269.9" width="1708" height="24.65"/>
             </clipPath>
-<clipPath id="terminal-2273859275-line-12">
-    <rect x="0" y="294.3" width="915" height="24.65"/>
+<clipPath id="terminal-3055561968-line-12">
+    <rect x="0" y="294.3" width="1708" height="24.65"/>
             </clipPath>
-<clipPath id="terminal-2273859275-line-13">
-    <rect x="0" y="318.7" width="915" height="24.65"/>
+<clipPath id="terminal-3055561968-line-13">
+    <rect x="0" y="318.7" width="1708" height="24.65"/>
             </clipPath>
-<clipPath id="terminal-2273859275-line-14">
-    <rect x="0" y="343.1" width="915" height="24.65"/>
+<clipPath id="terminal-3055561968-line-14">
+    <rect x="0" y="343.1" width="1708" height="24.65"/>
             </clipPath>
-<clipPath id="terminal-2273859275-line-15">
-    <rect x="0" y="367.5" width="915" height="24.65"/>
+<clipPath id="terminal-3055561968-line-15">
+    <rect x="0" y="367.5" width="1708" height="24.65"/>
             </clipPath>
-<clipPath id="terminal-2273859275-line-16">
-    <rect x="0" y="391.9" width="915" height="24.65"/>
+<clipPath id="terminal-3055561968-line-16">
+    <rect x="0" y="391.9" width="1708" height="24.65"/>
             </clipPath>
-<clipPath id="terminal-2273859275-line-17">
-    <rect x="0" y="416.3" width="915" height="24.65"/>
+<clipPath id="terminal-3055561968-line-17">
+    <rect x="0" y="416.3" width="1708" height="24.65"/>
             </clipPath>
-<clipPath id="terminal-2273859275-line-18">
-    <rect x="0" y="440.7" width="915" height="24.65"/>
+<clipPath id="terminal-3055561968-line-18">
+    <rect x="0" y="440.7" width="1708" height="24.65"/>
             </clipPath>
-<clipPath id="terminal-2273859275-line-19">
-    <rect x="0" y="465.1" width="915" height="24.65"/>
+<clipPath id="terminal-3055561968-line-19">
+    <rect x="0" y="465.1" width="1708" height="24.65"/>
             </clipPath>
-<clipPath id="terminal-2273859275-line-20">
-    <rect x="0" y="489.5" width="915" height="24.65"/>
+<clipPath id="terminal-3055561968-line-20">
+    <rect x="0" y="489.5" width="1708" height="24.65"/>
             </clipPath>
-<clipPath id="terminal-2273859275-line-21">
-    <rect x="0" y="513.9" width="915" height="24.65"/>
+<clipPath id="terminal-3055561968-line-21">
+    <rect x="0" y="513.9" width="1708" height="24.65"/>
             </clipPath>
-<clipPath id="terminal-2273859275-line-22">
-    <rect x="0" y="538.3" width="915" height="24.65"/>
+<clipPath id="terminal-3055561968-line-22">
+    <rect x="0" y="538.3" width="1708" height="24.65"/>
             </clipPath>
-<clipPath id="terminal-2273859275-line-23">
-    <rect x="0" y="562.7" width="915" height="24.65"/>
+<clipPath id="terminal-3055561968-line-23">
+    <rect x="0" y="562.7" width="1708" height="24.65"/>
             </clipPath>
-<clipPath id="terminal-2273859275-line-24">
-    <rect x="0" y="587.1" width="915" height="24.65"/>
+<clipPath id="terminal-3055561968-line-24">
+    <rect x="0" y="587.1" width="1708" height="24.65"/>
             </clipPath>
-<clipPath id="terminal-2273859275-line-25">
-    <rect x="0" y="611.5" width="915" height="24.65"/>
+<clipPath id="terminal-3055561968-line-25">
+    <rect x="0" y="611.5" width="1708" height="24.65"/>
             </clipPath>
-<clipPath id="terminal-2273859275-line-26">
-    <rect x="0" y="635.9" width="915" height="24.65"/>
+<clipPath id="terminal-3055561968-line-26">
+    <rect x="0" y="635.9" width="1708" height="24.65"/>
             </clipPath>
-<clipPath id="terminal-2273859275-line-27">
-    <rect x="0" y="660.3" width="915" height="24.65"/>
+<clipPath id="terminal-3055561968-line-27">
+    <rect x="0" y="660.3" width="1708" height="24.65"/>
             </clipPath>
-<clipPath id="terminal-2273859275-line-28">
-    <rect x="0" y="684.7" width="915" height="24.65"/>
+<clipPath id="terminal-3055561968-line-28">
+    <rect x="0" y="684.7" width="1708" height="24.65"/>
+            </clipPath>
+<clipPath id="terminal-3055561968-line-29">
+    <rect x="0" y="709.1" width="1708" height="24.65"/>
+            </clipPath>
+<clipPath id="terminal-3055561968-line-30">
+    <rect x="0" y="733.5" width="1708" height="24.65"/>
+            </clipPath>
+<clipPath id="terminal-3055561968-line-31">
+    <rect x="0" y="757.9" width="1708" height="24.65"/>
+            </clipPath>
+<clipPath id="terminal-3055561968-line-32">
+    <rect x="0" y="782.3" width="1708" height="24.65"/>
+            </clipPath>
+<clipPath id="terminal-3055561968-line-33">
+    <rect x="0" y="806.7" width="1708" height="24.65"/>
+            </clipPath>
+<clipPath id="terminal-3055561968-line-34">
+    <rect x="0" y="831.1" width="1708" height="24.65"/>
+            </clipPath>
+<clipPath id="terminal-3055561968-line-35">
+    <rect x="0" y="855.5" width="1708" height="24.65"/>
+            </clipPath>
+<clipPath id="terminal-3055561968-line-36">
+    <rect x="0" y="879.9" width="1708" height="24.65"/>
+            </clipPath>
+<clipPath id="terminal-3055561968-line-37">
+    <rect x="0" y="904.3" width="1708" height="24.65"/>
+            </clipPath>
+<clipPath id="terminal-3055561968-line-38">
+    <rect x="0" y="928.7" width="1708" height="24.65"/>
             </clipPath>
     </defs>
 
-    <rect fill="#000000" stroke="rgba(255,255,255,0.35)" stroke-width="1" x="1" y="1" width="931" height="780" rx="8"/><text class="terminal-2273859275-title" fill="#ffffff" text-anchor="middle" x="465" y="27">M-x&#160;pdb</text>
+    <rect fill="#000000" stroke="rgba(255,255,255,0.35)" stroke-width="1" x="1" y="1" width="1724" height="1024" rx="8"/><text class="terminal-3055561968-title" fill="#ffffff" text-anchor="middle" x="862" y="27">M-x&#160;pdb</text>
             <g transform="translate(26,22)">
             <circle cx="0" cy="0" r="7" fill="#ff5f57"/>
             <circle cx="22" cy="0" r="7" fill="#febc2e"/>
             <circle cx="44" cy="0" r="7" fill="#28c840"/>
             </g>
         
-    <g transform="translate(9, 41)" clip-path="url(#terminal-2273859275-clip-terminal)">
-    <rect fill="#313131" x="0" y="1.5" width="12.2" height="24.65" shape-rendering="crispEdges"/><rect fill="#1e1e1e" x="12.2" y="1.5" width="231.8" height="24.65" shape-rendering="crispEdges"/><rect fill="#313131" x="244" y="1.5" width="671" height="24.65" shape-rendering="crispEdges"/><rect fill="#1e1e1e" x="0" y="25.9" width="915" height="24.65" shape-rendering="crispEdges"/><rect fill="#1e1e1e" x="0" y="50.3" width="73.2" height="24.65" shape-rendering="crispEdges"/><rect fill="#1e1e1e" x="73.2" y="50.3" width="841.8" height="24.65" shape-rendering="crispEdges"/><rect fill="#1e1e1e" x="0" y="74.7" width="915" height="24.65" shape-rendering="crispEdges"/><rect fill="#1e1e1e" x="0" y="99.1" width="915" height="24.65" shape-rendering="crispEdges"/><rect fill="#1e1e1e" x="0" y="123.5" width="915" height="24.65" shape-rendering="crispEdges"/><rect fill="#1e1e1e" x="0" y="147.9" width="73.2" height="24.65" shape-rendering="crispEdges"/><rect fill="#1e1e1e" x="73.2" y="147.9" width="841.8" height="24.65" shape-rendering="crispEdges"/><rect fill="#1e1e1e" x="0" y="172.3" width="915" height="24.65" shape-rendering="crispEdges"/><rect fill="#1e1e1e" x="0" y="196.7" width="915" height="24.65" shape-rendering="crispEdges"/><rect fill="#1e1e1e" x="0" y="221.1" width="915" height="24.65" shape-rendering="crispEdges"/><rect fill="#1e1e1e" x="0" y="245.5" width="73.2" height="24.65" shape-rendering="crispEdges"/><rect fill="#1e1e1e" x="73.2" y="245.5" width="36.6" height="24.65" shape-rendering="crispEdges"/><rect fill="#1e1e1e" x="109.8" y="245.5" width="805.2" height="24.65" shape-rendering="crispEdges"/><rect fill="#1e1e1e" x="0" y="269.9" width="915" height="24.65" shape-rendering="crispEdges"/><rect fill="#1e1e1e" x="0" y="294.3" width="73.2" height="24.65" shape-rendering="crispEdges"/><rect fill="#1e1e1e" x="73.2" y="294.3" width="841.8" height="24.65" shape-rendering="crispEdges"/><rect fill="#1e1e1e" x="0" y="318.7" width="915" height="24.65" shape-rendering="crispEdges"/><rect fill="#535353" x="0" y="343.1" width="36.6" height="24.65" shape-rendering="crispEdges"/><rect fill="#535353" x="36.6" y="343.1" width="122" height="24.65" shape-rendering="crispEdges"/><rect fill="#535353" x="158.6" y="343.1" width="756.4" height="24.65" shape-rendering="crispEdges"/><rect fill="#237f3f" x="0" y="367.5" width="12.2" height="24.65" shape-rendering="crispEdges"/><rect fill="#1e1e1e" x="12.2" y="367.5" width="12.2" height="24.65" shape-rendering="crispEdges"/><rect fill="#1e1e1e" x="24.4" y="367.5" width="73.2" height="24.65" shape-rendering="crispEdges"/><rect fill="#1e1e1e" x="97.6" y="367.5" width="97.6" height="24.65" shape-rendering="crispEdges"/><rect fill="#1e1e1e" x="195.2" y="367.5" width="475.8" height="24.65" shape-rendering="crispEdges"/><rect fill="#1e1e1e" x="671" y="367.5" width="244" height="24.65" shape-rendering="crispEdges"/><rect fill="#237f3f" x="0" y="391.9" width="12.2" height="24.65" shape-rendering="crispEdges"/><rect fill="#1e1e1e" x="12.2" y="391.9" width="12.2" height="24.65" shape-rendering="crispEdges"/><rect fill="#1e1e1e" x="24.4" y="391.9" width="73.2" height="24.65" shape-rendering="crispEdges"/><rect fill="#1e1e1e" x="97.6" y="391.9" width="97.6" height="24.65" shape-rendering="crispEdges"/><rect fill="#1e1e1e" x="195.2" y="391.9" width="12.2" height="24.65" shape-rendering="crispEdges"/><rect fill="#1e1e1e" x="207.4" y="391.9" width="707.6" height="24.65" shape-rendering="crispEdges"/><rect fill="#237f3f" x="0" y="416.3" width="12.2" height="24.65" shape-rendering="crispEdges"/><rect fill="#1e1e1e" x="12.2" y="416.3" width="12.2" height="24.65" shape-rendering="crispEdges"/><rect fill="#1e1e1e" x="24.4" y="416.3" width="73.2" height="24.65" shape-rendering="crispEdges"/><rect fill="#1e1e1e" x="97.6" y="416.3" width="97.6" height="24.65" shape-rendering="crispEdges"/><rect fill="#1e1e1e" x="195.2" y="416.3" width="707.6" height="24.65" shape-rendering="crispEdges"/><rect fill="#1e1e1e" x="902.8" y="416.3" width="12.2" height="24.65" shape-rendering="crispEdges"/><rect fill="#1e1e1e" x="0" y="440.7" width="24.4" height="24.65" shape-rendering="crispEdges"/><rect fill="#1e1e1e" x="24.4" y="440.7" width="73.2" height="24.65" shape-rendering="crispEdges"/><rect fill="#1e1e1e" x="97.6" y="440.7" width="170.8" height="24.65" shape-rendering="crispEdges"/><rect fill="#1e1e1e" x="268.4" y="440.7" width="12.2" height="24.65" shape-rendering="crispEdges"/><rect fill="#1e1e1e" x="280.6" y="440.7" width="73.2" height="24.65" shape-rendering="crispEdges"/><rect fill="#1e1e1e" x="353.8" y="440.7" width="561.2" height="24.65" shape-rendering="crispEdges"/><rect fill="#237f3f" x="0" y="465.1" width="12.2" height="24.65" shape-rendering="crispEdges"/><rect fill="#1e1e1e" x="12.2" y="465.1" width="12.2" height="24.65" shape-rendering="crispEdges"/><rect fill="#1e1e1e" x="24.4" y="465.1" width="73.2" height="24.65" shape-rendering="crispEdges"/><rect fill="#1e1e1e" x="97.6" y="465.1" width="97.6" height="24.65" shape-rendering="crispEdges"/><rect fill="#1e1e1e" x="195.2" y="465.1" width="183" height="24.65" shape-rendering="crispEdges"/><rect fill="#1e1e1e" x="378.2" y="465.1" width="36.6" height="24.65" shape-rendering="crispEdges"/><rect fill="#1e1e1e" x="414.8" y="465.1" width="36.6" height="24.65" shape-rendering="crispEdges"/><rect fill="#1e1e1e" x="451.4" y="465.1" width="463.6" height="24.65" shape-rendering="crispEdges"/><rect fill="#237f3f" x="0" y="489.5" width="12.2" height="24.65" shape-rendering="crispEdges"/><rect fill="#1e1e1e" x="12.2" y="489.5" width="12.2" height="24.65" shape-rendering="crispEdges"/><rect fill="#1e1e1e" x="24.4" y="489.5" width="73.2" height="24.65" shape-rendering="crispEdges"/><rect fill="#1e1e1e" x="97.6" y="489.5" width="97.6" height="24.65" shape-rendering="crispEdges"/><rect fill="#1e1e1e" x="195.2" y="489.5" width="61" height="24.65" shape-rendering="crispEdges"/><rect fill="#1e1e1e" x="256.2" y="489.5" width="12.2" height="24.65" shape-rendering="crispEdges"/><rect fill="#1e1e1e" x="268.4" y="489.5" width="36.6" height="24.65" shape-rendering="crispEdges"/><rect fill="#1e1e1e" x="305" y="489.5" width="610" height="24.65" shape-rendering="crispEdges"/><rect fill="#237f3f" x="0" y="513.9" width="12.2" height="24.65" shape-rendering="crispEdges"/><rect fill="#1e1e1e" x="12.2" y="513.9" width="12.2" height="24.65" shape-rendering="crispEdges"/><rect fill="#1e1e1e" x="24.4" y="513.9" width="73.2" height="24.65" shape-rendering="crispEdges"/><rect fill="#1e1e1e" x="97.6" y="513.9" width="146.4" height="24.65" shape-rendering="crispEdges"/><rect fill="#1e1e1e" x="244" y="513.9" width="183" height="24.65" shape-rendering="crispEdges"/><rect fill="#1e1e1e" x="427" y="513.9" width="36.6" height="24.65" shape-rendering="crispEdges"/><rect fill="#1e1e1e" x="463.6" y="513.9" width="36.6" height="24.65" shape-rendering="crispEdges"/><rect fill="#1e1e1e" x="500.2" y="513.9" width="414.8" height="24.65" shape-rendering="crispEdges"/><rect fill="#237f3f" x="0" y="538.3" width="12.2" height="24.65" shape-rendering="crispEdges"/><rect fill="#1e1e1e" x="12.2" y="538.3" width="12.2" height="24.65" shape-rendering="crispEdges"/><rect fill="#1e1e1e" x="24.4" y="538.3" width="73.2" height="24.65" shape-rendering="crispEdges"/><rect fill="#1e1e1e" x="97.6" y="538.3" width="146.4" height="24.65" shape-rendering="crispEdges"/><rect fill="#8b1a1a" x="244" y="538.3" width="122" height="24.65" shape-rendering="crispEdges"/><rect fill="#1e1e1e" x="366" y="538.3" width="549" height="24.65" shape-rendering="crispEdges"/><rect fill="#237f3f" x="0" y="562.7" width="12.2" height="24.65" shape-rendering="crispEdges"/><rect fill="#1e1e1e" x="12.2" y="562.7" width="12.2" height="24.65" shape-rendering="crispEdges"/><rect fill="#1e1e1e" x="24.4" y="562.7" width="73.2" height="24.65" shape-rendering="crispEdges"/><rect fill="#1e1e1e" x="97.6" y="562.7" width="146.4" height="24.65" shape-rendering="crispEdges"/><rect fill="#1e1e1e" x="244" y="562.7" width="24.4" height="24.65" shape-rendering="crispEdges"/><rect fill="#1e1e1e" x="268.4" y="562.7" width="12.2" height="24.65" shape-rendering="crispEdges"/><rect fill="#1e1e1e" x="280.6" y="562.7" width="36.6" height="24.65" shape-rendering="crispEdges"/><rect fill="#1e1e1e" x="317.2" y="562.7" width="597.8" height="24.65" shape-rendering="crispEdges"/><rect fill="#237f3f" x="0" y="587.1" width="12.2" height="24.65" shape-rendering="crispEdges"/><rect fill="#1e1e1e" x="12.2" y="587.1" width="12.2" height="24.65" shape-rendering="crispEdges"/><rect fill="#1e1e1e" x="24.4" y="587.1" width="73.2" height="24.65" shape-rendering="crispEdges"/><rect fill="#1e1e1e" x="97.6" y="587.1" width="195.2" height="24.65" shape-rendering="crispEdges"/><rect fill="#1e1e1e" x="292.8" y="587.1" width="24.4" height="24.65" shape-rendering="crispEdges"/><rect fill="#1e1e1e" x="317.2" y="587.1" width="24.4" height="24.65" shape-rendering="crispEdges"/><rect fill="#1e1e1e" x="341.6" y="587.1" width="36.6" height="24.65" shape-rendering="crispEdges"/><rect fill="#1e1e1e" x="378.2" y="587.1" width="536.8" height="24.65" shape-rendering="crispEdges"/><rect fill="#237f3f" x="0" y="611.5" width="12.2" height="24.65" shape-rendering="crispEdges"/><rect fill="#1e1e1e" x="12.2" y="611.5" width="12.2" height="24.65" shape-rendering="crispEdges"/><rect fill="#1e1e1e" x="24.4" y="611.5" width="73.2" height="24.65" shape-rendering="crispEdges"/><rect fill="#1e1e1e" x="97.6" y="611.5" width="244" height="24.65" shape-rendering="crispEdges"/><rect fill="#1e1e1e" x="341.6" y="611.5" width="73.2" height="24.65" shape-rendering="crispEdges"/><rect fill="#1e1e1e" x="414.8" y="611.5" width="500.2" height="24.65" shape-rendering="crispEdges"/><rect fill="#237f3f" x="0" y="635.9" width="12.2" height="24.65" shape-rendering="crispEdges"/><rect fill="#1e1e1e" x="12.2" y="635.9" width="12.2" height="24.65" shape-rendering="crispEdges"/><rect fill="#1e1e1e" x="24.4" y="635.9" width="73.2" height="24.65" shape-rendering="crispEdges"/><rect fill="#1e1e1e" x="97.6" y="635.9" width="817.4" height="24.65" shape-rendering="crispEdges"/><rect fill="#237f3f" x="0" y="660.3" width="12.2" height="24.65" shape-rendering="crispEdges"/><rect fill="#1e1e1e" x="12.2" y="660.3" width="36.6" height="24.65" shape-rendering="crispEdges"/><rect fill="#535353" x="48.8" y="660.3" width="48.8" height="24.65" shape-rendering="crispEdges"/><rect fill="#1e1e1e" x="97.6" y="660.3" width="195.2" height="24.65" shape-rendering="crispEdges"/><rect fill="#1e1e1e" x="292.8" y="660.3" width="48.8" height="24.65" shape-rendering="crispEdges"/><rect fill="#1e1e1e" x="341.6" y="660.3" width="573.4" height="24.65" shape-rendering="crispEdges"/><rect fill="#303030" x="0" y="684.7" width="12.2" height="24.65" shape-rendering="crispEdges"/><rect fill="#303030" x="12.2" y="684.7" width="183" height="24.65" shape-rendering="crispEdges"/><rect fill="#303030" x="195.2" y="684.7" width="24.4" height="24.65" shape-rendering="crispEdges"/><rect fill="#303030" x="219.6" y="684.7" width="109.8" height="24.65" shape-rendering="crispEdges"/><rect fill="#303030" x="329.4" y="684.7" width="341.6" height="24.65" shape-rendering="crispEdges"/><rect fill="#303030" x="671" y="684.7" width="12.2" height="24.65" shape-rendering="crispEdges"/><rect fill="#303030" x="683.2" y="684.7" width="12.2" height="24.65" shape-rendering="crispEdges"/><rect fill="#303030" x="695.4" y="684.7" width="12.2" height="24.65" shape-rendering="crispEdges"/><rect fill="#303030" x="707.6" y="684.7" width="12.2" height="24.65" shape-rendering="crispEdges"/><rect fill="#303030" x="719.8" y="684.7" width="12.2" height="24.65" shape-rendering="crispEdges"/><rect fill="#303030" x="732" y="684.7" width="183" height="24.65" shape-rendering="crispEdges"/><rect fill="#1e1e1e" x="0" y="709.1" width="902.8" height="24.65" shape-rendering="crispEdges"/>
-    <g class="terminal-2273859275-matrix">
-    <text class="terminal-2273859275-r1" x="0" y="20" textLength="12.2" clip-path="url(#terminal-2273859275-line-0)">|</text><text class="terminal-2273859275-r2" x="12.2" y="20" textLength="231.8" clip-path="url(#terminal-2273859275-line-0)">*gud-test*&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;x</text><text class="terminal-2273859275-r1" x="244" y="20" textLength="671" clip-path="url(#terminal-2273859275-line-0)">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;[37%]&#160;15:41&#160;21/06/25&#160;☰</text><text class="terminal-2273859275-r1" x="915" y="20" textLength="12.2" clip-path="url(#terminal-2273859275-line-0)">
-</text><text class="terminal-2273859275-r1" x="0" y="44.4" textLength="915" clip-path="url(#terminal-2273859275-line-1)">-&gt;&#160;if&#160;not&#160;state.headers_complete:&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;</text><text class="terminal-2273859275-r1" x="915" y="44.4" textLength="12.2" clip-path="url(#terminal-2273859275-line-1)">
-</text><text class="terminal-2273859275-r3" x="0" y="68.8" textLength="73.2" clip-path="url(#terminal-2273859275-line-2)">(Pdb)&#160;</text><text class="terminal-2273859275-r1" x="915" y="68.8" textLength="12.2" clip-path="url(#terminal-2273859275-line-2)">
-</text><text class="terminal-2273859275-r1" x="0" y="93.2" textLength="915" clip-path="url(#terminal-2273859275-line-3)">&gt;&#160;/var/home/alex/Projects/swyddfa/lsp-devtools/develop/lib/lsp-devtools/ls\</text><text class="terminal-2273859275-r1" x="915" y="93.2" textLength="12.2" clip-path="url(#terminal-2273859275-line-3)">
-</text><text class="terminal-2273859275-r1" x="0" y="117.6" textLength="915" clip-path="url(#terminal-2273859275-line-4)">p_devtools/agent/server.py(166)feed()&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;</text><text class="terminal-2273859275-r1" x="915" y="117.6" textLength="12.2" clip-path="url(#terminal-2273859275-line-4)">
-</text><text class="terminal-2273859275-r1" x="0" y="142" textLength="915" clip-path="url(#terminal-2273859275-line-5)">-&gt;&#160;if&#160;(idx&#160;:=&#160;state.buffer.find(SEP))&#160;==&#160;-1:&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;</text><text class="terminal-2273859275-r1" x="915" y="142" textLength="12.2" clip-path="url(#terminal-2273859275-line-5)">
-</text><text class="terminal-2273859275-r3" x="0" y="166.4" textLength="73.2" clip-path="url(#terminal-2273859275-line-6)">(Pdb)&#160;</text><text class="terminal-2273859275-r1" x="915" y="166.4" textLength="12.2" clip-path="url(#terminal-2273859275-line-6)">
-</text><text class="terminal-2273859275-r1" x="0" y="190.8" textLength="915" clip-path="url(#terminal-2273859275-line-7)">&gt;&#160;/var/home/alex/Projects/swyddfa/lsp-devtools/develop/lib/lsp-devtools/ls\</text><text class="terminal-2273859275-r1" x="915" y="190.8" textLength="12.2" clip-path="url(#terminal-2273859275-line-7)">
-</text><text class="terminal-2273859275-r1" x="0" y="215.2" textLength="915" clip-path="url(#terminal-2273859275-line-8)">p_devtools/agent/server.py(169)feed()&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;</text><text class="terminal-2273859275-r1" x="915" y="215.2" textLength="12.2" clip-path="url(#terminal-2273859275-line-8)">
-</text><text class="terminal-2273859275-r1" x="0" y="239.6" textLength="915" clip-path="url(#terminal-2273859275-line-9)">-&gt;&#160;line,&#160;state.buffer&#160;=&#160;state.buffer[:idx],&#160;state.buffer[idx&#160;+&#160;len(SEP)&#160;:]&#160;</text><text class="terminal-2273859275-r1" x="915" y="239.6" textLength="12.2" clip-path="url(#terminal-2273859275-line-9)">
-</text><text class="terminal-2273859275-r3" x="0" y="264" textLength="73.2" clip-path="url(#terminal-2273859275-line-10)">(Pdb)&#160;</text><text class="terminal-2273859275-r2" x="73.2" y="264" textLength="36.6" clip-path="url(#terminal-2273859275-line-10)">idx</text><text class="terminal-2273859275-r1" x="915" y="264" textLength="12.2" clip-path="url(#terminal-2273859275-line-10)">
-</text><text class="terminal-2273859275-r1" x="0" y="288.4" textLength="915" clip-path="url(#terminal-2273859275-line-11)">30&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;</text><text class="terminal-2273859275-r1" x="915" y="288.4" textLength="12.2" clip-path="url(#terminal-2273859275-line-11)">
-</text><text class="terminal-2273859275-r3" x="0" y="312.8" textLength="73.2" clip-path="url(#terminal-2273859275-line-12)">(Pdb)&#160;</text><text class="terminal-2273859275-r1" x="915" y="312.8" textLength="12.2" clip-path="url(#terminal-2273859275-line-12)">
-</text><text class="terminal-2273859275-r1" x="915" y="337.2" textLength="12.2" clip-path="url(#terminal-2273859275-line-13)">
-</text><text class="terminal-2273859275-r1" x="0" y="361.6" textLength="36.6" clip-path="url(#terminal-2273859275-line-14)">-&#160;&#160;</text><text class="terminal-2273859275-r2" x="36.6" y="361.6" textLength="122" clip-path="url(#terminal-2273859275-line-14)">*gud-test*</text><text class="terminal-2273859275-r1" x="158.6" y="361.6" textLength="756.4" clip-path="url(#terminal-2273859275-line-14)">&#160;25:6&#160;&#160;&#160;&#160;&#160;&#160;(Debugger:run&#160;Apheleia)&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;</text><text class="terminal-2273859275-r1" x="915" y="361.6" textLength="12.2" clip-path="url(#terminal-2273859275-line-14)">
-</text><text class="terminal-2273859275-r1" x="0" y="386" textLength="12.2" clip-path="url(#terminal-2273859275-line-15)">+</text><text class="terminal-2273859275-r4" x="24.4" y="386" textLength="73.2" clip-path="url(#terminal-2273859275-line-15)">&#160;&#160;158&#160;</text><text class="terminal-2273859275-r5" x="195.2" y="386" textLength="475.8" clip-path="url(#terminal-2273859275-line-15)">#&#160;messages&#160;to&#160;be&#160;stuck&#160;in&#160;the&#160;buffer...</text><text class="terminal-2273859275-r1" x="915" y="386" textLength="12.2" clip-path="url(#terminal-2273859275-line-15)">
-</text><text class="terminal-2273859275-r1" x="0" y="410.4" textLength="12.2" clip-path="url(#terminal-2273859275-line-16)">+</text><text class="terminal-2273859275-r4" x="24.4" y="410.4" textLength="73.2" clip-path="url(#terminal-2273859275-line-16)">&#160;&#160;159&#160;</text><text class="terminal-2273859275-r5" x="195.2" y="410.4" textLength="12.2" clip-path="url(#terminal-2273859275-line-16)">#</text><text class="terminal-2273859275-r1" x="915" y="410.4" textLength="12.2" clip-path="url(#terminal-2273859275-line-16)">
-</text><text class="terminal-2273859275-r1" x="0" y="434.8" textLength="12.2" clip-path="url(#terminal-2273859275-line-17)">+</text><text class="terminal-2273859275-r4" x="24.4" y="434.8" textLength="73.2" clip-path="url(#terminal-2273859275-line-17)">&#160;&#160;160&#160;</text><text class="terminal-2273859275-r5" x="195.2" y="434.8" textLength="707.6" clip-path="url(#terminal-2273859275-line-17)">#&#160;So&#160;we&#160;will&#160;keep&#160;running&#160;that&#160;parser&#160;as&#160;long&#160;as&#160;the&#160;buffe</text><text class="terminal-2273859275-r1" x="902.8" y="434.8" textLength="12.2" clip-path="url(#terminal-2273859275-line-17)">\</text><text class="terminal-2273859275-r1" x="915" y="434.8" textLength="12.2" clip-path="url(#terminal-2273859275-line-17)">
-</text><text class="terminal-2273859275-r5" x="97.6" y="459.2" textLength="170.8" clip-path="url(#terminal-2273859275-line-18)">r&#160;continues&#160;to</text><text class="terminal-2273859275-r5" x="280.6" y="459.2" textLength="73.2" clip-path="url(#terminal-2273859275-line-18)">shrink</text><text class="terminal-2273859275-r1" x="915" y="459.2" textLength="12.2" clip-path="url(#terminal-2273859275-line-18)">
-</text><text class="terminal-2273859275-r1" x="0" y="483.6" textLength="12.2" clip-path="url(#terminal-2273859275-line-19)">+</text><text class="terminal-2273859275-r4" x="24.4" y="483.6" textLength="73.2" clip-path="url(#terminal-2273859275-line-19)">&#160;&#160;161&#160;</text><text class="terminal-2273859275-r7" x="195.2" y="483.6" textLength="183" clip-path="url(#terminal-2273859275-line-19)">previous_length</text><text class="terminal-2273859275-r1" x="378.2" y="483.6" textLength="36.6" clip-path="url(#terminal-2273859275-line-19)">&#160;=&#160;</text><text class="terminal-2273859275-r8" x="414.8" y="483.6" textLength="36.6" clip-path="url(#terminal-2273859275-line-19)">len</text><text class="terminal-2273859275-r1" x="451.4" y="483.6" textLength="463.6" clip-path="url(#terminal-2273859275-line-19)">(state.buffer)&#160;+&#160;1&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;</text><text class="terminal-2273859275-r1" x="915" y="483.6" textLength="12.2" clip-path="url(#terminal-2273859275-line-19)">
-</text><text class="terminal-2273859275-r1" x="0" y="508" textLength="12.2" clip-path="url(#terminal-2273859275-line-20)">+</text><text class="terminal-2273859275-r4" x="24.4" y="508" textLength="73.2" clip-path="url(#terminal-2273859275-line-20)">&#160;&#160;162&#160;</text><text class="terminal-2273859275-r9" x="195.2" y="508" textLength="61" clip-path="url(#terminal-2273859275-line-20)">while</text><text class="terminal-2273859275-r8" x="268.4" y="508" textLength="36.6" clip-path="url(#terminal-2273859275-line-20)">len</text><text class="terminal-2273859275-r1" x="305" y="508" textLength="610" clip-path="url(#terminal-2273859275-line-20)">(state.buffer)&#160;&lt;&#160;previous_length:&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;</text><text class="terminal-2273859275-r1" x="915" y="508" textLength="12.2" clip-path="url(#terminal-2273859275-line-20)">
-</text><text class="terminal-2273859275-r1" x="0" y="532.4" textLength="12.2" clip-path="url(#terminal-2273859275-line-21)">+</text><text class="terminal-2273859275-r4" x="24.4" y="532.4" textLength="73.2" clip-path="url(#terminal-2273859275-line-21)">&#160;&#160;163&#160;</text><text class="terminal-2273859275-r7" x="244" y="532.4" textLength="183" clip-path="url(#terminal-2273859275-line-21)">previous_length</text><text class="terminal-2273859275-r1" x="427" y="532.4" textLength="36.6" clip-path="url(#terminal-2273859275-line-21)">&#160;=&#160;</text><text class="terminal-2273859275-r8" x="463.6" y="532.4" textLength="36.6" clip-path="url(#terminal-2273859275-line-21)">len</text><text class="terminal-2273859275-r1" x="500.2" y="532.4" textLength="414.8" clip-path="url(#terminal-2273859275-line-21)">(state.buffer)&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;</text><text class="terminal-2273859275-r1" x="915" y="532.4" textLength="12.2" clip-path="url(#terminal-2273859275-line-21)">
-</text><text class="terminal-2273859275-r1" x="0" y="556.8" textLength="12.2" clip-path="url(#terminal-2273859275-line-22)">+</text><text class="terminal-2273859275-r4" x="24.4" y="556.8" textLength="73.2" clip-path="url(#terminal-2273859275-line-22)">&#160;&#160;164&#160;</text><text class="terminal-2273859275-r10" x="244" y="556.8" textLength="122" clip-path="url(#terminal-2273859275-line-22)">breakpoint</text><text class="terminal-2273859275-r1" x="366" y="556.8" textLength="549" clip-path="url(#terminal-2273859275-line-22)">()&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;</text><text class="terminal-2273859275-r1" x="915" y="556.8" textLength="12.2" clip-path="url(#terminal-2273859275-line-22)">
-</text><text class="terminal-2273859275-r1" x="0" y="581.2" textLength="12.2" clip-path="url(#terminal-2273859275-line-23)">+</text><text class="terminal-2273859275-r4" x="24.4" y="581.2" textLength="73.2" clip-path="url(#terminal-2273859275-line-23)">&#160;&#160;165&#160;</text><text class="terminal-2273859275-r9" x="244" y="581.2" textLength="24.4" clip-path="url(#terminal-2273859275-line-23)">if</text><text class="terminal-2273859275-r9" x="280.6" y="581.2" textLength="36.6" clip-path="url(#terminal-2273859275-line-23)">not</text><text class="terminal-2273859275-r1" x="317.2" y="581.2" textLength="597.8" clip-path="url(#terminal-2273859275-line-23)">&#160;state.headers_complete:&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;</text><text class="terminal-2273859275-r1" x="915" y="581.2" textLength="12.2" clip-path="url(#terminal-2273859275-line-23)">
-</text><text class="terminal-2273859275-r1" x="0" y="605.6" textLength="12.2" clip-path="url(#terminal-2273859275-line-24)">+</text><text class="terminal-2273859275-r4" x="24.4" y="605.6" textLength="73.2" clip-path="url(#terminal-2273859275-line-24)">&#160;&#160;166&#160;</text><text class="terminal-2273859275-r9" x="292.8" y="605.6" textLength="24.4" clip-path="url(#terminal-2273859275-line-24)">if</text><text class="terminal-2273859275-r1" x="317.2" y="605.6" textLength="24.4" clip-path="url(#terminal-2273859275-line-24)">&#160;(</text><text class="terminal-2273859275-r7" x="341.6" y="605.6" textLength="36.6" clip-path="url(#terminal-2273859275-line-24)">idx</text><text class="terminal-2273859275-r1" x="378.2" y="605.6" textLength="536.8" clip-path="url(#terminal-2273859275-line-24)">&#160;:=&#160;state.buffer.find(SEP))&#160;==&#160;-1:&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;</text><text class="terminal-2273859275-r1" x="915" y="605.6" textLength="12.2" clip-path="url(#terminal-2273859275-line-24)">
-</text><text class="terminal-2273859275-r1" x="0" y="630" textLength="12.2" clip-path="url(#terminal-2273859275-line-25)">+</text><text class="terminal-2273859275-r4" x="24.4" y="630" textLength="73.2" clip-path="url(#terminal-2273859275-line-25)">&#160;&#160;167&#160;</text><text class="terminal-2273859275-r9" x="341.6" y="630" textLength="73.2" clip-path="url(#terminal-2273859275-line-25)">return</text><text class="terminal-2273859275-r1" x="915" y="630" textLength="12.2" clip-path="url(#terminal-2273859275-line-25)">
-</text><text class="terminal-2273859275-r1" x="0" y="654.4" textLength="12.2" clip-path="url(#terminal-2273859275-line-26)">+</text><text class="terminal-2273859275-r4" x="24.4" y="654.4" textLength="73.2" clip-path="url(#terminal-2273859275-line-26)">&#160;&#160;168&#160;</text><text class="terminal-2273859275-r1" x="915" y="654.4" textLength="12.2" clip-path="url(#terminal-2273859275-line-26)">
-</text><text class="terminal-2273859275-r1" x="0" y="678.8" textLength="12.2" clip-path="url(#terminal-2273859275-line-27)">+</text><text class="terminal-2273859275-r1" x="12.2" y="678.8" textLength="36.6" clip-path="url(#terminal-2273859275-line-27)">&#160;=&gt;</text><text class="terminal-2273859275-r2" x="48.8" y="678.8" textLength="48.8" clip-path="url(#terminal-2273859275-line-27)">169&#160;</text><text class="terminal-2273859275-r7" x="292.8" y="678.8" textLength="48.8" clip-path="url(#terminal-2273859275-line-27)">line</text><text class="terminal-2273859275-r1" x="341.6" y="678.8" textLength="573.4" clip-path="url(#terminal-2273859275-line-27)">,&#160;state.buffer&#160;=&#160;state.buffer[:idx],&#160;state.buf\</text><text class="terminal-2273859275-r1" x="915" y="678.8" textLength="12.2" clip-path="url(#terminal-2273859275-line-27)">
-</text><text class="terminal-2273859275-r11" x="0" y="703.2" textLength="12.2" clip-path="url(#terminal-2273859275-line-28)">-</text><text class="terminal-2273859275-r12" x="12.2" y="703.2" textLength="183" clip-path="url(#terminal-2273859275-line-28)">🖿&#160;lsp-devtools&#160;</text><text class="terminal-2273859275-r13" x="219.6" y="703.2" textLength="109.8" clip-path="url(#terminal-2273859275-line-28)">server.py</text><text class="terminal-2273859275-r11" x="329.4" y="703.2" textLength="341.6" clip-path="url(#terminal-2273859275-line-28)">&#160;169:0&#160;&#160;&#160;&#160;&#160;&#160;(Python&#160;Flymake[</text><text class="terminal-2273859275-r14" x="671" y="703.2" textLength="12.2" clip-path="url(#terminal-2273859275-line-28)">0</text><text class="terminal-2273859275-r15" x="695.4" y="703.2" textLength="12.2" clip-path="url(#terminal-2273859275-line-28)">0</text><text class="terminal-2273859275-r16" x="719.8" y="703.2" textLength="12.2" clip-path="url(#terminal-2273859275-line-28)">1</text><text class="terminal-2273859275-r11" x="732" y="703.2" textLength="183" clip-path="url(#terminal-2273859275-line-28)">]&#160;ws&#160;Apheleia©&#160;</text><text class="terminal-2273859275-r1" x="915" y="703.2" textLength="12.2" clip-path="url(#terminal-2273859275-line-28)">
+    <g transform="translate(9, 41)" clip-path="url(#terminal-3055561968-clip-terminal)">
+    <rect fill="#40503d" x="0" y="1.5" width="12.2" height="24.65" shape-rendering="crispEdges"/><rect fill="#303f2d" x="12.2" y="1.5" width="36.6" height="24.65" shape-rendering="crispEdges"/><rect fill="#40503d" x="48.8" y="1.5" width="1464" height="24.65" shape-rendering="crispEdges"/><rect fill="#40503d" x="1512.8" y="1.5" width="170.8" height="24.65" shape-rendering="crispEdges"/><rect fill="#40503d" x="1683.6" y="1.5" width="24.4" height="24.65" shape-rendering="crispEdges"/><rect fill="#303f2d" x="0" y="25.9" width="1708" height="24.65" shape-rendering="crispEdges"/><rect fill="#303f2d" x="0" y="50.3" width="1708" height="24.65" shape-rendering="crispEdges"/><rect fill="#303f2d" x="0" y="74.7" width="1708" height="24.65" shape-rendering="crispEdges"/><rect fill="#303f2d" x="0" y="99.1" width="73.2" height="24.65" shape-rendering="crispEdges"/><rect fill="#303f2d" x="73.2" y="99.1" width="1634.8" height="24.65" shape-rendering="crispEdges"/><rect fill="#303f2d" x="0" y="123.5" width="1708" height="24.65" shape-rendering="crispEdges"/><rect fill="#303f2d" x="0" y="147.9" width="1708" height="24.65" shape-rendering="crispEdges"/><rect fill="#303f2d" x="0" y="172.3" width="1708" height="24.65" shape-rendering="crispEdges"/><rect fill="#303f2d" x="0" y="196.7" width="1708" height="24.65" shape-rendering="crispEdges"/><rect fill="#303f2d" x="0" y="221.1" width="1708" height="24.65" shape-rendering="crispEdges"/><rect fill="#303f2d" x="0" y="245.5" width="1708" height="24.65" shape-rendering="crispEdges"/><rect fill="#303f2d" x="0" y="269.9" width="1708" height="24.65" shape-rendering="crispEdges"/><rect fill="#303f2d" x="0" y="294.3" width="1708" height="24.65" shape-rendering="crispEdges"/><rect fill="#303f2d" x="0" y="318.7" width="1708" height="24.65" shape-rendering="crispEdges"/><rect fill="#303f2d" x="0" y="343.1" width="1708" height="24.65" shape-rendering="crispEdges"/><rect fill="#303f2d" x="0" y="367.5" width="1708" height="24.65" shape-rendering="crispEdges"/><rect fill="#303f2d" x="0" y="391.9" width="1708" height="24.65" shape-rendering="crispEdges"/><rect fill="#303f2d" x="0" y="416.3" width="1708" height="24.65" shape-rendering="crispEdges"/><rect fill="#303f2d" x="0" y="440.7" width="1708" height="24.65" shape-rendering="crispEdges"/><rect fill="#70523a" x="0" y="465.1" width="36.6" height="24.65" shape-rendering="crispEdges"/><rect fill="#70523a" x="36.6" y="465.1" width="109.8" height="24.65" shape-rendering="crispEdges"/><rect fill="#70523a" x="146.4" y="465.1" width="1561.6" height="24.65" shape-rendering="crispEdges"/><rect fill="#303f2d" x="0" y="489.5" width="36.6" height="24.65" shape-rendering="crispEdges"/><rect fill="#303f2d" x="36.6" y="489.5" width="48.8" height="24.65" shape-rendering="crispEdges"/><rect fill="#303f2d" x="85.4" y="489.5" width="73.2" height="24.65" shape-rendering="crispEdges"/><rect fill="#303f2d" x="158.6" y="489.5" width="1549.4" height="24.65" shape-rendering="crispEdges"/><rect fill="#303f2d" x="0" y="513.9" width="12.2" height="24.65" shape-rendering="crispEdges"/><rect fill="#303f2d" x="12.2" y="513.9" width="73.2" height="24.65" shape-rendering="crispEdges"/><rect fill="#303f2d" x="85.4" y="513.9" width="1622.6" height="24.65" shape-rendering="crispEdges"/><rect fill="#303f2d" x="0" y="538.3" width="12.2" height="24.65" shape-rendering="crispEdges"/><rect fill="#303f2d" x="12.2" y="538.3" width="73.2" height="24.65" shape-rendering="crispEdges"/><rect fill="#303f2d" x="85.4" y="538.3" width="1622.6" height="24.65" shape-rendering="crispEdges"/><rect fill="#303f2d" x="0" y="562.7" width="12.2" height="24.65" shape-rendering="crispEdges"/><rect fill="#303f2d" x="12.2" y="562.7" width="73.2" height="24.65" shape-rendering="crispEdges"/><rect fill="#303f2d" x="85.4" y="562.7" width="36.6" height="24.65" shape-rendering="crispEdges"/><rect fill="#303f2d" x="122" y="562.7" width="12.2" height="24.65" shape-rendering="crispEdges"/><rect fill="#303f2d" x="134.2" y="562.7" width="48.8" height="24.65" shape-rendering="crispEdges"/><rect fill="#303f2d" x="183" y="562.7" width="1525" height="24.65" shape-rendering="crispEdges"/><rect fill="#303f2d" x="0" y="587.1" width="12.2" height="24.65" shape-rendering="crispEdges"/><rect fill="#303f2d" x="12.2" y="587.1" width="73.2" height="24.65" shape-rendering="crispEdges"/><rect fill="#303f2d" x="85.4" y="587.1" width="48.8" height="24.65" shape-rendering="crispEdges"/><rect fill="#303f2d" x="134.2" y="587.1" width="36.6" height="24.65" shape-rendering="crispEdges"/><rect fill="#303f2d" x="170.8" y="587.1" width="12.2" height="24.65" shape-rendering="crispEdges"/><rect fill="#303f2d" x="183" y="587.1" width="48.8" height="24.65" shape-rendering="crispEdges"/><rect fill="#303f2d" x="231.8" y="587.1" width="12.2" height="24.65" shape-rendering="crispEdges"/><rect fill="#303f2d" x="244" y="587.1" width="24.4" height="24.65" shape-rendering="crispEdges"/><rect fill="#303f2d" x="268.4" y="587.1" width="170.8" height="24.65" shape-rendering="crispEdges"/><rect fill="#303f2d" x="439.2" y="587.1" width="36.6" height="24.65" shape-rendering="crispEdges"/><rect fill="#303f2d" x="475.8" y="587.1" width="85.4" height="24.65" shape-rendering="crispEdges"/><rect fill="#303f2d" x="561.2" y="587.1" width="85.4" height="24.65" shape-rendering="crispEdges"/><rect fill="#303f2d" x="646.6" y="587.1" width="1061.4" height="24.65" shape-rendering="crispEdges"/><rect fill="#303f2d" x="0" y="611.5" width="12.2" height="24.65" shape-rendering="crispEdges"/><rect fill="#303f2d" x="12.2" y="611.5" width="73.2" height="24.65" shape-rendering="crispEdges"/><rect fill="#303f2d" x="85.4" y="611.5" width="97.6" height="24.65" shape-rendering="crispEdges"/><rect fill="#303f2d" x="183" y="611.5" width="61" height="24.65" shape-rendering="crispEdges"/><rect fill="#303f2d" x="244" y="611.5" width="1464" height="24.65" shape-rendering="crispEdges"/><rect fill="#303f2d" x="0" y="635.9" width="12.2" height="24.65" shape-rendering="crispEdges"/><rect fill="#303f2d" x="12.2" y="635.9" width="73.2" height="24.65" shape-rendering="crispEdges"/><rect fill="#303f2d" x="85.4" y="635.9" width="1622.6" height="24.65" shape-rendering="crispEdges"/><rect fill="#303f2d" x="0" y="660.3" width="12.2" height="24.65" shape-rendering="crispEdges"/><rect fill="#303f2d" x="12.2" y="660.3" width="73.2" height="24.65" shape-rendering="crispEdges"/><rect fill="#303f2d" x="85.4" y="660.3" width="1622.6" height="24.65" shape-rendering="crispEdges"/><rect fill="#303f2d" x="0" y="684.7" width="12.2" height="24.65" shape-rendering="crispEdges"/><rect fill="#303f2d" x="12.2" y="684.7" width="73.2" height="24.65" shape-rendering="crispEdges"/><rect fill="#303f2d" x="85.4" y="684.7" width="24.4" height="24.65" shape-rendering="crispEdges"/><rect fill="#303f2d" x="109.8" y="684.7" width="158.6" height="24.65" shape-rendering="crispEdges"/><rect fill="#303f2d" x="268.4" y="684.7" width="122" height="24.65" shape-rendering="crispEdges"/><rect fill="#303f2d" x="390.4" y="684.7" width="1317.6" height="24.65" shape-rendering="crispEdges"/><rect fill="#303f2d" x="0" y="709.1" width="12.2" height="24.65" shape-rendering="crispEdges"/><rect fill="#303f2d" x="12.2" y="709.1" width="73.2" height="24.65" shape-rendering="crispEdges"/><rect fill="#303f2d" x="85.4" y="709.1" width="1622.6" height="24.65" shape-rendering="crispEdges"/><rect fill="#303f2d" x="0" y="733.5" width="12.2" height="24.65" shape-rendering="crispEdges"/><rect fill="#303f2d" x="12.2" y="733.5" width="73.2" height="24.65" shape-rendering="crispEdges"/><rect fill="#303f2d" x="85.4" y="733.5" width="1622.6" height="24.65" shape-rendering="crispEdges"/><rect fill="#303f2d" x="0" y="757.9" width="12.2" height="24.65" shape-rendering="crispEdges"/><rect fill="#303f2d" x="12.2" y="757.9" width="73.2" height="24.65" shape-rendering="crispEdges"/><rect fill="#303f2d" x="85.4" y="757.9" width="1622.6" height="24.65" shape-rendering="crispEdges"/><rect fill="#303f2d" x="0" y="782.3" width="12.2" height="24.65" shape-rendering="crispEdges"/><rect fill="#303f2d" x="12.2" y="782.3" width="73.2" height="24.65" shape-rendering="crispEdges"/><rect fill="#303f2d" x="85.4" y="782.3" width="1622.6" height="24.65" shape-rendering="crispEdges"/><rect fill="#303f2d" x="0" y="806.7" width="12.2" height="24.65" shape-rendering="crispEdges"/><rect fill="#303f2d" x="12.2" y="806.7" width="73.2" height="24.65" shape-rendering="crispEdges"/><rect fill="#303f2d" x="85.4" y="806.7" width="1622.6" height="24.65" shape-rendering="crispEdges"/><rect fill="#303f2d" x="0" y="831.1" width="12.2" height="24.65" shape-rendering="crispEdges"/><rect fill="#303f2d" x="12.2" y="831.1" width="73.2" height="24.65" shape-rendering="crispEdges"/><rect fill="#303f2d" x="85.4" y="831.1" width="1622.6" height="24.65" shape-rendering="crispEdges"/><rect fill="#303f2d" x="0" y="855.5" width="12.2" height="24.65" shape-rendering="crispEdges"/><rect fill="#303f2d" x="12.2" y="855.5" width="73.2" height="24.65" shape-rendering="crispEdges"/><rect fill="#303f2d" x="85.4" y="855.5" width="1622.6" height="24.65" shape-rendering="crispEdges"/><rect fill="#303f2d" x="0" y="879.9" width="12.2" height="24.65" shape-rendering="crispEdges"/><rect fill="#303f2d" x="12.2" y="879.9" width="73.2" height="24.65" shape-rendering="crispEdges"/><rect fill="#303f2d" x="85.4" y="879.9" width="1622.6" height="24.65" shape-rendering="crispEdges"/><rect fill="#303f2d" x="0" y="904.3" width="12.2" height="24.65" shape-rendering="crispEdges"/><rect fill="#303f2d" x="12.2" y="904.3" width="73.2" height="24.65" shape-rendering="crispEdges"/><rect fill="#303f2d" x="85.4" y="904.3" width="1622.6" height="24.65" shape-rendering="crispEdges"/><rect fill="#40503d" x="0" y="928.7" width="12.2" height="24.65" shape-rendering="crispEdges"/><rect fill="#40503d" x="12.2" y="928.7" width="195.2" height="24.65" shape-rendering="crispEdges"/><rect fill="#40503d" x="207.4" y="928.7" width="24.4" height="24.65" shape-rendering="crispEdges"/><rect fill="#40503d" x="231.8" y="928.7" width="122" height="24.65" shape-rendering="crispEdges"/><rect fill="#40503d" x="353.8" y="928.7" width="1354.2" height="24.65" shape-rendering="crispEdges"/><rect fill="#303f2d" x="0" y="953.1" width="1695.8" height="24.65" shape-rendering="crispEdges"/>
+    <g class="terminal-3055561968-matrix">
+    <text class="terminal-3055561968-r1" x="0" y="20" textLength="12.2" clip-path="url(#terminal-3055561968-line-0)">|</text><text class="terminal-3055561968-r2" x="12.2" y="20" textLength="36.6" clip-path="url(#terminal-3055561968-line-0)">-1-</text><text class="terminal-3055561968-r1" x="48.8" y="20" textLength="1464" clip-path="url(#terminal-3055561968-line-0)">|&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;[85%]&#160;</text><text class="terminal-3055561968-r3" x="1512.8" y="20" textLength="170.8" clip-path="url(#terminal-3055561968-line-0)">18:58&#160;18/03/26</text><text class="terminal-3055561968-r1" x="1683.6" y="20" textLength="24.4" clip-path="url(#terminal-3055561968-line-0)">&#160;☰</text><text class="terminal-3055561968-r4" x="1708" y="20" textLength="12.2" clip-path="url(#terminal-3055561968-line-0)">
+</text><text class="terminal-3055561968-r5" x="0" y="44.4" textLength="1708" clip-path="url(#terminal-3055561968-line-1)">Current&#160;directory&#160;is&#160;~/Projects/alcarney/blog/content/&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;</text><text class="terminal-3055561968-r4" x="1708" y="44.4" textLength="12.2" clip-path="url(#terminal-3055561968-line-1)">
+</text><text class="terminal-3055561968-r5" x="0" y="68.8" textLength="1708" clip-path="url(#terminal-3055561968-line-2)">&gt;&#160;/var/home/alex/Projects/alcarney/blog/content/example.py(1)&lt;module&gt;()&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;</text><text class="terminal-3055561968-r4" x="1708" y="68.8" textLength="12.2" clip-path="url(#terminal-3055561968-line-2)">
+</text><text class="terminal-3055561968-r5" x="0" y="93.2" textLength="1708" clip-path="url(#terminal-3055561968-line-3)">-&gt;&#160;import&#160;pathlib&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;</text><text class="terminal-3055561968-r4" x="1708" y="93.2" textLength="12.2" clip-path="url(#terminal-3055561968-line-3)">
+</text><text class="terminal-3055561968-r6" x="0" y="117.6" textLength="73.2" clip-path="url(#terminal-3055561968-line-4)">(Pdb)&#160;</text><text class="terminal-3055561968-r4" x="1708" y="117.6" textLength="12.2" clip-path="url(#terminal-3055561968-line-4)">
+</text><text class="terminal-3055561968-r4" x="1708" y="142" textLength="12.2" clip-path="url(#terminal-3055561968-line-5)">
+</text><text class="terminal-3055561968-r4" x="1708" y="166.4" textLength="12.2" clip-path="url(#terminal-3055561968-line-6)">
+</text><text class="terminal-3055561968-r4" x="1708" y="190.8" textLength="12.2" clip-path="url(#terminal-3055561968-line-7)">
+</text><text class="terminal-3055561968-r4" x="1708" y="215.2" textLength="12.2" clip-path="url(#terminal-3055561968-line-8)">
+</text><text class="terminal-3055561968-r4" x="1708" y="239.6" textLength="12.2" clip-path="url(#terminal-3055561968-line-9)">
+</text><text class="terminal-3055561968-r4" x="1708" y="264" textLength="12.2" clip-path="url(#terminal-3055561968-line-10)">
+</text><text class="terminal-3055561968-r4" x="1708" y="288.4" textLength="12.2" clip-path="url(#terminal-3055561968-line-11)">
+</text><text class="terminal-3055561968-r4" x="1708" y="312.8" textLength="12.2" clip-path="url(#terminal-3055561968-line-12)">
+</text><text class="terminal-3055561968-r4" x="1708" y="337.2" textLength="12.2" clip-path="url(#terminal-3055561968-line-13)">
+</text><text class="terminal-3055561968-r4" x="1708" y="361.6" textLength="12.2" clip-path="url(#terminal-3055561968-line-14)">
+</text><text class="terminal-3055561968-r4" x="1708" y="386" textLength="12.2" clip-path="url(#terminal-3055561968-line-15)">
+</text><text class="terminal-3055561968-r4" x="1708" y="410.4" textLength="12.2" clip-path="url(#terminal-3055561968-line-16)">
+</text><text class="terminal-3055561968-r4" x="1708" y="434.8" textLength="12.2" clip-path="url(#terminal-3055561968-line-17)">
+</text><text class="terminal-3055561968-r4" x="1708" y="459.2" textLength="12.2" clip-path="url(#terminal-3055561968-line-18)">
+</text><text class="terminal-3055561968-r7" x="0" y="483.6" textLength="36.6" clip-path="url(#terminal-3055561968-line-19)">-&#160;&#160;</text><text class="terminal-3055561968-r8" x="36.6" y="483.6" textLength="109.8" clip-path="url(#terminal-3055561968-line-19)">*gud-pdb*</text><text class="terminal-3055561968-r7" x="146.4" y="483.6" textLength="1561.6" clip-path="url(#terminal-3055561968-line-19)">&#160;4:6&#160;&#160;&#160;&#160;&#160;&#160;(Debugger:run&#160;Apheleia)&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;</text><text class="terminal-3055561968-r4" x="1708" y="483.6" textLength="12.2" clip-path="url(#terminal-3055561968-line-19)">
+</text><text class="terminal-3055561968-r5" x="0" y="508" textLength="36.6" clip-path="url(#terminal-3055561968-line-20)">&#160;=&gt;</text><text class="terminal-3055561968-r2" x="36.6" y="508" textLength="48.8" clip-path="url(#terminal-3055561968-line-20)">&#160;&#160;1&#160;</text><text class="terminal-3055561968-r6" x="85.4" y="508" textLength="73.2" clip-path="url(#terminal-3055561968-line-20)">import</text><text class="terminal-3055561968-r5" x="158.6" y="508" textLength="1549.4" clip-path="url(#terminal-3055561968-line-20)">&#160;pathlib&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;</text><text class="terminal-3055561968-r4" x="1708" y="508" textLength="12.2" clip-path="url(#terminal-3055561968-line-20)">
+</text><text class="terminal-3055561968-r1" x="12.2" y="532.4" textLength="73.2" clip-path="url(#terminal-3055561968-line-21)">&#160;&#160;&#160;&#160;2&#160;</text><text class="terminal-3055561968-r4" x="1708" y="532.4" textLength="12.2" clip-path="url(#terminal-3055561968-line-21)">
+</text><text class="terminal-3055561968-r1" x="12.2" y="556.8" textLength="73.2" clip-path="url(#terminal-3055561968-line-22)">&#160;&#160;&#160;&#160;3&#160;</text><text class="terminal-3055561968-r4" x="1708" y="556.8" textLength="12.2" clip-path="url(#terminal-3055561968-line-22)">
+</text><text class="terminal-3055561968-r1" x="12.2" y="581.2" textLength="73.2" clip-path="url(#terminal-3055561968-line-23)">&#160;&#160;&#160;&#160;4&#160;</text><text class="terminal-3055561968-r6" x="85.4" y="581.2" textLength="36.6" clip-path="url(#terminal-3055561968-line-23)">def</text><text class="terminal-3055561968-r3" x="134.2" y="581.2" textLength="48.8" clip-path="url(#terminal-3055561968-line-23)">main</text><text class="terminal-3055561968-r5" x="183" y="581.2" textLength="1525" clip-path="url(#terminal-3055561968-line-23)">():&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;</text><text class="terminal-3055561968-r4" x="1708" y="581.2" textLength="12.2" clip-path="url(#terminal-3055561968-line-23)">
+</text><text class="terminal-3055561968-r1" x="12.2" y="605.6" textLength="73.2" clip-path="url(#terminal-3055561968-line-24)">&#160;&#160;&#160;&#160;5&#160;</text><text class="terminal-3055561968-r6" x="134.2" y="605.6" textLength="36.6" clip-path="url(#terminal-3055561968-line-24)">for</text><text class="terminal-3055561968-r9" x="183" y="605.6" textLength="48.8" clip-path="url(#terminal-3055561968-line-24)">file</text><text class="terminal-3055561968-r6" x="244" y="605.6" textLength="24.4" clip-path="url(#terminal-3055561968-line-24)">in</text><text class="terminal-3055561968-r5" x="268.4" y="605.6" textLength="170.8" clip-path="url(#terminal-3055561968-line-24)">&#160;pathlib.Path(</text><text class="terminal-3055561968-r1" x="439.2" y="605.6" textLength="36.6" clip-path="url(#terminal-3055561968-line-24)">&quot;.&quot;</text><text class="terminal-3055561968-r5" x="475.8" y="605.6" textLength="85.4" clip-path="url(#terminal-3055561968-line-24)">).glob(</text><text class="terminal-3055561968-r1" x="561.2" y="605.6" textLength="85.4" clip-path="url(#terminal-3055561968-line-24)">&quot;*.rst&quot;</text><text class="terminal-3055561968-r5" x="646.6" y="605.6" textLength="1061.4" clip-path="url(#terminal-3055561968-line-24)">):&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;</text><text class="terminal-3055561968-r4" x="1708" y="605.6" textLength="12.2" clip-path="url(#terminal-3055561968-line-24)">
+</text><text class="terminal-3055561968-r1" x="12.2" y="630" textLength="73.2" clip-path="url(#terminal-3055561968-line-25)">&#160;&#160;&#160;&#160;6&#160;</text><text class="terminal-3055561968-r10" x="183" y="630" textLength="61" clip-path="url(#terminal-3055561968-line-25)">print</text><text class="terminal-3055561968-r5" x="244" y="630" textLength="1464" clip-path="url(#terminal-3055561968-line-25)">(file.name)&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;</text><text class="terminal-3055561968-r4" x="1708" y="630" textLength="12.2" clip-path="url(#terminal-3055561968-line-25)">
+</text><text class="terminal-3055561968-r1" x="12.2" y="654.4" textLength="73.2" clip-path="url(#terminal-3055561968-line-26)">&#160;&#160;&#160;&#160;7&#160;</text><text class="terminal-3055561968-r4" x="1708" y="654.4" textLength="12.2" clip-path="url(#terminal-3055561968-line-26)">
+</text><text class="terminal-3055561968-r1" x="12.2" y="678.8" textLength="73.2" clip-path="url(#terminal-3055561968-line-27)">&#160;&#160;&#160;&#160;8&#160;</text><text class="terminal-3055561968-r4" x="1708" y="678.8" textLength="12.2" clip-path="url(#terminal-3055561968-line-27)">
+</text><text class="terminal-3055561968-r1" x="12.2" y="703.2" textLength="73.2" clip-path="url(#terminal-3055561968-line-28)">&#160;&#160;&#160;&#160;9&#160;</text><text class="terminal-3055561968-r6" x="85.4" y="703.2" textLength="24.4" clip-path="url(#terminal-3055561968-line-28)">if</text><text class="terminal-3055561968-r5" x="109.8" y="703.2" textLength="158.6" clip-path="url(#terminal-3055561968-line-28)">&#160;__name__&#160;==&#160;</text><text class="terminal-3055561968-r1" x="268.4" y="703.2" textLength="122" clip-path="url(#terminal-3055561968-line-28)">&quot;__main__&quot;</text><text class="terminal-3055561968-r5" x="390.4" y="703.2" textLength="1317.6" clip-path="url(#terminal-3055561968-line-28)">:&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;</text><text class="terminal-3055561968-r4" x="1708" y="703.2" textLength="12.2" clip-path="url(#terminal-3055561968-line-28)">
+</text><text class="terminal-3055561968-r1" x="12.2" y="727.6" textLength="73.2" clip-path="url(#terminal-3055561968-line-29)">&#160;&#160;&#160;10&#160;</text><text class="terminal-3055561968-r5" x="85.4" y="727.6" textLength="1622.6" clip-path="url(#terminal-3055561968-line-29)">&#160;&#160;&#160;&#160;main()&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;</text><text class="terminal-3055561968-r4" x="1708" y="727.6" textLength="12.2" clip-path="url(#terminal-3055561968-line-29)">
+</text><text class="terminal-3055561968-r4" x="1708" y="752" textLength="12.2" clip-path="url(#terminal-3055561968-line-30)">
+</text><text class="terminal-3055561968-r4" x="1708" y="776.4" textLength="12.2" clip-path="url(#terminal-3055561968-line-31)">
+</text><text class="terminal-3055561968-r4" x="1708" y="800.8" textLength="12.2" clip-path="url(#terminal-3055561968-line-32)">
+</text><text class="terminal-3055561968-r4" x="1708" y="825.2" textLength="12.2" clip-path="url(#terminal-3055561968-line-33)">
+</text><text class="terminal-3055561968-r4" x="1708" y="849.6" textLength="12.2" clip-path="url(#terminal-3055561968-line-34)">
+</text><text class="terminal-3055561968-r4" x="1708" y="874" textLength="12.2" clip-path="url(#terminal-3055561968-line-35)">
+</text><text class="terminal-3055561968-r4" x="1708" y="898.4" textLength="12.2" clip-path="url(#terminal-3055561968-line-36)">
+</text><text class="terminal-3055561968-r4" x="1708" y="922.8" textLength="12.2" clip-path="url(#terminal-3055561968-line-37)">
+</text><text class="terminal-3055561968-r11" x="0" y="947.2" textLength="12.2" clip-path="url(#terminal-3055561968-line-38)">-</text><text class="terminal-3055561968-r12" x="12.2" y="947.2" textLength="195.2" clip-path="url(#terminal-3055561968-line-38)">🖿&#160;alcarney/blog&#160;</text><text class="terminal-3055561968-r8" x="231.8" y="947.2" textLength="122" clip-path="url(#terminal-3055561968-line-38)">example.py</text><text class="terminal-3055561968-r11" x="353.8" y="947.2" textLength="1354.2" clip-path="url(#terminal-3055561968-line-38)">&#160;1:0&#160;&#160;&#160;&#160;&#160;&#160;(Python&#160;ws&#160;Apheleia©&#160;ElDoc)&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;</text><text class="terminal-3055561968-r4" x="1708" y="947.2" textLength="12.2" clip-path="url(#terminal-3055561968-line-38)">
+</text><text class="terminal-3055561968-r4" x="1708" y="971.6" textLength="12.2" clip-path="url(#terminal-3055561968-line-39)">
 </text>
     </g>
     </g>
 </svg>
-<p>Emacs supports Python’s built-in <a class="reference external" href="https://docs.python.org/3/library/pdb.html#module-pdb" title="(in Python v3.14)"><code class="xref py py-mod docutils literal notranslate"><span class="pre">pdb</span></code></a> debugger out of the box thanks to the <a class="reference external" href="https://www.gnu.org/software/emacs/manual/html_node/emacs/Debuggers.html">Grand Unified Debugger</a>.</p>
-<p>Since everything is avaialable out of the box, there’s nothing really to setup!
-Just run <code class="docutils literal notranslate"><span class="pre">M-x</span> <span class="pre">pdb</span></code>, Emacs will ask you how you want to invoke <code class="docutils literal notranslate"><span class="pre">pdb</span></code></p>
-<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>Run pdb (like this): python -m pdb
+<p>From here you can use <code class="docutils literal notranslate"><span class="pre">pdb</span></code> just as if you’d started it in your terminal.
+But of course Emacs offers a set of additional keybindings, which differ slightly depending on in you have your cursor in the source code view or the pdb buffer.</p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Command</p></th>
+<th class="head"><p><code class="docutils literal notranslate"><span class="pre">pdb</span></code> Equivalent</p></th>
+<th class="head"><p>Keybind (Pdb)</p></th>
+<th class="head"><p>Keybind (Code)</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">gud-break</span></code></p></td>
+<td><p>break (b)</p></td>
+<td></td>
+<td><p><kbd class="kbd docutils literal notranslate">C</kbd>-<kbd class="kbd docutils literal notranslate">x</kbd> <kbd class="kbd docutils literal notranslate">C</kbd>-<kbd class="kbd docutils literal notranslate">a</kbd> <kbd class="kbd docutils literal notranslate">C</kbd>-<kbd class="kbd docutils literal notranslate">b</kbd></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">gud-step</span></code></p></td>
+<td><p>step (s)</p></td>
+<td><p><kbd class="kbd docutils literal notranslate">C</kbd>-<kbd class="kbd docutils literal notranslate">c</kbd> <kbd class="kbd docutils literal notranslate">C</kbd>-<kbd class="kbd docutils literal notranslate">s</kbd></p></td>
+<td><p><kbd class="kbd docutils literal notranslate">C</kbd>-<kbd class="kbd docutils literal notranslate">x</kbd> <kbd class="kbd docutils literal notranslate">C</kbd>-<kbd class="kbd docutils literal notranslate">a</kbd> <kbd class="kbd docutils literal notranslate">C</kbd>-<kbd class="kbd docutils literal notranslate">s</kbd></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">gud-next</span></code></p></td>
+<td><p>next (n)</p></td>
+<td><p><kbd class="kbd docutils literal notranslate">C</kbd>-<kbd class="kbd docutils literal notranslate">c</kbd> <kbd class="kbd docutils literal notranslate">C</kbd>-<kbd class="kbd docutils literal notranslate">n</kbd></p></td>
+<td><p><kbd class="kbd docutils literal notranslate">C</kbd>-<kbd class="kbd docutils literal notranslate">x</kbd> <kbd class="kbd docutils literal notranslate">C</kbd>-<kbd class="kbd docutils literal notranslate">a</kbd> <kbd class="kbd docutils literal notranslate">C</kbd>-<kbd class="kbd docutils literal notranslate">n</kbd></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">gud-print</span></code></p></td>
+<td></td>
+<td><p><kbd class="kbd docutils literal notranslate">C</kbd>-<kbd class="kbd docutils literal notranslate">c</kbd> <kbd class="kbd docutils literal notranslate">C</kbd>-<kbd class="kbd docutils literal notranslate">p</kbd></p></td>
+<td><p><kbd class="kbd docutils literal notranslate">C</kbd>-<kbd class="kbd docutils literal notranslate">x</kbd> <kbd class="kbd docutils literal notranslate">C</kbd>-<kbd class="kbd docutils literal notranslate">a</kbd> <kbd class="kbd docutils literal notranslate">C</kbd>-<kbd class="kbd docutils literal notranslate">p</kbd></p></td>
+</tr>
+</tbody>
+</table>
+<p>See <code class="docutils literal notranslate"><span class="pre">(info</span> <span class="pre">&quot;(emacs)Commands</span> <span class="pre">of</span> <span class="pre">GUD&quot;)</span></code> for the full list.</p>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>Yes, those keybinds look pretty ugly, but if you enable <code class="docutils literal notranslate"><span class="pre">repeat-mode</span></code> following the first use the keymap below is activated and the listed commands are available with a single keypress!</p>
+<div class="highlight-elisp notranslate"><div class="highlight"><pre><span></span><span class="c1">;; from `gud.el`</span>
+<span class="p">(</span><span class="k">defvar</span><span class="w"> </span><span class="nv">gud-pdb-repeat-map</span>
+<span class="w">  </span><span class="p">(</span><span class="k">let</span><span class="w"> </span><span class="p">((</span><span class="nv">map</span><span class="w"> </span><span class="p">(</span><span class="nf">make-sparse-keymap</span><span class="p">)))</span>
+<span class="w">    </span><span class="p">(</span><span class="nb">pcase-dolist</span><span class="w"> </span><span class="p">(</span><span class="o">`</span><span class="p">(</span><span class="o">,</span><span class="nv">key</span><span class="w"> </span><span class="o">.</span><span class="w"> </span><span class="o">,</span><span class="nv">cmd</span><span class="p">)</span><span class="w"> </span><span class="o">&#39;</span><span class="p">((</span><span class="s">&quot;n&quot;</span><span class="w"> </span><span class="o">.</span><span class="w"> </span><span class="nv">gud-next</span><span class="p">)</span>
+<span class="w">                                    </span><span class="p">(</span><span class="s">&quot;s&quot;</span><span class="w"> </span><span class="o">.</span><span class="w"> </span><span class="nv">gud-step</span><span class="p">)</span>
+<span class="w">                                    </span><span class="p">(</span><span class="s">&quot;c&quot;</span><span class="w"> </span><span class="o">.</span><span class="w"> </span><span class="nv">gud-cont</span><span class="p">)</span>
+<span class="w">                                    </span><span class="p">(</span><span class="s">&quot;l&quot;</span><span class="w"> </span><span class="o">.</span><span class="w"> </span><span class="nv">gud-refresh</span><span class="p">)</span>
+<span class="w">                                    </span><span class="p">(</span><span class="s">&quot;f&quot;</span><span class="w"> </span><span class="o">.</span><span class="w"> </span><span class="nv">gud-finish</span><span class="p">)</span>
+<span class="w">                                    </span><span class="p">(</span><span class="s">&quot;&lt;&quot;</span><span class="w"> </span><span class="o">.</span><span class="w"> </span><span class="nv">gud-up</span><span class="p">)</span>
+<span class="w">                                    </span><span class="p">(</span><span class="s">&quot;&gt;&quot;</span><span class="w"> </span><span class="o">.</span><span class="w"> </span><span class="nv">gud-down</span><span class="p">)))</span>
+<span class="w">      </span><span class="p">(</span><span class="nf">define-key</span><span class="w"> </span><span class="nv">map</span><span class="w"> </span><span class="nv">key</span><span class="w"> </span><span class="nv">cmd</span><span class="p">))</span>
+<span class="w">    </span><span class="nv">map</span><span class="p">)</span>
+<span class="w">  </span><span class="s">&quot;Keymap to repeat </span><span class="ss">`pdb&#39;</span><span class="s"> stepping instructions \\`C-x C-a C-n n n&#39;.</span>
+<span class="s">Used in </span><span class="ss">`repeat-mode&#39;</span><span class="s">.&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
-<p>Which you can of course modify to run your code.
-What’s cool about this is that it can be any <code class="docutils literal notranslate"><span class="pre">python</span></code> command that eventually results in a pdb session.</p>
-<p>For example, I often will pass the <code class="docutils literal notranslate"><span class="pre">--pdb</span></code> flag to pytest to conduct a post-mortem on a particular test case, this will just work<sup>TM</sup> with Emacs’ <code class="docutils literal notranslate"><span class="pre">pdb</span></code> command!</p>
-<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>Run pdb (like this): hatch test -i py=3.11 -i sphinx=8 -- tests/example/test_example.py::test_this --pdb
-</pre></div>
 </div>
-<p>Breakpoints can be added by adding a call to the built-in <a class="reference external" href="https://docs.python.org/3/library/functions.html#breakpoint" title="(in Python v3.14)"><code class="xref py py-func docutils literal notranslate"><span class="pre">breakpoint()</span></code></a> function.</p>
 </section>
-<section id="using-dape">
-<span id="debug-python-code-dape"></span><h2>Using <code class="docutils literal notranslate"><span class="pre">dape</span></code><a class="headerlink" href="#using-dape" title="Link to this heading">¶</a></h2>
-<div class="admonition-todo admonition">
-<p class="admonition-title">TODO</p>
-<p>Figure out how to use this.</p>
+<section id="startup-commands">
+<h2>Startup Commands<a class="headerlink" href="#startup-commands" title="Link to this heading">¶</a></h2>
+<p>My favourite thing about <code class="docutils literal notranslate"><span class="pre">M-x</span> <span class="pre">pdb</span></code> is that it will work with <em>any python command</em> that eventually results in a pdb session.
+For example:</p>
+<ul>
+<li><p>Start a <code class="docutils literal notranslate"><span class="pre">pdb</span></code> session within the context of a <code class="docutils literal notranslate"><span class="pre">pytest</span></code> failure:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>pytest test_example.py --pdb
+</pre></div>
 </div>
+</li>
+<li><p>Use <code class="docutils literal notranslate"><span class="pre">uv</span></code> to install a particular version of Sphinx and debug a failing build:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>uv run --with sphinx==9.1.0 sphinx-build -b html -P docs/ docs/_build/
+</pre></div>
+</div>
+</li>
+<li><p>Select the <code class="docutils literal notranslate"><span class="pre">hatch</span></code> environment that uses Python 3.11 and Sphinx v8, run the named test and start <code class="docutils literal notranslate"><span class="pre">pdb</span></code> when it fails:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>hatch test -i py=3.11 -i sphinx=8 -- tests/example/test_example.py::test_this --pdb
+</pre></div>
+</div>
+</li>
+</ul>
+<p>The only commands that haven’t worked for me so far are those invoked via <code class="docutils literal notranslate"><span class="pre">make</span></code> (possibly because each command is executed in a separate shell?).</p>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p><code class="docutils literal notranslate"><span class="pre">M-x</span> <span class="pre">pdb</span></code> runs your given Python command from the <code class="docutils literal notranslate"><span class="pre">default-directory</span></code> of the current buffer.
+Running <code class="docutils literal notranslate"><span class="pre">pdb</span></code> via <code class="docutils literal notranslate"><span class="pre">project-execute-extended-command</span></code> (<kbd class="kbd docutils literal notranslate">C</kbd>-<kbd class="kbd docutils literal notranslate">x</kbd> <kbd class="kbd docutils literal notranslate">p</kbd> <kbd class="kbd docutils literal notranslate">x</kbd> for me) runs the given command from your project’s root.</p>
+</div>
+</section>
+<section id="remote-debugging">
+<h2>Remote Debugging<a class="headerlink" href="#remote-debugging" title="Link to this heading">¶</a></h2>
+<p>If you’ve been keeping up with recent Python releases, you’ve likely already heard that <code class="docutils literal notranslate"><span class="pre">pdb</span></code> in Python 3.14 now supports
+<a class="reference external" href="https://docs.python.org/3/whatsnew/3.14.html#whatsnew314-remote-debugging" title="(in Python v3.14)"><span class="xref std std-ref">attaching to existing Python processes</span></a>!
+I’m finding this particuarly useful when working with <a class="extlink-gh reference external" href="https://github.com/Textualize/textual">Textualize/textual</a> as the process’ own stdin and stdout channels are busy hosting the TUI.</p>
+<p>To attach to a remote process, we “just” need to supply the process PID to the cli provided by the <code class="docutils literal notranslate"><span class="pre">pdb</span></code> module:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>uv run --python 3.14 python -m pdb -p 1234
+</pre></div>
+</div>
+<p>(I’m using <code class="docutils literal notranslate"><span class="pre">uv</span></code> here as my system Python is currently 3.13).</p>
+<p>Up until now I’ve been using <code class="docutils literal notranslate"><span class="pre">htop</span></code> to lookup the PID and type it in, but come on, we’re using Emacs, surely we can do better than that!</p>
+<section id="selecting-pids-using-completing-read">
+<h3>Selecting PIDs using <code class="docutils literal notranslate"><span class="pre">completing-read</span></code><a class="headerlink" href="#selecting-pids-using-completing-read" title="Link to this heading">¶</a></h3>
+<p>If you didn’t know, Emacs has
+it’s own built-in <code class="docutils literal notranslate"><span class="pre">htop</span></code> style program - <a class="reference external" href="https://www.masteringemacs.org/article/displaying-interacting-processes-proced">proced</a> (because of course it does!).</p>
+<p>This means all the necessary infrastructure for discovering the available processes should be there for us to reuse.
+And yes, after a quick search I find that the <code class="docutils literal notranslate"><span class="pre">list-system-processes</span></code> function returns a list of all the currently active PIDs</p>
+<div class="highlight-elisp notranslate"><div class="highlight"><pre><span></span><span class="vg">***</span><span class="w"> </span><span class="nv">Welcome</span><span class="w"> </span><span class="nv">to</span><span class="w"> </span><span class="nv">IELM</span><span class="w"> </span><span class="vg">***</span><span class="w">  </span><span class="nv">Type</span><span class="w"> </span><span class="p">(</span><span class="nv">describe-mode</span><span class="p">)</span><span class="w"> </span><span class="k">or</span><span class="w"> </span><span class="nv">press</span><span class="w"> </span><span class="nv">C-h</span><span class="w"> </span><span class="nv">m</span><span class="w"> </span><span class="nv">for</span><span class="w"> </span><span class="nv">help.</span>
+<span class="nv">ELISP&gt;</span><span class="w"> </span><span class="p">(</span><span class="nf">list-system-processes</span><span class="p">)</span>
+<span class="p">(</span><span class="mi">1</span><span class="w"> </span><span class="mi">2</span><span class="w"> </span><span class="mi">3</span><span class="w"> </span><span class="mi">4</span><span class="w"> </span><span class="mi">5</span><span class="w"> </span><span class="mi">6</span><span class="w"> </span><span class="mi">7</span><span class="w"> </span><span class="mi">8</span><span class="w"> </span><span class="mi">10</span><span class="w"> </span><span class="mi">13</span><span class="w"> </span><span class="mi">15</span><span class="w"> </span><span class="mi">16</span><span class="w"> </span><span class="mi">17</span><span class="w"> </span><span class="mi">18</span><span class="w"> </span><span class="mi">19</span><span class="w"> </span><span class="mi">20</span><span class="w"> </span><span class="mi">21</span><span class="w"> </span><span class="mi">22</span><span class="w"> </span><span class="mi">23</span><span class="w"> </span><span class="mi">24</span><span class="w"> </span><span class="mi">25</span><span class="w"> </span><span class="mi">27</span><span class="w"> </span><span class="mi">28</span><span class="w"> </span><span class="o">...</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Each PID can be passed to <code class="docutils literal notranslate"><span class="pre">process-attributes</span></code> to get some information about it:</p>
+<div class="highlight-elisp notranslate"><div class="highlight"><pre><span></span><span class="nv">ELISP&gt;</span><span class="w"> </span><span class="p">(</span><span class="nf">process-attributes</span><span class="w"> </span><span class="mi">42778</span><span class="p">)</span>
+<span class="p">((</span><span class="nv">args</span><span class="w"> </span><span class="o">.</span><span class="w"> </span><span class="s">&quot;python -m sphinx_agent&quot;</span><span class="p">)</span><span class="w"> </span><span class="p">(</span><span class="nv">pmem</span><span class="w"> </span><span class="o">.</span><span class="w"> </span><span class="mf">0.6490886804884154</span><span class="p">)</span>
+<span class="w"> </span><span class="p">(</span><span class="nv">rss</span><span class="w"> </span><span class="o">.</span><span class="w"> </span><span class="mi">208580</span><span class="p">)</span><span class="w"> </span><span class="p">(</span><span class="nv">vsize</span><span class="w"> </span><span class="o">.</span><span class="w"> </span><span class="mi">733132</span><span class="p">)</span><span class="w"> </span><span class="p">(</span><span class="nv">thcount</span><span class="w"> </span><span class="o">.</span><span class="w"> </span><span class="mi">3</span><span class="p">)</span><span class="w"> </span><span class="p">(</span><span class="nv">nice</span><span class="w"> </span><span class="o">.</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span><span class="w"> </span><span class="p">(</span><span class="nv">pri</span><span class="w"> </span><span class="o">.</span><span class="w"> </span><span class="mi">20</span><span class="p">)</span>
+<span class="w"> </span><span class="p">(</span><span class="nv">pcpu</span><span class="w"> </span><span class="o">.</span><span class="w"> </span><span class="mf">0.5113255738694369</span><span class="p">)</span><span class="w"> </span><span class="p">(</span><span class="nv">etime</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="mi">53556</span><span class="w"> </span><span class="mi">420000</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span>
+<span class="w"> </span><span class="p">(</span><span class="nv">start</span><span class="w"> </span><span class="mi">27065</span><span class="w"> </span><span class="mi">14522</span><span class="w"> </span><span class="mi">350000</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span><span class="w"> </span><span class="p">(</span><span class="nv">ctime</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span><span class="w"> </span><span class="p">(</span><span class="nv">cstime</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span>
+<span class="w"> </span><span class="p">(</span><span class="nv">cutime</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span><span class="w"> </span><span class="p">(</span><span class="nv">time</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="mi">608</span><span class="w"> </span><span class="mi">950000</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span><span class="w"> </span><span class="p">(</span><span class="nv">stime</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="mi">29</span><span class="w"> </span><span class="mi">470000</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span>
+<span class="w"> </span><span class="p">(</span><span class="nv">utime</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="mi">579</span><span class="w"> </span><span class="mi">480000</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span><span class="w"> </span><span class="p">(</span><span class="nv">cmajflt</span><span class="w"> </span><span class="o">.</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span><span class="w"> </span><span class="p">(</span><span class="nv">cminflt</span><span class="w"> </span><span class="o">.</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span><span class="w"> </span><span class="p">(</span><span class="nv">majflt</span><span class="w"> </span><span class="o">.</span><span class="w"> </span><span class="mi">5</span><span class="p">)</span>
+<span class="w"> </span><span class="p">(</span><span class="nv">minflt</span><span class="w"> </span><span class="o">.</span><span class="w"> </span><span class="mi">950190</span><span class="p">)</span><span class="w"> </span><span class="p">(</span><span class="nv">tpgid</span><span class="w"> </span><span class="o">.</span><span class="w"> </span><span class="mi">-1</span><span class="p">)</span><span class="w"> </span><span class="p">(</span><span class="nv">ttname</span><span class="w"> </span><span class="o">.</span><span class="w"> </span><span class="s">&quot;&quot;</span><span class="p">)</span><span class="w"> </span><span class="p">(</span><span class="nv">sess</span><span class="w"> </span><span class="o">.</span><span class="w"> </span><span class="mi">42771</span><span class="p">)</span>
+<span class="w"> </span><span class="p">(</span><span class="nv">pgrp</span><span class="w"> </span><span class="o">.</span><span class="w"> </span><span class="mi">42771</span><span class="p">)</span><span class="w"> </span><span class="p">(</span><span class="nv">ppid</span><span class="w"> </span><span class="o">.</span><span class="w"> </span><span class="mi">42777</span><span class="p">)</span><span class="w"> </span><span class="p">(</span><span class="nv">state</span><span class="w"> </span><span class="o">.</span><span class="w"> </span><span class="s">&quot;S&quot;</span><span class="p">)</span><span class="w"> </span><span class="p">(</span><span class="nv">comm</span><span class="w"> </span><span class="o">.</span><span class="w"> </span><span class="s">&quot;python&quot;</span><span class="p">)</span>
+<span class="w"> </span><span class="p">(</span><span class="nv">group</span><span class="w"> </span><span class="o">.</span><span class="w"> </span><span class="s">&quot;alex&quot;</span><span class="p">)</span><span class="w"> </span><span class="p">(</span><span class="nv">egid</span><span class="w"> </span><span class="o">.</span><span class="w"> </span><span class="mi">1000</span><span class="p">)</span><span class="w"> </span><span class="p">(</span><span class="nv">user</span><span class="w"> </span><span class="o">.</span><span class="w"> </span><span class="s">&quot;alex&quot;</span><span class="p">)</span><span class="w"> </span><span class="p">(</span><span class="nv">euid</span><span class="w"> </span><span class="o">.</span><span class="w"> </span><span class="mi">1000</span><span class="p">))</span>
+</pre></div>
+</div>
+<p>After a fair amount of head scratching I eventually arrived at the following elisp that will prompt me to select a process in minibuffer and return the corresponding PID:</p>
+<div class="awdur-codeblock docutils container">
+<div class="awdur-codeblock-header docutils container">
+<code class="awdur-codeblock-filename docutils literal notranslate"><span class="pre">lisp/alc-python.el</span></code></div>
+<div class="highlight-elisp notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="nb">defun</span><span class="w"> </span><span class="nv">alc-python--pid-to-candidate</span><span class="w"> </span><span class="p">(</span><span class="nv">pid</span><span class="p">)</span>
+<span class="w">  </span><span class="s">&quot;Convert the given PID into a completion candidate for </span><span class="ss">`completing-read&#39;</span><span class="s">&quot;</span>
+<span class="w">  </span><span class="p">(</span><span class="k">let*</span><span class="w"> </span><span class="p">((</span><span class="nv">process</span><span class="w"> </span><span class="p">(</span><span class="nf">process-attributes</span><span class="w"> </span><span class="nv">pid</span><span class="p">))</span>
+<span class="w">         </span><span class="p">(</span><span class="nv">cmd</span><span class="w"> </span><span class="p">(</span><span class="nv">alist-get</span><span class="w"> </span><span class="ss">&#39;args</span><span class="w"> </span><span class="nv">process</span><span class="p">)))</span>
+<span class="w">    </span><span class="p">(</span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="nf">string=</span><span class="w"> </span><span class="p">(</span><span class="nf">user-login-name</span><span class="p">)</span><span class="w"> </span><span class="p">(</span><span class="nv">alist-get</span><span class="w"> </span><span class="ss">&#39;user</span><span class="w"> </span><span class="nv">process</span><span class="p">))</span>
+<span class="w">      </span><span class="p">(</span><span class="nf">cons</span><span class="w"> </span><span class="p">(</span><span class="nf">format</span><span class="w"> </span><span class="s">&quot;[%s] %s&quot;</span><span class="w"> </span><span class="nv">pid</span><span class="w"> </span><span class="nv">cmd</span><span class="p">)</span><span class="w"> </span><span class="nv">pid</span><span class="p">))))</span>
+
+<span class="p">(</span><span class="nb">defun</span><span class="w"> </span><span class="nv">alc-python--select-process-pid</span><span class="w"> </span><span class="p">()</span>
+<span class="w">   </span><span class="s">&quot;Select a process id via </span><span class="ss">`completing-read&#39;</span><span class="s">&quot;</span>
+<span class="w">   </span><span class="p">(</span><span class="k">let*</span><span class="w"> </span><span class="p">((</span><span class="nv">processes</span><span class="w"> </span><span class="p">(</span><span class="nf">mapcar</span><span class="w"> </span><span class="ss">&#39;alc-python--pid-to-candidate</span><span class="w"> </span><span class="p">(</span><span class="nf">list-system-processes</span><span class="p">)))</span>
+<span class="w">          </span><span class="p">(</span><span class="nv">selection</span><span class="w"> </span><span class="p">(</span><span class="nf">completing-read</span><span class="w"> </span><span class="s">&quot;Select process: &quot;</span><span class="w"> </span><span class="nv">processes</span><span class="w"> </span><span class="no">nil</span><span class="w"> </span><span class="no">t</span><span class="p">)))</span>
+<span class="w">     </span><span class="p">(</span><span class="nf">cdr</span><span class="w"> </span><span class="p">(</span><span class="nf">assoc-string</span><span class="w"> </span><span class="nv">selection</span><span class="w"> </span><span class="nv">processes</span><span class="p">))))</span>
+</pre></div>
+</div>
+</div>
+<p>I’d love to be able to pre-filter the list of processes to only include those that are debuggable by <code class="docutils literal notranslate"><span class="pre">pdb</span></code> (it must be possible as <code class="docutils literal notranslate"><span class="pre">pdb</span></code> itself gives a nice error message if you select an incompatible process), but I imagine that’s a non-trivial undertaking.</p>
+<p>Anyway with that helper out of the way we’re only a <code class="docutils literal notranslate"><span class="pre">defun</span></code> away from implementing an “attach to process” command!</p>
+<div class="awdur-codeblock docutils container">
+<div class="awdur-codeblock-header docutils container">
+<code class="awdur-codeblock-filename docutils literal notranslate"><span class="pre">lisp/alc-python.el</span></code></div>
+<div class="highlight-elisp notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="nb">defun</span><span class="w"> </span><span class="nv">alc-python-pdb-attach-to-process</span><span class="w"> </span><span class="p">()</span>
+<span class="w">   </span><span class="s">&quot;Attach a pdb session to a running Python process.&quot;</span>
+<span class="w">   </span><span class="p">(</span><span class="k">interactive</span><span class="p">)</span>
+<span class="w">   </span><span class="p">(</span><span class="nv">when-let*</span><span class="w"> </span><span class="p">((</span><span class="nv">pid</span><span class="w"> </span><span class="p">(</span><span class="nv">alc-python--select-process-pid</span><span class="p">))</span>
+<span class="w">               </span><span class="p">(</span><span class="nv">prj</span><span class="w"> </span><span class="p">(</span><span class="nv">project-current</span><span class="w"> </span><span class="no">nil</span><span class="p">))</span>
+<span class="w">               </span><span class="p">(</span><span class="nv">default-directory</span><span class="w"> </span><span class="p">(</span><span class="nv">project-root</span><span class="w"> </span><span class="nv">prj</span><span class="p">)))</span>
+<span class="w">     </span><span class="p">(</span><span class="nv">pdb</span><span class="w"> </span><span class="p">(</span><span class="nf">format</span><span class="w"> </span><span class="s">&quot;uv run --no-project --python 3.14 python -m pdb -p %s&quot;</span><span class="w"> </span><span class="nv">pid</span><span class="p">))))</span>
+</pre></div>
+</div>
+</div>
+</section>
 </section>
 </section>
 
@@ -558,7 +737,7 @@ What’s cool about this is that it can be any <code class="docutils literal not
         <h6>Links</h6>
         <ul>
           <li>
-            <a href="../../_sources/content/20250615T135327==5=4=1--debugging-python-code__emacs_python.rst.txt" rel="nofollow">
+            <a href="../../_sources/content/20250615T135327==5=4=1--using-pdb-from-emacs__emacs_python.rst.txt" rel="nofollow">
               Page Source
             </a>
           </li>

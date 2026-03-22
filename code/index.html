@@ -564,6 +564,27 @@ the Python executable&#34;
                           &#34; &#34;)))
     (json-parse-string (shell-command-to-string cmd))))
 
+(defun alc-python--pid-to-candidate (pid)
+  &#34;Convert the given PID into a completion candidate for `completing-read&#39;&#34;
+  (let* ((process (process-attributes pid))
+         (cmd (alist-get &#39;args process)))
+    (if (string= (user-login-name) (alist-get &#39;user process))
+      (cons (format &#34;[%s] %s&#34; pid cmd) pid))))
+
+(defun alc-python--select-process-pid ()
+   &#34;Select a process id via `completing-read&#39;&#34;
+   (let* ((processes (mapcar &#39;alc-python--pid-to-candidate (list-system-processes)))
+          (selection (completing-read &#34;Select process: &#34; processes nil t)))
+     (cdr (assoc-string selection processes))))
+
+(defun alc-python-pdb-attach-to-process ()
+   &#34;Attach a pdb session to a running Python process.&#34;
+   (interactive)
+   (when-let* ((pid (alc-python--select-process-pid))
+               (prj (project-current nil))
+               (default-directory (project-root prj)))
+     (pdb (format &#34;uv run --no-project --python 3.14 python -m pdb -p %s&#34; pid))))
+
 (provide &#39;alc-python)
 
 ;;; alc-python.el ends here
@@ -753,7 +774,7 @@ system&#39;s light/dark preference.&#34;
 (repeat-mode 1)
 
 (setq whitespace-style &#39;(face empty trailing lines-char tab-mark))
-(global-whitespace-mode t)
+(add-hook &#39;prog-mode-hook &#39;whitespace-mode)
 
 (add-hook &#39;before-save-hook #&#39;whitespace-cleanup)
 
