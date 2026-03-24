@@ -148,7 +148,7 @@ li:has(details:first-child) {
 
 details > :not(summary) {
     border-left: solid 1px var(--border-color);
-    padding: 0 1em;
+    padding: 0 0 0 1em;
     margin: 0 0.2em;
 }
 
@@ -483,6 +483,15 @@ nav.site li {
     border: none;
     font-size: 1.4rem;
     text-decoration: none;
+}
+
+/* -- Related Pages -- */
+
+#post-related li {
+    list-style-position: inside;
+    /* Hack to get the text to wrap inline with the list marker */
+    padding-left: 1.1em;
+    text-indent: -1.1em;
 }
 
 /* -- Inline Code & Code blocks -- */
