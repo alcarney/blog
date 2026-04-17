@@ -64,7 +64,7 @@ But it's not perfect, following any link generated from a cross-reference result
 Fixing Cross References
 -----------------------
 
-Unfortunately, while the :external+sphinx:py:meth:`get_and_resolve_doctree` method is very useful, it's doing too much work and making assumptions that do not hold for this use case.
+Unfortunately, while the ``get_and_resolve_doctree`` method is very useful, it's doing too much work and making assumptions that do not hold for this use case.
 
 Specifically, it's resolving the cross-references relative to the post's page, rather than the index page we're trying to include summary within.
 Taking heavy inspiration from `ablog <https://github.com/sunpy/ablog/blob/0a3aa0386d9005ad6fbea779aa3b1080c4178453/src/ablog/blog.py#L391>`__ (again! 😅), it was relatively straightforward to adjust

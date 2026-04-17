@@ -20,7 +20,7 @@ from sphinx.application import Sphinx
 # -- Project information -----------------------------------------------------
 
 project = "Blog"
-copyright = "2025, Alex Carney"
+copyright = "2026, Alex Carney"
 author = "Alex Carney"
 
 
