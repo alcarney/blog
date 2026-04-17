@@ -86,9 +86,6 @@
       <a href="/code">Code</a>
     </li>
     <li>
-      <a href="/dotfiles">Dotfiles</a>
-    </li>
-    <li>
       <a href="/notes">Notes</a>
     </li>
   </ul>
@@ -213,9 +210,9 @@ I was able to work around this somewhat by using HTMX to load in a subset of the
 </pre></div>
 </div>
 <p>And call it from the template</p>
-<div class="highlight-jinja2 notranslate"><div class="highlight"><pre><span></span>&lt;div style=&quot;min-width: 0&quot;&gt;
-  {{ render_summary(post) }}
-&lt;/div&gt;
+<div class="highlight-html+jinja notranslate"><div class="highlight"><pre><span></span><span class="p">&lt;</span><span class="nt">div</span> <span class="na">style</span><span class="o">=</span><span class="s">&quot;min-width: 0&quot;</span><span class="p">&gt;</span>
+  <span class="cp">{{</span> <span class="nv">render_summary</span><span class="o">(</span><span class="nv">post</span><span class="o">)</span> <span class="cp">}}</span>
+<span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
 </pre></div>
 </div>
 <p>This get’s us pretty close!
@@ -223,7 +220,7 @@ But it’s not perfect, following any link generated from a cross-reference resu
 </section>
 <section id="fixing-cross-references">
 <h2>Fixing Cross References<a class="headerlink" href="#fixing-cross-references" title="Link to this heading">¶</a></h2>
-<p>Unfortunately, while the <code class="xref py py-meth docutils literal notranslate"><span class="pre">get_and_resolve_doctree()</span></code> method is very useful, it’s doing too much work and making assumptions that do not hold for this use case.</p>
+<p>Unfortunately, while the <code class="docutils literal notranslate"><span class="pre">get_and_resolve_doctree</span></code> method is very useful, it’s doing too much work and making assumptions that do not hold for this use case.</p>
 <p>Specifically, it’s resolving the cross-references relative to the post’s page, rather than the index page we’re trying to include summary within.
 Taking heavy inspiration from <a class="reference external" href="https://github.com/sunpy/ablog/blob/0a3aa0386d9005ad6fbea779aa3b1080c4178453/src/ablog/blog.py#L391">ablog</a> (again! 😅), it was relatively straightforward to adjust</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">render_summary</span><span class="p">(</span><span class="n">app</span><span class="p">:</span> <span class="n">Sphinx</span><span class="p">,</span> <span class="n">record</span><span class="p">:</span> <span class="n">Record</span><span class="p">,</span> <span class="n">relative_to</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
@@ -249,9 +246,9 @@ Taking heavy inspiration from <a class="reference external" href="https://github
 </pre></div>
 </div>
 <p>Requiring us to also pass through the <code class="docutils literal notranslate"><span class="pre">pagename</span></code> variable through to the function</p>
-<div class="highlight-jinja2 notranslate"><div class="highlight"><pre><span></span>&lt;div style=&quot;min-width: 0&quot;&gt;
-  {{ render_summary(post, relative_to=pagename) }}
-&lt;/div&gt;
+<div class="highlight-html+jinja notranslate"><div class="highlight"><pre><span></span><span class="p">&lt;</span><span class="nt">div</span> <span class="na">style</span><span class="o">=</span><span class="s">&quot;min-width: 0&quot;</span><span class="p">&gt;</span>
+  <span class="cp">{{</span> <span class="nv">render_summary</span><span class="o">(</span><span class="nv">post</span><span class="o">,</span> <span class="nv">relative_to</span><span class="o">=</span><span class="nv">pagename</span><span class="o">)</span> <span class="cp">}}</span>
+<span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
 </pre></div>
 </div>
 </section>

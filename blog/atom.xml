@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom" xml:lang="en">
   <id>https://www.alcarney.me/</id>
   <title>Alex Carney | Blog</title>
-  <updated>2026-03-24T21:32:27.633048+00:00</updated>
+  <updated>2026-04-17T23:16:23.681482+00:00</updated>
   <link href="https://www.alcarney.me/" />
   <link href="https://www.alcarney.me/blog/atom.xml" rel="self" />
   <author>
@@ -2930,7 +2930,7 @@ Which brings us to the topic of this blog post.&lt;/p&gt;
 &lt;/section&gt;
 &lt;section id=&#34;ok-but-why-use-nix&#34;&gt;
 &lt;h2&gt;Ok, but why use Nix?&lt;a class=&#34;headerlink&#34; href=&#34;#ok-but-why-use-nix&#34; title=&#34;Link to this heading&#34;&gt;¶&lt;/a&gt;&lt;/h2&gt;
-&lt;p&gt;I’m sure you could achieve everything that I do here with a bash script but I’ve been playing with Nix &lt;span class=&#34;xref std std-ref&#34;&gt;a lot&lt;/span&gt; recently and I think it’s cool!&lt;/p&gt;
+&lt;p&gt;I’m sure you could achieve everything that I do here with a bash script but I’ve been playing with Nix &lt;a class=&#34;reference internal&#34; href=&#34;../tag/nix/&#34; title=&#34;#nix&#34;&gt;a lot&lt;/a&gt; recently and I think it’s cool!&lt;/p&gt;
 &lt;p&gt;If you want Python + WASI without the Nix see &lt;a class=&#34;reference external&#34; href=&#34;https://snarky.ca/testing-a-project-using-the-wasi-build-of-cpython-with-pytest/&#34;&gt;this blog post&lt;/a&gt;, which I used as the basis for figuring this out.&lt;/p&gt;
 &lt;/section&gt;
 &lt;section id=&#34;building-python&#34;&gt;
@@ -3615,7 +3615,7 @@ git+file:///var/home/alex/Projects/esbonio-beta?dir=lib%2fesbonio
       &lt;section id=&#34;integrating-esbonio-with-neovim-using-nix&#34;&gt;
 &lt;h1&gt;Integrating Esbonio with Neovim Using Nix&lt;a class=&#34;headerlink&#34; href=&#34;#integrating-esbonio-with-neovim-using-nix&#34; title=&#34;Link to this heading&#34;&gt;¶&lt;/a&gt;&lt;/h1&gt;
 &lt;div class=&#34;post-teaser docutils container&#34;&gt;
-&lt;p&gt;So far I’ve been learning how to use Nix by trying to package and define development shells for &lt;a class=&#34;reference external&#34; href=&#34;https://github.com/swyddfa/esbonio&#34;&gt;esbonio&lt;/a&gt; (see &lt;span class=&#34;xref std std-ref&#34;&gt;here&lt;/span&gt; if you are interested).
+&lt;p&gt;So far I’ve been learning how to use Nix by trying to package and define development shells for &lt;a class=&#34;reference external&#34; href=&#34;https://github.com/swyddfa/esbonio&#34;&gt;esbonio&lt;/a&gt; (see &lt;a class=&#34;reference internal&#34; href=&#34;../tag/nix/&#34; title=&#34;#nix&#34;&gt;here&lt;/a&gt; if you are interested).
 While useful, the end result is not too dissimilar to what you can get with standard Python tooling.
 Indeed, the main reason I started looking into Nix was the promise of it being able to manage more than just Python libraries.&lt;/p&gt;
 &lt;p&gt;Since &lt;code class=&#34;docutils literal notranslate&#34;&gt;&lt;span class=&#34;pre&#34;&gt;esbonio&lt;/span&gt;&lt;/code&gt; is a language server, it would be useful for Nix to create standardised environments where the language server is pre-configured for a given editor - great for debugging and demos!&lt;/p&gt;

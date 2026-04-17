@@ -86,9 +86,6 @@
       <a href="/code">Code</a>
     </li>
     <li>
-      <a href="/dotfiles">Dotfiles</a>
-    </li>
-    <li>
       <a href="/notes">Notes</a>
     </li>
   </ul>
@@ -348,7 +345,9 @@ Thankfully, Emacs does provide a few utilities to help with this</p>
 <div class="awdur-codeblock-header docutils container">
 <code class="awdur-codeblock-filename docutils literal notranslate"><span class="pre">lisp/alc-treesitter.el</span></code></div>
 <div class="highlight-elisp notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="k">setq</span><span class="w"> </span><span class="nv">treesit-language-source-alist</span>
-<span class="w">      </span><span class="o">&#39;</span><span class="p">((</span><span class="nv">python</span><span class="w"> </span><span class="s">&quot;https://github.com/tree-sitter/tree-sitter-python&quot;</span><span class="w"> </span><span class="s">&quot;v0.20.4&quot;</span><span class="p">)</span>
+<span class="w">      </span><span class="o">&#39;</span><span class="p">((</span><span class="nv">javascript</span><span class="w"> </span><span class="s">&quot;https://github.com/tree-sitter/tree-sitter-javascript&quot;</span><span class="w"> </span><span class="s">&quot;v0.20.1&quot;</span><span class="w"> </span><span class="s">&quot;src&quot;</span><span class="p">)</span>
+<span class="w">        </span><span class="p">(</span><span class="nv">python</span><span class="w"> </span><span class="s">&quot;https://github.com/tree-sitter/tree-sitter-python&quot;</span><span class="w"> </span><span class="s">&quot;v0.20.4&quot;</span><span class="p">)</span>
+<span class="w">        </span><span class="p">(</span><span class="nv">tsx</span><span class="w"> </span><span class="s">&quot;https://github.com/tree-sitter/tree-sitter-typescript&quot;</span><span class="w"> </span><span class="s">&quot;v0.20.3&quot;</span><span class="w"> </span><span class="s">&quot;tsx/src&quot;</span><span class="p">)</span>
 <span class="w">        </span><span class="p">(</span><span class="nv">typescript</span><span class="w"> </span><span class="s">&quot;https://github.com/tree-sitter/tree-sitter-typescript&quot;</span><span class="w"> </span><span class="s">&quot;v0.20.3&quot;</span><span class="w"> </span><span class="s">&quot;typescript/src&quot;</span><span class="p">)))</span>
 </pre></div>
 </div>
@@ -368,6 +367,14 @@ Alternatively this snippet will install them all in one go</p>
 <code class="awdur-codeblock-filename docutils literal notranslate"><span class="pre">lisp/alc-treesitter.el</span></code></div>
 <div class="highlight-elisp notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="nv">treesit-language-available-p</span><span class="w"> </span><span class="ss">&#39;python</span><span class="p">)</span>
 <span class="w">  </span><span class="p">(</span><span class="nv">add-to-list</span><span class="w"> </span><span class="ss">&#39;major-mode-remap-alist</span><span class="w"> </span><span class="o">&#39;</span><span class="p">(</span><span class="nv">python-mode</span><span class="w"> </span><span class="o">.</span><span class="w"> </span><span class="nv">python-ts-mode</span><span class="p">)))</span>
+
+<span class="p">(</span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="nv">treesit-language-available-p</span><span class="w"> </span><span class="ss">&#39;javascript</span><span class="p">)</span>
+<span class="w">  </span><span class="p">(</span><span class="k">progn</span>
+<span class="w">    </span><span class="p">(</span><span class="nv">add-to-list</span><span class="w"> </span><span class="ss">&#39;major-mode-remap-alist</span><span class="w"> </span><span class="o">&#39;</span><span class="p">(</span><span class="nv">js-mode</span><span class="w"> </span><span class="o">.</span><span class="w"> </span><span class="nv">js-ts-mode</span><span class="p">))</span>
+<span class="w">    </span><span class="p">(</span><span class="nv">add-to-list</span><span class="w"> </span><span class="ss">&#39;major-mode-remap-alist</span><span class="w"> </span><span class="o">&#39;</span><span class="p">(</span><span class="nv">js2-mode</span><span class="w"> </span><span class="o">.</span><span class="w"> </span><span class="nv">js-ts-mode</span><span class="p">))))</span>
+
+<span class="p">(</span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="nv">treesit-language-available-p</span><span class="w"> </span><span class="ss">&#39;typescript</span><span class="p">)</span>
+<span class="w">  </span><span class="p">(</span><span class="nv">add-to-list</span><span class="w"> </span><span class="ss">&#39;major-mode-remap-alist</span><span class="w"> </span><span class="o">&#39;</span><span class="p">(</span><span class="nv">typescript-mode</span><span class="w"> </span><span class="o">.</span><span class="w"> </span><span class="nv">typescript-ts-mode</span><span class="p">)))</span>
 </pre></div>
 </div>
 </div>
@@ -380,7 +387,8 @@ Alternatively this snippet will install them all in one go</p>
 <code class="awdur-codeblock-filename docutils literal notranslate"><span class="pre">lisp/alc-treesitter.el</span></code></div>
 <div class="highlight-elisp notranslate"><div class="highlight"><pre><span></span><span class="w"> </span><span class="p">(</span><span class="nb">use-package</span><span class="w"> </span><span class="nv">combobulate</span>
 <span class="w">  </span><span class="nb">:vc</span><span class="w"> </span><span class="p">(</span><span class="nb">:url</span><span class="w"> </span><span class="s">&quot;https://github.com/mickeynp/combobulate&quot;</span><span class="w"> </span><span class="nb">:rev</span><span class="w"> </span><span class="s">&quot;master&quot;</span><span class="p">)</span>
-<span class="w">  </span><span class="nb">:hook</span><span class="w"> </span><span class="p">((</span><span class="nv">python-ts-mode</span><span class="w"> </span><span class="o">.</span><span class="w"> </span><span class="nv">combobulate-mode</span><span class="p">)</span>
+<span class="w">  </span><span class="nb">:hook</span><span class="w"> </span><span class="p">((</span><span class="nv">js-ts-mode</span><span class="w"> </span><span class="o">.</span><span class="w"> </span><span class="nv">combobulate-mode</span><span class="p">)</span>
+<span class="w">         </span><span class="p">(</span><span class="nv">python-ts-mode</span><span class="w"> </span><span class="o">.</span><span class="w"> </span><span class="nv">combobulate-mode</span><span class="p">)</span>
 <span class="w">         </span><span class="p">(</span><span class="nv">typescript-ts-mode</span><span class="w"> </span><span class="o">.</span><span class="w"> </span><span class="nv">combobulate-mode</span><span class="p">)))</span>
 </pre></div>
 </div>
