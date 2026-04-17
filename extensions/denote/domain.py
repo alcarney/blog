@@ -146,6 +146,19 @@ class Denote(Domain):
     ) -> Element | None:
         """Resolve cross references"""
 
+        if target.startswith("__"):
+            return self._resolve_tag(fromdocname, builder, target, contnode)
+
+        return self._resolve_record(fromdocname, builder, target, contnode)
+
+    def _resolve_record(
+        self,
+        fromdocname: str,
+        builder: Builder,
+        target: str,
+        contnode: Element,
+    ):
+        """Resolve a reference to a specific record."""
         if (record := self.records.find(identifier=target)) is None:
             return None
 
@@ -159,4 +172,24 @@ class Denote(Domain):
 
         return make_refnode(
             builder, fromdocname, record.docname, None, [contnode], record.title
+        )
+
+    def _resolve_tag(
+        self,
+        fromdocname: str,
+        builder: Builder,
+        target: str,
+        contnode: Element,
+    ):
+        """Resolve a reference to a specific tag."""
+
+        todocname = f"tag/{target[2:]}"
+
+        if (linktext := contnode.astext()) == target:
+            contnode = nodes.Text(f"#{target[2:]}")
+        else:
+            contnode = nodes.Text(linktext)
+
+        return make_refnode(
+            builder, fromdocname, todocname, None, [contnode], f"#{target[2:]}"
         )

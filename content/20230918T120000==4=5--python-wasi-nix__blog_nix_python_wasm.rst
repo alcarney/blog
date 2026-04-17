@@ -37,7 +37,7 @@ Which brings us to the topic of this blog post.
 Ok, but why use Nix?
 --------------------
 
-I'm sure you could achieve everything that I do here with a bash script but I've been playing with Nix :ref:`a lot <tag-nix>` recently and I think it's cool!
+I'm sure you could achieve everything that I do here with a bash script but I've been playing with Nix :link:`a lot <__nix>` recently and I think it's cool!
 
 If you want Python + WASI without the Nix see `this blog post <https://snarky.ca/testing-a-project-using-the-wasi-build-of-cpython-with-pytest/>`__, which I used as the basis for figuring this out.
 
