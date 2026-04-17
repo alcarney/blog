@@ -9,15 +9,11 @@
 
       A group of small programming projects that typically have one or more blog posts assoicated with them.
 
-
-   .. admonition:: :doc:`/dotfiles`
-
-      My dotfiles as literate configuration, a testing ground for `awdur <https://github.com/swyddfa/awdur>`__
-
+      Most (but not yet all) of the code here is an excercise in literate programming, written using :gh:`swyddfa/awdur`.
 
    .. admonition:: `Notes </notes>`__
 
-      Anything that doesn't fit into the above categories
+      Everything else.
 
 
 .. raw:: html
@@ -41,4 +37,3 @@
    :maxdepth: 1
 
    code
-   dotfiles
