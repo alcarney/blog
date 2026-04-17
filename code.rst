@@ -15,7 +15,7 @@ Programming projects that typically have one or more blog posts assoicated with 
 ``build-info-dir.py``
 ---------------------
 
-A simple Python script for indexing ``info`` manuals, see :denote:link:`20260308T125622` for details.
+A simple Python script for indexing ``info`` manuals, see :link:`20260308T125622` for details.
 
 .. awdur:project-tree:: build-info-dir
 
@@ -24,7 +24,7 @@ A simple Python script for indexing ``info`` manuals, see :denote:link:`20260308
 Click & Drag with Vanilla JS
 ----------------------------
 
-An experiment in implementing clicking and dragging SVG elements using vanilla JavaScript, see :denote:link:`20190707T120000` for details.
+An experiment in implementing clicking and dragging SVG elements using vanilla JavaScript, see :link:`20190707T120000` for details.
 
 .. awdur:project-tree:: click-drag-vanilla-js
 
@@ -43,7 +43,7 @@ Some of my dotfiles
 ``.emacs.d/``
 -------------
 
-My Emacs configuration
+My Emacs configuration, see :link:`here <20250216T190756>` for details
 
 .. awdur:project-tree:: emacs
 
