@@ -49,7 +49,7 @@ Load my theme related customisations, see :denote:link:`Emacs Themes <20250708T1
      (require-theme 'doric-themes t)
 
      (setq alc-theme-load-light-theme-function
-           (lambda () (doric-themes-select 'doric-oak))
+           (lambda () (doric-themes-select 'doric-almond))
            alc-theme-load-dark-theme-function
            (lambda () (doric-themes-select 'doric-pine)))
 
