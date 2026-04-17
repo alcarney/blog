@@ -28,6 +28,16 @@ An experiment in implementing clicking and dragging SVG elements using vanilla J
 
 .. awdur:project-tree:: click-drag-vanilla-js
 
+.. _code-config:
+
+``.config/``
+------------
+
+Some of my dotfiles
+
+.. awdur:project-tree::
+
+
 .. _code-emacs-d:
 
 ``.emacs.d/``
