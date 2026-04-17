@@ -387,6 +387,20 @@ And :gh:`radian-software/apheleia` for automatic formatting of buffers
      :config
      (apheleia-global-mode))
 
+JavaScript
+^^^^^^^^^^
+
+.. code-block:: elisp
+   :project: emacs
+   :filename: init.el
+
+   (use-package js
+     :mode ("\\.js\\'" . js-mode)
+     :custom
+     (js-indent-level 2)
+     :hook ((js-ts-mode . eglot-ensure)))
+
+
 reStructuredText
 ^^^^^^^^^^^^^^^^
 
@@ -408,7 +422,6 @@ TypeScript
 
    (use-package typescript-ts-mode
      :mode "\\.ts\\'"
-     :ensure t
      :hook ((typescript-ts-mode . eglot-ensure)))
 
 YAML
