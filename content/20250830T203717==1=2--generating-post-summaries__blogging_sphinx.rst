@@ -52,7 +52,7 @@ Add the helper to the template context
 
 And call it from the template
 
-.. code-block:: jinja2
+.. code-block:: html+jinja
 
    <div style="min-width: 0">
      {{ render_summary(post) }}
@@ -94,7 +94,7 @@ Taking heavy inspiration from `ablog <https://github.com/sunpy/ablog/blob/0a3aa0
 
 Requiring us to also pass through the ``pagename`` variable through to the function
 
-.. code-block:: jinja2
+.. code-block:: html+jinja
 
    <div style="min-width: 0">
      {{ render_summary(post, relative_to=pagename) }}
