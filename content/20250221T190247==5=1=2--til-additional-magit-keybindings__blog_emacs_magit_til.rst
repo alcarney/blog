@@ -4,8 +4,8 @@
 :identifier: 20250221T190247
 :signature: 5=1=2
 
-TIL: Additional magit keybindings
-=================================
+Additional magit keybindings
+============================
 
 .. highlight:: none
 

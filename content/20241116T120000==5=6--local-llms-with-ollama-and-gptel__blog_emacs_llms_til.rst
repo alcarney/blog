@@ -6,8 +6,8 @@
 :author: Alex Carney
 :language: en
 
-TIL: Local LLMs with Ollama and gptel
-=====================================
+Local LLMs with Ollama and gptel
+================================
 
 .. container:: post-teaser
 
