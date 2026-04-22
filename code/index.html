@@ -1549,44 +1549,6 @@ system&#39;s light/dark preference.&#34;
       (add-hook &#39;after-save-hook &#39;recompile nil t)
     (remove-hook &#39;after-save-hook &#39;recompile t)))
 
-(dolist (kmap (list minibuffer-local-map completion-in-region-mode-map))
-  (keymap-set kmap &#34;C-p&#34; #&#39;minibuffer-previous-completion)
-  (keymap-set kmap &#34;C-n&#34; #&#39;minibuffer-next-completion))
-
-(setq completion-auto-help &#39;visible
-      completion-auto-select &#39;second-tab)
-
-(setq completion-cycle-threshold 3)
-
-(setq completions-detailed t
-      completions-format &#39;one-column
-      completions-group t
-      completions-header-format (propertize &#34;%s candidates\n&#34; &#39;face &#39;shadow)
-      completions-max-height 15
-      completion-show-help nil)
-
-(use-package orderless
-  :ensure t
-  :custom
-  (completion-styles &#39;(orderless basic))
-  (completion-category-defaults nil)
-  (completion-category-overrides &#39;((file (styles basic partial-completion)))))
-
-(use-package consult
-  :ensure t
-  :custom
-  (consult-preview-key &#34;M-.&#34;)
-  :bind ((&#34;C-x b&#34; . consult-buffer)))
-
-(use-package embark-consult
-  :after (embark consult)
-  :ensure t)
-
-(use-package embark
-  :ensure t
-  :bind ((&#34;C-.&#34; . embark-act)
-         (&#34;M-.&#34; . embark-dwim)))
-
 (use-package dired
  :hook ((dired-mode . dired-hide-details-mode)
         (dired-mode . hl-line-mode))
@@ -1635,11 +1597,6 @@ subproject.&#34;
   :custom
   (js-indent-level 2)
   :hook ((js-ts-mode . eglot-ensure)))
-
-(use-package esbonio
-  :vc (:url &#34;https://github.com/swyddfa/esbonio.el&#34; :rev &#34;main&#34;)
-  :hook ((rst-mode . esbonio-eglot-ensure)
-         (rst-mode . visual-line-mode)))
 
 (use-package typescript-ts-mode
   :mode &#34;\\.ts\\&#39;&#34;
@@ -1910,6 +1867,71 @@ paths referencing directories include the trailing slash.&#34;
 
 (add-to-list &#39;Info-directory-list
              (concat (getenv &#34;HOME&#34;) &#34;/.local/share/info/&#34;))
+
+(use-package rst
+  :hook ((rst-mode . visual-wrap-prefix-mode))
+  :bind (:map rst-mode-map
+          (&#34;C-c m&#34; . alc-rst-mode-tmenu)))
+
+(use-package esbonio
+  :vc (:url &#34;https://github.com/swyddfa/esbonio.el&#34; :rev &#34;main&#34;)
+  :hook ((rst-mode . esbonio-eglot-ensure)))
+
+(transient-define-prefix alc-rst-mode-tmenu ()
+  &#34;Major mode transient menu for `rst-mode&#39;&#34;
+  [&#34;Esbonio&#34;
+   [&#34;Previews&#34;
+    (&#34;p&#34; &#34;Preview File&#34; esbonio-preview-file)
+    (&#34;s&#34; &#34;Toggle Sync Scroll&#34; esbonio-sync-scroll-mode)]])
+
+(setq completions-detailed t
+      completions-format &#39;one-column
+      completions-group t
+      completions-header-format (propertize &#34;%s candidates\n&#34; &#39;face &#39;shadow)
+      completions-max-height 15
+      completion-show-help nil)
+
+(setq completion-auto-help &#39;visible
+      completion-auto-select &#39;second-tab
+      completion-cycle-threshold 3)
+
+(use-package consult
+  :ensure t
+  :custom
+  (consult-preview-key &#34;M-.&#34;)
+  :bind ((&#34;C-x b&#34; . consult-buffer)))
+
+(use-package embark
+  :ensure t
+  :bind ((&#34;C-.&#34; . embark-act)
+         (&#34;M-.&#34; . embark-dwim)))
+
+(use-package embark-consult
+  :after (embark consult)
+  :ensure t)
+
+(use-package orderless
+  :ensure t
+  :custom
+  (completion-styles &#39;(orderless basic))
+  (completion-category-defaults nil)
+  (completion-category-overrides &#39;((file (styles basic partial-completion)))))
+
+(use-package vertico
+  :ensure t
+  :init
+  (vertico-mode)
+  :config
+
+  (setq vertico-multiform-commands
+        &#39;((consult-line buffer)))
+
+  (setq vertico-multiform-categories
+        &#39;((t unobtrusive)))
+
+  (vertico-multiform-mode t))
+
+(setq completion-in-region-function #&#39;consult-completion-in-region)
 
 (provide &#39;init)
 

@@ -115,16 +115,10 @@
 <li><a class="reference internal" href="#compilation">Compilation</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#completions"><code class="docutils literal notranslate"><span class="pre">*Completions*</span></code></a><ul>
-<li><a class="reference internal" href="#consult">Consult</a></li>
-<li><a class="reference internal" href="#embark">Embark</a></li>
-</ul>
-</li>
 <li><a class="reference internal" href="#dired">Dired</a></li>
 <li><a class="reference internal" href="#project-el"><code class="docutils literal notranslate"><span class="pre">project.el</span></code></a></li>
 <li><a class="reference internal" href="#languages">Languages</a><ul>
 <li><a class="reference internal" href="#javascript">JavaScript</a></li>
-<li><a class="reference internal" href="#restructuredtext">reStructuredText</a></li>
 <li><a class="reference internal" href="#typescript">TypeScript</a></li>
 <li><a class="reference internal" href="#yaml">YAML</a></li>
 </ul>
@@ -151,7 +145,7 @@
       <li>
     
   <a class="reference internal" href="../../blog/2024/local-llms-with-ollama-and-gptel/">
-    TIL: Local LLMs with Ollama and gptel
+    Local LLMs with Ollama and gptel
   </a>
   
 </li>
@@ -169,14 +163,14 @@
       <li>
     
   <a class="reference internal" href="../../blog/2025/til-additional-magit-keybindings/">
-    TIL: Additional magit keybindings
+    Additional magit keybindings
   </a>
   
 </li>
       <li>
     
   <a class="reference internal" href="../../blog/2025/til-navigating-history-with-magit/">
-    TIL: Navigating History with Magit
+    Navigating History with Magit
   </a>
   
 </li>
@@ -320,6 +314,20 @@
     
   <a class="reference internal" href="../../blog/2026/indexing-info-manuals/">
     Indexing Info Manuals
+  </a>
+  
+</li>
+      <li>
+    
+  <a class="reference internal" href="../20260418T160644/">
+    reStructuredText in Emacs
+  </a>
+  
+</li>
+      <li>
+    
+  <a class="reference internal" href="../20260422T183610/">
+    Emacs Completions
   </a>
   
 </li>
@@ -542,102 +550,6 @@ Uses <code class="docutils literal notranslate"><span class="pre">whitespace-dis
 </div>
 </section>
 </section>
-<section id="completions">
-<h2><code class="docutils literal notranslate"><span class="pre">*Completions*</span></code><a class="headerlink" href="#completions" title="Link to this heading">¶</a></h2>
-<p>Use <kbd class="kbd docutils literal notranslate">C</kbd>-<kbd class="kbd docutils literal notranslate">n</kbd> and <kbd class="kbd docutils literal notranslate">C</kbd>-<kbd class="kbd docutils literal notranslate">p</kbd> to cycle through completion candidates.</p>
-<div class="awdur-codeblock docutils container">
-<div class="awdur-codeblock-header docutils container">
-<code class="awdur-codeblock-filename docutils literal notranslate"><span class="pre">init.el</span></code></div>
-<div class="highlight-elisp notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="nb">dolist</span><span class="w"> </span><span class="p">(</span><span class="nv">kmap</span><span class="w"> </span><span class="p">(</span><span class="nf">list</span><span class="w"> </span><span class="nv">minibuffer-local-map</span><span class="w"> </span><span class="nv">completion-in-region-mode-map</span><span class="p">))</span>
-<span class="w">  </span><span class="p">(</span><span class="nv">keymap-set</span><span class="w"> </span><span class="nv">kmap</span><span class="w"> </span><span class="s">&quot;C-p&quot;</span><span class="w"> </span><span class="nf">#&#39;</span><span class="nv">minibuffer-previous-completion</span><span class="p">)</span>
-<span class="w">  </span><span class="p">(</span><span class="nv">keymap-set</span><span class="w"> </span><span class="nv">kmap</span><span class="w"> </span><span class="s">&quot;C-n&quot;</span><span class="w"> </span><span class="nf">#&#39;</span><span class="nv">minibuffer-next-completion</span><span class="p">))</span>
-</pre></div>
-</div>
-</div>
-<p>Only pop open the <code class="docutils literal notranslate"><span class="pre">*Completions*</span></code> buffer on the <em>second</em> attempt at completing something.
-However, once it is open keep it updated and only focus it on the second completion attempt with no progress made.</p>
-<div class="awdur-codeblock docutils container">
-<div class="awdur-codeblock-header docutils container">
-<code class="awdur-codeblock-filename docutils literal notranslate"><span class="pre">init.el</span></code></div>
-<div class="highlight-elisp notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="k">setq</span><span class="w"> </span><span class="nv">completion-auto-help</span><span class="w"> </span><span class="ss">&#39;visible</span>
-<span class="w">      </span><span class="nv">completion-auto-select</span><span class="w"> </span><span class="ss">&#39;second-tab</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-<p>If there are only 3 (or fewer) possible candidates, cycle between them</p>
-<div class="awdur-codeblock docutils container">
-<div class="awdur-codeblock-header docutils container">
-<code class="awdur-codeblock-filename docutils literal notranslate"><span class="pre">init.el</span></code></div>
-<div class="highlight-elisp notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="k">setq</span><span class="w"> </span><span class="nv">completion-cycle-threshold</span><span class="w"> </span><span class="mi">3</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-<p>Tweak how the <code class="docutils literal notranslate"><span class="pre">*Completions*</span></code> buffer is rendered</p>
-<div class="awdur-codeblock docutils container">
-<div class="awdur-codeblock-header docutils container">
-<code class="awdur-codeblock-filename docutils literal notranslate"><span class="pre">init.el</span></code></div>
-<div class="highlight-elisp notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="k">setq</span><span class="w"> </span><span class="nv">completions-detailed</span><span class="w"> </span><span class="no">t</span>
-<span class="w">      </span><span class="nv">completions-format</span><span class="w"> </span><span class="ss">&#39;one-column</span>
-<span class="w">      </span><span class="nv">completions-group</span><span class="w"> </span><span class="no">t</span>
-<span class="w">      </span><span class="nv">completions-header-format</span><span class="w"> </span><span class="p">(</span><span class="nf">propertize</span><span class="w"> </span><span class="s">&quot;%s candidates\n&quot;</span><span class="w"> </span><span class="ss">&#39;face</span><span class="w"> </span><span class="ss">&#39;shadow</span><span class="p">)</span>
-<span class="w">      </span><span class="nv">completions-max-height</span><span class="w"> </span><span class="mi">15</span>
-<span class="w">      </span><span class="nv">completion-show-help</span><span class="w"> </span><span class="no">nil</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-<p>Use the <a class="extlink-gh reference external" href="https://github.com/oantolin/orderless">oantolin/orderless</a> completion style</p>
-<div class="awdur-codeblock docutils container">
-<div class="awdur-codeblock-header docutils container">
-<code class="awdur-codeblock-filename docutils literal notranslate"><span class="pre">init.el</span></code></div>
-<div class="highlight-elisp notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="nb">use-package</span><span class="w"> </span><span class="nv">orderless</span>
-<span class="w">  </span><span class="nb">:ensure</span><span class="w"> </span><span class="no">t</span>
-<span class="w">  </span><span class="nb">:custom</span>
-<span class="w">  </span><span class="p">(</span><span class="nv">completion-styles</span><span class="w"> </span><span class="o">&#39;</span><span class="p">(</span><span class="nv">orderless</span><span class="w"> </span><span class="nv">basic</span><span class="p">))</span>
-<span class="w">  </span><span class="p">(</span><span class="nv">completion-category-defaults</span><span class="w"> </span><span class="no">nil</span><span class="p">)</span>
-<span class="w">  </span><span class="p">(</span><span class="nv">completion-category-overrides</span><span class="w"> </span><span class="o">&#39;</span><span class="p">((</span><span class="nv">file</span><span class="w"> </span><span class="p">(</span><span class="nv">styles</span><span class="w"> </span><span class="nv">basic</span><span class="w"> </span><span class="nv">partial-completion</span><span class="p">)))))</span>
-</pre></div>
-</div>
-</div>
-<section id="consult">
-<h3>Consult<a class="headerlink" href="#consult" title="Link to this heading">¶</a></h3>
-<p>Use <a class="extlink-gh reference external" href="https://github.com/minad/consult">minad/consult</a></p>
-<div class="awdur-codeblock docutils container">
-<div class="awdur-codeblock-header docutils container">
-<code class="awdur-codeblock-filename docutils literal notranslate"><span class="pre">init.el</span></code></div>
-<div class="highlight-elisp notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="nb">use-package</span><span class="w"> </span><span class="nv">consult</span>
-<span class="w">  </span><span class="nb">:ensure</span><span class="w"> </span><span class="no">t</span>
-<span class="w">  </span><span class="nb">:custom</span>
-<span class="w">  </span><span class="p">(</span><span class="nv">consult-preview-key</span><span class="w"> </span><span class="s">&quot;M-.&quot;</span><span class="p">)</span>
-<span class="w">  </span><span class="nb">:bind</span><span class="w"> </span><span class="p">((</span><span class="s">&quot;C-x b&quot;</span><span class="w"> </span><span class="o">.</span><span class="w"> </span><span class="nv">consult-buffer</span><span class="p">)))</span>
-</pre></div>
-</div>
-</div>
-<p>And since I use embark, use the recommended <code class="docutils literal notranslate"><span class="pre">emabrk-consult</span></code> package</p>
-<div class="awdur-codeblock docutils container">
-<div class="awdur-codeblock-header docutils container">
-<code class="awdur-codeblock-filename docutils literal notranslate"><span class="pre">init.el</span></code></div>
-<div class="highlight-elisp notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="nb">use-package</span><span class="w"> </span><span class="nv">embark-consult</span>
-<span class="w">  </span><span class="nb">:after</span><span class="w"> </span><span class="p">(</span><span class="nv">embark</span><span class="w"> </span><span class="nv">consult</span><span class="p">)</span>
-<span class="w">  </span><span class="nb">:ensure</span><span class="w"> </span><span class="no">t</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-</section>
-<section id="embark">
-<h3>Embark<a class="headerlink" href="#embark" title="Link to this heading">¶</a></h3>
-<p>Use <a class="extlink-gh reference external" href="https://github.com/oantolin/embark">oantolin/embark</a>!</p>
-<div class="awdur-codeblock docutils container">
-<div class="awdur-codeblock-header docutils container">
-<code class="awdur-codeblock-filename docutils literal notranslate"><span class="pre">init.el</span></code></div>
-<div class="highlight-elisp notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="nb">use-package</span><span class="w"> </span><span class="nv">embark</span>
-<span class="w">  </span><span class="nb">:ensure</span><span class="w"> </span><span class="no">t</span>
-<span class="w">  </span><span class="nb">:bind</span><span class="w"> </span><span class="p">((</span><span class="s">&quot;C-.&quot;</span><span class="w"> </span><span class="o">.</span><span class="w"> </span><span class="nv">embark-act</span><span class="p">)</span>
-<span class="w">         </span><span class="p">(</span><span class="s">&quot;M-.&quot;</span><span class="w"> </span><span class="o">.</span><span class="w"> </span><span class="nv">embark-dwim</span><span class="p">)))</span>
-</pre></div>
-</div>
-</div>
-</section>
-</section>
 <section id="dired">
 <h2>Dired<a class="headerlink" href="#dired" title="Link to this heading">¶</a></h2>
 <p>Settings for dired</p>
@@ -729,19 +641,6 @@ The following advice ensures that the right vc backend is selected for subprojec
 </div>
 </div>
 </section>
-<section id="restructuredtext">
-<h3>reStructuredText<a class="headerlink" href="#restructuredtext" title="Link to this heading">¶</a></h3>
-<div class="awdur-codeblock docutils container">
-<div class="awdur-codeblock-header docutils container">
-<code class="awdur-codeblock-filename docutils literal notranslate"><span class="pre">init.el</span></code></div>
-<div class="highlight-elisp notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="nb">use-package</span><span class="w"> </span><span class="nv">esbonio</span>
-<span class="w">  </span><span class="nb">:vc</span><span class="w"> </span><span class="p">(</span><span class="nb">:url</span><span class="w"> </span><span class="s">&quot;https://github.com/swyddfa/esbonio.el&quot;</span><span class="w"> </span><span class="nb">:rev</span><span class="w"> </span><span class="s">&quot;main&quot;</span><span class="p">)</span>
-<span class="w">  </span><span class="nb">:hook</span><span class="w"> </span><span class="p">((</span><span class="nv">rst-mode</span><span class="w"> </span><span class="o">.</span><span class="w"> </span><span class="nv">esbonio-eglot-ensure</span><span class="p">)</span>
-<span class="w">         </span><span class="p">(</span><span class="nv">rst-mode</span><span class="w"> </span><span class="o">.</span><span class="w"> </span><span class="nv">visual-line-mode</span><span class="p">)))</span>
-</pre></div>
-</div>
-</div>
-</section>
 <section id="typescript">
 <h3>TypeScript<a class="headerlink" href="#typescript" title="Link to this heading">¶</a></h3>
 <div class="awdur-codeblock docutils container">
@@ -770,7 +669,7 @@ The following advice ensures that the right vc backend is selected for subprojec
 <h2>LLMs<a class="headerlink" href="#llms" title="Link to this heading">¶</a></h2>
 <div class="admonition seealso">
 <p class="admonition-title">See also</p>
-<p><a class="reference internal" href="../../blog/2024/local-llms-with-ollama-and-gptel/" title="TIL: Local LLMs with Ollama and gptel">TIL: Local LLMs with Ollama and gptel</a></p>
+<p><a class="reference internal" href="../../blog/2024/local-llms-with-ollama-and-gptel/" title="Local LLMs with Ollama and gptel">Local LLMs with Ollama and gptel</a></p>
 </div>
 <div class="awdur-codeblock docutils container">
 <div class="awdur-codeblock-header docutils container">

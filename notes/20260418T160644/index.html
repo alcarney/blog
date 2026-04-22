@@ -5,7 +5,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>Treesitter &#8212; Alex Carney</title>
+    <title>reStructuredText in Emacs &#8212; Alex Carney</title>
 
     <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=02ca0aaa" />
     <link id="pygments_dark_css" media="(prefers-color-scheme: dark)" rel="stylesheet" type="text/css" href="../../_static/pygments_dark.css?v=d8568271" />
@@ -94,18 +94,31 @@
     <h5 style="grid-column: span 2">Metadata</h5><svg xmlns="http://www.w3.org/2000/svg" width="2em" fill="none" viewBox="0 0 24 24" stroke="currentColor">
     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
 </svg>
-    <time style="align-self: center; text-align: right;" datetime="2026-01-18 00:00:00+00:00">Jan 18, 2026</time><svg xmlns="http://www.w3.org/2000/svg" width="2em" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+    <time style="align-self: center; text-align: right;" datetime="2026-04-18 00:00:00+00:00">Apr 18, 2026</time><svg xmlns="http://www.w3.org/2000/svg" width="2em" fill="none" viewBox="0 0 24 24" stroke="currentColor">
     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z" />
 </svg>
     <ul class="taglist">
+        <li>
+            <a class="tag" href="../../tag/emacs/">
+                #emacs
+            </a>
+        </li>
+        <li>
+            <a class="tag" href="../../tag/esbonio/">
+                #esbonio
+            </a>
+        </li>
+        <li>
+            <a class="tag" href="../../tag/rst/">
+                #rst
+            </a>
+        </li>
     </ul>
 </section><section id="post-contents">
   <nav id="localtoc">
     <ul>
-<li><a class="reference internal" href="#">Treesitter</a><ul>
-<li><a class="reference internal" href="#installing-grammars">Installing Grammars</a></li>
-<li><a class="reference internal" href="#major-modes">Major Modes</a></li>
-<li><a class="reference internal" href="#combobulate">Combobulate</a></li>
+<li><a class="reference internal" href="#">reStructuredText in Emacs</a><ul>
+<li><a class="reference internal" href="#esbonio">Esbonio</a></li>
 </ul>
 </li>
 </ul>
@@ -288,7 +301,9 @@
 </li>
       <li>
     
+  <a class="reference internal" href="../20260118T133600/">
     Treesitter
+  </a>
   
 </li>
       <li>
@@ -300,9 +315,7 @@
 </li>
       <li>
     
-  <a class="reference internal" href="../20260418T160644/">
     reStructuredText in Emacs
-  </a>
   
 </li>
       <li>
@@ -330,80 +343,40 @@
     <div role="main" style="flex-grow: 1">
 
 <article>
-  <section id="treesitter">
-<h1>Treesitter<a class="headerlink" href="#treesitter" title="Link to this heading">¶</a></h1>
-<div class="admonition seealso">
-<p class="admonition-title">See also</p>
-<dl class="simple">
-<dt><a class="reference external" href="https://www.masteringemacs.org/article/how-to-get-started-tree-sitter">How To Get Started with Tree Sitter</a></dt><dd><p>Article on Matering Emacs</p>
-</dd>
-<dt><a class="reference external" href="https://www.masteringemacs.org/article/combobulate-structured-movement-editing-treesitter">Combobulate: Structured Movement and Editing with Tree-Sitter</a></dt><dd><p>Another introducing the <code class="docutils literal notranslate"><span class="pre">combobulate</span></code> package</p>
-</dd>
-</dl>
-</div>
-<p>As of version <code class="docutils literal notranslate"><span class="pre">29.1</span></code> Emacs comes with support out of the box (assuming it has been compiled with the <code class="docutils literal notranslate"><span class="pre">--with-tree-sitter</span></code> flag)</p>
+  <section id="restructuredtext-in-emacs">
+<h1>reStructuredText in Emacs<a class="headerlink" href="#restructuredtext-in-emacs" title="Link to this heading">¶</a></h1>
 <div class="awdur-codeblock docutils container">
 <div class="awdur-codeblock-header docutils container">
 <code class="awdur-codeblock-filename docutils literal notranslate"><span class="pre">init.el</span></code></div>
-<div class="highlight-elisp notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="nb">use-package</span><span class="w"> </span><span class="nv">alc-treesitter</span>
-<span class="w">  </span><span class="nb">:load-path</span><span class="w"> </span><span class="s">&quot;lisp&quot;</span>
-<span class="w">  </span><span class="nb">:if</span><span class="w"> </span><span class="p">(</span><span class="nv">treesit-available-p</span><span class="p">))</span>
+<div class="highlight-elisp notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="nb">use-package</span><span class="w"> </span><span class="nv">rst</span>
+<span class="w">  </span><span class="nb">:hook</span><span class="w"> </span><span class="p">((</span><span class="nv">rst-mode</span><span class="w"> </span><span class="o">.</span><span class="w"> </span><span class="nv">visual-wrap-prefix-mode</span><span class="p">))</span>
+<span class="w">  </span><span class="nb">:bind</span><span class="w"> </span><span class="p">(</span><span class="nb">:map</span><span class="w"> </span><span class="nv">rst-mode-map</span>
+<span class="w">          </span><span class="p">(</span><span class="s">&quot;C-c m&quot;</span><span class="w"> </span><span class="o">.</span><span class="w"> </span><span class="nv">alc-rst-mode-tmenu</span><span class="p">)))</span>
 </pre></div>
 </div>
 </div>
-<section id="installing-grammars">
-<h2>Installing Grammars<a class="headerlink" href="#installing-grammars" title="Link to this heading">¶</a></h2>
-<p>While Emacs supports the tree-sitter library itself, it does not come with any grammars which need to be installed separately.
-Thankfully, Emacs does provide a few utilities to help with this</p>
+<section id="esbonio">
+<h2>Esbonio<a class="headerlink" href="#esbonio" title="Link to this heading">¶</a></h2>
+<p>My primary use case for using reStructuredText is for <a class="reference external" href="https://sphinx-doc.org/">Sphinx</a> projects, so of course I’ll be using <a class="reference external" href="https://docs.esbon.io/">esbonio</a>!</p>
 <div class="awdur-codeblock docutils container">
 <div class="awdur-codeblock-header docutils container">
-<code class="awdur-codeblock-filename docutils literal notranslate"><span class="pre">lisp/alc-treesitter.el</span></code></div>
-<div class="highlight-elisp notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="k">setq</span><span class="w"> </span><span class="nv">treesit-language-source-alist</span>
-<span class="w">      </span><span class="o">&#39;</span><span class="p">((</span><span class="nv">javascript</span><span class="w"> </span><span class="s">&quot;https://github.com/tree-sitter/tree-sitter-javascript&quot;</span><span class="w"> </span><span class="s">&quot;v0.20.1&quot;</span><span class="w"> </span><span class="s">&quot;src&quot;</span><span class="p">)</span>
-<span class="w">        </span><span class="p">(</span><span class="nv">python</span><span class="w"> </span><span class="s">&quot;https://github.com/tree-sitter/tree-sitter-python&quot;</span><span class="w"> </span><span class="s">&quot;v0.20.4&quot;</span><span class="p">)</span>
-<span class="w">        </span><span class="p">(</span><span class="nv">tsx</span><span class="w"> </span><span class="s">&quot;https://github.com/tree-sitter/tree-sitter-typescript&quot;</span><span class="w"> </span><span class="s">&quot;v0.20.3&quot;</span><span class="w"> </span><span class="s">&quot;tsx/src&quot;</span><span class="p">)</span>
-<span class="w">        </span><span class="p">(</span><span class="nv">typescript</span><span class="w"> </span><span class="s">&quot;https://github.com/tree-sitter/tree-sitter-typescript&quot;</span><span class="w"> </span><span class="s">&quot;v0.20.3&quot;</span><span class="w"> </span><span class="s">&quot;typescript/src&quot;</span><span class="p">)))</span>
+<code class="awdur-codeblock-filename docutils literal notranslate"><span class="pre">init.el</span></code></div>
+<div class="highlight-elisp notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="nb">use-package</span><span class="w"> </span><span class="nv">esbonio</span>
+<span class="w">  </span><span class="nb">:vc</span><span class="w"> </span><span class="p">(</span><span class="nb">:url</span><span class="w"> </span><span class="s">&quot;https://github.com/swyddfa/esbonio.el&quot;</span><span class="w"> </span><span class="nb">:rev</span><span class="w"> </span><span class="s">&quot;main&quot;</span><span class="p">)</span>
+<span class="w">  </span><span class="nb">:hook</span><span class="w"> </span><span class="p">((</span><span class="nv">rst-mode</span><span class="w"> </span><span class="o">.</span><span class="w"> </span><span class="nv">esbonio-eglot-ensure</span><span class="p">)))</span>
 </pre></div>
 </div>
 </div>
-<p>The <code class="docutils literal notranslate"><span class="pre">treesit-language-source-alist</span></code> variable tells Emacs where it can find a given grammar and what language it is for.
-Once defined (and assuming you have the necessary dependencies) you can use <code class="docutils literal notranslate"><span class="pre">M-x</span> <span class="pre">treesit-install-language-grammar</span></code> command to install one of the grammars you defined.
-Alternatively this snippet will install them all in one go</p>
-<div class="highlight-elisp notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="nf">mapc</span><span class="w"> </span><span class="nf">#&#39;</span><span class="nv">treesit-install-language-grammar</span><span class="w"> </span><span class="p">(</span><span class="nf">mapcar</span><span class="w"> </span><span class="nf">#&#39;car</span><span class="w"> </span><span class="nv">treesit-language-source-alist</span><span class="p">))</span>
-</pre></div>
-</div>
-</section>
-<section id="major-modes">
-<h2>Major Modes<a class="headerlink" href="#major-modes" title="Link to this heading">¶</a></h2>
-<p>Switching to tree-sitter powered major modes by default would not be backwards compatible, so if we actually want to make use of the tree-sitter support we need to opt into it.</p>
+<p>Which exposes some functions I want to put into the transient menu for <code class="docutils literal notranslate"><span class="pre">rst-mode</span></code> buffers</p>
 <div class="awdur-codeblock docutils container">
 <div class="awdur-codeblock-header docutils container">
-<code class="awdur-codeblock-filename docutils literal notranslate"><span class="pre">lisp/alc-treesitter.el</span></code></div>
-<div class="highlight-elisp notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="nv">treesit-language-available-p</span><span class="w"> </span><span class="ss">&#39;python</span><span class="p">)</span>
-<span class="w">  </span><span class="p">(</span><span class="nv">add-to-list</span><span class="w"> </span><span class="ss">&#39;major-mode-remap-alist</span><span class="w"> </span><span class="o">&#39;</span><span class="p">(</span><span class="nv">python-mode</span><span class="w"> </span><span class="o">.</span><span class="w"> </span><span class="nv">python-ts-mode</span><span class="p">)))</span>
-
-<span class="p">(</span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="nv">treesit-language-available-p</span><span class="w"> </span><span class="ss">&#39;javascript</span><span class="p">)</span>
-<span class="w">  </span><span class="p">(</span><span class="k">progn</span>
-<span class="w">    </span><span class="p">(</span><span class="nv">add-to-list</span><span class="w"> </span><span class="ss">&#39;major-mode-remap-alist</span><span class="w"> </span><span class="o">&#39;</span><span class="p">(</span><span class="nv">js-mode</span><span class="w"> </span><span class="o">.</span><span class="w"> </span><span class="nv">js-ts-mode</span><span class="p">))</span>
-<span class="w">    </span><span class="p">(</span><span class="nv">add-to-list</span><span class="w"> </span><span class="ss">&#39;major-mode-remap-alist</span><span class="w"> </span><span class="o">&#39;</span><span class="p">(</span><span class="nv">js2-mode</span><span class="w"> </span><span class="o">.</span><span class="w"> </span><span class="nv">js-ts-mode</span><span class="p">))))</span>
-
-<span class="p">(</span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="nv">treesit-language-available-p</span><span class="w"> </span><span class="ss">&#39;typescript</span><span class="p">)</span>
-<span class="w">  </span><span class="p">(</span><span class="nv">add-to-list</span><span class="w"> </span><span class="ss">&#39;major-mode-remap-alist</span><span class="w"> </span><span class="o">&#39;</span><span class="p">(</span><span class="nv">typescript-mode</span><span class="w"> </span><span class="o">.</span><span class="w"> </span><span class="nv">typescript-ts-mode</span><span class="p">)))</span>
-</pre></div>
-</div>
-</div>
-</section>
-<section id="combobulate">
-<h2>Combobulate<a class="headerlink" href="#combobulate" title="Link to this heading">¶</a></h2>
-<p><a class="extlink-gh reference external" href="https://github.com/mickeynp/combobulate">mickeynp/combobulate</a> provides a nice set of movement and editing commands that leverage the parse tree generated by tree sitter.</p>
-<div class="awdur-codeblock docutils container">
-<div class="awdur-codeblock-header docutils container">
-<code class="awdur-codeblock-filename docutils literal notranslate"><span class="pre">lisp/alc-treesitter.el</span></code></div>
-<div class="highlight-elisp notranslate"><div class="highlight"><pre><span></span><span class="w"> </span><span class="p">(</span><span class="nb">use-package</span><span class="w"> </span><span class="nv">combobulate</span>
-<span class="w">  </span><span class="nb">:vc</span><span class="w"> </span><span class="p">(</span><span class="nb">:url</span><span class="w"> </span><span class="s">&quot;https://github.com/mickeynp/combobulate&quot;</span><span class="w"> </span><span class="nb">:rev</span><span class="w"> </span><span class="s">&quot;master&quot;</span><span class="p">)</span>
-<span class="w">  </span><span class="nb">:hook</span><span class="w"> </span><span class="p">((</span><span class="nv">js-ts-mode</span><span class="w"> </span><span class="o">.</span><span class="w"> </span><span class="nv">combobulate-mode</span><span class="p">)</span>
-<span class="w">         </span><span class="p">(</span><span class="nv">python-ts-mode</span><span class="w"> </span><span class="o">.</span><span class="w"> </span><span class="nv">combobulate-mode</span><span class="p">)</span>
-<span class="w">         </span><span class="p">(</span><span class="nv">typescript-ts-mode</span><span class="w"> </span><span class="o">.</span><span class="w"> </span><span class="nv">combobulate-mode</span><span class="p">)))</span>
+<code class="awdur-codeblock-filename docutils literal notranslate"><span class="pre">init.el</span></code></div>
+<div class="highlight-elisp notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="nv">transient-define-prefix</span><span class="w"> </span><span class="nv">alc-rst-mode-tmenu</span><span class="w"> </span><span class="p">()</span>
+<span class="w">  </span><span class="s">&quot;Major mode transient menu for </span><span class="ss">`rst-mode&#39;</span><span class="s">&quot;</span>
+<span class="w">  </span><span class="p">[</span><span class="s">&quot;Esbonio&quot;</span>
+<span class="w">   </span><span class="p">[</span><span class="s">&quot;Previews&quot;</span>
+<span class="w">    </span><span class="p">(</span><span class="s">&quot;p&quot;</span><span class="w"> </span><span class="s">&quot;Preview File&quot;</span><span class="w"> </span><span class="nv">esbonio-preview-file</span><span class="p">)</span>
+<span class="w">    </span><span class="p">(</span><span class="s">&quot;s&quot;</span><span class="w"> </span><span class="s">&quot;Toggle Sync Scroll&quot;</span><span class="w"> </span><span class="nv">esbonio-sync-scroll-mode</span><span class="p">)]])</span>
 </pre></div>
 </div>
 </div>
@@ -420,7 +393,7 @@ Alternatively this snippet will install them all in one go</p>
         <h6>Links</h6>
         <ul>
           <li>
-            <a href="../../_sources/content/20260118T133600==5=10--treesitter.rst.txt" rel="nofollow">
+            <a href="../../_sources/content/20260418T160644==5=12--restructuredtext-in-emacs__emacs_esbonio_rst.rst.txt" rel="nofollow">
               Page Source
             </a>
           </li>

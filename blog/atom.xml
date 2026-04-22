@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom" xml:lang="en">
   <id>https://www.alcarney.me/</id>
   <title>Alex Carney | Blog</title>
-  <updated>2026-04-17T23:16:23.681482+00:00</updated>
+  <updated>2026-04-22T19:08:54.419821+00:00</updated>
   <link href="https://www.alcarney.me/" />
   <link href="https://www.alcarney.me/blog/atom.xml" rel="self" />
   <author>
@@ -2197,12 +2197,12 @@ emacs-1-30.1-11.fc42-42-x86-64.raw
     <link href="https://www.alcarney.me/blog/2025/til-navigating-history-with-magit" rel="alternate" />
     <published>2025-02-27T00:00:00+00:00</published>
     <updated>2025-02-27T00:00:00+00:00</updated>
-    <title>TIL: Navigating History with Magit</title>
+    <title>Navigating History with Magit</title>
     <content type="html">
-      &lt;section id=&#34;til-navigating-history-with-magit&#34;&gt;
-&lt;h1&gt;TIL: Navigating History with Magit&lt;a class=&#34;headerlink&#34; href=&#34;#til-navigating-history-with-magit&#34; title=&#34;Link to this heading&#34;&gt;¶&lt;/a&gt;&lt;/h1&gt;
+      &lt;section id=&#34;navigating-history-with-magit&#34;&gt;
+&lt;h1&gt;Navigating History with Magit&lt;a class=&#34;headerlink&#34; href=&#34;#navigating-history-with-magit&#34; title=&#34;Link to this heading&#34;&gt;¶&lt;/a&gt;&lt;/h1&gt;
 &lt;div class=&#34;post-teaser docutils container&#34;&gt;
-&lt;p&gt;Building on &lt;a class=&#34;reference internal&#34; href=&#34;../blog/2025/til-additional-magit-keybindings/&#34; title=&#34;TIL: Additional magit keybindings&#34;&gt;my previous discovery&lt;/a&gt;, today I figured out a few ways of exploring the history of a project with &lt;code class=&#34;docutils literal notranslate&#34;&gt;&lt;span class=&#34;pre&#34;&gt;magit&lt;/span&gt;&lt;/code&gt;.
+&lt;p&gt;Building on &lt;a class=&#34;reference internal&#34; href=&#34;../blog/2025/til-additional-magit-keybindings/&#34; title=&#34;Additional magit keybindings&#34;&gt;my previous discovery&lt;/a&gt;, today I figured out a few ways of exploring the history of a project with &lt;code class=&#34;docutils literal notranslate&#34;&gt;&lt;span class=&#34;pre&#34;&gt;magit&lt;/span&gt;&lt;/code&gt;.
 &lt;a class=&#34;reference external&#34; href=&#34;https://github.com/swyddfa/esbonio/issues/965&#34;&gt;This issue&lt;/a&gt; provided a nice motivating example to have in mind - the &lt;code class=&#34;docutils literal notranslate&#34;&gt;&lt;span class=&#34;pre&#34;&gt;exceptiongroup&lt;/span&gt;&lt;/code&gt; Python package was dropped from a &lt;code class=&#34;docutils literal notranslate&#34;&gt;&lt;span class=&#34;pre&#34;&gt;requirements.txt&lt;/span&gt;&lt;/code&gt; file - in which commit did it happen?&lt;/p&gt;
 &lt;/div&gt;
 &lt;section id=&#34;from-magit-dispatch&#34;&gt;
@@ -2305,10 +2305,10 @@ modified   code/requirements-libs.txt
     <link href="https://www.alcarney.me/blog/2025/til-additional-magit-keybindings" rel="alternate" />
     <published>2025-02-21T00:00:00+00:00</published>
     <updated>2025-02-21T00:00:00+00:00</updated>
-    <title>TIL: Additional magit keybindings</title>
+    <title>Additional magit keybindings</title>
     <content type="html">
-      &lt;section id=&#34;til-additional-magit-keybindings&#34;&gt;
-&lt;h1&gt;TIL: Additional magit keybindings&lt;a class=&#34;headerlink&#34; href=&#34;#til-additional-magit-keybindings&#34; title=&#34;Link to this heading&#34;&gt;¶&lt;/a&gt;&lt;/h1&gt;
+      &lt;section id=&#34;additional-magit-keybindings&#34;&gt;
+&lt;h1&gt;Additional magit keybindings&lt;a class=&#34;headerlink&#34; href=&#34;#additional-magit-keybindings&#34; title=&#34;Link to this heading&#34;&gt;¶&lt;/a&gt;&lt;/h1&gt;
 &lt;div class=&#34;post-teaser docutils container&#34;&gt;
 &lt;p&gt;It always helps to spend the time now and again to read the manual for the tools you use!
 By simply reading the &lt;a class=&#34;reference external&#34; href=&#34;https://magit.vc/manual/magit/Getting-Started.html&#34;&gt;Getting Started&lt;/a&gt; section of the &lt;code class=&#34;docutils literal notranslate&#34;&gt;&lt;span class=&#34;pre&#34;&gt;magit&lt;/span&gt;&lt;/code&gt; user manual I found not one but two commands I had never come across before!&lt;/p&gt;
@@ -2430,7 +2430,7 @@ Trouble was, the tests all relate to my arch nemesis - Windows file paths.&lt;/p
 &lt;p&gt;Oh yes, I haven’t spun up a VM on this machine yet so don’t have a frontend installed.
 I’ve used &lt;code class=&#34;docutils literal notranslate&#34;&gt;&lt;span class=&#34;pre&#34;&gt;remote-viewer&lt;/span&gt;&lt;/code&gt; in the past, let’s install that… umm… which package provides this again?&lt;/p&gt;
 &lt;p&gt;&lt;em&gt;It was in this moment he made a grave mistake&lt;/em&gt;&lt;/p&gt;
-&lt;p&gt;Rather than do the sane thing and Google it, I thought this would be a good chance to ask my &lt;a class=&#34;reference internal&#34; href=&#34;../blog/2024/local-llms-with-ollama-and-gptel/&#34; title=&#34;TIL: Local LLMs with Ollama and gptel&#34;&gt;local AI model&lt;/a&gt; for the &lt;code class=&#34;docutils literal notranslate&#34;&gt;&lt;span class=&#34;pre&#34;&gt;dnf&lt;/span&gt;&lt;/code&gt; incantation to search for the package that provides the &lt;code class=&#34;docutils literal notranslate&#34;&gt;&lt;span class=&#34;pre&#34;&gt;remote-viewer&lt;/span&gt;&lt;/code&gt; command.
+&lt;p&gt;Rather than do the sane thing and Google it, I thought this would be a good chance to ask my &lt;a class=&#34;reference internal&#34; href=&#34;../blog/2024/local-llms-with-ollama-and-gptel/&#34; title=&#34;Local LLMs with Ollama and gptel&#34;&gt;local AI model&lt;/a&gt; for the &lt;code class=&#34;docutils literal notranslate&#34;&gt;&lt;span class=&#34;pre&#34;&gt;dnf&lt;/span&gt;&lt;/code&gt; incantation to search for the package that provides the &lt;code class=&#34;docutils literal notranslate&#34;&gt;&lt;span class=&#34;pre&#34;&gt;remote-viewer&lt;/span&gt;&lt;/code&gt; command.
 However, I quickly realised none of my containers were working since almost any podman command resulted in a go panic.&lt;/p&gt;
 &lt;div class=&#34;highlight-console notranslate&#34;&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class=&#34;gp&#34;&gt;$ &lt;/span&gt;podman&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;info
 &lt;span class=&#34;go&#34;&gt;WARN[0000] Found incomplete layer &amp;quot;6748b9a4e6f2d75763acd0d8351dfb92d4281a0b3546cc68042fb8cb5e1b7c3c&amp;quot;, deleting it&lt;/span&gt;
@@ -2785,10 +2785,10 @@ What about the other thread?&lt;/p&gt;
     <link href="https://www.alcarney.me/blog/2024/local-llms-with-ollama-and-gptel" rel="alternate" />
     <published>2024-11-16T00:00:00+00:00</published>
     <updated>2024-11-16T00:00:00+00:00</updated>
-    <title>TIL: Local LLMs with Ollama and gptel</title>
+    <title>Local LLMs with Ollama and gptel</title>
     <content type="html">
-      &lt;section id=&#34;til-local-llms-with-ollama-and-gptel&#34;&gt;
-&lt;h1&gt;TIL: Local LLMs with Ollama and gptel&lt;a class=&#34;headerlink&#34; href=&#34;#til-local-llms-with-ollama-and-gptel&#34; title=&#34;Link to this heading&#34;&gt;¶&lt;/a&gt;&lt;/h1&gt;
+      &lt;section id=&#34;local-llms-with-ollama-and-gptel&#34;&gt;
+&lt;h1&gt;Local LLMs with Ollama and gptel&lt;a class=&#34;headerlink&#34; href=&#34;#local-llms-with-ollama-and-gptel&#34; title=&#34;Link to this heading&#34;&gt;¶&lt;/a&gt;&lt;/h1&gt;
 &lt;div class=&#34;post-teaser docutils container&#34;&gt;
 &lt;p&gt;LLMs don’t look like they’re going to go away anytime soon, so I may as well start playing around with them.
 Since I am also using Emacs more and more it also makes sense to try using it as the interface to any models.&lt;/p&gt;
