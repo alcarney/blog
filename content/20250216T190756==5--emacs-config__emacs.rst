@@ -304,19 +304,6 @@ JavaScript
      (js-indent-level 2)
      :hook ((js-ts-mode . eglot-ensure)))
 
-
-reStructuredText
-^^^^^^^^^^^^^^^^
-
-.. code-block:: elisp
-   :project: emacs
-   :filename: init.el
-
-   (use-package esbonio
-     :vc (:url "https://github.com/swyddfa/esbonio.el" :rev "main")
-     :hook ((rst-mode . esbonio-eglot-ensure)
-            (rst-mode . visual-line-mode)))
-
 TypeScript
 ^^^^^^^^^^
 
