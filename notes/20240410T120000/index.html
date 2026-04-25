@@ -1,0 +1,683 @@
+<!DOCTYPE html>
+
+<html lang="en" data-content_root="../../">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Building the WASI version of CPython using Nix &#8212; Alex Carney</title>
+
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=02ca0aaa" />
+    <link id="pygments_dark_css" media="(prefers-color-scheme: dark)" rel="stylesheet" type="text/css" href="../../_static/pygments_dark.css?v=d8568271" />
+    <link rel="stylesheet" type="text/css" href="../../_static/awdur-styles.css?v=21b80da3" />
+    <link rel="stylesheet" type="text/css" href="../../_static/css/layout.css?v=06fbe197" />
+
+    <script src="../../_static/documentation_options.js?v=187304be"></script>
+    <script src="../../_static/doctools.js?v=9bcbadda"></script>
+    <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../_static/js/theme.js?v=94324b12"></script>
+    <script src="../../_static/js/htmx-2.0.4.min.js?v=be6ab97a"></script>
+    <link rel="icon" href="../../_static/favicon.ico"/>
+    <link rel="index" title="Index" href="../../genindex/" />
+    <link rel="search" title="Search" href="../../search/" />
+    <link rel="alternate"
+          type="application/atom+xml"
+          title=" | Blog Posts"
+          href="/blog/atom.xml">
+    <meta name="fediverse:creator" content="@alcarney@mastodon.social">
+    <meta name="theme-color" content="#059669">
+
+  </head>
+  <body>
+
+<input type="checkbox" id="menu-toggle" class="hidden" />
+<aside>
+  <div class="sidebar"><div id="profile-card">
+    <img src="/_static/avatar.jpg"/>
+    <h2>
+      <a href="/">Alex Carney</a>
+    </h2>
+    <nav class="social">
+  <a target="_blank" rel="noreferrer noopener" href="https://github.com/alcarney" title="GitHub">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="24px" height="24px">
+      <path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/>
+    </svg>
+  </a>
+
+  <a target="_blank" rel="noreferrer noopener me" href="https://mastodon.social/@alcarney" title="Mastodon">
+    <svg role="img" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" width="24px" height="24px" fill="currentColor">
+      <title>Mastodon</title>
+      <path d="M23.268 5.313c-.35-2.578-2.617-4.61-5.304-5.004C17.51.242 15.792 0 11.813 0h-.03c-3.98 0-4.835.242-5.288.309C3.882.692 1.496 2.518.917 5.127.64 6.412.61 7.837.661 9.143c.074 1.874.088 3.745.26 5.611.118 1.24.325 2.47.62 3.68.55 2.237 2.777 4.098 4.96 4.857 2.336.792 4.849.923 7.256.38.265-.061.527-.132.786-.213.585-.184 1.27-.39 1.774-.753a.057.057 0 0 0 .023-.043v-1.809a.052.052 0 0 0-.02-.041.053.053 0 0 0-.046-.01 20.282 20.282 0 0 1-4.709.545c-2.73 0-3.463-1.284-3.674-1.818a5.593 5.593 0 0 1-.319-1.433.053.053 0 0 1 .066-.054c1.517.363 3.072.546 4.632.546.376 0 .75 0 1.125-.01 1.57-.044 3.224-.124 4.768-.422.038-.008.077-.015.11-.024 2.435-.464 4.753-1.92 4.989-5.604.008-.145.03-1.52.03-1.67.002-.512.167-3.63-.024-5.545zm-3.748 9.195h-2.561V8.29c0-1.309-.55-1.976-1.67-1.976-1.23 0-1.846.79-1.846 2.35v3.403h-2.546V8.663c0-1.56-.617-2.35-1.848-2.35-1.112 0-1.668.668-1.67 1.977v6.218H4.822V8.102c0-1.31.337-2.35 1.011-3.12.696-.77 1.608-1.164 2.74-1.164 1.311 0 2.302.5 2.962 1.498l.638 1.06.638-1.06c.66-.999 1.65-1.498 2.96-1.498 1.13 0 2.043.395 2.74 1.164.675.77 1.012 1.81 1.012 3.12z"/>
+    </svg>
+  </a>
+
+  <a target="_blank" rel="noreferrer noopener" href="https://pixelfed.social/i/web/profile/795173629619860860" title="Pixelfed">
+    <svg width="24px" height="24px" viewBox="0 0 50 50" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path d="M25 50C11.193 50 0 38.807 0 25S11.193 0 25 0s25 11.193 25 25-11.193 25-25 25zm-1.985-19.542h4.586c4.32 0 7.823-3.41 7.823-7.615 0-4.206-3.502-7.616-7.823-7.616h-6.619c-2.492 0-4.513 1.967-4.513 4.394v17.1l6.546-6.263z" fill-rule="evenodd"/></svg>
+  </a>
+
+  <a target="_blank" rel="noreferrer noopener" href="https://www.youtube.com/channel/UC5GPflgRWhnCxA0BllfP5CA" title="YouTube">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24px" height="24px" fill="currentColor">
+      <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
+    </svg>
+  </a>
+
+  <a href="/blog/atom.xml" title="RSS Feed">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24px" height="24px" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
+      <path d="M4 11a9 9 0 0 1 9 9M4 4a16 16 0 0 1 16 16"/>
+      <circle cx="5" cy="19" r="1"/>
+    </svg>
+  </a>
+</nav>
+</div>
+<search id="searchbox" style="display: none" role="search">
+    <div class="searchformwrapper">
+    <form class="search" action="../../search/" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" placeholder="Search"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</search>
+<script>document.getElementById('searchbox').style.display = "block"</script><nav class="site">
+  <ul>
+    <li>
+      <a href="/blog">Blog</a>
+    </li>
+    <li>
+      <a href="/code">Code</a>
+    </li>
+    <li>
+      <a href="/notes">Notes</a>
+    </li>
+  </ul>
+</nav>
+<section class="post-metadata">
+    <h5 style="grid-column: span 2">Metadata</h5><svg xmlns="http://www.w3.org/2000/svg" width="2em" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+</svg>
+    <time style="align-self: center; text-align: right;" datetime="2024-04-10 00:00:00+00:00">Apr 10, 2024</time><svg xmlns="http://www.w3.org/2000/svg" width="2em" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z" />
+</svg>
+    <ul class="taglist">
+        <li>
+            <a class="tag" href="../../tag/nix/">
+                #nix
+            </a>
+        </li>
+        <li>
+            <a class="tag" href="../../tag/python/">
+                #python
+            </a>
+        </li>
+        <li>
+            <a class="tag" href="../../tag/wasi/">
+                #wasi
+            </a>
+        </li>
+    </ul>
+</section><section id="post-contents">
+  <nav id="localtoc">
+    <ul>
+<li><a class="reference internal" href="#">Building the WASI version of CPython using Nix</a><ul>
+<li><a class="reference internal" href="#setup">Setup</a></li>
+<li><a class="reference internal" href="#compiling-the-compiler">Compiling the Compiler</a><ul>
+<li><a class="reference internal" href="#first-attempt">First Attempt</a></li>
+<li><a class="reference internal" href="#missing-sources">Missing Sources</a></li>
+<li><a class="reference internal" href="#install-time">Install Time</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#building-python">Building Python</a></li>
+<li><a class="reference internal" href="#compiling-the-compiler-again">Compiling the Compiler, Again!</a></li>
+<li><a class="reference internal" href="#building-python-continued">Building Python, Continued</a></li>
+<li><a class="reference internal" href="#running-it">Running it</a></li>
+</ul>
+</li>
+</ul>
+
+  </nav>
+</section>
+<section id="post-related">
+  <h5>Related</h5>
+  
+  <details open>
+    <summary>
+      
+  <a class="reference internal" href="../../blog/2022/first-steps-with-nix/">
+    My First Steps with Nix
+  </a>
+  
+
+    </summary>
+    <ul>
+      <li>
+    
+  <a class="reference internal" href="../../blog/2023/nix-overlays/">
+    My Next Steps with Nix: Overlays
+  </a>
+  
+</li>
+      <li>
+    
+  <a class="reference internal" href="../../blog/2023/nix-overlays-p2/">
+    Nix Overlays: A follow up
+  </a>
+  
+</li>
+      <li>
+    
+  <a class="reference internal" href="../../blog/2023/integrate-esbonio-nvim-with-nix/">
+    Integrating Esbonio with Neovim Using Nix
+  </a>
+  
+</li>
+      <li>
+    
+  <a class="reference internal" href="../../blog/2023/nix-day-to-day/">
+    Nix: Day to Day Usage
+  </a>
+  
+</li>
+      <li>
+    
+  <a class="reference internal" href="../../blog/2023/python-wasi-nix/">
+    Setting up a Python WASI Environment with Nix
+  </a>
+  
+</li>
+      <li>
+    
+  <a class="reference internal" href="../20231018T120000/">
+    Compiling LaTeX Documents with Nix
+  </a>
+  
+</li>
+      <li>
+    
+    Building the WASI version of CPython using Nix
+  
+</li>
+    </ul>
+  </details>
+  
+</section>
+  </div>
+</aside>
+
+<div class="content">
+    <header class="site">
+        <label for="menu-toggle">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="2em" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </label>
+    </header>
+
+    <div role="main" style="flex-grow: 1">
+
+<article>
+  <section id="building-the-wasi-version-of-cpython-using-nix">
+<h1>Building the WASI version of CPython using Nix<a class="headerlink" href="#building-the-wasi-version-of-cpython-using-nix" title="Link to this heading">¶</a></h1>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>I never quite finished this, but these notes might prove useful at some stage.</p>
+</div>
+<p>Previously, when setting up a development environment using the WASI build of Python with Nix, I “cheated” and just copied the result from an
+<a class="reference external" href="https://github.com/brettcannon/cpython-wasi-build/releases">existing</a>
+build.
+In this blog post I attempt to do it for real and use Nix to build the WASI version of CPython from source.</p>
+<p>Thanks to the fact there are now
+<a class="reference external" href="https://devguide.python.org/getting-started/setup-building/#wasi">docs available</a>
+as a well as a
+<a class="reference external" href="https://github.com/python/cpython/blob/5d21d884b6ffa45dac50a5f9a07c41356a8478b4/Tools/wasm/wasi.py">build script</a>
+, the build process itself was quite straightforward.
+The difficult part was getting all the dependencies setup correctly!</p>
+<p>On with the show!</p>
+<section id="setup">
+<h2>Setup<a class="headerlink" href="#setup" title="Link to this heading">¶</a></h2>
+<p>I’ve never built CPython from source before, so had no idea how different the WASI build might be when compared to a regular build.
+I assumed however, that they should be similar enough that I could get away with taking an existing CPython derivation from nixpkgs and overriding the relevant attributes.</p>
+<p>If we use a function that accepts an existing CPython derivation as input, it should be possible to derive a WASI build for any compatible version of Python.</p>
+<div class="highlight-nix notranslate"><div class="highlight"><pre><span></span><span class="c1"># In ./nix/to-wasi-build.nix</span>
+<span class="p">{</span> python <span class="p">}:</span>
+
+python<span class="o">.</span>overrideAttrs <span class="p">(</span>prev<span class="p">:</span> <span class="p">{})</span>
+</pre></div>
+</div>
+<p>Let’s quickly test it out in a flake</p>
+<div class="highlight-nix notranslate"><div class="highlight"><pre><span></span><span class="c1"># In flake.nix</span>
+<span class="ss">outputs</span> <span class="o">=</span> <span class="p">{</span> self<span class="p">,</span> nixpkgs <span class="p">}:</span>
+  <span class="k">let</span>
+    <span class="ss">system</span> <span class="o">=</span> <span class="s2">&quot;x86_64-linux&quot;</span><span class="p">;</span>
+    <span class="ss">pkgs</span> <span class="o">=</span> nixpkgs<span class="o">.</span>legacyPackages<span class="o">.</span><span class="s2">&quot;</span><span class="si">${</span>system<span class="si">}</span><span class="s2">&quot;</span><span class="p">;</span>
+    <span class="ss">toWasiBuild</span> <span class="o">=</span> <span class="nb">import</span> <span class="l">./nix/to-wasi-build.nix</span><span class="p">;</span>
+  <span class="k">in</span> <span class="p">{</span>
+    packages<span class="o">.</span><span class="s2">&quot;</span><span class="si">${</span>system<span class="si">}</span><span class="s2">&quot;</span><span class="o">.</span><span class="ss">default</span> <span class="o">=</span> toWasiBuild <span class="p">{</span> <span class="ss">python</span> <span class="o">=</span> pkgs<span class="o">.</span>python312<span class="p">;</span> <span class="p">};</span>
+  <span class="p">};</span>
+</pre></div>
+</div>
+<p>Of course, <code class="docutils literal notranslate"><span class="pre">toWasiBuild</span></code> doesn’t do anything yet, so this should produce a derivation identical to the existing Python 3.12 derivation in nixpkgs</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>nix<span class="w"> </span>build
+<span class="gp">$ </span>./result/bin/python
+<span class="go">Python 3.12.2 (main, Feb  6 2024, 20:19:44) [GCC 13.2.0] on linux</span>
+<span class="go">Type &quot;help&quot;, &quot;copyright&quot;, &quot;credits&quot; or &quot;license&quot; for more information.</span>
+<span class="go">&gt;&gt;&gt;</span>
+</pre></div>
+</div>
+<p>And indeed it does! Nix happily fetched a pre-compiled copy from the binary cache!</p>
+<p>In the <code class="docutils literal notranslate"><span class="pre">Tools/wasm</span></code> folder of the CPython repository, there is a <code class="docutils literal notranslate"><span class="pre">wasm.py</span></code> script that automates the build process.
+So the most obvious thing to try is overriding the <code class="docutils literal notranslate"><span class="pre">buildPhase</span></code> of the derivation to call it.</p>
+<div class="highlight-nix notranslate"><div class="highlight"><pre><span></span><span class="c1"># In ./nix/to-wasi-build.nix</span>
+python<span class="o">.</span>overrideAttrs <span class="p">(</span>prev<span class="p">:</span> <span class="p">{</span>
+  <span class="ss">buildPhase</span> <span class="o">=</span> <span class="s s-Multiline">&#39;&#39;</span>
+<span class="s s-Multiline">    </span><span class="si">${</span>python<span class="si">}</span><span class="s s-Multiline">/bin/python $src/Tools/wasm/wasi.py build</span>
+<span class="s s-Multiline">  &#39;&#39;</span><span class="p">;</span>
+<span class="p">})</span>
+</pre></div>
+</div>
+<div class="mt-4 admonition note">
+<p class="admonition-title">Note</p>
+<p>It turns out that this build script is so new that it does not exist in the published sources for <code class="docutils literal notranslate"><span class="pre">3.12</span></code>!
+So I switched to trying to build Python <code class="docutils literal notranslate"><span class="pre">3.13.0a5</span></code> instead.</p>
+</div>
+<p>Let’s give it a try and see what breaks…</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>nix<span class="w"> </span>build
+<span class="go">ValueError: WASI-SDK not found; download from https://github.com/WebAssembly/wasi-sdk and/or specify via $WASI_SDK_PATH or --wasi-sdk</span>
+</pre></div>
+</div>
+<p>Of course, we need a compiler capable of emitting WebAssembly!</p>
+</section>
+<section id="compiling-the-compiler">
+<h2>Compiling the Compiler<a class="headerlink" href="#compiling-the-compiler" title="Link to this heading">¶</a></h2>
+<p>I had hoped that the <a class="reference external" href="https://github.com/WebAssembly/wasi-sdk">wasi-sdk</a>, required to compile CPython to WebAssembly, would already be packaged in nixpkgs.
+Unfortunately, despite finding a derivation for
+<a class="reference external" href="https://github.com/NixOS/nixpkgs/blob/d8fe5e6c92d0d190646fb9f1056741a229980089/pkgs/development/libraries/wasilibc/default.nix">wasi-libc</a>,
+the only reference to the SDK itself I could find was
+<a class="reference external" href="https://github.com/NixOS/nixpkgs/issues/182356#issuecomment-1202457048">this issue</a>
+which seems to suggest that you don’t need the full SDK package.</p>
+<p>Indeed, the
+<a class="reference external" href="https://github.com/WebAssembly/wasi-sdk/blob/a50a641f4b5a1398fcc811264272aae5bdd3b763/README.md">README</a>
+for the SDK itself mentions that you can re-use an existing Clang installation by passing a WASI specific <code class="docutils literal notranslate"><span class="pre">sysroot</span></code>
+and “copying the <code class="docutils literal notranslate"><span class="pre">libclang_rt.builtins-wasm32.a</span></code> objects” to a specific location within the Clang installation…</p>
+<p>Since those instructions didn’t mean much to me and since the <code class="docutils literal notranslate"><span class="pre">wasm.py</span></code> build script itself looks like its meant to work with the full SDK build, I decided to bite the bullet and write a derivation for it myself.</p>
+<p>After all, how hard can it be? 😅</p>
+<section id="first-attempt">
+<h3>First Attempt<a class="headerlink" href="#first-attempt" title="Link to this heading">¶</a></h3>
+<p>The instructions for building the SDK were straightforward enough and before long I had put together an initial derivation to try</p>
+<div class="highlight-nix notranslate"><div class="highlight"><pre><span></span><span class="c1"># In ./nix/wasi-sdk.nix</span>
+<span class="p">{</span> fetchFromGitHub
+<span class="p">,</span> stdenv
+<span class="p">,</span> ninja
+<span class="p">,</span> cmake
+<span class="p">}:</span>
+
+<span class="k">let</span>
+  <span class="ss">pname</span> <span class="o">=</span> <span class="s2">&quot;wasi-sdk&quot;</span><span class="p">;</span>
+  <span class="ss">version</span> <span class="o">=</span> <span class="s2">&quot;20&quot;</span><span class="p">;</span>
+<span class="k">in</span>
+
+stdenv<span class="o">.</span>mkDerivation <span class="p">{</span>
+  <span class="k">inherit</span> pname version<span class="p">;</span>
+
+  <span class="ss">src</span> <span class="o">=</span> fetchFromGitHub <span class="p">{</span>
+    <span class="ss">owner</span> <span class="o">=</span> <span class="s2">&quot;WebAssembly&quot;</span><span class="p">;</span>
+    <span class="ss">repo</span> <span class="o">=</span> <span class="s2">&quot;wasi-sdk&quot;</span><span class="p">;</span>
+    <span class="ss">rev</span> <span class="o">=</span> <span class="s2">&quot;refs/tags/wasi-sdk-</span><span class="si">${</span>version<span class="si">}</span><span class="s2">&quot;</span><span class="p">;</span>
+    <span class="ss">hash</span> <span class="o">=</span> <span class="s2">&quot;sha256-Vr/us4HLHsu1jb/vR3aGG/R6l7ffTC89IeGv0+U3fLE=&quot;</span><span class="p">;</span>
+  <span class="p">};</span>
+
+  <span class="ss">nativeBuildInputs</span> <span class="o">=</span> <span class="p">[</span>
+    cmake
+    ninja
+  <span class="p">];</span>
+
+  <span class="ss">buildPhase</span> <span class="o">=</span> <span class="s s-Multiline">&#39;&#39;</span>
+<span class="s s-Multiline">    NINJA_FLAGS=-v make</span>
+<span class="s s-Multiline">  &#39;&#39;</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>However, I got stuck on this error for a while…</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">error: builder for &#39;/nix/store/rkrvgdxrilc130kcsqgl85wsk4qvpv1c-wasi-sdk-20.drv&#39; failed with exit code 1;</span>
+<span class="go">       last 10 log lines:</span>
+<span class="go">       &gt; fixing cmake files...</span>
+<span class="go">       &gt; cmake flags: -DCMAKE_FIND_USE_SYSTEM_PACKAGE_REGISTRY=OFF -DCMAKE_FIND_USE_PACKAGE_REGISTRY=OFF -DCMAKE_EXPORT_NO_PACKAGE_REGISTRY=ON -DCMAKE_BUILD_TYPE=Release -DBUILD_TESTING=OFF -DCMAKE_INSTALL_LOCALEDIR=/nix/store/0wbzj0ks5f9ni2nd2q11f03yv9jimzph-wasi-sdk-20/share/locale -DCMAKE_INSTALL_LIBEXECDIR=/nix/store/0wbzj0ks5f9ni2nd2q11f03yv9jimzph-wasi-sdk-20/libexec -DCMAKE_INSTALL_LIBDIR=/nix/store/0wbzj0ks5f9ni2nd2q11f03yv9jimzph-wasi-sdk-20/lib -DCMAKE_INSTALL_DOCDIR=/nix/store/0wbzj0ks5f9ni2nd2q11f03yv9jimzph-wasi-sdk-20/share/doc/wasi-sdk -DCMAKE_INSTALL_INFODIR=/nix/store/0wbzj0ks5f9ni2nd2q11f03yv9jimzph-wasi-sdk-20/share/info -DCMAKE_INSTALL_MANDIR=/nix/store/0wbzj0ks5f9ni2nd2q11f03yv9jimzph-wasi-sdk-20/share/man -DCMAKE_INSTALL_OLDINCLUDEDIR=/nix/store/0wbzj0ks5f9ni2nd2q11f03yv9jimzph-wasi-sdk-20/include -DCMAKE_INSTALL_INCLUDEDIR=/nix/store/0wbzj0ks5f9ni2nd2q11f03yv9jimzph-wasi-sdk-20/include -DCMAKE_INSTALL_SBINDIR=/nix/store/0wbzj0ks5f9ni2nd2q11f03yv9jimzph-wasi-sdk-20/sbin -DCMAKE_INSTALL_BINDIR=/nix/store/0wbzj0ks5f9ni2nd2q11f03yv9jimzph-wasi-sdk-20/bin -DCMAKE_INSTALL_NAME_DIR=/nix/store/0wbzj0ks5f9ni2nd2q11f03yv9jimzph-wasi-sdk-20/lib -DCMAKE_POLICY_DEFAULT_CMP0025=NEW -DCMAKE_OSX_SYSROOT= -DCMAKE_FIND_FRAMEWORK=LAST -DCMAKE_STRIP=/nix/store/kvlhk0gpm2iz1asbw1xjac2ch0r8kyw9-gcc-wrapper-13.2.0/bin/strip -DCMAKE_RANLIB=/nix/store/kvlhk0gpm2iz1asbw1xjac2ch0r8kyw9-gcc-wrapper-13.2.0/bin/ranlib -DCMAKE_AR=/nix/store/kvlhk0gpm2iz1asbw1xjac2ch0r8kyw9-gcc-wrapper-13.2.0/bin/ar -DCMAKE_C_COMPILER=gcc -DCMAKE_CXX_COMPILER=g++ -DCMAKE_INSTALL_PREFIX=/nix/store/0wbzj0ks5f9ni2nd2q11f03yv9jimzph-wasi-sdk-20</span>
+<span class="go">       &gt; CMake Warning:</span>
+<span class="go">       &gt;   Ignoring extra path from command line:</span>
+<span class="go">       &gt;</span>
+<span class="go">       &gt;    &quot;..&quot;</span>
+<span class="go">       &gt;</span>
+<span class="go">       &gt;</span>
+<span class="go">       &gt; CMake Error: The source directory &quot;/build/source&quot; does not appear to contain CMakeLists.txt.</span>
+<span class="go">       &gt; Specify --help for usage, or press the help button on the CMake GUI.</span>
+<span class="go">       For full logs, run &#39;nix log /nix/store/rkrvgdxrilc130kcsqgl85wsk4qvpv1c-wasi-sdk-20.drv&#39;.</span>
+</pre></div>
+</div>
+<p>It took me longer than I’d like to admit to figure that the build wasn’t even failing in the <code class="docutils literal notranslate"><span class="pre">buildPhase</span></code> I’d specified!</p>
+<p>I discovered that <code class="docutils literal notranslate"><span class="pre">stdenv.mkDerivation</span></code> has a pre-defined <code class="docutils literal notranslate"><span class="pre">configurePhase</span></code> that is included by default.
+Rather than look up the proper way to disable the <code class="docutils literal notranslate"><span class="pre">configurePhase</span></code>, I opted to override it with a simple <code class="docutils literal notranslate"><span class="pre">echo</span></code> command and moved on.</p>
+<div class="highlight-nix notranslate"><div class="highlight"><pre><span></span><span class="c1"># In ./nix/wasi-sdk.nix</span>
+<span class="ss">configurePhase</span> <span class="o">=</span> <span class="s s-Multiline">&#39;&#39;</span>
+<span class="s s-Multiline">  echo &quot;Skipping...&quot;</span>
+<span class="s s-Multiline">&#39;&#39;</span><span class="p">;</span>
+</pre></div>
+</div>
+</section>
+<section id="missing-sources">
+<h3>Missing Sources<a class="headerlink" href="#missing-sources" title="Link to this heading">¶</a></h3>
+<p>Now that the build was actually making it into the <code class="docutils literal notranslate"><span class="pre">buildPhase</span></code> I encountered my first real issue - there were no files under any of the <code class="docutils literal notranslate"><span class="pre">src/</span></code> directories!</p>
+<p>It turns out that the <code class="docutils literal notranslate"><span class="pre">wasi-sdk</span></code> repo is a collection of build scripts which operate on source code defined in other repositories and that code is included via git submodules.
+Not the end of the world, I looked up how to include submodules and updated the derivation</p>
+<div class="highlight-nix notranslate"><div class="highlight"><pre><span></span><span class="c1"># In ./nix/wasi-sdk.nix</span>
+<span class="ss">src</span> <span class="o">=</span> fetchFromGitHub <span class="p">{</span>
+  <span class="ss">owner</span> <span class="o">=</span> <span class="s2">&quot;WebAssembly&quot;</span><span class="p">;</span>
+  <span class="ss">repo</span> <span class="o">=</span> <span class="s2">&quot;wasi-sdk&quot;</span><span class="p">;</span>
+  <span class="ss">rev</span> <span class="o">=</span> <span class="s2">&quot;refs/tags/wasi-sdk-</span><span class="si">${</span>version<span class="si">}</span><span class="s2">&quot;</span><span class="p">;</span>
+  <span class="ss">hash</span> <span class="o">=</span> <span class="s2">&quot;sha256-Vr/us4HLHsu1jb/vR3aGG/R6l7ffTC89IeGv0+U3fLE=&quot;</span><span class="p">;</span>
+  <span class="ss">fetchSubmodules</span> <span class="o">=</span> <span class="no">true</span><span class="p">;</span>
+<span class="p">};</span>
+</pre></div>
+</div>
+<p>And yet, when I reran the build, the source folders were <em>still</em> empty.</p>
+<p>Not sure why, but I can only conclude that the <code class="docutils literal notranslate"><span class="pre">fetchSubmodules</span></code> argument is invisible to however nix detects changes.
+On a hunch I deleted the existing store path for the sources (<code class="docutils literal notranslate"><span class="pre">nix-store</span> <span class="pre">--delete</span> <span class="pre">/nix/store/&lt;hash&gt;-source</span></code>) and tried again, leading to the most cryptic git error I’ve seen in a while…</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">error: Server does not allow request for unadvertised object d546e3f738e14c62e732346fa355162d46700893</span>
+</pre></div>
+</div>
+<p>I have no idea why it works, but I was lucky enough to stumble across <a class="reference external" href="https://github.com/NixOS/nixpkgs/issues/100498#issuecomment-1846499310">this comment</a> and tried including the <code class="docutils literal notranslate"><span class="pre">leaveDotGit</span> <span class="pre">=</span> <span class="pre">true</span></code> argument.</p>
+<div class="highlight-nix notranslate"><div class="highlight"><pre><span></span><span class="c1"># In ./nix/wasi-sdk.nix</span>
+<span class="ss">src</span> <span class="o">=</span> fetchFromGitHub <span class="p">{</span>
+  <span class="ss">owner</span> <span class="o">=</span> <span class="s2">&quot;WebAssembly&quot;</span><span class="p">;</span>
+  <span class="ss">repo</span> <span class="o">=</span> <span class="s2">&quot;wasi-sdk&quot;</span><span class="p">;</span>
+  <span class="ss">rev</span> <span class="o">=</span> <span class="s2">&quot;refs/tags/wasi-sdk-</span><span class="si">${</span>version<span class="si">}</span><span class="s2">&quot;</span><span class="p">;</span>
+  <span class="ss">hash</span> <span class="o">=</span> <span class="s2">&quot;sha256-Vr/us4HLHsu1jb/vR3aGG/R6l7ffTC89IeGv0+U3fLE=&quot;</span><span class="p">;</span>
+  <span class="ss">fetchSubmodules</span> <span class="o">=</span> <span class="no">true</span><span class="p">;</span>
+  <span class="ss">leaveDotGit</span> <span class="o">=</span> <span class="no">true</span><span class="p">;</span>
+<span class="p">};</span>
+</pre></div>
+</div>
+<p>It took <strong>hours</strong> to fully clone the repo and all of its submodules but I was finally able to get the source code downloaded (and thankfully!) cached in <code class="docutils literal notranslate"><span class="pre">/nix/store</span></code> 🎉</p>
+</section>
+<section id="install-time">
+<h3>Install Time<a class="headerlink" href="#install-time" title="Link to this heading">¶</a></h3>
+<p>Once the source was available, getting it to build was actually quite easy, the only build dependency I needed add in addition to those on the project’s README was python.</p>
+<p>The next issue showed up during the <code class="docutils literal notranslate"><span class="pre">installPhase</span></code></p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">error: builder for &#39;/nix/store/b9mxjw6l57frlk21xc5dgvvrf8f8issj-wasi-sdk-20.drv&#39; failed with exit code 1;</span>
+<span class="go">       last 10 log lines:</span>
+<span class="go">       &gt; mkdir -p /build/source/build/install/opt/wasi-sdk/share/misc</span>
+<span class="go">       &gt; cp src/config/config.sub src/config/config.guess /build/source/build/install/opt/wasi-sdk/share/misc</span>
+<span class="go">       &gt; mkdir -p /build/source/build/install/opt/wasi-sdk/share/cmake</span>
+<span class="go">       &gt; cp wasi-sdk.cmake /build/source/build/install/opt/wasi-sdk/share/cmake</span>
+<span class="go">       &gt; cp wasi-sdk-pthread.cmake /build/source/build/install/opt/wasi-sdk/share/cmake</span>
+<span class="go">       &gt; touch build/config.BUILT</span>
+<span class="go">       &gt; buildPhase completed in 2 hours 35 minutes 4 seconds</span>
+<span class="go">       &gt; Running phase: installPhase</span>
+<span class="go">       &gt; install flags: -j4 install</span>
+<span class="go">       &gt; ninja: error: loading &#39;build.ninja&#39;: No such file or directory</span>
+<span class="go">       For full logs, run &#39;nix log /nix/store/b9mxjw6l57frlk21xc5dgvvrf8f8issj-wasi-sdk-20.drv&#39;.</span>
+</pre></div>
+</div>
+<p>Which in hindsight, was to be expected as the project’s <code class="docutils literal notranslate"><span class="pre">Makefile</span></code> doesn’t define an <code class="docutils literal notranslate"><span class="pre">install</span></code> target.
+Taking a peek at the <code class="docutils literal notranslate"><span class="pre">wasi.py</span></code> script and the build artifacts <a class="reference external" href="https://github.com/WebAssembly/wasi-sdk/releases">published</a> on GitHub, I came up with the following</p>
+<div class="highlight-nix notranslate"><div class="highlight"><pre><span></span><span class="c1"># In ./nix/wasi-sdk.nix</span>
+<span class="ss">installPhase</span> <span class="o">=</span> <span class="s s-Multiline">&#39;&#39;</span>
+<span class="s s-Multiline">  mkdir $out</span>
+<span class="s s-Multiline">  cp -r build/install/opt $out/opt</span>
+<span class="s s-Multiline">&#39;&#39;</span><span class="p">;</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="building-python">
+<h2>Building Python<a class="headerlink" href="#building-python" title="Link to this heading">¶</a></h2>
+<p>Where were we?.. Oh yes, building Python!
+Now that we’ve built the <code class="docutils literal notranslate"><span class="pre">wasi-sdk</span></code> we just need to make it available to the build</p>
+<div class="highlight-nix notranslate"><div class="highlight"><pre><span></span><span class="c1"># In ./nix/to-wasi-build.nix</span>
+<span class="ss">buildPhase</span> <span class="o">=</span> <span class="s s-Multiline">&#39;&#39;</span>
+<span class="s s-Multiline"> WASI_SDK_PATH=</span><span class="si">${</span>wasi-sdk<span class="si">}</span><span class="s s-Multiline">/opt/wasi-sdk </span><span class="si">${</span>python<span class="si">}</span><span class="s s-Multiline">/bin/python Tools/wasm/wasi.py build</span>
+<span class="s s-Multiline">&#39;&#39;</span><span class="p">;</span>
+</pre></div>
+</div>
+<p>Run it again to see what fails</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">error: builder for &#39;/nix/store/yrj06fy21g8lav1yif1ib5fycbnc34n8-python3-3.13.0a5.drv&#39; failed with exit code 1;</span>
+<span class="go">       last 10 log lines:</span>
+<span class="go">       &gt;                         pass_fds, cwd, env,</span>
+<span class="go">       &gt;                         ^^^^^^^^^^^^^^^^^^^</span>
+<span class="go">       &gt;     ...&lt;5 lines&gt;...</span>
+<span class="go">       &gt;                         gid, gids, uid, umask,</span>
+<span class="go">       &gt;                         ^^^^^^^^^^^^^^^^^^^^^^</span>
+<span class="go">       &gt;                         start_new_session, process_group)</span>
+<span class="go">       &gt;                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^</span>
+<span class="go">       &gt;   File &quot;/nix/store/6azrwi0qmbs62w9k7yxrjrvhc28v20kh-python3-3.13.0a5/lib/python3.13/subprocess.py&quot;, line 1959, in _execute_child</span>
+<span class="go">       &gt;     raise child_exception_type(errno_num, err_msg, err_filename)</span>
+<span class="go">       &gt; FileNotFoundError: [Errno 2] No such file or directory: &#39;git&#39;</span>
+</pre></div>
+</div>
+<p>Add the missing <code class="docutils literal notranslate"><span class="pre">git</span></code> dependency</p>
+<div class="highlight-nix notranslate"><div class="highlight"><pre><span></span><span class="c1"># In ./nix/to-wasi-build.nix</span>
+<span class="ss">nativeBuildInputs</span> <span class="o">=</span> prev<span class="o">.</span>nativeBuildInputs <span class="o">++</span> <span class="p">[</span>
+  git
+<span class="p">]</span>
+</pre></div>
+</div>
+<p>At this point, it looks like the build is going well.</p>
+<p>I don’t fully understand why, but the <code class="docutils literal notranslate"><span class="pre">wasi.py</span></code> script actually builds Python twice, the first is (I think) compiled for the host machine and somehow helps to build the second interpreter, which is the actual WASI version we’re interested in.</p>
+<p>The first interpreter builds without issue, but when it comes to the WASI version…</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">python3&gt; checking whether the C compiler works... no</span>
+<span class="go">python3&gt; configure: error: in &#39;/build/Python-3.13.0a5/cross-build/wasm32-wasi&#39;:</span>
+<span class="go">python3&gt; configure: error: C compiler cannot create executables</span>
+</pre></div>
+</div>
+<p>I’m fairly sure that’s something a compiler should be able to do! 😅</p>
+</section>
+<section id="compiling-the-compiler-again">
+<h2>Compiling the Compiler, Again!<a class="headerlink" href="#compiling-the-compiler-again" title="Link to this heading">¶</a></h2>
+<p>To try and narrow down where the issue was, I attempted to compile a simple “Hello, World!” C program using the compiler I just built from the <code class="docutils literal notranslate"><span class="pre">wasi-sdk</span></code>.</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>/nix/store/7552vglan9dha3gbw3d57d62nlbcy4ra-wasi-sdk-20/opt/wasi-sdk/bin/clang<span class="w"> </span>main.c<span class="w"> </span>-I<span class="w"> </span>/nix/store/7552vglan9dha3gbw3d57d62nlbcy4ra-wasi-sdk-20/opt/wasi-sdk/share/wasi-sysroot/include/
+<span class="go">wasm-ld: error: cannot open crt1.o: No such file or directory</span>
+<span class="go">wasm-ld: error: unable to find library -lc</span>
+<span class="go">wasm-ld: error: cannot open /nix/store/7552vglan9dha3gbw3d57d62nlbcy4ra-wasi-sdk-20/opt/wasi-sdk/lib/clang/16/lib/wasi/libclang_rt.builtins-wasm32.a: No such file or directory</span>
+<span class="go">clang-16: error: linker command failed with exit code 1 (use -v to see invocation)</span>
+</pre></div>
+</div>
+<p>Ok… so something is wrong with the build, I checked and indeed, the file it’s looking for is definitely missing…</p>
+<p>Comparing my result with the version available from the project itself, I notice that the right files are being produced, but for some reason they’re in the wrong place.
+Specifically, my copy of <code class="docutils literal notranslate"><span class="pre">libclang_rt.builtins-wasm32.a</span></code> is in <code class="docutils literal notranslate"><span class="pre">lib/clang/lib/wasi</span></code> when it should be in <code class="docutils literal notranslate"><span class="pre">lib/clang/16/lib/wasi</span></code>…</p>
+<p>Spending some time reading the project’s
+<a class="reference external" href="https://github.com/WebAssembly/wasi-sdk/blob/2d7853c64b0b118d71764b132df1593c2c7545bf/Makefile">Makefile</a>
+I eventually spot the <code class="docutils literal notranslate"><span class="pre">CLANG_VERSION</span></code> variable used throughout the <code class="docutils literal notranslate"><span class="pre">build/comiler-rt</span></code> target</p>
+<div class="highlight-make notranslate"><div class="highlight"><pre><span></span><span class="nf">build/compiler-rt.BUILT</span><span class="o">:</span><span class="w"> </span><span class="n">build</span>/<span class="n">llvm</span>.<span class="n">BUILT</span>
+<span class="c">    # Do the build, and install it.</span>
+<span class="w">    </span>mkdir<span class="w"> </span>-p<span class="w"> </span>build/compiler-rt
+<span class="w">    </span><span class="nb">cd</span><span class="w"> </span>build/compiler-rt<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span>cmake<span class="w"> </span>-G<span class="w"> </span>Ninja<span class="w"> </span><span class="se">\</span>
+<span class="w">            </span>...
+<span class="w">            </span>-DCMAKE_INSTALL_PREFIX<span class="o">=</span><span class="k">$(</span>PREFIX<span class="k">)</span>/lib/clang/<span class="k">$(</span>CLANG_VERSION<span class="k">)</span>/<span class="w"> </span><span class="se">\</span>
+<span class="w">            </span>...
+<span class="w">    </span><span class="nv">DESTDIR</span><span class="o">=</span><span class="k">$(</span>DESTDIR<span class="k">)</span><span class="w"> </span>ninja<span class="w"> </span><span class="k">$(</span>NINJA_FLAGS<span class="k">)</span><span class="w"> </span>-C<span class="w"> </span>build/compiler-rt<span class="w"> </span>install
+<span class="c">    # Install clang-provided headers.</span>
+<span class="w">    </span>cp<span class="w"> </span>-R<span class="w"> </span><span class="k">$(</span>ROOT_DIR<span class="k">)</span>/build/llvm/lib/clang<span class="w"> </span><span class="k">$(</span>BUILD_PREFIX<span class="k">)</span>/lib/
+<span class="w">    </span>cp<span class="w"> </span>-R<span class="w"> </span><span class="k">$(</span>BUILD_PREFIX<span class="k">)</span>/lib/clang/<span class="k">$(</span>CLANG_VERSION<span class="k">)</span>/lib/wasi<span class="w"> </span><span class="k">$(</span>BUILD_PREFIX<span class="k">)</span>/lib/clang/<span class="k">$(</span>CLANG_VERSION<span class="k">)</span>/lib/wasip1
+<span class="w">    </span>cp<span class="w"> </span>-R<span class="w"> </span><span class="k">$(</span>BUILD_PREFIX<span class="k">)</span>/lib/clang/<span class="k">$(</span>CLANG_VERSION<span class="k">)</span>/lib/wasi<span class="w"> </span><span class="k">$(</span>BUILD_PREFIX<span class="k">)</span>/lib/clang/<span class="k">$(</span>CLANG_VERSION<span class="k">)</span>/lib/wasip2
+<span class="w">    </span>touch<span class="w"> </span>build/compiler-rt.BUILT
+</pre></div>
+</div>
+<p>If <code class="docutils literal notranslate"><span class="pre">CLANG_VERSION</span></code> were not set, that would definitely explain the results I’m seeing…</p>
+<div class="highlight-make notranslate"><div class="highlight"><pre><span></span><span class="nv">CLANG_VERSION</span><span class="o">=</span><span class="k">$(</span>shell<span class="w"> </span><span class="k">$(</span>BASH<span class="k">)</span><span class="w"> </span>./llvm_version_major.sh<span class="w"> </span><span class="k">$(</span>LLVM_PROJ_DIR<span class="k">))</span>
+<span class="nv">VERSION</span><span class="o">:=</span><span class="k">$(</span>shell<span class="w"> </span><span class="k">$(</span>BASH<span class="k">)</span><span class="w"> </span>./version.sh<span class="k">)</span>
+</pre></div>
+</div>
+<p>Hmm, I guess this script must be failing…</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>nix<span class="w"> </span>log<span class="w"> </span>/nix/store/li46r4ib0fqk26i71p9ab906iiakzwpm-wasi-sdk-20.drv
+<span class="go">...</span>
+<span class="go">wasi-sdk&gt; Running phase: buildPhase</span>
+<span class="go">wasi-sdk&gt; make: ./version.sh: No such file or directory</span>
+<span class="go">wasi-sdk&gt; make: ./llvm_version_major.sh: No such file or directory</span>
+</pre></div>
+</div>
+<p>Why this is not considered to be an error severe enough to halt the build I have no idea!</p>
+<p>Anyway, it took me a <strong>long</strong> time to figure out why <code class="docutils literal notranslate"><span class="pre">make</span></code> couldn’t find the scripts - they were clearly in the project’s source! I could even <code class="docutils literal notranslate"><span class="pre">cat</span></code> their contents!!</p>
+<p>Eventually I realised, that the file or directory <code class="docutils literal notranslate"><span class="pre">make</span></code> was unable to find, wasn’t the scripts themselves, it was <code class="docutils literal notranslate"><span class="pre">/bin/bash</span></code> specified by the shebang on the first line of each script! 😭
+After <em>much</em> trial and error, I came up with the following hacks to modify the scripts so that they would behave in a Nix context</p>
+<div class="highlight-nix notranslate"><div class="highlight"><pre><span></span><span class="ss">postPatch</span> <span class="o">=</span> <span class="s s-Multiline">&#39;&#39;</span>
+<span class="s s-Multiline">  substituteInPlace llvm_version_major.sh \</span>
+<span class="s s-Multiline">    --replace-fail /bin/bash &quot;!</span><span class="si">${</span>bash<span class="si">}</span><span class="s s-Multiline">/bin/bash&quot;</span>
+
+<span class="s s-Multiline">  cat &lt;&lt; EOF &gt; version.sh</span>
+<span class="s s-Multiline">  #!</span><span class="si">${</span>bash<span class="si">}</span><span class="s s-Multiline">/bin/bash</span>
+<span class="s s-Multiline">  echo &quot;</span><span class="si">${</span>version<span class="si">}</span><span class="s s-Multiline">&quot;</span>
+<span class="s s-Multiline">  EOF</span>
+<span class="s s-Multiline">&#39;&#39;</span><span class="p">;</span>
+</pre></div>
+</div>
+</section>
+<section id="building-python-continued">
+<h2>Building Python, Continued<a class="headerlink" href="#building-python-continued" title="Link to this heading">¶</a></h2>
+<p>After finally producing a WASI compiler that could… well, compile, I switched back to the Python build.
+It seemed to be working perfectly, right up until the final step of the <code class="docutils literal notranslate"><span class="pre">make_wasi_python</span></code> function.</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">python-wasi&gt; Error: failed to create cache directory: /homeless-shelter/.cache/wasmtime</span>
+<span class="go">python-wasi&gt; Caused by:</span>
+<span class="go">python-wasi&gt;     Permission denied (os error 13)</span>
+<span class="go">python-wasi&gt; Traceback (most recent call last):</span>
+<span class="go">python-wasi&gt;   File &quot;/build/Python-3.13.0a5/Tools/wasm/wasi.py&quot;, line 347, in &lt;module&gt;</span>
+<span class="go">python-wasi&gt;     main()</span>
+<span class="go">python-wasi&gt;     ~~~~^^</span>
+<span class="go">python-wasi&gt;   File &quot;/build/Python-3.13.0a5/Tools/wasm/wasi.py&quot;, line 343, in main</span>
+<span class="go">python-wasi&gt;     dispatch[context.subcommand](context)</span>
+<span class="go">python-wasi&gt;     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^</span>
+<span class="go">python-wasi&gt;   File &quot;/build/Python-3.13.0a5/Tools/wasm/wasi.py&quot;, line 265, in build_all</span>
+<span class="go">python-wasi&gt;     step(context)</span>
+<span class="go">python-wasi&gt;     ~~~~^^^^^^^^^</span>
+<span class="go">python-wasi&gt;   File &quot;/build/Python-3.13.0a5/Tools/wasm/wasi.py&quot;, line 79, in wrapper</span>
+<span class="go">python-wasi&gt;     return func(context, working_dir)</span>
+<span class="go">python-wasi&gt;            ~~~~^^^^^^^^^^^^^^^^^^^^^^</span>
+<span class="go">python-wasi&gt;   File &quot;/build/Python-3.13.0a5/Tools/wasm/wasi.py&quot;, line 257, in make_wasi_python</span>
+<span class="go">python-wasi&gt;     subprocess.check_call([exec_script, &quot;--version&quot;])</span>
+<span class="go">python-wasi&gt;     ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^</span>
+<span class="go">python-wasi&gt;   File &quot;/nix/store/6azrwi0qmbs62w9k7yxrjrvhc28v20kh-python3-3.13.0a5/lib/python3.13/subprocess.py&quot;, line 4</span>
+<span class="go">17, in check_call</span>
+<span class="go">python-wasi&gt;     raise CalledProcessError(retcode, cmd)</span>
+<span class="go">python-wasi&gt; subprocess.CalledProcessError: Command &#39;[PosixPath(&#39;/build/Python-3.13.0a5/cross-build/wasm32-wasi/python.</span>
+<span class="go">sh&#39;), &#39;--version&#39;]&#39; returned non-zero exit status 1.</span>
+</pre></div>
+</div>
+<p>This step tries to execute a <code class="docutils literal notranslate"><span class="pre">wasmtime</span> <span class="pre">run</span></code> command that had been written to a shell script during the configure step of the build - something that isn’t going to work out of the box in Nix context.</p>
+<p>The easiest thing to do is to modify the script to simply not call it, especially when it’s only doing the equivalent of <code class="docutils literal notranslate"><span class="pre">python</span> <span class="pre">--version</span></code>.</p>
+<div class="highlight-nix notranslate"><div class="highlight"><pre><span></span><span class="ss">postPatch</span> <span class="o">=</span> <span class="s s-Multiline">&#39;&#39;</span>
+<span class="s s-Multiline">  substituteInPlace Tools/wasm/wasi.py \</span>
+<span class="s s-Multiline">    --replace-fail &#39;subprocess.check_call([exec_script, &quot;--version&quot;])&#39; &quot;&quot;</span>
+<span class="s s-Multiline">&#39;&#39;</span><span class="p">;</span>
+</pre></div>
+</div>
+<p>Finally, all that remains is to copy the build artifacts to the derivation’s <code class="docutils literal notranslate"><span class="pre">$out</span></code> directory.
+This was less straightforward than I was expecting simply because Python’s standard library is not automatically copied into a <code class="docutils literal notranslate"><span class="pre">lib/python3.x</span></code> folder as you might expect.</p>
+<p>However, thanks to Brett Cannon’s
+<a class="reference external" href="https://github.com/brettcannon/cpython-wasi-build/blob/main/.github/workflows/release.yml">existing build pipeline</a>
+I had something I could reference.</p>
+<div class="highlight-nix notranslate"><div class="highlight"><pre><span></span><span class="ss">installPhase</span> <span class="o">=</span> <span class="s s-Multiline">&#39;&#39;</span>
+<span class="s s-Multiline">  export LIB_DIR=$out/lib/python</span><span class="si">${</span>lib<span class="o">.</span>versions<span class="o">.</span>majorMinor prev<span class="o">.</span>version<span class="si">}</span>
+<span class="s s-Multiline">  mkdir -p $LIB_DIR/site-packages</span>
+
+<span class="s s-Multiline">  cp cross-build/wasm32-wasi/python.wasm $out</span>
+
+<span class="s s-Multiline">  cp -r Lib/* $LIB_DIR</span>
+<span class="s s-Multiline">  mkdir $LIB_DIR/lib-dynload</span>
+
+<span class="s s-Multiline">  pushd $LIB_DIR</span>
+<span class="s s-Multiline">  rm -rf curses/ \</span>
+<span class="s s-Multiline">         ctypes/test/ \</span>
+<span class="s s-Multiline">         ensurepip/ \</span>
+<span class="s s-Multiline">         distutils/ \</span>
+<span class="s s-Multiline">         idlelib/ \</span>
+<span class="s s-Multiline">         lib2to3/ \</span>
+<span class="s s-Multiline">         multiprocessing/ \</span>
+<span class="s s-Multiline">         test/ \</span>
+<span class="s s-Multiline">         tkinter/ \</span>
+<span class="s s-Multiline">         turtledemo/ \</span>
+<span class="s s-Multiline">         unittest/test/ \</span>
+<span class="s s-Multiline">         venv/</span>
+
+<span class="s s-Multiline">  find -name __pycache__ -exec rm -rf {} \;</span>
+<span class="s s-Multiline">  popd</span>
+
+<span class="s s-Multiline">  cp cross-build/wasm32-wasi/build/lib.wasi-wasm32-*/_sysconfigdata_*.py $LIB_DIR</span>
+
+<span class="s s-Multiline">&#39;&#39;</span><span class="p">;</span>
+</pre></div>
+</div>
+<p>However, the result this breaks the rules…</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>nix<span class="w"> </span>build
+<span class="go">error: output &#39;/nix/store/x3j1wpiqf1fcqzw24ww2qmr50a5mxfi5-python-wasi-3.13.0a5&#39; is not allowed to refer to the following paths:</span>
+<span class="go">    /nix/store/yg75achq89wgqn2fi3gglgsd77kjpi03-openssl-3.0.13-dev</span>
+</pre></div>
+</div>
+</section>
+<section id="running-it">
+<h2>Running it<a class="headerlink" href="#running-it" title="Link to this heading">¶</a></h2>
+<p>Assuming that the build is equivalent to one I was using previously, everything should be identical from here on out.
+However, <code class="docutils literal notranslate"><span class="pre">wasmtime</span></code> has changed its CLI slightly since I tried it last.</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp gp-VirtualEnv">(nix-shell)</span> <span class="go">&gt; python</span>
+<span class="go">warning: this CLI invocation of Wasmtime will be parsed differently in future</span>
+<span class="go">         Wasmtime versions -- see this online issue for more information:</span>
+<span class="go">         https://github.com/bytecodealliance/wasmtime/issues/7384</span>
+
+<span class="go">         Wasmtime will now execute with the old (&lt;= Wasmtime 13) CLI parsing,</span>
+<span class="go">         however this behavior can also be temporarily configured with an</span>
+<span class="go">         environment variable:</span>
+
+<span class="go">         - WASMTIME_NEW_CLI=0 to indicate old semantics are desired and silence this warning, or</span>
+<span class="go">         - WASMTIME_NEW_CLI=1 to indicate new semantics are desired and use the latest behavior</span>
+<span class="go">Python 3.13.0a5 (main, Mar 12 2024, 20:11:08) [Clang 16.0.0 ] on wasi</span>
+<span class="go">Type &quot;help&quot;, &quot;copyright&quot;, &quot;credits&quot; or &quot;license&quot; for more information.</span>
+<span class="go">&gt;&gt;&gt;</span>
+</pre></div>
+</div>
+<p>So, a few tweaks to the wrapper derivation are in order.</p>
+<ul class="simple">
+<li><p>Rather than hardcoding the <code class="docutils literal notranslate"><span class="pre">lib/python3.x</span></code> path, let’s compute is based on the Python version</p></li>
+<li><p>Enable <code class="docutils literal notranslate"><span class="pre">WASI</span> <span class="pre">Preview</span> <span class="pre">2</span> <span class="pre">&lt;https://github.com/WebAssembly/WASI/blob/main/preview2/README.md&gt;`__</span> <span class="pre">``--wasi</span> <span class="pre">preview2</span></code></p></li>
+<li><p>All arguments to <code class="docutils literal notranslate"><span class="pre">wasmtime</span></code> itself, must come before the <code class="docutils literal notranslate"><span class="pre">*.wasm</span></code> binary itself.</p></li>
+</ul>
+</section>
+</section>
+
+
+</article>
+
+    </div>
+
+    <footer class="site">
+      <div>
+        <h6>Links</h6>
+        <ul>
+          <li>
+            <a href="../../_sources/content/20240410T120000==4=7--python-wasi-build__nix_python_wasi.rst.txt" rel="nofollow">
+              Page Source
+            </a>
+          </li>
+          <li>
+            <a href="https://github.com/alcarney/blog" rel="nofollow">
+              Source Code
+            </a>
+          </li>
+        </ul>
+      </div>
+
+      <div>
+        <h6>
+          Built with
+        </h6>
+        <ul>
+          <li>
+            <a href="https://www.sphinx-doc.org/en/master/">
+              Sphinx
+            </a>
+            v8.2.3
+          </li>
+          <li>
+            <a href="https://feathericons.com/">
+              Feather Icons
+            </a>
+          </li>
+        </ul>
+      </div>
+    </footer>
+</div>
+  </body>
+</html>
