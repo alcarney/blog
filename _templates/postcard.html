@@ -1,10 +1,10 @@
 {%- if record %}
-<section class="post-metadata">
+<section id="post-metadata">
     <h5 style="grid-column: span 2">Metadata</h5>
-    {%- include "icon_calendar.html" %}
+    {%- include "icons/calendar.html" %}
     <time style="align-self: center; text-align: right;" datetime="{{ record.timestamp }}">{{ record.timestamp.strftime('%b %d, %Y') }}</time>
 
-    {%- include "icon_tag.html" %}
+    {%- include "icons/tag.html" %}
     <ul class="taglist">
         {%- for tag in record.tags %}
         <li>

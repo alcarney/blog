@@ -1,0 +1,19 @@
+{#
+ Dervied from: https://github.com/sphinx-doc/sphinx/blob/cc7c6f435ad37bb12264f8118c8461b230e6830c/sphinx/themes/basic/searchfield.html
+#}
+<section id="search-field" style="display: none">
+  <h5 id="searchlabel">Search</h5>
+
+  <search id="searchbox" role="search">
+    <form action="{{ pathto('search') }}" method="get">
+      <input type="search" name="q"
+             aria-labelledby="searchlabel"
+             placeholder=""/>
+      <button type="submit">
+        {%- include "icons/search.html" %}
+      </button>
+    </form>
+  </search>
+
+</section>
+<script>document.getElementById('search-field').style.display = "block"</script>
