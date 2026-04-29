@@ -339,6 +339,10 @@ div.sidebar > section {
     margin-bottom: 1em;
 }
 
+div.sidebar h5 {
+    font-weight: normal;
+}
+
 section.post-metadata {
     display: grid;
     grid-template-columns: 2em auto;
@@ -492,12 +496,31 @@ nav.site li {
 }
 
 /* -- Related Pages -- */
+#post-related {
+    padding: 0;
+}
+
+#post-related a {
+    color: var(--fg-sidebar);
+    border-right: solid 5px var(--bg-sidebar);
+    display: inline-block;
+    width: 100%;
+    overflow: hidden;
+    text-wrap: nowrap;
+    text-overflow: ellipsis;
+}
+
+#post-related a.current {
+    color: var(--fg-accent);
+    border-color: var(--fg-accent);
+}
+
+#post-related ul {
+    padding: 0 0 0 1em;
+}
 
 #post-related li {
-    list-style-position: inside;
-    /* Hack to get the text to wrap inline with the list marker */
-    padding-left: 1.1em;
-    text-indent: -1.1em;
+    list-style: disc;
 }
 
 /* -- Inline Code & Code blocks -- */
