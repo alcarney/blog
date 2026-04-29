@@ -445,7 +445,6 @@ nav.site ul {
 nav.site li {
     padding: 0.5em;
     list-style: none;
-
 }
 
 /* -- Local Table of Contents -- */
@@ -455,8 +454,9 @@ nav.site li {
 
 #localtoc a {
     color: var(--fg-sidebar);
-    padding: 0 0.5em;
-    border-left: solid 5px var(--bg-sidebar);
+    border-right: solid 5px var(--bg-sidebar);
+    display: inline-block;
+    width: calc(100% - 20px); /* Need to leave room for the list-marker */
 }
 
 #localtoc a.current {
@@ -465,18 +465,24 @@ nav.site li {
 }
 
 #localtoc ul {
-    padding: 0 0.5em;
+    padding: 0 0 0 1em;
 }
 
 #localtoc li {
-    list-style: none;
-    padding: 0.1em 0.5em;
+    padding: 0.1em 0em;
+    list-style: disc inside;
 }
+
 
 #localtoc > ul,
 #localtoc > ul > li,
-#localtoc > ul > li > a {
+#localtoc > ul > li > a,
+#localtoc > ul > li > ul {
     padding: 0;
+}
+
+#localtoc > ul > li {
+    list-style: none;
 }
 
 #localtoc > ul > li > a {
