@@ -9,7 +9,7 @@
     <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=02ca0aaa" />
     <link id="pygments_dark_css" media="(prefers-color-scheme: dark)" rel="stylesheet" type="text/css" href="../../_static/pygments_dark.css?v=d8568271" />
     <link rel="stylesheet" type="text/css" href="../../_static/awdur-styles.css?v=21b80da3" />
-    <link rel="stylesheet" type="text/css" href="../../_static/css/layout.css?v=c916e4ff" />
+    <link rel="stylesheet" type="text/css" href="../../_static/css/layout.css?v=b3f059f1" />
 
     <script src="../../_static/documentation_options.js?v=187304be"></script>
     <script src="../../_static/doctools.js?v=9bcbadda"></script>
@@ -67,28 +67,41 @@
     </svg>
   </a>
 </nav>
-</div>
-<search id="searchbox" style="display: none" role="search">
-    <div class="searchformwrapper">
-    <form class="search" action="../../search/" method="get">
-      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" placeholder="Search"/>
-      <input type="submit" value="Go" />
+</div><section id="site-navigation">
+  <nav class="site">
+    <ul>
+      <li>
+        <a href="/blog">Blog</a>
+      </li>
+      <li>
+        <a href="/code">Code</a>
+      </li>
+      <li>
+        <a href="/notes">Notes</a>
+      </li>
+    </ul>
+  </nav>
+</section>
+<section id="search-field" style="display: none">
+  <h5 id="searchlabel">Search</h5>
+
+  <search id="searchbox" role="search">
+    <form action="../../search/" method="get">
+      <input type="search" name="q"
+             aria-labelledby="searchlabel"
+             placeholder=""/>
+      <button type="submit"><svg xmlns="http://www.w3.org/2000/svg" width="2em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" >
+  <g transform-origin="center" transform="scale(-1, 1)">
+    <circle cx="11" cy="11" r="8"></circle>
+    <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+  </g>
+</svg>
+      </button>
     </form>
-    </div>
-</search>
-<script>document.getElementById('searchbox').style.display = "block"</script><nav class="site">
-  <ul>
-    <li>
-      <a href="/blog">Blog</a>
-    </li>
-    <li>
-      <a href="/code">Code</a>
-    </li>
-    <li>
-      <a href="/notes">Notes</a>
-    </li>
-  </ul>
-</nav><section class="archive">
+  </search>
+
+</section>
+<script>document.getElementById('search-field').style.display = "block"</script><section id="blog-archive">
   <h5>Archive</h5>
   <ul>
   
@@ -179,7 +192,7 @@
     </header>
     <aside>
         
-<section class="post-metadata">
+<section id="post-metadata">
     <h5 style="grid-column: span 2">Metadata</h5><svg xmlns="http://www.w3.org/2000/svg" width="2em" fill="none" viewBox="0 0 24 24" stroke="currentColor">
     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
 </svg>
@@ -463,7 +476,7 @@ Surely it must be possible to capture the contents of a terminal window and then
     </header>
     <aside>
         
-<section class="post-metadata">
+<section id="post-metadata">
     <h5 style="grid-column: span 2">Metadata</h5><svg xmlns="http://www.w3.org/2000/svg" width="2em" fill="none" viewBox="0 0 24 24" stroke="currentColor">
     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
 </svg>
@@ -518,7 +531,7 @@ Surely it must be possible to capture the contents of a terminal window and then
     </header>
     <aside>
         
-<section class="post-metadata">
+<section id="post-metadata">
     <h5 style="grid-column: span 2">Metadata</h5><svg xmlns="http://www.w3.org/2000/svg" width="2em" fill="none" viewBox="0 0 24 24" stroke="currentColor">
     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
 </svg>
@@ -568,7 +581,7 @@ It was only after a closer look did I realise that despite specifying the <code 
     </header>
     <aside>
         
-<section class="post-metadata">
+<section id="post-metadata">
     <h5 style="grid-column: span 2">Metadata</h5><svg xmlns="http://www.w3.org/2000/svg" width="2em" fill="none" viewBox="0 0 24 24" stroke="currentColor">
     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
 </svg>
@@ -617,7 +630,7 @@ It was only after a closer look did I realise that despite specifying the <code 
     </header>
     <aside>
         
-<section class="post-metadata">
+<section id="post-metadata">
     <h5 style="grid-column: span 2">Metadata</h5><svg xmlns="http://www.w3.org/2000/svg" width="2em" fill="none" viewBox="0 0 24 24" stroke="currentColor">
     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
 </svg>
@@ -666,7 +679,7 @@ By simply reading the <a class="reference external" href="https://magit.vc/manua
     </header>
     <aside>
         
-<section class="post-metadata">
+<section id="post-metadata">
     <h5 style="grid-column: span 2">Metadata</h5><svg xmlns="http://www.w3.org/2000/svg" width="2em" fill="none" viewBox="0 0 24 24" stroke="currentColor">
     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
 </svg>
@@ -710,7 +723,7 @@ By simply reading the <a class="reference external" href="https://magit.vc/manua
     </header>
     <aside>
         
-<section class="post-metadata">
+<section id="post-metadata">
     <h5 style="grid-column: span 2">Metadata</h5><svg xmlns="http://www.w3.org/2000/svg" width="2em" fill="none" viewBox="0 0 24 24" stroke="currentColor">
     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
 </svg>

@@ -336,27 +336,31 @@ aside div.sidebar {
 }
 
 div.sidebar > section {
-    margin-bottom: 1em;
+    margin-bottom: 2em;
 }
 
-section.post-metadata {
+div.sidebar h5 {
+    font-weight: normal;
+}
+
+#post-metadata {
     display: grid;
     grid-template-columns: 2em auto;
 }
 
-section.archive ul {
+#blog-archive ul {
     padding: 0;
     display: grid;
     grid-template-columns: repeat(3, 1fr);
 }
 
-section.archive li {
+#blog-archive li {
     padding: 1em 0;
     list-style: none;
     text-align: center;
 }
 
-section.archive span.count {
+#blog-archive span.count {
     color: var(--fg-sidebar);
 }
 
@@ -382,28 +386,30 @@ nav.social a {
 }
 
 /* -- Search box -- */
-search {
-    padding: 1em;
-    padding-top: 0.5em;
+search form {
+    display: flex;
 }
 
-search input[type="text"] {
+search input[type="search"] {
     padding: 0.5em;
     font-size: 1rem;
     color: var(--fg-sidebar);
     background: #0d1117;
     border: solid 1px var(--border-color);
-    border-radius: 5px;
+    border-radius: 5px 0 0 5px;
     width: 100%;
 }
 
-search input[type="text"]:focus {
+search input[type="search"]:focus {
     outline: transparent;
     border-color: var(--fg-accent);
 }
 
-search input[type="submit"] {
-    display: none;
+search [type="submit"] {
+    color: var(--fg-sidebar);
+    background: var(--fg-accent);
+    border-radius: 0 5px 5px 0;
+    border: solid 1px var(--border-color);
 }
 
 /* -- Search Results -- */
@@ -440,6 +446,8 @@ nav.site {
 
 nav.site ul {
     padding: 0;
+    display: flex;
+    justify-content: space-evenly;
 }
 
 nav.site li {
@@ -492,12 +500,31 @@ nav.site li {
 }
 
 /* -- Related Pages -- */
+#post-related {
+    padding: 0;
+}
+
+#post-related a {
+    color: var(--fg-sidebar);
+    border-right: solid 5px var(--bg-sidebar);
+    display: inline-block;
+    width: 100%;
+    overflow: hidden;
+    text-wrap: nowrap;
+    text-overflow: ellipsis;
+}
+
+#post-related a.current {
+    color: var(--fg-accent);
+    border-color: var(--fg-accent);
+}
+
+#post-related ul {
+    padding: 0 0 0 1em;
+}
 
 #post-related li {
-    list-style-position: inside;
-    /* Hack to get the text to wrap inline with the list marker */
-    padding-left: 1.1em;
-    text-indent: -1.1em;
+    list-style: disc;
 }
 
 /* -- Inline Code & Code blocks -- */

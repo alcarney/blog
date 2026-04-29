@@ -10,7 +10,7 @@
     <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=02ca0aaa" />
     <link id="pygments_dark_css" media="(prefers-color-scheme: dark)" rel="stylesheet" type="text/css" href="../../../_static/pygments_dark.css?v=d8568271" />
     <link rel="stylesheet" type="text/css" href="../../../_static/awdur-styles.css?v=21b80da3" />
-    <link rel="stylesheet" type="text/css" href="../../../_static/css/layout.css?v=c916e4ff" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/css/layout.css?v=b3f059f1" />
 
     <script src="../../../_static/documentation_options.js?v=187304be"></script>
     <script src="../../../_static/doctools.js?v=9bcbadda"></script>
@@ -68,29 +68,42 @@
     </svg>
   </a>
 </nav>
-</div>
-<search id="searchbox" style="display: none" role="search">
-    <div class="searchformwrapper">
-    <form class="search" action="../../../search/" method="get">
-      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" placeholder="Search"/>
-      <input type="submit" value="Go" />
+</div><section id="site-navigation">
+  <nav class="site">
+    <ul>
+      <li>
+        <a href="/blog">Blog</a>
+      </li>
+      <li>
+        <a href="/code">Code</a>
+      </li>
+      <li>
+        <a href="/notes">Notes</a>
+      </li>
+    </ul>
+  </nav>
+</section>
+<section id="search-field" style="display: none">
+  <h5 id="searchlabel">Search</h5>
+
+  <search id="searchbox" role="search">
+    <form action="../../../search/" method="get">
+      <input type="search" name="q"
+             aria-labelledby="searchlabel"
+             placeholder=""/>
+      <button type="submit"><svg xmlns="http://www.w3.org/2000/svg" width="2em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" >
+  <g transform-origin="center" transform="scale(-1, 1)">
+    <circle cx="11" cy="11" r="8"></circle>
+    <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+  </g>
+</svg>
+      </button>
     </form>
-    </div>
-</search>
-<script>document.getElementById('searchbox').style.display = "block"</script><nav class="site">
-  <ul>
-    <li>
-      <a href="/blog">Blog</a>
-    </li>
-    <li>
-      <a href="/code">Code</a>
-    </li>
-    <li>
-      <a href="/notes">Notes</a>
-    </li>
-  </ul>
-</nav>
-<section class="post-metadata">
+  </search>
+
+</section>
+<script>document.getElementById('search-field').style.display = "block"</script>
+<section id="post-metadata">
     <h5 style="grid-column: span 2">Metadata</h5><svg xmlns="http://www.w3.org/2000/svg" width="2em" fill="none" viewBox="0 0 24 24" stroke="currentColor">
     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
 </svg>
@@ -132,207 +145,185 @@
   </nav>
 </section>
 <section id="post-related">
-  <h5>Related</h5>
+  <h5>Related Pages</h5>
   
-  <details open>
-    <summary>
-      
-  <a class="reference internal" href="../../../notes/20250216T190756/">
+    
+  <a class="reference internal" title="My Emacs Configuration" href="../../../notes/20250216T190756/">
     My Emacs Configuration
   </a>
   
 
-    </summary>
     <ul>
       <li>
     
-  <a class="reference internal" href="../../2024/local-llms-with-ollama-and-gptel/">
+  <a class="reference internal" title="Local LLMs with Ollama and gptel" href="../../2024/local-llms-with-ollama-and-gptel/">
     Local LLMs with Ollama and gptel
   </a>
   
 </li>
       <li>
-  <details >
-    <summary>
-      
-  <a class="reference internal" href="../../../notes/20250221T184014/">
+    
+  <a class="reference internal" title="Using git from Emacs" href="../../../notes/20250221T184014/">
     Using git from Emacs
   </a>
   
 
-    </summary>
     <ul>
       <li>
     
-  <a class="reference internal" href="../til-additional-magit-keybindings/">
+  <a class="reference internal" title="Additional magit keybindings" href="../til-additional-magit-keybindings/">
     Additional magit keybindings
   </a>
   
 </li>
       <li>
     
-  <a class="reference internal" href="../til-navigating-history-with-magit/">
+  <a class="reference internal" title="Navigating History with Magit" href="../til-navigating-history-with-magit/">
     Navigating History with Magit
   </a>
   
 </li>
       <li>
     
-  <a class="reference internal" href="../../../notes/20250430T213500/">
+  <a class="reference internal" title="Getting the permalink URL to a line of code" href="../../../notes/20250430T213500/">
     Getting the permalink URL to a line of code
   </a>
   
 </li>
     </ul>
-  </details>
   </li>
       <li>
-  <details >
-    <summary>
-      
-  <a class="reference internal" href="../../../notes/20250708T202145/">
+    
+  <a class="reference internal" title="Emacs Appearance" href="../../../notes/20250708T202145/">
     Emacs Appearance
   </a>
   
 
-    </summary>
     <ul>
       <li>
     
-  <a class="reference internal" href="../../../notes/20250228T200007/">
+  <a class="reference internal" title="Cusomising the Emacs Modeline" href="../../../notes/20250228T200007/">
     Cusomising the Emacs Modeline
   </a>
   
 </li>
       <li>
     
-  <a class="reference internal" href="../../../notes/20250708T133920/">
+  <a class="reference internal" title="Emacs Themes" href="../../../notes/20250708T133920/">
     Emacs Themes
   </a>
   
 </li>
       <li>
     
-  <a class="reference internal" href="../../../notes/20250924T182310/">
+  <a class="reference internal" title="Tab Bar Utilities" href="../../../notes/20250924T182310/">
     Tab Bar Utilities
   </a>
   
 </li>
     </ul>
-  </details>
   </li>
       <li>
-  <details >
-    <summary>
-      
-  <a class="reference internal" href="../../../notes/20250303T122920/">
+    
+  <a class="reference internal" title="Python in Emacs" href="../../../notes/20250303T122920/">
     Python in Emacs
   </a>
   
 
-    </summary>
     <ul>
       <li>
     
-  <a class="reference internal" href="../../../notes/20250615T135327/">
+  <a class="reference internal" title="Using pdb from Emacs" href="../../../notes/20250615T135327/">
     Using pdb from Emacs
   </a>
   
 </li>
     </ul>
-  </details>
   </li>
       <li>
     
-  <a class="reference internal" href="../../../notes/20250305T195742/">
+  <a class="reference internal" title="Language Servers in Emacs" href="../../../notes/20250305T195742/">
     Language Servers in Emacs
   </a>
   
 </li>
       <li>
-  <details open>
-    <summary>
-      
-  <a class="reference internal" href="../../../notes/20250409T205418/">
+    
+  <a class="reference internal" title="Building Emacs from Source" href="../../../notes/20250409T205418/">
     Building Emacs from Source
   </a>
   
 
-    </summary>
     <ul>
       <li>
     
+  <a class="current" title="Intstalling Emacs with systemd-sysext" href="#">
     Intstalling Emacs with systemd-sysext
+  </a>
   
 </li>
     </ul>
-  </details>
   </li>
       <li>
-  <details >
-    <summary>
-      
-  <a class="reference internal" href="../../../notes/20250705T225452/">
+    
+  <a class="reference internal" title="Running shells and terminals" href="../../../notes/20250705T225452/">
     Running shells and terminals
   </a>
   
 
-    </summary>
     <ul>
       <li>
     
-  <a class="reference internal" href="../../../notes/20250705T225630/">
+  <a class="reference internal" title="Eat: Emulate a Terminal" href="../../../notes/20250705T225630/">
     Eat: Emulate a Terminal
   </a>
   
 </li>
     </ul>
-  </details>
   </li>
       <li>
     
-  <a class="reference internal" href="../../../notes/20251213T204155/">
+  <a class="reference internal" title="IBuffer" href="../../../notes/20251213T204155/">
     IBuffer
   </a>
   
 </li>
       <li>
     
-  <a class="reference internal" href="../../../notes/20251227T122017/">
+  <a class="reference internal" title="Using jj from Emacs" href="../../../notes/20251227T122017/">
     Using jj from Emacs
   </a>
   
 </li>
       <li>
     
-  <a class="reference internal" href="../../../notes/20260118T133600/">
+  <a class="reference internal" title="Treesitter" href="../../../notes/20260118T133600/">
     Treesitter
   </a>
   
 </li>
       <li>
     
-  <a class="reference internal" href="../../2026/indexing-info-manuals/">
+  <a class="reference internal" title="Indexing Info Manuals" href="../../2026/indexing-info-manuals/">
     Indexing Info Manuals
   </a>
   
 </li>
       <li>
     
-  <a class="reference internal" href="../../../notes/20260418T160644/">
+  <a class="reference internal" title="reStructuredText in Emacs" href="../../../notes/20260418T160644/">
     reStructuredText in Emacs
   </a>
   
 </li>
       <li>
     
-  <a class="reference internal" href="../../../notes/20260422T183610/">
+  <a class="reference internal" title="Emacs Completions" href="../../../notes/20260422T183610/">
     Emacs Completions
   </a>
   
 </li>
     </ul>
-  </details>
   
 </section>
   </div>
