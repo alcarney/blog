@@ -1,0 +1,60 @@
+:title: EShell
+:date: 2026-04-29
+:tags: emacs
+:identifier: 20260429T185129
+:signature: 5=7=2
+
+Eshell
+======
+
+To quote the `manual <https://www.gnu.org/software/emacs/manual/html_mono/eshell.html>`__
+
+.. pull-quote::
+
+   Eshell is a shell-like command interpreter implemented in Emacs Lisp.
+   It invokes no external processes except for those requested by the user.
+   It is intended to be an alternative to the IELM REPL for Emacs *and* with an interface similar to
+   command shells such as ``bash``, ``zsh``, ``rc``, or ``4dos``.
+
+
+Custom Commands
+---------------
+
+Here are some custom eshell commands I have implemented.
+Big thanks to `this episode <https://youtu.be/M6o1N2kfmuc>`__ of Álvaro Ramírez's Bending Emacs series for showing me this was possible.
+
+``eshell/http-server``
+^^^^^^^^^^^^^^^^^^^^^^
+
+A utility command that uses `start-process <https://www.gnu.org/software/emacs/manual/html_node/elisp/Asynchronous-Processes.html#index-start_002dprocess>`__ to run Python's ``http.server`` module in the background.
+
+.. code-block:: elisp
+   :project: emacs
+   :filename: lisp/alc-eshell.el
+   :template: elisp-module
+
+   (require 'alc-python)
+
+   (defun eshell/http-server (dirname &rest args)
+     "Use `start-process' to invoke a background Python http.server in
+   the given DIRNAME"
+     (let ((port (alc-eshell--get-port-number)))
+       (start-process (format "http:%s" port)
+                      (format "*http-server<%s>*" dirname)
+                      (or python-shell-interpreter "python")
+                      "-m" "http.server"
+                      "-d" dirname
+                      (format "%s" port))
+        (browse-url (format "http://localhost:%s" port))))
+
+
+   (defun alc-eshell--get-port-number ()
+     (alc-python-one-liner "
+   import socket
+
+   s = socket.socket()
+   s.bind(('', 0))
+   print(s.getsockname()[1], end = '')
+   s.close()"))
+
+Where
