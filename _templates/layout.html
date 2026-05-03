@@ -30,72 +30,58 @@
 {%- block relbar1 %}{% endblock %}
 
 {%- block content %}
-<input type="checkbox" id="menu-toggle" class="hidden" />
-<aside>
-  <div class="sidebar">
+
+<input type="checkbox" id="left-sidebar-checkbox" class="hidden" />
+<input type="checkbox" id="panel-checkbox" class="hidden" />
+<input type="checkbox" id="right-sidebar-checkbox" class="hidden" />
+<div class="grid">
+
+  <header class="site">
     {%- include "profilecard.html" %}
+
     {%- include "globaltoc.html" %}
-    {%- include "searchfield.html" %}
-    {%- if sidebars != None %}
-    {%- for sidebartemplate in sidebars %}
+
+    <section class="layout-toggles">
+      <label for="left-sidebar-checkbox">
+        {% include "icons/sidebar.html" %}
+      </label>
+      <label for="panel-checkbox">
+        {% include "icons/sidebar.html" %}
+      </label>
+      <label for="right-sidebar-checkbox">
+        {% include "icons/sidebar.html" %}
+      </label>
+    </section>
+  </header>
+
+  <aside>
+
+    <div class="left-sidebar">
+      {%- include "searchfield.html" %}
+      {%- if sidebars != None %}
+      {%- for sidebartemplate in sidebars %}
       {%- include sidebartemplate %}
-    {%- endfor %}
-    {%- endif %}
-  </div>
-</aside>
-
-<div class="content">
-    <header class="site">
-        <label for="menu-toggle">
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="2em" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M5 12h14M12 5l7 7-7 7"/></svg>
-        </label>
-    </header>
-
-    <div role="main" style="flex-grow: 1">
-      {%- block body %}
-        {{body}}
-      {%- endblock %}
+      {%- endfor %}
+      {%- endif %}
+      {%- include "page_links.html" %}
+      {%- include "social_links.html" %}
     </div>
+  </aside>
 
-    <footer class="site">
-      <div>
-        <h6>Links</h6>
-        <ul>
-          {%- if show_source and has_source and sourcename %}
-          <li>
-            <a href="{{ pathto('_sources/' + sourcename, true)|e }}" rel="nofollow">
-              Page Source
-            </a>
-          </li>
-          {%- endif %}
-          <li>
-            <a href="https://github.com/alcarney/blog" rel="nofollow">
-              Source Code
-            </a>
-          </li>
-        </ul>
-      </div>
 
-      <div>
-        <h6>
-          Built with
-        </h6>
-        <ul>
-          <li>
-            <a href="https://www.sphinx-doc.org/en/master/">
-              Sphinx
-            </a>
-            v{{sphinx_version}}
-          </li>
-          <li>
-            <a href="https://feathericons.com/">
-              Feather Icons
-            </a>
-          </li>
-        </ul>
-      </div>
-    </footer>
+  <main>
+    {%- block body %}
+    {{body}}
+    {%- endblock %}
+  </main>
+
+  <aside>
+    <div class="right-sidebar">
+      {%- include "credits.html" %}
+    </div>
+  </aside>
+
+  <footer class="site"></footer>
 </div>
 {%- endblock %}
 {%- block relbar2 %}{% endblock %}

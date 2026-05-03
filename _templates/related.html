@@ -26,7 +26,7 @@
 {%- endmacro %}
 
 {%- if record and record.sequence %}
-<section id="post-related">
+<section class="post-related">
   <h5>Related Pages</h5>
   {%- set sequence = denote.records.sequence_hierarchy(record.sequence) %}
   {{ render_sequence(sequence) }}
