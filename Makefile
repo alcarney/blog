@@ -10,10 +10,6 @@ endif
 
 default: html
 
-.PHONY: clean-env
-clean-env:
-	hatch env remove blog
-
 .PHONY: clean
 clean:
 	-test -d _build/doctrees && rm -r _build/doctrees
@@ -25,14 +21,14 @@ $(HTMLDIR)/_static/js/theme.js: _static/js/theme.js
 
 .PHONY: html
 html:
-	$(HATCH) -e blog run sphinx-build -M dirhtml . $(BUILDDIR) $(SPHINX_OPTS)
+	$(UV) run sphinx-build -M dirhtml . $(BUILDDIR) $(SPHINX_OPTS)
 	mkdir -p $(HTMLDIR)/talks/
 	cp -r talks/introducing-esbonio $(HTMLDIR)/talks/introducing-esbonio
 
 
 .PHONY: dotfiles
 dotfiles:
-	$(HATCH) -e blog run sphinx-build -M awdur . $(BUILDDIR) $(SPHINX_OPTS)
+	$(UV) run sphinx-build -M awdur . $(BUILDDIR) $(SPHINX_OPTS)
 
 
 preview:
