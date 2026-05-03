@@ -57,10 +57,13 @@ exclude_patterns = [
     "Thumbs.db",
     ".DS_Store",
     ".env",
+    ".venv",
     "node_modules",
     "talks",
     "README.md",
 ]
+
+suppress_warnings = ["misc.highlighting_failure"]
 
 # -- Options for the Blog --------- ---------------------------------------------
 blog_baseurl = "https://www.alcarney.me"
@@ -126,6 +129,7 @@ def template_override(app, pagename, templatename, context, doctree):
 
 
 def setup(app: Sphinx):
-    app.add_css_file("css/layout.css", priority=800)
+    app.add_css_file("css/styles.css", priority=800)
+    # app.add_css_file("css/layout.css", priority=800)
 
     app.connect("html-page-context", template_override)

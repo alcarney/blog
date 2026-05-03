@@ -33,7 +33,7 @@ requires-dist = [
 [[package]]
 name = "awdur"
 version = "0.0.1"
-source = { git = "https://github.com/swyddfa/awdur?subdirectory=lib%2Fawdur&rev=develop#c5c02a905adde8df2275a06274eef13baecdf60f" }
+source = { git = "https://github.com/swyddfa/awdur?subdirectory=lib%2Fawdur&rev=develop#14ed0fe6912ad889886a5a88d4043910fd8417e6" }
 dependencies = [
     { name = "docutils" },
     { name = "jinja2" },
