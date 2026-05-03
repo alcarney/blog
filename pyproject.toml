@@ -1,16 +1,16 @@
-[tool.esbonio.sphinx]
-pythonCommand = ["hatch", "-e", "blog", "run", "python"]
-
-[tool.hatch.envs.blog]
-installer = "uv"
-python = '3.14'
-skip-install = true
+[project]
+name = "alcarney.me"
+version = "2026"
+description = "My personal website"
+requires-python=">=3.14"
 dependencies = [
-  "sphinx==8.2.*",
-  "myst-parser",
-  "rich @ git+https://github.com/alcarney/rich@fix-from-ansi",
-  "awdur @ git+https://github.com/swyddfa/awdur@develop#subdirectory=lib/awdur"
+    "sphinx==8.2.*",
+    "myst-parser==4.*",
+    "rich @ git+https://github.com/alcarney/rich@fix-from-ansi",
+    "awdur @ git+https://github.com/swyddfa/awdur@develop#subdirectory=lib/awdur",
 ]
 
-[tool.hatch.envs.blog.scripts]
-build = "sphinx-build -M dirhtml . ./_build"
+[tool.esbonio.sphinx]
+pythonCommand = ["uv", "run", "python"]
+buildCommand = ["-M", "dirhtml", ".", "_build"]
+

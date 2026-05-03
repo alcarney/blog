@@ -5,8 +5,7 @@ ifeq ($(strip $(ARCH)),)
 $(error Unable to determine platform architecture)
 endif
 
-NODE_VERSION := 22.11.0
-UV_VERSION := 0.5.2
+UV_VERSION := 0.11.8
 
 UV ?= $(shell command -v uv)
 UVX := $(shell command -v uvx)
@@ -31,52 +30,8 @@ $(UV):
 
 endif
 
-
-HATCH ?= $(shell command -v hatch)
-
-ifeq ($(strip $(HATCH)),)
-
-HATCH := $(BIN)/hatch
-
-$(HATCH): | $(UV)
-	$(UV) tool install hatch
-	$@ --version
-
-endif
-
-
-PY_TOOLS := $(UV) $(HATCH)
-
-# Node JS
-NPM ?= $(shell command -v npm)
-NPX ?= $(shell command -v npx)
-
-ifeq ($(strip $(NPM)),)
-
-NPM := $(BIN)/npm
-NPX := $(BIN)/npx
-NODE := $(BIN)/node
-NODE_DIR := $(HOME)/.local/node
-
-$(NPM):
-	curl -L --output /tmp/node.tar.xz https://nodejs.org/dist/v$(NODE_VERSION)/node-v$(NODE_VERSION)-linux-x64.tar.xz
-	tar -xJf /tmp/node.tar.xz -C /tmp
-	rm /tmp/node.tar.xz
-
-	[ -d $(NODE_DIR) ] || mkdir -p $(NODE_DIR)
-	mv /tmp/node-v$(NODE_VERSION)-linux-x64/* $(NODE_DIR)
-
-	[ -d $(BIN) ] || mkdir -p $(BIN)
-	ln -s $(NODE_DIR)/bin/node $(NODE)
-	ln -s $(NODE_DIR)/bin/npm $(NPM)
-	ln -s $(NODE_DIR)/bin/npx $(NPX)
-
-	$(NODE) --version
-	PATH=$(BIN) $(NPM) --version
-	PATH=$(BIN) $(NPX) --version
-
-endif
+PY_TOOLS := $(UV)
 
 # One command to bootstrap all tools and check their versions
-tools: $(PY_INTERPRETERS) $(PY_TOOLS) $(NPM)
+tools: $(PY_TOOLS)
 	for prog in $^ ; do echo -n "$${prog}\t" ; PATH=$(BIN) $${prog} --version; done
