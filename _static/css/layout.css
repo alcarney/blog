@@ -4,6 +4,7 @@
 
     --bg-sidebar: #161b22;
     --fg-sidebar: white;
+    --fg-sidebar-dim: #aaa;
 
     --highlight-color: #f0b100;
     --border-color: #657b83;
@@ -11,6 +12,8 @@
     --fg-accent-dim: #064e3b;
     --fg-accent: #059669;
     --fg-accent-bright: #a7f3d0;
+
+    --sidebar-width: 300px;
 }
 
 
@@ -56,15 +59,6 @@ html {
     font-size: 13pt;
     font-family: ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
     scroll-behavior: smooth;
-}
-
-body {
-    color: var(--fg-main);
-    background: var(--bg-main);
-
-    display: grid;
-    grid-template-columns: 300px 1fr;
-
 }
 
 a {
@@ -206,6 +200,98 @@ ul.taglist li {
     margin: 0;
 }
 
+
+#left-sidebar-checkbox:checked ~ .grid {
+    --sidebar-width: 3em;
+}
+
+#left-sidebar-checkbox:checked ~ .grid .sidebar {
+    opacity: 0;
+}
+
+#left-sidebar-toggle {
+    display: flex;
+    justify-content: flex-end;
+    padding: 0.5em;
+    color: var(--fg-sidebar-dim)
+}
+
+.grid {
+    color: var(--fg-main);
+    background: var(--bg-main);
+
+    display: grid;
+    grid-template-columns: var(--sidebar-width) 1fr;
+    transition: 300ms;
+}
+
+header.site {
+    color: var(--fg-sidebar-dim);
+    background: var(--bg-sidebar);
+
+    padding: 0 0.5em;
+
+    display: flex;
+    align-items: center;
+
+    grid-column: span 2;
+}
+
+#site-title {
+    display: flex;
+    align-items: center;
+    width: 300px;
+    gap: 0.5em;
+}
+
+#site-title img {
+    border-radius: 100%;
+    width: 2em;
+    border: solid 2px var(--fg-accent);
+}
+
+#site-title h1 {
+    font-size: 1.4rem;
+}
+
+#site-title a {
+    color: var(--fg-sidebar-dim);
+}
+
+#site-title a span {
+    color: var(--fg-accent);
+}
+
+#site-navigation {
+    flex-grow: 1;
+}
+
+main {
+    min-width: 0;
+}
+
+footer.site {
+    padding: 1em;
+    color: var(--fg-sidebar);
+    background: var(--bg-sidebar);
+    display: flex;
+    justify-content: space-around;
+    grid-column: span 2;
+}
+
+footer.site h6 {
+    font-size: 1rem;
+    text-transform: uppercase;
+}
+
+footer.site ul {
+    padding: 0;
+}
+
+footer.site li {
+    list-style: none;
+}
+
 div.content {
     min-width: 0;
     display: flex;
@@ -214,16 +300,12 @@ div.content {
     justify-content: space-between;
 }
 
-.content .post-metadata {
+.content #post-metadata {
     color: var(--fg-main);
 }
 
-.post-metadata ul.taglist {
+#post-metadata ul.taglist {
     justify-content: flex-end;
-}
-
-div.content header.site {
-    display: none;
 }
 
 div[role="main"] > h1 {
@@ -295,44 +377,24 @@ article.summary aside {
     padding: 0.4em 1em;
 }
 
-article.summary .post-metadata h5 {
+article.summary #post-metadata h5 {
     display: none;
 }
 
-footer.site {
-    padding: 1em;
-    margin-top: 5em;
-    color: var(--fg-sidebar);
-    background: var(--bg-sidebar);
-    display: flex;
-    justify-content: space-around;
-}
-
-footer.site h6 {
-    font-size: 1rem;
-    text-transform: uppercase;
-}
-
-footer.site ul {
-    padding: 0;
-}
-
-footer.site li {
-    list-style: none;
-}
 
 /* -- Sidebar -- */
-aside {
+.grid > aside {
     color: var(--fg-sidebar);
+    background: var(--bg-sidebar);
 }
 
 aside div.sidebar {
     height: 100vh;
-    background: var(--bg-sidebar);
     padding: 0.5em;
     position: sticky;
     top: 0;
     overflow-y: auto;
+    transition: 300ms;
 }
 
 div.sidebar > section {
@@ -362,17 +424,6 @@ div.sidebar h5 {
 
 #blog-archive span.count {
     color: var(--fg-sidebar);
-}
-
-#profile-card {
-    text-align: center;
-}
-
-#profile-card img {
-    border-radius: 100%;
-    width: 10rem;
-    margin: auto;
-    border: solid 4px var(--fg-accent);
 }
 
 nav.social {
@@ -441,13 +492,12 @@ ul.search p.context {
 nav.site {
     text-align: center;
     font-size: 1.2rem;
-    margin-bottom: 1em;
 }
 
 nav.site ul {
     padding: 0;
     display: flex;
-    justify-content: space-evenly;
+    justify-content: flex-end;
 }
 
 nav.site li {
@@ -747,7 +797,7 @@ div.awdur-project-tree details.awdur-file summary::before {
         z-index: 1;
         top: 0;
         position: fixed;
-        width: 300px;
+        width: var(--sidebar-width);
         transform: translate(-310px);
         transition: transform 0.3s ease-out;
     }
@@ -764,18 +814,6 @@ div.awdur-project-tree details.awdur-file summary::before {
     div.content header.site svg {
         transition: transform 0.3s ease-out;
         transform: rotate(0);
-    }
-
-    #menu-toggle:checked ~ aside {
-        transform: translate(0);
-    }
-
-    #menu-toggle:checked ~ div.content header.site {
-        transform: translate(300px);
-    }
-
-    #menu-toggle:checked ~ div.content header.site svg {
-        transform: rotate(180deg);
     }
 }
 
