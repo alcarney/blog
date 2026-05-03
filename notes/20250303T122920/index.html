@@ -132,6 +132,7 @@
 <li><a class="reference internal" href="#helper-functions">Helper Functions</a></li>
 </ul>
 </li>
+<li><a class="reference internal" href="#utility-functions">Utility Functions</a></li>
 </ul>
 </li>
 </ul>
@@ -270,6 +271,13 @@
     
   <a class="reference internal" title="Eat: Emulate a Terminal" href="../20250705T225630/">
     Eat: Emulate a Terminal
+  </a>
+  
+</li>
+      <li>
+    
+  <a class="reference internal" title="Eshell" href="../20260429T185129/">
+    Eshell
   </a>
   
 </li>
@@ -563,6 +571,26 @@ Oh well, for the projects I use poetry with currently, I can assume that thereâ€
 </div>
 </div>
 </section>
+</section>
+<section id="utility-functions">
+<h2>Utility Functions<a class="headerlink" href="#utility-functions" title="Link to this heading">Â¶</a></h2>
+<p>A function that runs a snippet of code through <code class="docutils literal notranslate"><span class="pre">python</span> <span class="pre">-c</span></code></p>
+<div class="awdur-codeblock docutils container">
+<div class="awdur-codeblock-header docutils container">
+<code class="awdur-codeblock-filename docutils literal notranslate"><span class="pre">lisp/alc-python.el</span></code></div>
+<div class="highlight-elisp notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="nb">defun</span><span class="w"> </span><span class="nv">alc-python-one-liner</span><span class="w"> </span><span class="p">(</span><span class="nv">code</span><span class="p">)</span>
+<span class="w">  </span><span class="s">&quot;Take a string of python CODE, flatten it into one line and pass it to python -c.</span>
+
+<span class="s">Respects </span><span class="ss">`python-shell-interpreter&#39;</span><span class="s">.&quot;</span>
+<span class="w">  </span><span class="p">(</span><span class="k">let*</span><span class="w"> </span><span class="p">((</span><span class="nv">lines</span><span class="w"> </span><span class="p">(</span><span class="nv">s-split</span><span class="w"> </span><span class="s">&quot;\n&quot;</span><span class="w"> </span><span class="nv">code</span><span class="w"> </span><span class="no">t</span><span class="p">))</span>
+<span class="w">         </span><span class="p">(</span><span class="nv">one-liner</span><span class="w"> </span><span class="p">(</span><span class="nv">s-join</span><span class="w"> </span><span class="s">&quot;;&quot;</span><span class="w"> </span><span class="nv">lines</span><span class="p">)))</span>
+<span class="w">    </span><span class="p">(</span><span class="nv">shell-command-to-string</span><span class="w"> </span><span class="p">(</span><span class="nf">concat</span><span class="w"> </span><span class="p">(</span><span class="k">or</span><span class="w"> </span><span class="nv">python-shell-interpreter</span><span class="w"> </span><span class="s">&quot;python&quot;</span><span class="p">)</span>
+<span class="w">                                     </span><span class="s">&quot; -c \&quot;&quot;</span>
+<span class="w">                                     </span><span class="nv">one-liner</span>
+<span class="w">                                     </span><span class="s">&quot;\&quot;&quot;</span><span class="p">))))</span>
+</pre></div>
+</div>
+</div>
 </section>
 </section>
 

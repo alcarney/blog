@@ -1026,6 +1026,40 @@ command = &#34;jj root --ignore-working-copy &gt;/dev/null 2&gt;&amp;1 || starsh
 <div class="awdur-project-tree">
     <details class="awdur-directory"><summary>lisp</summary>
       <div class="awdur-directory-contents">
+    <details class="awdur-file"><summary>alc-eshell.el</summary>
+      <pre class="code literal-block"><code>
+;;; alc-eshell.el --- TODO add description  -*- lexical-binding: t -*-
+
+;;; Code:
+(require &#39;alc-python)
+
+(defun eshell/http-server (dirname &amp;rest args)
+  &#34;Use `start-process&#39; to invoke a background Python http.server in
+the given DIRNAME&#34;
+  (let ((port (alc-eshell--get-port-number)))
+    (start-process (format &#34;http:%s&#34; port)
+                   (format &#34;*http-server&lt;%s&gt;*&#34; dirname)
+                   (or python-shell-interpreter &#34;python&#34;)
+                   &#34;-m&#34; &#34;http.server&#34;
+                   &#34;-d&#34; dirname
+                   (format &#34;%s&#34; port))
+     (browse-url (format &#34;http://localhost:%s&#34; port))))
+
+
+(defun alc-eshell--get-port-number ()
+  (alc-python-one-liner &#34;
+import socket
+
+s = socket.socket()
+s.bind((&#39;&#39;, 0))
+print(s.getsockname()[1], end = &#39;&#39;)
+s.close()&#34;))
+
+(provide &#39;alc-eshell)
+
+;;; alc-eshell.el ends here
+</code></pre>
+    </details>
     <details class="awdur-file"><summary>alc-git.el</summary>
       <pre class="code literal-block"><code>
 ;;; alc-git.el --- TODO add description  -*- lexical-binding: t -*-
@@ -1311,6 +1345,17 @@ the Python executable&#34;
                             ,filename)
                           &#34; &#34;)))
     (json-parse-string (shell-command-to-string cmd))))
+
+(defun alc-python-one-liner (code)
+  &#34;Take a string of python CODE, flatten it into one line and pass it to python -c.
+
+Respects `python-shell-interpreter&#39;.&#34;
+  (let* ((lines (s-split &#34;\n&#34; code t))
+         (one-liner (s-join &#34;;&#34; lines)))
+    (shell-command-to-string (concat (or python-shell-interpreter &#34;python&#34;)
+                                     &#34; -c \&#34;&#34;
+                                     one-liner
+                                     &#34;\&#34;&#34;))))
 
 (defun alc-python--pid-to-candidate (pid)
   &#34;Convert the given PID into a completion candidate for `completing-read&#39;&#34;

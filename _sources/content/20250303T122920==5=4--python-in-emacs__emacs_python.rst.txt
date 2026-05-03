@@ -233,3 +233,23 @@ A function that uses the Python standard library to parse a TOML file as JSON.
                                ,filename)
                              " ")))
        (json-parse-string (shell-command-to-string cmd))))
+
+Utility Functions
+-----------------
+
+A function that runs a snippet of code through ``python -c``
+
+.. code-block:: elisp
+   :project: emacs
+   :filename: lisp/alc-python.el
+
+   (defun alc-python-one-liner (code)
+     "Take a string of python CODE, flatten it into one line and pass it to python -c.
+
+   Respects `python-shell-interpreter'."
+     (let* ((lines (s-split "\n" code t))
+            (one-liner (s-join ";" lines)))
+       (shell-command-to-string (concat (or python-shell-interpreter "python")
+                                        " -c \""
+                                        one-liner
+                                        "\""))))
