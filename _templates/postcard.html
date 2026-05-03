@@ -1,5 +1,5 @@
 {%- if record %}
-<section id="post-metadata">
+<section class="post-metadata">
     <h5 style="grid-column: span 2">Metadata</h5>
     {%- include "icons/calendar.html" %}
     <time style="align-self: center; text-align: right;" datetime="{{ record.timestamp }}">{{ record.timestamp.strftime('%b %d, %Y') }}</time>

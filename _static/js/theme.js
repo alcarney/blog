@@ -113,12 +113,12 @@ function main() {
             onScrollCallbacks.push(() => highlightCurrentSection(tocTree, navRoot, documentSections))
         }
     }
-}
 
-window.addEventListener('scroll', (_) => {
+  document.querySelector('main').addEventListener('scroll', (_) => {
     onScrollCallbacks.forEach(callback => callback())
-})
+  })
 
+}
 
 if (document.readyState === "loading") {
     document.addEventListener("DOMContentLoaded", main);

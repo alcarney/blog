@@ -1,0 +1,17 @@
+<section>
+  <h5>Page Links</h5>
+  <ul>
+    {%- if show_source and has_source and sourcename %}
+    <li>
+      <a href="{{ pathto('_sources/' + sourcename, true)|e }}" rel="nofollow">
+        Page Source
+      </a>
+    </li>
+    {%- endif %}
+    <li>
+      <a href="https://github.com/alcarney/blog" rel="nofollow">
+        Source Code
+      </a>
+    </li>
+  </ul>
+</section>
