@@ -44,6 +44,7 @@ A utility command that uses `start-process <https://www.gnu.org/software/emacs/m
                       (or python-shell-interpreter "python")
                       "-m" "http.server"
                       "-d" dirname
+                      "-b" "0.0.0.0"
                       (format "%s" port))
         (browse-url (format "http://localhost:%s" port))))
 
