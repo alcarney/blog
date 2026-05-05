@@ -131,7 +131,10 @@
 <li><a class="reference internal" href="#css-variables">CSS Variables</a></li>
 <li><a class="reference internal" href="#a-css-reset">A CSS “Reset”</a></li>
 <li><a class="reference internal" href="#utility-classes">Utility Classes</a><ul>
+<li><a class="reference internal" href="#guilabel"><code class="docutils literal notranslate"><span class="pre">.guilabel</span></code></a></li>
 <li><a class="reference internal" href="#hidden"><code class="docutils literal notranslate"><span class="pre">.hidden</span></code></a></li>
+<li><a class="reference internal" href="#highlighted"><code class="docutils literal notranslate"><span class="pre">.highlighted</span></code></a></li>
+<li><a class="reference internal" href="#line-through"><code class="docutils literal notranslate"><span class="pre">.line-through</span></code></a></li>
 </ul>
 </li>
 <li><a class="reference internal" href="#html-elements">HTML Elements</a><ul>
@@ -147,23 +150,23 @@
 <li><a class="reference internal" href="#h1-h6"><code class="docutils literal notranslate"><span class="pre">h1-h6</span></code></a></li>
 <li><a class="reference internal" href="#img"><code class="docutils literal notranslate"><span class="pre">img</span></code></a></li>
 <li><a class="reference internal" href="#kbd"><code class="docutils literal notranslate"><span class="pre">kbd</span></code></a></li>
-</ul>
-</li>
 <li><a class="reference internal" href="#table"><code class="docutils literal notranslate"><span class="pre">table</span></code></a></li>
-<li><a class="reference internal" href="#layout">Layout</a><ul>
-<li><a class="reference internal" href="#desktop">Desktop</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#components">Components</a><ul>
+<li><a class="reference internal" href="#layout">Layout</a><ul>
+<li><a class="reference internal" href="#left-sidebars">Left Sidebars</a></li>
+<li><a class="reference internal" href="#right-sidebar">Right Sidebar</a></li>
+<li><a class="reference internal" href="#footer">Footer</a></li>
+</ul>
+</li>
 <li><a class="reference internal" href="#header">Header</a><ul>
 <li><a class="reference internal" href="#site-title">Site Title</a></li>
 <li><a class="reference internal" href="#site-navigation">Site Navigation</a></li>
 <li><a class="reference internal" href="#layout-toggles">Layout Toggles</a></li>
 </ul>
 </li>
-</ul>
-</li>
 <li><a class="reference internal" href="#sidebars">Sidebars</a><ul>
+<li><a class="reference internal" href="#archive">Archive</a></li>
 <li><a class="reference internal" href="#metadata">Metadata</a></li>
 <li><a class="reference internal" href="#page-contents">Page Contents</a></li>
 <li><a class="reference internal" href="#related-pages">Related Pages</a></li>
@@ -173,13 +176,16 @@
 </li>
 <li><a class="reference internal" href="#main">Main</a><ul>
 <li><a class="reference internal" href="#article"><code class="docutils literal notranslate"><span class="pre">article</span></code></a><ul>
+<li><a class="reference internal" href="#admonitions">Admonitions</a></li>
 <li><a class="reference internal" href="#code">Code</a></li>
 <li><a class="reference internal" href="#typography">Typography</a></li>
 </ul>
 </li>
+<li><a class="reference internal" href="#post-collections">Post Collections</a></li>
+<li><a class="reference internal" href="#search-results">Search Results</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#footer">Footer</a></li>
+<li><a class="reference internal" href="#id1">Footer</a></li>
 </ul>
 </li>
 </ul>
@@ -278,7 +284,7 @@
   </aside>
 
 
-  <main>
+  <main role="main">
 
 <article>
   <section id="my-blog-theme">
@@ -375,12 +381,61 @@
 </section>
 <section id="utility-classes">
 <h2>Utility Classes<a class="headerlink" href="#utility-classes" title="Link to this heading">¶</a></h2>
+<section id="guilabel">
+<h3><code class="docutils literal notranslate"><span class="pre">.guilabel</span></code><a class="headerlink" href="#guilabel" title="Link to this heading">¶</a></h3>
+<p>Used by the <code class="docutils literal notranslate"><span class="pre">:guilabel:</span></code> role.</p>
+<div class="awdur-codeblock docutils container">
+<div class="awdur-codeblock-header docutils container">
+<code class="awdur-codeblock-filename docutils literal notranslate"><span class="pre">_static/css/styles.css</span></code></div>
+<div class="highlight-css notranslate"><div class="highlight"><pre><span></span><span class="p">.</span><span class="nc">guilabel</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="k">color</span><span class="p">:</span><span class="w"> </span><span class="nf">var</span><span class="p">(</span><span class="nv">--fg-accent</span><span class="p">);</span>
+<span class="w">  </span><span class="k">font-style</span><span class="p">:</span><span class="w"> </span><span class="kc">italic</span><span class="p">;</span>
+<span class="w">  </span><span class="k">font-weight</span><span class="p">:</span><span class="w"> </span><span class="kc">bold</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+</section>
 <section id="hidden">
 <h3><code class="docutils literal notranslate"><span class="pre">.hidden</span></code><a class="headerlink" href="#hidden" title="Link to this heading">¶</a></h3>
+<p>Easy way to hide elements.</p>
 <div class="awdur-codeblock docutils container">
 <div class="awdur-codeblock-header docutils container">
 <code class="awdur-codeblock-filename docutils literal notranslate"><span class="pre">_static/css/styles.css</span></code></div>
 <div class="highlight-css notranslate"><div class="highlight"><pre><span></span><span class="p">.</span><span class="nc">hidden</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">display</span><span class="p">:</span><span class="w"> </span><span class="kc">none</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
+</pre></div>
+</div>
+</div>
+</section>
+<section id="highlighted">
+<h3><code class="docutils literal notranslate"><span class="pre">.highlighted</span></code><a class="headerlink" href="#highlighted" title="Link to this heading">¶</a></h3>
+<p>Used by the search system to highlight matched terms.</p>
+<div class="awdur-codeblock docutils container">
+<div class="awdur-codeblock-header docutils container">
+<code class="awdur-codeblock-filename docutils literal notranslate"><span class="pre">_static/css/styles.css</span></code></div>
+<div class="highlight-css notranslate"><div class="highlight"><pre><span></span><span class="p">.</span><span class="nc">highlighted</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="k">background</span><span class="p">:</span><span class="w"> </span><span class="nf">var</span><span class="p">(</span><span class="nv">--highlight-color</span><span class="p">);</span>
+<span class="w">  </span><span class="k">color</span><span class="p">:</span><span class="w"> </span><span class="nf">var</span><span class="p">(</span><span class="nv">--bg-main</span><span class="p">);</span>
+<span class="w">  </span><span class="k">padding</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="mf">0.5</span><span class="kt">em</span><span class="p">;</span>
+<span class="w">  </span><span class="k">border</span><span class="p">:</span><span class="w"> </span><span class="kc">solid</span><span class="w"> </span><span class="mi">1</span><span class="kt">px</span><span class="w"> </span><span class="nf">var</span><span class="p">(</span><span class="nv">--fg-main</span><span class="p">);</span>
+<span class="w">  </span><span class="k">border-radius</span><span class="p">:</span><span class="w"> </span><span class="mi">3</span><span class="kt">px</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+</section>
+<section id="line-through">
+<h3><code class="docutils literal notranslate"><span class="pre">.line-through</span></code><a class="headerlink" href="#line-through" title="Link to this heading">¶</a></h3>
+<p>On some pages I define an ad-hoc role to <span class="line-through">strikethrough</span> some text.</p>
+<div class="highlight-rst notranslate"><div class="highlight"><pre><span></span><span class="p">..</span> <span class="ow">role</span><span class="p">::</span> strike
+   <span class="nc">:class:</span> line-through
+</pre></div>
+</div>
+<p>Which requires the CSS for the given class name to be defined.</p>
+<div class="awdur-codeblock docutils container">
+<div class="awdur-codeblock-header docutils container">
+<code class="awdur-codeblock-filename docutils literal notranslate"><span class="pre">_static/css/styles.css</span></code></div>
+<div class="highlight-css notranslate"><div class="highlight"><pre><span></span><span class="p">.</span><span class="nc">line-through</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">text-decoration</span><span class="p">:</span><span class="w"> </span><span class="kc">line-through</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
 </pre></div>
 </div>
 </div>
@@ -452,6 +507,12 @@ I style the usual character (<code class="docutils literal notranslate"><span cl
 <span class="w">    </span><span class="k">color</span><span class="p">:</span><span class="w"> </span><span class="nf">var</span><span class="p">(</span><span class="nv">--fg-main</span><span class="p">);</span>
 <span class="w">  </span><span class="p">}</span>
 <span class="err">}</span>
+
+<span class="nt">main</span><span class="w"> </span><span class="nt">a</span><span class="p">.</span><span class="nc">tag</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="k">color</span><span class="p">:</span><span class="w"> </span><span class="nf">var</span><span class="p">(</span><span class="nv">--bg-main</span><span class="p">);</span>
+<span class="w">  </span><span class="k">background</span><span class="p">:</span><span class="w"> </span><span class="nf">var</span><span class="p">(</span><span class="nv">--fg-accent</span><span class="p">);</span>
+<span class="w">  </span><span class="k">border-color</span><span class="p">:</span><span class="w"> </span><span class="nf">var</span><span class="p">(</span><span class="nv">--fg-accent-dim</span><span class="p">);</span>
+<span class="p">}</span>
 </pre></div>
 </div>
 </div>
@@ -479,7 +540,7 @@ I style the usual character (<code class="docutils literal notranslate"><span cl
 <p>As generated by the <code class="docutils literal notranslate"><span class="pre">..</span> <span class="pre">pull-quote::</span></code> directive.</p>
 <blockquote class="pull-quote">
 <div><p>The technology you use <strong>impresses no one</strong>.</p>
-<p>The experience you create with it is <strong>everything</strong>. – <a href="#id1"><span class="problematic" id="id2">`Sean Gerety`_</span></a></p>
+<p>The experience you create with it is <strong>everything</strong>. – <a href="#id2"><span class="problematic" id="id3">`Sean Gerety`_</span></a></p>
 </div></blockquote>
 <div class="awdur-codeblock docutils container">
 <div class="awdur-codeblock-header docutils container">
@@ -599,9 +660,8 @@ I style the usual character (<code class="docutils literal notranslate"><span cl
 </div>
 </div>
 </section>
-</section>
 <section id="table">
-<h2><code class="docutils literal notranslate"><span class="pre">table</span></code><a class="headerlink" href="#table" title="Link to this heading">¶</a></h2>
+<h3><code class="docutils literal notranslate"><span class="pre">table</span></code><a class="headerlink" href="#table" title="Link to this heading">¶</a></h3>
 <p>A <code class="docutils literal notranslate"><span class="pre">table</span></code> is composed of many elements.</p>
 <table class="docutils align-default">
 <thead>
@@ -655,6 +715,7 @@ I style the usual character (<code class="docutils literal notranslate"><span cl
 </pre></div>
 </div>
 </div>
+</section>
 </section>
 <section id="layout">
 <h2>Layout<a class="headerlink" href="#layout" title="Link to this heading">¶</a></h2>
@@ -725,8 +786,8 @@ For example, assuming that when checked the sidebar should close, the CSS for th
 </div>
 <p>However, I think the only way to make this work across screen sizes, is to change the meaning of the checkbox state depending on the screen size.
 This is bound to lead to some quirks if you resize the screen across a breakpoint, but hopefully, it’s enough of an edge case to not have to worry too much about it! 😅</p>
-<section id="desktop">
-<h3>Desktop<a class="headerlink" href="#desktop" title="Link to this heading">¶</a></h3>
+<section id="left-sidebars">
+<h3>Left Sidebars<a class="headerlink" href="#left-sidebars" title="Link to this heading">¶</a></h3>
 <p>Playing around with some screen sizes… about <code class="docutils literal notranslate"><span class="pre">1000px</span></code> feels the right time to have the left sidebar open by default.</p>
 <div class="awdur-codeblock docutils container">
 <div class="awdur-codeblock-header docutils container">
@@ -761,7 +822,42 @@ This is bound to lead to some quirks if you resize the screen across a breakpoin
 </pre></div>
 </div>
 </div>
-<p>Then at around <code class="docutils literal notranslate"><span class="pre">1600px</span></code>, the right sidebar may as well open by default</p>
+<p>However, as nice as it is to be able to animate the grid, it’s not going to work on small screen sizes.
+Instead, it’s probably best to reuse the same approach I took with the <a class="reference internal" href="#blog-theme-site-nav"><span class="std std-ref">navigation menu</span></a> and position the sidebar over the main content</p>
+<div class="awdur-codeblock docutils container">
+<div class="awdur-codeblock-header docutils container">
+<code class="awdur-codeblock-filename docutils literal notranslate"><span class="pre">_static/css/styles.css</span></code></div>
+<div class="highlight-css notranslate"><div class="highlight"><pre><span></span><span class="p">@</span><span class="k">media</span><span class="w"> </span><span class="nt">screen</span><span class="w"> </span><span class="nt">and</span><span class="w"> </span><span class="o">(</span><span class="nt">max-width</span><span class="o">:</span><span class="w"> </span><span class="nt">1000px</span><span class="o">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="nt">aside</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">position</span><span class="p">:</span><span class="w"> </span><span class="kc">relative</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
+
+<span class="w">  </span><span class="p">.</span><span class="nc">grid</span><span class="w"> </span><span class="p">.</span><span class="nc">left-sidebar</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">position</span><span class="p">:</span><span class="w"> </span><span class="kc">absolute</span><span class="p">;</span>
+<span class="w">    </span><span class="k">top</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="w">    </span><span class="k">left</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="w">    </span><span class="k">opacity</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="w">    </span><span class="k">width</span><span class="p">:</span><span class="w"> </span><span class="nf">var</span><span class="p">(</span><span class="nv">--sidebar-min-width</span><span class="p">);</span>
+<span class="w">    </span><span class="k">overflow-x</span><span class="p">:</span><span class="w"> </span><span class="kc">hidden</span><span class="p">;</span>
+<span class="w">    </span><span class="k">z-index</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span>
+<span class="w">  </span><span class="p">}</span>
+
+<span class="w">  </span><span class="p">#</span><span class="nn">left-sidebar-checkbox</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="err">&amp;:checked</span><span class="w"> </span><span class="err">~</span><span class="w"> </span><span class="err">.grid</span><span class="w"> </span><span class="err">.left-sidebar</span><span class="w"> </span><span class="err">{</span>
+<span class="w">      </span><span class="k">opacity</span><span class="p">:</span><span class="w"> </span><span class="mi">100</span><span class="kt">%</span><span class="p">;</span>
+<span class="w">      </span><span class="k">width</span><span class="p">:</span><span class="w"> </span><span class="nf">var</span><span class="p">(</span><span class="nv">--sidebar-max-width</span><span class="p">);</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">     </span><span class="o">&amp;</span><span class="p">:</span><span class="nd">checked</span><span class="w"> </span><span class="o">~</span><span class="w"> </span><span class="p">.</span><span class="nc">grid</span><span class="w"> </span><span class="nt">label</span><span class="o">[</span><span class="nt">for</span><span class="o">=</span><span class="s2">&quot;left-sidebar-checkbox&quot;</span><span class="o">]</span><span class="w"> </span><span class="nt">rect</span><span class="p">.</span><span class="nc">open-state</span><span class="w"> </span><span class="p">{</span>
+<span class="w">       </span><span class="k">fill</span><span class="p">:</span><span class="w"> </span><span class="nf">var</span><span class="p">(</span><span class="nv">--fg-sidebar-dim</span><span class="p">);</span>
+<span class="w">     </span><span class="p">}</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="err">}</span>
+</pre></div>
+</div>
+</div>
+</section>
+<section id="right-sidebar">
+<h3>Right Sidebar<a class="headerlink" href="#right-sidebar" title="Link to this heading">¶</a></h3>
+<p>At around <code class="docutils literal notranslate"><span class="pre">1600px</span></code>, the right sidebar may as well open by default</p>
 <div class="awdur-codeblock docutils container">
 <div class="awdur-codeblock-header docutils container">
 <code class="awdur-codeblock-filename docutils literal notranslate"><span class="pre">_static/css/styles.css</span></code></div>
@@ -794,6 +890,41 @@ This is bound to lead to some quirks if you resize the screen across a breakpoin
 </pre></div>
 </div>
 </div>
+<p>However, as nice as it is to be able to animate the grid, it’s not going to work on small screen sizes.
+Instead, it’s probably best to reuse the same approach I took with the <a class="reference internal" href="#blog-theme-site-nav"><span class="std std-ref">navigation menu</span></a> and position the sidebar over the main content</p>
+<div class="awdur-codeblock docutils container">
+<div class="awdur-codeblock-header docutils container">
+<code class="awdur-codeblock-filename docutils literal notranslate"><span class="pre">_static/css/styles.css</span></code></div>
+<div class="highlight-css notranslate"><div class="highlight"><pre><span></span><span class="p">@</span><span class="k">media</span><span class="w"> </span><span class="nt">screen</span><span class="w"> </span><span class="nt">and</span><span class="w"> </span><span class="o">(</span><span class="nt">max-width</span><span class="o">:</span><span class="w"> </span><span class="nt">1600px</span><span class="o">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="nt">aside</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">position</span><span class="p">:</span><span class="w"> </span><span class="kc">relative</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
+
+<span class="w">  </span><span class="p">.</span><span class="nc">grid</span><span class="w"> </span><span class="p">.</span><span class="nc">right-sidebar</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">position</span><span class="p">:</span><span class="w"> </span><span class="kc">absolute</span><span class="p">;</span>
+<span class="w">    </span><span class="k">top</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="w">    </span><span class="k">right</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="w">    </span><span class="k">opacity</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="w">    </span><span class="k">width</span><span class="p">:</span><span class="w"> </span><span class="nf">var</span><span class="p">(</span><span class="nv">--sidebar-min-width</span><span class="p">);</span>
+<span class="w">    </span><span class="k">overflow-x</span><span class="p">:</span><span class="w"> </span><span class="kc">hidden</span><span class="p">;</span>
+<span class="w">    </span><span class="k">z-index</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span>
+<span class="w">  </span><span class="p">}</span>
+
+<span class="w">  </span><span class="p">#</span><span class="nn">right-sidebar-checkbox</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="err">&amp;:checked</span><span class="w"> </span><span class="err">~</span><span class="w"> </span><span class="err">.grid</span><span class="w"> </span><span class="err">.right-sidebar</span><span class="w"> </span><span class="err">{</span>
+<span class="w">      </span><span class="k">opacity</span><span class="p">:</span><span class="w"> </span><span class="mi">100</span><span class="kt">%</span><span class="p">;</span>
+<span class="w">      </span><span class="k">width</span><span class="p">:</span><span class="w"> </span><span class="nf">var</span><span class="p">(</span><span class="nv">--sidebar-max-width</span><span class="p">);</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">     </span><span class="o">&amp;</span><span class="p">:</span><span class="nd">checked</span><span class="w"> </span><span class="o">~</span><span class="w"> </span><span class="p">.</span><span class="nc">grid</span><span class="w"> </span><span class="nt">label</span><span class="o">[</span><span class="nt">for</span><span class="o">=</span><span class="s2">&quot;right-sidebar-checkbox&quot;</span><span class="o">]</span><span class="w"> </span><span class="nt">rect</span><span class="p">.</span><span class="nc">open-state</span><span class="w"> </span><span class="p">{</span>
+<span class="w">       </span><span class="k">fill</span><span class="p">:</span><span class="w"> </span><span class="nf">var</span><span class="p">(</span><span class="nv">--fg-sidebar-dim</span><span class="p">);</span>
+<span class="w">     </span><span class="p">}</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="err">}</span>
+</pre></div>
+</div>
+</div>
+</section>
+<section id="footer">
+<h3>Footer<a class="headerlink" href="#footer" title="Link to this heading">¶</a></h3>
 <p>The panel will always be closed by default</p>
 <div class="awdur-codeblock docutils container">
 <div class="awdur-codeblock-header docutils container">
@@ -813,10 +944,8 @@ This is bound to lead to some quirks if you resize the screen across a breakpoin
 </div>
 </section>
 </section>
-<section id="components">
-<h2>Components<a class="headerlink" href="#components" title="Link to this heading">¶</a></h2>
 <section id="header">
-<h3>Header<a class="headerlink" href="#header" title="Link to this heading">¶</a></h3>
+<h2>Header<a class="headerlink" href="#header" title="Link to this heading">¶</a></h2>
 <div class="awdur-codeblock docutils container">
 <div class="awdur-codeblock-header docutils container">
 <code class="awdur-codeblock-filename docutils literal notranslate"><span class="pre">_static/css/styles.css</span></code></div>
@@ -839,7 +968,7 @@ This is bound to lead to some quirks if you resize the screen across a breakpoin
 </div>
 </div>
 <section id="site-title">
-<h4>Site Title<a class="headerlink" href="#site-title" title="Link to this heading">¶</a></h4>
+<h3>Site Title<a class="headerlink" href="#site-title" title="Link to this heading">¶</a></h3>
 <div class="awdur-codeblock docutils container">
 <div class="awdur-codeblock-header docutils container">
 <code class="awdur-codeblock-filename docutils literal notranslate"><span class="pre">_static/css/styles.css</span></code></div>
@@ -883,7 +1012,7 @@ This is bound to lead to some quirks if you resize the screen across a breakpoin
 </div>
 </section>
 <section id="site-navigation">
-<h4>Site Navigation<a class="headerlink" href="#site-navigation" title="Link to this heading">¶</a></h4>
+<span id="blog-theme-site-nav"></span><h3>Site Navigation<a class="headerlink" href="#site-navigation" title="Link to this heading">¶</a></h3>
 <div class="awdur-codeblock docutils container">
 <div class="awdur-codeblock-header docutils container">
 <code class="awdur-codeblock-filename docutils literal notranslate"><span class="pre">_static/css/styles.css</span></code></div>
@@ -966,7 +1095,7 @@ This is bound to lead to some quirks if you resize the screen across a breakpoin
 </div>
 </section>
 <section id="layout-toggles">
-<h4>Layout Toggles<a class="headerlink" href="#layout-toggles" title="Link to this heading">¶</a></h4>
+<h3>Layout Toggles<a class="headerlink" href="#layout-toggles" title="Link to this heading">¶</a></h3>
 <div class="awdur-codeblock docutils container">
 <div class="awdur-codeblock-header docutils container">
 <code class="awdur-codeblock-filename docutils literal notranslate"><span class="pre">_static/css/styles.css</span></code></div>
@@ -988,7 +1117,6 @@ This is bound to lead to some quirks if you resize the screen across a breakpoin
 </div>
 </section>
 </section>
-</section>
 <section id="sidebars">
 <h2>Sidebars<a class="headerlink" href="#sidebars" title="Link to this heading">¶</a></h2>
 <div class="awdur-codeblock docutils container">
@@ -1007,6 +1135,9 @@ This is bound to lead to some quirks if you resize the screen across a breakpoin
 <code class="awdur-codeblock-filename docutils literal notranslate"><span class="pre">_static/css/styles.css</span></code></div>
 <div class="highlight-css notranslate"><div class="highlight"><pre><span></span><span class="nt">div</span><span class="p">.</span><span class="nc">left-sidebar</span><span class="o">,</span>
 <span class="nt">div</span><span class="p">.</span><span class="nc">right-sidebar</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="k">color</span><span class="p">:</span><span class="w"> </span><span class="nf">var</span><span class="p">(</span><span class="nv">--fg-sidebar</span><span class="p">);</span>
+<span class="w">  </span><span class="k">background</span><span class="p">:</span><span class="w"> </span><span class="nf">var</span><span class="p">(</span><span class="nv">--bg-sidebar</span><span class="p">);</span>
+
 <span class="w">  </span><span class="k">height</span><span class="p">:</span><span class="w"> </span><span class="nb">calc</span><span class="p">(</span><span class="mi">100</span><span class="kt">vh</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="mi">3</span><span class="kt">em</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="nf">var</span><span class="p">(</span><span class="nv">--panel-height</span><span class="p">));</span>
 <span class="w">  </span><span class="k">padding</span><span class="p">:</span><span class="w"> </span><span class="mf">0.5</span><span class="kt">em</span><span class="p">;</span>
 <span class="w">  </span><span class="k">position</span><span class="p">:</span><span class="w"> </span><span class="kc">sticky</span><span class="p">;</span>
@@ -1028,6 +1159,32 @@ This is bound to lead to some quirks if you resize the screen across a breakpoin
 </pre></div>
 </div>
 </div>
+<section id="archive">
+<h3>Archive<a class="headerlink" href="#archive" title="Link to this heading">¶</a></h3>
+<div class="awdur-codeblock docutils container">
+<div class="awdur-codeblock-header docutils container">
+<code class="awdur-codeblock-filename docutils literal notranslate"><span class="pre">_static/css/styles.css</span></code></div>
+<div class="highlight-css notranslate"><div class="highlight"><pre><span></span><span class="nt">section</span><span class="p">.</span><span class="nc">blog-archive</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="err">ul</span><span class="w"> </span><span class="err">{</span>
+<span class="w">    </span><span class="k">padding</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="w">    </span><span class="k">display</span><span class="p">:</span><span class="w"> </span><span class="k">grid</span><span class="p">;</span>
+<span class="w">    </span><span class="k">grid-template-columns</span><span class="p">:</span><span class="w"> </span><span class="nf">repeat</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="n">fr</span><span class="p">);</span>
+<span class="w">  </span><span class="p">}</span>
+
+<span class="w">  </span><span class="nt">li</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">padding</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="kt">em</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="w">    </span><span class="k">list-style</span><span class="p">:</span><span class="w"> </span><span class="kc">none</span><span class="p">;</span>
+<span class="w">    </span><span class="k">text-align</span><span class="p">:</span><span class="w"> </span><span class="kc">center</span><span class="p">;</span>
+
+<span class="w">    </span><span class="err">span.count</span><span class="w"> </span><span class="err">{</span>
+<span class="w">      </span><span class="k">color</span><span class="p">:</span><span class="w"> </span><span class="nf">var</span><span class="p">(</span><span class="nv">--fg-sidebar</span><span class="p">);</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">  </span><span class="err">}</span>
+<span class="err">}</span>
+</pre></div>
+</div>
+</div>
+</section>
 <section id="metadata">
 <h3>Metadata<a class="headerlink" href="#metadata" title="Link to this heading">¶</a></h3>
 <div class="awdur-codeblock docutils container">
@@ -1036,6 +1193,7 @@ This is bound to lead to some quirks if you resize the screen across a breakpoin
 <div class="highlight-css notranslate"><div class="highlight"><pre><span></span><span class="nt">section</span><span class="p">.</span><span class="nc">post-metadata</span><span class="w"> </span><span class="p">{</span>
 <span class="w">  </span><span class="k">display</span><span class="p">:</span><span class="w"> </span><span class="k">grid</span><span class="p">;</span>
 <span class="w">  </span><span class="k">grid-template-columns</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="kt">em</span><span class="w"> </span><span class="kc">auto</span><span class="p">;</span>
+<span class="w">  </span><span class="k">align-items</span><span class="p">:</span><span class="w"> </span><span class="kc">center</span><span class="p">;</span>
 
 <span class="w">  </span><span class="err">ul.taglist</span><span class="w"> </span><span class="err">{</span>
 <span class="w">    </span><span class="k">justify-content</span><span class="p">:</span><span class="w"> </span><span class="kc">flex-end</span><span class="p">;</span>
@@ -1189,10 +1347,12 @@ As far as I can tell, there is no easy way to override the generated HTML, so th
 <div class="awdur-codeblock docutils container">
 <div class="awdur-codeblock-header docutils container">
 <code class="awdur-codeblock-filename docutils literal notranslate"><span class="pre">_static/css/styles.css</span></code></div>
-<div class="highlight-css notranslate"><div class="highlight"><pre><span></span><span class="nt">main</span><span class="w"> </span><span class="p">{</span>
+<div class="highlight-css notranslate"><div class="highlight"><pre><span></span><span class="nt">body</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">background</span><span class="p">:</span><span class="w"> </span><span class="nf">var</span><span class="p">(</span><span class="nv">--bg-sidebar</span><span class="p">);</span><span class="w"> </span><span class="p">}</span>
+
+<span class="nt">main</span><span class="w"> </span><span class="p">{</span>
 <span class="w">  </span><span class="k">min-width</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
 <span class="w">  </span><span class="k">max-height</span><span class="p">:</span><span class="w"> </span><span class="mi">100</span><span class="kt">%</span><span class="p">;</span>
-<span class="w">  </span><span class="k">overflow-y</span><span class="p">:</span><span class="w"> </span><span class="kc">auto</span>
+<span class="w">  </span><span class="k">overflow-y</span><span class="p">:</span><span class="w"> </span><span class="kc">auto</span><span class="p">;</span>
 <span class="p">}</span>
 </pre></div>
 </div>
@@ -1200,7 +1360,6 @@ As far as I can tell, there is no easy way to override the generated HTML, so th
 <section id="article">
 <h3><code class="docutils literal notranslate"><span class="pre">article</span></code><a class="headerlink" href="#article" title="Link to this heading">¶</a></h3>
 <p>I use <code class="docutils literal notranslate"><span class="pre">article</span></code> elements to contain the main content of the page.</p>
-<p>Setting the <code class="docutils literal notranslate"><span class="pre">scroll-margin</span></code> ensures that section headers are not obscured by the site header when scrolling to a particular section.</p>
 <div class="awdur-codeblock docutils container">
 <div class="awdur-codeblock-header docutils container">
 <code class="awdur-codeblock-filename docutils literal notranslate"><span class="pre">_static/css/styles.css</span></code></div>
@@ -1209,11 +1368,7 @@ As far as I can tell, there is no easy way to override the generated HTML, so th
 <span class="w">  </span><span class="k">line-height</span><span class="p">:</span><span class="w"> </span><span class="mf">1.5</span><span class="p">;</span>
 <span class="w">  </span><span class="k">max-width</span><span class="p">:</span><span class="w"> </span><span class="mi">100</span><span class="kt">ch</span><span class="p">;</span>
 
-<span class="w">  </span><span class="err">section</span><span class="w"> </span><span class="err">{</span>
-<span class="w">    </span><span class="k">scroll-margin</span><span class="p">:</span><span class="w"> </span><span class="mi">3</span><span class="kt">em</span><span class="p">;</span>
-<span class="w">  </span><span class="p">}</span>
-
-<span class="w">  </span><span class="nt">footer</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="err">footer</span><span class="w"> </span><span class="err">{</span>
 <span class="w">    </span><span class="k">border-top</span><span class="p">:</span><span class="w"> </span><span class="kc">solid</span><span class="w"> </span><span class="mi">1</span><span class="kt">px</span><span class="w"> </span><span class="nf">var</span><span class="p">(</span><span class="nv">--border-color</span><span class="p">);</span>
 <span class="w">  </span><span class="p">}</span>
 <span class="err">}</span>
@@ -1230,6 +1385,34 @@ As far as I can tell, there is no easy way to override the generated HTML, so th
 </pre></div>
 </div>
 </div>
+<section id="admonitions">
+<h4>Admonitions<a class="headerlink" href="#admonitions" title="Link to this heading">¶</a></h4>
+<div class="awdur-codeblock docutils container">
+<div class="awdur-codeblock-header docutils container">
+<code class="awdur-codeblock-filename docutils literal notranslate"><span class="pre">_static/css/styles.css</span></code></div>
+<div class="highlight-css notranslate"><div class="highlight"><pre><span></span><span class="nt">div</span><span class="p">.</span><span class="nc">admonition</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="k">margin</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="kt">em</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="w">  </span><span class="k">border</span><span class="p">:</span><span class="w"> </span><span class="kc">solid</span><span class="w"> </span><span class="mi">1</span><span class="kt">px</span><span class="w"> </span><span class="nf">var</span><span class="p">(</span><span class="nv">--border-color</span><span class="p">);</span>
+<span class="w">  </span><span class="k">border-radius</span><span class="p">:</span><span class="w"> </span><span class="mi">3</span><span class="kt">px</span><span class="p">;</span>
+
+<span class="w">  </span><span class="err">&amp;</span><span class="w"> </span><span class="err">&gt;</span><span class="w"> </span><span class="err">:not(ol,ul)</span><span class="w"> </span><span class="err">{</span>
+<span class="w">    </span><span class="k">padding</span><span class="p">:</span><span class="w"> </span><span class="mf">0.5</span><span class="kt">em</span><span class="p">;</span>
+<span class="w">    </span><span class="k">margin</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="w">  </span><span class="p">}</span>
+
+<span class="w">  </span><span class="p">.</span><span class="nc">admonition-title</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">margin</span><span class="p">:</span><span class="w"> </span><span class="mi">-1</span><span class="kt">px</span><span class="w"> </span><span class="mi">-1</span><span class="kt">px</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="mi">-1</span><span class="kt">px</span><span class="p">;</span>
+<span class="w">    </span><span class="k">color</span><span class="p">:</span><span class="w"> </span><span class="nf">var</span><span class="p">(</span><span class="nv">--fg-accent</span><span class="p">);</span>
+<span class="w">    </span><span class="k">border</span><span class="p">:</span><span class="w"> </span><span class="kc">solid</span><span class="w"> </span><span class="mi">2</span><span class="kt">px</span><span class="w"> </span><span class="nf">var</span><span class="p">(</span><span class="nv">--fg-accent</span><span class="p">);</span>
+<span class="w">    </span><span class="k">border-left</span><span class="p">:</span><span class="w"> </span><span class="kc">solid</span><span class="w"> </span><span class="mi">5</span><span class="kt">px</span><span class="w"> </span><span class="nf">var</span><span class="p">(</span><span class="nv">--fg-accent</span><span class="p">);</span>
+<span class="w">    </span><span class="k">border-top-left-radius</span><span class="p">:</span><span class="w"> </span><span class="mi">3</span><span class="kt">px</span><span class="p">;</span>
+<span class="w">    </span><span class="k">border-top-right-radius</span><span class="p">:</span><span class="w"> </span><span class="mi">3</span><span class="kt">px</span><span class="p">;</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="err">}</span>
+</pre></div>
+</div>
+</div>
+</section>
 <section id="code">
 <h4>Code<a class="headerlink" href="#code" title="Link to this heading">¶</a></h4>
 <p>Sphinx/docutils render inline code in <code class="docutils literal notranslate"><span class="pre">&lt;code&gt;</span></code> tags with the text further wrapped in a <code class="docutils literal notranslate"><span class="pre">&lt;span&gt;</span></code> tag.</p>
@@ -1302,7 +1485,9 @@ This header also needs to be styled to match the look and feel of this site.</p>
 <div class="awdur-codeblock-header docutils container">
 <code class="awdur-codeblock-filename docutils literal notranslate"><span class="pre">_static/css/styles.css</span></code></div>
 <div class="highlight-css notranslate"><div class="highlight"><pre><span></span><span class="nt">article</span><span class="w"> </span><span class="p">{</span>
-<span class="w">  </span><span class="err">h1,</span><span class="w"> </span><span class="err">h2,</span><span class="w"> </span><span class="err">h3,</span><span class="w"> </span><span class="err">h4,</span><span class="w"> </span><span class="err">h5,</span><span class="w"> </span><span class="err">h6</span><span class="w"> </span><span class="err">{</span><span class="w"> </span><span class="k">color</span><span class="p">:</span><span class="w"> </span><span class="nf">var</span><span class="p">(</span><span class="nv">--fg-accent</span><span class="p">);</span><span class="w"> </span><span class="p">}</span>
+<span class="w">  </span><span class="err">section</span><span class="w"> </span><span class="err">{</span><span class="k">margin-top</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="kt">em</span><span class="p">;}</span>
+
+<span class="w">  </span><span class="nt">h1</span><span class="o">,</span><span class="w"> </span><span class="nt">h2</span><span class="o">,</span><span class="w"> </span><span class="nt">h3</span><span class="o">,</span><span class="w"> </span><span class="nt">h4</span><span class="o">,</span><span class="w"> </span><span class="nt">h5</span><span class="o">,</span><span class="w"> </span><span class="nt">h6</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">color</span><span class="p">:</span><span class="w"> </span><span class="nf">var</span><span class="p">(</span><span class="nv">--fg-accent</span><span class="p">);</span><span class="w"> </span><span class="p">}</span>
 
 <span class="w">  </span><span class="nt">p</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">margin</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="kt">em</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
 
@@ -1316,9 +1501,125 @@ This header also needs to be styled to match the look and feel of this site.</p>
 </div>
 </section>
 </section>
+<section id="post-collections">
+<h3>Post Collections<a class="headerlink" href="#post-collections" title="Link to this heading">¶</a></h3>
+<p>I quite liked the idea of placing all of my blog posts on a timeline, but it does involve a fair amount of CSS.
+I keep telling myself that I’m going to expand the type of “events” in the list… someday! 😅</p>
+<div class="awdur-codeblock docutils container">
+<div class="awdur-codeblock-header docutils container">
+<code class="awdur-codeblock-filename docutils literal notranslate"><span class="pre">_static/css/styles.css</span></code></div>
+<div class="highlight-css notranslate"><div class="highlight"><pre><span></span><span class="nt">article</span><span class="p">.</span><span class="nc">summary</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="k">display</span><span class="p">:</span><span class="w"> </span><span class="k">grid</span><span class="p">;</span>
+<span class="w">  </span><span class="k">grid-template-columns</span><span class="p">:</span><span class="w"> </span><span class="mi">250</span><span class="kt">px</span><span class="w"> </span><span class="kc">auto</span><span class="p">;</span>
+
+<span class="w">  </span><span class="err">&amp;</span><span class="w"> </span><span class="err">&gt;</span><span class="w"> </span><span class="err">:not(aside)</span><span class="w"> </span><span class="err">{</span>
+<span class="w">    </span><span class="k">padding</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="mi">1</span><span class="kt">em</span><span class="p">;</span>
+<span class="w">  </span><span class="p">}</span>
+
+<span class="w">  </span><span class="nt">header</span><span class="o">,</span><span class="w"> </span><span class="nt">footer</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">grid-column</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p">;</span>
+<span class="w">  </span><span class="p">}</span>
+
+<span class="w">  </span><span class="nt">header</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">position</span><span class="p">:</span><span class="w"> </span><span class="kc">relative</span><span class="p">;</span>
+
+<span class="w">    </span><span class="err">&amp;::before</span><span class="w"> </span><span class="err">{</span>
+<span class="w">      </span><span class="k">content</span><span class="p">:</span><span class="w"> </span><span class="s1">&#39;&#39;</span><span class="p">;</span>
+<span class="w">      </span><span class="k">width</span><span class="p">:</span><span class="w"> </span><span class="mf">0.75</span><span class="kt">em</span><span class="p">;</span>
+<span class="w">      </span><span class="k">height</span><span class="p">:</span><span class="w"> </span><span class="mf">0.75</span><span class="kt">em</span><span class="p">;</span>
+<span class="w">      </span><span class="k">background</span><span class="p">:</span><span class="w"> </span><span class="nf">var</span><span class="p">(</span><span class="nv">--border-color</span><span class="p">);</span>
+<span class="w">      </span><span class="k">border-radius</span><span class="p">:</span><span class="w"> </span><span class="mi">100</span><span class="kt">%</span><span class="p">;</span>
+<span class="w">      </span><span class="k">position</span><span class="p">:</span><span class="w"> </span><span class="kc">absolute</span><span class="p">;</span>
+<span class="w">      </span><span class="k">top</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="kt">em</span><span class="p">;</span>
+<span class="w">      </span><span class="k">left</span><span class="p">:</span><span class="w"> </span><span class="mf">-0.4</span><span class="kt">em</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">  </span><span class="err">}</span>
+
+<span class="w">  </span><span class="nt">aside</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">grid-row</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="n">span</span><span class="w"> </span><span class="mi">3</span><span class="p">;</span>
+<span class="w">    </span><span class="k">border-right</span><span class="p">:</span><span class="w"> </span><span class="kc">solid</span><span class="w"> </span><span class="mi">1</span><span class="kt">px</span><span class="w"> </span><span class="nf">var</span><span class="p">(</span><span class="nv">--border-color</span><span class="p">);</span>
+<span class="w">    </span><span class="k">padding</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="mi">1</span><span class="kt">em</span><span class="p">;</span>
+
+<span class="w">    </span><span class="err">section.post-metadata</span><span class="w"> </span><span class="err">{</span>
+<span class="w">      </span><span class="k">margin-top</span><span class="p">:</span><span class="w"> </span><span class="mf">0.4</span><span class="kt">em</span><span class="p">;</span>
+<span class="w">      </span><span class="k">align-items</span><span class="p">:</span><span class="w"> </span><span class="kc">flex-start</span><span class="p">;</span>
+
+<span class="w">      </span><span class="err">h5</span><span class="w"> </span><span class="err">{</span><span class="w"> </span><span class="k">display</span><span class="p">:</span><span class="w"> </span><span class="kc">none</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
+
+<span class="w">      </span><span class="nt">ul</span><span class="p">.</span><span class="nc">taglist</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">gap</span><span class="p">:</span><span class="w"> </span><span class="mf">0.5</span><span class="kt">em</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
+<span class="w">    </span><span class="err">}</span>
+<span class="w">  </span><span class="err">}</span>
+
+<span class="w">  </span><span class="nt">footer</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">border-top</span><span class="p">:</span><span class="w"> </span><span class="kc">none</span><span class="p">;</span>
+<span class="w">    </span><span class="k">text-align</span><span class="p">:</span><span class="w"> </span><span class="kc">right</span><span class="p">;</span>
+<span class="w">    </span><span class="k">margin-bottom</span><span class="p">:</span><span class="w"> </span><span class="mi">4</span><span class="kt">em</span><span class="p">;</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="err">}</span>
+</pre></div>
+</div>
+</div>
+<p>Of course on smaller displays, things need to be rearranged a bit.</p>
+<div class="awdur-codeblock docutils container">
+<div class="awdur-codeblock-header docutils container">
+<code class="awdur-codeblock-filename docutils literal notranslate"><span class="pre">_static/css/styles.css</span></code></div>
+<div class="highlight-css notranslate"><div class="highlight"><pre><span></span><span class="p">@</span><span class="k">media</span><span class="w"> </span><span class="nt">screen</span><span class="w"> </span><span class="nt">and</span><span class="w"> </span><span class="o">(</span><span class="nt">max-width</span><span class="o">:</span><span class="w"> </span><span class="nt">1200px</span><span class="o">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="nt">article</span><span class="p">.</span><span class="nc">summary</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">grid-template-columns</span><span class="p">:</span><span class="w"> </span><span class="kc">auto</span><span class="p">;</span>
+
+<span class="w">    </span><span class="err">header,</span><span class="w"> </span><span class="err">footer</span><span class="w"> </span><span class="err">{</span><span class="w"> </span><span class="k">grid-column</span><span class="p">:</span><span class="w"> </span><span class="kc">unset</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
+<span class="w">    </span><span class="nt">header</span><span class="p">::</span><span class="nd">before</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">display</span><span class="p">:</span><span class="w"> </span><span class="kc">none</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
+
+<span class="w">    </span><span class="nt">aside</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="k">grid-row</span><span class="p">:</span><span class="w"> </span><span class="kc">unset</span><span class="p">;</span>
+<span class="w">      </span><span class="k">border</span><span class="p">:</span><span class="w"> </span><span class="kc">none</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">  </span><span class="p">}</span>
+<span class="err">}</span>
+</pre></div>
+</div>
+</div>
+<p>It would be interesting to see if I can replace the above with a container query at some point.</p>
 </section>
-<section id="footer">
-<h2>Footer<a class="headerlink" href="#footer" title="Link to this heading">¶</a></h2>
+<section id="search-results">
+<h3>Search Results<a class="headerlink" href="#search-results" title="Link to this heading">¶</a></h3>
+<p>The search results page requires its own set of rules.</p>
+<div class="awdur-codeblock docutils container">
+<div class="awdur-codeblock-header docutils container">
+<code class="awdur-codeblock-filename docutils literal notranslate"><span class="pre">_static/css/styles.css</span></code></div>
+<div class="highlight-css notranslate"><div class="highlight"><pre><span></span><span class="nt">section</span><span class="p">#</span><span class="nn">search-results</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="k">padding</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="kt">em</span><span class="p">;</span>
+
+<span class="w">  </span><span class="err">h2</span><span class="w"> </span><span class="err">{</span><span class="w"> </span><span class="k">color</span><span class="p">:</span><span class="w"> </span><span class="nf">var</span><span class="p">(</span><span class="nv">--fg-accent</span><span class="p">);</span><span class="w"> </span><span class="p">}</span>
+
+<span class="w">  </span><span class="nt">p</span><span class="p">.</span><span class="nc">search-summary</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">padding</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="kt">em</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="w">  </span><span class="p">}</span>
+
+<span class="w">  </span><span class="nt">ul</span><span class="p">.</span><span class="nc">search</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">padding</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+
+<span class="w">    </span><span class="err">li</span><span class="w"> </span><span class="err">{</span>
+<span class="w">      </span><span class="k">margin</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="kt">em</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="w">      </span><span class="k">padding</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="kt">em</span><span class="p">;</span>
+<span class="w">      </span><span class="k">list-style</span><span class="p">:</span><span class="w"> </span><span class="kc">none</span><span class="p">;</span>
+<span class="w">      </span><span class="k">border</span><span class="p">:</span><span class="w"> </span><span class="kc">solid</span><span class="w"> </span><span class="mi">1</span><span class="kt">px</span><span class="w"> </span><span class="nf">var</span><span class="p">(</span><span class="nv">--fg-accent-dim</span><span class="p">);</span>
+<span class="w">      </span><span class="k">border-radius</span><span class="p">:</span><span class="w"> </span><span class="mi">3</span><span class="kt">px</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="nt">p</span><span class="p">.</span><span class="nc">context</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="k">margin</span><span class="p">:</span><span class="w"> </span><span class="mf">0.5</span><span class="kt">em</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">  </span><span class="err">}</span>
+<span class="err">}</span>
+</pre></div>
+</div>
+</div>
+</section>
+</section>
+<section id="id1">
+<h2>Footer<a class="headerlink" href="#id1" title="Link to this heading">¶</a></h2>
 <div class="awdur-codeblock docutils container">
 <div class="awdur-codeblock-header docutils container">
 <code class="awdur-codeblock-filename docutils literal notranslate"><span class="pre">_static/css/styles.css</span></code></div>

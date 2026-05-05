@@ -109,14 +109,69 @@ You might have heard of a `CSS reset <https://en.wikipedia.org/wiki/Reset_style_
 Utility Classes
 ---------------
 
+``.guilabel``
+^^^^^^^^^^^^^
+
+Used by the ``:guilabel:`` role.
+
+.. code-block:: css
+   :project: sphinx:dirhtml
+   :filename: _static/css/styles.css
+
+   .guilabel {
+     color: var(--fg-accent);
+     font-style: italic;
+     font-weight: bold;
+   }
+
 ``.hidden``
 ^^^^^^^^^^^
+
+Easy way to hide elements.
 
 .. code-block:: css
    :project: sphinx:dirhtml
    :filename: _static/css/styles.css
 
    .hidden { display: none; }
+
+``.highlighted``
+^^^^^^^^^^^^^^^^
+
+Used by the search system to highlight matched terms.
+
+.. code-block:: css
+   :project: sphinx:dirhtml
+   :filename: _static/css/styles.css
+
+   .highlighted {
+     background: var(--highlight-color);
+     color: var(--bg-main);
+     padding: 0 0.5em;
+     border: solid 1px var(--fg-main);
+     border-radius: 3px;
+   }
+
+``.line-through``
+^^^^^^^^^^^^^^^^^
+
+.. role:: strike
+   :class: line-through
+
+On some pages I define an ad-hoc role to :strike:`strikethrough` some text.
+
+.. code-block:: rst
+
+   .. role:: strike
+      :class: line-through
+
+Which requires the CSS for the given class name to be defined.
+
+.. code-block:: css
+   :project: sphinx:dirhtml
+   :filename: _static/css/styles.css
+
+   .line-through { text-decoration: line-through; }
 
 HTML Elements
 -------------
@@ -189,6 +244,12 @@ When linking to tags I want the link to be styled like a "pill".
      span.count {
        color: var(--fg-main);
      }
+   }
+
+   main a.tag {
+     color: var(--bg-main);
+     background: var(--fg-accent);
+     border-color: var(--fg-accent-dim);
    }
 
 Lists of tags should be flattened
@@ -336,7 +397,7 @@ e.g. :kbd:`C-x C-f`
    }
 
 ``table``
----------
+^^^^^^^^^
 
 A ``table`` is composed of many elements.
 
@@ -457,8 +518,8 @@ Which, assumes the following HTML structure.
 However, I think the only way to make this work across screen sizes, is to change the meaning of the checkbox state depending on the screen size.
 This is bound to lead to some quirks if you resize the screen across a breakpoint, but hopefully, it's enough of an edge case to not have to worry too much about it! 😅
 
-Desktop
-^^^^^^^
+Left Sidebars
+^^^^^^^^^^^^^
 
 Playing around with some screen sizes... about ``1000px`` feels the right time to have the left sidebar open by default.
 
@@ -494,7 +555,44 @@ Playing around with some screen sizes... about ``1000px`` feels the right time t
 
    }
 
-Then at around ``1600px``, the right sidebar may as well open by default
+
+However, as nice as it is to be able to animate the grid, it's not going to work on small screen sizes.
+Instead, it's probably best to reuse the same approach I took with the :ref:`navigation menu <blog-theme-site-nav>` and position the sidebar over the main content
+
+.. code-block:: css
+   :project: sphinx:dirhtml
+   :filename: _static/css/styles.css
+
+   @media screen and (max-width: 1000px) {
+     aside { position: relative; }
+
+     .grid .left-sidebar {
+       position: absolute;
+       top: 0;
+       left: 0;
+       opacity: 0;
+       width: var(--sidebar-min-width);
+       overflow-x: hidden;
+       z-index: 1;
+     }
+
+     #left-sidebar-checkbox {
+       &:checked ~ .grid .left-sidebar {
+         opacity: 100%;
+         width: var(--sidebar-max-width);
+       }
+
+        &:checked ~ .grid label[for="left-sidebar-checkbox"] rect.open-state {
+          fill: var(--fg-sidebar-dim);
+        }
+     }
+   }
+
+
+Right Sidebar
+^^^^^^^^^^^^^
+
+At around ``1600px``, the right sidebar may as well open by default
 
 .. code-block:: css
    :project: sphinx:dirhtml
@@ -527,6 +625,42 @@ Then at around ``1600px``, the right sidebar may as well open by default
       }
    }
 
+
+However, as nice as it is to be able to animate the grid, it's not going to work on small screen sizes.
+Instead, it's probably best to reuse the same approach I took with the :ref:`navigation menu <blog-theme-site-nav>` and position the sidebar over the main content
+
+.. code-block:: css
+   :project: sphinx:dirhtml
+   :filename: _static/css/styles.css
+
+   @media screen and (max-width: 1600px) {
+     aside { position: relative; }
+
+     .grid .right-sidebar {
+       position: absolute;
+       top: 0;
+       right: 0;
+       opacity: 0;
+       width: var(--sidebar-min-width);
+       overflow-x: hidden;
+       z-index: 1;
+     }
+
+     #right-sidebar-checkbox {
+       &:checked ~ .grid .right-sidebar {
+         opacity: 100%;
+         width: var(--sidebar-max-width);
+       }
+
+        &:checked ~ .grid label[for="right-sidebar-checkbox"] rect.open-state {
+          fill: var(--fg-sidebar-dim);
+        }
+     }
+   }
+
+Footer
+^^^^^^
+
 The panel will always be closed by default
 
 .. code-block:: css
@@ -544,11 +678,8 @@ The panel will always be closed by default
 
    }
 
-Components
-----------
-
 Header
-^^^^^^
+------
 
 .. code-block:: css
    :project: sphinx:dirhtml
@@ -571,7 +702,7 @@ Header
    }
 
 Site Title
-""""""""""
+^^^^^^^^^^
 
 .. code-block:: css
    :project: sphinx:dirhtml
@@ -613,8 +744,10 @@ On narrow screens, omit the site title text.
      }
    }
 
+.. _blog-theme-site-nav:
+
 Site Navigation
-"""""""""""""""
+^^^^^^^^^^^^^^^
 
 .. code-block:: css
    :project: sphinx:dirhtml
@@ -696,7 +829,7 @@ When the display is too narrow, hide the nav list and show the menu toggle inste
    }
 
 Layout Toggles
-""""""""""""""
+^^^^^^^^^^^^^^
 
 .. code-block:: css
    :project: sphinx:dirhtml
@@ -737,6 +870,9 @@ By making the sidebar content ``position: sticky`` it will move with the viewpor
 
    div.left-sidebar,
    div.right-sidebar {
+     color: var(--fg-sidebar);
+     background: var(--bg-sidebar);
+
      height: calc(100vh - 3em - var(--panel-height));
      padding: 0.5em;
      position: sticky;
@@ -756,6 +892,31 @@ By making the sidebar content ``position: sticky`` it will move with the viewpor
      }
    }
 
+Archive
+^^^^^^^
+
+.. code-block:: css
+   :project: sphinx:dirhtml
+   :filename: _static/css/styles.css
+
+   section.blog-archive {
+     ul {
+       padding: 0;
+       display: grid;
+       grid-template-columns: repeat(3, 1fr);
+     }
+
+     li {
+       padding: 1em 0;
+       list-style: none;
+       text-align: center;
+
+       span.count {
+         color: var(--fg-sidebar);
+       }
+     }
+   }
+
 Metadata
 ^^^^^^^^
 
@@ -766,6 +927,7 @@ Metadata
    section.post-metadata {
      display: grid;
      grid-template-columns: 2em auto;
+     align-items: center;
 
      ul.taglist {
        justify-content: flex-end;
@@ -914,18 +1076,18 @@ Main
    :project: sphinx:dirhtml
    :filename: _static/css/styles.css
 
+   body { background: var(--bg-sidebar); }
+
    main {
      min-width: 0;
      max-height: 100%;
-     overflow-y: auto
+     overflow-y: auto;
    }
 
 ``article``
 ^^^^^^^^^^^
 
 I use ``article`` elements to contain the main content of the page.
-
-Setting the ``scroll-margin`` ensures that section headers are not obscured by the site header when scrolling to a particular section.
 
 .. code-block:: css
    :project: sphinx:dirhtml
@@ -935,10 +1097,6 @@ Setting the ``scroll-margin`` ensures that section headers are not obscured by t
      padding: 0 2em;
      line-height: 1.5;
      max-width: 100ch;
-
-     section {
-       scroll-margin: 3em;
-     }
 
      footer {
        border-top: solid 1px var(--border-color);
@@ -955,6 +1113,32 @@ On mobile the padding should be reduced a bit to create more space
      article { padding: 0 0.5em; }
    }
 
+Admonitions
+"""""""""""
+
+.. code-block:: css
+   :project: sphinx:dirhtml
+   :filename: _static/css/styles.css
+
+   div.admonition {
+     margin: 1em 0;
+     border: solid 1px var(--border-color);
+     border-radius: 3px;
+
+     & > :not(ol,ul) {
+       padding: 0.5em;
+       margin: 0;
+     }
+
+     .admonition-title {
+       margin: -1px -1px 0 -1px;
+       color: var(--fg-accent);
+       border: solid 2px var(--fg-accent);
+       border-left: solid 5px var(--fg-accent);
+       border-top-left-radius: 3px;
+       border-top-right-radius: 3px;
+     }
+   }
 
 Code
 """"
@@ -1030,6 +1214,8 @@ Typography
    :filename: _static/css/styles.css
 
    article {
+     section {margin-top: 2em;}
+
      h1, h2, h3, h4, h5, h6 { color: var(--fg-accent); }
 
      p { margin: 1em 0; }
@@ -1037,6 +1223,123 @@ Typography
      table {
        line-height: unset;
        p { margin: 0;}
+     }
+   }
+
+Post Collections
+^^^^^^^^^^^^^^^^
+
+I quite liked the idea of placing all of my blog posts on a timeline, but it does involve a fair amount of CSS.
+I keep telling myself that I'm going to expand the type of "events" in the list... someday! 😅
+
+.. code-block:: css
+   :project: sphinx:dirhtml
+   :filename: _static/css/styles.css
+
+   article.summary {
+     display: grid;
+     grid-template-columns: 250px auto;
+
+     & > :not(aside) {
+       padding: 0 1em;
+     }
+
+     header, footer {
+       grid-column: 2;
+     }
+
+     header {
+       position: relative;
+
+       &::before {
+         content: '';
+         width: 0.75em;
+         height: 0.75em;
+         background: var(--border-color);
+         border-radius: 100%;
+         position: absolute;
+         top: 1em;
+         left: -0.4em;
+       }
+     }
+
+     aside {
+       grid-row: 1 / span 3;
+       border-right: solid 1px var(--border-color);
+       padding: 0 1em;
+
+       section.post-metadata {
+         margin-top: 0.4em;
+         align-items: flex-start;
+
+         h5 { display: none; }
+
+         ul.taglist { gap: 0.5em; }
+       }
+     }
+
+     footer {
+       border-top: none;
+       text-align: right;
+       margin-bottom: 4em;
+     }
+   }
+
+Of course on smaller displays, things need to be rearranged a bit.
+
+.. code-block:: css
+   :project: sphinx:dirhtml
+   :filename: _static/css/styles.css
+
+   @media screen and (max-width: 1200px) {
+     article.summary {
+       grid-template-columns: auto;
+
+       header, footer { grid-column: unset; }
+       header::before { display: none; }
+
+       aside {
+         grid-row: unset;
+         border: none;
+       }
+
+     }
+   }
+
+It would be interesting to see if I can replace the above with a container query at some point.
+
+Search Results
+^^^^^^^^^^^^^^
+
+The search results page requires its own set of rules.
+
+.. code-block:: css
+   :project: sphinx:dirhtml
+   :filename: _static/css/styles.css
+
+   section#search-results {
+     padding: 2em;
+
+     h2 { color: var(--fg-accent); }
+
+     p.search-summary {
+       padding: 1em 0;
+     }
+
+     ul.search {
+       padding: 0;
+
+       li {
+         margin: 1em 0;
+         padding: 1em;
+         list-style: none;
+         border: solid 1px var(--fg-accent-dim);
+         border-radius: 3px;
+       }
+
+       p.context {
+         margin: 0.5em 0;
+       }
      }
    }
 

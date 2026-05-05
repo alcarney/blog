@@ -163,7 +163,7 @@
   </aside>
 
 
-  <main>
+  <main role="main">
 
 <article>
   <section id="code">
@@ -1089,6 +1089,7 @@ the given DIRNAME&#34;
                    (or python-shell-interpreter &#34;python&#34;)
                    &#34;-m&#34; &#34;http.server&#34;
                    &#34;-d&#34; dirname
+                   &#34;-b&#34; &#34;0.0.0.0&#34;
                    (format &#34;%s&#34; port))
      (browse-url (format &#34;http://localhost:%s&#34; port))))
 
