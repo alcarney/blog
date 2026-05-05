@@ -1,7 +1,9 @@
 {%- extends "layout.html" %}
 {%- block body %}
 
-<h1>{{ title }}</h1>
+<h1 style="margin: 1em; color: var(--fg-accent);">
+  {{ title }}
+</h1>
 
 {%- for post in collection %}
   <article class="summary">

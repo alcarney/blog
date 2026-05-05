@@ -68,8 +68,11 @@
     </div>
   </aside>
 
-
-  <main>
+{#
+  role="main" is technically redundant, but necessary to ensure Sphinx search previews work.
+  https://github.com/sphinx-doc/sphinx/blob/cc7c6f435ad37bb12264f8118c8461b230e6830c/sphinx/themes/basic/static/searchtools.js#L213
+#}
+  <main role="main">
     {%- block body %}
     {{body}}
     {%- endblock %}
