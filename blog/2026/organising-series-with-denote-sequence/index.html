@@ -1,0 +1,538 @@
+<!DOCTYPE html>
+
+<html lang="en" data-content_root="../../../">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Organising Series with denote-sequence &#8212; Alex Carney</title>
+
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=02ca0aaa" />
+    <link id="pygments_dark_css" media="(prefers-color-scheme: dark)" rel="stylesheet" type="text/css" href="../../../_static/pygments_dark.css?v=d8568271" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/awdur-styles.css?v=21b80da3" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/css/styles.css" />
+
+    <script src="../../../_static/documentation_options.js?v=187304be"></script>
+    <script src="../../../_static/doctools.js?v=9bcbadda"></script>
+    <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../../_static/js/theme.js?v=10c5965f"></script>
+    <script src="../../../_static/js/htmx-2.0.4.min.js?v=be6ab97a"></script>
+    <link rel="icon" href="../../../_static/favicon.ico"/>
+    <link rel="index" title="Index" href="../../../genindex/" />
+    <link rel="search" title="Search" href="../../../search/" />
+    <link rel="alternate"
+          type="application/atom+xml"
+          title=" | Blog Posts"
+          href="/blog/atom.xml">
+    <meta name="fediverse:creator" content="@alcarney@mastodon.social">
+    <meta name="theme-color" content="#059669">
+
+  </head>
+  <body>
+
+
+<input type="checkbox" id="left-sidebar-checkbox" class="hidden" />
+<input type="checkbox" id="panel-checkbox" class="hidden" />
+<input type="checkbox" id="right-sidebar-checkbox" class="hidden" />
+<div class="grid">
+
+  <header class="site"><section class="site-title">
+    <img src="/_static/avatar.jpg"/>
+    <h1>
+      <a href="/">
+        <span>al</span>ex <span>carney</span>.me
+      </a>
+    </h1>
+</section><section class="site-navigation">
+  <input type="checkbox" id="menu-toggle" class="hidden" />
+  <label for="menu-toggle"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round">
+  <line x1="3" y1="12" x2="21" y2="12"></line>
+  <line x1="3" y1="6" x2="21" y2="6"></line>
+  <line x1="3" y1="18" x2="21" y2="18"></line>
+</svg></label>
+  <nav>
+    <ul>
+      <li>
+        <a href="/blog">Blog</a>
+      </li>
+      <li>
+        <a href="/code">Code</a>
+      </li>
+      <li>
+        <a href="/notes">Notes</a>
+      </li>
+    </ul>
+  </nav>
+</section>
+
+    <section class="layout-toggles">
+      <label for="left-sidebar-checkbox">
+        <svg xmlns="http://www.w3.org/2000/svg" width="2em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round">
+  <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
+  <rect class="open-state" x="3" y="3" width="6" height="18" rx="2" ry="2"></rect>
+</svg>
+      </label>
+      <label for="panel-checkbox">
+        <svg xmlns="http://www.w3.org/2000/svg" width="2em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round">
+  <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
+  <rect class="open-state" x="3" y="3" width="6" height="18" rx="2" ry="2"></rect>
+</svg>
+      </label>
+      <label for="right-sidebar-checkbox">
+        <svg xmlns="http://www.w3.org/2000/svg" width="2em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round">
+  <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
+  <rect class="open-state" x="3" y="3" width="6" height="18" rx="2" ry="2"></rect>
+</svg>
+      </label>
+    </section>
+  </header>
+
+  <aside>
+
+    <div class="left-sidebar">
+<section id="search-field" style="display: none">
+  <h5 id="searchlabel">Search</h5>
+
+  <search id="searchbox" role="search">
+    <form action="../../../search/" method="get">
+      <input type="search" name="q"
+             aria-labelledby="searchlabel"
+             placeholder=""/>
+      <button type="submit"><svg xmlns="http://www.w3.org/2000/svg" width="2em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" >
+  <g transform-origin="center" transform="scale(-1, 1)">
+    <circle cx="11" cy="11" r="8"></circle>
+    <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+  </g>
+</svg>
+      </button>
+    </form>
+  </search>
+
+</section>
+<script>document.getElementById('search-field').style.display = "block"</script>
+<section class="post-metadata">
+    <h5 style="grid-column: span 2">Metadata</h5><svg xmlns="http://www.w3.org/2000/svg" width="2em" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+</svg>
+    <time style="align-self: center; text-align: right;" datetime="2026-05-11 00:00:00+00:00">May 11, 2026</time><svg xmlns="http://www.w3.org/2000/svg" width="2em" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z" />
+</svg>
+    <ul class="taglist">
+        <li>
+            <a class="tag" href="../../../tag/blogging/">
+                #blogging
+            </a>
+        </li>
+        <li>
+            <a class="tag" href="../../../tag/denote/">
+                #denote
+            </a>
+        </li>
+        <li>
+            <a class="tag" href="../../../tag/sphinx/">
+                #sphinx
+            </a>
+        </li>
+    </ul>
+</section><section id="post-contents">
+  <nav id="localtoc">
+    <ul>
+<li><a class="reference internal" href="#">Organising Series  with <code class="docutils literal notranslate"><span class="pre">denote-sequence</span></code></a><ul>
+<li><a class="reference internal" href="#denote-el-basics-revisted"><code class="docutils literal notranslate"><span class="pre">denote.el</span></code> basics - revisted</a></li>
+<li><a class="reference internal" href="#restructuredtext-and-denote-el">reStructuredText and <code class="docutils literal notranslate"><span class="pre">denote.el</span></code></a></li>
+<li><a class="reference internal" href="#sphinx-and-denote-el">Sphinx and <code class="docutils literal notranslate"><span class="pre">denote.el</span></code></a><ul>
+<li><a class="reference internal" href="#discovering-sequences">Discovering Sequences</a></li>
+<li><a class="reference internal" href="#indexing-sequences">Indexing Sequences</a></li>
+<li><a class="reference internal" href="#rendering-sequences">Rendering Sequences</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+  </nav>
+</section>
+<section class="post-related">
+  <h5>Related Pages</h5>
+  
+    
+  <a class="reference internal" title="Blogging with Sphinx and denote.el" href="../../2025/blogging-with-sphinx-and-denoteel/">
+    Blogging with Sphinx and denote.el
+  </a>
+  
+
+    <ul>
+      <li>
+    
+  <a class="current" title="Organising Series  with denote-sequence" href="#">
+    Organising Series  with denote-sequence
+  </a>
+  
+</li>
+      <li>
+    
+  <a class="reference internal" title="Generating Post Summaries" href="../../../notes/20250830T203717/">
+    Generating Post Summaries
+  </a>
+  
+</li>
+      <li>
+    
+  <a class="reference internal" title="Fixing Sphinx Search" href="../../../notes/20251124T230046/">
+    Fixing Sphinx Search
+  </a>
+  
+</li>
+      <li>
+    
+  <a class="reference internal" title="My Blog Theme" href="../../../notes/20260501T205946/">
+    My Blog Theme
+  </a>
+  
+</li>
+    </ul>
+  
+</section><section>
+  <h5>Page Links</h5>
+  <ul>
+    <li>
+      <a href="../../../_sources/content/20250520T192340==1=1--organising-series-with-denote-sequence__blog_blogging_denote_sphinx.rst.txt" rel="nofollow">
+        Page Source
+      </a>
+    </li>
+    <li>
+      <a href="https://github.com/alcarney/blog" rel="nofollow">
+        Source Code
+      </a>
+    </li>
+  </ul>
+</section><section class="social-links">
+  <h5>Social Links</h5>
+  <nav>
+    <a target="_blank" rel="noreferrer noopener" href="https://github.com/alcarney" title="GitHub">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="24px" height="24px">
+        <path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/>
+      </svg>
+    </a>
+
+    <a target="_blank" rel="noreferrer noopener me" href="https://mastodon.social/@alcarney" title="Mastodon">
+      <svg role="img" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" width="24px" height="24px" fill="currentColor">
+        <title>Mastodon</title>
+        <path d="M23.268 5.313c-.35-2.578-2.617-4.61-5.304-5.004C17.51.242 15.792 0 11.813 0h-.03c-3.98 0-4.835.242-5.288.309C3.882.692 1.496 2.518.917 5.127.64 6.412.61 7.837.661 9.143c.074 1.874.088 3.745.26 5.611.118 1.24.325 2.47.62 3.68.55 2.237 2.777 4.098 4.96 4.857 2.336.792 4.849.923 7.256.38.265-.061.527-.132.786-.213.585-.184 1.27-.39 1.774-.753a.057.057 0 0 0 .023-.043v-1.809a.052.052 0 0 0-.02-.041.053.053 0 0 0-.046-.01 20.282 20.282 0 0 1-4.709.545c-2.73 0-3.463-1.284-3.674-1.818a5.593 5.593 0 0 1-.319-1.433.053.053 0 0 1 .066-.054c1.517.363 3.072.546 4.632.546.376 0 .75 0 1.125-.01 1.57-.044 3.224-.124 4.768-.422.038-.008.077-.015.11-.024 2.435-.464 4.753-1.92 4.989-5.604.008-.145.03-1.52.03-1.67.002-.512.167-3.63-.024-5.545zm-3.748 9.195h-2.561V8.29c0-1.309-.55-1.976-1.67-1.976-1.23 0-1.846.79-1.846 2.35v3.403h-2.546V8.663c0-1.56-.617-2.35-1.848-2.35-1.112 0-1.668.668-1.67 1.977v6.218H4.822V8.102c0-1.31.337-2.35 1.011-3.12.696-.77 1.608-1.164 2.74-1.164 1.311 0 2.302.5 2.962 1.498l.638 1.06.638-1.06c.66-.999 1.65-1.498 2.96-1.498 1.13 0 2.043.395 2.74 1.164.675.77 1.012 1.81 1.012 3.12z"/>
+      </svg>
+    </a>
+
+    <a target="_blank" rel="noreferrer noopener" href="https://pixelfed.social/i/web/profile/795173629619860860" title="Pixelfed">
+      <svg width="24px" height="24px" viewBox="0 0 50 50" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path d="M25 50C11.193 50 0 38.807 0 25S11.193 0 25 0s25 11.193 25 25-11.193 25-25 25zm-1.985-19.542h4.586c4.32 0 7.823-3.41 7.823-7.615 0-4.206-3.502-7.616-7.823-7.616h-6.619c-2.492 0-4.513 1.967-4.513 4.394v17.1l6.546-6.263z" fill-rule="evenodd"/></svg>
+    </a>
+
+    <a target="_blank" rel="noreferrer noopener" href="https://www.youtube.com/channel/UC5GPflgRWhnCxA0BllfP5CA" title="YouTube">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24px" height="24px" fill="currentColor">
+        <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
+      </svg>
+    </a>
+
+    <a href="/blog/atom.xml" title="RSS Feed">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24px" height="24px" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
+        <path d="M4 11a9 9 0 0 1 9 9M4 4a16 16 0 0 1 16 16"/>
+        <circle cx="5" cy="19" r="1"/>
+      </svg>
+    </a>
+  </nav>
+</section>
+    </div>
+  </aside>
+
+
+  <main role="main">
+
+<article>
+  <section id="organising-series-with-denote-sequence">
+<h1>Organising Series  with <code class="docutils literal notranslate"><span class="pre">denote-sequence</span></code><a class="headerlink" href="#organising-series-with-denote-sequence" title="Link to this heading">¶</a></h1>
+<div class="post-teaser docutils container">
+<p>I’ve never had a good way of grouping a series of related posts on this site.
+However now that I can use <a class="reference external" href="https://protesilaos.com/emacs/denote">denote</a> style filenames, a natural way of acheiving this would be to rely on one of the schemes provided by <a class="reference external" href="https://protesilaos.com/emacs/denote-sequence">denote-sequence</a> to encode this information.</p>
+<p>In this blog post I outline how I built on my <a class="reference internal" href="../../2025/blogging-with-sphinx-and-denoteel/" title="Blogging with Sphinx and denote.el">previous post</a> to add support for denote sequences to Sphinx.</p>
+</div>
+<section id="denote-el-basics-revisted">
+<h2><code class="docutils literal notranslate"><span class="pre">denote.el</span></code> basics - revisted<a class="headerlink" href="#denote-el-basics-revisted" title="Link to this heading">¶</a></h2>
+<p>Since I was not using it at the time, I neglected to mention a component of denote’s file naming scheme:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>&lt;timestamp&gt;==&lt;signature&gt;--&lt;title&gt;__&lt;tags&gt;
+</pre></div>
+</div>
+<p>where:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">&lt;timestamp&gt;</span></code> captures the date and time the file was created and acts as the file’s unique identifier,</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">&lt;signature&gt;</span></code> <strong>NEW!</strong></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">&lt;title&gt;</span></code> a lowercase <code class="docutils literal notranslate"><span class="pre">-</span></code> separated string which captures your traditional file name,</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">&lt;tags&gt;</span></code> (called keywords by denote) is a <code class="docutils literal notranslate"><span class="pre">_</span></code> separated string of tag names.</p></li>
+</ul>
+<p>To quote the <a class="reference external" href="https://protesilaos.com/emacs/denote#h:4e9c7512-84dc-4dfb-9fa9-e15d51178e5d">documentation</a>:</p>
+<blockquote class="pull-quote">
+<div><p>File names can include an arbitrary string of alphanumeric characters in the SIGNATURE field. Signatures have no clearly defined purpose and are up to the user to define.</p>
+</div></blockquote>
+<p>The <code class="docutils literal notranslate"><span class="pre">denote-sequence</span></code> extension defines a number of schemes for use with this field allowing for hierarchies of related notes to be defined.</p>
+<p>Personally I prefer the numeric scheme</p>
+<div class="awdur-codeblock docutils container">
+<div class="awdur-codeblock-header docutils container">
+<code class="awdur-codeblock-filename docutils literal notranslate"><span class="pre">init.el</span></code></div>
+<div class="highlight-elisp notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="nb">use-package</span><span class="w"> </span><span class="nv">denote-sequence</span>
+<span class="w">  </span><span class="nb">:ensure</span><span class="w"> </span><span class="no">t</span>
+<span class="w">  </span><span class="nb">:after</span><span class="w"> </span><span class="nv">denote</span>
+<span class="w">  </span><span class="nb">:custom</span>
+<span class="w">  </span><span class="p">(</span><span class="nv">denote-sequence-scheme</span><span class="w"> </span><span class="ss">&#39;numeric</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<p>Which provides the following pattern:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>20250102T120001==1--top-level-one.txt
+20250102T120004==1=1--child-one.txt
+20250102T120005==1=2--child-two.txt
+
+20250102T120002==2--top-level-two.txt
+20250102T120007==2=1--child-one.txt
+20250102T120008==2=1=1--nested-child-one.txt
+
+20250102T120003==3--top-level-three.txt
+</pre></div>
+</div>
+<p>and so on.</p>
+</section>
+<section id="restructuredtext-and-denote-el">
+<h2>reStructuredText and <code class="docutils literal notranslate"><span class="pre">denote.el</span></code><a class="headerlink" href="#restructuredtext-and-denote-el" title="Link to this heading">¶</a></h2>
+<p>As before I am using reStructuredText, which <code class="docutils literal notranslate"><span class="pre">denote.el</span></code> does not support by default.
+To use <code class="docutils literal notranslate"><span class="pre">denote-sequence</span></code> we need to extend the <code class="docutils literal notranslate"><span class="pre">rst</span></code> definition from last time to include support for the signature field.</p>
+<div class="awdur-codeblock docutils container">
+<div class="awdur-codeblock-header docutils container">
+<code class="awdur-codeblock-filename docutils literal notranslate"><span class="pre">init.el</span></code></div>
+<div class="highlight-elisp notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="nb">use-package</span><span class="w"> </span><span class="nv">denote</span>
+<span class="w">  </span><span class="nb">:ensure</span><span class="w"> </span><span class="no">t</span>
+<span class="w">  </span><span class="nb">:hook</span><span class="w"> </span><span class="p">((</span><span class="nv">dired-mode</span><span class="w"> </span><span class="o">.</span><span class="w"> </span><span class="nv">denote-dired-mode</span><span class="p">))</span>
+<span class="w">  </span><span class="nb">:config</span>
+
+<span class="w">  </span><span class="c1">;; Add reStructuredText support to denote</span>
+<span class="w">  </span><span class="p">(</span><span class="nv">add-to-list</span><span class="w"> </span><span class="ss">&#39;denote-file-types</span><span class="w"> </span><span class="o">`</span><span class="p">(</span><span class="nv">rst</span>
+<span class="w">                                    </span><span class="nb">:extension</span><span class="w"> </span><span class="s">&quot;.rst&quot;</span>
+<span class="w">                                    </span><span class="nb">:date-key-regexp</span><span class="w"> </span><span class="s">&quot;^:date:&quot;</span>
+<span class="w">                                    </span><span class="nb">:date-value-function</span><span class="w"> </span><span class="nv">denote-date-iso-8601</span>
+<span class="w">                                    </span><span class="nb">:date-value-reverse-function</span><span class="w"> </span><span class="nv">denote-extract-date-from-front-matter</span>
+<span class="hll"><span class="w">                                    </span><span class="nb">:front-matter</span><span class="w"> </span><span class="s">&quot;:title: %s\n:date: %s\n:tags: %s\n:identifier: %s\n:signature: %s\n\n&quot;</span>
+</span><span class="w">                                    </span><span class="nb">:title-key-regexp</span><span class="w"> </span><span class="s">&quot;^:title:&quot;</span>
+<span class="w">                                    </span><span class="nb">:title-value-function</span><span class="w"> </span><span class="nf">identity</span>
+<span class="w">                                    </span><span class="nb">:title-value-reverse-function</span><span class="w"> </span><span class="nv">denote-trim-whitespace</span>
+<span class="hll"><span class="w">                                    </span><span class="nb">:signature-key-regexp</span><span class="w"> </span><span class="s">&quot;:signature:&quot;</span>
+</span><span class="hll"><span class="w">                                    </span><span class="nb">:signature-value-function</span><span class="w"> </span><span class="nf">identity</span>
+</span><span class="hll"><span class="w">                                    </span><span class="nb">:signature-value-reverse-function</span><span class="w"> </span><span class="nv">denote-trim-whitespace</span>
+</span><span class="w">                                    </span><span class="nb">:keywords-key-regexp</span><span class="w"> </span><span class="s">&quot;^:tags:&quot;</span>
+<span class="w">                                    </span><span class="nb">:keywords-value-function</span><span class="w"> </span><span class="o">,</span><span class="p">(</span><span class="nb">lambda</span><span class="w"> </span><span class="p">(</span><span class="nv">ks</span><span class="p">)</span><span class="w"> </span><span class="p">(</span><span class="nv">string-join</span><span class="w"> </span><span class="nv">ks</span><span class="w"> </span><span class="s">&quot;, &quot;</span><span class="p">))</span>
+<span class="w">                                    </span><span class="nb">:keywords-value-reverse-function</span><span class="w"> </span><span class="nv">denote-extract-keywords-from-front-matter</span>
+<span class="w">                                    </span><span class="nb">:identifier-key-regexp</span><span class="w"> </span><span class="s">&quot;^:identifier:&quot;</span>
+<span class="w">                                    </span><span class="nb">:identifier-value-function</span><span class="w"> </span><span class="nf">identity</span>
+<span class="w">                                    </span><span class="nb">:identifier-value-reverse-function</span><span class="w"> </span><span class="nv">denote-trim-whitespace</span>
+<span class="w">                                    </span><span class="nb">:link</span><span class="w"> </span><span class="s">&quot;:denote:link:`%2$s &lt;%1$s&gt;`&quot;</span>
+<span class="w">                                    </span><span class="nb">:link-in-context-regexp</span><span class="w"> </span><span class="o">,</span><span class="p">(</span><span class="nf">concat</span><span class="w"> </span><span class="s">&quot;:denote:link:`.*?&lt;\\(?1:&quot;</span><span class="w"> </span><span class="nv">denote-id-regexp</span><span class="w"> </span><span class="s">&quot;\\)&gt;`&quot;</span><span class="p">))))</span>
+</pre></div>
+</div>
+</div>
+</section>
+<section id="sphinx-and-denote-el">
+<h2>Sphinx and <code class="docutils literal notranslate"><span class="pre">denote.el</span></code><a class="headerlink" href="#sphinx-and-denote-el" title="Link to this heading">¶</a></h2>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This section contains just the highlights, see the <a class="reference external" href="https://github.com/alcarney/blog/tree/960d28fd049e5df1abba0caa289ebcaf40630c9c/extensions/denote">complete implementation</a> for full details.</p>
+</div>
+<p>The <a class="reference internal" href="../../2025/blogging-with-sphinx-and-denoteel/" title="Blogging with Sphinx and denote.el">previous post</a> did all the heavy lifting when it comes to the Sphinx integration, so adding <code class="docutils literal notranslate"><span class="pre">denote-sequence</span></code> support was surprisingly straightforward, only requiring a few tweaks to make the information available to the relevant components.</p>
+<section id="discovering-sequences">
+<h3>Discovering Sequences<a class="headerlink" href="#discovering-sequences" title="Link to this heading">¶</a></h3>
+<p>To detect which files belong to which sequence (if any), the code for parsing filenames needed to be updated to handle signatures</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># denote/record.py</span>
+<span class="n">FILENAME_PATTERN</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span>
+<span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    (?P&lt;identifier&gt;\d{8}T\d{6})</span>
+<span class="sd">    (==(?P&lt;signature&gt;[^-]+))?</span>
+<span class="sd">    --(?P&lt;title&gt;[^_]+)</span>
+<span class="sd">    __(?P&lt;tags&gt;[^.]+)</span>
+<span class="sd">    &quot;&quot;&quot;</span><span class="p">,</span>
+    <span class="n">re</span><span class="o">.</span><span class="n">VERBOSE</span><span class="p">,</span>
+<span class="p">)</span>
+
+<span class="nd">@dataclasses</span><span class="o">.</span><span class="n">dataclass</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">Record</span><span class="p">:</span>
+    <span class="o">...</span>
+
+    <span class="n">signature</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span>
+    <span class="n">sequence</span><span class="p">:</span> <span class="nb">tuple</span> <span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="o">...</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span>
+
+    <span class="nd">@classmethod</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">parse</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">filename</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Record</span> <span class="o">|</span> <span class="kc">None</span><span class="p">:</span>
+
+        <span class="k">if</span> <span class="p">(</span><span class="n">match</span> <span class="o">:=</span> <span class="n">FILENAME_PATTERN</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="n">filename</span><span class="p">))</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">return</span> <span class="kc">None</span>
+
+        <span class="o">...</span>
+
+        <span class="n">sequence</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">signature</span> <span class="o">:=</span> <span class="n">match</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="s2">&quot;signature&quot;</span><span class="p">))</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">sequence</span> <span class="o">=</span> <span class="nb">tuple</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">s</span><span class="p">)</span> <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="n">signature</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;=&quot;</span><span class="p">))</span>
+
+        <span class="o">...</span>
+
+        <span class="k">return</span> <span class="bp">cls</span><span class="p">(</span>
+           <span class="o">...</span>
+           <span class="n">signature</span><span class="o">=</span><span class="n">signature</span><span class="p">,</span>
+           <span class="n">sequence</span><span class="o">=</span><span class="n">sequence</span><span class="p">,</span>
+        <span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="indexing-sequences">
+<h3>Indexing Sequences<a class="headerlink" href="#indexing-sequences" title="Link to this heading">¶</a></h3>
+<p>To represent a sequence hierachy I introduced this <code class="docutils literal notranslate"><span class="pre">Sequence</span></code> class.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="nd">@dataclasses</span><span class="o">.</span><span class="n">dataclass</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">Sequence</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Used to represent the hierarchy described by a sequence.&quot;&quot;&quot;</span>
+
+    <span class="n">identifier</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="n">dataclasses</span><span class="o">.</span><span class="n">field</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;The identifier of the note at this node in the sequence, if known&quot;&quot;&quot;</span>
+
+    <span class="n">children</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="n">Sequence</span><span class="p">]</span> <span class="o">=</span> <span class="n">dataclasses</span><span class="o">.</span><span class="n">field</span><span class="p">(</span><span class="n">default_factory</span><span class="o">=</span><span class="nb">dict</span><span class="p">)</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;The list of child nodes in the sequence, if any&quot;&quot;&quot;</span>
+</pre></div>
+</div>
+<p>Storing child nodes in a dictionary, rather than a list allows us to support sequences with gaps, or constructing sequences out of order without too much extra thought.</p>
+<p>I don’t think I mentioned it last time, but to make it easy to select records by certain criteria all records are stored in a modified ditctionary that maintains numerous indexes of identifiers:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">class</span><span class="w"> </span><span class="nc">RecordCollection</span><span class="p">(</span><span class="n">collections</span><span class="o">.</span><span class="n">UserDict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Record</span><span class="p">]):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;A dictionary of records that also maintains a number of groupings&quot;&quot;&quot;</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_by_tag</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_by_year</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_by_identifier</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_by_sequence</span><span class="p">:</span> <span class="n">Sequence</span> <span class="o">=</span> <span class="n">Sequence</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>When building the sequence hierachy the main thing to consider is that sequences can be constructed out of order:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="fm">__setitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">item</span><span class="p">:</span> <span class="n">Record</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__setitem__</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="n">item</span><span class="p">)</span>
+
+    <span class="o">...</span>
+
+    <span class="k">if</span> <span class="p">(</span><span class="n">sequence</span> <span class="o">:=</span> <span class="n">item</span><span class="o">.</span><span class="n">sequence</span><span class="p">)</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">node</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_by_sequence</span>
+
+        <span class="k">for</span> <span class="n">idx</span> <span class="ow">in</span> <span class="n">sequence</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">idx</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">node</span><span class="o">.</span><span class="n">children</span><span class="p">:</span>
+                <span class="n">node</span><span class="o">.</span><span class="n">children</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span> <span class="o">=</span> <span class="n">Sequence</span><span class="p">()</span>
+
+            <span class="n">node</span> <span class="o">=</span> <span class="n">node</span><span class="o">.</span><span class="n">children</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span>
+
+        <span class="n">node</span><span class="o">.</span><span class="n">identifier</span> <span class="o">=</span> <span class="n">item</span><span class="o">.</span><span class="n">identifier</span>
+</pre></div>
+</div>
+</section>
+<section id="rendering-sequences">
+<h3>Rendering Sequences<a class="headerlink" href="#rendering-sequences" title="Link to this heading">¶</a></h3>
+<p>Currently, the main way sequences are shown on this site is the “Related Pages” section in the sidebar which is only shown
+on pages that are part of a sequence:</p>
+<div class="highlight-html+jinja notranslate"><div class="highlight"><pre><span></span><span class="cp">{%</span>- <span class="k">if</span> <span class="nv">record</span> <span class="k">and</span> <span class="nv">record.sequence</span> <span class="cp">%}</span>
+<span class="p">&lt;</span><span class="nt">section</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;post-related&quot;</span><span class="p">&gt;</span>
+  <span class="p">&lt;</span><span class="nt">h5</span><span class="p">&gt;</span>Related Pages<span class="p">&lt;/</span><span class="nt">h5</span><span class="p">&gt;</span>
+  <span class="cp">{%</span>- <span class="k">set</span> <span class="nv">sequence</span> <span class="o">=</span> <span class="nv">denote.records.sequence_hierarchy</span><span class="o">(</span><span class="nv">record.sequence</span><span class="o">)</span> <span class="cp">%}</span>
+  <span class="cp">{{</span> <span class="nv">render_sequence</span><span class="o">(</span><span class="nv">sequence</span><span class="o">)</span> <span class="cp">}}</span>
+<span class="p">&lt;/</span><span class="nt">section</span><span class="p">&gt;</span>
+<span class="cp">{%</span>- <span class="k">endif</span> <span class="cp">%}</span>
+</pre></div>
+</div>
+<p>Using the index automatically maintained by the <code class="docutils literal notranslate"><span class="pre">__setitem__</span></code> method in the previous section, the implementation of the <code class="docutils literal notranslate"><span class="pre">sequence_hierarchy</span></code> helper is easy enough.
+By definition, all records in a sequence will start with the same number so we only need to consider the first element of a sequence’s tuple:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">sequence_hierarchy</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">:</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="o">...</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">Sequence</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Return the hierarchy of all posts in a sequence&quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_by_sequence</span><span class="o">.</span><span class="n">children</span><span class="p">[</span><span class="n">key</span><span class="p">[</span><span class="mi">0</span><span class="p">]]</span>
+</pre></div>
+</div>
+<p>Going back to the template, the <code class="docutils literal notranslate"><span class="pre">render_sequence</span></code> macro is given the top-level <code class="docutils literal notranslate"><span class="pre">Sequence</span></code> node and recurses down the hierarchy rendering out a nested list as it goes:</p>
+<div class="highlight-html+jinja notranslate"><div class="highlight"><pre><span></span><span class="cp">{%</span> <span class="k">macro</span> <span class="nv">render_sequence</span><span class="o">(</span><span class="nv">node</span><span class="o">)</span> -<span class="cp">%}</span>
+  <span class="cp">{%</span>- <span class="k">set</span> <span class="nv">item</span> <span class="o">=</span> <span class="nv">denote.records.find</span><span class="o">(</span><span class="nv">identifier</span><span class="o">=</span><span class="nv">node.identifier</span><span class="o">)</span> <span class="cp">%}</span>
+  <span class="cp">{%</span>- <span class="k">if</span> <span class="nv">node.children</span> <span class="o">|</span> <span class="nf">length</span> <span class="o">&gt;</span> <span class="m">0</span> <span class="cp">%}</span>
+    <span class="cp">{{</span> <span class="nv">render_node</span><span class="o">(</span><span class="nv">item</span><span class="o">)</span> <span class="cp">}}</span>
+    <span class="p">&lt;</span><span class="nt">ul</span><span class="p">&gt;</span>
+      <span class="cp">{%</span>- <span class="k">for</span> <span class="nv">child</span> <span class="k">in</span> <span class="nv">node.children.values</span><span class="o">()</span> <span class="cp">%}</span>
+      <span class="p">&lt;</span><span class="nt">li</span><span class="p">&gt;</span><span class="cp">{{</span> <span class="nv">render_sequence</span><span class="o">(</span><span class="nv">child</span><span class="o">)</span> <span class="cp">}}</span><span class="p">&lt;/</span><span class="nt">li</span><span class="p">&gt;</span>
+      <span class="cp">{%</span>- <span class="k">endfor</span> <span class="cp">%}</span>
+    <span class="p">&lt;/</span><span class="nt">ul</span><span class="p">&gt;</span>
+  <span class="cp">{%</span> <span class="k">else</span> <span class="cp">%}</span>
+    <span class="cp">{{</span> <span class="nv">render_node</span><span class="o">(</span><span class="nv">item</span><span class="o">)</span> <span class="cp">}}</span>
+  <span class="cp">{%</span>- <span class="k">endif</span> <span class="cp">%}</span>
+
+<span class="cp">{%</span>- <span class="k">endmacro</span> <span class="cp">%}</span>
+</pre></div>
+</div>
+<p>Where the record at each node in the sequence is given to the <code class="docutils literal notranslate"><span class="pre">render_node</span></code>  macro to generate the link to the corresponding page.</p>
+<div class="highlight-html+jinja notranslate"><div class="highlight"><pre><span></span><span class="cp">{%</span> <span class="k">macro</span> <span class="nv">render_node</span><span class="o">(</span><span class="nv">node</span><span class="o">)</span> -<span class="cp">%}</span>
+  <span class="cp">{%</span> <span class="k">if</span> <span class="nv">node.identifier</span> <span class="o">!=</span> <span class="nv">record.identifier</span> <span class="cp">%}</span>
+  <span class="p">&lt;</span><span class="nt">a</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;reference internal&quot;</span> <span class="na">title</span><span class="o">=</span><span class="s">&quot;</span><span class="cp">{{</span> <span class="nv">node.title</span> <span class="cp">}}</span><span class="s">&quot;</span> <span class="na">href</span><span class="o">=</span><span class="s">&quot;</span><span class="cp">{{</span> <span class="nv">pathto</span><span class="o">(</span><span class="nv">node.url</span><span class="o">)</span> <span class="cp">}}</span><span class="s">&quot;</span><span class="p">&gt;</span>
+    <span class="cp">{{</span> <span class="nv">node.title</span> <span class="cp">}}</span>
+  <span class="p">&lt;/</span><span class="nt">a</span><span class="p">&gt;</span>
+  <span class="cp">{%</span> <span class="k">else</span> <span class="cp">%}</span>
+  <span class="p">&lt;</span><span class="nt">a</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;current&quot;</span> <span class="na">title</span><span class="o">=</span><span class="s">&quot;</span><span class="cp">{{</span> <span class="nv">node.title</span> <span class="cp">}}</span><span class="s">&quot;</span> <span class="na">href</span><span class="o">=</span><span class="s">&quot;#&quot;</span><span class="p">&gt;</span>
+    <span class="cp">{{</span> <span class="nv">node.title</span> <span class="cp">}}</span>
+  <span class="p">&lt;/</span><span class="nt">a</span><span class="p">&gt;</span>
+  <span class="cp">{%</span> <span class="k">endif</span> <span class="cp">%}</span>
+<span class="cp">{%</span> <span class="k">endmacro</span> -<span class="cp">%}</span>
+</pre></div>
+</div>
+</section>
+</section>
+</section>
+
+  <footer>
+    <script src="https://giscus.app/client.js"
+            data-repo="alcarney/blog"
+            data-repo-id="MDEwOlJlcG9zaXRvcnk2Njk3NzM3MQ=="
+            data-category="Comments"
+            data-category-id="DIC_kwDOA_3-W84B_XOl"
+            data-mapping="pathname"
+            data-reactions-enabled="1"
+            data-emit-metadata="0"
+            data-theme="preferred_color_scheme"
+            crossorigin="anonymous"
+            async>
+    </script>
+  </footer>
+
+</article>
+
+  </main>
+
+  <aside>
+    <div class="right-sidebar"><section class="credits">
+  <h5>Built with</h5>
+  <ul>
+    <li>
+      <a href="https://www.sphinx-doc.org/en/master/">
+        Sphinx
+      </a>
+      v8.2.3
+    </li>
+    <li>
+      <a href="https://docutils.sourceforge.io/">
+        Docutils
+      </a>
+      v0.21.2
+    </li>
+    <li>
+      <a href="https://feathericons.com/">
+        Feather Icons
+      </a>
+    </li>
+  </ul>
+</section>
+    </div>
+  </aside>
+
+  <footer class="site"></footer>
+</div>
+  </body>
+</html>

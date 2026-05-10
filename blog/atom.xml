@@ -2,13 +2,263 @@
 <feed xmlns="http://www.w3.org/2005/Atom" xml:lang="en">
   <id>https://www.alcarney.me/</id>
   <title>Alex Carney | Blog</title>
-  <updated>2026-05-05T20:23:03.876453+00:00</updated>
+  <updated>2026-05-10T23:29:19.241383+00:00</updated>
   <link href="https://www.alcarney.me/" />
   <link href="https://www.alcarney.me/blog/atom.xml" rel="self" />
   <author>
     <name>Alex Carney</name>
   </author>
   <generator uri="https://www.sphinx-doc.org/en/master/" version="8">Sphinx</generator>
+  
+  <entry>
+    <id>https://www.alcarney.me/blog/2026/organising-series-with-denote-sequence/</id>
+    <link href="https://www.alcarney.me/blog/2026/organising-series-with-denote-sequence" rel="alternate" />
+    <published>2026-05-11T00:00:00+00:00</published>
+    <updated>2026-05-11T00:00:00+00:00</updated>
+    <title>Organising Series  with denote-sequence</title>
+    <content type="html">
+      &lt;section id=&#34;organising-series-with-denote-sequence&#34;&gt;
+&lt;h1&gt;Organising Series  with &lt;code class=&#34;docutils literal notranslate&#34;&gt;&lt;span class=&#34;pre&#34;&gt;denote-sequence&lt;/span&gt;&lt;/code&gt;&lt;a class=&#34;headerlink&#34; href=&#34;#organising-series-with-denote-sequence&#34; title=&#34;Link to this heading&#34;&gt;¶&lt;/a&gt;&lt;/h1&gt;
+&lt;div class=&#34;post-teaser docutils container&#34;&gt;
+&lt;p&gt;I’ve never had a good way of grouping a series of related posts on this site.
+However now that I can use &lt;a class=&#34;reference external&#34; href=&#34;https://protesilaos.com/emacs/denote&#34;&gt;denote&lt;/a&gt; style filenames, a natural way of acheiving this would be to rely on one of the schemes provided by &lt;a class=&#34;reference external&#34; href=&#34;https://protesilaos.com/emacs/denote-sequence&#34;&gt;denote-sequence&lt;/a&gt; to encode this information.&lt;/p&gt;
+&lt;p&gt;In this blog post I outline how I built on my &lt;a class=&#34;reference internal&#34; href=&#34;../blog/2025/blogging-with-sphinx-and-denoteel/&#34; title=&#34;Blogging with Sphinx and denote.el&#34;&gt;previous post&lt;/a&gt; to add support for denote sequences to Sphinx.&lt;/p&gt;
+&lt;/div&gt;
+&lt;section id=&#34;denote-el-basics-revisted&#34;&gt;
+&lt;h2&gt;&lt;code class=&#34;docutils literal notranslate&#34;&gt;&lt;span class=&#34;pre&#34;&gt;denote.el&lt;/span&gt;&lt;/code&gt; basics - revisted&lt;a class=&#34;headerlink&#34; href=&#34;#denote-el-basics-revisted&#34; title=&#34;Link to this heading&#34;&gt;¶&lt;/a&gt;&lt;/h2&gt;
+&lt;p&gt;Since I was not using it at the time, I neglected to mention a component of denote’s file naming scheme:&lt;/p&gt;
+&lt;div class=&#34;highlight-none notranslate&#34;&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&amp;lt;timestamp&amp;gt;==&amp;lt;signature&amp;gt;--&amp;lt;title&amp;gt;__&amp;lt;tags&amp;gt;
+&lt;/pre&gt;&lt;/div&gt;
+&lt;/div&gt;
+&lt;p&gt;where:&lt;/p&gt;
+&lt;ul class=&#34;simple&#34;&gt;
+&lt;li&gt;&lt;p&gt;&lt;code class=&#34;docutils literal notranslate&#34;&gt;&lt;span class=&#34;pre&#34;&gt;&amp;lt;timestamp&amp;gt;&lt;/span&gt;&lt;/code&gt; captures the date and time the file was created and acts as the file’s unique identifier,&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;&lt;code class=&#34;docutils literal notranslate&#34;&gt;&lt;span class=&#34;pre&#34;&gt;&amp;lt;signature&amp;gt;&lt;/span&gt;&lt;/code&gt; &lt;strong&gt;NEW!&lt;/strong&gt;&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;&lt;code class=&#34;docutils literal notranslate&#34;&gt;&lt;span class=&#34;pre&#34;&gt;&amp;lt;title&amp;gt;&lt;/span&gt;&lt;/code&gt; a lowercase &lt;code class=&#34;docutils literal notranslate&#34;&gt;&lt;span class=&#34;pre&#34;&gt;-&lt;/span&gt;&lt;/code&gt; separated string which captures your traditional file name,&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;&lt;code class=&#34;docutils literal notranslate&#34;&gt;&lt;span class=&#34;pre&#34;&gt;&amp;lt;tags&amp;gt;&lt;/span&gt;&lt;/code&gt; (called keywords by denote) is a &lt;code class=&#34;docutils literal notranslate&#34;&gt;&lt;span class=&#34;pre&#34;&gt;_&lt;/span&gt;&lt;/code&gt; separated string of tag names.&lt;/p&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;To quote the &lt;a class=&#34;reference external&#34; href=&#34;https://protesilaos.com/emacs/denote#h:4e9c7512-84dc-4dfb-9fa9-e15d51178e5d&#34;&gt;documentation&lt;/a&gt;:&lt;/p&gt;
+&lt;blockquote class=&#34;pull-quote&#34;&gt;
+&lt;div&gt;&lt;p&gt;File names can include an arbitrary string of alphanumeric characters in the SIGNATURE field. Signatures have no clearly defined purpose and are up to the user to define.&lt;/p&gt;
+&lt;/div&gt;&lt;/blockquote&gt;
+&lt;p&gt;The &lt;code class=&#34;docutils literal notranslate&#34;&gt;&lt;span class=&#34;pre&#34;&gt;denote-sequence&lt;/span&gt;&lt;/code&gt; extension defines a number of schemes for use with this field allowing for hierarchies of related notes to be defined.&lt;/p&gt;
+&lt;p&gt;Personally I prefer the numeric scheme&lt;/p&gt;
+&lt;div class=&#34;awdur-codeblock docutils container&#34;&gt;
+&lt;div class=&#34;awdur-codeblock-header docutils container&#34;&gt;
+&lt;code class=&#34;awdur-codeblock-filename docutils literal notranslate&#34;&gt;&lt;span class=&#34;pre&#34;&gt;init.el&lt;/span&gt;&lt;/code&gt;&lt;/div&gt;
+&lt;div class=&#34;highlight-elisp notranslate&#34;&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nb&#34;&gt;use-package&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;denote-sequence&lt;/span&gt;
+&lt;span class=&#34;w&#34;&gt;  &lt;/span&gt;&lt;span class=&#34;nb&#34;&gt;:ensure&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;no&#34;&gt;t&lt;/span&gt;
+&lt;span class=&#34;w&#34;&gt;  &lt;/span&gt;&lt;span class=&#34;nb&#34;&gt;:after&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;denote&lt;/span&gt;
+&lt;span class=&#34;w&#34;&gt;  &lt;/span&gt;&lt;span class=&#34;nb&#34;&gt;:custom&lt;/span&gt;
+&lt;span class=&#34;w&#34;&gt;  &lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;denote-sequence-scheme&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;ss&#34;&gt;&amp;#39;numeric&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;))&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;p&gt;Which provides the following pattern:&lt;/p&gt;
+&lt;div class=&#34;highlight-none notranslate&#34;&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;20250102T120001==1--top-level-one.txt
+20250102T120004==1=1--child-one.txt
+20250102T120005==1=2--child-two.txt
+
+20250102T120002==2--top-level-two.txt
+20250102T120007==2=1--child-one.txt
+20250102T120008==2=1=1--nested-child-one.txt
+
+20250102T120003==3--top-level-three.txt
+&lt;/pre&gt;&lt;/div&gt;
+&lt;/div&gt;
+&lt;p&gt;and so on.&lt;/p&gt;
+&lt;/section&gt;
+&lt;section id=&#34;restructuredtext-and-denote-el&#34;&gt;
+&lt;h2&gt;reStructuredText and &lt;code class=&#34;docutils literal notranslate&#34;&gt;&lt;span class=&#34;pre&#34;&gt;denote.el&lt;/span&gt;&lt;/code&gt;&lt;a class=&#34;headerlink&#34; href=&#34;#restructuredtext-and-denote-el&#34; title=&#34;Link to this heading&#34;&gt;¶&lt;/a&gt;&lt;/h2&gt;
+&lt;p&gt;As before I am using reStructuredText, which &lt;code class=&#34;docutils literal notranslate&#34;&gt;&lt;span class=&#34;pre&#34;&gt;denote.el&lt;/span&gt;&lt;/code&gt; does not support by default.
+To use &lt;code class=&#34;docutils literal notranslate&#34;&gt;&lt;span class=&#34;pre&#34;&gt;denote-sequence&lt;/span&gt;&lt;/code&gt; we need to extend the &lt;code class=&#34;docutils literal notranslate&#34;&gt;&lt;span class=&#34;pre&#34;&gt;rst&lt;/span&gt;&lt;/code&gt; definition from last time to include support for the signature field.&lt;/p&gt;
+&lt;div class=&#34;awdur-codeblock docutils container&#34;&gt;
+&lt;div class=&#34;awdur-codeblock-header docutils container&#34;&gt;
+&lt;code class=&#34;awdur-codeblock-filename docutils literal notranslate&#34;&gt;&lt;span class=&#34;pre&#34;&gt;init.el&lt;/span&gt;&lt;/code&gt;&lt;/div&gt;
+&lt;div class=&#34;highlight-elisp notranslate&#34;&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nb&#34;&gt;use-package&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;denote&lt;/span&gt;
+&lt;span class=&#34;w&#34;&gt;  &lt;/span&gt;&lt;span class=&#34;nb&#34;&gt;:ensure&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;no&#34;&gt;t&lt;/span&gt;
+&lt;span class=&#34;w&#34;&gt;  &lt;/span&gt;&lt;span class=&#34;nb&#34;&gt;:hook&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;p&#34;&gt;((&lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;dired-mode&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;denote-dired-mode&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;))&lt;/span&gt;
+&lt;span class=&#34;w&#34;&gt;  &lt;/span&gt;&lt;span class=&#34;nb&#34;&gt;:config&lt;/span&gt;
+
+&lt;span class=&#34;w&#34;&gt;  &lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;;; Add reStructuredText support to denote&lt;/span&gt;
+&lt;span class=&#34;w&#34;&gt;  &lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;add-to-list&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;ss&#34;&gt;&amp;#39;denote-file-types&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;o&#34;&gt;`&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;rst&lt;/span&gt;
+&lt;span class=&#34;w&#34;&gt;                                    &lt;/span&gt;&lt;span class=&#34;nb&#34;&gt;:extension&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;quot;.rst&amp;quot;&lt;/span&gt;
+&lt;span class=&#34;w&#34;&gt;                                    &lt;/span&gt;&lt;span class=&#34;nb&#34;&gt;:date-key-regexp&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;quot;^:date:&amp;quot;&lt;/span&gt;
+&lt;span class=&#34;w&#34;&gt;                                    &lt;/span&gt;&lt;span class=&#34;nb&#34;&gt;:date-value-function&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;denote-date-iso-8601&lt;/span&gt;
+&lt;span class=&#34;w&#34;&gt;                                    &lt;/span&gt;&lt;span class=&#34;nb&#34;&gt;:date-value-reverse-function&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;denote-extract-date-from-front-matter&lt;/span&gt;
+&lt;span class=&#34;hll&#34;&gt;&lt;span class=&#34;w&#34;&gt;                                    &lt;/span&gt;&lt;span class=&#34;nb&#34;&gt;:front-matter&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;quot;:title: %s\n:date: %s\n:tags: %s\n:identifier: %s\n:signature: %s\n\n&amp;quot;&lt;/span&gt;
+&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;                                    &lt;/span&gt;&lt;span class=&#34;nb&#34;&gt;:title-key-regexp&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;quot;^:title:&amp;quot;&lt;/span&gt;
+&lt;span class=&#34;w&#34;&gt;                                    &lt;/span&gt;&lt;span class=&#34;nb&#34;&gt;:title-value-function&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;nf&#34;&gt;identity&lt;/span&gt;
+&lt;span class=&#34;w&#34;&gt;                                    &lt;/span&gt;&lt;span class=&#34;nb&#34;&gt;:title-value-reverse-function&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;denote-trim-whitespace&lt;/span&gt;
+&lt;span class=&#34;hll&#34;&gt;&lt;span class=&#34;w&#34;&gt;                                    &lt;/span&gt;&lt;span class=&#34;nb&#34;&gt;:signature-key-regexp&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;quot;:signature:&amp;quot;&lt;/span&gt;
+&lt;/span&gt;&lt;span class=&#34;hll&#34;&gt;&lt;span class=&#34;w&#34;&gt;                                    &lt;/span&gt;&lt;span class=&#34;nb&#34;&gt;:signature-value-function&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;nf&#34;&gt;identity&lt;/span&gt;
+&lt;/span&gt;&lt;span class=&#34;hll&#34;&gt;&lt;span class=&#34;w&#34;&gt;                                    &lt;/span&gt;&lt;span class=&#34;nb&#34;&gt;:signature-value-reverse-function&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;denote-trim-whitespace&lt;/span&gt;
+&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;                                    &lt;/span&gt;&lt;span class=&#34;nb&#34;&gt;:keywords-key-regexp&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;quot;^:tags:&amp;quot;&lt;/span&gt;
+&lt;span class=&#34;w&#34;&gt;                                    &lt;/span&gt;&lt;span class=&#34;nb&#34;&gt;:keywords-value-function&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;o&#34;&gt;,&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nb&#34;&gt;lambda&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;ks&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;string-join&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;ks&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;quot;, &amp;quot;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;))&lt;/span&gt;
+&lt;span class=&#34;w&#34;&gt;                                    &lt;/span&gt;&lt;span class=&#34;nb&#34;&gt;:keywords-value-reverse-function&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;denote-extract-keywords-from-front-matter&lt;/span&gt;
+&lt;span class=&#34;w&#34;&gt;                                    &lt;/span&gt;&lt;span class=&#34;nb&#34;&gt;:identifier-key-regexp&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;quot;^:identifier:&amp;quot;&lt;/span&gt;
+&lt;span class=&#34;w&#34;&gt;                                    &lt;/span&gt;&lt;span class=&#34;nb&#34;&gt;:identifier-value-function&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;nf&#34;&gt;identity&lt;/span&gt;
+&lt;span class=&#34;w&#34;&gt;                                    &lt;/span&gt;&lt;span class=&#34;nb&#34;&gt;:identifier-value-reverse-function&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;denote-trim-whitespace&lt;/span&gt;
+&lt;span class=&#34;w&#34;&gt;                                    &lt;/span&gt;&lt;span class=&#34;nb&#34;&gt;:link&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;quot;:denote:link:`%2$s &amp;lt;%1$s&amp;gt;`&amp;quot;&lt;/span&gt;
+&lt;span class=&#34;w&#34;&gt;                                    &lt;/span&gt;&lt;span class=&#34;nb&#34;&gt;:link-in-context-regexp&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;o&#34;&gt;,&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nf&#34;&gt;concat&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;quot;:denote:link:`.*?&amp;lt;\\(?1:&amp;quot;&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;denote-id-regexp&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;quot;\\)&amp;gt;`&amp;quot;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;))))&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/section&gt;
+&lt;section id=&#34;sphinx-and-denote-el&#34;&gt;
+&lt;h2&gt;Sphinx and &lt;code class=&#34;docutils literal notranslate&#34;&gt;&lt;span class=&#34;pre&#34;&gt;denote.el&lt;/span&gt;&lt;/code&gt;&lt;a class=&#34;headerlink&#34; href=&#34;#sphinx-and-denote-el&#34; title=&#34;Link to this heading&#34;&gt;¶&lt;/a&gt;&lt;/h2&gt;
+&lt;div class=&#34;admonition note&#34;&gt;
+&lt;p class=&#34;admonition-title&#34;&gt;Note&lt;/p&gt;
+&lt;p&gt;This section contains just the highlights, see the &lt;a class=&#34;reference external&#34; href=&#34;https://github.com/alcarney/blog/tree/960d28fd049e5df1abba0caa289ebcaf40630c9c/extensions/denote&#34;&gt;complete implementation&lt;/a&gt; for full details.&lt;/p&gt;
+&lt;/div&gt;
+&lt;p&gt;The &lt;a class=&#34;reference internal&#34; href=&#34;../blog/2025/blogging-with-sphinx-and-denoteel/&#34; title=&#34;Blogging with Sphinx and denote.el&#34;&gt;previous post&lt;/a&gt; did all the heavy lifting when it comes to the Sphinx integration, so adding &lt;code class=&#34;docutils literal notranslate&#34;&gt;&lt;span class=&#34;pre&#34;&gt;denote-sequence&lt;/span&gt;&lt;/code&gt; support was surprisingly straightforward, only requiring a few tweaks to make the information available to the relevant components.&lt;/p&gt;
+&lt;section id=&#34;discovering-sequences&#34;&gt;
+&lt;h3&gt;Discovering Sequences&lt;a class=&#34;headerlink&#34; href=&#34;#discovering-sequences&#34; title=&#34;Link to this heading&#34;&gt;¶&lt;/a&gt;&lt;/h3&gt;
+&lt;p&gt;To detect which files belong to which sequence (if any), the code for parsing filenames needed to be updated to handle signatures&lt;/p&gt;
+&lt;div class=&#34;highlight-python notranslate&#34;&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;# denote/record.py&lt;/span&gt;
+&lt;span class=&#34;n&#34;&gt;FILENAME_PATTERN&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;re&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;compile&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;
+&lt;span class=&#34;w&#34;&gt;    &lt;/span&gt;&lt;span class=&#34;sa&#34;&gt;r&lt;/span&gt;&lt;span class=&#34;sd&#34;&gt;&amp;quot;&amp;quot;&amp;quot;&lt;/span&gt;
+&lt;span class=&#34;sd&#34;&gt;    (?P&amp;lt;identifier&amp;gt;\d{8}T\d{6})&lt;/span&gt;
+&lt;span class=&#34;sd&#34;&gt;    (==(?P&amp;lt;signature&amp;gt;[^-]+))?&lt;/span&gt;
+&lt;span class=&#34;sd&#34;&gt;    --(?P&amp;lt;title&amp;gt;[^_]+)&lt;/span&gt;
+&lt;span class=&#34;sd&#34;&gt;    __(?P&amp;lt;tags&amp;gt;[^.]+)&lt;/span&gt;
+&lt;span class=&#34;sd&#34;&gt;    &amp;quot;&amp;quot;&amp;quot;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;
+    &lt;span class=&#34;n&#34;&gt;re&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;VERBOSE&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;
+&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
+
+&lt;span class=&#34;nd&#34;&gt;@dataclasses&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;dataclass&lt;/span&gt;
+&lt;span class=&#34;k&#34;&gt;class&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;nc&#34;&gt;Record&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt;
+    &lt;span class=&#34;o&#34;&gt;...&lt;/span&gt;
+
+    &lt;span class=&#34;n&#34;&gt;signature&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;nb&#34;&gt;str&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;|&lt;/span&gt; &lt;span class=&#34;kc&#34;&gt;None&lt;/span&gt;
+    &lt;span class=&#34;n&#34;&gt;sequence&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;nb&#34;&gt;tuple&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;nb&#34;&gt;int&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;...&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;]&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;|&lt;/span&gt; &lt;span class=&#34;kc&#34;&gt;None&lt;/span&gt;
+
+    &lt;span class=&#34;nd&#34;&gt;@classmethod&lt;/span&gt;
+    &lt;span class=&#34;k&#34;&gt;def&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;nf&#34;&gt;parse&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;bp&#34;&gt;cls&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;filename&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;nb&#34;&gt;str&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;|&lt;/span&gt; &lt;span class=&#34;kc&#34;&gt;None&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;Record&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;|&lt;/span&gt; &lt;span class=&#34;kc&#34;&gt;None&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt;
+
+        &lt;span class=&#34;k&#34;&gt;if&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;match&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;:=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;FILENAME_PATTERN&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;match&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;filename&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;))&lt;/span&gt; &lt;span class=&#34;ow&#34;&gt;is&lt;/span&gt; &lt;span class=&#34;kc&#34;&gt;None&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt;
+            &lt;span class=&#34;k&#34;&gt;return&lt;/span&gt; &lt;span class=&#34;kc&#34;&gt;None&lt;/span&gt;
+
+        &lt;span class=&#34;o&#34;&gt;...&lt;/span&gt;
+
+        &lt;span class=&#34;n&#34;&gt;sequence&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;kc&#34;&gt;None&lt;/span&gt;
+        &lt;span class=&#34;k&#34;&gt;if&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;signature&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;:=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;match&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;group&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;quot;signature&amp;quot;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;))&lt;/span&gt; &lt;span class=&#34;ow&#34;&gt;is&lt;/span&gt; &lt;span class=&#34;ow&#34;&gt;not&lt;/span&gt; &lt;span class=&#34;kc&#34;&gt;None&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt;
+            &lt;span class=&#34;n&#34;&gt;sequence&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;nb&#34;&gt;tuple&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nb&#34;&gt;int&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;s&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;for&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;s&lt;/span&gt; &lt;span class=&#34;ow&#34;&gt;in&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;signature&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;split&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;quot;=&amp;quot;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;))&lt;/span&gt;
+
+        &lt;span class=&#34;o&#34;&gt;...&lt;/span&gt;
+
+        &lt;span class=&#34;k&#34;&gt;return&lt;/span&gt; &lt;span class=&#34;bp&#34;&gt;cls&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;
+           &lt;span class=&#34;o&#34;&gt;...&lt;/span&gt;
+           &lt;span class=&#34;n&#34;&gt;signature&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;signature&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;
+           &lt;span class=&#34;n&#34;&gt;sequence&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;sequence&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;
+        &lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+&lt;/div&gt;
+&lt;/section&gt;
+&lt;section id=&#34;indexing-sequences&#34;&gt;
+&lt;h3&gt;Indexing Sequences&lt;a class=&#34;headerlink&#34; href=&#34;#indexing-sequences&#34; title=&#34;Link to this heading&#34;&gt;¶&lt;/a&gt;&lt;/h3&gt;
+&lt;p&gt;To represent a sequence hierachy I introduced this &lt;code class=&#34;docutils literal notranslate&#34;&gt;&lt;span class=&#34;pre&#34;&gt;Sequence&lt;/span&gt;&lt;/code&gt; class.&lt;/p&gt;
+&lt;div class=&#34;highlight-python notranslate&#34;&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class=&#34;nd&#34;&gt;@dataclasses&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;dataclass&lt;/span&gt;
+&lt;span class=&#34;k&#34;&gt;class&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;nc&#34;&gt;Sequence&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt;
+&lt;span class=&#34;w&#34;&gt;    &lt;/span&gt;&lt;span class=&#34;sd&#34;&gt;&amp;quot;&amp;quot;&amp;quot;Used to represent the hierarchy described by a sequence.&amp;quot;&amp;quot;&amp;quot;&lt;/span&gt;
+
+    &lt;span class=&#34;n&#34;&gt;identifier&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;nb&#34;&gt;str&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;|&lt;/span&gt; &lt;span class=&#34;kc&#34;&gt;None&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;dataclasses&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;field&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;default&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;kc&#34;&gt;None&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
+&lt;span class=&#34;w&#34;&gt;    &lt;/span&gt;&lt;span class=&#34;sd&#34;&gt;&amp;quot;&amp;quot;&amp;quot;The identifier of the note at this node in the sequence, if known&amp;quot;&amp;quot;&amp;quot;&lt;/span&gt;
+
+    &lt;span class=&#34;n&#34;&gt;children&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;nb&#34;&gt;dict&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;nb&#34;&gt;int&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;Sequence&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;]&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;dataclasses&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;field&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;default_factory&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;nb&#34;&gt;dict&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
+&lt;span class=&#34;w&#34;&gt;    &lt;/span&gt;&lt;span class=&#34;sd&#34;&gt;&amp;quot;&amp;quot;&amp;quot;The list of child nodes in the sequence, if any&amp;quot;&amp;quot;&amp;quot;&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+&lt;/div&gt;
+&lt;p&gt;Storing child nodes in a dictionary, rather than a list allows us to support sequences with gaps, or constructing sequences out of order without too much extra thought.&lt;/p&gt;
+&lt;p&gt;I don’t think I mentioned it last time, but to make it easy to select records by certain criteria all records are stored in a modified ditctionary that maintains numerous indexes of identifiers:&lt;/p&gt;
+&lt;div class=&#34;highlight-python notranslate&#34;&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;class&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;nc&#34;&gt;RecordCollection&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;collections&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;UserDict&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;nb&#34;&gt;str&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;Record&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;]):&lt;/span&gt;
+&lt;span class=&#34;w&#34;&gt;    &lt;/span&gt;&lt;span class=&#34;sd&#34;&gt;&amp;quot;&amp;quot;&amp;quot;A dictionary of records that also maintains a number of groupings&amp;quot;&amp;quot;&amp;quot;&lt;/span&gt;
+
+    &lt;span class=&#34;k&#34;&gt;def&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;fm&#34;&gt;__init__&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;bp&#34;&gt;self&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;*&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;args&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;**&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;kwargs&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;):&lt;/span&gt;
+        &lt;span class=&#34;nb&#34;&gt;super&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;()&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;fm&#34;&gt;__init__&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;*&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;args&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;**&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;kwargs&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
+
+        &lt;span class=&#34;bp&#34;&gt;self&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;_by_tag&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;{}&lt;/span&gt;
+        &lt;span class=&#34;bp&#34;&gt;self&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;_by_year&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;{}&lt;/span&gt;
+        &lt;span class=&#34;bp&#34;&gt;self&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;_by_identifier&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;nb&#34;&gt;dict&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;nb&#34;&gt;str&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;nb&#34;&gt;str&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;]&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;{}&lt;/span&gt;
+        &lt;span class=&#34;bp&#34;&gt;self&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;_by_sequence&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;Sequence&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;Sequence&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;()&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+&lt;/div&gt;
+&lt;p&gt;When building the sequence hierachy the main thing to consider is that sequences can be constructed out of order:&lt;/p&gt;
+&lt;div class=&#34;highlight-python notranslate&#34;&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;def&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;fm&#34;&gt;__setitem__&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;bp&#34;&gt;self&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;key&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;nb&#34;&gt;str&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;item&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;Record&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&#34;kc&#34;&gt;None&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt;
+    &lt;span class=&#34;nb&#34;&gt;super&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;()&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;fm&#34;&gt;__setitem__&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;key&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;item&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
+
+    &lt;span class=&#34;o&#34;&gt;...&lt;/span&gt;
+
+    &lt;span class=&#34;k&#34;&gt;if&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;sequence&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;:=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;item&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;sequence&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;ow&#34;&gt;is&lt;/span&gt; &lt;span class=&#34;ow&#34;&gt;not&lt;/span&gt; &lt;span class=&#34;kc&#34;&gt;None&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt;
+        &lt;span class=&#34;n&#34;&gt;node&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;bp&#34;&gt;self&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;_by_sequence&lt;/span&gt;
+
+        &lt;span class=&#34;k&#34;&gt;for&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;idx&lt;/span&gt; &lt;span class=&#34;ow&#34;&gt;in&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;sequence&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt;
+            &lt;span class=&#34;k&#34;&gt;if&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;idx&lt;/span&gt; &lt;span class=&#34;ow&#34;&gt;not&lt;/span&gt; &lt;span class=&#34;ow&#34;&gt;in&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;node&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;children&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt;
+                &lt;span class=&#34;n&#34;&gt;node&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;children&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;idx&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;]&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;Sequence&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;()&lt;/span&gt;
+
+            &lt;span class=&#34;n&#34;&gt;node&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;node&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;children&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;idx&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;]&lt;/span&gt;
+
+        &lt;span class=&#34;n&#34;&gt;node&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;identifier&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;item&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;identifier&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+&lt;/div&gt;
+&lt;/section&gt;
+&lt;section id=&#34;rendering-sequences&#34;&gt;
+&lt;h3&gt;Rendering Sequences&lt;a class=&#34;headerlink&#34; href=&#34;#rendering-sequences&#34; title=&#34;Link to this heading&#34;&gt;¶&lt;/a&gt;&lt;/h3&gt;
+&lt;p&gt;Currently, the main way sequences are shown on this site is the “Related Pages” section in the sidebar which is only shown
+on pages that are part of a sequence:&lt;/p&gt;
+&lt;div class=&#34;highlight-html+jinja notranslate&#34;&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class=&#34;cp&#34;&gt;{%&lt;/span&gt;- &lt;span class=&#34;k&#34;&gt;if&lt;/span&gt; &lt;span class=&#34;nv&#34;&gt;record&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;and&lt;/span&gt; &lt;span class=&#34;nv&#34;&gt;record.sequence&lt;/span&gt; &lt;span class=&#34;cp&#34;&gt;%}&lt;/span&gt;
+&lt;span class=&#34;p&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;section&lt;/span&gt; &lt;span class=&#34;na&#34;&gt;class&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;quot;post-related&amp;quot;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;&amp;gt;&lt;/span&gt;
+  &lt;span class=&#34;p&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;h5&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;&amp;gt;&lt;/span&gt;Related Pages&lt;span class=&#34;p&#34;&gt;&amp;lt;/&lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;h5&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;&amp;gt;&lt;/span&gt;
+  &lt;span class=&#34;cp&#34;&gt;{%&lt;/span&gt;- &lt;span class=&#34;k&#34;&gt;set&lt;/span&gt; &lt;span class=&#34;nv&#34;&gt;sequence&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;nv&#34;&gt;denote.records.sequence_hierarchy&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;record.sequence&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;cp&#34;&gt;%}&lt;/span&gt;
+  &lt;span class=&#34;cp&#34;&gt;{{&lt;/span&gt; &lt;span class=&#34;nv&#34;&gt;render_sequence&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;sequence&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;cp&#34;&gt;}}&lt;/span&gt;
+&lt;span class=&#34;p&#34;&gt;&amp;lt;/&lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;section&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;&amp;gt;&lt;/span&gt;
+&lt;span class=&#34;cp&#34;&gt;{%&lt;/span&gt;- &lt;span class=&#34;k&#34;&gt;endif&lt;/span&gt; &lt;span class=&#34;cp&#34;&gt;%}&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+&lt;/div&gt;
+&lt;p&gt;Using the index automatically maintained by the &lt;code class=&#34;docutils literal notranslate&#34;&gt;&lt;span class=&#34;pre&#34;&gt;__setitem__&lt;/span&gt;&lt;/code&gt; method in the previous section, the implementation of the &lt;code class=&#34;docutils literal notranslate&#34;&gt;&lt;span class=&#34;pre&#34;&gt;sequence_hierarchy&lt;/span&gt;&lt;/code&gt; helper is easy enough.
+By definition, all records in a sequence will start with the same number so we only need to consider the first element of a sequence’s tuple:&lt;/p&gt;
+&lt;div class=&#34;highlight-python notranslate&#34;&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;def&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;nf&#34;&gt;sequence_hierarchy&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;bp&#34;&gt;self&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;key&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;nb&#34;&gt;tuple&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;nb&#34;&gt;int&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;...&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;])&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;Sequence&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt;
+&lt;span class=&#34;w&#34;&gt;    &lt;/span&gt;&lt;span class=&#34;sd&#34;&gt;&amp;quot;&amp;quot;&amp;quot;Return the hierarchy of all posts in a sequence&amp;quot;&amp;quot;&amp;quot;&lt;/span&gt;
+    &lt;span class=&#34;k&#34;&gt;return&lt;/span&gt; &lt;span class=&#34;bp&#34;&gt;self&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;_by_sequence&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;children&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;key&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;0&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;]]&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+&lt;/div&gt;
+&lt;p&gt;Going back to the template, the &lt;code class=&#34;docutils literal notranslate&#34;&gt;&lt;span class=&#34;pre&#34;&gt;render_sequence&lt;/span&gt;&lt;/code&gt; macro is given the top-level &lt;code class=&#34;docutils literal notranslate&#34;&gt;&lt;span class=&#34;pre&#34;&gt;Sequence&lt;/span&gt;&lt;/code&gt; node and recurses down the hierarchy rendering out a nested list as it goes:&lt;/p&gt;
+&lt;div class=&#34;highlight-html+jinja notranslate&#34;&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class=&#34;cp&#34;&gt;{%&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;macro&lt;/span&gt; &lt;span class=&#34;nv&#34;&gt;render_sequence&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;node&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt; -&lt;span class=&#34;cp&#34;&gt;%}&lt;/span&gt;
+  &lt;span class=&#34;cp&#34;&gt;{%&lt;/span&gt;- &lt;span class=&#34;k&#34;&gt;set&lt;/span&gt; &lt;span class=&#34;nv&#34;&gt;item&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;nv&#34;&gt;denote.records.find&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;identifier&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;node.identifier&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;cp&#34;&gt;%}&lt;/span&gt;
+  &lt;span class=&#34;cp&#34;&gt;{%&lt;/span&gt;- &lt;span class=&#34;k&#34;&gt;if&lt;/span&gt; &lt;span class=&#34;nv&#34;&gt;node.children&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;|&lt;/span&gt; &lt;span class=&#34;nf&#34;&gt;length&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;0&lt;/span&gt; &lt;span class=&#34;cp&#34;&gt;%}&lt;/span&gt;
+    &lt;span class=&#34;cp&#34;&gt;{{&lt;/span&gt; &lt;span class=&#34;nv&#34;&gt;render_node&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;item&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;cp&#34;&gt;}}&lt;/span&gt;
+    &lt;span class=&#34;p&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;ul&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;&amp;gt;&lt;/span&gt;
+      &lt;span class=&#34;cp&#34;&gt;{%&lt;/span&gt;- &lt;span class=&#34;k&#34;&gt;for&lt;/span&gt; &lt;span class=&#34;nv&#34;&gt;child&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;in&lt;/span&gt; &lt;span class=&#34;nv&#34;&gt;node.children.values&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;()&lt;/span&gt; &lt;span class=&#34;cp&#34;&gt;%}&lt;/span&gt;
+      &lt;span class=&#34;p&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;li&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;&amp;gt;&lt;/span&gt;&lt;span class=&#34;cp&#34;&gt;{{&lt;/span&gt; &lt;span class=&#34;nv&#34;&gt;render_sequence&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;child&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;cp&#34;&gt;}}&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;&amp;lt;/&lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;li&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;&amp;gt;&lt;/span&gt;
+      &lt;span class=&#34;cp&#34;&gt;{%&lt;/span&gt;- &lt;span class=&#34;k&#34;&gt;endfor&lt;/span&gt; &lt;span class=&#34;cp&#34;&gt;%}&lt;/span&gt;
+    &lt;span class=&#34;p&#34;&gt;&amp;lt;/&lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;ul&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;&amp;gt;&lt;/span&gt;
+  &lt;span class=&#34;cp&#34;&gt;{%&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;else&lt;/span&gt; &lt;span class=&#34;cp&#34;&gt;%}&lt;/span&gt;
+    &lt;span class=&#34;cp&#34;&gt;{{&lt;/span&gt; &lt;span class=&#34;nv&#34;&gt;render_node&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;item&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;cp&#34;&gt;}}&lt;/span&gt;
+  &lt;span class=&#34;cp&#34;&gt;{%&lt;/span&gt;- &lt;span class=&#34;k&#34;&gt;endif&lt;/span&gt; &lt;span class=&#34;cp&#34;&gt;%}&lt;/span&gt;
+
+&lt;span class=&#34;cp&#34;&gt;{%&lt;/span&gt;- &lt;span class=&#34;k&#34;&gt;endmacro&lt;/span&gt; &lt;span class=&#34;cp&#34;&gt;%}&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+&lt;/div&gt;
+&lt;p&gt;Where the record at each node in the sequence is given to the &lt;code class=&#34;docutils literal notranslate&#34;&gt;&lt;span class=&#34;pre&#34;&gt;render_node&lt;/span&gt;&lt;/code&gt;  macro to generate the link to the corresponding page.&lt;/p&gt;
+&lt;div class=&#34;highlight-html+jinja notranslate&#34;&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class=&#34;cp&#34;&gt;{%&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;macro&lt;/span&gt; &lt;span class=&#34;nv&#34;&gt;render_node&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;node&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt; -&lt;span class=&#34;cp&#34;&gt;%}&lt;/span&gt;
+  &lt;span class=&#34;cp&#34;&gt;{%&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;if&lt;/span&gt; &lt;span class=&#34;nv&#34;&gt;node.identifier&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;!=&lt;/span&gt; &lt;span class=&#34;nv&#34;&gt;record.identifier&lt;/span&gt; &lt;span class=&#34;cp&#34;&gt;%}&lt;/span&gt;
+  &lt;span class=&#34;p&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;a&lt;/span&gt; &lt;span class=&#34;na&#34;&gt;class&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;quot;reference internal&amp;quot;&lt;/span&gt; &lt;span class=&#34;na&#34;&gt;title&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;quot;&lt;/span&gt;&lt;span class=&#34;cp&#34;&gt;{{&lt;/span&gt; &lt;span class=&#34;nv&#34;&gt;node.title&lt;/span&gt; &lt;span class=&#34;cp&#34;&gt;}}&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;quot;&lt;/span&gt; &lt;span class=&#34;na&#34;&gt;href&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;quot;&lt;/span&gt;&lt;span class=&#34;cp&#34;&gt;{{&lt;/span&gt; &lt;span class=&#34;nv&#34;&gt;pathto&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;node.url&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;cp&#34;&gt;}}&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;quot;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;&amp;gt;&lt;/span&gt;
+    &lt;span class=&#34;cp&#34;&gt;{{&lt;/span&gt; &lt;span class=&#34;nv&#34;&gt;node.title&lt;/span&gt; &lt;span class=&#34;cp&#34;&gt;}}&lt;/span&gt;
+  &lt;span class=&#34;p&#34;&gt;&amp;lt;/&lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;a&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;&amp;gt;&lt;/span&gt;
+  &lt;span class=&#34;cp&#34;&gt;{%&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;else&lt;/span&gt; &lt;span class=&#34;cp&#34;&gt;%}&lt;/span&gt;
+  &lt;span class=&#34;p&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;a&lt;/span&gt; &lt;span class=&#34;na&#34;&gt;class&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;quot;current&amp;quot;&lt;/span&gt; &lt;span class=&#34;na&#34;&gt;title&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;quot;&lt;/span&gt;&lt;span class=&#34;cp&#34;&gt;{{&lt;/span&gt; &lt;span class=&#34;nv&#34;&gt;node.title&lt;/span&gt; &lt;span class=&#34;cp&#34;&gt;}}&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;quot;&lt;/span&gt; &lt;span class=&#34;na&#34;&gt;href&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;quot;#&amp;quot;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;&amp;gt;&lt;/span&gt;
+    &lt;span class=&#34;cp&#34;&gt;{{&lt;/span&gt; &lt;span class=&#34;nv&#34;&gt;node.title&lt;/span&gt; &lt;span class=&#34;cp&#34;&gt;}}&lt;/span&gt;
+  &lt;span class=&#34;p&#34;&gt;&amp;lt;/&lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;a&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;&amp;gt;&lt;/span&gt;
+  &lt;span class=&#34;cp&#34;&gt;{%&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;endif&lt;/span&gt; &lt;span class=&#34;cp&#34;&gt;%}&lt;/span&gt;
+&lt;span class=&#34;cp&#34;&gt;{%&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;endmacro&lt;/span&gt; -&lt;span class=&#34;cp&#34;&gt;%}&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+&lt;/div&gt;
+&lt;/section&gt;
+&lt;/section&gt;
+&lt;/section&gt;
+
+    </content>
+  </entry>
   
   <entry>
     <id>https://www.alcarney.me/blog/2026/indexing-info-manuals/</id>
