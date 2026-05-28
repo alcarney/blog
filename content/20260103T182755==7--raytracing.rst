@@ -1,31 +1,30 @@
-:title: Ray Tracing in a ...
-:date: 2025-12-06
-:tags: bib, book
-:identifier: 20251206T230823
+:title: Raytracing
+:date: 2026-01-03
+:tags:
+:identifier: 20260103T182755
+:signature: 7
 
-Ray Tracing in a ...
-====================
+Raytracing
+==========
+
+I've always found raytracing interesting and it's about time I got around to exploring it.
+
+
+Resources
+---------
+
 
 .. bib:book:: Ray Tracing in One Weekend
    :authors: Peter Shirley, Trevor David Black, Steve Hollasch
    :read-online: https://raytracing.github.io/books/RayTracingInOneWeekend.html
    :state: to-read
 
-   06/12/2025
-      Added to reading list
-
 .. bib:book:: Ray Tracing the Next Week
    :authors: Peter Shirley, Trevor David Black, Steve Hollasch
    :read-online: https://raytracing.github.io/books/RayTracingTheNextWeek.html
    :state: to-read
 
-   06/12/2025
-      Added to reading list
-
 .. bib:book:: Ray Tracing the Rest of Your Life
    :authors: Peter Shirley, Trevor David Black, Steve Hollasch
    :read-online: https://raytracing.github.io/books/RayTracingTheRestOfYourLife.html
    :state: to-read
-
-   06/12/2025
-      Added to reading list
