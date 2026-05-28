@@ -7,6 +7,13 @@
 Eshell
 ======
 
+.. code-block:: elisp
+   :project: emacs
+   :filename: init.el
+
+   (use-package alc-eshell)
+
+
 To quote the `manual <https://www.gnu.org/software/emacs/manual/html_mono/eshell.html>`__
 
 .. pull-quote::
@@ -15,7 +22,6 @@ To quote the `manual <https://www.gnu.org/software/emacs/manual/html_mono/eshell
    It invokes no external processes except for those requested by the user.
    It is intended to be an alternative to the IELM REPL for Emacs *and* with an interface similar to
    command shells such as ``bash``, ``zsh``, ``rc``, or ``4dos``.
-
 
 Custom Commands
 ---------------

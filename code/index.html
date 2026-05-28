@@ -1906,9 +1906,9 @@ paths referencing directories include the trailing slash.&#34;
   (require-theme &#39;doric-themes t)
 
   (setq alc-theme-load-light-theme-function
-        (lambda () (doric-themes-select &#39;doric-almond))
+        (lambda () (doric-themes-select &#39;doric-coral))
         alc-theme-load-dark-theme-function
-        (lambda () (doric-themes-select &#39;doric-pine)))
+        (lambda () (doric-themes-select &#39;doric-fire)))
 
   (add-to-list &#39;after-make-frame-functions &#39;alc-theme-sync-to-system-theme))
 
@@ -2030,7 +2030,8 @@ paths referencing directories include the trailing slash.&#34;
   :config
 
   (setq vertico-multiform-commands
-        &#39;((consult-line buffer)))
+        &#39;((consult-line buffer)
+          (consult-imenu buffer)))
 
   (setq vertico-multiform-categories
         &#39;((t unobtrusive)))
@@ -2038,6 +2039,8 @@ paths referencing directories include the trailing slash.&#34;
   (vertico-multiform-mode t))
 
 (setq completion-in-region-function #&#39;consult-completion-in-region)
+
+(use-package alc-eshell)
 
 (provide &#39;init)
 

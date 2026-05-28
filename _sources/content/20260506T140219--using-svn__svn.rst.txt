@@ -1,0 +1,26 @@
+:title: Using SVN
+:date: 2026-05-06
+:tags: svn
+:identifier: 20260506T140219
+
+Using SVN
+=========
+
+.. highlight:: none
+
+Now and again I end up having to use SVN while at $DAYJOB.
+
+Merges
+------
+
+I don't know if it's just me, but merges in SVN are a nightmare.
+I'm sure there are cases that would Just Work\ :sup:`TM` with Git but fail spectacuarly in SVN.
+
+Anyway, often I find that I will use a diff and merge what I need manually, but it would still be useful to record that a merge happened in SVN itself.
+Turns out you can
+
+#. In a terminal navigate to the folder containing the base branch you are merging into and run the following command::
+
+     /path/to/repo/develop $ svn merge --record-only ../branch-name
+
+#. Commit as normal, the merge will be recorded in the repo's history.
