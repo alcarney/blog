@@ -1143,6 +1143,92 @@ Admonitions
      }
    }
 
+Bib
+"""
+
+Styles for elements from the local ``bib`` Sphinx extension used on this site.
+
+.. code-block:: css
+   :project: sphinx:dirhtml
+   :filename: _static/css/styles.css
+
+   dl.bib {
+     font-size: 12pt;
+     margin: 2em 0;
+     padding: 0;
+
+     display: grid;
+     grid-template-columns: 115px auto;
+     grid-template-rows: 150px auto;
+
+     & > dd {
+       grid-column: span 2;
+       margin: 0;
+       margin-top: 1em;
+       padding: 0.5em;
+
+       &:empty {
+         padding: 0;
+         margin-top: 0;
+       }
+     }
+
+     dt {
+       display: grid;
+       align-items: baseline;
+       align-content: end;
+       grid-template-columns: auto 0.5em 1fr;
+       margin: 0;
+       padding: 0.5em;
+     }
+
+     .sig-name {
+       font-size: 1.25em;
+       text-wrap: balance;
+     }
+
+     .bib-state span.pre {
+       display: inline-block;
+       color: var(--fg-accent-bright);
+       background: var(--fg-accent);
+       padding: 0 0.5em;
+       border: solid 1px var(--fg-accent-bright);
+       border-radius: 2px;
+       font-style: normal;
+       text-transform: uppercase;
+     }
+
+     .bib-image {
+       height: 150px;
+       background: white;
+
+       img {
+         max-height: 100%;
+         width: 100%;
+         object-fit: cover;
+         object-position: top center;
+       }
+     }
+   }
+
+Need to consider narrow displays as well
+
+
+.. code-block:: css
+   :project: sphinx:dirhtml
+   :filename: _static/css/styles.css
+
+   @media screen and (max-width: 800px) {
+     dl.bib {
+       grid-template-columns: auto;
+
+       & > dd {
+         grid-column: unset;
+       }
+     }
+   }
+
+
 Code
 """"
 
@@ -1336,8 +1422,6 @@ The search results page requires its own set of rules.
          margin: 1em 0;
          padding: 1em;
          list-style: none;
-         border: solid 1px var(--fg-accent-dim);
-         border-radius: 3px;
        }
 
        p.context {
