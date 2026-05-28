@@ -156,7 +156,8 @@ So I have arrived at the following config.
      :config
 
      (setq vertico-multiform-commands
-           '((consult-line buffer)))
+           '((consult-line buffer)
+             (consult-imenu buffer)))
 
      (setq vertico-multiform-categories
            '((t unobtrusive)))
