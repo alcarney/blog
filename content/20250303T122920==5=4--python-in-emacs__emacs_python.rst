@@ -72,7 +72,10 @@ The following function allows me to use the minibuffer to select an environment 
          (cond ((alc-python-project-poetry-p prj)
                 (alc-python-env-poetry-select prj))
                ((alc-python-project-hatch-p prj)
-                (alc-python-env-hatch-select prj)))))
+                (alc-python-env-hatch-select prj))
+               ((alc-python-project-venv-p prj)
+                (alc-python-env-venv-select prj))
+               (t (message "No python environments detected.")))))
 
 The main use case of course, is to "activate" the chosen environment within the context of the current project.
 It works by updating the ``.dir-locals.el`` file for the current project
@@ -203,6 +206,32 @@ Oh well, for the projects I use poetry with currently, I can assume that there's
                   (selected-env (completing-read "Select env: " poetry-envs))
                   (poetry-exe (executable-find "poetry")))
           (string-trim (shell-command-to-string (format "%s env info --executable" poetry-exe)))))
+
+venv
+""""
+
+Of course, there might just be a ``.venv`` for similar in the current directory e.g. when using ``uv`` directly.
+
+.. code-block:: elisp
+   :project: emacs
+   :filename: lisp/alc-python.el
+
+   (defun alc-python-project-venv-p (prj)
+     "Return t if the given Python PRJ has a virtual envrionment in the project folder."
+     (when (directory-files-recursively (project-root prj) "pyvenv.cfg") t))
+
+
+.. code-block:: elisp
+   :project: emacs
+   :filename: lisp/alc-python.el
+
+   (defun alc-python-env-venv-select (prj)
+     "Select a venv for the given PRJ"
+     (if-let* ((venv-envs (mapcar #'file-name-directory
+                                  (directory-files-recursively (project-root prj) "pyvenv.cfg")))
+               (selected-env (completing-read "Select env: " venv-envs)))
+       (concat selected-env "bin/python")))
+
 
 Helper Functions
 """"""""""""""""
