@@ -1,0 +1,35 @@
+:title: Common Lisp
+:date: 2026-05-31
+:tags: lisp
+:identifier: 20260531T182827
+:signature: 5=14
+
+Common Lisp
+===========
+
+There seems to be two options now for working with lisp in Emacs, `SLIME <https://slime.common-lisp.dev/>`__ and `sly <https://github.com/joaotavora/sly>`__.
+For no other reason other than it's new (=better?), I've gone with sly.
+
+.. code-block:: elisp
+   :project: emacs
+   :filename: init.el
+
+   (use-package sly
+     :ensure t
+     :config
+     (setq sly-lisp-implementations '((sbcl ("sbcl")))))
+
+Resources
+---------
+
+.. bib:book:: Practical Common Lisp
+   :author:  Peter Seibel
+   :read-online: https://gigamonkeys.com/book/
+   :state: reading
+   :isbn: 1590592395
+
+
+.. bib:book:: Let Over Lambda
+   :author:   Doug Hoyte
+   :state: to-read
+   :isbn: 1435712757

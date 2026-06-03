@@ -1299,7 +1299,10 @@ the Python executable&#34;
       (cond ((alc-python-project-poetry-p prj)
              (alc-python-env-poetry-select prj))
             ((alc-python-project-hatch-p prj)
-             (alc-python-env-hatch-select prj)))))
+             (alc-python-env-hatch-select prj))
+            ((alc-python-project-venv-p prj)
+             (alc-python-env-venv-select prj))
+            (t (message &#34;No python environments detected.&#34;)))))
 
 (defun alc-python-env-activate ()
   &#34;Select a Python environment and activate it.&#34;
@@ -1378,6 +1381,17 @@ the Python executable&#34;
             (selected-env (completing-read &#34;Select env: &#34; poetry-envs))
             (poetry-exe (executable-find &#34;poetry&#34;)))
     (string-trim (shell-command-to-string (format &#34;%s env info --executable&#34; poetry-exe)))))
+
+(defun alc-python-project-venv-p (prj)
+  &#34;Return t if the given Python PRJ has a virtual envrionment in the project folder.&#34;
+  (when (directory-files-recursively (project-root prj) &#34;pyvenv.cfg&#34;) t))
+
+(defun alc-python-env-venv-select (prj)
+  &#34;Select a venv for the given PRJ&#34;
+  (if-let* ((venv-envs (mapcar #&#39;file-name-directory
+                               (directory-files-recursively (project-root prj) &#34;pyvenv.cfg&#34;)))
+            (selected-env (completing-read &#34;Select env: &#34; venv-envs)))
+    (concat selected-env &#34;bin/python&#34;)))
 
 (defun alc-python-library-file-p (file-name)
   &#34;Determine if the given FILE-NAME is a library file&#34;
@@ -2041,6 +2055,11 @@ paths referencing directories include the trailing slash.&#34;
 (setq completion-in-region-function #&#39;consult-completion-in-region)
 
 (use-package alc-eshell)
+
+(use-package sly
+  :ensure t
+  :config
+  (setq sly-lisp-implementations &#39;((sbcl (&#34;sbcl&#34;)))))
 
 (provide &#39;init)
 

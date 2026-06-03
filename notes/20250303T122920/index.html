@@ -136,6 +136,7 @@
 <li><a class="reference internal" href="#python-environments">Python Environments</a><ul>
 <li><a class="reference internal" href="#hatch">Hatch</a></li>
 <li><a class="reference internal" href="#poetry">Poetry</a></li>
+<li><a class="reference internal" href="#venv">venv</a></li>
 <li><a class="reference internal" href="#helper-functions">Helper Functions</a></li>
 </ul>
 </li>
@@ -332,6 +333,13 @@
   </a>
   
 </li>
+      <li>
+    
+  <a class="reference internal" title="Common Lisp" href="../20260531T182827/">
+    Common Lisp
+  </a>
+  
+</li>
     </ul>
   
 </section><section>
@@ -451,7 +459,10 @@ However, this can be overriden on a per-project basis by setting <code class="do
 <span class="w">      </span><span class="p">(</span><span class="k">cond</span><span class="w"> </span><span class="p">((</span><span class="nv">alc-python-project-poetry-p</span><span class="w"> </span><span class="nv">prj</span><span class="p">)</span>
 <span class="w">             </span><span class="p">(</span><span class="nv">alc-python-env-poetry-select</span><span class="w"> </span><span class="nv">prj</span><span class="p">))</span>
 <span class="w">            </span><span class="p">((</span><span class="nv">alc-python-project-hatch-p</span><span class="w"> </span><span class="nv">prj</span><span class="p">)</span>
-<span class="w">             </span><span class="p">(</span><span class="nv">alc-python-env-hatch-select</span><span class="w"> </span><span class="nv">prj</span><span class="p">)))))</span>
+<span class="w">             </span><span class="p">(</span><span class="nv">alc-python-env-hatch-select</span><span class="w"> </span><span class="nv">prj</span><span class="p">))</span>
+<span class="w">            </span><span class="p">((</span><span class="nv">alc-python-project-venv-p</span><span class="w"> </span><span class="nv">prj</span><span class="p">)</span>
+<span class="w">             </span><span class="p">(</span><span class="nv">alc-python-env-venv-select</span><span class="w"> </span><span class="nv">prj</span><span class="p">))</span>
+<span class="w">            </span><span class="p">(</span><span class="no">t</span><span class="w"> </span><span class="p">(</span><span class="nf">message</span><span class="w"> </span><span class="s">&quot;No python environments detected.&quot;</span><span class="p">)))))</span>
 </pre></div>
 </div>
 </div>
@@ -587,6 +598,31 @@ Oh well, for the projects I use poetry with currently, I can assume that there�
 </div>
 </div>
 </div></blockquote>
+</section>
+<section id="venv">
+<h3>venv<a class="headerlink" href="#venv" title="Link to this heading">¶</a></h3>
+<p>Of course, there might just be a <code class="docutils literal notranslate"><span class="pre">.venv</span></code> for similar in the current directory e.g. when using <code class="docutils literal notranslate"><span class="pre">uv</span></code> directly.</p>
+<div class="awdur-codeblock docutils container">
+<div class="awdur-codeblock-header docutils container">
+<code class="awdur-codeblock-filename docutils literal notranslate"><span class="pre">lisp/alc-python.el</span></code></div>
+<div class="highlight-elisp notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="nb">defun</span><span class="w"> </span><span class="nv">alc-python-project-venv-p</span><span class="w"> </span><span class="p">(</span><span class="nv">prj</span><span class="p">)</span>
+<span class="w">  </span><span class="s">&quot;Return t if the given Python PRJ has a virtual envrionment in the project folder.&quot;</span>
+<span class="w">  </span><span class="p">(</span><span class="nb">when</span><span class="w"> </span><span class="p">(</span><span class="nv">directory-files-recursively</span><span class="w"> </span><span class="p">(</span><span class="nv">project-root</span><span class="w"> </span><span class="nv">prj</span><span class="p">)</span><span class="w"> </span><span class="s">&quot;pyvenv.cfg&quot;</span><span class="p">)</span><span class="w"> </span><span class="no">t</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="awdur-codeblock docutils container">
+<div class="awdur-codeblock-header docutils container">
+<code class="awdur-codeblock-filename docutils literal notranslate"><span class="pre">lisp/alc-python.el</span></code></div>
+<div class="highlight-elisp notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="nb">defun</span><span class="w"> </span><span class="nv">alc-python-env-venv-select</span><span class="w"> </span><span class="p">(</span><span class="nv">prj</span><span class="p">)</span>
+<span class="w">  </span><span class="s">&quot;Select a venv for the given PRJ&quot;</span>
+<span class="w">  </span><span class="p">(</span><span class="nv">if-let*</span><span class="w"> </span><span class="p">((</span><span class="nv">venv-envs</span><span class="w"> </span><span class="p">(</span><span class="nf">mapcar</span><span class="w"> </span><span class="nf">#&#39;file-name-directory</span>
+<span class="w">                               </span><span class="p">(</span><span class="nv">directory-files-recursively</span><span class="w"> </span><span class="p">(</span><span class="nv">project-root</span><span class="w"> </span><span class="nv">prj</span><span class="p">)</span><span class="w"> </span><span class="s">&quot;pyvenv.cfg&quot;</span><span class="p">)))</span>
+<span class="w">            </span><span class="p">(</span><span class="nv">selected-env</span><span class="w"> </span><span class="p">(</span><span class="nf">completing-read</span><span class="w"> </span><span class="s">&quot;Select env: &quot;</span><span class="w"> </span><span class="nv">venv-envs</span><span class="p">)))</span>
+<span class="w">    </span><span class="p">(</span><span class="nf">concat</span><span class="w"> </span><span class="nv">selected-env</span><span class="w"> </span><span class="s">&quot;bin/python&quot;</span><span class="p">)))</span>
+</pre></div>
+</div>
+</div>
 </section>
 <section id="helper-functions">
 <h3>Helper Functions<a class="headerlink" href="#helper-functions" title="Link to this heading">¶</a></h3>
