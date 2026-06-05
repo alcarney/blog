@@ -37,16 +37,6 @@ Some of my dotfiles
 
 .. awdur:project-tree::
 
-
-.. _code-emacs-d:
-
-``.emacs.d/``
--------------
-
-My Emacs configuration, see :link:`here <20250216T190756>` for details
-
-.. awdur:project-tree:: emacs
-
 .. _code-simple-ast:
 
 Simple AST
