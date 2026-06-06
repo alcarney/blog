@@ -5,7 +5,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>Using jj from Emacs &#8212; Alex Carney</title>
+    <title>jj &#8212; Alex Carney</title>
 
     <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=02ca0aaa" />
     <link id="pygments_dark_css" media="(prefers-color-scheme: dark)" rel="stylesheet" type="text/css" href="../../_static/pygments_dark.css?v=d8568271" />
@@ -127,10 +127,7 @@
 </section><section id="post-contents">
   <nav id="localtoc">
     <ul>
-<li><a class="reference internal" href="#">Using <code class="docutils literal notranslate"><span class="pre">jj</span></code> from Emacs</a><ul>
-<li><a class="reference internal" href="#eshell-jj-diff"><code class="docutils literal notranslate"><span class="pre">eshell/jj-diff</span></code></a></li>
-</ul>
-</li>
+<li><a class="reference internal" href="#"><code class="docutils literal notranslate"><span class="pre">jj</span></code></a></li>
 </ul>
 
   </nav>
@@ -288,11 +285,28 @@
 </li>
       <li>
     
-  <a class="current" title="Using jj from Emacs" href="#">
-    Using jj from Emacs
+  <a class="current" title="jj" href="#">
+    jj
+  </a>
+  
+
+    <ul>
+      <li>
+    
+  <a class="reference internal" title="alc-jj-log-view-mode" href="../20260601T172422/">
+    alc-jj-log-view-mode
   </a>
   
 </li>
+      <li>
+    
+  <a class="reference internal" title="A Simple jj Integration for eshell" href="../../blog/2026/eshell-integration/">
+    A Simple jj Integration for eshell
+  </a>
+  
+</li>
+    </ul>
+  </li>
       <li>
     
   <a class="reference internal" title="Treesitter" href="../20260118T133600/">
@@ -334,7 +348,7 @@
   <h5>Page Links</h5>
   <ul>
     <li>
-      <a href="../../_sources/content/20251227T122017==5=9--using-jj-from-emacs__jj.rst.txt" rel="nofollow">
+      <a href="../../_sources/content/20251227T122017==5=9--jj__jj.rst.txt" rel="nofollow">
         Page Source
       </a>
     </li>
@@ -385,8 +399,8 @@
   <main role="main">
 
 <article>
-  <section id="using-jj-from-emacs">
-<h1>Using <code class="docutils literal notranslate"><span class="pre">jj</span></code> from Emacs<a class="headerlink" href="#using-jj-from-emacs" title="Link to this heading">¶</a></h1>
+  <section id="jj">
+<h1><code class="docutils literal notranslate"><span class="pre">jj</span></code><a class="headerlink" href="#jj" title="Link to this heading">¶</a></h1>
 <p>As I’m starting to use <a class="reference external" href="https://docs.jj-vcs.dev/latest/">jj</a> more and more, it’s inevitable that I’m going to want some integration between <code class="docutils literal notranslate"><span class="pre">jj</span></code> and Emacs.
 There are many packages already available that do this, including but not limited to</p>
 <ul class="simple">
@@ -402,43 +416,6 @@ There are many packages already available that do this, including but not limite
 </pre></div>
 </div>
 </div>
-<section id="eshell-jj-diff">
-<h2><code class="docutils literal notranslate"><span class="pre">eshell/jj-diff</span></code><a class="headerlink" href="#eshell-jj-diff" title="Link to this heading">¶</a></h2>
-<p>I’m trying to use <code class="docutils literal notranslate"><span class="pre">eshell</span></code> more and more, it’s very cool being able to seamlessly switch between regular shell commands like <code class="docutils literal notranslate"><span class="pre">cd</span></code>, <code class="docutils literal notranslate"><span class="pre">ls</span></code> etc. and calling Emacs functions like <code class="docutils literal notranslate"><span class="pre">find-file</span></code> or <code class="docutils literal notranslate"><span class="pre">compile</span></code>!</p>
-<p><a href="#id1"><span class="problematic" id="id2">:bib:cite:`yt-be07`</span></a></p>
-<p>So, after seeing <a class="reference external" href="https://youtu.be/M6o1N2kfmuc">this episode</a> of Álvaro Ramírez’s Bending Emacs series I’ve been eager to find an excuse to try it out.</p>
-<p>Rather than dumping the output of <code class="docutils literal notranslate"><span class="pre">jj</span> <span class="pre">diff</span></code> into the eshell window, wouldn’t it be great to redirect it to a dedicated buffer instead?</p>
-<p><em>What, like this?</em></p>
-<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>jj<span class="w"> </span>diff<span class="w"> </span>--no-pager<span class="w"> </span>--color<span class="w"> </span>never<span class="w"> </span>&gt;<span class="w"> </span><span class="c1">#&lt;buffer *jj-diff*&gt;</span>
-</pre></div>
-</div>
-<p>Well, yes but that’s a lot to type, plus the buffer is created uses <code class="docutils literal notranslate"><span class="pre">fundamental-mode</span></code> it would be nice to have it automatically enable <code class="docutils literal notranslate"><span class="pre">diff-mode</span></code> at least.
-A better option would be to define my own eshell command that wrapped the underlying <code class="docutils literal notranslate"><span class="pre">jj</span></code> command to handle this for me.</p>
-<div class="awdur-codeblock docutils container">
-<div class="awdur-codeblock-header docutils container">
-<code class="awdur-codeblock-filename docutils literal notranslate"><span class="pre">lisp/alc-jj.el</span></code></div>
-<div class="highlight-elisp notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="nb">defun</span><span class="w"> </span><span class="nv">eshell/jj-diff</span><span class="w"> </span><span class="p">(</span><span class="kp">&amp;rest</span><span class="w"> </span><span class="nv">args</span><span class="p">)</span>
-<span class="w">  </span><span class="s">&quot;Eshell wrapper around &#39;jj diff&#39;&quot;</span>
-<span class="w">  </span><span class="p">(</span><span class="k">let</span><span class="w"> </span><span class="p">((</span><span class="nv">current-dir</span><span class="w"> </span><span class="nv">default-directory</span><span class="p">))</span>
-<span class="w">    </span><span class="p">(</span><span class="nb">with-current-buffer</span><span class="w"> </span><span class="p">(</span><span class="nf">get-buffer-create</span><span class="w"> </span><span class="s">&quot;*jj-diff*&quot;</span><span class="p">)</span>
-<span class="w">      </span><span class="c1">;; Ensure the command uses the current directory from where the command was invoked.</span>
-<span class="w">      </span><span class="p">(</span><span class="k">setq</span><span class="w"> </span><span class="nv">default-directory</span><span class="w"> </span><span class="nv">current-dir</span><span class="p">)</span>
-
-<span class="w">      </span><span class="c1">;; Clear any previous content</span>
-<span class="w">      </span><span class="p">(</span><span class="nv">read-only-mode</span><span class="w"> </span><span class="mi">-1</span><span class="p">)</span>
-<span class="w">      </span><span class="p">(</span><span class="nf">erase-buffer</span><span class="p">)</span>
-
-<span class="w">      </span><span class="c1">;; Call jj, insert output into current buffer</span>
-<span class="w">      </span><span class="p">(</span><span class="nf">apply</span><span class="w"> </span><span class="ss">&#39;call-process</span><span class="w"> </span><span class="s">&quot;jj&quot;</span><span class="w"> </span><span class="no">nil</span><span class="w"> </span><span class="no">t</span><span class="w"> </span><span class="no">nil</span><span class="w"> </span><span class="s">&quot;diff&quot;</span><span class="w"> </span><span class="s">&quot;--no-pager&quot;</span><span class="w"> </span><span class="s">&quot;--color&quot;</span><span class="w"> </span><span class="s">&quot;never&quot;</span><span class="w"> </span><span class="nv">args</span><span class="p">)</span>
-<span class="w">      </span><span class="p">(</span><span class="nv">diff-mode</span><span class="p">)</span>
-
-<span class="w">      </span><span class="c1">;; Re-enable read-only mode and show the buffer</span>
-<span class="w">      </span><span class="p">(</span><span class="nv">read-only-mode</span><span class="p">)</span>
-<span class="w">      </span><span class="p">(</span><span class="nv">pop-to-buffer</span><span class="w"> </span><span class="p">(</span><span class="nf">current-buffer</span><span class="p">)))))</span>
-</pre></div>
-</div>
-</div>
-</section>
 </section>
 
 
