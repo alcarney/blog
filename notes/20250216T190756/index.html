@@ -304,16 +304,16 @@
 </li>
       <li>
     
-  <a class="reference internal" title="jj" href="../20251227T122017/">
-    jj
+  <a class="reference internal" title="alc-jj" href="../20251227T122017/">
+    alc-jj
   </a>
   
 
     <ul>
       <li>
     
-  <a class="reference internal" title="alc-jj-log-view-mode" href="../20260601T172422/">
-    alc-jj-log-view-mode
+  <a class="reference internal" title="Building alc-jj-log-view-mode" href="../../blog/2026/alc-jj-log-view-mode/">
+    Building alc-jj-log-view-mode
   </a>
   
 </li>
@@ -517,29 +517,21 @@ repository&#34;
 ;;; alc-jj.el --- TODO add description  -*- lexical-binding: t -*-
 
 ;;; Code:
-(require &#39;log-view)
+;; Keymap must be defined before the major-mode in order to take effect.
+(defvar alc-jj-log-view-mode-map
+  (let ((map (make-sparse-keymap)))
+    (keymap-set map &#34;B&#34; #&#39;alc-jj-log-view-new-before)
+    (keymap-set map &#34;A&#34; #&#39;alc-jj-log-view-new-after)
+    (keymap-set map &#34;e&#34; #&#39;alc-jj-log-view-edit)
+    (keymap-set map &#34;d&#34; #&#39;alc-jj-log-view-describe)
+    (keymap-set map &#34;g&#34; #&#39;alc-jj-log-view-reload)
+    map))
 
 (define-derived-mode alc-jj-log-view-mode special-mode &#34;jj-log&#34;
   &#34;Major mode for viewing and manipulating the jj log&#34;
-
-  (setq-local font-lock-defaults nil)
   (when (treesit-ready-p &#39;jjlog)
     (treesit-parser-create &#39;jjlog)
     (alc-jj-log-view-ts-setup)))
-
-(defun alc-jj-log-view-ts-setup ()
-  &#34;Setup treesit for alc-jj-log-view mode.&#34;
-  (setq-local treesit-font-lock-feature-list
-              &#39;((change-ids
-                 conflicted
-                 elided
-                 metadata
-                 refs
-                 working-copy)))
-
-  (setq-local treesit-font-lock-settings
-               (apply #&#39;treesit-font-lock-rules alc-jj-log-view-font-lock-rules))
-  (treesit-major-mode-setup))
 
 (defvar alc-jj-log-view-font-lock-rules
   &#39;(:language jjlog
@@ -566,6 +558,94 @@ repository&#34;
     :override t
     :feature change-ids
     ([((revision change_id: (ref) @font-lock-keyword-face))])))
+
+(defun alc-jj-log-view-ts-setup ()
+  &#34;Setup treesit for alc-jj-log-view mode.&#34;
+  (setq-local font-lock-defaults nil)
+  (setq-local treesit-font-lock-feature-list
+              &#39;((change-ids
+                 conflicted
+                 elided
+                 metadata
+                 refs
+                 working-copy)))
+
+  (setq-local treesit-font-lock-settings
+               (apply #&#39;treesit-font-lock-rules alc-jj-log-view-font-lock-rules))
+  (treesit-major-mode-setup))
+
+(defvar alc-jj-log-view-combobulate-definitions
+  &#39;((procedures-sibling
+     &#39;((:activation-nodes
+        ((:nodes (&#34;revision&#34;)))
+        :selector (:choose node :match-siblings (:match-rules (&#34;revision&#34;))))))))
+
+(define-combobulate-language
+ :name jjlog
+ :language jjlog
+ :major-modes (alc-jj-log-view-mode)
+ :custom alc-jj-log-view-combobulate-definitions)
+
+(defun alc-jj-log-view--change-at-point ()
+  &#34;Return the change id for the revision under point, if point is not on a revision
+returns nil.&#34;
+  (let ((node (treesit-node-at (point))))
+    (while (not (or (string= (treesit-node-type node) &#34;revision&#34;)
+                    (null (treesit-node-parent node))))
+      (setq node (treesit-node-parent node)))
+    ;; Make sure we found a revision
+    (if (string= (treesit-node-type node) &#34;revision&#34;)
+        (substring-no-properties
+         (treesit-node-text
+          (treesit-node-child-by-field-name node &#34;change_id&#34;))))))
+
+(defun alc-jj-log-view--select-revision-with-change-id (change-id)
+  &#34;Given a CHANGE-ID move point to the corresponding revision.&#34;
+  (if-let ((nodes (treesit-filter-child
+                   (treesit-buffer-root-node)
+                   (lambda (n) (string= change-id
+                                        (treesit-node-text (treesit-node-child-by-field-name n &#34;change_id&#34;)))))))
+    (goto-char (treesit-node-start (car nodes)))))
+
+(defun alc-jj-log-view-new-before ()
+  &#34;Insert a new revision before the revision under point&#34;
+  (interactive)
+  (if-let ((change-id (alc-jj-log-view--change-at-point)))
+    (progn
+      (call-process &#34;jj&#34; nil nil nil &#34;new&#34; &#34;--no-edit&#34; &#34;--insert-before&#34; change-id)
+      (alc-jj-log-view-reload))))
+
+(defun alc-jj-log-view-new-after ()
+  &#34;Insert a new revision after the revision under point&#34;
+  (interactive)
+  (if-let ((change-id (alc-jj-log-view--change-at-point)))
+    (progn
+      (call-process &#34;jj&#34; nil nil nil &#34;new&#34; &#34;--no-edit&#34; &#34;--insert-after&#34; change-id)
+      (alc-jj-log-view-reload))))
+
+(defun alc-jj-log-view-edit ()
+  &#34;Edit the revision under point.&#34;
+  (interactive)
+  (if-let ((change-id (alc-jj-log-view--change-at-point)))
+    (progn
+      (call-process &#34;jj&#34; nil nil nil &#34;edit&#34; change-id)
+      (alc-jj-log-view-reload))))
+
+(defun alc-jj-log-view-describe ()
+  &#34;Edit the commit message for the revision under point&#34;
+  (interactive)
+  (if-let ((change-id (alc-jj-log-view--change-at-point)))
+    (progn
+      (call-process &#34;jj&#34; nil 0 nil &#34;describe&#34; change-id)
+      (alc-jj-log-view-reload))))
+
+(defun alc-jj-log-view-reload ()
+  &#34;Regenerate the log view buffer&#39;s content.&#34;
+  (interactive)
+  (let ((change-id (alc-jj-log-view--change-at-point)))
+    (alc-jj-log)
+    (if change-id
+      (alc-jj-log-view--select-revision-with-change-id change-id))))
 
 (defun eshell/jj (&amp;rest items)
   &#34;Eshell wrapper around jj.&#34;
@@ -1063,20 +1143,19 @@ conflicted_change: $ =&gt; &#39;×&#39;,
 normal_change:     $ =&gt; &#39;○&#39;,
 elided_revisions:  $ =&gt; seq(&#39;~&#39;, optional(&#39;(elided revisions)&#39;)),
 
-_change_metadata: $ =&gt; seq(
-  field(&#34;change_id&#34;, $.ref),
-  field(&#34;author&#34;, $.email),
-  field(&#34;timestamp&#34;, $.datetime),
-  repeat($.ref),
-),
+  _change_metadata: $ =&gt; seq(
+    field(&#34;change_id&#34;, $.ref),
+    field(&#34;author&#34;, $.email),
+    field(&#34;timestamp&#34;, $.datetime),
+    repeat($.ref),
+  ),
 
-ref:         $ =&gt; /[a-z0-9A-z]+/,
-email:       $ =&gt; /[^\s]+@[^\s]+/,
-datetime:    $ =&gt; /\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}/,
+  ref:         $ =&gt; /[-a-z0-9@*A-z]+/,
+  email:       $ =&gt; /[^\s]+@[^\s]+/,
+  datetime:    $ =&gt; /\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}/,
 
-_description: $ =&gt; seq(/[\n\r]/, $.description, /[\n\r]/),
-description: $ =&gt; /[^\n\r]+/,
-
+  _description: $ =&gt; seq(/[\n\r]/, $.description, /[\n\r]/),
+  description: $ =&gt; /[^\n\r]+/,
 }
 });
 </code></pre>
@@ -1469,7 +1548,12 @@ paths referencing directories include the trailing slash.&#34;
 
 (keymap-global-set &#34;C-x C-b&#34; &#39;ibuffer)
 
-(use-package alc-jj)
+(use-package alc-jj
+  :demand t
+  :hook ((alc-jj-log-view-mode . combobulate-mode))
+  :bind (:map alc-jj-log-view-mode-map
+         (&#34;n&#34; . combobulate-navigate-next)
+         (&#34;p&#34; . combobulate-navigate-previous)))
 
 (use-package alc-treesitter
   :load-path &#34;lisp&#34;

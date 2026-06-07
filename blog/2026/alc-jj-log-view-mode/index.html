@@ -1,0 +1,1223 @@
+<!DOCTYPE html>
+
+<html lang="en" data-content_root="../../../">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Building alc-jj-log-view-mode &#8212; Alex Carney</title>
+
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=02ca0aaa" />
+    <link id="pygments_dark_css" media="(prefers-color-scheme: dark)" rel="stylesheet" type="text/css" href="../../../_static/pygments_dark.css?v=d8568271" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/awdur-styles.css?v=21b80da3" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/css/styles.css" />
+
+    <script src="../../../_static/documentation_options.js?v=187304be"></script>
+    <script src="../../../_static/doctools.js?v=9bcbadda"></script>
+    <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../../_static/js/theme.js?v=10c5965f"></script>
+    <script src="../../../_static/js/htmx-2.0.4.min.js?v=be6ab97a"></script>
+    <link rel="icon" href="../../../_static/favicon.ico"/>
+    <link rel="index" title="Index" href="../../../genindex/" />
+    <link rel="search" title="Search" href="../../../search/" />
+    <link rel="alternate"
+          type="application/atom+xml"
+          title=" | Blog Posts"
+          href="/blog/atom.xml">
+    <meta name="fediverse:creator" content="@alcarney@mastodon.social">
+    <meta name="theme-color" content="#059669">
+
+  </head>
+  <body>
+
+
+<input type="checkbox" id="left-sidebar-checkbox" class="hidden" />
+<input type="checkbox" id="panel-checkbox" class="hidden" />
+<input type="checkbox" id="right-sidebar-checkbox" class="hidden" />
+<div class="grid">
+
+  <header class="site"><section class="site-title">
+    <img src="/_static/avatar.jpg"/>
+    <h1>
+      <a href="/">
+        <span>al</span>ex <span>carney</span>.me
+      </a>
+    </h1>
+</section><section class="site-navigation">
+  <input type="checkbox" id="menu-toggle" class="hidden" />
+  <label for="menu-toggle"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round">
+  <line x1="3" y1="12" x2="21" y2="12"></line>
+  <line x1="3" y1="6" x2="21" y2="6"></line>
+  <line x1="3" y1="18" x2="21" y2="18"></line>
+</svg></label>
+  <nav>
+    <ul>
+      <li>
+        <a href="/blog">Blog</a>
+      </li>
+      <li>
+        <a href="/code">Code</a>
+      </li>
+      <li>
+        <a href="/notes">Notes</a>
+      </li>
+    </ul>
+  </nav>
+</section>
+
+    <section class="layout-toggles">
+      <label for="left-sidebar-checkbox">
+        <svg xmlns="http://www.w3.org/2000/svg" width="2em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round">
+  <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
+  <rect class="open-state" x="3" y="3" width="6" height="18" rx="2" ry="2"></rect>
+</svg>
+      </label>
+      <label for="panel-checkbox">
+        <svg xmlns="http://www.w3.org/2000/svg" width="2em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round">
+  <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
+  <rect class="open-state" x="3" y="3" width="6" height="18" rx="2" ry="2"></rect>
+</svg>
+      </label>
+      <label for="right-sidebar-checkbox">
+        <svg xmlns="http://www.w3.org/2000/svg" width="2em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round">
+  <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
+  <rect class="open-state" x="3" y="3" width="6" height="18" rx="2" ry="2"></rect>
+</svg>
+      </label>
+    </section>
+  </header>
+
+  <aside>
+
+    <div class="left-sidebar">
+<section id="search-field" style="display: none">
+  <h5 id="searchlabel">Search</h5>
+
+  <search id="searchbox" role="search">
+    <form action="../../../search/" method="get">
+      <input type="search" name="q"
+             aria-labelledby="searchlabel"
+             placeholder=""/>
+      <button type="submit"><svg xmlns="http://www.w3.org/2000/svg" width="2em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" >
+  <g transform-origin="center" transform="scale(-1, 1)">
+    <circle cx="11" cy="11" r="8"></circle>
+    <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+  </g>
+</svg>
+      </button>
+    </form>
+  </search>
+
+</section>
+<script>document.getElementById('search-field').style.display = "block"</script>
+<section class="post-metadata">
+    <h5 style="grid-column: span 2">Metadata</h5><svg xmlns="http://www.w3.org/2000/svg" width="2em" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+</svg>
+    <time style="align-self: center; text-align: right;" datetime="2026-06-07 00:00:00+00:00">Jun 07, 2026</time><svg xmlns="http://www.w3.org/2000/svg" width="2em" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z" />
+</svg>
+    <ul class="taglist">
+        <li>
+            <a class="tag" href="../../../tag/treesitter/">
+                #treesitter
+            </a>
+        </li>
+    </ul>
+</section><section id="post-contents">
+  <nav id="localtoc">
+    <ul>
+<li><a class="reference internal" href="#">Building <code class="docutils literal notranslate"><span class="pre">alc-jj-log-view-mode</span></code></a><ul>
+<li><a class="reference internal" href="#getting-started-with-tree-sitter">Getting Started with tree-sitter</a><ul>
+<li><a class="reference internal" href="#emacs-quick-start">Emacs Quick Start</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#writing-the-grammar">Writing The Grammar</a></li>
+<li><a class="reference internal" href="#defining-the-major-mode">Defining the Major Mode</a><ul>
+<li><a class="reference internal" href="#syntax-highlighting">Syntax Highlighting</a></li>
+<li><a class="reference internal" href="#navigation">Navigation</a></li>
+<li><a class="reference internal" href="#commands">Commands</a><ul>
+<li><a class="reference internal" href="#insert-a-revision-before-point">Insert a Revision Before Point</a></li>
+<li><a class="reference internal" href="#insert-a-revision-after-point">Insert a Revision After Point</a></li>
+<li><a class="reference internal" href="#edit-the-revision-at-point">Edit the Revision at Point</a></li>
+<li><a class="reference internal" href="#describe-the-revision-at-point">Describe the Revision at Point</a></li>
+<li><a class="reference internal" href="#reload-the-buffer">Reload the Buffer</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a class="reference internal" href="#final-thoughts">Final Thoughts</a></li>
+</ul>
+</li>
+</ul>
+
+  </nav>
+</section>
+<section class="post-related">
+  <h5>Related Pages</h5>
+  
+    
+  <a class="reference internal" title="My Emacs Configuration" href="../../../notes/20250216T190756/">
+    My Emacs Configuration
+  </a>
+  
+
+    <ul>
+      <li>
+    
+  <a class="reference internal" title="Local LLMs with Ollama and gptel" href="../../2024/local-llms-with-ollama-and-gptel/">
+    Local LLMs with Ollama and gptel
+  </a>
+  
+</li>
+      <li>
+    
+  <a class="reference internal" title="Using git from Emacs" href="../../../notes/20250221T184014/">
+    Using git from Emacs
+  </a>
+  
+
+    <ul>
+      <li>
+    
+  <a class="reference internal" title="Additional magit keybindings" href="../../2025/til-additional-magit-keybindings/">
+    Additional magit keybindings
+  </a>
+  
+</li>
+      <li>
+    
+  <a class="reference internal" title="Navigating History with Magit" href="../../2025/til-navigating-history-with-magit/">
+    Navigating History with Magit
+  </a>
+  
+</li>
+      <li>
+    
+  <a class="reference internal" title="Getting the permalink URL to a line of code" href="../../../notes/20250430T213500/">
+    Getting the permalink URL to a line of code
+  </a>
+  
+</li>
+    </ul>
+  </li>
+      <li>
+    
+  <a class="reference internal" title="Emacs Appearance" href="../../../notes/20250708T202145/">
+    Emacs Appearance
+  </a>
+  
+
+    <ul>
+      <li>
+    
+  <a class="reference internal" title="Cusomising the Emacs Modeline" href="../../../notes/20250228T200007/">
+    Cusomising the Emacs Modeline
+  </a>
+  
+</li>
+      <li>
+    
+  <a class="reference internal" title="Emacs Themes" href="../../../notes/20250708T133920/">
+    Emacs Themes
+  </a>
+  
+</li>
+      <li>
+    
+  <a class="reference internal" title="Tab Bar Utilities" href="../../../notes/20250924T182310/">
+    Tab Bar Utilities
+  </a>
+  
+</li>
+    </ul>
+  </li>
+      <li>
+    
+  <a class="reference internal" title="Python in Emacs" href="../../../notes/20250303T122920/">
+    Python in Emacs
+  </a>
+  
+
+    <ul>
+      <li>
+    
+  <a class="reference internal" title="Using pdb from Emacs" href="../../../notes/20250615T135327/">
+    Using pdb from Emacs
+  </a>
+  
+</li>
+    </ul>
+  </li>
+      <li>
+    
+  <a class="reference internal" title="Language Servers in Emacs" href="../../../notes/20250305T195742/">
+    Language Servers in Emacs
+  </a>
+  
+</li>
+      <li>
+    
+  <a class="reference internal" title="Building Emacs from Source" href="../../../notes/20250409T205418/">
+    Building Emacs from Source
+  </a>
+  
+
+    <ul>
+      <li>
+    
+  <a class="reference internal" title="Intstalling Emacs with systemd-sysext" href="../../2025/installing-emacs-with-systemd-sysext/">
+    Intstalling Emacs with systemd-sysext
+  </a>
+  
+</li>
+    </ul>
+  </li>
+      <li>
+    
+  <a class="reference internal" title="Running shells and terminals" href="../../../notes/20250705T225452/">
+    Running shells and terminals
+  </a>
+  
+
+    <ul>
+      <li>
+    
+  <a class="reference internal" title="Eat: Emulate a Terminal" href="../../../notes/20250705T225630/">
+    Eat: Emulate a Terminal
+  </a>
+  
+</li>
+      <li>
+    
+  <a class="reference internal" title="Eshell" href="../../../notes/20260429T185129/">
+    Eshell
+  </a>
+  
+</li>
+    </ul>
+  </li>
+      <li>
+    
+  <a class="reference internal" title="IBuffer" href="../../../notes/20251213T204155/">
+    IBuffer
+  </a>
+  
+</li>
+      <li>
+    
+  <a class="reference internal" title="alc-jj" href="../../../notes/20251227T122017/">
+    alc-jj
+  </a>
+  
+
+    <ul>
+      <li>
+    
+  <a class="current" title="Building alc-jj-log-view-mode" href="#">
+    Building alc-jj-log-view-mode
+  </a>
+  
+</li>
+      <li>
+    
+  <a class="reference internal" title="A Simple jj Integration for eshell" href="../eshell-integration/">
+    A Simple jj Integration for eshell
+  </a>
+  
+</li>
+    </ul>
+  </li>
+      <li>
+    
+  <a class="reference internal" title="Treesitter" href="../../../notes/20260118T133600/">
+    Treesitter
+  </a>
+  
+</li>
+      <li>
+    
+  <a class="reference internal" title="Indexing Info Manuals" href="../indexing-info-manuals/">
+    Indexing Info Manuals
+  </a>
+  
+</li>
+      <li>
+    
+  <a class="reference internal" title="reStructuredText in Emacs" href="../../../notes/20260418T160644/">
+    reStructuredText in Emacs
+  </a>
+  
+</li>
+      <li>
+    
+  <a class="reference internal" title="Emacs Completions" href="../../../notes/20260422T183610/">
+    Emacs Completions
+  </a>
+  
+</li>
+      <li>
+    
+  <a class="reference internal" title="Common Lisp" href="../../../notes/20260531T182827/">
+    Common Lisp
+  </a>
+  
+</li>
+    </ul>
+  
+</section><section>
+  <h5>Page Links</h5>
+  <ul>
+    <li>
+      <a href="../../../_sources/content/20260601T172422==5=9=1--alc-jj-log-view-mode__blog_treesitter.rst.txt" rel="nofollow">
+        Page Source
+      </a>
+    </li>
+    <li>
+      <a href="https://github.com/alcarney/blog" rel="nofollow">
+        Source Code
+      </a>
+    </li>
+  </ul>
+</section><section class="social-links">
+  <h5>Social Links</h5>
+  <nav>
+    <a target="_blank" rel="noreferrer noopener" href="https://github.com/alcarney" title="GitHub">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="24px" height="24px">
+        <path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/>
+      </svg>
+    </a>
+
+    <a target="_blank" rel="noreferrer noopener me" href="https://mastodon.social/@alcarney" title="Mastodon">
+      <svg role="img" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" width="24px" height="24px" fill="currentColor">
+        <title>Mastodon</title>
+        <path d="M23.268 5.313c-.35-2.578-2.617-4.61-5.304-5.004C17.51.242 15.792 0 11.813 0h-.03c-3.98 0-4.835.242-5.288.309C3.882.692 1.496 2.518.917 5.127.64 6.412.61 7.837.661 9.143c.074 1.874.088 3.745.26 5.611.118 1.24.325 2.47.62 3.68.55 2.237 2.777 4.098 4.96 4.857 2.336.792 4.849.923 7.256.38.265-.061.527-.132.786-.213.585-.184 1.27-.39 1.774-.753a.057.057 0 0 0 .023-.043v-1.809a.052.052 0 0 0-.02-.041.053.053 0 0 0-.046-.01 20.282 20.282 0 0 1-4.709.545c-2.73 0-3.463-1.284-3.674-1.818a5.593 5.593 0 0 1-.319-1.433.053.053 0 0 1 .066-.054c1.517.363 3.072.546 4.632.546.376 0 .75 0 1.125-.01 1.57-.044 3.224-.124 4.768-.422.038-.008.077-.015.11-.024 2.435-.464 4.753-1.92 4.989-5.604.008-.145.03-1.52.03-1.67.002-.512.167-3.63-.024-5.545zm-3.748 9.195h-2.561V8.29c0-1.309-.55-1.976-1.67-1.976-1.23 0-1.846.79-1.846 2.35v3.403h-2.546V8.663c0-1.56-.617-2.35-1.848-2.35-1.112 0-1.668.668-1.67 1.977v6.218H4.822V8.102c0-1.31.337-2.35 1.011-3.12.696-.77 1.608-1.164 2.74-1.164 1.311 0 2.302.5 2.962 1.498l.638 1.06.638-1.06c.66-.999 1.65-1.498 2.96-1.498 1.13 0 2.043.395 2.74 1.164.675.77 1.012 1.81 1.012 3.12z"/>
+      </svg>
+    </a>
+
+    <a target="_blank" rel="noreferrer noopener" href="https://pixelfed.social/i/web/profile/795173629619860860" title="Pixelfed">
+      <svg width="24px" height="24px" viewBox="0 0 50 50" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path d="M25 50C11.193 50 0 38.807 0 25S11.193 0 25 0s25 11.193 25 25-11.193 25-25 25zm-1.985-19.542h4.586c4.32 0 7.823-3.41 7.823-7.615 0-4.206-3.502-7.616-7.823-7.616h-6.619c-2.492 0-4.513 1.967-4.513 4.394v17.1l6.546-6.263z" fill-rule="evenodd"/></svg>
+    </a>
+
+    <a target="_blank" rel="noreferrer noopener" href="https://www.youtube.com/channel/UC5GPflgRWhnCxA0BllfP5CA" title="YouTube">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24px" height="24px" fill="currentColor">
+        <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
+      </svg>
+    </a>
+
+    <a href="/blog/atom.xml" title="RSS Feed">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24px" height="24px" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
+        <path d="M4 11a9 9 0 0 1 9 9M4 4a16 16 0 0 1 16 16"/>
+        <circle cx="5" cy="19" r="1"/>
+      </svg>
+    </a>
+  </nav>
+</section>
+    </div>
+  </aside>
+
+
+  <main role="main">
+
+<article>
+  <section id="building-alc-jj-log-view-mode">
+<h1>Building <code class="docutils literal notranslate"><span class="pre">alc-jj-log-view-mode</span></code><a class="headerlink" href="#building-alc-jj-log-view-mode" title="Link to this heading">¶</a></h1>
+<div class="post-teaser docutils container">
+<p>When I was first learning <code class="docutils literal notranslate"><span class="pre">git</span></code>, it wasn’t until I internalised how the various commands manipulated the commit graph did it really click for me.
+So even though I’m primarily using <code class="docutils literal notranslate"><span class="pre">jj</span></code> in my personal projects these days, I still find myself staring at the revision graph most of the time, which usually means running <code class="docutils literal notranslate"><span class="pre">jj</span> <span class="pre">log</span></code> after every other command!</p>
+<p>But instead, what if I wrote an Emacs major-mode that would display the output from <code class="docutils literal notranslate"><span class="pre">jj</span> <span class="pre">log</span></code> and let me manipulate the graph directly by running the relevant commands in the background?
+And what if that major-mode was based on tree-sitter?</p>
+</div>
+<p>I’m sure you’re thinking that using tree-sitter for this is overkill, and you are probably right!
+But if nothing else, this should be fun!</p>
+<section id="getting-started-with-tree-sitter">
+<h2>Getting Started with tree-sitter<a class="headerlink" href="#getting-started-with-tree-sitter" title="Link to this heading">¶</a></h2>
+<p>If you follow the <a class="reference external" href="https://tree-sitter.github.io/tree-sitter/creating-parsers/1-getting-started.html">getting started</a> guide on the tree-sitter website it’s going to instruct you to run the <code class="docutils literal notranslate"><span class="pre">tree-sitter</span> <span class="pre">init</span></code> command in a directory:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>$ tree-sitter init
+✔ Parser name · jjlog
+✔ CamelCase name · JJLog
+✔ Title (human-readable name) · jj log
+✔ Description · l
+✔ Repository URL ·
+✔ Funding URL ·
+✔ TextMate scope · source.jjlog
+✔ File types (space-separated) · jjlog
+✔ Version · 0.1.0
+✔ License · MIT
+✔ Author name · Alex
+✔ Author email ·
+✔ Author URL ·
+✔ Package namespace · io.github.tree-sitter
+Bindings: c
+Your current configuration:
+{
+  &quot;name&quot;: &quot;jjlog&quot;,
+  &quot;camelcase&quot;: &quot;JJLog&quot;,
+  &quot;title&quot;: &quot;jj log&quot;,
+  &quot;description&quot;: &quot;l&quot;,
+  &quot;repository&quot;: &quot;&quot;,
+  &quot;funding&quot;: &quot;&quot;,
+  &quot;scope&quot;: &quot;source.jjlog&quot;,
+  &quot;file_types&quot;: [
+    &quot;jjlog&quot;
+  ],
+  &quot;version&quot;: &quot;0.1.0&quot;,
+  &quot;license&quot;: &quot;MIT&quot;,
+  &quot;author&quot;: &quot;Alex&quot;,
+  &quot;email&quot;: &quot;&quot;,
+  &quot;url&quot;: &quot;&quot;,
+  &quot;namespace&quot;: &quot;io.github.tree-sitter&quot;,
+  &quot;bindings&quot;: {
+    &quot;c&quot;: true,
+    &quot;go&quot;: false,
+    &quot;java&quot;: false,
+    &quot;node&quot;: false,
+    &quot;python&quot;: false,
+    &quot;rust&quot;: false,
+    &quot;swift&quot;: false,
+    &quot;zig&quot;: false
+  }
+}
+✔ Does the config above look correct? · yes
+</pre></div>
+</div>
+<p>This results in the following project structure:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>$ tree
+.
+├── bindings
+│   └── c
+│       ├── tree_sitter
+│       │   └── tree-sitter-jjlog.h
+│       └── tree-sitter-jjlog.pc.in
+├── CMakeLists.txt
+├── grammar.js
+├── Makefile
+├── package.json
+├── src
+│   ├── grammar.json
+│   ├── node-types.json
+│   ├── parser.c
+│   └── tree_sitter
+│       ├── alloc.h
+│       ├── array.h
+│       └── parser.h
+└── tree-sitter.json
+
+6 directories, 13 files
+</pre></div>
+</div>
+<p>Which is great… if you intend to ship your parser to the wider world and make it easy to integrate into other projects.
+However, if you are only looking to hack something together for use with your Emacs config, you can get away with a lot less.</p>
+<section id="emacs-quick-start">
+<h3>Emacs Quick Start<a class="headerlink" href="#emacs-quick-start" title="Link to this heading">¶</a></h3>
+<ol class="arabic">
+<li><p>The only source file you really need is the <code class="docutils literal notranslate"><span class="pre">grammar.js</span></code> file (example below is adapted from the tree-sitter <a class="reference external" href="https://tree-sitter.github.io/tree-sitter/creating-parsers/1-getting-started.html">getting started</a>) guide.</p>
+<div class="highlight-js notranslate"><div class="highlight"><pre><span></span><span class="cm">/**</span>
+<span class="cm"> * @file</span>
+<span class="cm"> * @author</span>
+<span class="cm"> * @license MIT</span>
+<span class="cm"> */</span>
+
+<span class="c1">/// &lt;reference types=&quot;tree-sitter-cli/dsl&quot; /&gt;</span>
+<span class="c1">// @ts-check</span>
+
+<span class="k">export</span><span class="w"> </span><span class="k">default</span><span class="w"> </span><span class="nx">grammar</span><span class="p">({</span>
+<span class="w">  </span><span class="nx">name</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;jjlog&quot;</span><span class="p">,</span>
+
+<span class="w">  </span><span class="nx">rules</span><span class="o">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="c1">// TODO: add the actual grammar rules</span>
+<span class="w">    </span><span class="nx">source_file</span><span class="o">:</span><span class="w"> </span><span class="nx">$</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="s2">&quot;hello&quot;</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">});</span>
+</pre></div>
+</div>
+</li>
+<li><p>To build the grammar, run the following commands in the directory containing the <code class="docutils literal notranslate"><span class="pre">grammar.js</span></code> file:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>$ tree-sitter generate
+$ tree-sitter build
+</pre></div>
+</div>
+<p>Which results in the following:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>$ tree
+.
+├── grammar.js
+├── parser.so
+└── src
+    ├── grammar.json
+    ├── node-types.json
+    ├── parser.c
+    └── tree_sitter
+        ├── alloc.h
+        ├── array.h
+        └── parser.h
+
+3 directories, 8 files
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This approach does come with a warning:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>Warning: No `tree-sitter.json` file found in your grammar, this file is required to generate with ABI 15. Using ABI version 14 instead.
+This file can be set up with `tree-sitter init`. For more information, see https://tree-sitter.github.io/tree-sitter/cli/init.
+</pre></div>
+</div>
+<p>However, since Emacs seems perfectly happy with an ABI v14 grammar at the moment, I’ve decided to ignore it for now.</p>
+</div>
+</li>
+<li><p>So that Emacs can find the grammar, the <code class="docutils literal notranslate"><span class="pre">parser.so</span></code> file needs to be moved to <code class="docutils literal notranslate"><span class="pre">.emacs.d/tree-sitter</span></code> and renamed to
+<code class="docutils literal notranslate"><span class="pre">libtree-sitter-&lt;lang&gt;.so</span></code>:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>$ mv parser.so ~/.emacs.d/tree-sitter/libtree-sitter-jjlog.so
+</pre></div>
+</div>
+</li>
+<li><p>With the parser in place, it should now be possible to call it from Emacs:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>ELISP&gt; (treesit-parse-string &quot;hello&quot; &#39;jjlog)
+#&lt;treesit-node source_file in 1-6&gt;
+</pre></div>
+</div>
+</li>
+</ol>
+</section>
+</section>
+<section id="writing-the-grammar">
+<h2>Writing The Grammar<a class="headerlink" href="#writing-the-grammar" title="Link to this heading">¶</a></h2>
+<p>With a hello world in place, it’s time to write the actual grammar rules.
+Let’s consider the output from <code class="docutils literal notranslate"><span class="pre">jj</span> <span class="pre">log</span></code>:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>❯ jj log
+@  qnsxyznm alcarneyme@gmail.com 2026-06-05 18:39:50 e4043b79
+│  (no description set)
+│ ○  qlvvlput alcarneyme@gmail.com 2026-04-23 09:44:00 f51dbe3d
+├─╯  message method tracking
+◆  onllqnnq github.action@users.noreply.github.com 2026-03-25 12:19:06 main* c0ae7d03
+│  chore: update CONTRIBUTORS.md
+~  (elided revisions)
+│ ×  mslzorpz alcarneyme@gmail.com 2026-03-23 20:49:53 push-mslzorpzmxww* 60571548 (conflict)
+├─╯  feat: allow passing a custom workspace implemenation
+◆  twmmxqyw github.action@users.noreply.github.com 2026-03-19 10:16:51 main@origin 8c13d110
+│  chore: update CONTRIBUTORS.md
+~
+</pre></div>
+</div>
+<p>The easiest way to model this is as a linear sequence of changes.
+While it would be interesting to see if you could mirror the structure of the revision tree in the parse tree, I’m going to assume it’s not an easy task.
+Plus, I don’t think I need that level of detail for this.</p>
+<p>So, for the time being I’m going to declare the line block characters as <code class="docutils literal notranslate"><span class="pre">extras</span></code> so that they are effectively treated as whitespace:</p>
+<div class="awdur-codeblock docutils container">
+<div class="awdur-codeblock-header docutils container">
+<code class="awdur-codeblock-filename docutils literal notranslate"><span class="pre">tree-sitter-grammars/jjlog/grammar.js</span></code></div>
+<div class="highlight-js notranslate"><div class="highlight"><pre><span></span><span class="nx">name</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;jjlog&quot;</span><span class="p">,</span>
+
+<span class="nx">extras</span><span class="o">:</span><span class="w"> </span><span class="nx">$</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">[</span>
+<span class="w">  </span><span class="sr">/\s/</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;|&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;├&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;─&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;╯&#39;</span><span class="p">,</span>
+<span class="p">],</span>
+
+<span class="nx">rules</span><span class="o">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="nx">source_file</span><span class="o">:</span><span class="w"> </span><span class="nx">$</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="nx">repeat</span><span class="p">(</span><span class="nx">$</span><span class="p">.</span><span class="nx">_revision</span><span class="p">),</span>
+
+<span class="w">  </span><span class="nx">_revision</span><span class="o">:</span><span class="w"> </span><span class="nx">$</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="nx">choice</span><span class="p">(</span>
+<span class="w">    </span><span class="nx">$</span><span class="p">.</span><span class="nx">revision</span><span class="p">,</span>
+<span class="w">    </span><span class="nx">$</span><span class="p">.</span><span class="nx">elided_revisions</span><span class="p">,</span>
+<span class="w">  </span><span class="p">),</span>
+</pre></div>
+</div>
+</div>
+<p>Modelling the elided revisions as a separate node type means that when it comes to implementing <a class="reference internal" href="#alc-jj-log-view-navigation"><span class="std std-ref">navigation</span></a> it’s trivial to skip over the elided revisions.</p>
+<p>The type of each change is denoted by the symbol representing that change’s node in the revision graph:</p>
+<div class="awdur-codeblock docutils container">
+<div class="awdur-codeblock-header docutils container">
+<code class="awdur-codeblock-filename docutils literal notranslate"><span class="pre">tree-sitter-grammars/jjlog/grammar.js</span></code></div>
+<div class="highlight-js notranslate"><div class="highlight"><pre><span></span><span class="nx">revision</span><span class="o">:</span><span class="w"> </span><span class="nx">$</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="nx">seq</span><span class="p">(</span>
+<span class="w">  </span><span class="nx">$</span><span class="p">.</span><span class="nx">_node_type</span><span class="p">,</span>
+<span class="w">  </span><span class="nx">$</span><span class="p">.</span><span class="nx">_change_metadata</span><span class="p">,</span>
+<span class="w">  </span><span class="nx">optional</span><span class="p">(</span><span class="s1">&#39;(conflict)&#39;</span><span class="p">),</span>
+<span class="w">  </span><span class="nx">$</span><span class="p">.</span><span class="nx">_description</span><span class="p">,</span>
+<span class="p">),</span>
+
+<span class="nx">_node_type</span><span class="o">:</span><span class="w"> </span><span class="nx">$</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="nx">choice</span><span class="p">(</span><span class="nx">$</span><span class="p">.</span><span class="nx">working_copy</span><span class="p">,</span><span class="w"> </span><span class="nx">$</span><span class="p">.</span><span class="nx">immutable_change</span><span class="p">,</span><span class="w"> </span><span class="nx">$</span><span class="p">.</span><span class="nx">conflicted_change</span><span class="p">,</span><span class="w"> </span><span class="nx">$</span><span class="p">.</span><span class="nx">normal_change</span><span class="p">),</span>
+
+<span class="nx">working_copy</span><span class="o">:</span><span class="w">      </span><span class="nx">$</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="s1">&#39;@&#39;</span><span class="p">,</span>
+<span class="nx">immutable_change</span><span class="o">:</span><span class="w">  </span><span class="nx">$</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="s1">&#39;◆&#39;</span><span class="p">,</span>
+<span class="nx">conflicted_change</span><span class="o">:</span><span class="w"> </span><span class="nx">$</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="s1">&#39;×&#39;</span><span class="p">,</span>
+<span class="nx">normal_change</span><span class="o">:</span><span class="w">     </span><span class="nx">$</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="s1">&#39;○&#39;</span><span class="p">,</span>
+<span class="nx">elided_revisions</span><span class="o">:</span><span class="w">  </span><span class="nx">$</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="nx">seq</span><span class="p">(</span><span class="s1">&#39;~&#39;</span><span class="p">,</span><span class="w"> </span><span class="nx">optional</span><span class="p">(</span><span class="s1">&#39;(elided revisions)&#39;</span><span class="p">)),</span>
+</pre></div>
+</div>
+</div>
+<p>The definition of each of the metadata fields is straightforward enough.</p>
+<div class="awdur-codeblock docutils container">
+<div class="awdur-codeblock-header docutils container">
+<code class="awdur-codeblock-filename docutils literal notranslate"><span class="pre">tree-sitter-grammars/jjlog/grammar.js</span></code></div>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>  _change_metadata: $ =&gt; seq(
+    field(&quot;change_id&quot;, $.ref),
+    field(&quot;author&quot;, $.email),
+    field(&quot;timestamp&quot;, $.datetime),
+    repeat($.ref),
+  ),
+
+  ref:         $ =&gt; /[-a-z0-9@*A-z]+/,
+  email:       $ =&gt; /[^\s]+@[^\s]+/,
+  datetime:    $ =&gt; /\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}/,
+
+  _description: $ =&gt; seq(/[\n\r]/, $.description, /[\n\r]/),
+  description: $ =&gt; /[^\n\r]+/,
+}
+</pre></div>
+</div>
+</div>
+<p>The <code class="docutils literal notranslate"><span class="pre">tree-sitter</span> <span class="pre">parse</span></code> command can be used to quickly generate a parse tree for the example we considered at the start of this section:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>$ jj log &gt; example-output
+$ tree-sitter parse example-output
+(source_file
+  (revision
+    (working_copy) change_id: (ref) author: (email) timestamp: (datetime) (ref) (description))
+  (ERROR (ERROR))
+  (revision
+    (normal_change) change_id: (ref) author: (email) timestamp: (datetime) (ref) (description))
+  (revision
+    (immutable_change) change_id: (ref) author: (email) timestamp: (datetime) (ref) (ref) (description))
+  (elided_revisions)
+  (ERROR (ERROR))
+  (revision
+    (conflicted_change) change_id: (ref) author: (email) timestamp: (datetime) (ref) (ref) (description))
+  (revision
+    (immutable_change) change_id: (ref) author: (email) timestamp: (datetime) (ref) (ref) (description))
+  (elided_revisions))
+</pre></div>
+</div>
+<p><strong>Note:</strong> <em>I have edited the output to merge lines and omit character ranges for brevity.</em></p>
+<p>You may have noticed the <code class="docutils literal notranslate"><span class="pre">ERROR</span></code> nodes, indicating that the grammar isn’t properly handling the case where revisions branch off the mainline (e.g. <code class="docutils literal notranslate"><span class="pre">│</span> <span class="pre">○</span>&#160; <span class="pre">...</span></code>) however, thanks to tree-sitter’s error recovery, I’ve been able to ignore them!</p>
+</section>
+<section id="defining-the-major-mode">
+<h2>Defining the Major Mode<a class="headerlink" href="#defining-the-major-mode" title="Link to this heading">¶</a></h2>
+<p>With the grammar written it’s time to write my first major-mode!</p>
+<p>For details on how to define a tree-sitter based major-mode, <a class="reference external" href="https://www.masteringemacs.org/article/lets-write-a-treesitter-major-mode">this guide</a> from Mastering Emacs provides an excellent starting point.</p>
+<p>When declaring a major-mode, you often base your mode on a more fundamental mode to inherit a lot of existing functionality for free.
+Initially I thought of basing mine on <code class="docutils literal notranslate"><span class="pre">log-view-mode</span></code> (the mode you get when running <code class="docutils literal notranslate"><span class="pre">vc-print-log</span></code>).
+But since the navigation commands are all powered by regular expressions I didn’t think I would gain much and so based it on <code class="docutils literal notranslate"><span class="pre">special-mode</span></code> instead:</p>
+<div class="awdur-codeblock docutils container">
+<div class="awdur-codeblock-header docutils container">
+<code class="awdur-codeblock-filename docutils literal notranslate"><span class="pre">lisp/alc-jj.el</span></code></div>
+<div class="highlight-elisp notranslate"><div class="highlight"><pre><span></span><span class="c1">;; Keymap must be defined before the major-mode in order to take effect.</span>
+<span class="p">(</span><span class="k">defvar</span><span class="w"> </span><span class="nv">alc-jj-log-view-mode-map</span>
+<span class="w">  </span><span class="p">(</span><span class="k">let</span><span class="w"> </span><span class="p">((</span><span class="nv">map</span><span class="w"> </span><span class="p">(</span><span class="nf">make-sparse-keymap</span><span class="p">)))</span>
+<span class="w">    </span><span class="p">(</span><span class="nv">keymap-set</span><span class="w"> </span><span class="nv">map</span><span class="w"> </span><span class="s">&quot;B&quot;</span><span class="w"> </span><span class="nf">#&#39;</span><span class="nv">alc-jj-log-view-new-before</span><span class="p">)</span>
+<span class="w">    </span><span class="p">(</span><span class="nv">keymap-set</span><span class="w"> </span><span class="nv">map</span><span class="w"> </span><span class="s">&quot;A&quot;</span><span class="w"> </span><span class="nf">#&#39;</span><span class="nv">alc-jj-log-view-new-after</span><span class="p">)</span>
+<span class="w">    </span><span class="p">(</span><span class="nv">keymap-set</span><span class="w"> </span><span class="nv">map</span><span class="w"> </span><span class="s">&quot;e&quot;</span><span class="w"> </span><span class="nf">#&#39;</span><span class="nv">alc-jj-log-view-edit</span><span class="p">)</span>
+<span class="w">    </span><span class="p">(</span><span class="nv">keymap-set</span><span class="w"> </span><span class="nv">map</span><span class="w"> </span><span class="s">&quot;d&quot;</span><span class="w"> </span><span class="nf">#&#39;</span><span class="nv">alc-jj-log-view-describe</span><span class="p">)</span>
+<span class="w">    </span><span class="p">(</span><span class="nv">keymap-set</span><span class="w"> </span><span class="nv">map</span><span class="w"> </span><span class="s">&quot;g&quot;</span><span class="w"> </span><span class="nf">#&#39;</span><span class="nv">alc-jj-log-view-reload</span><span class="p">)</span>
+<span class="w">    </span><span class="nv">map</span><span class="p">))</span>
+
+<span class="p">(</span><span class="nb">define-derived-mode</span><span class="w"> </span><span class="nv">alc-jj-log-view-mode</span><span class="w"> </span><span class="nv">special-mode</span><span class="w"> </span><span class="s">&quot;jj-log&quot;</span>
+<span class="w">  </span><span class="s">&quot;Major mode for viewing and manipulating the jj log&quot;</span>
+<span class="w">  </span><span class="p">(</span><span class="nb">when</span><span class="w"> </span><span class="p">(</span><span class="nv">treesit-ready-p</span><span class="w"> </span><span class="ss">&#39;jjlog</span><span class="p">)</span>
+<span class="w">    </span><span class="p">(</span><span class="nv">treesit-parser-create</span><span class="w"> </span><span class="ss">&#39;jjlog</span><span class="p">)</span>
+<span class="w">    </span><span class="p">(</span><span class="nv">alc-jj-log-view-ts-setup</span><span class="p">)))</span>
+</pre></div>
+</div>
+</div>
+<section id="syntax-highlighting">
+<h3>Syntax Highlighting<a class="headerlink" href="#syntax-highlighting" title="Link to this heading">¶</a></h3>
+<p>Or in Emacs parlance, font locking.</p>
+<p>I highly recommend you check out the <a class="reference external" href="https://www.masteringemacs.org/article/lets-write-a-treesitter-major-mode">guide from Mastering Emacs</a> if you are interested in the details.
+Essentially, syntax highlighting a tree-sitter mode boils down to:</p>
+<ul class="simple">
+<li><p>Writing queries that apply faces to matches (e.g. <code class="docutils literal notranslate"><span class="pre">((elided_revisions)</span> <span class="pre">&#64;font-lock-comment-face)</span></code>, and</p></li>
+<li><p>assigning them to a named feature (e.g. <code class="docutils literal notranslate"><span class="pre">:feature</span> <span class="pre">elided</span></code>).</p></li>
+</ul>
+<div class="awdur-codeblock docutils container">
+<div class="awdur-codeblock-header docutils container">
+<code class="awdur-codeblock-filename docutils literal notranslate"><span class="pre">lisp/alc-jj.el</span></code></div>
+<div class="highlight-elisp notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="k">defvar</span><span class="w"> </span><span class="nv">alc-jj-log-view-font-lock-rules</span>
+<span class="w">  </span><span class="o">&#39;</span><span class="p">(</span><span class="nb">:language</span><span class="w"> </span><span class="nv">jjlog</span>
+<span class="w">    </span><span class="nb">:override</span><span class="w"> </span><span class="no">t</span>
+<span class="w">    </span><span class="nb">:feature</span><span class="w"> </span><span class="nv">elided</span>
+<span class="w">    </span><span class="p">([((</span><span class="nv">elided_revisions</span><span class="p">)</span><span class="w"> </span><span class="nv">@font-lock-comment-face</span><span class="p">)])</span>
+<span class="w">    </span><span class="nb">:language</span><span class="w"> </span><span class="nv">jjlog</span>
+<span class="w">    </span><span class="nb">:override</span><span class="w"> </span><span class="no">t</span>
+<span class="w">    </span><span class="nb">:feature</span><span class="w"> </span><span class="nv">working-copy</span>
+<span class="w">    </span><span class="p">([((</span><span class="nv">working_copy</span><span class="p">)</span><span class="w"> </span><span class="nv">@success</span><span class="p">)])</span>
+<span class="w">    </span><span class="nb">:language</span><span class="w"> </span><span class="nv">jjlog</span>
+<span class="w">    </span><span class="nb">:override</span><span class="w"> </span><span class="no">t</span>
+<span class="w">    </span><span class="nb">:feature</span><span class="w"> </span><span class="nv">refs</span>
+<span class="w">    </span><span class="p">([((</span><span class="nv">revision</span><span class="w"> </span><span class="p">(</span><span class="nv">ref</span><span class="p">)</span><span class="w"> </span><span class="nv">@font-lock-function-name-face</span><span class="p">))])</span>
+<span class="w">    </span><span class="nb">:language</span><span class="w"> </span><span class="nv">jjlog</span>
+<span class="w">    </span><span class="nb">:override</span><span class="w"> </span><span class="no">t</span>
+<span class="w">    </span><span class="nb">:feature</span><span class="w"> </span><span class="nv">conflicted</span>
+<span class="w">    </span><span class="p">([(</span><span class="nv">conflicted_change</span><span class="p">)</span><span class="w"> </span><span class="s">&quot;(conflict)&quot;</span><span class="p">]</span><span class="w"> </span><span class="nv">@error</span><span class="p">)</span>
+<span class="w">    </span><span class="nb">:language</span><span class="w"> </span><span class="nv">jjlog</span>
+<span class="w">    </span><span class="nb">:override</span><span class="w"> </span><span class="no">t</span>
+<span class="w">    </span><span class="nb">:feature</span><span class="w"> </span><span class="nv">metadata</span>
+<span class="w">    </span><span class="p">([(</span><span class="nv">email</span><span class="p">)</span><span class="w"> </span><span class="p">(</span><span class="nv">datetime</span><span class="p">)]</span><span class="w"> </span><span class="nv">@shadow</span><span class="p">)</span>
+<span class="w">    </span><span class="nb">:language</span><span class="w"> </span><span class="nv">jjlog</span>
+<span class="w">    </span><span class="nb">:override</span><span class="w"> </span><span class="no">t</span>
+<span class="w">    </span><span class="nb">:feature</span><span class="w"> </span><span class="nv">change-ids</span>
+<span class="w">    </span><span class="p">([((</span><span class="nv">revision</span><span class="w"> </span><span class="nv">change_id:</span><span class="w"> </span><span class="p">(</span><span class="nv">ref</span><span class="p">)</span><span class="w"> </span><span class="nv">@font-lock-keyword-face</span><span class="p">))])))</span>
+</pre></div>
+</div>
+</div>
+<p>I adopted the <code class="docutils literal notranslate"><span class="pre">defvar</span></code> approach suggested in the Mastering Emacs article, though that’s probably only necessary if you intend to publish your mode for other people to use.</p>
+<p>Applying these rules to each time the major-mode is activated is the responsibility of the <code class="docutils literal notranslate"><span class="pre">alc-jj-log-view-ts-setup</span></code> function referenced in the previous section.</p>
+<div class="awdur-codeblock docutils container">
+<div class="awdur-codeblock-header docutils container">
+<code class="awdur-codeblock-filename docutils literal notranslate"><span class="pre">lisp/alc-jj.el</span></code></div>
+<div class="highlight-elisp notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="nb">defun</span><span class="w"> </span><span class="nv">alc-jj-log-view-ts-setup</span><span class="w"> </span><span class="p">()</span>
+<span class="w">  </span><span class="s">&quot;Setup treesit for alc-jj-log-view mode.&quot;</span>
+<span class="w">  </span><span class="p">(</span><span class="nb">setq-local</span><span class="w"> </span><span class="nv">font-lock-defaults</span><span class="w"> </span><span class="no">nil</span><span class="p">)</span>
+<span class="w">  </span><span class="p">(</span><span class="nb">setq-local</span><span class="w"> </span><span class="nv">treesit-font-lock-feature-list</span>
+<span class="w">              </span><span class="o">&#39;</span><span class="p">((</span><span class="nv">change-ids</span>
+<span class="w">                 </span><span class="nv">conflicted</span>
+<span class="w">                 </span><span class="nv">elided</span>
+<span class="w">                 </span><span class="nv">metadata</span>
+<span class="w">                 </span><span class="nv">refs</span>
+<span class="w">                 </span><span class="nv">working-copy</span><span class="p">)))</span>
+
+<span class="w">  </span><span class="p">(</span><span class="nb">setq-local</span><span class="w"> </span><span class="nv">treesit-font-lock-settings</span>
+<span class="w">               </span><span class="p">(</span><span class="nf">apply</span><span class="w"> </span><span class="nf">#&#39;</span><span class="nv">treesit-font-lock-rules</span><span class="w"> </span><span class="nv">alc-jj-log-view-font-lock-rules</span><span class="p">))</span>
+<span class="w">  </span><span class="p">(</span><span class="nv">treesit-major-mode-setup</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<p>The <code class="docutils literal notranslate"><span class="pre">treesit-font-lock-feature-list</span></code> variable is interesting as you can sort your font lock rules into different levels, allowing people to opt into more or less highlighting based on their value of <code class="docutils literal notranslate"><span class="pre">treesit-font-lock-level</span></code>.
+Since I’m the only user, I’ve put everything into a single level.</p>
+<svg class="rich-terminal" viewBox="0 0 1312 830.8" xmlns="http://www.w3.org/2000/svg">
+    <!-- Generated with Rich https://www.textualize.io -->
+    <style>
+
+    @font-face {
+        font-family: "Fira Code";
+        src: local("FiraCode-Regular"),
+                url("https://cdnjs.cloudflare.com/ajax/libs/firacode/6.2.0/woff2/FiraCode-Regular.woff2") format("woff2"),
+                url("https://cdnjs.cloudflare.com/ajax/libs/firacode/6.2.0/woff/FiraCode-Regular.woff") format("woff");
+        font-style: normal;
+        font-weight: 400;
+    }
+    @font-face {
+        font-family: "Fira Code";
+        src: local("FiraCode-Bold"),
+                url("https://cdnjs.cloudflare.com/ajax/libs/firacode/6.2.0/woff2/FiraCode-Bold.woff2") format("woff2"),
+                url("https://cdnjs.cloudflare.com/ajax/libs/firacode/6.2.0/woff/FiraCode-Bold.woff") format("woff");
+        font-style: bold;
+        font-weight: 700;
+    }
+
+    .terminal-1758337122-matrix {
+        font-family: Fira Code, monospace;
+        font-size: 20px;
+        line-height: 24.4px;
+        font-variant-east-asian: full-width;
+    }
+
+    .terminal-1758337122-title {
+        font-size: 18px;
+        font-weight: bold;
+        font-family: arial;
+    }
+
+    .terminal-1758337122-r1 { fill: #bcbeaf }
+.terminal-1758337122-r2 { fill: #d0e2c8;font-weight: bold }
+.terminal-1758337122-r3 { fill: #c8b399 }
+.terminal-1758337122-r4 { fill: #000000 }
+.terminal-1758337122-r5 { fill: #82cc9f;font-weight: bold }
+.terminal-1758337122-r6 { fill: #d0e2c8 }
+.terminal-1758337122-r7 { fill: #c8b399;font-weight: bold }
+.terminal-1758337122-r8 { fill: #b0d593;font-style: italic; }
+.terminal-1758337122-r9 { fill: #e8a28f;font-weight: bold }
+.terminal-1758337122-r10 { fill: #bcbeaf;text-decoration: underline; }
+.terminal-1758337122-r11 { fill: #c8b399;font-weight: bold;font-style: italic;;text-decoration: underline; }
+.terminal-1758337122-r12 { fill: #b0d593;text-decoration: underline; }
+.terminal-1758337122-r13 { fill: #c8b399;text-decoration: underline; }
+    </style>
+
+    <defs>
+    <clipPath id="terminal-1758337122-clip-terminal">
+      <rect x="0" y="0" width="1292.1999999999998" height="779.8" />
+    </clipPath>
+    <clipPath id="terminal-1758337122-line-0">
+    <rect x="0" y="1.5" width="1293.2" height="24.65"/>
+            </clipPath>
+<clipPath id="terminal-1758337122-line-1">
+    <rect x="0" y="25.9" width="1293.2" height="24.65"/>
+            </clipPath>
+<clipPath id="terminal-1758337122-line-2">
+    <rect x="0" y="50.3" width="1293.2" height="24.65"/>
+            </clipPath>
+<clipPath id="terminal-1758337122-line-3">
+    <rect x="0" y="74.7" width="1293.2" height="24.65"/>
+            </clipPath>
+<clipPath id="terminal-1758337122-line-4">
+    <rect x="0" y="99.1" width="1293.2" height="24.65"/>
+            </clipPath>
+<clipPath id="terminal-1758337122-line-5">
+    <rect x="0" y="123.5" width="1293.2" height="24.65"/>
+            </clipPath>
+<clipPath id="terminal-1758337122-line-6">
+    <rect x="0" y="147.9" width="1293.2" height="24.65"/>
+            </clipPath>
+<clipPath id="terminal-1758337122-line-7">
+    <rect x="0" y="172.3" width="1293.2" height="24.65"/>
+            </clipPath>
+<clipPath id="terminal-1758337122-line-8">
+    <rect x="0" y="196.7" width="1293.2" height="24.65"/>
+            </clipPath>
+<clipPath id="terminal-1758337122-line-9">
+    <rect x="0" y="221.1" width="1293.2" height="24.65"/>
+            </clipPath>
+<clipPath id="terminal-1758337122-line-10">
+    <rect x="0" y="245.5" width="1293.2" height="24.65"/>
+            </clipPath>
+<clipPath id="terminal-1758337122-line-11">
+    <rect x="0" y="269.9" width="1293.2" height="24.65"/>
+            </clipPath>
+<clipPath id="terminal-1758337122-line-12">
+    <rect x="0" y="294.3" width="1293.2" height="24.65"/>
+            </clipPath>
+<clipPath id="terminal-1758337122-line-13">
+    <rect x="0" y="318.7" width="1293.2" height="24.65"/>
+            </clipPath>
+<clipPath id="terminal-1758337122-line-14">
+    <rect x="0" y="343.1" width="1293.2" height="24.65"/>
+            </clipPath>
+<clipPath id="terminal-1758337122-line-15">
+    <rect x="0" y="367.5" width="1293.2" height="24.65"/>
+            </clipPath>
+<clipPath id="terminal-1758337122-line-16">
+    <rect x="0" y="391.9" width="1293.2" height="24.65"/>
+            </clipPath>
+<clipPath id="terminal-1758337122-line-17">
+    <rect x="0" y="416.3" width="1293.2" height="24.65"/>
+            </clipPath>
+<clipPath id="terminal-1758337122-line-18">
+    <rect x="0" y="440.7" width="1293.2" height="24.65"/>
+            </clipPath>
+<clipPath id="terminal-1758337122-line-19">
+    <rect x="0" y="465.1" width="1293.2" height="24.65"/>
+            </clipPath>
+<clipPath id="terminal-1758337122-line-20">
+    <rect x="0" y="489.5" width="1293.2" height="24.65"/>
+            </clipPath>
+<clipPath id="terminal-1758337122-line-21">
+    <rect x="0" y="513.9" width="1293.2" height="24.65"/>
+            </clipPath>
+<clipPath id="terminal-1758337122-line-22">
+    <rect x="0" y="538.3" width="1293.2" height="24.65"/>
+            </clipPath>
+<clipPath id="terminal-1758337122-line-23">
+    <rect x="0" y="562.7" width="1293.2" height="24.65"/>
+            </clipPath>
+<clipPath id="terminal-1758337122-line-24">
+    <rect x="0" y="587.1" width="1293.2" height="24.65"/>
+            </clipPath>
+<clipPath id="terminal-1758337122-line-25">
+    <rect x="0" y="611.5" width="1293.2" height="24.65"/>
+            </clipPath>
+<clipPath id="terminal-1758337122-line-26">
+    <rect x="0" y="635.9" width="1293.2" height="24.65"/>
+            </clipPath>
+<clipPath id="terminal-1758337122-line-27">
+    <rect x="0" y="660.3" width="1293.2" height="24.65"/>
+            </clipPath>
+<clipPath id="terminal-1758337122-line-28">
+    <rect x="0" y="684.7" width="1293.2" height="24.65"/>
+            </clipPath>
+<clipPath id="terminal-1758337122-line-29">
+    <rect x="0" y="709.1" width="1293.2" height="24.65"/>
+            </clipPath>
+<clipPath id="terminal-1758337122-line-30">
+    <rect x="0" y="733.5" width="1293.2" height="24.65"/>
+            </clipPath>
+    </defs>
+
+    <rect fill="#ffffff" stroke="rgba(255,255,255,0.35)" stroke-width="1" x="1" y="1" width="1310" height="828.8" rx="8"/>
+            <g transform="translate(26,22)">
+            <circle cx="0" cy="0" r="7" fill="#ff5f57"/>
+            <circle cx="22" cy="0" r="7" fill="#febc2e"/>
+            <circle cx="44" cy="0" r="7" fill="#28c840"/>
+            </g>
+        
+    <g transform="translate(9, 41)" clip-path="url(#terminal-1758337122-clip-terminal)">
+    <rect fill="#40503d" x="0" y="1.5" width="12.2" height="24.65" shape-rendering="crispEdges"/><rect fill="#303f2d" x="12.2" y="1.5" width="36.6" height="24.65" shape-rendering="crispEdges"/><rect fill="#40503d" x="48.8" y="1.5" width="1049.2" height="24.65" shape-rendering="crispEdges"/><rect fill="#40503d" x="1098" y="1.5" width="170.8" height="24.65" shape-rendering="crispEdges"/><rect fill="#40503d" x="1268.8" y="1.5" width="24.4" height="24.65" shape-rendering="crispEdges"/><rect fill="#305d42" x="0" y="25.9" width="12.2" height="24.65" shape-rendering="crispEdges"/><rect fill="#303f2d" x="12.2" y="25.9" width="24.4" height="24.65" shape-rendering="crispEdges"/><rect fill="#303f2d" x="36.6" y="25.9" width="97.6" height="24.65" shape-rendering="crispEdges"/><rect fill="#303f2d" x="134.2" y="25.9" width="12.2" height="24.65" shape-rendering="crispEdges"/><rect fill="#303f2d" x="146.4" y="25.9" width="244" height="24.65" shape-rendering="crispEdges"/><rect fill="#303f2d" x="390.4" y="25.9" width="12.2" height="24.65" shape-rendering="crispEdges"/><rect fill="#303f2d" x="402.6" y="25.9" width="231.8" height="24.65" shape-rendering="crispEdges"/><rect fill="#303f2d" x="634.4" y="25.9" width="12.2" height="24.65" shape-rendering="crispEdges"/><rect fill="#303f2d" x="646.6" y="25.9" width="97.6" height="24.65" shape-rendering="crispEdges"/><rect fill="#303f2d" x="744.2" y="25.9" width="549" height="24.65" shape-rendering="crispEdges"/><rect fill="#303f2d" x="0" y="50.3" width="1293.2" height="24.65" shape-rendering="crispEdges"/><rect fill="#303f2d" x="0" y="74.7" width="61" height="24.65" shape-rendering="crispEdges"/><rect fill="#303f2d" x="61" y="74.7" width="97.6" height="24.65" shape-rendering="crispEdges"/><rect fill="#303f2d" x="158.6" y="74.7" width="12.2" height="24.65" shape-rendering="crispEdges"/><rect fill="#303f2d" x="170.8" y="74.7" width="244" height="24.65" shape-rendering="crispEdges"/><rect fill="#303f2d" x="414.8" y="74.7" width="12.2" height="24.65" shape-rendering="crispEdges"/><rect fill="#303f2d" x="427" y="74.7" width="231.8" height="24.65" shape-rendering="crispEdges"/><rect fill="#303f2d" x="658.8" y="74.7" width="12.2" height="24.65" shape-rendering="crispEdges"/><rect fill="#303f2d" x="671" y="74.7" width="97.6" height="24.65" shape-rendering="crispEdges"/><rect fill="#303f2d" x="768.6" y="74.7" width="524.6" height="24.65" shape-rendering="crispEdges"/><rect fill="#303f2d" x="0" y="99.1" width="1293.2" height="24.65" shape-rendering="crispEdges"/><rect fill="#303f2d" x="0" y="123.5" width="36.6" height="24.65" shape-rendering="crispEdges"/><rect fill="#303f2d" x="36.6" y="123.5" width="97.6" height="24.65" shape-rendering="crispEdges"/><rect fill="#303f2d" x="134.2" y="123.5" width="12.2" height="24.65" shape-rendering="crispEdges"/><rect fill="#303f2d" x="146.4" y="123.5" width="85.4" height="24.65" shape-rendering="crispEdges"/><rect fill="#303f2d" x="231.8" y="123.5" width="378.2" height="24.65" shape-rendering="crispEdges"/><rect fill="#303f2d" x="610" y="123.5" width="12.2" height="24.65" shape-rendering="crispEdges"/><rect fill="#303f2d" x="622.2" y="123.5" width="231.8" height="24.65" shape-rendering="crispEdges"/><rect fill="#303f2d" x="854" y="123.5" width="12.2" height="24.65" shape-rendering="crispEdges"/><rect fill="#303f2d" x="866.2" y="123.5" width="61" height="24.65" shape-rendering="crispEdges"/><rect fill="#303f2d" x="927.2" y="123.5" width="12.2" height="24.65" shape-rendering="crispEdges"/><rect fill="#303f2d" x="939.4" y="123.5" width="97.6" height="24.65" shape-rendering="crispEdges"/><rect fill="#303f2d" x="1037" y="123.5" width="256.2" height="24.65" shape-rendering="crispEdges"/><rect fill="#303f2d" x="0" y="147.9" width="1293.2" height="24.65" shape-rendering="crispEdges"/><rect fill="#303f2d" x="0" y="172.3" width="256.2" height="24.65" shape-rendering="crispEdges"/><rect fill="#303f2d" x="256.2" y="172.3" width="1037" height="24.65" shape-rendering="crispEdges"/><rect fill="#303f2d" x="0" y="196.7" width="24.4" height="24.65" shape-rendering="crispEdges"/><rect fill="#303f2d" x="24.4" y="196.7" width="12.2" height="24.65" shape-rendering="crispEdges"/><rect fill="#303f2d" x="36.6" y="196.7" width="24.4" height="24.65" shape-rendering="crispEdges"/><rect fill="#303f2d" x="61" y="196.7" width="97.6" height="24.65" shape-rendering="crispEdges"/><rect fill="#303f2d" x="158.6" y="196.7" width="12.2" height="24.65" shape-rendering="crispEdges"/><rect fill="#303f2d" x="170.8" y="196.7" width="244" height="24.65" shape-rendering="crispEdges"/><rect fill="#303f2d" x="414.8" y="196.7" width="12.2" height="24.65" shape-rendering="crispEdges"/><rect fill="#303f2d" x="427" y="196.7" width="231.8" height="24.65" shape-rendering="crispEdges"/><rect fill="#303f2d" x="658.8" y="196.7" width="12.2" height="24.65" shape-rendering="crispEdges"/><rect fill="#303f2d" x="671" y="196.7" width="219.6" height="24.65" shape-rendering="crispEdges"/><rect fill="#303f2d" x="890.6" y="196.7" width="12.2" height="24.65" shape-rendering="crispEdges"/><rect fill="#303f2d" x="902.8" y="196.7" width="97.6" height="24.65" shape-rendering="crispEdges"/><rect fill="#303f2d" x="1000.4" y="196.7" width="12.2" height="24.65" shape-rendering="crispEdges"/><rect fill="#303f2d" x="1012.6" y="196.7" width="122" height="24.65" shape-rendering="crispEdges"/><rect fill="#303f2d" x="1134.6" y="196.7" width="158.6" height="24.65" shape-rendering="crispEdges"/><rect fill="#303f2d" x="0" y="221.1" width="1293.2" height="24.65" shape-rendering="crispEdges"/><rect fill="#303f2d" x="0" y="245.5" width="36.6" height="24.65" shape-rendering="crispEdges"/><rect fill="#303f2d" x="36.6" y="245.5" width="97.6" height="24.65" shape-rendering="crispEdges"/><rect fill="#303f2d" x="134.2" y="245.5" width="12.2" height="24.65" shape-rendering="crispEdges"/><rect fill="#303f2d" x="146.4" y="245.5" width="85.4" height="24.65" shape-rendering="crispEdges"/><rect fill="#303f2d" x="231.8" y="245.5" width="378.2" height="24.65" shape-rendering="crispEdges"/><rect fill="#303f2d" x="610" y="245.5" width="12.2" height="24.65" shape-rendering="crispEdges"/><rect fill="#303f2d" x="622.2" y="245.5" width="231.8" height="24.65" shape-rendering="crispEdges"/><rect fill="#303f2d" x="854" y="245.5" width="12.2" height="24.65" shape-rendering="crispEdges"/><rect fill="#303f2d" x="866.2" y="245.5" width="134.2" height="24.65" shape-rendering="crispEdges"/><rect fill="#303f2d" x="1000.4" y="245.5" width="12.2" height="24.65" shape-rendering="crispEdges"/><rect fill="#303f2d" x="1012.6" y="245.5" width="97.6" height="24.65" shape-rendering="crispEdges"/><rect fill="#303f2d" x="1110.2" y="245.5" width="183" height="24.65" shape-rendering="crispEdges"/><rect fill="#303f2d" x="0" y="269.9" width="1293.2" height="24.65" shape-rendering="crispEdges"/><rect fill="#303f2d" x="0" y="294.3" width="12.2" height="24.65" shape-rendering="crispEdges"/><rect fill="#303f2d" x="12.2" y="294.3" width="1281" height="24.65" shape-rendering="crispEdges"/><rect fill="#303f2d" x="0" y="318.7" width="1293.2" height="24.65" shape-rendering="crispEdges"/><rect fill="#303f2d" x="0" y="343.1" width="1293.2" height="24.65" shape-rendering="crispEdges"/><rect fill="#40503d" x="0" y="367.5" width="36.6" height="24.65" shape-rendering="crispEdges"/><rect fill="#40503d" x="36.6" y="367.5" width="366" height="24.65" shape-rendering="crispEdges"/><rect fill="#40503d" x="402.6" y="367.5" width="890.6" height="24.65" shape-rendering="crispEdges"/><rect fill="#303f2d" x="0" y="391.9" width="12.2" height="24.65" shape-rendering="crispEdges"/><rect fill="#303f2d" x="12.2" y="391.9" width="134.2" height="24.65" shape-rendering="crispEdges"/><rect fill="#303f2d" x="146.4" y="391.9" width="1146.8" height="24.65" shape-rendering="crispEdges"/><rect fill="#303f2d" x="0" y="416.3" width="24.4" height="24.65" shape-rendering="crispEdges"/><rect fill="#303f2d" x="24.4" y="416.3" width="97.6" height="24.65" shape-rendering="crispEdges"/><rect fill="#303f2d" x="122" y="416.3" width="24.4" height="24.65" shape-rendering="crispEdges"/><rect fill="#303f2d" x="146.4" y="416.3" width="146.4" height="24.65" shape-rendering="crispEdges"/><rect fill="#303f2d" x="292.8" y="416.3" width="170.8" height="24.65" shape-rendering="crispEdges"/><rect fill="#303f2d" x="463.6" y="416.3" width="36.6" height="24.65" shape-rendering="crispEdges"/><rect fill="#303f2d" x="500.2" y="416.3" width="134.2" height="24.65" shape-rendering="crispEdges"/><rect fill="#303f2d" x="634.4" y="416.3" width="61" height="24.65" shape-rendering="crispEdges"/><rect fill="#303f2d" x="695.4" y="416.3" width="170.8" height="24.65" shape-rendering="crispEdges"/><rect fill="#303f2d" x="866.2" y="416.3" width="97.6" height="24.65" shape-rendering="crispEdges"/><rect fill="#303f2d" x="963.8" y="416.3" width="36.6" height="24.65" shape-rendering="crispEdges"/><rect fill="#303f2d" x="1000.4" y="416.3" width="36.6" height="24.65" shape-rendering="crispEdges"/><rect fill="#303f2d" x="1037" y="416.3" width="36.6" height="24.65" shape-rendering="crispEdges"/><rect fill="#303f2d" x="1073.6" y="416.3" width="134.2" height="24.65" shape-rendering="crispEdges"/><rect fill="#303f2d" x="1207.8" y="416.3" width="85.4" height="24.65" shape-rendering="crispEdges"/><rect fill="#303f2d" x="0" y="440.7" width="24.4" height="24.65" shape-rendering="crispEdges"/><rect fill="#303f2d" x="24.4" y="440.7" width="61" height="24.65" shape-rendering="crispEdges"/><rect fill="#303f2d" x="85.4" y="440.7" width="24.4" height="24.65" shape-rendering="crispEdges"/><rect fill="#303f2d" x="109.8" y="440.7" width="61" height="24.65" shape-rendering="crispEdges"/><rect fill="#303f2d" x="170.8" y="440.7" width="1122.4" height="24.65" shape-rendering="crispEdges"/><rect fill="#303f2d" x="0" y="465.1" width="24.4" height="24.65" shape-rendering="crispEdges"/><rect fill="#303f2d" x="24.4" y="465.1" width="97.6" height="24.65" shape-rendering="crispEdges"/><rect fill="#303f2d" x="122" y="465.1" width="24.4" height="24.65" shape-rendering="crispEdges"/><rect fill="#303f2d" x="146.4" y="465.1" width="158.6" height="24.65" shape-rendering="crispEdges"/><rect fill="#303f2d" x="305" y="465.1" width="170.8" height="24.65" shape-rendering="crispEdges"/><rect fill="#303f2d" x="475.8" y="465.1" width="36.6" height="24.65" shape-rendering="crispEdges"/><rect fill="#303f2d" x="512.4" y="465.1" width="134.2" height="24.65" shape-rendering="crispEdges"/><rect fill="#303f2d" x="646.6" y="465.1" width="61" height="24.65" shape-rendering="crispEdges"/><rect fill="#303f2d" x="707.6" y="465.1" width="170.8" height="24.65" shape-rendering="crispEdges"/><rect fill="#303f2d" x="878.4" y="465.1" width="97.6" height="24.65" shape-rendering="crispEdges"/><rect fill="#303f2d" x="976" y="465.1" width="36.6" height="24.65" shape-rendering="crispEdges"/><rect fill="#303f2d" x="1012.6" y="465.1" width="36.6" height="24.65" shape-rendering="crispEdges"/><rect fill="#303f2d" x="1049.2" y="465.1" width="36.6" height="24.65" shape-rendering="crispEdges"/><rect fill="#303f2d" x="1085.8" y="465.1" width="134.2" height="24.65" shape-rendering="crispEdges"/><rect fill="#303f2d" x="1220" y="465.1" width="73.2" height="24.65" shape-rendering="crispEdges"/><rect fill="#303f2d" x="0" y="489.5" width="24.4" height="24.65" shape-rendering="crispEdges"/><rect fill="#303f2d" x="24.4" y="489.5" width="97.6" height="24.65" shape-rendering="crispEdges"/><rect fill="#303f2d" x="122" y="489.5" width="24.4" height="24.65" shape-rendering="crispEdges"/><rect fill="#303f2d" x="146.4" y="489.5" width="195.2" height="24.65" shape-rendering="crispEdges"/><rect fill="#303f2d" x="341.6" y="489.5" width="170.8" height="24.65" shape-rendering="crispEdges"/><rect fill="#303f2d" x="512.4" y="489.5" width="36.6" height="24.65" shape-rendering="crispEdges"/><rect fill="#303f2d" x="549" y="489.5" width="134.2" height="24.65" shape-rendering="crispEdges"/><rect fill="#303f2d" x="683.2" y="489.5" width="61" height="24.65" shape-rendering="crispEdges"/><rect fill="#303f2d" x="744.2" y="489.5" width="170.8" height="24.65" shape-rendering="crispEdges"/><rect fill="#303f2d" x="915" y="489.5" width="97.6" height="24.65" shape-rendering="crispEdges"/><rect fill="#303f2d" x="1012.6" y="489.5" width="36.6" height="24.65" shape-rendering="crispEdges"/><rect fill="#303f2d" x="1049.2" y="489.5" width="36.6" height="24.65" shape-rendering="crispEdges"/><rect fill="#303f2d" x="1085.8" y="489.5" width="36.6" height="24.65" shape-rendering="crispEdges"/><rect fill="#303f2d" x="1122.4" y="489.5" width="36.6" height="24.65" shape-rendering="crispEdges"/><rect fill="#303f2d" x="1159" y="489.5" width="134.2" height="24.65" shape-rendering="crispEdges"/><rect fill="#303f2d" x="0" y="513.9" width="146.4" height="24.65" shape-rendering="crispEdges"/><rect fill="#303f2d" x="146.4" y="513.9" width="134.2" height="24.65" shape-rendering="crispEdges"/><rect fill="#303f2d" x="280.6" y="513.9" width="1012.6" height="24.65" shape-rendering="crispEdges"/><rect fill="#303f2d" x="0" y="538.3" width="24.4" height="24.65" shape-rendering="crispEdges"/><rect fill="#303f2d" x="24.4" y="538.3" width="195.2" height="24.65" shape-rendering="crispEdges"/><rect fill="#303f2d" x="219.6" y="538.3" width="12.2" height="24.65" shape-rendering="crispEdges"/><rect fill="#303f2d" x="231.8" y="538.3" width="12.2" height="24.65" shape-rendering="crispEdges"/><rect fill="#303f2d" x="244" y="538.3" width="12.2" height="24.65" shape-rendering="crispEdges"/><rect fill="#303f2d" x="256.2" y="538.3" width="219.6" height="24.65" shape-rendering="crispEdges"/><rect fill="#303f2d" x="475.8" y="538.3" width="817.4" height="24.65" shape-rendering="crispEdges"/><rect fill="#303f2d" x="0" y="562.7" width="24.4" height="24.65" shape-rendering="crispEdges"/><rect fill="#303f2d" x="24.4" y="562.7" width="61" height="24.65" shape-rendering="crispEdges"/><rect fill="#303f2d" x="85.4" y="562.7" width="24.4" height="24.65" shape-rendering="crispEdges"/><rect fill="#303f2d" x="109.8" y="562.7" width="61" height="24.65" shape-rendering="crispEdges"/><rect fill="#303f2d" x="170.8" y="562.7" width="1122.4" height="24.65" shape-rendering="crispEdges"/><rect fill="#303f2d" x="0" y="587.1" width="24.4" height="24.65" shape-rendering="crispEdges"/><rect fill="#303f2d" x="24.4" y="587.1" width="97.6" height="24.65" shape-rendering="crispEdges"/><rect fill="#303f2d" x="122" y="587.1" width="24.4" height="24.65" shape-rendering="crispEdges"/><rect fill="#303f2d" x="146.4" y="587.1" width="207.4" height="24.65" shape-rendering="crispEdges"/><rect fill="#303f2d" x="353.8" y="587.1" width="170.8" height="24.65" shape-rendering="crispEdges"/><rect fill="#303f2d" x="524.6" y="587.1" width="36.6" height="24.65" shape-rendering="crispEdges"/><rect fill="#303f2d" x="561.2" y="587.1" width="134.2" height="24.65" shape-rendering="crispEdges"/><rect fill="#303f2d" x="695.4" y="587.1" width="61" height="24.65" shape-rendering="crispEdges"/><rect fill="#303f2d" x="756.4" y="587.1" width="170.8" height="24.65" shape-rendering="crispEdges"/><rect fill="#303f2d" x="927.2" y="587.1" width="97.6" height="24.65" shape-rendering="crispEdges"/><rect fill="#303f2d" x="1024.8" y="587.1" width="36.6" height="24.65" shape-rendering="crispEdges"/><rect fill="#303f2d" x="1061.4" y="587.1" width="36.6" height="24.65" shape-rendering="crispEdges"/><rect fill="#303f2d" x="1098" y="587.1" width="36.6" height="24.65" shape-rendering="crispEdges"/><rect fill="#303f2d" x="1134.6" y="587.1" width="36.6" height="24.65" shape-rendering="crispEdges"/><rect fill="#303f2d" x="1171.2" y="587.1" width="122" height="24.65" shape-rendering="crispEdges"/><rect fill="#303f2d" x="0" y="611.5" width="134.2" height="24.65" shape-rendering="crispEdges"/><rect fill="#303f2d" x="134.2" y="611.5" width="122" height="24.65" shape-rendering="crispEdges"/><rect fill="#303f2d" x="256.2" y="611.5" width="1037" height="24.65" shape-rendering="crispEdges"/><rect fill="#303f2d" x="0" y="635.9" width="36.6" height="24.65" shape-rendering="crispEdges"/><rect fill="#303f2d" x="36.6" y="635.9" width="134.2" height="24.65" shape-rendering="crispEdges"/><rect fill="#303f2d" x="170.8" y="635.9" width="1122.4" height="24.65" shape-rendering="crispEdges"/><rect fill="#303f2d" x="0" y="660.3" width="24.4" height="24.65" shape-rendering="crispEdges"/><rect fill="#303f2d" x="24.4" y="660.3" width="97.6" height="24.65" shape-rendering="crispEdges"/><rect fill="#303f2d" x="122" y="660.3" width="24.4" height="24.65" shape-rendering="crispEdges"/><rect fill="#303f2d" x="146.4" y="660.3" width="195.2" height="24.65" shape-rendering="crispEdges"/><rect fill="#303f2d" x="341.6" y="660.3" width="170.8" height="24.65" shape-rendering="crispEdges"/><rect fill="#303f2d" x="512.4" y="660.3" width="36.6" height="24.65" shape-rendering="crispEdges"/><rect fill="#303f2d" x="549" y="660.3" width="134.2" height="24.65" shape-rendering="crispEdges"/><rect fill="#303f2d" x="683.2" y="660.3" width="61" height="24.65" shape-rendering="crispEdges"/><rect fill="#303f2d" x="744.2" y="660.3" width="170.8" height="24.65" shape-rendering="crispEdges"/><rect fill="#303f2d" x="915" y="660.3" width="97.6" height="24.65" shape-rendering="crispEdges"/><rect fill="#303f2d" x="1012.6" y="660.3" width="36.6" height="24.65" shape-rendering="crispEdges"/><rect fill="#303f2d" x="1049.2" y="660.3" width="36.6" height="24.65" shape-rendering="crispEdges"/><rect fill="#303f2d" x="1085.8" y="660.3" width="36.6" height="24.65" shape-rendering="crispEdges"/><rect fill="#303f2d" x="1122.4" y="660.3" width="36.6" height="24.65" shape-rendering="crispEdges"/><rect fill="#303f2d" x="1159" y="660.3" width="134.2" height="24.65" shape-rendering="crispEdges"/><rect fill="#303f2d" x="0" y="684.7" width="146.4" height="24.65" shape-rendering="crispEdges"/><rect fill="#303f2d" x="146.4" y="684.7" width="134.2" height="24.65" shape-rendering="crispEdges"/><rect fill="#303f2d" x="280.6" y="684.7" width="1012.6" height="24.65" shape-rendering="crispEdges"/><rect fill="#303f2d" x="0" y="709.1" width="24.4" height="24.65" shape-rendering="crispEdges"/><rect fill="#303f2d" x="24.4" y="709.1" width="195.2" height="24.65" shape-rendering="crispEdges"/><rect fill="#303f2d" x="219.6" y="709.1" width="12.2" height="24.65" shape-rendering="crispEdges"/><rect fill="#303f2d" x="231.8" y="709.1" width="12.2" height="24.65" shape-rendering="crispEdges"/><rect fill="#303f2d" x="244" y="709.1" width="1049.2" height="24.65" shape-rendering="crispEdges"/><rect fill="#70523a" x="0" y="733.5" width="36.6" height="24.65" shape-rendering="crispEdges"/><rect fill="#70523a" x="36.6" y="733.5" width="695.4" height="24.65" shape-rendering="crispEdges"/><rect fill="#70523a" x="732" y="733.5" width="561.2" height="24.65" shape-rendering="crispEdges"/><rect fill="#303f2d" x="0" y="757.9" width="1281" height="24.65" shape-rendering="crispEdges"/>
+    <g class="terminal-1758337122-matrix">
+    <text class="terminal-1758337122-r1" x="0" y="20" textLength="12.2" clip-path="url(#terminal-1758337122-line-0)">|</text><text class="terminal-1758337122-r2" x="12.2" y="20" textLength="36.6" clip-path="url(#terminal-1758337122-line-0)">-1-</text><text class="terminal-1758337122-r1" x="48.8" y="20" textLength="1049.2" clip-path="url(#terminal-1758337122-line-0)">|&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;[65%]&#160;</text><text class="terminal-1758337122-r3" x="1098" y="20" textLength="170.8" clip-path="url(#terminal-1758337122-line-0)">21:54&#160;07/06/26</text><text class="terminal-1758337122-r1" x="1268.8" y="20" textLength="24.4" clip-path="url(#terminal-1758337122-line-0)">&#160;☰</text><text class="terminal-1758337122-r4" x="1293.2" y="20" textLength="12.2" clip-path="url(#terminal-1758337122-line-0)">
+</text><text class="terminal-1758337122-r5" x="0" y="44.4" textLength="12.2" clip-path="url(#terminal-1758337122-line-1)">@</text><text class="terminal-1758337122-r7" x="36.6" y="44.4" textLength="97.6" clip-path="url(#terminal-1758337122-line-1)">qnsxyznm</text><text class="terminal-1758337122-r1" x="146.4" y="44.4" textLength="244" clip-path="url(#terminal-1758337122-line-1)">alcarneyme@gmail.com</text><text class="terminal-1758337122-r1" x="402.6" y="44.4" textLength="231.8" clip-path="url(#terminal-1758337122-line-1)">2026-06-05&#160;18:39:50</text><text class="terminal-1758337122-r3" x="646.6" y="44.4" textLength="97.6" clip-path="url(#terminal-1758337122-line-1)">e4043b79</text><text class="terminal-1758337122-r4" x="1293.2" y="44.4" textLength="12.2" clip-path="url(#terminal-1758337122-line-1)">
+</text><text class="terminal-1758337122-r6" x="0" y="68.8" textLength="1293.2" clip-path="url(#terminal-1758337122-line-2)">│&#160;&#160;(no&#160;description&#160;set)&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;</text><text class="terminal-1758337122-r4" x="1293.2" y="68.8" textLength="12.2" clip-path="url(#terminal-1758337122-line-2)">
+</text><text class="terminal-1758337122-r6" x="0" y="93.2" textLength="61" clip-path="url(#terminal-1758337122-line-3)">│&#160;○&#160;&#160;</text><text class="terminal-1758337122-r7" x="61" y="93.2" textLength="97.6" clip-path="url(#terminal-1758337122-line-3)">qlvvlput</text><text class="terminal-1758337122-r1" x="170.8" y="93.2" textLength="244" clip-path="url(#terminal-1758337122-line-3)">alcarneyme@gmail.com</text><text class="terminal-1758337122-r1" x="427" y="93.2" textLength="231.8" clip-path="url(#terminal-1758337122-line-3)">2026-04-23&#160;09:44:00</text><text class="terminal-1758337122-r3" x="671" y="93.2" textLength="97.6" clip-path="url(#terminal-1758337122-line-3)">f51dbe3d</text><text class="terminal-1758337122-r4" x="1293.2" y="93.2" textLength="12.2" clip-path="url(#terminal-1758337122-line-3)">
+</text><text class="terminal-1758337122-r6" x="0" y="117.6" textLength="1293.2" clip-path="url(#terminal-1758337122-line-4)">├─╯&#160;&#160;message&#160;method&#160;tracking&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;</text><text class="terminal-1758337122-r4" x="1293.2" y="117.6" textLength="12.2" clip-path="url(#terminal-1758337122-line-4)">
+</text><text class="terminal-1758337122-r6" x="0" y="142" textLength="36.6" clip-path="url(#terminal-1758337122-line-5)">◆&#160;&#160;</text><text class="terminal-1758337122-r7" x="36.6" y="142" textLength="97.6" clip-path="url(#terminal-1758337122-line-5)">onllqnnq</text><text class="terminal-1758337122-r1" x="146.4" y="142" textLength="85.4" clip-path="url(#terminal-1758337122-line-5)">github.</text><text class="terminal-1758337122-r1" x="231.8" y="142" textLength="378.2" clip-path="url(#terminal-1758337122-line-5)">action@users.noreply.github.com</text><text class="terminal-1758337122-r1" x="622.2" y="142" textLength="231.8" clip-path="url(#terminal-1758337122-line-5)">2026-03-25&#160;12:19:06</text><text class="terminal-1758337122-r3" x="866.2" y="142" textLength="61" clip-path="url(#terminal-1758337122-line-5)">main*</text><text class="terminal-1758337122-r3" x="939.4" y="142" textLength="97.6" clip-path="url(#terminal-1758337122-line-5)">c0ae7d03</text><text class="terminal-1758337122-r4" x="1293.2" y="142" textLength="12.2" clip-path="url(#terminal-1758337122-line-5)">
+</text><text class="terminal-1758337122-r6" x="0" y="166.4" textLength="1293.2" clip-path="url(#terminal-1758337122-line-6)">│&#160;&#160;chore:&#160;update&#160;CONTRIBUTORS.md&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;</text><text class="terminal-1758337122-r4" x="1293.2" y="166.4" textLength="12.2" clip-path="url(#terminal-1758337122-line-6)">
+</text><text class="terminal-1758337122-r8" x="0" y="190.8" textLength="256.2" clip-path="url(#terminal-1758337122-line-7)">~&#160;&#160;(elided&#160;revisions)</text><text class="terminal-1758337122-r4" x="1293.2" y="190.8" textLength="12.2" clip-path="url(#terminal-1758337122-line-7)">
+</text><text class="terminal-1758337122-r6" x="0" y="215.2" textLength="24.4" clip-path="url(#terminal-1758337122-line-8)">│&#160;</text><text class="terminal-1758337122-r9" x="24.4" y="215.2" textLength="12.2" clip-path="url(#terminal-1758337122-line-8)">×</text><text class="terminal-1758337122-r7" x="61" y="215.2" textLength="97.6" clip-path="url(#terminal-1758337122-line-8)">mslzorpz</text><text class="terminal-1758337122-r1" x="170.8" y="215.2" textLength="244" clip-path="url(#terminal-1758337122-line-8)">alcarneyme@gmail.com</text><text class="terminal-1758337122-r1" x="427" y="215.2" textLength="231.8" clip-path="url(#terminal-1758337122-line-8)">2026-03-23&#160;20:49:53</text><text class="terminal-1758337122-r3" x="671" y="215.2" textLength="219.6" clip-path="url(#terminal-1758337122-line-8)">push-mslzorpzmxww*</text><text class="terminal-1758337122-r3" x="902.8" y="215.2" textLength="97.6" clip-path="url(#terminal-1758337122-line-8)">60571548</text><text class="terminal-1758337122-r9" x="1012.6" y="215.2" textLength="122" clip-path="url(#terminal-1758337122-line-8)">(conflict)</text><text class="terminal-1758337122-r4" x="1293.2" y="215.2" textLength="12.2" clip-path="url(#terminal-1758337122-line-8)">
+</text><text class="terminal-1758337122-r6" x="0" y="239.6" textLength="1293.2" clip-path="url(#terminal-1758337122-line-9)">├─╯&#160;&#160;feat:&#160;allow&#160;passing&#160;a&#160;custom&#160;workspace&#160;implemenation&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;</text><text class="terminal-1758337122-r4" x="1293.2" y="239.6" textLength="12.2" clip-path="url(#terminal-1758337122-line-9)">
+</text><text class="terminal-1758337122-r6" x="0" y="264" textLength="36.6" clip-path="url(#terminal-1758337122-line-10)">◆&#160;&#160;</text><text class="terminal-1758337122-r7" x="36.6" y="264" textLength="97.6" clip-path="url(#terminal-1758337122-line-10)">twmmxqyw</text><text class="terminal-1758337122-r1" x="146.4" y="264" textLength="85.4" clip-path="url(#terminal-1758337122-line-10)">github.</text><text class="terminal-1758337122-r1" x="231.8" y="264" textLength="378.2" clip-path="url(#terminal-1758337122-line-10)">action@users.noreply.github.com</text><text class="terminal-1758337122-r1" x="622.2" y="264" textLength="231.8" clip-path="url(#terminal-1758337122-line-10)">2026-03-19&#160;10:16:51</text><text class="terminal-1758337122-r3" x="866.2" y="264" textLength="134.2" clip-path="url(#terminal-1758337122-line-10)">main@origin</text><text class="terminal-1758337122-r3" x="1012.6" y="264" textLength="97.6" clip-path="url(#terminal-1758337122-line-10)">8c13d110</text><text class="terminal-1758337122-r4" x="1293.2" y="264" textLength="12.2" clip-path="url(#terminal-1758337122-line-10)">
+</text><text class="terminal-1758337122-r6" x="0" y="288.4" textLength="1293.2" clip-path="url(#terminal-1758337122-line-11)">│&#160;&#160;chore:&#160;update&#160;CONTRIBUTORS.md&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;</text><text class="terminal-1758337122-r4" x="1293.2" y="288.4" textLength="12.2" clip-path="url(#terminal-1758337122-line-11)">
+</text><text class="terminal-1758337122-r8" x="0" y="312.8" textLength="12.2" clip-path="url(#terminal-1758337122-line-12)">~</text><text class="terminal-1758337122-r4" x="1293.2" y="312.8" textLength="12.2" clip-path="url(#terminal-1758337122-line-12)">
+</text><text class="terminal-1758337122-r4" x="1293.2" y="337.2" textLength="12.2" clip-path="url(#terminal-1758337122-line-13)">
+</text><text class="terminal-1758337122-r4" x="1293.2" y="361.6" textLength="12.2" clip-path="url(#terminal-1758337122-line-14)">
+</text><text class="terminal-1758337122-r10" x="0" y="386" textLength="36.6" clip-path="url(#terminal-1758337122-line-15)">-&#160;&#160;</text><text class="terminal-1758337122-r11" x="36.6" y="386" textLength="366" clip-path="url(#terminal-1758337122-line-15)">*jj-log[openlawlibrary/pygls]*</text><text class="terminal-1758337122-r10" x="402.6" y="386" textLength="890.6" clip-path="url(#terminal-1758337122-line-15)">&#160;13:0&#160;&#160;&#160;&#160;&#160;&#160;(jj-log©&#160;Apheleia&#160;TSexplore)&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;</text><text class="terminal-1758337122-r4" x="1293.2" y="386" textLength="12.2" clip-path="url(#terminal-1758337122-line-15)">
+</text><text class="terminal-1758337122-r6" x="0" y="410.4" textLength="12.2" clip-path="url(#terminal-1758337122-line-16)">(</text><text class="terminal-1758337122-r12" x="12.2" y="410.4" textLength="134.2" clip-path="url(#terminal-1758337122-line-16)">source_file</text><text class="terminal-1758337122-r4" x="1293.2" y="410.4" textLength="12.2" clip-path="url(#terminal-1758337122-line-16)">
+</text><text class="terminal-1758337122-r6" x="0" y="434.8" textLength="24.4" clip-path="url(#terminal-1758337122-line-17)">&#160;(</text><text class="terminal-1758337122-r12" x="24.4" y="434.8" textLength="97.6" clip-path="url(#terminal-1758337122-line-17)">revision</text><text class="terminal-1758337122-r6" x="122" y="434.8" textLength="24.4" clip-path="url(#terminal-1758337122-line-17)">&#160;(</text><text class="terminal-1758337122-r12" x="146.4" y="434.8" textLength="146.4" clip-path="url(#terminal-1758337122-line-17)">working_copy</text><text class="terminal-1758337122-r6" x="292.8" y="434.8" textLength="170.8" clip-path="url(#terminal-1758337122-line-17)">)&#160;change_id:&#160;(</text><text class="terminal-1758337122-r12" x="463.6" y="434.8" textLength="36.6" clip-path="url(#terminal-1758337122-line-17)">ref</text><text class="terminal-1758337122-r6" x="500.2" y="434.8" textLength="134.2" clip-path="url(#terminal-1758337122-line-17)">)&#160;author:&#160;(</text><text class="terminal-1758337122-r12" x="634.4" y="434.8" textLength="61" clip-path="url(#terminal-1758337122-line-17)">email</text><text class="terminal-1758337122-r6" x="695.4" y="434.8" textLength="170.8" clip-path="url(#terminal-1758337122-line-17)">)&#160;timestamp:&#160;(</text><text class="terminal-1758337122-r12" x="866.2" y="434.8" textLength="97.6" clip-path="url(#terminal-1758337122-line-17)">datetime</text><text class="terminal-1758337122-r6" x="963.8" y="434.8" textLength="36.6" clip-path="url(#terminal-1758337122-line-17)">)&#160;(</text><text class="terminal-1758337122-r12" x="1000.4" y="434.8" textLength="36.6" clip-path="url(#terminal-1758337122-line-17)">ref</text><text class="terminal-1758337122-r6" x="1037" y="434.8" textLength="36.6" clip-path="url(#terminal-1758337122-line-17)">)&#160;(</text><text class="terminal-1758337122-r12" x="1073.6" y="434.8" textLength="134.2" clip-path="url(#terminal-1758337122-line-17)">description</text><text class="terminal-1758337122-r6" x="1207.8" y="434.8" textLength="85.4" clip-path="url(#terminal-1758337122-line-17)">))&#160;&#160;&#160;&#160;&#160;</text><text class="terminal-1758337122-r4" x="1293.2" y="434.8" textLength="12.2" clip-path="url(#terminal-1758337122-line-17)">
+</text><text class="terminal-1758337122-r6" x="0" y="459.2" textLength="24.4" clip-path="url(#terminal-1758337122-line-18)">&#160;(</text><text class="terminal-1758337122-r12" x="24.4" y="459.2" textLength="61" clip-path="url(#terminal-1758337122-line-18)">ERROR</text><text class="terminal-1758337122-r6" x="85.4" y="459.2" textLength="24.4" clip-path="url(#terminal-1758337122-line-18)">&#160;(</text><text class="terminal-1758337122-r12" x="109.8" y="459.2" textLength="61" clip-path="url(#terminal-1758337122-line-18)">ERROR</text><text class="terminal-1758337122-r6" x="170.8" y="459.2" textLength="1122.4" clip-path="url(#terminal-1758337122-line-18)">))&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;</text><text class="terminal-1758337122-r4" x="1293.2" y="459.2" textLength="12.2" clip-path="url(#terminal-1758337122-line-18)">
+</text><text class="terminal-1758337122-r6" x="0" y="483.6" textLength="24.4" clip-path="url(#terminal-1758337122-line-19)">&#160;(</text><text class="terminal-1758337122-r12" x="24.4" y="483.6" textLength="97.6" clip-path="url(#terminal-1758337122-line-19)">revision</text><text class="terminal-1758337122-r6" x="122" y="483.6" textLength="24.4" clip-path="url(#terminal-1758337122-line-19)">&#160;(</text><text class="terminal-1758337122-r12" x="146.4" y="483.6" textLength="158.6" clip-path="url(#terminal-1758337122-line-19)">normal_change</text><text class="terminal-1758337122-r6" x="305" y="483.6" textLength="170.8" clip-path="url(#terminal-1758337122-line-19)">)&#160;change_id:&#160;(</text><text class="terminal-1758337122-r12" x="475.8" y="483.6" textLength="36.6" clip-path="url(#terminal-1758337122-line-19)">ref</text><text class="terminal-1758337122-r6" x="512.4" y="483.6" textLength="134.2" clip-path="url(#terminal-1758337122-line-19)">)&#160;author:&#160;(</text><text class="terminal-1758337122-r12" x="646.6" y="483.6" textLength="61" clip-path="url(#terminal-1758337122-line-19)">email</text><text class="terminal-1758337122-r6" x="707.6" y="483.6" textLength="170.8" clip-path="url(#terminal-1758337122-line-19)">)&#160;timestamp:&#160;(</text><text class="terminal-1758337122-r12" x="878.4" y="483.6" textLength="97.6" clip-path="url(#terminal-1758337122-line-19)">datetime</text><text class="terminal-1758337122-r6" x="976" y="483.6" textLength="36.6" clip-path="url(#terminal-1758337122-line-19)">)&#160;(</text><text class="terminal-1758337122-r12" x="1012.6" y="483.6" textLength="36.6" clip-path="url(#terminal-1758337122-line-19)">ref</text><text class="terminal-1758337122-r6" x="1049.2" y="483.6" textLength="36.6" clip-path="url(#terminal-1758337122-line-19)">)&#160;(</text><text class="terminal-1758337122-r12" x="1085.8" y="483.6" textLength="134.2" clip-path="url(#terminal-1758337122-line-19)">description</text><text class="terminal-1758337122-r6" x="1220" y="483.6" textLength="73.2" clip-path="url(#terminal-1758337122-line-19)">))&#160;&#160;&#160;&#160;</text><text class="terminal-1758337122-r4" x="1293.2" y="483.6" textLength="12.2" clip-path="url(#terminal-1758337122-line-19)">
+</text><text class="terminal-1758337122-r6" x="0" y="508" textLength="24.4" clip-path="url(#terminal-1758337122-line-20)">&#160;(</text><text class="terminal-1758337122-r12" x="24.4" y="508" textLength="97.6" clip-path="url(#terminal-1758337122-line-20)">revision</text><text class="terminal-1758337122-r6" x="122" y="508" textLength="24.4" clip-path="url(#terminal-1758337122-line-20)">&#160;(</text><text class="terminal-1758337122-r12" x="146.4" y="508" textLength="195.2" clip-path="url(#terminal-1758337122-line-20)">immutable_change</text><text class="terminal-1758337122-r6" x="341.6" y="508" textLength="170.8" clip-path="url(#terminal-1758337122-line-20)">)&#160;change_id:&#160;(</text><text class="terminal-1758337122-r12" x="512.4" y="508" textLength="36.6" clip-path="url(#terminal-1758337122-line-20)">ref</text><text class="terminal-1758337122-r6" x="549" y="508" textLength="134.2" clip-path="url(#terminal-1758337122-line-20)">)&#160;author:&#160;(</text><text class="terminal-1758337122-r12" x="683.2" y="508" textLength="61" clip-path="url(#terminal-1758337122-line-20)">email</text><text class="terminal-1758337122-r6" x="744.2" y="508" textLength="170.8" clip-path="url(#terminal-1758337122-line-20)">)&#160;timestamp:&#160;(</text><text class="terminal-1758337122-r12" x="915" y="508" textLength="97.6" clip-path="url(#terminal-1758337122-line-20)">datetime</text><text class="terminal-1758337122-r6" x="1012.6" y="508" textLength="36.6" clip-path="url(#terminal-1758337122-line-20)">)&#160;(</text><text class="terminal-1758337122-r12" x="1049.2" y="508" textLength="36.6" clip-path="url(#terminal-1758337122-line-20)">ref</text><text class="terminal-1758337122-r6" x="1085.8" y="508" textLength="36.6" clip-path="url(#terminal-1758337122-line-20)">)&#160;(</text><text class="terminal-1758337122-r12" x="1122.4" y="508" textLength="36.6" clip-path="url(#terminal-1758337122-line-20)">ref</text><text class="terminal-1758337122-r6" x="1159" y="508" textLength="134.2" clip-path="url(#terminal-1758337122-line-20)">)&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;</text><text class="terminal-1758337122-r4" x="1293.2" y="508" textLength="12.2" clip-path="url(#terminal-1758337122-line-20)">
+</text><text class="terminal-1758337122-r6" x="0" y="532.4" textLength="146.4" clip-path="url(#terminal-1758337122-line-21)">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;(</text><text class="terminal-1758337122-r12" x="146.4" y="532.4" textLength="134.2" clip-path="url(#terminal-1758337122-line-21)">description</text><text class="terminal-1758337122-r6" x="280.6" y="532.4" textLength="1012.6" clip-path="url(#terminal-1758337122-line-21)">))&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;</text><text class="terminal-1758337122-r4" x="1293.2" y="532.4" textLength="12.2" clip-path="url(#terminal-1758337122-line-21)">
+</text><text class="terminal-1758337122-r6" x="0" y="556.8" textLength="24.4" clip-path="url(#terminal-1758337122-line-22)">&#160;(</text><text class="terminal-1758337122-r12" x="24.4" y="556.8" textLength="195.2" clip-path="url(#terminal-1758337122-line-22)">elided_revisions</text><text class="terminal-1758337122-r1" x="231.8" y="556.8" textLength="12.2" clip-path="url(#terminal-1758337122-line-22)">~</text><text class="terminal-1758337122-r1" x="256.2" y="556.8" textLength="219.6" clip-path="url(#terminal-1758337122-line-22)">(elided&#160;revisions)</text><text class="terminal-1758337122-r6" x="475.8" y="556.8" textLength="817.4" clip-path="url(#terminal-1758337122-line-22)">)&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;</text><text class="terminal-1758337122-r4" x="1293.2" y="556.8" textLength="12.2" clip-path="url(#terminal-1758337122-line-22)">
+</text><text class="terminal-1758337122-r6" x="0" y="581.2" textLength="24.4" clip-path="url(#terminal-1758337122-line-23)">&#160;(</text><text class="terminal-1758337122-r12" x="24.4" y="581.2" textLength="61" clip-path="url(#terminal-1758337122-line-23)">ERROR</text><text class="terminal-1758337122-r6" x="85.4" y="581.2" textLength="24.4" clip-path="url(#terminal-1758337122-line-23)">&#160;(</text><text class="terminal-1758337122-r12" x="109.8" y="581.2" textLength="61" clip-path="url(#terminal-1758337122-line-23)">ERROR</text><text class="terminal-1758337122-r6" x="170.8" y="581.2" textLength="1122.4" clip-path="url(#terminal-1758337122-line-23)">))&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;</text><text class="terminal-1758337122-r4" x="1293.2" y="581.2" textLength="12.2" clip-path="url(#terminal-1758337122-line-23)">
+</text><text class="terminal-1758337122-r6" x="0" y="605.6" textLength="24.4" clip-path="url(#terminal-1758337122-line-24)">&#160;(</text><text class="terminal-1758337122-r12" x="24.4" y="605.6" textLength="97.6" clip-path="url(#terminal-1758337122-line-24)">revision</text><text class="terminal-1758337122-r6" x="122" y="605.6" textLength="24.4" clip-path="url(#terminal-1758337122-line-24)">&#160;(</text><text class="terminal-1758337122-r12" x="146.4" y="605.6" textLength="207.4" clip-path="url(#terminal-1758337122-line-24)">conflicted_change</text><text class="terminal-1758337122-r6" x="353.8" y="605.6" textLength="170.8" clip-path="url(#terminal-1758337122-line-24)">)&#160;change_id:&#160;(</text><text class="terminal-1758337122-r12" x="524.6" y="605.6" textLength="36.6" clip-path="url(#terminal-1758337122-line-24)">ref</text><text class="terminal-1758337122-r6" x="561.2" y="605.6" textLength="134.2" clip-path="url(#terminal-1758337122-line-24)">)&#160;author:&#160;(</text><text class="terminal-1758337122-r12" x="695.4" y="605.6" textLength="61" clip-path="url(#terminal-1758337122-line-24)">email</text><text class="terminal-1758337122-r6" x="756.4" y="605.6" textLength="170.8" clip-path="url(#terminal-1758337122-line-24)">)&#160;timestamp:&#160;(</text><text class="terminal-1758337122-r12" x="927.2" y="605.6" textLength="97.6" clip-path="url(#terminal-1758337122-line-24)">datetime</text><text class="terminal-1758337122-r6" x="1024.8" y="605.6" textLength="36.6" clip-path="url(#terminal-1758337122-line-24)">)&#160;(</text><text class="terminal-1758337122-r12" x="1061.4" y="605.6" textLength="36.6" clip-path="url(#terminal-1758337122-line-24)">ref</text><text class="terminal-1758337122-r6" x="1098" y="605.6" textLength="36.6" clip-path="url(#terminal-1758337122-line-24)">)&#160;(</text><text class="terminal-1758337122-r12" x="1134.6" y="605.6" textLength="36.6" clip-path="url(#terminal-1758337122-line-24)">ref</text><text class="terminal-1758337122-r6" x="1171.2" y="605.6" textLength="122" clip-path="url(#terminal-1758337122-line-24)">)&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;</text><text class="terminal-1758337122-r4" x="1293.2" y="605.6" textLength="12.2" clip-path="url(#terminal-1758337122-line-24)">
+</text><text class="terminal-1758337122-r1" x="134.2" y="630" textLength="122" clip-path="url(#terminal-1758337122-line-25)">(conflict)</text><text class="terminal-1758337122-r4" x="1293.2" y="630" textLength="12.2" clip-path="url(#terminal-1758337122-line-25)">
+</text><text class="terminal-1758337122-r6" x="0" y="654.4" textLength="36.6" clip-path="url(#terminal-1758337122-line-26)">&#160;&#160;(</text><text class="terminal-1758337122-r12" x="36.6" y="654.4" textLength="134.2" clip-path="url(#terminal-1758337122-line-26)">description</text><text class="terminal-1758337122-r6" x="170.8" y="654.4" textLength="1122.4" clip-path="url(#terminal-1758337122-line-26)">))&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;</text><text class="terminal-1758337122-r4" x="1293.2" y="654.4" textLength="12.2" clip-path="url(#terminal-1758337122-line-26)">
+</text><text class="terminal-1758337122-r6" x="0" y="678.8" textLength="24.4" clip-path="url(#terminal-1758337122-line-27)">&#160;(</text><text class="terminal-1758337122-r12" x="24.4" y="678.8" textLength="97.6" clip-path="url(#terminal-1758337122-line-27)">revision</text><text class="terminal-1758337122-r6" x="122" y="678.8" textLength="24.4" clip-path="url(#terminal-1758337122-line-27)">&#160;(</text><text class="terminal-1758337122-r12" x="146.4" y="678.8" textLength="195.2" clip-path="url(#terminal-1758337122-line-27)">immutable_change</text><text class="terminal-1758337122-r6" x="341.6" y="678.8" textLength="170.8" clip-path="url(#terminal-1758337122-line-27)">)&#160;change_id:&#160;(</text><text class="terminal-1758337122-r12" x="512.4" y="678.8" textLength="36.6" clip-path="url(#terminal-1758337122-line-27)">ref</text><text class="terminal-1758337122-r6" x="549" y="678.8" textLength="134.2" clip-path="url(#terminal-1758337122-line-27)">)&#160;author:&#160;(</text><text class="terminal-1758337122-r12" x="683.2" y="678.8" textLength="61" clip-path="url(#terminal-1758337122-line-27)">email</text><text class="terminal-1758337122-r6" x="744.2" y="678.8" textLength="170.8" clip-path="url(#terminal-1758337122-line-27)">)&#160;timestamp:&#160;(</text><text class="terminal-1758337122-r12" x="915" y="678.8" textLength="97.6" clip-path="url(#terminal-1758337122-line-27)">datetime</text><text class="terminal-1758337122-r6" x="1012.6" y="678.8" textLength="36.6" clip-path="url(#terminal-1758337122-line-27)">)&#160;(</text><text class="terminal-1758337122-r12" x="1049.2" y="678.8" textLength="36.6" clip-path="url(#terminal-1758337122-line-27)">ref</text><text class="terminal-1758337122-r6" x="1085.8" y="678.8" textLength="36.6" clip-path="url(#terminal-1758337122-line-27)">)&#160;(</text><text class="terminal-1758337122-r12" x="1122.4" y="678.8" textLength="36.6" clip-path="url(#terminal-1758337122-line-27)">ref</text><text class="terminal-1758337122-r6" x="1159" y="678.8" textLength="134.2" clip-path="url(#terminal-1758337122-line-27)">)&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;</text><text class="terminal-1758337122-r4" x="1293.2" y="678.8" textLength="12.2" clip-path="url(#terminal-1758337122-line-27)">
+</text><text class="terminal-1758337122-r6" x="0" y="703.2" textLength="146.4" clip-path="url(#terminal-1758337122-line-28)">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;(</text><text class="terminal-1758337122-r12" x="146.4" y="703.2" textLength="134.2" clip-path="url(#terminal-1758337122-line-28)">description</text><text class="terminal-1758337122-r6" x="280.6" y="703.2" textLength="1012.6" clip-path="url(#terminal-1758337122-line-28)">))&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;</text><text class="terminal-1758337122-r4" x="1293.2" y="703.2" textLength="12.2" clip-path="url(#terminal-1758337122-line-28)">
+</text><text class="terminal-1758337122-r6" x="0" y="727.6" textLength="24.4" clip-path="url(#terminal-1758337122-line-29)">&#160;(</text><text class="terminal-1758337122-r12" x="24.4" y="727.6" textLength="195.2" clip-path="url(#terminal-1758337122-line-29)">elided_revisions</text><text class="terminal-1758337122-r1" x="231.8" y="727.6" textLength="12.2" clip-path="url(#terminal-1758337122-line-29)">~</text><text class="terminal-1758337122-r6" x="244" y="727.6" textLength="1049.2" clip-path="url(#terminal-1758337122-line-29)">))&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;</text><text class="terminal-1758337122-r4" x="1293.2" y="727.6" textLength="12.2" clip-path="url(#terminal-1758337122-line-29)">
+</text><text class="terminal-1758337122-r13" x="0" y="752" textLength="36.6" clip-path="url(#terminal-1758337122-line-30)">-&#160;&#160;</text><text class="terminal-1758337122-r11" x="36.6" y="752" textLength="695.4" clip-path="url(#terminal-1758337122-line-30)">*tree-sitter&#160;explorer&#160;for&#160;*jj-log[openlawlibrary/pygls]**</text><text class="terminal-1758337122-r13" x="732" y="752" textLength="561.2" clip-path="url(#terminal-1758337122-line-30)">&#160;2:12&#160;&#160;&#160;&#160;&#160;&#160;(TS&#160;Explorer&#160;Apheleia)&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;</text><text class="terminal-1758337122-r4" x="1293.2" y="752" textLength="12.2" clip-path="url(#terminal-1758337122-line-30)">
+</text><text class="terminal-1758337122-r4" x="1293.2" y="776.4" textLength="12.2" clip-path="url(#terminal-1758337122-line-31)">
+</text>
+    </g>
+    </g>
+</svg>
+<p>The above screenshot shows the syntax highlighting rules in action in the top window, while the bottom uses <code class="docutils literal notranslate"><span class="pre">treesit-explore-mode</span></code> to visualise the corresponding parse tree.</p>
+</section>
+<section id="navigation">
+<span id="alc-jj-log-view-navigation"></span><h3>Navigation<a class="headerlink" href="#navigation" title="Link to this heading">¶</a></h3>
+<p>Thanks to the parse tree, it’s relatively straightforward to implement some navigation commands.
+For now, all I’m really looking for is the ability to navigate between nodes in the graph by pressing <kbd class="kbd docutils literal notranslate">n</kbd> and <kbd class="kbd docutils literal notranslate">p</kbd>.</p>
+<p>Since I use <a class="reference external" href="https://github.com/mickeynp/combobulate">combobulate</a> already for tree-sitter based navigation in other modes, I thought it made sense to try and leverage it here as well.
+While I still don’t understand the internals of combobulate that well, I was able to piece together the following navigation ruleset:</p>
+<div class="awdur-codeblock docutils container">
+<div class="awdur-codeblock-header docutils container">
+<code class="awdur-codeblock-filename docutils literal notranslate"><span class="pre">lisp/alc-jj.el</span></code></div>
+<div class="highlight-elisp notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="k">defvar</span><span class="w"> </span><span class="nv">alc-jj-log-view-combobulate-definitions</span>
+<span class="w">  </span><span class="o">&#39;</span><span class="p">((</span><span class="nv">procedures-sibling</span>
+<span class="w">     </span><span class="o">&#39;</span><span class="p">((</span><span class="nb">:activation-nodes</span>
+<span class="w">        </span><span class="p">((</span><span class="nb">:nodes</span><span class="w"> </span><span class="p">(</span><span class="s">&quot;revision&quot;</span><span class="p">)))</span>
+<span class="w">        </span><span class="nb">:selector</span><span class="w"> </span><span class="p">(</span><span class="nb">:choose</span><span class="w"> </span><span class="nv">node</span><span class="w"> </span><span class="nb">:match-siblings</span><span class="w"> </span><span class="p">(</span><span class="nb">:match-rules</span><span class="w"> </span><span class="p">(</span><span class="s">&quot;revision&quot;</span><span class="p">))))))))</span>
+</pre></div>
+</div>
+</div>
+<p>Which I derived from the following:</p>
+<ul>
+<li><p><a class="reference external" href="https://github.com/mickeynp/combobulate/blob/4e8cf0df8e22cdaf87c6637eddb60500f0055f46/combobulate-navigation.el#L1082-L1091">combobulate-navigation.el</a>
+contains the definitions of <code class="docutils literal notranslate"><span class="pre">combobulate-navigate-next</span></code> and <code class="docutils literal notranslate"><span class="pre">combobulate-navigate-previous</span></code> which rely on a <code class="docutils literal notranslate"><span class="pre">procedures-sibiling</span></code> ruleset to identify what the next/previous syntax nodes should be:</p>
+<div class="highlight-elisp notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="nb">defun</span><span class="w"> </span><span class="nv">combobulate--navigate-next</span><span class="w"> </span><span class="p">()</span>
+<span class="hll"><span class="w">  </span><span class="p">(</span><span class="nv">with-navigation-nodes</span><span class="w"> </span><span class="p">(</span><span class="nb">:skip-prefix</span><span class="w"> </span><span class="no">t</span><span class="w"> </span><span class="nb">:procedures</span><span class="w"> </span><span class="p">(</span><span class="nv">combobulate-read</span><span class="w"> </span><span class="nv">procedures-sibling</span><span class="p">))</span>
+</span><span class="w">    </span><span class="p">(</span><span class="nv">combobulate-nav-get-next-sibling</span>
+<span class="w">     </span><span class="p">(</span><span class="nv">combobulate--get-nearest-navigable-node</span><span class="p">))))</span>
+</pre></div>
+</div>
+</li>
+<li><p><a class="reference external" href="https://github.com/mickeynp/combobulate/blob/4e8cf0df8e22cdaf87c6637eddb60500f0055f46/combobulate-html.el#L210-L214">combobulate-html.el</a>
+had an example rule definition that appears to say “choose the next node of the same type” which I was able to adapt for my grammar:</p>
+<div class="highlight-elisp notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="nv">procedures-sibling</span>
+<span class="w"> </span><span class="o">&#39;</span><span class="p">((</span><span class="nb">:activation-nodes</span>
+<span class="w">    </span><span class="p">((</span><span class="nb">:nodes</span>
+<span class="w">      </span><span class="p">(</span><span class="s">&quot;attribute&quot;</span><span class="p">)))</span>
+<span class="w">    </span><span class="nb">:selector</span><span class="w"> </span><span class="p">(</span><span class="nb">:choose</span><span class="w"> </span><span class="nv">node</span><span class="w"> </span><span class="nb">:match-siblings</span><span class="w"> </span><span class="p">(</span><span class="nb">:match-rules</span><span class="w"> </span><span class="p">(</span><span class="s">&quot;attribute&quot;</span><span class="p">))))</span>
+</pre></div>
+</div>
+</li>
+</ul>
+<p>All that’s left is to wrap the rules in a new language definition:</p>
+<div class="awdur-codeblock docutils container">
+<div class="awdur-codeblock-header docutils container">
+<code class="awdur-codeblock-filename docutils literal notranslate"><span class="pre">lisp/alc-jj.el</span></code></div>
+<div class="highlight-elisp notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="nv">define-combobulate-language</span>
+<span class="w"> </span><span class="nb">:name</span><span class="w"> </span><span class="nv">jjlog</span>
+<span class="w"> </span><span class="nb">:language</span><span class="w"> </span><span class="nv">jjlog</span>
+<span class="w"> </span><span class="nb">:major-modes</span><span class="w"> </span><span class="p">(</span><span class="nv">alc-jj-log-view-mode</span><span class="p">)</span>
+<span class="w"> </span><span class="nb">:custom</span><span class="w"> </span><span class="nv">alc-jj-log-view-combobulate-definitions</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<p>Now, the <code class="docutils literal notranslate"><span class="pre">combobulate-navigate-next</span></code> and <code class="docutils literal notranslate"><span class="pre">combobulate-navigate-previous</span></code> commands are bound by default to <kbd class="kbd docutils literal notranslate">C</kbd>-<kbd class="kbd docutils literal notranslate">M</kbd>-<kbd class="kbd docutils literal notranslate">n</kbd> and <kbd class="kbd docutils literal notranslate">C</kbd>-<kbd class="kbd docutils literal notranslate">M</kbd>-<kbd class="kbd docutils literal notranslate">p</kbd> but it’s easy enough to rebind them using the keymap for <code class="docutils literal notranslate"><span class="pre">alc-jj-log-view-mode</span></code>.</p>
+</section>
+<section id="commands">
+<h3>Commands<a class="headerlink" href="#commands" title="Link to this heading">¶</a></h3>
+<p>Finally, we arrive at the reason why I’ve gone to all this effort - I want to be able to manipulate the log from this buffer!
+I’m sure there’s a lot I could add, but the commands I’m going to use most often are:</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="#alc-jj-log-view-new-before"><span class="std std-ref">Insert a Revision Before Point</span></a></p></li>
+<li><p><a class="reference internal" href="#alc-jj-log-view-new-after"><span class="std std-ref">Insert a Revision After Point</span></a></p></li>
+<li><p><a class="reference internal" href="#alc-jj-log-view-edit"><span class="std std-ref">Edit the Revision at Point</span></a></p></li>
+<li><p><a class="reference internal" href="#alc-jj-log-view-describe"><span class="std std-ref">Describe the Revision at Point</span></a></p></li>
+<li><p><a class="reference internal" href="#alc-jj-log-view-reload"><span class="std std-ref">Reload the Buffer</span></a></p></li>
+</ul>
+<p>Most of these are going to require identifying the change id for the revision at point so we may as well solve that now.
+The grammar and resulting parse tree is simple enough that we only need to search upwards until we find the containing <code class="docutils literal notranslate"><span class="pre">revision</span></code> node and selecting the <code class="docutils literal notranslate"><span class="pre">change_id</span></code> field.</p>
+<div class="awdur-codeblock docutils container">
+<div class="awdur-codeblock-header docutils container">
+<code class="awdur-codeblock-filename docutils literal notranslate"><span class="pre">lisp/alc-jj.el</span></code></div>
+<div class="highlight-elisp notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="nb">defun</span><span class="w"> </span><span class="nv">alc-jj-log-view--change-at-point</span><span class="w"> </span><span class="p">()</span>
+<span class="w">  </span><span class="s">&quot;Return the change id for the revision under point, if point is not on a revision</span>
+<span class="s">returns nil.&quot;</span>
+<span class="w">  </span><span class="p">(</span><span class="k">let</span><span class="w"> </span><span class="p">((</span><span class="nv">node</span><span class="w"> </span><span class="p">(</span><span class="nv">treesit-node-at</span><span class="w"> </span><span class="p">(</span><span class="nf">point</span><span class="p">))))</span>
+<span class="w">    </span><span class="p">(</span><span class="k">while</span><span class="w"> </span><span class="p">(</span><span class="nv">not</span><span class="w"> </span><span class="p">(</span><span class="k">or</span><span class="w"> </span><span class="p">(</span><span class="nf">string=</span><span class="w"> </span><span class="p">(</span><span class="nv">treesit-node-type</span><span class="w"> </span><span class="nv">node</span><span class="p">)</span><span class="w"> </span><span class="s">&quot;revision&quot;</span><span class="p">)</span>
+<span class="w">                    </span><span class="p">(</span><span class="nf">null</span><span class="w"> </span><span class="p">(</span><span class="nv">treesit-node-parent</span><span class="w"> </span><span class="nv">node</span><span class="p">))))</span>
+<span class="w">      </span><span class="p">(</span><span class="k">setq</span><span class="w"> </span><span class="nv">node</span><span class="w"> </span><span class="p">(</span><span class="nv">treesit-node-parent</span><span class="w"> </span><span class="nv">node</span><span class="p">)))</span>
+<span class="w">    </span><span class="c1">;; Make sure we found a revision</span>
+<span class="w">    </span><span class="p">(</span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="nf">string=</span><span class="w"> </span><span class="p">(</span><span class="nv">treesit-node-type</span><span class="w"> </span><span class="nv">node</span><span class="p">)</span><span class="w"> </span><span class="s">&quot;revision&quot;</span><span class="p">)</span>
+<span class="w">        </span><span class="p">(</span><span class="nf">substring-no-properties</span>
+<span class="w">         </span><span class="p">(</span><span class="nv">treesit-node-text</span>
+<span class="w">          </span><span class="p">(</span><span class="nv">treesit-node-child-by-field-name</span><span class="w"> </span><span class="nv">node</span><span class="w"> </span><span class="s">&quot;change_id&quot;</span><span class="p">))))))</span>
+</pre></div>
+</div>
+</div>
+<p>I’m sure it will also be useful to have the ability to select a revision given a change id.</p>
+<div class="awdur-codeblock docutils container">
+<div class="awdur-codeblock-header docutils container">
+<code class="awdur-codeblock-filename docutils literal notranslate"><span class="pre">lisp/alc-jj.el</span></code></div>
+<div class="highlight-elisp notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="nb">defun</span><span class="w"> </span><span class="nv">alc-jj-log-view--select-revision-with-change-id</span><span class="w"> </span><span class="p">(</span><span class="nv">change-id</span><span class="p">)</span>
+<span class="w">  </span><span class="s">&quot;Given a CHANGE-ID move point to the corresponding revision.&quot;</span>
+<span class="w">  </span><span class="p">(</span><span class="nv">if-let</span><span class="w"> </span><span class="p">((</span><span class="nv">nodes</span><span class="w"> </span><span class="p">(</span><span class="nv">treesit-filter-child</span>
+<span class="w">                   </span><span class="p">(</span><span class="nv">treesit-buffer-root-node</span><span class="p">)</span>
+<span class="w">                   </span><span class="p">(</span><span class="nb">lambda</span><span class="w"> </span><span class="p">(</span><span class="nv">n</span><span class="p">)</span><span class="w"> </span><span class="p">(</span><span class="nf">string=</span><span class="w"> </span><span class="nv">change-id</span>
+<span class="w">                                        </span><span class="p">(</span><span class="nv">treesit-node-text</span><span class="w"> </span><span class="p">(</span><span class="nv">treesit-node-child-by-field-name</span><span class="w"> </span><span class="nv">n</span><span class="w"> </span><span class="s">&quot;change_id&quot;</span><span class="p">)))))))</span>
+<span class="w">    </span><span class="p">(</span><span class="nf">goto-char</span><span class="w"> </span><span class="p">(</span><span class="nv">treesit-node-start</span><span class="w"> </span><span class="p">(</span><span class="nf">car</span><span class="w"> </span><span class="nv">nodes</span><span class="p">)))))</span>
+</pre></div>
+</div>
+</div>
+<section id="insert-a-revision-before-point">
+<span id="alc-jj-log-view-new-before"></span><h4>Insert a Revision Before Point<a class="headerlink" href="#insert-a-revision-before-point" title="Link to this heading">¶</a></h4>
+<p>This is just a case of selecting the change at point, and assuming we find it, invoking the appropriate jj command in background before reloading the buffer.</p>
+<div class="awdur-codeblock docutils container">
+<div class="awdur-codeblock-header docutils container">
+<code class="awdur-codeblock-filename docutils literal notranslate"><span class="pre">lisp/alc-jj.el</span></code></div>
+<div class="highlight-elisp notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="nb">defun</span><span class="w"> </span><span class="nv">alc-jj-log-view-new-before</span><span class="w"> </span><span class="p">()</span>
+<span class="w">  </span><span class="s">&quot;Insert a new revision before the revision under point&quot;</span>
+<span class="w">  </span><span class="p">(</span><span class="k">interactive</span><span class="p">)</span>
+<span class="w">  </span><span class="p">(</span><span class="nv">if-let</span><span class="w"> </span><span class="p">((</span><span class="nv">change-id</span><span class="w"> </span><span class="p">(</span><span class="nv">alc-jj-log-view--change-at-point</span><span class="p">)))</span>
+<span class="w">    </span><span class="p">(</span><span class="k">progn</span>
+<span class="w">      </span><span class="p">(</span><span class="nf">call-process</span><span class="w"> </span><span class="s">&quot;jj&quot;</span><span class="w"> </span><span class="no">nil</span><span class="w"> </span><span class="no">nil</span><span class="w"> </span><span class="no">nil</span><span class="w"> </span><span class="s">&quot;new&quot;</span><span class="w"> </span><span class="s">&quot;--no-edit&quot;</span><span class="w"> </span><span class="s">&quot;--insert-before&quot;</span><span class="w"> </span><span class="nv">change-id</span><span class="p">)</span>
+<span class="w">      </span><span class="p">(</span><span class="nv">alc-jj-log-view-reload</span><span class="p">))))</span>
+</pre></div>
+</div>
+</div>
+</section>
+<section id="insert-a-revision-after-point">
+<span id="alc-jj-log-view-new-after"></span><h4>Insert a Revision After Point<a class="headerlink" href="#insert-a-revision-after-point" title="Link to this heading">¶</a></h4>
+<p>Same as previous but with <code class="docutils literal notranslate"><span class="pre">--insert-after</span></code>.</p>
+<div class="awdur-codeblock docutils container">
+<div class="awdur-codeblock-header docutils container">
+<code class="awdur-codeblock-filename docutils literal notranslate"><span class="pre">lisp/alc-jj.el</span></code></div>
+<div class="highlight-elisp notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="nb">defun</span><span class="w"> </span><span class="nv">alc-jj-log-view-new-after</span><span class="w"> </span><span class="p">()</span>
+<span class="w">  </span><span class="s">&quot;Insert a new revision after the revision under point&quot;</span>
+<span class="w">  </span><span class="p">(</span><span class="k">interactive</span><span class="p">)</span>
+<span class="w">  </span><span class="p">(</span><span class="nv">if-let</span><span class="w"> </span><span class="p">((</span><span class="nv">change-id</span><span class="w"> </span><span class="p">(</span><span class="nv">alc-jj-log-view--change-at-point</span><span class="p">)))</span>
+<span class="w">    </span><span class="p">(</span><span class="k">progn</span>
+<span class="w">      </span><span class="p">(</span><span class="nf">call-process</span><span class="w"> </span><span class="s">&quot;jj&quot;</span><span class="w"> </span><span class="no">nil</span><span class="w"> </span><span class="no">nil</span><span class="w"> </span><span class="no">nil</span><span class="w"> </span><span class="s">&quot;new&quot;</span><span class="w"> </span><span class="s">&quot;--no-edit&quot;</span><span class="w"> </span><span class="s">&quot;--insert-after&quot;</span><span class="w"> </span><span class="nv">change-id</span><span class="p">)</span>
+<span class="w">      </span><span class="p">(</span><span class="nv">alc-jj-log-view-reload</span><span class="p">))))</span>
+</pre></div>
+</div>
+</div>
+</section>
+<section id="edit-the-revision-at-point">
+<span id="alc-jj-log-view-edit"></span><h4>Edit the Revision at Point<a class="headerlink" href="#edit-the-revision-at-point" title="Link to this heading">¶</a></h4>
+<p>It would be nice to trigger a revert of all the relevant buffers, but I think that’s a task for another day.</p>
+<div class="awdur-codeblock docutils container">
+<div class="awdur-codeblock-header docutils container">
+<code class="awdur-codeblock-filename docutils literal notranslate"><span class="pre">lisp/alc-jj.el</span></code></div>
+<div class="highlight-elisp notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="nb">defun</span><span class="w"> </span><span class="nv">alc-jj-log-view-edit</span><span class="w"> </span><span class="p">()</span>
+<span class="w">  </span><span class="s">&quot;Edit the revision under point.&quot;</span>
+<span class="w">  </span><span class="p">(</span><span class="k">interactive</span><span class="p">)</span>
+<span class="w">  </span><span class="p">(</span><span class="nv">if-let</span><span class="w"> </span><span class="p">((</span><span class="nv">change-id</span><span class="w"> </span><span class="p">(</span><span class="nv">alc-jj-log-view--change-at-point</span><span class="p">)))</span>
+<span class="w">    </span><span class="p">(</span><span class="k">progn</span>
+<span class="w">      </span><span class="p">(</span><span class="nf">call-process</span><span class="w"> </span><span class="s">&quot;jj&quot;</span><span class="w"> </span><span class="no">nil</span><span class="w"> </span><span class="no">nil</span><span class="w"> </span><span class="no">nil</span><span class="w"> </span><span class="s">&quot;edit&quot;</span><span class="w"> </span><span class="nv">change-id</span><span class="p">)</span>
+<span class="w">      </span><span class="p">(</span><span class="nv">alc-jj-log-view-reload</span><span class="p">))))</span>
+</pre></div>
+</div>
+</div>
+</section>
+<section id="describe-the-revision-at-point">
+<span id="alc-jj-log-view-describe"></span><h4>Describe the Revision at Point<a class="headerlink" href="#describe-the-revision-at-point" title="Link to this heading">¶</a></h4>
+<p>Edit the commit message for the revision under point.</p>
+<div class="awdur-codeblock docutils container">
+<div class="awdur-codeblock-header docutils container">
+<code class="awdur-codeblock-filename docutils literal notranslate"><span class="pre">lisp/alc-jj.el</span></code></div>
+<div class="highlight-elisp notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="nb">defun</span><span class="w"> </span><span class="nv">alc-jj-log-view-describe</span><span class="w"> </span><span class="p">()</span>
+<span class="w">  </span><span class="s">&quot;Edit the commit message for the revision under point&quot;</span>
+<span class="w">  </span><span class="p">(</span><span class="k">interactive</span><span class="p">)</span>
+<span class="w">  </span><span class="p">(</span><span class="nv">if-let</span><span class="w"> </span><span class="p">((</span><span class="nv">change-id</span><span class="w"> </span><span class="p">(</span><span class="nv">alc-jj-log-view--change-at-point</span><span class="p">)))</span>
+<span class="w">    </span><span class="p">(</span><span class="k">progn</span>
+<span class="w">      </span><span class="p">(</span><span class="nf">call-process</span><span class="w"> </span><span class="s">&quot;jj&quot;</span><span class="w"> </span><span class="no">nil</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="no">nil</span><span class="w"> </span><span class="s">&quot;describe&quot;</span><span class="w"> </span><span class="nv">change-id</span><span class="p">)</span>
+<span class="w">      </span><span class="p">(</span><span class="nv">alc-jj-log-view-reload</span><span class="p">))))</span>
+</pre></div>
+</div>
+</div>
+<p>What’s nice is that since I’ve already configured <code class="docutils literal notranslate"><span class="pre">jj</span></code> to use <code class="docutils literal notranslate"><span class="pre">emacsclient</span></code> as the editor, this kind of just works.
+The one gotcha is that <code class="docutils literal notranslate"><span class="pre">call-process</span></code> usually blocks until the process exits - which prevents Emacs from ever opening the message buffer for me to edit!</p>
+<p>This can be fixed by passing <code class="docutils literal notranslate"><span class="pre">0</span></code> to the <code class="docutils literal notranslate"><span class="pre">DISPLAY</span></code> parameter which forces it not to wait.
+While this does mean I need to manually refresh the log view to see the result of my edit, I can live with that for now.</p>
+</section>
+<section id="reload-the-buffer">
+<span id="alc-jj-log-view-reload"></span><h4>Reload the Buffer<a class="headerlink" href="#reload-the-buffer" title="Link to this heading">¶</a></h4>
+<p>Reloading the buffer is pretty much just a case of calling the <code class="docutils literal notranslate"><span class="pre">alc-jj-log</span></code> command to regenerate the contents.
+However, it would be nice to preserve the position of the point - or at least keep it in the same general position.</p>
+<div class="awdur-codeblock docutils container">
+<div class="awdur-codeblock-header docutils container">
+<code class="awdur-codeblock-filename docutils literal notranslate"><span class="pre">lisp/alc-jj.el</span></code></div>
+<div class="highlight-elisp notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="nb">defun</span><span class="w"> </span><span class="nv">alc-jj-log-view-reload</span><span class="w"> </span><span class="p">()</span>
+<span class="w">  </span><span class="s">&quot;Regenerate the log view buffer&#39;s content.&quot;</span>
+<span class="w">  </span><span class="p">(</span><span class="k">interactive</span><span class="p">)</span>
+<span class="w">  </span><span class="p">(</span><span class="k">let</span><span class="w"> </span><span class="p">((</span><span class="nv">change-id</span><span class="w"> </span><span class="p">(</span><span class="nv">alc-jj-log-view--change-at-point</span><span class="p">)))</span>
+<span class="w">    </span><span class="p">(</span><span class="nv">alc-jj-log</span><span class="p">)</span>
+<span class="w">    </span><span class="p">(</span><span class="k">if</span><span class="w"> </span><span class="nv">change-id</span>
+<span class="w">      </span><span class="p">(</span><span class="nv">alc-jj-log-view--select-revision-with-change-id</span><span class="w"> </span><span class="nv">change-id</span><span class="p">))))</span>
+</pre></div>
+</div>
+</div>
+</section>
+</section>
+</section>
+<section id="final-thoughts">
+<h2>Final Thoughts<a class="headerlink" href="#final-thoughts" title="Link to this heading">¶</a></h2>
+<p>I’ve had a lot of fun piecing this together and to be honest I’ve probably spent more time on the writeup than the actual code at this point!
+The combination of tree-sitter and Emacs is such a nice hammer I’m now left wondering what other nails I can hit with it… 🤔</p>
+</section>
+</section>
+
+  <footer>
+    <script src="https://giscus.app/client.js"
+            data-repo="alcarney/blog"
+            data-repo-id="MDEwOlJlcG9zaXRvcnk2Njk3NzM3MQ=="
+            data-category="Comments"
+            data-category-id="DIC_kwDOA_3-W84B_XOl"
+            data-mapping="pathname"
+            data-reactions-enabled="1"
+            data-emit-metadata="0"
+            data-theme="preferred_color_scheme"
+            crossorigin="anonymous"
+            async>
+    </script>
+  </footer>
+
+</article>
+
+  </main>
+
+  <aside>
+    <div class="right-sidebar"><section class="credits">
+  <h5>Built with</h5>
+  <ul>
+    <li>
+      <a href="https://www.sphinx-doc.org/en/master/">
+        Sphinx
+      </a>
+      v8.2.3
+    </li>
+    <li>
+      <a href="https://docutils.sourceforge.io/">
+        Docutils
+      </a>
+      v0.21.2
+    </li>
+    <li>
+      <a href="https://feathericons.com/">
+        Feather Icons
+      </a>
+    </li>
+  </ul>
+</section>
+    </div>
+  </aside>
+
+  <footer class="site"></footer>
+</div>
+  </body>
+</html>

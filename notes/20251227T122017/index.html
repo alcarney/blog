@@ -5,7 +5,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>jj &#8212; Alex Carney</title>
+    <title>alc-jj &#8212; Alex Carney</title>
 
     <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=02ca0aaa" />
     <link id="pygments_dark_css" media="(prefers-color-scheme: dark)" rel="stylesheet" type="text/css" href="../../_static/pygments_dark.css?v=d8568271" />
@@ -127,7 +127,7 @@
 </section><section id="post-contents">
   <nav id="localtoc">
     <ul>
-<li><a class="reference internal" href="#"><code class="docutils literal notranslate"><span class="pre">jj</span></code></a></li>
+<li><a class="reference internal" href="#"><code class="docutils literal notranslate"><span class="pre">alc-jj</span></code></a></li>
 </ul>
 
   </nav>
@@ -285,16 +285,16 @@
 </li>
       <li>
     
-  <a class="current" title="jj" href="#">
-    jj
+  <a class="current" title="alc-jj" href="#">
+    alc-jj
   </a>
   
 
     <ul>
       <li>
     
-  <a class="reference internal" title="alc-jj-log-view-mode" href="../20260601T172422/">
-    alc-jj-log-view-mode
+  <a class="reference internal" title="Building alc-jj-log-view-mode" href="../../blog/2026/alc-jj-log-view-mode/">
+    Building alc-jj-log-view-mode
   </a>
   
 </li>
@@ -348,7 +348,7 @@
   <h5>Page Links</h5>
   <ul>
     <li>
-      <a href="../../_sources/content/20251227T122017==5=9--jj__jj.rst.txt" rel="nofollow">
+      <a href="../../_sources/content/20251227T122017==5=9--alc-jj__jj.rst.txt" rel="nofollow">
         Page Source
       </a>
     </li>
@@ -399,23 +399,34 @@
   <main role="main">
 
 <article>
-  <section id="jj">
-<h1><code class="docutils literal notranslate"><span class="pre">jj</span></code><a class="headerlink" href="#jj" title="Link to this heading">¶</a></h1>
+  <section id="alc-jj">
+<h1><code class="docutils literal notranslate"><span class="pre">alc-jj</span></code><a class="headerlink" href="#alc-jj" title="Link to this heading">¶</a></h1>
 <p>As I’m starting to use <a class="reference external" href="https://docs.jj-vcs.dev/latest/">jj</a> more and more, it’s inevitable that I’m going to want some integration between <code class="docutils literal notranslate"><span class="pre">jj</span></code> and Emacs.
-There are many packages already available that do this, including but not limited to</p>
+There are many packages already available that do this, including but not limited to:</p>
 <ul class="simple">
 <li><p><a class="reference external" href="https://github.com/bennyandresen/jujutsu.el">jujutsu.el</a></p></li>
 <li><p><a class="reference external" href="https://github.com/bolivier/jj-mode.el">jj-mode</a></p></li>
+<li><p><a class="reference external" href="https://github.com/0WD0/majutsu">majutsu</a></p></li>
 <li><p><a class="reference external" href="https://elpa.gnu.org/packages/vc-jj.html">vc-jj</a></p></li>
 </ul>
-<p>However, I want to use this as an excuse to learn how to write my own extensions/utilities for Emacs.</p>
+<p>However, I wanted to use this as an excuse to learn how to write my own extensions/utilities for Emacs.</p>
 <div class="awdur-codeblock docutils container">
 <div class="awdur-codeblock-header docutils container">
 <code class="awdur-codeblock-filename docutils literal notranslate"><span class="pre">init.el</span></code></div>
-<div class="highlight-elisp notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="nb">use-package</span><span class="w"> </span><span class="nv">alc-jj</span><span class="p">)</span>
+<div class="highlight-elisp notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="nb">use-package</span><span class="w"> </span><span class="nv">alc-jj</span>
+<span class="w">  </span><span class="nb">:demand</span><span class="w"> </span><span class="no">t</span>
+<span class="w">  </span><span class="nb">:hook</span><span class="w"> </span><span class="p">((</span><span class="nv">alc-jj-log-view-mode</span><span class="w"> </span><span class="o">.</span><span class="w"> </span><span class="nv">combobulate-mode</span><span class="p">))</span>
+<span class="w">  </span><span class="nb">:bind</span><span class="w"> </span><span class="p">(</span><span class="nb">:map</span><span class="w"> </span><span class="nv">alc-jj-log-view-mode-map</span>
+<span class="w">         </span><span class="p">(</span><span class="s">&quot;n&quot;</span><span class="w"> </span><span class="o">.</span><span class="w"> </span><span class="nv">combobulate-navigate-next</span><span class="p">)</span>
+<span class="w">         </span><span class="p">(</span><span class="s">&quot;p&quot;</span><span class="w"> </span><span class="o">.</span><span class="w"> </span><span class="nv">combobulate-navigate-previous</span><span class="p">)))</span>
 </pre></div>
 </div>
 </div>
+<p>See the following for details</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="../../blog/2026/alc-jj-log-view-mode/" title="Building alc-jj-log-view-mode">alc-jj-log-view-mode</a></p></li>
+<li><p><a class="reference internal" href="../../blog/2026/eshell-integration/" title="A Simple jj Integration for eshell">A simple jj integration for eshell</a></p></li>
+</ul>
 </section>
 
 
