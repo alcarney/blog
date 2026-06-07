@@ -1,0 +1,34 @@
+:title: alc-jj
+:date: 2025-12-27
+:tags: jj
+:identifier: 20251227T122017
+:signature: 5=9
+
+``alc-jj``
+==========
+
+As I'm starting to use `jj <https://docs.jj-vcs.dev/latest/>`__ more and more, it's inevitable that I'm going to want some integration between ``jj`` and Emacs.
+There are many packages already available that do this, including but not limited to:
+
+- `jujutsu.el <https://github.com/bennyandresen/jujutsu.el>`__
+- `jj-mode <https://github.com/bolivier/jj-mode.el>`__
+- `majutsu <https://github.com/0WD0/majutsu>`__
+- `vc-jj <https://elpa.gnu.org/packages/vc-jj.html>`__
+
+However, I wanted to use this as an excuse to learn how to write my own extensions/utilities for Emacs.
+
+.. code-block:: elisp
+   :project: emacs
+   :filename: init.el
+
+   (use-package alc-jj
+     :demand t
+     :hook ((alc-jj-log-view-mode . combobulate-mode))
+     :bind (:map alc-jj-log-view-mode-map
+            ("n" . combobulate-navigate-next)
+            ("p" . combobulate-navigate-previous)))
+
+See the following for details
+
+- :denote:link:`alc-jj-log-view-mode <20260601T172422>`
+- :denote:link:`A simple jj integration for eshell <20260606T000449>`
