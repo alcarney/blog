@@ -34,6 +34,6 @@ tmux has scrollbars!
 
 .. code-block::
 
-   set-option -g pane-scrollbars modal
+   set-option -g pane-scrollbars on
 
 ``modal`` means that they're only shown in copy-mode

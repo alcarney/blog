@@ -62,6 +62,20 @@ My config wasn't anything particuarly exciting, as I only:
 However there are occasions where you want just a little bit... :ref:`more <emacs-completions-vertico>`.
 
 
+``completion-preview-mode``
+---------------------------
+
+When enabled ``completion-preview-mode`` offers completion suggestions inline using "ghost text".
+Much like the fish shell's suggestions if you've ever used those.
+
+.. code-block:: elisp
+   :in-file: init.el
+
+   (use-package completion-preview
+     :ensure nil
+     :hook ((text-mode . completion-preview-mode)
+            (prog-mode . completion-preview-mode)))
+
 ``consult``
 -----------
 
