@@ -1,0 +1,36 @@
+:title: Lisp
+:date: 2026-08-10
+:tags:
+:identifier: 20260810T164622
+
+Lisp
+====
+
+Resources
+---------
+
+.. bib:book:: On Lisp
+   :author: Paul Graham
+   :state: read
+
+.. bib:book:: The Roots of Lisp
+   :author: Paul Graham
+   :state: to-read
+
+.. bib:book:: Lisp in Small Pieces
+   :author: Christian Queinnec
+   :state: to-read
+
+.. bib:book:: Let over Lambda
+   :author: Doug Hoyle
+   :state: reading
+
+..
+    - Lambda: The Ultimate Declarative
+    - Lambda: The Ultimate Imperative
+    - The Revision Reports on Scheme
+    - Revised Reports on Scheme
+    - The Scheme Programming Language
+    - Essentials of Programming Languages
+    - Build your own Lisp
+    - SICP: Structure and Interpretation of Computer Programs.

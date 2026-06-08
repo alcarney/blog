@@ -14,3 +14,8 @@ IBuffer
    :filename: init.el
 
    (keymap-global-set "C-x C-b" 'ibuffer)
+
+Commands
+--------
+
+- ``ibuffer-do-isearch``

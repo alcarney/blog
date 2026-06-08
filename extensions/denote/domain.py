@@ -109,7 +109,7 @@ class AllTagsIndex(Index):
     localname = "Tags"
 
     def generate(self, docnames=None) -> IndexedContent:
-        items: dict[str, IndexEntry] = {}
+        items: dict[str, list[IndexEntry]] = {}
         for tag_name, records in self.domain.records.by_tag().items():
             key = tag_name[0].upper()
             items.setdefault(key, []).append(
@@ -133,7 +133,7 @@ class AllNotesIndex(Index):
     localname = "Notes"
 
     def generate(self, docnames=None) -> IndexedContent:
-        items: dict[str, IndexEntry] = {}
+        items: dict[str, list[IndexEntry]] = {}
         for record in self.domain.records.all():
             if record.is_blogpost:
                 continue
@@ -161,7 +161,7 @@ class TagIndex(Index):
         self.tag_name = tag_name
 
     def generate(self, docnames=None) -> IndexedContent:
-        items: dict[str, IndexEntry] = {}
+        items: dict[str, list[IndexEntry]] = {}
         for record in self.domain.records.all():
             if self.tag_name not in record.tags:
                 continue
@@ -205,7 +205,7 @@ class ArchiveIndex(Index):
         self.year = year
 
     def generate(self, docnames=None) -> IndexedContent:
-        items: dict[str, IndexEntry] = {}
+        items: dict[str, list[IndexEntry]] = {}
         for record in self.domain.posts.all():
             if self.year != record.timestamp.year:
                 continue
