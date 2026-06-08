@@ -334,3 +334,14 @@ In fact, *all* of the dirs in my image appear to be unlabelled.
 
 
 The question is... how do I fix these labels?
+
+Even worse breakage
+-------------------
+
+#. Edit the boot entry by hitting :kbd:`e`
+
+#. Edit the command line to mask the sysext service::
+
+     systemd.mask=systemd-sysext.service
+
+#. This allows the machine to boot properly and you can disable the problematic extensions!

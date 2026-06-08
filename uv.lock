@@ -53,7 +53,7 @@ wheels = [
 [[package]]
 name = "awdur"
 version = "0.1.0"
-source = { git = "https://github.com/swyddfa/awdur?subdirectory=lib%2Fawdur&rev=develop#596e47ad7165ffdde069e657ce607e8237430ddf" }
+source = { git = "https://github.com/swyddfa/awdur?subdirectory=lib%2Fawdur&rev=develop#a4f6afb7a50c53271cf3410b746ba69e2bca9b3f" }
 dependencies = [
     { name = "docutils" },
     { name = "jinja2" },

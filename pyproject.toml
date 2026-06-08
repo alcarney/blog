@@ -13,7 +13,7 @@ dependencies = [
 ]
 
 [tool.uv.sources]
-#awdur = { path = "/var/home/alex/Projects/swyddfa/awdur/lib/awdur" }
+#awdur = { workspace = "/var/home/alex/Projects/swyddfa/awdur/develop/lib/awdur" }
 
 [tool.esbonio.sphinx]
 pythonCommand = ["uv", "run", "python"]

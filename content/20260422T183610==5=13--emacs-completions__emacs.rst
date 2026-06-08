@@ -62,8 +62,23 @@ My config wasn't anything particuarly exciting, as I only:
 However there are occasions where you want just a little bit... :ref:`more <emacs-completions-vertico>`.
 
 
-Consult
--------
+``completion-preview-mode``
+---------------------------
+
+When enabled ``completion-preview-mode`` offers completion suggestions inline using "ghost text".
+Much like the fish shell's suggestions if you've ever used those.
+
+.. code-block:: elisp
+   :project: emacs
+   :filename: init.el
+
+   (use-package completion-preview
+     :ensure nil
+     :hook ((text-mode . completion-preview-mode)
+            (prog-mode . completion-preview-mode)))
+
+``consult``
+-----------
 
 `Consult <https://github.com/minad/consult>`__, the grab-bag of utility functions built on top of ``completing-read``.
 I admit, I probably don't use this as much as I should.
@@ -97,8 +112,8 @@ I admit, I probably don't use this as much as I should.
 
 - ``consult-minor-mode-menu`` is very nice, gives you an interactive view to manage all of your minor modes! With it, I see no need to display them all in the modeline anymore.
 
-Embark
-------
+``embark``
+----------
 
 .. seealso::
 
@@ -145,8 +160,8 @@ To get the most out of Embark, you should also install marginalia as it improves
      (marginalia-mode))
 
 
-Orderless
----------
+``orderless``
+-------------
 
 Continuing with the established theme I use the `orderless <https://github.com/oantolin/orderless>`__ completion style as even a basic config is useful, but it would be great to experiment with some `style dispatchers <https://github.com/oantolin/orderless#style-dispatchers>`__!
 
@@ -164,8 +179,8 @@ Continuing with the established theme I use the `orderless <https://github.com/o
 
 .. _emacs-completions-vertico:
 
-Vertico
--------
+``vertico``
+-----------
 
 .. seealso::
 
