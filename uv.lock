@@ -34,7 +34,7 @@ dependencies = [
 
 [package.metadata]
 requires-dist = [
-    { name = "awdur", git = "https://github.com/swyddfa/awdur?subdirectory=lib%2Fawdur&rev=develop" },
+    { name = "awdur", directory = "/var/home/alex/Projects/swyddfa/awdur/lib/awdur" },
     { name = "esbonio", specifier = ">=2.1.0" },
     { name = "myst-parser", specifier = "==4.*" },
     { name = "rich", git = "https://github.com/alcarney/rich?rev=fix-from-ansi" },
@@ -52,13 +52,24 @@ wheels = [
 
 [[package]]
 name = "awdur"
-version = "0.0.1"
-source = { git = "https://github.com/swyddfa/awdur?subdirectory=lib%2Fawdur&rev=develop#9bb4b518de4869353ffa5be1c7ec12223b219e97" }
+source = { directory = "/var/home/alex/Projects/swyddfa/awdur/lib/awdur" }
 dependencies = [
     { name = "docutils" },
     { name = "jinja2" },
     { name = "pygments" },
 ]
+
+[package.metadata]
+requires-dist = [
+    { name = "docutils" },
+    { name = "jinja2" },
+    { name = "pygments" },
+    { name = "sphinx", marker = "extra == 'sphinx'" },
+]
+provides-extras = ["sphinx"]
+
+[package.metadata.requires-dev]
+dev = [{ name = "pytest" }]
 
 [[package]]
 name = "babel"

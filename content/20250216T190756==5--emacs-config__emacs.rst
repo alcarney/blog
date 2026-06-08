@@ -363,6 +363,59 @@ LLMs
                           :stream t
                           :models '(llama3.2:latest))))
 
+
+Tip of the day
+--------------
+
+Wouldn't it be nice if Emacs displayed snippets from NEWS on startup?
+
+.. code-block:: elisp
+   :project: emacs
+   :filename: lisp/alc-dashboard.el
+
+   (defun alc-dashboard-get-news-item (&optional version)
+     "Get a random news item for the given Emacs VERSION"
+     (with-current-buffer (alc-dashboard--get-news-buffer version)
+       (let* ((items (alc-dashboard--get-news-items))
+              (idx (random (length items)))
+              (item-pos (nth idx items))
+              item section)
+         (goto-char item-pos)
+         (call-interactively 'outline-mark-subtree)
+         (setq item (buffer-substring (region-beginning) (region-end)))
+
+         (call-interactively 'outline-up-heading)
+         (setq section (thing-at-point 'line))
+
+         (list item section))))
+
+.. code-block:: elisp
+   :project: emacs
+   :filename: lisp/alc-dashboard.el
+
+   (defun alc-dashboard--get-news-buffer (&optional version)
+     "Return the Emacs news buffer for the given VERSION"
+     (let ((display-buffer-overriding-action
+              '((display-buffer-no-window)
+                (allow-no-window . t))))
+       (view-emacs-news version)
+       (buffer-name)))
+
+.. code-block:: elisp
+   :project: emacs
+   :filename: lisp/alc-dashboard.el
+
+   (defun alc-dashboard--get-news-items ()
+     (let ((items nil))
+       (save-excursion
+         (goto-char (point-min))
+         (while (re-search-forward "^[*]+ \\(.*\\)$" nil t)
+           (let ((item-pos (match-beginning 1)))
+             (forward-line)
+             (unless (string= "" (string-trim (thing-at-point 'line t)))
+               (push item-pos items)))))
+       items))
+
 Awdur Templates
 ---------------
 
@@ -372,16 +425,16 @@ Making use of awdur's templates removes the need to ensure code like ``(provide 
    :project: emacs
 
    {%- extends "default" %}
-   {% block header %};;; {{ path.name }} --- TODO add description  -*- lexical-binding: t -*-
+   {% block header %};;; {{ output.path.name }} --- TODO add description  -*- lexical-binding: t -*-
 
    ;;; Code:
    {% endblock %}
 
    {% block footer %}
 
-   (provide '{{ path.stem }})
+   (provide '{{ output.path.stem }})
 
-   ;;; {{ path.name }} ends here
+   ;;; {{ output.path.name }} ends here
    {% endblock %}
 
 .. awdur:template:: treesit-grammar

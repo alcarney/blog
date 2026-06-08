@@ -1,5 +1,6 @@
 BUILDDIR ?=_build
 DOTFILES ?= $(HOME)/.config/dotfiles
+PROJECTS ?= $(HOME)/Projects
 
 HTMLDIR=$(BUILDDIR)/dirhtml
 PORT ?= 8000
@@ -37,5 +38,10 @@ dotfiles:
 preview:
 	python -m http.server -d $(HTMLDIR) $(PORT)
 
+
+mal: dotfiles
+	-rm $(PROJECTS)/kanaka/mal/master/impls/py/*
+	cp $(DOTFILES)/mal-py/* $(PROJECTS)/kanaka/mal/master/impls/py/
+	make -C $(PROJECTS)/kanaka/mal/master/ test^py^step5
 
 include .devcontainer/tools.mk

@@ -4,12 +4,17 @@ version = "2026"
 description = "My personal website"
 requires-python=">=3.14"
 dependencies = [
+    "awdur>=0.1.0",
     "esbonio>=2.1.0",
     "sphinx==8.2.*",
     "myst-parser==4.*",
     "rich @ git+https://github.com/alcarney/rich@fix-from-ansi",
-    "awdur @ git+https://github.com/swyddfa/awdur@develop#subdirectory=lib/awdur",
+    # "awdur @ git+https://github.com/swyddfa/awdur@develop#subdirectory=lib/awdur",
+
 ]
+
+[tool.uv.sources]
+awdur = { path = "/var/home/alex/Projects/swyddfa/awdur/lib/awdur" }
 
 [tool.esbonio.sphinx]
 pythonCommand = ["uv", "run", "python"]

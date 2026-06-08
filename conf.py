@@ -80,6 +80,7 @@ intersphinx_mapping = {
     "python": ("https://docs.python.org/3/", None),
     "py35": ("https://docs.python.org/3.5/", None),
     "sphinx": ("https://www.sphinx-doc.org/en/master", None),
+    "wasm": ("https://webassembly.github.io/spec/core/", None),
 }
 
 # -- Options for HTML output -------------------------------------------------
