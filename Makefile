@@ -1,7 +1,10 @@
-SPHINX_OPTS ?=
 BUILDDIR ?=_build
+DOTFILES ?= $(HOME)/.config/dotfiles
+
 HTMLDIR=$(BUILDDIR)/dirhtml
 PORT ?= 8000
+
+SPHINX_OPTS ?=
 
 ifneq ($(strip $(INSIDE_EMACS)),)
 SPHINX_OPTS += --no-color
@@ -28,7 +31,7 @@ html:
 
 .PHONY: dotfiles
 dotfiles:
-	$(UV) run sphinx-build -M awdur . $(BUILDDIR) $(SPHINX_OPTS)
+	$(UV) run sphinx-build -b awdur . $(DOTFILES) $(SPHINX_OPTS)
 
 
 preview:
