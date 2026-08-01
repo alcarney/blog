@@ -12,18 +12,18 @@ jobs:
   blog:
     name: Blog
     runs-on: ubuntu-latest
+    container:
+      image: ghcr.io/alcarney/blog-devenv
     steps:
-    - uses: 'actions/checkout@v3'
-
-    - name: Build
-      uses: devcontainers/ci@v0.3
+    - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
       with:
-        cacheFrom: ghcr.io/alcarney/blog-devenv
-        push: never
-        runCmd: make html
+        persist-credentials: false
 
-    - name: 'Upload Aritfact'
-      uses: 'actions/upload-artifact@v4'
+    - run: make html
+      name: Build
+
+    - name: 'Upload Artifact'
+      uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a  # v7.0.1
       with:
         name: 'blog'
         path: '_build/dirhtml'
