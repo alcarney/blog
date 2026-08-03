@@ -25,10 +25,18 @@ However, I wanted to use this as an excuse to learn how to write my own extensio
      :demand t
      :hook ((alc-jj-log-view-mode . combobulate-mode))
      :bind (:map alc-jj-log-view-mode-map
+            ("A" . alc-jj-log-view-new-after)
+            ("B" . alc-jj-log-view-new-before)
+            ("e" . alc-jj-log-view-edit)
+            ("d" . alc-jj-log-view-describe)
+            ("g" . alc-jj-log-view-reload)
             ("n" . combobulate-navigate-next)
-            ("p" . combobulate-navigate-previous)))
+            ("p" . combobulate-navigate-previous)
+            ("s" . alc-jj-log-view-squash-changes)
+            ("t" . alc-jj-log-view-set-target-revision)))
+
 
 See the following for details
 
-- :denote:link:`alc-jj-log-view-mode <20260601T172422>`
-- :denote:link:`A simple jj integration for eshell <20260606T000449>`
+- :denote:link:`20260601T172422`
+- :denote:link:`20260606T000449`

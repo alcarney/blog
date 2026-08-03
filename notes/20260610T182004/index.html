@@ -5,7 +5,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>Eat: Emulate a Terminal &#8212; Alex Carney</title>
+    <title>ediff &#8212; Alex Carney</title>
 
     <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=02ca0aaa" />
     <link id="pygments_dark_css" media="(prefers-color-scheme: dark)" rel="stylesheet" type="text/css" href="../../_static/pygments_dark.css?v=d8568271" />
@@ -114,20 +114,23 @@
     <h5 style="grid-column: span 2">Metadata</h5><svg xmlns="http://www.w3.org/2000/svg" width="2em" fill="none" viewBox="0 0 24 24" stroke="currentColor">
     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
 </svg>
-    <time style="align-self: center; text-align: right;" datetime="2025-07-05 00:00:00+00:00">Jul 05, 2025</time><svg xmlns="http://www.w3.org/2000/svg" width="2em" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+    <time style="align-self: center; text-align: right;" datetime="2026-06-10 00:00:00+00:00">Jun 10, 2026</time><svg xmlns="http://www.w3.org/2000/svg" width="2em" fill="none" viewBox="0 0 24 24" stroke="currentColor">
     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z" />
 </svg>
     <ul class="taglist">
         <li>
-            <a class="tag" href="../../tag/emacs/">
-                #emacs
+            <a class="tag" href="../../tag/ediff/">
+                #ediff
             </a>
         </li>
     </ul>
 </section><section id="post-contents">
   <nav id="localtoc">
     <ul>
-<li><a class="reference internal" href="#">Eat: Emulate a Terminal</a></li>
+<li><a class="reference internal" href="#"><code class="docutils literal notranslate"><span class="pre">ediff</span></code></a><ul>
+<li><a class="reference internal" href="#window-management">Window Management</a></li>
+</ul>
+</li>
 </ul>
 
   </nav>
@@ -262,7 +265,7 @@
     <ul>
       <li>
     
-  <a class="current" title="Eat: Emulate a Terminal" href="#">
+  <a class="reference internal" title="Eat: Emulate a Terminal" href="../20250705T225630/">
     Eat: Emulate a Terminal
   </a>
   
@@ -351,7 +354,7 @@
 </li>
       <li>
     
-  <a class="reference internal" title="ediff" href="../20260610T182004/">
+  <a class="current" title="ediff" href="#">
     ediff
   </a>
   
@@ -362,7 +365,7 @@
   <h5>Page Links</h5>
   <ul>
     <li>
-      <a href="../../_sources/content/20250705T225630==5=7=1--eat-emulate-a-terminal__emacs.rst.txt" rel="nofollow">
+      <a href="../../_sources/content/20260610T182004==5=15--ediff__ediff.rst.txt" rel="nofollow">
         Page Source
       </a>
     </li>
@@ -413,19 +416,54 @@
   <main role="main">
 
 <article>
-  <section id="eat-emulate-a-terminal">
-<h1>Eat: Emulate a Terminal<a class="headerlink" href="#eat-emulate-a-terminal" title="Link to this heading">¶</a></h1>
-<p>The <a class="reference external" href="https://codeberg.org/akib/emacs-eat">emacs-eat</a> is a terminal emulator written in Emacs Lisp.</p>
-<p>One of its best features is to turn eshell into a complete terminal environment</p>
+  <section id="ediff">
+<h1><code class="docutils literal notranslate"><span class="pre">ediff</span></code><a class="headerlink" href="#ediff" title="Link to this heading">¶</a></h1>
+<p>Below are my customisations for <code class="docutils literal notranslate"><span class="pre">ediff</span></code>, explanations are captured in follow on sections</p>
 <div class="awdur-codeblock docutils container">
 <div class="awdur-codeblock-header docutils container">
 <code class="awdur-codeblock-filename docutils literal notranslate"><span class="pre">init.el</span></code></div>
-<div class="highlight-elisp notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="nb">use-package</span><span class="w"> </span><span class="nv">eat</span>
-<span class="w">  </span><span class="nb">:ensure</span><span class="w"> </span><span class="no">t</span>
-<span class="w">  </span><span class="nb">:hook</span><span class="w"> </span><span class="p">(</span><span class="nv">eshell-load</span><span class="w"> </span><span class="o">.</span><span class="w"> </span><span class="nv">eat-eshell-mode</span><span class="p">))</span>
+<div class="highlight-elisp notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="nb">use-package</span><span class="w"> </span><span class="nv">alc-ediff</span>
+<span class="w">  </span><span class="nb">:load-path</span><span class="w"> </span><span class="s">&quot;lisp&quot;</span>
+<span class="w">  </span><span class="nb">:custom</span>
+<span class="w">  </span><span class="p">((</span><span class="nv">ediff-window-setup-function</span><span class="w"> </span><span class="ss">&#39;alc-ediff-window-setup-function</span><span class="p">))</span>
+<span class="w">  </span><span class="nb">:config</span>
+<span class="w">  </span><span class="c1">;; I tried setting these via `:hook` but they seemed to be clobbered by ediff&#39;s setup code...</span>
+<span class="w">  </span><span class="p">(</span><span class="nv">add-hook</span><span class="w"> </span><span class="ss">&#39;ediff-suspend-hook</span><span class="w"> </span><span class="nf">#&#39;</span><span class="nv">alc-ediff-suspend-hook</span><span class="p">)</span>
+<span class="w">  </span><span class="p">(</span><span class="nv">add-hook</span><span class="w"> </span><span class="ss">&#39;ediff-quit-hook</span><span class="w"> </span><span class="nf">#&#39;</span><span class="nv">alc-ediff-quit-hook</span><span class="p">))</span>
 </pre></div>
 </div>
 </div>
+<section id="window-management">
+<h2>Window Management<a class="headerlink" href="#window-management" title="Link to this heading">¶</a></h2>
+<p><code class="docutils literal notranslate"><span class="pre">ediff</span></code> runs an arbitrary function <code class="docutils literal notranslate"><span class="pre">ediff-window-setup-function</span></code> to configure the window layout at the start of an ediff session.
+I’m quite happy with <code class="docutils literal notranslate"><span class="pre">ediff-setup-windows-plain</span></code>, the only tweak I want to make is to have the window layout open in a new tab.</p>
+<div class="awdur-codeblock docutils container">
+<div class="awdur-codeblock-header docutils container">
+<code class="awdur-codeblock-filename docutils literal notranslate"><span class="pre">lisp/alc-ediff.el</span></code></div>
+<div class="highlight-elisp notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="nb">require</span><span class="w"> </span><span class="ss">&#39;ediff</span><span class="p">)</span>
+
+<span class="p">(</span><span class="nb">defun</span><span class="w"> </span><span class="nv">alc-ediff-window-setup-function</span><span class="w"> </span><span class="p">(</span><span class="kp">&amp;rest</span><span class="w"> </span><span class="nv">args</span><span class="p">)</span>
+<span class="w">  </span><span class="s">&quot;Configure the window layout for an ediff session.&quot;</span>
+<span class="w">  </span><span class="p">(</span><span class="nv">tab-new</span><span class="p">)</span>
+<span class="w">  </span><span class="p">(</span><span class="nf">apply</span><span class="w"> </span><span class="nf">#&#39;</span><span class="nv">ediff-setup-windows-plain</span><span class="w"> </span><span class="nv">args</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<p>Of course, the newly created tab should be closed on session quit/suspend.</p>
+<div class="awdur-codeblock docutils container">
+<div class="awdur-codeblock-header docutils container">
+<code class="awdur-codeblock-filename docutils literal notranslate"><span class="pre">lisp/alc-ediff.el</span></code></div>
+<div class="highlight-elisp notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="nb">defun</span><span class="w"> </span><span class="nv">alc-ediff-suspend-hook</span><span class="w"> </span><span class="p">()</span>
+<span class="w">  </span><span class="s">&quot;Close the tab created by </span><span class="ss">`alc-ediff-window-setup-function&#39;</span><span class="s">.&quot;</span>
+<span class="w">  </span><span class="p">(</span><span class="nv">tab-close</span><span class="p">))</span>
+
+<span class="p">(</span><span class="nb">defun</span><span class="w"> </span><span class="nv">alc-ediff-quit-hook</span><span class="w"> </span><span class="p">()</span>
+<span class="w">  </span><span class="s">&quot;Close the tab created by </span><span class="ss">`alc-ediff-window-setup-function&#39;</span><span class="s">.&quot;</span>
+<span class="w">  </span><span class="p">(</span><span class="nv">tab-close</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+</section>
 </section>
 
 

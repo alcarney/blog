@@ -165,6 +165,7 @@ Emacs Quick Start
      ELISP> (treesit-parse-string "hello" 'jjlog)
      #<treesit-node source_file in 1-6>
 
+.. _jj-log-grammar:
 
 Writing The Grammar
 -------------------
@@ -295,16 +296,6 @@ But since the navigation commands are all powered by regular expressions I didn'
 .. code-block:: elisp
    :project: emacs
    :filename: lisp/alc-jj.el
-
-   ;; Keymap must be defined before the major-mode in order to take effect.
-   (defvar alc-jj-log-view-mode-map
-     (let ((map (make-sparse-keymap)))
-       (keymap-set map "B" #'alc-jj-log-view-new-before)
-       (keymap-set map "A" #'alc-jj-log-view-new-after)
-       (keymap-set map "e" #'alc-jj-log-view-edit)
-       (keymap-set map "d" #'alc-jj-log-view-describe)
-       (keymap-set map "g" #'alc-jj-log-view-reload)
-       map))
 
    (define-derived-mode alc-jj-log-view-mode special-mode "jj-log"
      "Major mode for viewing and manipulating the jj log"

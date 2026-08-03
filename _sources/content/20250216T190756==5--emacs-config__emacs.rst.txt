@@ -103,6 +103,18 @@ By default Emacs will litter folders with backup files (``filename.txt~``), rath
 
    (setq backup-directory-alist `(("." . ,(expand-file-name "backups" user-emacs-directory))))
 
+Kill Ring
+^^^^^^^^^
+
+a.k.a. the clipboard.
+
+.. code-block:: elisp
+   :project: emacs
+   :filename: init.el
+
+   (setq kill-do-not-save-duplicates t           ; when would you want duplicates?...
+         save-interprogram-paste-before-kill t)  ; save system clipboard to kill-ring before killing new text.
+
 Repeat Mode
 ^^^^^^^^^^^
 

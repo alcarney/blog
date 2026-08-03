@@ -285,11 +285,11 @@
 <p>While I don’t use Emacs all the time, it’s safe to say that it has become my default editor when working on personal projects.
 So it’s nice to be able to make use of the utilities provided by the <a class="reference external" href="https://github.com/protesilaos/denote">denote.el</a> package when working on this site.</p>
 <p>One of the main features provided by the package is to insert <a class="reference external" href="https://protesilaos.com/emacs/denote#h:13218826-56a5-482a-9b91-5b6de4f14261">front matter</a> into your notes corresponding to the information encoded in the filename <strong>and</strong> to keep the two in sync when either one changes.</p>
-<p><code class="docutils literal notranslate"><span class="pre">denote.el</span></code> has built in support for several markup formats however, the <a class="reference external" href="https://www.sphinx-doc.org/en/master/usage/restructuredtext/basics.html#rst-primer" title="(in Sphinx v9.1.0)"><span class="xref std std-ref">reStructuredText</span></a> syntax used by Sphinx is not one of them.
+<p><code class="docutils literal notranslate"><span class="pre">denote.el</span></code> has built in support for several markup formats however, the <a class="reference external" href="https://www.sphinx-doc.org/en/master/usage/restructuredtext/basics.html#rst-primer" title="(in Sphinx v9.1.1)"><span class="xref std std-ref">reStructuredText</span></a> syntax used by Sphinx is not one of them.
 Of course, being an Emacs package this isn’t something that a few lines of lisp cannot solve!</p>
 <div class="admonition-what-about-markdown admonition">
 <p class="admonition-title">What about Markdown?</p>
-<p>Yes, both <code class="docutils literal notranslate"><span class="pre">denote.el</span></code> and <a class="reference external" href="https://www.sphinx-doc.org/en/master/usage/markdown.html#markdown" title="(in Sphinx v9.1.0)"><span class="xref std std-ref">Sphinx support</span></a> Markdown however, I simply prefer reStructuredText 😅</p>
+<p>Yes, both <code class="docutils literal notranslate"><span class="pre">denote.el</span></code> and <a class="reference external" href="https://www.sphinx-doc.org/en/master/usage/markdown.html#markdown" title="(in Sphinx v9.1.1)"><span class="xref std std-ref">Sphinx support</span></a> Markdown however, I simply prefer reStructuredText 😅</p>
 </div>
 <div class="highlight-elisp notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="nb">use-package</span><span class="w"> </span><span class="nv">denote</span>
 <span class="w">  </span><span class="nb">:ensure</span><span class="w"> </span><span class="no">t</span>
@@ -316,7 +316,7 @@ Of course, being an Emacs package this isn’t something that a few lines of lis
 <span class="w">                                    </span><span class="nb">:link-in-context-regexp</span><span class="w"> </span><span class="o">,</span><span class="p">(</span><span class="nf">concat</span><span class="w"> </span><span class="s">&quot;:denote:link:`.*?&lt;\\(?1:&quot;</span><span class="w"> </span><span class="nv">denote-id-regexp</span><span class="w"> </span><span class="s">&quot;\\)&gt;`&quot;</span><span class="p">))))</span>
 </pre></div>
 </div>
-<p>Which gives denote the information it needs to read and write its metadata using reStructuredText’s <a class="reference external" href="https://www.sphinx-doc.org/en/master/usage/restructuredtext/basics.html#rst-field-lists" title="(in Sphinx v9.1.0)"><span class="xref std std-ref">field list</span></a> syntax.</p>
+<p>Which gives denote the information it needs to read and write its metadata using reStructuredText’s <a class="reference external" href="https://www.sphinx-doc.org/en/master/usage/restructuredtext/basics.html#rst-field-lists" title="(in Sphinx v9.1.1)"><span class="xref std std-ref">field list</span></a> syntax.</p>
 <div class="highlight-rst notranslate"><div class="highlight"><pre><span></span><span class="nc">:title:</span> Blogging with Sphinx and denote.el
 <span class="nc">:date:</span> 2025-05-17
 <span class="nc">:tags:</span> blog, blogging, denote, emacs, sphinx
@@ -341,7 +341,7 @@ However, by extending Sphinx I get to smooth off some rough edges and take advan
 <ul class="simple">
 <li><p>The <a class="reference external" href="https://github.com/alcarney/blog/blob/6fecce876ffbb808390a6b59a62ae081abaaf395/extensions/denote/record.py#L15">Record</a>
 dataclass captures all of the information encoded in and derived from a denote style filename.</p></li>
-<li><p>The <a class="reference external" href="https://github.com/alcarney/blog/blob/6fecce876ffbb808390a6b59a62ae081abaaf395/extensions/denote/domain.py#L83">Denote</a> Sphinx <a class="reference external" href="https://www.sphinx-doc.org/en/master/extdev/domainapi.html#domain-api" title="(in Sphinx v9.1.0)"><span class="xref std std-ref">Domain</span></a> is the main store of <code class="docutils literal notranslate"><span class="pre">Record</span></code> instances and can be thought of as the “backend” of the extension.</p></li>
+<li><p>The <a class="reference external" href="https://github.com/alcarney/blog/blob/6fecce876ffbb808390a6b59a62ae081abaaf395/extensions/denote/domain.py#L83">Denote</a> Sphinx <a class="reference external" href="https://www.sphinx-doc.org/en/master/extdev/domainapi.html#domain-api" title="(in Sphinx v9.1.1)"><span class="xref std std-ref">Domain</span></a> is the main store of <code class="docutils literal notranslate"><span class="pre">Record</span></code> instances and can be thought of as the “backend” of the extension.</p></li>
 <li><p>The rest of the extension uses the APIs provided by the two above classes to integrate with Sphinx at various points in the build lifecycle.</p></li>
 </ul>
 </div>
@@ -451,7 +451,7 @@ However, denote lends itself well to having just a folder full of files and I qu
     <span class="p">}</span>
 </pre></div>
 </div>
-<p>and implement the <a class="reference external" href="https://www.sphinx-doc.org/en/master/extdev/domainapi.html#sphinx.domains.Domain.resolve_xref" title="(in Sphinx v9.1.0)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">resolve_xref()</span></code></a> method so that links generated by <code class="docutils literal notranslate"><span class="pre">denote-link</span></code> and related commands link to the correct page when generating the html for this site</p>
+<p>and implement the <a class="reference external" href="https://www.sphinx-doc.org/en/master/extdev/domainapi.html#sphinx.domains.Domain.resolve_xref" title="(in Sphinx v9.1.1)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">resolve_xref()</span></code></a> method so that links generated by <code class="docutils literal notranslate"><span class="pre">denote-link</span></code> and related commands link to the correct page when generating the html for this site</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">resolve_xref</span><span class="p">(</span>
     <span class="bp">self</span><span class="p">,</span>
     <span class="n">env</span><span class="p">:</span> <span class="n">BuildEnvironment</span><span class="p">,</span>

@@ -26,9 +26,26 @@ Make it easy to get relevant nerd icons
    :project: emacs
    :filename: init.el
 
-   (use-package nerd-icons
-     :ensure t)
+   (use-package nerd-icons :ensure t)
 
+`Apparently <https://emacsredux.com/blog/2026/04/07/stealing-from-the-best-emacs-configs/>`__, disabling bi-directional text support can improve performance.
+Not sure if I can notice a difference, but I don't see any harm in keeping these around.
+
+.. code-block:: elisp
+   :project: emacs
+   :filename: init.el
+
+   (setq-default bidi-display-reordering 'left-to-right
+                 bidi-paragraph-direction 'left-to-right)
+   (setq bidi-inhibit-bpa t)
+
+Similarly, with this one
+
+.. code-block:: elisp
+   :project: emacs
+   :filename: init.el
+
+   (setq redisplay-skip-fontification-on-input t)
 
 Theme
 -----
@@ -205,3 +222,11 @@ And enable others
    :filename: early-init.el
 
    (context-menu-mode t)
+
+Only show a cursor in the active window
+
+.. code-block:: elisp
+   :project: emacs
+   :filename: init.el
+
+   (setq-default cursor-in-non-selected-windows nil)

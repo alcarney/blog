@@ -305,6 +305,13 @@
   </a>
   
 </li>
+      <li>
+    
+  <a class="reference internal" title="Managing Changes with ediff" href="../20260610T183929/">
+    Managing Changes with ediff
+  </a>
+  
+</li>
     </ul>
   </li>
       <li>
@@ -339,6 +346,13 @@
     
   <a class="reference internal" title="Common Lisp" href="../20260531T182827/">
     Common Lisp
+  </a>
+  
+</li>
+      <li>
+    
+  <a class="reference internal" title="ediff" href="../20260610T182004/">
+    ediff
   </a>
   
 </li>
@@ -417,15 +431,22 @@ There are many packages already available that do this, including but not limite
 <span class="w">  </span><span class="nb">:demand</span><span class="w"> </span><span class="no">t</span>
 <span class="w">  </span><span class="nb">:hook</span><span class="w"> </span><span class="p">((</span><span class="nv">alc-jj-log-view-mode</span><span class="w"> </span><span class="o">.</span><span class="w"> </span><span class="nv">combobulate-mode</span><span class="p">))</span>
 <span class="w">  </span><span class="nb">:bind</span><span class="w"> </span><span class="p">(</span><span class="nb">:map</span><span class="w"> </span><span class="nv">alc-jj-log-view-mode-map</span>
+<span class="w">         </span><span class="p">(</span><span class="s">&quot;A&quot;</span><span class="w"> </span><span class="o">.</span><span class="w"> </span><span class="nv">alc-jj-log-view-new-after</span><span class="p">)</span>
+<span class="w">         </span><span class="p">(</span><span class="s">&quot;B&quot;</span><span class="w"> </span><span class="o">.</span><span class="w"> </span><span class="nv">alc-jj-log-view-new-before</span><span class="p">)</span>
+<span class="w">         </span><span class="p">(</span><span class="s">&quot;e&quot;</span><span class="w"> </span><span class="o">.</span><span class="w"> </span><span class="nv">alc-jj-log-view-edit</span><span class="p">)</span>
+<span class="w">         </span><span class="p">(</span><span class="s">&quot;d&quot;</span><span class="w"> </span><span class="o">.</span><span class="w"> </span><span class="nv">alc-jj-log-view-describe</span><span class="p">)</span>
+<span class="w">         </span><span class="p">(</span><span class="s">&quot;g&quot;</span><span class="w"> </span><span class="o">.</span><span class="w"> </span><span class="nv">alc-jj-log-view-reload</span><span class="p">)</span>
 <span class="w">         </span><span class="p">(</span><span class="s">&quot;n&quot;</span><span class="w"> </span><span class="o">.</span><span class="w"> </span><span class="nv">combobulate-navigate-next</span><span class="p">)</span>
-<span class="w">         </span><span class="p">(</span><span class="s">&quot;p&quot;</span><span class="w"> </span><span class="o">.</span><span class="w"> </span><span class="nv">combobulate-navigate-previous</span><span class="p">)))</span>
+<span class="w">         </span><span class="p">(</span><span class="s">&quot;p&quot;</span><span class="w"> </span><span class="o">.</span><span class="w"> </span><span class="nv">combobulate-navigate-previous</span><span class="p">)</span>
+<span class="w">         </span><span class="p">(</span><span class="s">&quot;s&quot;</span><span class="w"> </span><span class="o">.</span><span class="w"> </span><span class="nv">alc-jj-log-view-squash-changes</span><span class="p">)</span>
+<span class="w">         </span><span class="p">(</span><span class="s">&quot;t&quot;</span><span class="w"> </span><span class="o">.</span><span class="w"> </span><span class="nv">alc-jj-log-view-set-target-revision</span><span class="p">)))</span>
 </pre></div>
 </div>
 </div>
 <p>See the following for details</p>
 <ul class="simple">
-<li><p><a class="reference internal" href="../../blog/2026/alc-jj-log-view-mode/" title="Building alc-jj-log-view-mode">alc-jj-log-view-mode</a></p></li>
-<li><p><a class="reference internal" href="../../blog/2026/eshell-integration/" title="A Simple jj Integration for eshell">A simple jj integration for eshell</a></p></li>
+<li><p><a class="reference internal" href="../../blog/2026/alc-jj-log-view-mode/" title="Building alc-jj-log-view-mode">Building alc-jj-log-view-mode</a></p></li>
+<li><p><a class="reference internal" href="../../blog/2026/eshell-integration/" title="A Simple jj Integration for eshell">A Simple jj Integration for eshell</a></p></li>
 </ul>
 </section>
 

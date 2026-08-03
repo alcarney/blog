@@ -326,6 +326,13 @@
   </a>
   
 </li>
+      <li>
+    
+  <a class="reference internal" title="Managing Changes with ediff" href="../../../notes/20260610T183929/">
+    Managing Changes with ediff
+  </a>
+  
+</li>
     </ul>
   </li>
       <li>
@@ -360,6 +367,13 @@
     
   <a class="reference internal" title="Common Lisp" href="../../../notes/20260531T182827/">
     Common Lisp
+  </a>
+  
+</li>
+      <li>
+    
+  <a class="reference internal" title="ediff" href="../../../notes/20260610T182004/">
+    ediff
   </a>
   
 </li>
@@ -580,7 +594,7 @@ This file can be set up with `tree-sitter init`. For more information, see https
 </section>
 </section>
 <section id="writing-the-grammar">
-<h2>Writing The Grammar<a class="headerlink" href="#writing-the-grammar" title="Link to this heading">¶</a></h2>
+<span id="jj-log-grammar"></span><h2>Writing The Grammar<a class="headerlink" href="#writing-the-grammar" title="Link to this heading">¶</a></h2>
 <p>With a hello world in place, it’s time to write the actual grammar rules.
 Let’s consider the output from <code class="docutils literal notranslate"><span class="pre">jj</span> <span class="pre">log</span></code>:</p>
 <div class="highlight-none notranslate"><div class="highlight"><pre><span></span>❯ jj log
@@ -697,17 +711,7 @@ But since the navigation commands are all powered by regular expressions I didn�
 <div class="awdur-codeblock docutils container">
 <div class="awdur-codeblock-header docutils container">
 <code class="awdur-codeblock-filename docutils literal notranslate"><span class="pre">lisp/alc-jj.el</span></code></div>
-<div class="highlight-elisp notranslate"><div class="highlight"><pre><span></span><span class="c1">;; Keymap must be defined before the major-mode in order to take effect.</span>
-<span class="p">(</span><span class="k">defvar</span><span class="w"> </span><span class="nv">alc-jj-log-view-mode-map</span>
-<span class="w">  </span><span class="p">(</span><span class="k">let</span><span class="w"> </span><span class="p">((</span><span class="nv">map</span><span class="w"> </span><span class="p">(</span><span class="nf">make-sparse-keymap</span><span class="p">)))</span>
-<span class="w">    </span><span class="p">(</span><span class="nv">keymap-set</span><span class="w"> </span><span class="nv">map</span><span class="w"> </span><span class="s">&quot;B&quot;</span><span class="w"> </span><span class="nf">#&#39;</span><span class="nv">alc-jj-log-view-new-before</span><span class="p">)</span>
-<span class="w">    </span><span class="p">(</span><span class="nv">keymap-set</span><span class="w"> </span><span class="nv">map</span><span class="w"> </span><span class="s">&quot;A&quot;</span><span class="w"> </span><span class="nf">#&#39;</span><span class="nv">alc-jj-log-view-new-after</span><span class="p">)</span>
-<span class="w">    </span><span class="p">(</span><span class="nv">keymap-set</span><span class="w"> </span><span class="nv">map</span><span class="w"> </span><span class="s">&quot;e&quot;</span><span class="w"> </span><span class="nf">#&#39;</span><span class="nv">alc-jj-log-view-edit</span><span class="p">)</span>
-<span class="w">    </span><span class="p">(</span><span class="nv">keymap-set</span><span class="w"> </span><span class="nv">map</span><span class="w"> </span><span class="s">&quot;d&quot;</span><span class="w"> </span><span class="nf">#&#39;</span><span class="nv">alc-jj-log-view-describe</span><span class="p">)</span>
-<span class="w">    </span><span class="p">(</span><span class="nv">keymap-set</span><span class="w"> </span><span class="nv">map</span><span class="w"> </span><span class="s">&quot;g&quot;</span><span class="w"> </span><span class="nf">#&#39;</span><span class="nv">alc-jj-log-view-reload</span><span class="p">)</span>
-<span class="w">    </span><span class="nv">map</span><span class="p">))</span>
-
-<span class="p">(</span><span class="nb">define-derived-mode</span><span class="w"> </span><span class="nv">alc-jj-log-view-mode</span><span class="w"> </span><span class="nv">special-mode</span><span class="w"> </span><span class="s">&quot;jj-log&quot;</span>
+<div class="highlight-elisp notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="nb">define-derived-mode</span><span class="w"> </span><span class="nv">alc-jj-log-view-mode</span><span class="w"> </span><span class="nv">special-mode</span><span class="w"> </span><span class="s">&quot;jj-log&quot;</span>
 <span class="w">  </span><span class="s">&quot;Major mode for viewing and manipulating the jj log&quot;</span>
 <span class="w">  </span><span class="p">(</span><span class="nb">when</span><span class="w"> </span><span class="p">(</span><span class="nv">treesit-ready-p</span><span class="w"> </span><span class="ss">&#39;jjlog</span><span class="p">)</span>
 <span class="w">    </span><span class="p">(</span><span class="nv">treesit-parser-create</span><span class="w"> </span><span class="ss">&#39;jjlog</span><span class="p">)</span>

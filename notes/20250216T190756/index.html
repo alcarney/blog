@@ -130,6 +130,7 @@
 <li><a class="reference internal" href="#">My Emacs Configuration</a><ul>
 <li><a class="reference internal" href="#basic-editing">Basic Editing</a><ul>
 <li><a class="reference internal" href="#backup-files">Backup Files</a></li>
+<li><a class="reference internal" href="#kill-ring">Kill Ring</a></li>
 <li><a class="reference internal" href="#repeat-mode">Repeat Mode</a></li>
 <li><a class="reference internal" href="#whitespace">Whitespace</a></li>
 <li><a class="reference internal" href="#compilation">Compilation</a></li>
@@ -324,6 +325,13 @@
   </a>
   
 </li>
+      <li>
+    
+  <a class="reference internal" title="Managing Changes with ediff" href="../20260610T183929/">
+    Managing Changes with ediff
+  </a>
+  
+</li>
     </ul>
   </li>
       <li>
@@ -358,6 +366,13 @@
     
   <a class="reference internal" title="Common Lisp" href="../20260531T182827/">
     Common Lisp
+  </a>
+  
+</li>
+      <li>
+    
+  <a class="reference internal" title="ediff" href="../20260610T182004/">
+    ediff
   </a>
   
 </li>
@@ -423,6 +438,31 @@
 <div class="awdur-project-tree">
     <details class="awdur-directory"><summary>lisp</summary>
       <div class="awdur-directory-contents">
+    <details class="awdur-file"><summary>alc-ediff.el</summary>
+      <pre class="code literal-block"><code>
+;;; alc-ediff.el --- TODO add description  -*- lexical-binding: t -*-
+
+;;; Code:
+(require &#39;ediff)
+
+(defun alc-ediff-window-setup-function (&amp;rest args)
+  &#34;Configure the window layout for an ediff session.&#34;
+  (tab-new)
+  (apply #&#39;ediff-setup-windows-plain args))
+
+(defun alc-ediff-suspend-hook ()
+  &#34;Close the tab created by `alc-ediff-window-setup-function&#39;.&#34;
+  (tab-close))
+
+(defun alc-ediff-quit-hook ()
+  &#34;Close the tab created by `alc-ediff-window-setup-function&#39;.&#34;
+  (tab-close))
+
+(provide &#39;alc-ediff)
+
+;;; alc-ediff.el ends here
+</code></pre>
+    </details>
     <details class="awdur-file"><summary>alc-eshell.el</summary>
       <pre class="code literal-block"><code>
 ;;; alc-eshell.el --- TODO add description  -*- lexical-binding: t -*-
@@ -517,16 +557,6 @@ repository&#34;
 ;;; alc-jj.el --- TODO add description  -*- lexical-binding: t -*-
 
 ;;; Code:
-;; Keymap must be defined before the major-mode in order to take effect.
-(defvar alc-jj-log-view-mode-map
-  (let ((map (make-sparse-keymap)))
-    (keymap-set map &#34;B&#34; #&#39;alc-jj-log-view-new-before)
-    (keymap-set map &#34;A&#34; #&#39;alc-jj-log-view-new-after)
-    (keymap-set map &#34;e&#34; #&#39;alc-jj-log-view-edit)
-    (keymap-set map &#34;d&#34; #&#39;alc-jj-log-view-describe)
-    (keymap-set map &#34;g&#34; #&#39;alc-jj-log-view-reload)
-    map))
-
 (define-derived-mode alc-jj-log-view-mode special-mode &#34;jj-log&#34;
   &#34;Major mode for viewing and manipulating the jj log&#34;
   (when (treesit-ready-p &#39;jjlog)
@@ -696,6 +726,157 @@ returns nil.&#34;
       ;; Re-enable read-only mode and show the buffer
       (read-only-mode)
       (pop-to-buffer (current-buffer)))))
+
+(defun alc-jj-ediff--prepare-squash-changelist ()
+  &#34;Process the output of jj diff and return a list of changes for ediff.&#34;
+  (with-temp-buffer
+   (call-process &#34;jj&#34; nil t nil &#34;diff&#34; &#34;--summary&#34;)
+   (mapcar #&#39;(lambda (line) `(nil nil
+                              (,(substring line 2) nil)     ; obj1
+                              (nil nil)                     ; obj2
+                              (,(substring line 0 1) nil))) ; obj3
+           (string-split (buffer-string) &#34;\n&#34; t))))
+
+(defun alc-jj-ediff--prepare-squash-header ()
+  &#34;Process the output of &#39;jj show&#39; and return the header information for ediff.&#34;
+  (let ((wcopy (alc-jj--revision-info &#34;@&#34;))
+        (to (alc-jj--revision-info &#34;to@&#34;)))
+    (list nil wcopy to nil nil #&#39;string=)))
+
+(defun alc-jj--revision-info (revision)
+  &#34;Return a short string describing the given revision&#34;
+  (with-temp-buffer
+    (call-process &#34;jj&#34; nil t nil
+      &#34;show&#34; revision
+      &#34;-T&#34; &#34;separate(\&#34; \&#34;, change_id.shortest(8), commit_id.shortest(8), description.first_line())&#34;
+      &#34;--no-patch&#34;)
+    (string-trim (buffer-string))))
+
+(defun alc-jj-ediff-redraw-session-buffer (meta-list)
+  &#34;Given the META-LIST of changes render the corresponding MetaEdiff buffer.&#34;
+  (let ((meta-buffer (ediff-get-group-buffer meta-list))
+        (session-num 0)
+        ;; Declare any setq&#39;q vars here so they don&#39;t leak into the wider scope
+        point elt header)
+    (ediff-with-current-buffer meta-buffer
+      (setq point (point))
+      (erase-buffer)
+      ;; delete phony overlays that used to represent sessions before the buffer
+      ;; was redrawn
+      (mapc #&#39;delete-overlay (overlays-in 1 1))
+
+      ;; Pull the HEADER off the list of changes
+      (setq header (car meta-list)
+            meta-list (cdr meta-list))
+
+      (insert &#34;Working copy changes:\n&#34;)
+
+      ;; Loop over each change and insert it into the buffer.
+      (while meta-list
+        (setq elt (car meta-list)
+              meta-list (cdr meta-list)
+              session-num (1+ session-num))
+        (alc-jj-ediff-insert-session-info-in-meta-buffer elt session-num))
+
+      ;; Render information provided by the HEADER
+      (insert (format &#34;Working copy   (@)  : %s\n&#34; (nth 2 header)))
+      (insert (format &#34;Target revsion (to@): %s\n&#34; (nth 3 header)))
+
+      (set-buffer-modified-p nil)
+      (goto-char point)
+      meta-buffer)))
+
+(defun alc-jj-ediff-insert-session-info-in-meta-buffer (session-info session-num)
+  (let ((file-a (ediff-get-session-objA session-info))
+        (file-b (ediff-get-session-objB session-info))
+        (change (ediff-get-session-objC session-info))
+        (start-pos (point)))
+    (ediff-insert-session-activity-marker-in-meta-buffer session-info)
+    (ediff-insert-session-status-in-meta-buffer session-info)
+    (insert (format &#34;%s %s\n&#34; (car change) (car file-a)))
+    (ediff-set-meta-overlay start-pos (point) session-info session-num)))
+
+(defun alc-jj-log-view-squash-changes ()
+  &#34;Start an ediff session to selectively move changes from the current workspace
+into the \&#34;to@\&#34; workspace.&#34;
+  (interactive)
+  (ediff-show-meta-buffer
+    (ediff-prepare-meta-buffer #&#39;alc-jj-ediff-filegroup-action
+                               `(,(alc-jj-ediff--prepare-squash-header)
+                                 ,@(alc-jj-ediff--prepare-squash-changelist))
+                               &#34;*jj squash --interactive&#34;
+                               #&#39;alc-jj-ediff-redraw-session-buffer
+                               &#39;alc-jj-squash)))
+
+(defun alc-jj-ediff--store-control-buffer (session)
+  &#34;Store the `ediff-control-buffer&#39; in the given SESSION info list.
+To be used as an ediff startup hook&#34;
+  `(lambda ()
+      (setcar (quote ,session) ediff-control-buffer)))
+
+(defun alc-jj-ediff--snapshot-on-exit (workspace)
+  &#34;Run &#39;jj status&#39; in the given WORKSPACE when ediff quits.&#34;
+  `(lambda ()
+      (add-hook &#39;ediff-quit-hook
+                (lambda ()
+                  (let ((default-directory ,workspace))
+                    (call-process &#34;jj&#34; nil nil nil &#34;status&#34;)))
+                nil &#39;local)))
+
+(defun alc-jj-ediff-filegroup-action ()
+  (interactive)
+  (let* (;; Standard command invocation metadata
+         (pos (ediff-event-point last-command-event))
+         (meta-buffer (ediff-event-buffer last-command-event))
+         (info (ediff-get-meta-info meta-buffer pos))
+         (session-buffer (ediff-get-session-buffer info))
+         ;; file objects
+         (file-a (ediff-get-session-objA-name info))
+         ;; jj specifics.
+         (current-ws (alc-jj--get-workspace-root))
+         (to-ws      (alc-jj--get-workspace-root &#34;to&#34;)))
+    (cond ;; reactivate an existing session
+          ((ediff-buffer-live-p session-buffer)
+           (ediff-with-current-buffer session-buffer (ediff-recenter &#39;no-rehighlight)))
+          ;; start a new one
+          (t
+           (ediff (concat to-ws &#34;/&#34; file-a)
+                  (concat current-ws &#34;/&#34; file-a)
+                  ;; startup-hooks
+                  `(list ,(alc-jj-ediff--store-control-buffer info)
+                         ,(alc-jj-ediff--snapshot-on-exit to-ws)
+                         ,(alc-jj-ediff--snapshot-on-exit current-ws)))))))
+
+(defun alc-jj--get-workspace-root (&amp;optional name)
+  (with-temp-buffer
+    (if (eq 0 (apply #&#39;call-process &#34;jj&#34; nil t nil &#34;workspace&#34; &#34;root&#34;
+                                    (if name (list &#34;--name&#34; name) &#39;())))
+      (string-trim (buffer-string)))))
+
+(defun alc-jj-get-workspace (name &amp;optional create)
+  &#34;Return the path to the workspace with the given NAME, if CREATE is t then the workspace will be
+created if necessary&#34;
+  (let ((path    (alc-jj--get-workspace-root name))
+        (current (alc-jj--get-workspace-root)))
+    (if (not (or path current))
+      (error &#34;Not a jj repo.&#34;))
+    (if (and (null path) create)
+       (let ((new-path (concat (file-name-directory current) name)))
+         (call-process &#34;jj&#34; nil t nil &#34;workspace&#34; &#34;add&#34; new-path)
+         new-path)
+     path)))
+
+(defun alc-jj-log-view-set-target-revision ()
+  &#34;Move the to@ workspace to point at the revision under point.&#34;
+  (interactive)
+  (if-let ((change-id (alc-jj-log-view--change-at-point)))
+    (progn
+      (let ((default-directory (alc-jj-get-workspace &#34;to&#34; t)))
+        ;; The workspace might be stale...
+        (call-process &#34;jj&#34; nil nil nil &#34;workspace&#34; &#34;update-state&#34;)
+        (call-process &#34;jj&#34; nil nil nil &#34;edit&#34; change-id))
+      ;; Be sure to update the log relative to the current workspace
+      (alc-jj-log-view-reload))))
 
 (provide &#39;alc-jj)
 
@@ -1206,6 +1387,9 @@ elided_revisions:  $ =&gt; seq(&#39;~&#39;, optional(&#39;(elided revisions)&#39
 
 (setq backup-directory-alist `((&#34;.&#34; . ,(expand-file-name &#34;backups&#34; user-emacs-directory))))
 
+(setq kill-do-not-save-duplicates t           ; when would you want duplicates?...
+      save-interprogram-paste-before-kill t)  ; save system clipboard to kill-ring before killing new text.
+
 (repeat-mode 1)
 
 (setq whitespace-style &#39;(face empty trailing lines-char tab-mark))
@@ -1478,8 +1662,13 @@ paths referencing directories include the trailing slash.&#34;
 (set-face-attribute &#39;fixed-pitch nil :family &#34;UbuntuMonoNerdFont&#34; :height 120)
 (set-face-attribute &#39;variable-pitch nil :family &#34;UbuntuSansNerdFont&#34; :weight &#39;light :height 120)
 
-(use-package nerd-icons
-  :ensure t)
+(use-package nerd-icons :ensure t)
+
+(setq-default bidi-display-reordering &#39;left-to-right
+              bidi-paragraph-direction &#39;left-to-right)
+(setq bidi-inhibit-bpa t)
+
+(setq redisplay-skip-fontification-on-input t)
 
 (use-package doric-themes :ensure t)
 
@@ -1546,14 +1735,23 @@ paths referencing directories include the trailing slash.&#34;
                mode-line-modes
                )))
 
+(setq-default cursor-in-non-selected-windows nil)
+
 (keymap-global-set &#34;C-x C-b&#34; &#39;ibuffer)
 
 (use-package alc-jj
   :demand t
   :hook ((alc-jj-log-view-mode . combobulate-mode))
   :bind (:map alc-jj-log-view-mode-map
+         (&#34;A&#34; . alc-jj-log-view-new-after)
+         (&#34;B&#34; . alc-jj-log-view-new-before)
+         (&#34;e&#34; . alc-jj-log-view-edit)
+         (&#34;d&#34; . alc-jj-log-view-describe)
+         (&#34;g&#34; . alc-jj-log-view-reload)
          (&#34;n&#34; . combobulate-navigate-next)
-         (&#34;p&#34; . combobulate-navigate-previous)))
+         (&#34;p&#34; . combobulate-navigate-previous)
+         (&#34;s&#34; . alc-jj-log-view-squash-changes)
+         (&#34;t&#34; . alc-jj-log-view-set-target-revision)))
 
 (use-package alc-treesitter
   :load-path &#34;lisp&#34;
@@ -1634,6 +1832,15 @@ paths referencing directories include the trailing slash.&#34;
   :ensure t
   :config
   (setq sly-lisp-implementations &#39;((sbcl (&#34;sbcl&#34;)))))
+
+(use-package alc-ediff
+  :load-path &#34;lisp&#34;
+  :custom
+  ((ediff-window-setup-function &#39;alc-ediff-window-setup-function))
+  :config
+  ;; I tried setting these via `:hook` but they seemed to be clobbered by ediff&#39;s setup code...
+  (add-hook &#39;ediff-suspend-hook #&#39;alc-ediff-suspend-hook)
+  (add-hook &#39;ediff-quit-hook #&#39;alc-ediff-quit-hook))
 
 (provide &#39;init)
 
@@ -1726,6 +1933,18 @@ However, this does not happen when launching Emacs via krunner and so it fails t
 <div class="awdur-codeblock-header docutils container">
 <code class="awdur-codeblock-filename docutils literal notranslate"><span class="pre">init.el</span></code></div>
 <div class="highlight-elisp notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="k">setq</span><span class="w"> </span><span class="nv">backup-directory-alist</span><span class="w"> </span><span class="o">`</span><span class="p">((</span><span class="s">&quot;.&quot;</span><span class="w"> </span><span class="o">.</span><span class="w"> </span><span class="o">,</span><span class="p">(</span><span class="nf">expand-file-name</span><span class="w"> </span><span class="s">&quot;backups&quot;</span><span class="w"> </span><span class="nv">user-emacs-directory</span><span class="p">))))</span>
+</pre></div>
+</div>
+</div>
+</section>
+<section id="kill-ring">
+<h3>Kill Ring<a class="headerlink" href="#kill-ring" title="Link to this heading">¶</a></h3>
+<p>a.k.a. the clipboard.</p>
+<div class="awdur-codeblock docutils container">
+<div class="awdur-codeblock-header docutils container">
+<code class="awdur-codeblock-filename docutils literal notranslate"><span class="pre">init.el</span></code></div>
+<div class="highlight-elisp notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="k">setq</span><span class="w"> </span><span class="nv">kill-do-not-save-duplicates</span><span class="w"> </span><span class="no">t</span><span class="w">           </span><span class="c1">; when would you want duplicates?...</span>
+<span class="w">      </span><span class="nv">save-interprogram-paste-before-kill</span><span class="w"> </span><span class="no">t</span><span class="p">)</span><span class="w">  </span><span class="c1">; save system clipboard to kill-ring before killing new text.</span>
 </pre></div>
 </div>
 </div>
