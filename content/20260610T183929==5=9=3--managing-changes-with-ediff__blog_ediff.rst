@@ -1,6 +1,6 @@
 :title: Managing Changes with ediff
-:date: 2026-06-10
-:tags: ediff
+:date: 2026-08-03
+:tags: blog, ediff
 :identifier: 20260610T183929
 :signature: 5=9=3
 
