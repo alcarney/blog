@@ -1,0 +1,56 @@
+:title: ediff
+:date: 2026-06-10
+:tags: ediff
+:identifier: 20260610T182004
+:signature: 5=15
+
+``ediff``
+=========
+
+Below are my customisations for ``ediff``, explanations are captured in follow on sections
+
+.. code-block:: elisp
+   :project: emacs
+   :filename: init.el
+
+   (use-package alc-ediff
+     :load-path "lisp"
+     :custom
+     ((ediff-window-setup-function 'alc-ediff-window-setup-function))
+     :config
+     ;; I tried setting these via `:hook` but they seemed to be clobbered by ediff's setup code...
+     (add-hook 'ediff-suspend-hook #'alc-ediff-suspend-hook)
+     (add-hook 'ediff-quit-hook #'alc-ediff-quit-hook))
+
+
+Window Management
+-----------------
+
+``ediff`` runs an arbitrary function ``ediff-window-setup-function`` to configure the window layout at the start of an ediff session.
+I'm quite happy with ``ediff-setup-windows-plain``, the only tweak I want to make is to have the window layout open in a new tab.
+
+.. code-block:: elisp
+   :project: emacs
+   :filename: lisp/alc-ediff.el
+   :template: elisp-module
+
+   (require 'ediff)
+
+   (defun alc-ediff-window-setup-function (&rest args)
+     "Configure the window layout for an ediff session."
+     (tab-new)
+     (apply #'ediff-setup-windows-plain args))
+
+Of course, the newly created tab should be closed on session quit/suspend.
+
+.. code-block:: elisp
+   :project: emacs
+   :filename: lisp/alc-ediff.el
+
+   (defun alc-ediff-suspend-hook ()
+     "Close the tab created by `alc-ediff-window-setup-function'."
+     (tab-close))
+
+   (defun alc-ediff-quit-hook ()
+     "Close the tab created by `alc-ediff-window-setup-function'."
+     (tab-close))
