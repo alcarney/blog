@@ -31,7 +31,7 @@ html:
 
 .PHONY: dotfiles
 dotfiles:
-	$(UV) run sphinx-build -b awdur . $(DOTFILES) $(SPHINX_OPTS)
+	$(UV) run sphinx-build -Ea -b awdur . $(DOTFILES) $(SPHINX_OPTS)
 
 
 preview:
