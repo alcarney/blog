@@ -1,11 +1,11 @@
-:title: Language Servers in Emacs
+:title: eglot
 :date: 2025-03-05
 :tags: emacs
 :identifier: 20250305T195742
 :signature: 5=3
 
-Language Servers in Emacs
-=========================
+``eglot``
+=========
 
 I use ``eglot`` as my language client since it is available out of the box and integrates nicely with core packages like ``xref``
 
@@ -20,11 +20,49 @@ I use ``eglot`` as my language client since it is available out of the box and i
      (eglot-extend-to-xref t)
      :config
      (advice-add 'eglot--workspace-configuration-plist :around #'alc-eglot-fix-workspace-configuration-scope)
-
      (add-to-list 'display-buffer-alist
                   '("\\*EGLOT workspace configuration\\*"
                     (display-buffer-below-selected)
                     (dedicated . t))))
+
+You see advice out there for bumping the default value of ``read-process-output-max`` to reduce the overhead of reading output from LSP servers etc.
+According to the docstring this should not exceed the value of ``/proc/sys/fs/pipe-max-size``
+
+.. code-block:: elisp
+   :project: emacs
+   :filename: init.el
+
+   (setq read-process-output-max
+         (max 1048576 ; 1MB
+              (string-to-number (with-temp-buffer
+                                  (ignore-errors (insert-file "/proc/sys/fs/pipe-max-size"))
+                                  (buffer-string)))))
+
+``lsp-devtools``
+----------------
+
+Often I want to wrap some server with the `lsp-devtools <https://lsp-devtools.readthedocs.io/en/latest/lsp-devtools/guide/getting-started.html>`__ agent.
+What's nice is that we can simply advise the function eglot uses to determine how to connect with the server
+
+.. code-block:: elisp
+   :project: emacs
+   :filename: init.el
+
+   (defun alc-eglot-wrap-server-in-lsp-devtools (oldfun &rest args)
+     "Wrap the server config returned from eglot in the lsp-devtools agent."
+     (if-let ((lsp-devtools (executable-find "lsp-devtools")))
+        (pcase-let ((`(,modes ,project ,class ,contact ,lang-ids) (apply oldfun args)))
+          `(,modes ,project ,class ,(append `(,lsp-devtools "agent" "--") contact) ,lang-ids))
+       (apply oldfun args)))
+
+I'm sure there's loads of fun to be had coming up with a nice workflow to determine which projects/servers I wish to wrap at any given time however, for now I just run the following commands to enable/disable wrapping as needed.
+
+.. code-block:: elisp
+
+   (advice-add #'eglot--guess-contact :around #'alc-eglot-wrap-server-in-lsp-devtools)
+
+   (advice-remove #'eglot--guess-contact #'alc-eglot-wrap-server-in-lsp-devtools)
+
 
 Workspace Configuration
 -----------------------
