@@ -237,8 +237,8 @@
   </li>
       <li>
     
-  <a class="reference internal" title="Language Servers in Emacs" href="../20250305T195742/">
-    Language Servers in Emacs
+  <a class="reference internal" title="eglot" href="../20250305T195742/">
+    eglot
   </a>
   
 </li>
@@ -500,8 +500,15 @@ I admit, I probably don’t use this as much as I should.</p>
 <code class="awdur-codeblock-filename docutils literal notranslate"><span class="pre">init.el</span></code></div>
 <div class="highlight-elisp notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="nb">use-package</span><span class="w"> </span><span class="nv">embark</span>
 <span class="w">  </span><span class="nb">:ensure</span><span class="w"> </span><span class="no">t</span>
-<span class="w">  </span><span class="nb">:bind</span><span class="w"> </span><span class="p">((</span><span class="s">&quot;C-.&quot;</span><span class="w"> </span><span class="o">.</span><span class="w"> </span><span class="nv">embark-act</span><span class="p">)</span>
-<span class="w">         </span><span class="p">(</span><span class="s">&quot;M-.&quot;</span><span class="w"> </span><span class="o">.</span><span class="w"> </span><span class="nv">embark-dwim</span><span class="p">)))</span>
+<span class="w">  </span><span class="nb">:bind</span><span class="w"> </span><span class="p">((</span><span class="s">&quot;C-.&quot;</span><span class="w">   </span><span class="o">.</span><span class="w"> </span><span class="nv">embark-act</span><span class="p">)</span><span class="w"> </span><span class="c1">;; C-u C-. to have embark-act stay open after taking an aciton.</span>
+<span class="w">         </span><span class="p">(</span><span class="s">&quot;M-.&quot;</span><span class="w">   </span><span class="o">.</span><span class="w"> </span><span class="nv">embark-dwim</span><span class="p">)</span>
+<span class="w">         </span><span class="p">(</span><span class="s">&quot;C-h b&quot;</span><span class="w"> </span><span class="o">.</span><span class="w"> </span><span class="nv">embark-bindings</span><span class="p">))</span>
+<span class="w">  </span><span class="nb">:config</span>
+<span class="w">  </span><span class="p">(</span><span class="k">setq</span><span class="w"> </span><span class="nv">prefix-help-command</span><span class="w"> </span><span class="nf">#&#39;</span><span class="nv">embark-prefix-help-command</span><span class="p">)</span>
+<span class="w">  </span><span class="p">(</span><span class="k">setq</span><span class="w"> </span><span class="nv">embark-indicators</span>
+<span class="w">        </span><span class="o">&#39;</span><span class="p">(</span><span class="nv">embark-minimal-indicator</span>
+<span class="w">          </span><span class="nv">embark-highlight-indicator</span>
+<span class="w">          </span><span class="nv">embark-isearch-highlight-indicator</span><span class="p">)))</span>
 </pre></div>
 </div>
 </div>
@@ -512,6 +519,17 @@ I admit, I probably don’t use this as much as I should.</p>
 <div class="highlight-elisp notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="nb">use-package</span><span class="w"> </span><span class="nv">embark-consult</span>
 <span class="w">  </span><span class="nb">:after</span><span class="w"> </span><span class="p">(</span><span class="nv">embark</span><span class="w"> </span><span class="nv">consult</span><span class="p">)</span>
 <span class="w">  </span><span class="nb">:ensure</span><span class="w"> </span><span class="no">t</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<p>To get the most out of Embark, you should also install marginalia as it improves the completion metadata provided by many built-in commands, allowing Embark to offer better suggestions.</p>
+<div class="awdur-codeblock docutils container">
+<div class="awdur-codeblock-header docutils container">
+<code class="awdur-codeblock-filename docutils literal notranslate"><span class="pre">init.el</span></code></div>
+<div class="highlight-elisp notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="nb">use-package</span><span class="w"> </span><span class="nv">marginalia</span>
+<span class="w">  </span><span class="nb">:ensure</span><span class="w"> </span><span class="no">t</span>
+<span class="w">  </span><span class="nb">:config</span>
+<span class="w">  </span><span class="p">(</span><span class="nv">marginalia-mode</span><span class="p">))</span>
 </pre></div>
 </div>
 </div>
@@ -560,7 +578,8 @@ I find the ~95% of the time, I already know what I’m trying to select and I’
 <span class="w">          </span><span class="p">(</span><span class="nv">consult-imenu</span><span class="w"> </span><span class="nv">buffer</span><span class="p">)))</span>
 
 <span class="w">  </span><span class="p">(</span><span class="k">setq</span><span class="w"> </span><span class="nv">vertico-multiform-categories</span>
-<span class="w">        </span><span class="o">&#39;</span><span class="p">((</span><span class="no">t</span><span class="w"> </span><span class="nv">unobtrusive</span><span class="p">)))</span>
+<span class="w">        </span><span class="o">&#39;</span><span class="p">((</span><span class="nv">embark-keybinding</span><span class="w"> </span><span class="nv">grid</span><span class="p">)</span>
+<span class="w">          </span><span class="p">(</span><span class="no">t</span><span class="w"> </span><span class="nv">unobtrusive</span><span class="p">)))</span>
 
 <span class="w">  </span><span class="p">(</span><span class="nv">vertico-multiform-mode</span><span class="w"> </span><span class="no">t</span><span class="p">))</span>
 </pre></div>

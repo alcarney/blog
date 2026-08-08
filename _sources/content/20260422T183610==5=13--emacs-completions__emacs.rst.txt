@@ -95,8 +95,15 @@ Embark
 
    (use-package embark
      :ensure t
-     :bind (("C-." . embark-act)
-            ("M-." . embark-dwim)))
+     :bind (("C-."   . embark-act) ;; C-u C-. to have embark-act stay open after taking an aciton.
+            ("M-."   . embark-dwim)
+            ("C-h b" . embark-bindings))
+     :config
+     (setq prefix-help-command #'embark-prefix-help-command)
+     (setq embark-indicators
+           '(embark-minimal-indicator
+             embark-highlight-indicator
+             embark-isearch-highlight-indicator)))
 
 
 Since I have consult installed, use the recommended `emabrk-consult <https://github.com/minad/consult#embark-integration>`__ package (though I admit I'm not sure what it does!)
@@ -108,6 +115,18 @@ Since I have consult installed, use the recommended `emabrk-consult <https://git
    (use-package embark-consult
      :after (embark consult)
      :ensure t)
+
+To get the most out of Embark, you should also install marginalia as it improves the completion metadata provided by many built-in commands, allowing Embark to offer better suggestions.
+
+.. code-block:: elisp
+   :project: emacs
+   :filename: init.el
+
+   (use-package marginalia
+     :ensure t
+     :config
+     (marginalia-mode))
+
 
 Orderless
 ---------
@@ -160,7 +179,8 @@ So I have arrived at the following config.
              (consult-imenu buffer)))
 
      (setq vertico-multiform-categories
-           '((t unobtrusive)))
+           '((embark-keybinding grid)
+             (t unobtrusive)))
 
      (vertico-multiform-mode t))
 

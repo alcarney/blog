@@ -5,7 +5,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>Language Servers in Emacs &#8212; Alex Carney</title>
+    <title>eglot &#8212; Alex Carney</title>
 
     <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=02ca0aaa" />
     <link id="pygments_dark_css" media="(prefers-color-scheme: dark)" rel="stylesheet" type="text/css" href="../../_static/pygments_dark.css?v=d8568271" />
@@ -127,7 +127,8 @@
 </section><section id="post-contents">
   <nav id="localtoc">
     <ul>
-<li><a class="reference internal" href="#">Language Servers in Emacs</a><ul>
+<li><a class="reference internal" href="#"><code class="docutils literal notranslate"><span class="pre">eglot</span></code></a><ul>
+<li><a class="reference internal" href="#lsp-devtools"><code class="docutils literal notranslate"><span class="pre">lsp-devtools</span></code></a></li>
 <li><a class="reference internal" href="#workspace-configuration">Workspace Configuration</a></li>
 </ul>
 </li>
@@ -233,8 +234,8 @@
   </li>
       <li>
     
-  <a class="current" title="Language Servers in Emacs" href="#">
-    Language Servers in Emacs
+  <a class="current" title="eglot" href="#">
+    eglot
   </a>
   
 </li>
@@ -365,7 +366,7 @@
   <h5>Page Links</h5>
   <ul>
     <li>
-      <a href="../../_sources/content/20250305T195742==5=3--language-servers-in-emacs__emacs.rst.txt" rel="nofollow">
+      <a href="../../_sources/content/20250305T195742==5=3--eglot__emacs.rst.txt" rel="nofollow">
         Page Source
       </a>
     </li>
@@ -416,8 +417,8 @@
   <main role="main">
 
 <article>
-  <section id="language-servers-in-emacs">
-<h1>Language Servers in Emacs<a class="headerlink" href="#language-servers-in-emacs" title="Link to this heading">¶</a></h1>
+  <section id="eglot">
+<h1><code class="docutils literal notranslate"><span class="pre">eglot</span></code><a class="headerlink" href="#eglot" title="Link to this heading">¶</a></h1>
 <p>I use <code class="docutils literal notranslate"><span class="pre">eglot</span></code> as my language client since it is available out of the box and integrates nicely with core packages like <code class="docutils literal notranslate"><span class="pre">xref</span></code></p>
 <div class="awdur-codeblock docutils container">
 <div class="awdur-codeblock-header docutils container">
@@ -429,7 +430,6 @@
 <span class="w">  </span><span class="p">(</span><span class="nv">eglot-extend-to-xref</span><span class="w"> </span><span class="no">t</span><span class="p">)</span>
 <span class="w">  </span><span class="nb">:config</span>
 <span class="w">  </span><span class="p">(</span><span class="nv">advice-add</span><span class="w"> </span><span class="ss">&#39;eglot--workspace-configuration-plist</span><span class="w"> </span><span class="nb">:around</span><span class="w"> </span><span class="nf">#&#39;</span><span class="nv">alc-eglot-fix-workspace-configuration-scope</span><span class="p">)</span>
-
 <span class="w">  </span><span class="p">(</span><span class="nv">add-to-list</span><span class="w"> </span><span class="ss">&#39;display-buffer-alist</span>
 <span class="w">               </span><span class="o">&#39;</span><span class="p">(</span><span class="s">&quot;\\*EGLOT workspace configuration\\*&quot;</span>
 <span class="w">                 </span><span class="p">(</span><span class="nv">display-buffer-below-selected</span><span class="p">)</span>
@@ -437,6 +437,42 @@
 </pre></div>
 </div>
 </div>
+<p>You see advice out there for bumping the default value of <code class="docutils literal notranslate"><span class="pre">read-process-output-max</span></code> to reduce the overhead of reading output from LSP servers etc.
+According to the docstring this should not exceed the value of <code class="docutils literal notranslate"><span class="pre">/proc/sys/fs/pipe-max-size</span></code></p>
+<div class="awdur-codeblock docutils container">
+<div class="awdur-codeblock-header docutils container">
+<code class="awdur-codeblock-filename docutils literal notranslate"><span class="pre">init.el</span></code></div>
+<div class="highlight-elisp notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="k">setq</span><span class="w"> </span><span class="nv">read-process-output-max</span>
+<span class="w">      </span><span class="p">(</span><span class="nf">max</span><span class="w"> </span><span class="mi">1048576</span><span class="w"> </span><span class="c1">; 1MB</span>
+<span class="w">           </span><span class="p">(</span><span class="nf">string-to-number</span><span class="w"> </span><span class="p">(</span><span class="nb">with-temp-buffer</span>
+<span class="w">                               </span><span class="p">(</span><span class="nb">ignore-errors</span><span class="w"> </span><span class="p">(</span><span class="nv">insert-file</span><span class="w"> </span><span class="s">&quot;/proc/sys/fs/pipe-max-size&quot;</span><span class="p">))</span>
+<span class="w">                               </span><span class="p">(</span><span class="nf">buffer-string</span><span class="p">)))))</span>
+</pre></div>
+</div>
+</div>
+<section id="lsp-devtools">
+<h2><code class="docutils literal notranslate"><span class="pre">lsp-devtools</span></code><a class="headerlink" href="#lsp-devtools" title="Link to this heading">¶</a></h2>
+<p>Often I want to wrap some server with the <a class="reference external" href="https://lsp-devtools.readthedocs.io/en/latest/lsp-devtools/guide/getting-started.html">lsp-devtools</a> agent.
+What’s nice is that we can simply advise the function eglot uses to determine how to connect with the server</p>
+<div class="awdur-codeblock docutils container">
+<div class="awdur-codeblock-header docutils container">
+<code class="awdur-codeblock-filename docutils literal notranslate"><span class="pre">init.el</span></code></div>
+<div class="highlight-elisp notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="nb">defun</span><span class="w"> </span><span class="nv">alc-eglot-wrap-server-in-lsp-devtools</span><span class="w"> </span><span class="p">(</span><span class="nv">oldfun</span><span class="w"> </span><span class="kp">&amp;rest</span><span class="w"> </span><span class="nv">args</span><span class="p">)</span>
+<span class="w">  </span><span class="s">&quot;Wrap the server config returned from eglot in the lsp-devtools agent.&quot;</span>
+<span class="w">  </span><span class="p">(</span><span class="nv">if-let</span><span class="w"> </span><span class="p">((</span><span class="nv">lsp-devtools</span><span class="w"> </span><span class="p">(</span><span class="nv">executable-find</span><span class="w"> </span><span class="s">&quot;lsp-devtools&quot;</span><span class="p">)))</span>
+<span class="w">     </span><span class="p">(</span><span class="nb">pcase-let</span><span class="w"> </span><span class="p">((</span><span class="o">`</span><span class="p">(</span><span class="o">,</span><span class="nv">modes</span><span class="w"> </span><span class="o">,</span><span class="nv">project</span><span class="w"> </span><span class="o">,</span><span class="nv">class</span><span class="w"> </span><span class="o">,</span><span class="nv">contact</span><span class="w"> </span><span class="o">,</span><span class="nv">lang-ids</span><span class="p">)</span><span class="w"> </span><span class="p">(</span><span class="nf">apply</span><span class="w"> </span><span class="nv">oldfun</span><span class="w"> </span><span class="nv">args</span><span class="p">)))</span>
+<span class="w">       </span><span class="o">`</span><span class="p">(</span><span class="o">,</span><span class="nv">modes</span><span class="w"> </span><span class="o">,</span><span class="nv">project</span><span class="w"> </span><span class="o">,</span><span class="nv">class</span><span class="w"> </span><span class="o">,</span><span class="p">(</span><span class="nf">append</span><span class="w"> </span><span class="o">`</span><span class="p">(</span><span class="o">,</span><span class="nv">lsp-devtools</span><span class="w"> </span><span class="s">&quot;agent&quot;</span><span class="w"> </span><span class="s">&quot;--&quot;</span><span class="p">)</span><span class="w"> </span><span class="nv">contact</span><span class="p">)</span><span class="w"> </span><span class="o">,</span><span class="nv">lang-ids</span><span class="p">))</span>
+<span class="w">    </span><span class="p">(</span><span class="nf">apply</span><span class="w"> </span><span class="nv">oldfun</span><span class="w"> </span><span class="nv">args</span><span class="p">)))</span>
+</pre></div>
+</div>
+</div>
+<p>I’m sure there’s loads of fun to be had coming up with a nice workflow to determine which projects/servers I wish to wrap at any given time however, for now I just run the following commands to enable/disable wrapping as needed.</p>
+<div class="highlight-elisp notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="nv">advice-add</span><span class="w"> </span><span class="nf">#&#39;</span><span class="nv">eglot--guess-contact</span><span class="w"> </span><span class="nb">:around</span><span class="w"> </span><span class="nf">#&#39;</span><span class="nv">alc-eglot-wrap-server-in-lsp-devtools</span><span class="p">)</span>
+
+<span class="p">(</span><span class="nv">advice-remove</span><span class="w"> </span><span class="nf">#&#39;</span><span class="nv">eglot--guess-contact</span><span class="w"> </span><span class="nf">#&#39;</span><span class="nv">alc-eglot-wrap-server-in-lsp-devtools</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
 <section id="workspace-configuration">
 <h2>Workspace Configuration<a class="headerlink" href="#workspace-configuration" title="Link to this heading">¶</a></h2>
 <p>Convincing <code class="docutils literal notranslate"><span class="pre">eglot</span></code> to apply the correct <code class="docutils literal notranslate"><span class="pre">workspace/configuration</span></code> settings for the current server and project is the single most frustrating part of using it…</p>
