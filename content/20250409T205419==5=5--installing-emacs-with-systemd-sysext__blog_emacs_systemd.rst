@@ -1,8 +1,8 @@
 :title: Installing Emacs with systemd-sysext
 :date: 2025-05-02
 :tags: blog, emacs, systemd
-:identifier: 20250409T205418
-:signature: 5=5=1
+:identifier: 20250409T205419
+:signature: 5=5
 
 Intstalling Emacs with systemd-sysext
 =====================================
@@ -11,7 +11,7 @@ Intstalling Emacs with systemd-sysext
 
 .. container:: post-teaser
 
-   One issue with building :denote:link:`Emacs from source <20250409T205418>`, or more specifically my hack to ensure that the required system libraries are available on Aurora, is that in some situations the system version of Emacs "wins".
+   One issue with building Emacs from source, or more specifically my hack to ensure that the required system libraries are available on Aurora, is that in some situations the system version of Emacs "wins".
 
    For example, I wanted to experiment with running the Emacs daemon through systemd::
 
