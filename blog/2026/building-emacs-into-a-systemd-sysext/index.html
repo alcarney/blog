@@ -1,0 +1,939 @@
+<!DOCTYPE html>
+
+<html lang="en" data-content_root="../../../">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Building Emacs into a systemd-sysext &#8212; Alex Carney</title>
+
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=02ca0aaa" />
+    <link id="pygments_dark_css" media="(prefers-color-scheme: dark)" rel="stylesheet" type="text/css" href="../../../_static/pygments_dark.css?v=d8568271" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/awdur-styles.css?v=21b80da3" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/css/styles.css" />
+
+    <script src="../../../_static/documentation_options.js?v=187304be"></script>
+    <script src="../../../_static/doctools.js?v=9bcbadda"></script>
+    <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../../_static/js/theme.js?v=10c5965f"></script>
+    <script src="../../../_static/js/htmx-2.0.4.min.js?v=be6ab97a"></script>
+    <link rel="icon" href="../../../_static/favicon.ico"/>
+    <link rel="index" title="Index" href="../../../genindex/" />
+    <link rel="search" title="Search" href="../../../search/" />
+    <link rel="alternate"
+          type="application/atom+xml"
+          title=" | Blog Posts"
+          href="/blog/atom.xml">
+    <meta name="fediverse:creator" content="@alcarney@mastodon.social">
+    <meta name="theme-color" content="#059669">
+
+  </head>
+  <body>
+
+
+<input type="checkbox" id="left-sidebar-checkbox" class="hidden" />
+<input type="checkbox" id="panel-checkbox" class="hidden" />
+<input type="checkbox" id="right-sidebar-checkbox" class="hidden" />
+<div class="grid">
+
+  <header class="site"><section class="site-title">
+    <img src="/_static/avatar.jpg"/>
+    <h1>
+      <a href="/">
+        <span>al</span>ex <span>carney</span>.me
+      </a>
+    </h1>
+</section><section class="site-navigation">
+  <input type="checkbox" id="menu-toggle" class="hidden" />
+  <label for="menu-toggle"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round">
+  <line x1="3" y1="12" x2="21" y2="12"></line>
+  <line x1="3" y1="6" x2="21" y2="6"></line>
+  <line x1="3" y1="18" x2="21" y2="18"></line>
+</svg></label>
+  <nav>
+    <ul>
+      <li>
+        <a href="/blog">Blog</a>
+      </li>
+      <li>
+        <a href="/code">Code</a>
+      </li>
+      <li>
+        <a href="/notes">Notes</a>
+      </li>
+    </ul>
+  </nav>
+</section>
+
+    <section class="layout-toggles">
+      <label for="left-sidebar-checkbox">
+        <svg xmlns="http://www.w3.org/2000/svg" width="2em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round">
+  <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
+  <rect class="open-state" x="3" y="3" width="6" height="18" rx="2" ry="2"></rect>
+</svg>
+      </label>
+      <label for="panel-checkbox">
+        <svg xmlns="http://www.w3.org/2000/svg" width="2em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round">
+  <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
+  <rect class="open-state" x="3" y="3" width="6" height="18" rx="2" ry="2"></rect>
+</svg>
+      </label>
+      <label for="right-sidebar-checkbox">
+        <svg xmlns="http://www.w3.org/2000/svg" width="2em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round">
+  <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
+  <rect class="open-state" x="3" y="3" width="6" height="18" rx="2" ry="2"></rect>
+</svg>
+      </label>
+    </section>
+  </header>
+
+  <aside>
+
+    <div class="left-sidebar">
+<section id="search-field" style="display: none">
+  <h5 id="searchlabel">Search</h5>
+
+  <search id="searchbox" role="search">
+    <form action="../../../search/" method="get">
+      <input type="search" name="q"
+             aria-labelledby="searchlabel"
+             placeholder=""/>
+      <button type="submit"><svg xmlns="http://www.w3.org/2000/svg" width="2em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" >
+  <g transform-origin="center" transform="scale(-1, 1)">
+    <circle cx="11" cy="11" r="8"></circle>
+    <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+  </g>
+</svg>
+      </button>
+    </form>
+  </search>
+
+</section>
+<script>document.getElementById('search-field').style.display = "block"</script>
+<section class="post-metadata">
+    <h5 style="grid-column: span 2">Metadata</h5><svg xmlns="http://www.w3.org/2000/svg" width="2em" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+</svg>
+    <time style="align-self: center; text-align: right;" datetime="2026-09-01 00:00:00+00:00">Sep 01, 2026</time><svg xmlns="http://www.w3.org/2000/svg" width="2em" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z" />
+</svg>
+    <ul class="taglist">
+        <li>
+            <a class="tag" href="../../../tag/emacs/">
+                #emacs
+            </a>
+        </li>
+        <li>
+            <a class="tag" href="../../../tag/systemd/">
+                #systemd
+            </a>
+        </li>
+    </ul>
+</section><section id="post-contents">
+  <nav id="localtoc">
+    <ul>
+<li><a class="reference internal" href="#">Building Emacs into a systemd-sysext</a><ul>
+<li><a class="reference internal" href="#the-plan">The plan</a></li>
+<li><a class="reference internal" href="#building-sysexts-with-mkosi">Building sysexts with mkosi</a><ul>
+<li><a class="reference internal" href="#installing-erofs-utils">Installing <code class="docutils literal notranslate"><span class="pre">erofs-utils</span></code></a></li>
+<li><a class="reference internal" href="#building-the-sysext">Building the sysext</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#build-emacs-from-source">Build Emacs from Source</a></li>
+<li><a class="reference internal" href="#it-s-looking-promising">It’s Looking Promising!</a></li>
+</ul>
+</li>
+</ul>
+
+  </nav>
+</section>
+<section class="post-related">
+  <h5>Related Pages</h5>
+  
+    
+  <a class="reference internal" title="My Emacs Configuration" href="../../../notes/20250216T190756/">
+    My Emacs Configuration
+  </a>
+  
+
+    <ul>
+      <li>
+    
+  <a class="reference internal" title="Local LLMs with Ollama and gptel" href="../../2024/local-llms-with-ollama-and-gptel/">
+    Local LLMs with Ollama and gptel
+  </a>
+  
+</li>
+      <li>
+    
+  <a class="reference internal" title="Using git from Emacs" href="../../../notes/20250221T184014/">
+    Using git from Emacs
+  </a>
+  
+
+    <ul>
+      <li>
+    
+  <a class="reference internal" title="Additional magit keybindings" href="../../2025/til-additional-magit-keybindings/">
+    Additional magit keybindings
+  </a>
+  
+</li>
+      <li>
+    
+  <a class="reference internal" title="Navigating History with Magit" href="../../2025/til-navigating-history-with-magit/">
+    Navigating History with Magit
+  </a>
+  
+</li>
+      <li>
+    
+  <a class="reference internal" title="Getting the permalink URL to a line of code" href="../../../notes/20250430T213500/">
+    Getting the permalink URL to a line of code
+  </a>
+  
+</li>
+    </ul>
+  </li>
+      <li>
+    
+  <a class="reference internal" title="Emacs Appearance" href="../../../notes/20250708T202145/">
+    Emacs Appearance
+  </a>
+  
+
+    <ul>
+      <li>
+    
+  <a class="reference internal" title="Cusomising the Emacs Modeline" href="../../../notes/20250228T200007/">
+    Cusomising the Emacs Modeline
+  </a>
+  
+</li>
+      <li>
+    
+  <a class="reference internal" title="Emacs Themes" href="../../../notes/20250708T133920/">
+    Emacs Themes
+  </a>
+  
+</li>
+      <li>
+    
+  <a class="reference internal" title="Tab Bar Utilities" href="../../../notes/20250924T182310/">
+    Tab Bar Utilities
+  </a>
+  
+</li>
+    </ul>
+  </li>
+      <li>
+    
+  <a class="reference internal" title="Python in Emacs" href="../../../notes/20250303T122920/">
+    Python in Emacs
+  </a>
+  
+
+    <ul>
+      <li>
+    
+  <a class="reference internal" title="Using pdb from Emacs" href="../../../notes/20250615T135327/">
+    Using pdb from Emacs
+  </a>
+  
+</li>
+    </ul>
+  </li>
+      <li>
+    
+  <a class="reference internal" title="eglot" href="../../../notes/20250305T195742/">
+    eglot
+  </a>
+  
+</li>
+      <li>
+    
+  <a class="reference internal" title="Intstalling Emacs with systemd-sysext" href="../../2025/installing-emacs-with-systemd-sysext/">
+    Intstalling Emacs with systemd-sysext
+  </a>
+  
+
+    <ul>
+      <li>
+    
+  <a class="current" title="Building Emacs into a systemd-sysext" href="#">
+    Building Emacs into a systemd-sysext
+  </a>
+  
+</li>
+    </ul>
+  </li>
+      <li>
+    
+  <a class="reference internal" title="Running shells and terminals" href="../../../notes/20250705T225452/">
+    Running shells and terminals
+  </a>
+  
+
+    <ul>
+      <li>
+    
+  <a class="reference internal" title="Eat: Emulate a Terminal" href="../../../notes/20250705T225630/">
+    Eat: Emulate a Terminal
+  </a>
+  
+</li>
+      <li>
+    
+  <a class="reference internal" title="Eshell" href="../../../notes/20260429T185129/">
+    Eshell
+  </a>
+  
+</li>
+    </ul>
+  </li>
+      <li>
+    
+  <a class="reference internal" title="IBuffer" href="../../../notes/20251213T204155/">
+    IBuffer
+  </a>
+  
+</li>
+      <li>
+    
+  <a class="reference internal" title="alc-jj" href="../../../notes/20251227T122017/">
+    alc-jj
+  </a>
+  
+
+    <ul>
+      <li>
+    
+  <a class="reference internal" title="Building alc-jj-log-view-mode" href="../alc-jj-log-view-mode/">
+    Building alc-jj-log-view-mode
+  </a>
+  
+</li>
+      <li>
+    
+  <a class="reference internal" title="A Simple jj Integration for eshell" href="../eshell-integration/">
+    A Simple jj Integration for eshell
+  </a>
+  
+</li>
+      <li>
+    
+  <a class="reference internal" title="Managing Changes with ediff" href="../managing-changes-with-ediff/">
+    Managing Changes with ediff
+  </a>
+  
+</li>
+    </ul>
+  </li>
+      <li>
+    
+  <a class="reference internal" title="Treesitter" href="../../../notes/20260118T133600/">
+    Treesitter
+  </a>
+  
+</li>
+      <li>
+    
+  <a class="reference internal" title="Indexing Info Manuals" href="../indexing-info-manuals/">
+    Indexing Info Manuals
+  </a>
+  
+</li>
+      <li>
+    
+  <a class="reference internal" title="reStructuredText in Emacs" href="../../../notes/20260418T160644/">
+    reStructuredText in Emacs
+  </a>
+  
+</li>
+      <li>
+    
+  <a class="reference internal" title="Emacs Completions" href="../../../notes/20260422T183610/">
+    Emacs Completions
+  </a>
+  
+</li>
+      <li>
+    
+  <a class="reference internal" title="Common Lisp" href="../../../notes/20260531T182827/">
+    Common Lisp
+  </a>
+  
+</li>
+      <li>
+    
+  <a class="reference internal" title="ediff" href="../../../notes/20260610T182004/">
+    ediff
+  </a>
+  
+</li>
+    </ul>
+  
+</section><section>
+  <h5>Page Links</h5>
+  <ul>
+    <li>
+      <a href="../../../_sources/content/20250409T205418==5=5=1--building-emacs-into-a-systemd-sysext__blog_emacs_systemd.rst.txt" rel="nofollow">
+        Page Source
+      </a>
+    </li>
+    <li>
+      <a href="https://github.com/alcarney/blog" rel="nofollow">
+        Source Code
+      </a>
+    </li>
+  </ul>
+</section><section class="social-links">
+  <h5>Social Links</h5>
+  <nav>
+    <a target="_blank" rel="noreferrer noopener" href="https://github.com/alcarney" title="GitHub">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="24px" height="24px">
+        <path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/>
+      </svg>
+    </a>
+
+    <a target="_blank" rel="noreferrer noopener me" href="https://mastodon.social/@alcarney" title="Mastodon">
+      <svg role="img" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" width="24px" height="24px" fill="currentColor">
+        <title>Mastodon</title>
+        <path d="M23.268 5.313c-.35-2.578-2.617-4.61-5.304-5.004C17.51.242 15.792 0 11.813 0h-.03c-3.98 0-4.835.242-5.288.309C3.882.692 1.496 2.518.917 5.127.64 6.412.61 7.837.661 9.143c.074 1.874.088 3.745.26 5.611.118 1.24.325 2.47.62 3.68.55 2.237 2.777 4.098 4.96 4.857 2.336.792 4.849.923 7.256.38.265-.061.527-.132.786-.213.585-.184 1.27-.39 1.774-.753a.057.057 0 0 0 .023-.043v-1.809a.052.052 0 0 0-.02-.041.053.053 0 0 0-.046-.01 20.282 20.282 0 0 1-4.709.545c-2.73 0-3.463-1.284-3.674-1.818a5.593 5.593 0 0 1-.319-1.433.053.053 0 0 1 .066-.054c1.517.363 3.072.546 4.632.546.376 0 .75 0 1.125-.01 1.57-.044 3.224-.124 4.768-.422.038-.008.077-.015.11-.024 2.435-.464 4.753-1.92 4.989-5.604.008-.145.03-1.52.03-1.67.002-.512.167-3.63-.024-5.545zm-3.748 9.195h-2.561V8.29c0-1.309-.55-1.976-1.67-1.976-1.23 0-1.846.79-1.846 2.35v3.403h-2.546V8.663c0-1.56-.617-2.35-1.848-2.35-1.112 0-1.668.668-1.67 1.977v6.218H4.822V8.102c0-1.31.337-2.35 1.011-3.12.696-.77 1.608-1.164 2.74-1.164 1.311 0 2.302.5 2.962 1.498l.638 1.06.638-1.06c.66-.999 1.65-1.498 2.96-1.498 1.13 0 2.043.395 2.74 1.164.675.77 1.012 1.81 1.012 3.12z"/>
+      </svg>
+    </a>
+
+    <a target="_blank" rel="noreferrer noopener" href="https://pixelfed.social/i/web/profile/795173629619860860" title="Pixelfed">
+      <svg width="24px" height="24px" viewBox="0 0 50 50" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path d="M25 50C11.193 50 0 38.807 0 25S11.193 0 25 0s25 11.193 25 25-11.193 25-25 25zm-1.985-19.542h4.586c4.32 0 7.823-3.41 7.823-7.615 0-4.206-3.502-7.616-7.823-7.616h-6.619c-2.492 0-4.513 1.967-4.513 4.394v17.1l6.546-6.263z" fill-rule="evenodd"/></svg>
+    </a>
+
+    <a target="_blank" rel="noreferrer noopener" href="https://www.youtube.com/channel/UC5GPflgRWhnCxA0BllfP5CA" title="YouTube">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24px" height="24px" fill="currentColor">
+        <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
+      </svg>
+    </a>
+
+    <a href="/blog/atom.xml" title="RSS Feed">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24px" height="24px" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
+        <path d="M4 11a9 9 0 0 1 9 9M4 4a16 16 0 0 1 16 16"/>
+        <circle cx="5" cy="19" r="1"/>
+      </svg>
+    </a>
+  </nav>
+</section>
+    </div>
+  </aside>
+
+
+  <main role="main">
+
+<article>
+  <section id="building-emacs-into-a-systemd-sysext">
+<h1>Building Emacs into a systemd-sysext<a class="headerlink" href="#building-emacs-into-a-systemd-sysext" title="Link to this heading">¶</a></h1>
+<div class="post-teaser docutils container">
+<p>Now that Emacs v31 is out I’m itching to play with all the new features.
+However, <em>I think</em> I need to wait for Fedora 45 to land before it becomes available through the repos.
+I <em>could</em> build it from source, but being on an image based OS you can’t “just” install it when you are done.</p>
+<p>However, when Emacs v30 released, I did manage to figure out how to <a class="reference internal" href="../../2025/installing-emacs-with-systemd-sysext/" title="Intstalling Emacs with systemd-sysext">install Emacs when packaged as a systemd-sysext</a>.
+So I guess this time I’m figuring out how to build a systemd-sysext for myself!</p>
+</div>
+<p>systemd-sysexts <em>can</em> be as simple as:</p>
+<ul>
+<li><p>a folder of files in the right place (<code class="docutils literal notranslate"><span class="pre">/var/lib/extensions</span></code>)</p></li>
+<li><p>in the right shape (<a class="reference external" href="https://en.wikipedia.org/wiki/Filesystem_Hierarchy_Standard">FHS</a> under <code class="docutils literal notranslate"><span class="pre">/usr</span></code>)</p></li>
+<li><p>with a “release” file signalling compatibity:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>/var/lib/extensions $ cat ./&lt;name&gt;/usr/lib/extension-release.d/extension-release.&lt;name&gt;
+ID=&lt;distro&gt;            # e.g. &#39;fedora&#39;
+VERSION_ID=&lt;release&gt;   # e.g. &#39;44&#39;
+</pre></div>
+</div>
+</li>
+</ul>
+<p>If the above holds and the declared <code class="docutils literal notranslate"><span class="pre">ID</span></code> and <code class="docutils literal notranslate"><span class="pre">VERSION_ID</span></code> are compatible with what’s in your <code class="docutils literal notranslate"><span class="pre">/etc/os-release</span></code> file then systemd will happily use the folder structure as a sysext.</p>
+<p>Though of course, things rarely stick to the simplest case.</p>
+<section id="the-plan">
+<h2>The plan<a class="headerlink" href="#the-plan" title="Link to this heading">¶</a></h2>
+<p>To make a systemd-sysext for Emacs you would need to do the following:</p>
+<ol class="arabic simple">
+<li><p>Prepare an environment with the necessary tools to build Emacs.</p></li>
+<li><p>Build and install Emacs into a <code class="docutils literal notranslate"><span class="pre">/usr</span></code> hierarchy.</p></li>
+<li><p>Figure out which files are part of Emacs itself, or its runtime dependencies.</p></li>
+<li><p>Extract those files into a separate, isolated, folder structure</p></li>
+<li><p>Write the “release” file indicating which underlying host distro the sysext is compatible with.</p></li>
+<li><p>(Bonus points) pack the whole folder structure into a “real” format like an erofs file system.</p></li>
+</ol>
+<p>If only there was already a tool that could automate most of this process for us!</p>
+</section>
+<section id="building-sysexts-with-mkosi">
+<h2>Building sysexts with mkosi<a class="headerlink" href="#building-sysexts-with-mkosi" title="Link to this heading">¶</a></h2>
+<p><a class="reference external" href="https://github.com/systemd/mkosi/">mkosi</a>, among many other things can build systemd-sysexts.</p>
+<p>Before jumping straight into building Emacs from source, let’s adapt <a class="reference external" href="https://mkosi.systemd.io/sysext.html">this guide</a>, to derive a sysext from the existing Emacs Fedora package.</p>
+<ol class="arabic">
+<li><p>Create a folder to act as the workspace e.g. <code class="docutils literal notranslate"><span class="pre">/tmp/sysext-build</span></code></p></li>
+<li><p>Create a top-level config file to store common settings:</p>
+<div class="highlight-ini notranslate"><div class="highlight"><pre><span></span><span class="k">[Output]</span>
+<span class="na">OutputDirectory</span><span class="o">=</span><span class="s">mkosi.output</span>
+
+<span class="k">[Build]</span>
+<span class="na">CacheDirectory</span><span class="o">=</span><span class="s">mkosi.cache</span>
+</pre></div>
+</div>
+</li>
+<li><p>Create a config under <code class="docutils literal notranslate"><span class="pre">mkosi.images/base/</span></code> to define the base image:</p>
+<div class="highlight-ini notranslate"><div class="highlight"><pre><span></span><span class="k">[Output]</span>
+<span class="na">Format</span><span class="o">=</span><span class="s">directory</span>
+
+<span class="k">[Content]</span>
+<span class="na">CleanPackageMetadata</span><span class="o">=</span><span class="s">no</span>
+<span class="na">Packages</span><span class="o">=</span><span class="s">systemd</span>
+<span class="w">         </span><span class="na">udev</span>
+</pre></div>
+</div>
+<p>Apparently, putting the base image in a plain <code class="docutils literal notranslate"><span class="pre">directory</span></code> means the build can be executed without root.</p>
+</li>
+<li><p>Create a config under <code class="docutils literal notranslate"><span class="pre">mkosi.images/emacs</span></code> that produces the sysext:</p>
+<div class="highlight-ini notranslate"><div class="highlight"><pre><span></span><span class="k">[Config]</span>
+<span class="na">Dependencies</span><span class="o">=</span><span class="s">base</span>
+
+<span class="k">[Output]</span>
+<span class="na">Format</span><span class="o">=</span><span class="s">sysext</span>
+<span class="na">Overlay</span><span class="o">=</span><span class="s">yes</span>
+
+<span class="k">[Content]</span>
+<span class="na">BaseTrees</span><span class="o">=</span><span class="s">%O/base</span>
+<span class="na">Packages</span><span class="o">=</span><span class="s">emacs</span>
+</pre></div>
+</div>
+<p>This takes the <code class="docutils literal notranslate"><span class="pre">base</span></code> image as a dependency, so that we have a functioning system on which we can run our build.
+In this example, the build is trivial - just install the packages listed in <code class="docutils literal notranslate"><span class="pre">Packages</span></code>.</p>
+</li>
+<li><p>Run <code class="docutils literal notranslate"><span class="pre">mkosi</span> <span class="pre">-f</span></code> from the <code class="docutils literal notranslate"><span class="pre">/tmp/sysext-build</span></code> directory:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">/tmp/sysext-build $ mkosi -f</span>
+<span class="go">‣ Validating certificates and keys</span>
+<span class="go">‣ Syncing package manager metadata</span>
+<span class="go">Updating and loading repositories:</span>
+<span class="go">Repositories loaded.</span>
+<span class="go">Metadata cache created.</span>
+<span class="go">‣ Building base image</span>
+<span class="go">‣  Installing Fedora Linux</span>
+<span class="gp">#   </span>&lt;dnf<span class="w"> </span>output<span class="w"> </span>omitted&gt;
+<span class="go">‣  Generating system users</span>
+<span class="go">‣  Generating volatile files</span>
+<span class="go">‣  Applying presets…</span>
+<span class="go">Created symlink &#39;/buildroot/etc/systemd/system/multi-user.target.wants/remote-integritysetup.target&#39; → &#39;/usr/lib/systemd/system/remote-integritysetup.target&#39;.</span>
+<span class="go">‣  Generating hardware database</span>
+<span class="go">‣  /tmp/sysext-build/mkosi.output/base size is 136.0M.</span>
+<span class="go">‣ Building emacs image</span>
+<span class="go">‣  Mounting base trees…</span>
+<span class="go">‣   Installing extra packages for Fedora Linux</span>
+<span class="gp">#    </span>&lt;dnf<span class="w"> </span>output<span class="w"> </span>omitted&gt;
+<span class="go">‣ Removing duplicate path /usr/lib/sysimage/rpm/rpmdb.sqlite-wal from overlay</span>
+<span class="go">‣ Removing duplicate path /usr/lib/sysimage/rpm/rpmdb.sqlite-shm from overlay</span>
+<span class="go">‣ Removing duplicate path /usr/lib/sysimage/rpm/.rpm.lock from overlay</span>
+<span class="go">‣ Removing duplicate path /usr/lib/sysimage/rpm/rpmdb.sqlite from overlay</span>
+<span class="go">‣ Removing duplicate path /usr/lib/sysimage/libdnf5/transaction_history.sqlite from overlay</span>
+<span class="go">‣ Removing duplicate path /usr/lib/sysimage/libdnf5/transaction_history.sqlite-wal from overlay</span>
+<span class="go">‣ Removing duplicate path /usr/lib/sysimage/libdnf5/transaction_history.sqlite-shm from overlay</span>
+<span class="go">‣ Removing duplicate path /usr/lib/sysimage/libdnf5/packages.toml from overlay</span>
+<span class="go">‣ Removing duplicate path /usr/lib/sysimage/libdnf5/nevras.toml from overlay</span>
+<span class="go">‣ Removing duplicate path /usr/lib/sysimage/libdnf5/groups.toml from overlay</span>
+<span class="go">‣ Removing duplicate path /usr/lib/sysimage/libdnf5/environments.toml from overlay</span>
+<span class="go">‣ Removing duplicate path /usr/lib/sysimage/libdnf5/system.toml from overlay</span>
+<span class="go">‣ Removing duplicate path /usr/lib/sysimage/libdnf5/modules.toml from overlay</span>
+<span class="go">‣  Removing empty directories…</span>
+<span class="go">‣  Building sysext extension image</span>
+<span class="go">Pre-populating erofs filesystem of partition 10-root.conf to calculate minimal partition size</span>
+<span class="go">Preparing to populate erofs filesystem.</span>
+<span class="go">Failed to open source file &#39;/buildroot/opt&#39;, skipping: No such file or directory</span>
+<span class="go">Ready to populate erofs filesystem.</span>
+<span class="go">mkfs.erofs binary not available.</span>
+<span class="go">‣ &quot;systemd-repart --root=/buildroot --json=pretty --dry-run=no --no-pager --offline=yes --seed 1f4fb277-7943-41db-b853-c33514998b71 --empty=create --size=auto --definitions /work/tmp/tmpxw95dzaf/resources/repart/definitions/sysext-unsigned.repart.d /work/home/alex/.cache/mkosi/mkosi-workspace-7czb6oto/staging/emacs.raw&quot; returned non-zero exit code 1.</span>
+</pre></div>
+</div>
+</li>
+</ol>
+<p>Ah.</p>
+<section id="installing-erofs-utils">
+<h3>Installing <code class="docutils literal notranslate"><span class="pre">erofs-utils</span></code><a class="headerlink" href="#installing-erofs-utils" title="Link to this heading">¶</a></h3>
+<p>Typically, sysexts appear to use the <code class="docutils literal notranslate"><span class="pre">erofs</span></code> filesystem (no I don’t know what it is! 😅).
+So to make one you need the necessary utilities installed.</p>
+<p>Luckily, there is already a sysext from <a class="reference external" href="https://fedora-sysexts.github.io/fedora/">https://fedora-sysexts.github.io/fedora/</a> that provides them for me, it’s just a case of installing it.</p>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>If you’ve never used a systemd-sysext, you also need to setup the <code class="docutils literal notranslate"><span class="pre">/var/lib/extensions{.d}</span></code> folders.</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>sudo<span class="w"> </span>install<span class="w"> </span>-d<span class="w"> </span>-m<span class="w"> </span><span class="m">0755</span><span class="w"> </span>-o<span class="w"> </span><span class="m">0</span><span class="w"> </span>-g<span class="w"> </span><span class="m">0</span><span class="w"> </span>/var/lib/extensions<span class="w"> </span>/var/lib/extensions.d
+<span class="gp">$ </span>sudo<span class="w"> </span>restorecon<span class="w"> </span>-RFv<span class="w"> </span>/var/lib/extensions<span class="w"> </span>/var/lib/extensions.d
+</pre></div>
+</div>
+</div>
+<ol class="arabic">
+<li><p>Create a <code class="docutils literal notranslate"><span class="pre">/etc/sysupdate.erofs-utils.d/</span></code> folder</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>sudo<span class="w"> </span>install<span class="w"> </span>-d<span class="w"> </span>-m<span class="w"> </span><span class="m">0755</span><span class="w"> </span>-o<span class="w"> </span><span class="m">0</span><span class="w"> </span>-g<span class="w"> </span><span class="m">0</span><span class="w"> </span>/etc/sysupdate.erofs-utils.d
+<span class="gp">$ </span>sudo<span class="w"> </span>restorecon<span class="w"> </span>-RFv<span class="w"> </span>/etc/sysupdate.erofs-utils.d
+</pre></div>
+</div>
+</li>
+<li><p>Create a <code class="docutils literal notranslate"><span class="pre">/etc/sysupdate.erofs-utils.d/erofs-utils.transfer</span></code> file</p>
+<div class="highlight-ini notranslate"><div class="highlight"><pre><span></span><span class="k">[Transfer]</span>
+<span class="na">Verify</span><span class="o">=</span><span class="s">false</span>
+
+<span class="k">[Source]</span>
+<span class="na">Type</span><span class="o">=</span><span class="s">url-file</span>
+<span class="na">Path</span><span class="o">=</span><span class="s">https://extensions.fcos.fr/extensions/erofs-utils/</span>
+<span class="na">MatchPattern</span><span class="o">=</span><span class="s">erofs-utils-@v-%w-%a.raw</span>
+
+<span class="k">[Target]</span>
+<span class="na">InstancesMax</span><span class="o">=</span><span class="s">2</span>
+<span class="na">Type</span><span class="o">=</span><span class="s">regular-file</span>
+<span class="na">Path</span><span class="o">=</span><span class="s">/var/lib/extensions.d/</span>
+<span class="na">MatchPattern</span><span class="o">=</span><span class="s">erofs-utils-@v-%w-%a.raw</span>
+<span class="na">CurrentSymlink</span><span class="o">=</span><span class="s">/var/lib/extensions/erofs-utils.raw</span>
+</pre></div>
+</div>
+</li>
+</ol>
+<p>This allows for the use of the <code class="docutils literal notranslate"><span class="pre">systemd-sysupdate</span></code> command to automate the installation and update of the sysext.</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>sudo<span class="w"> </span>/usr/lib/systemd/systemd-sysupdate<span class="w"> </span>update<span class="w"> </span>--component<span class="w"> </span>erofs-utils
+<span class="go">Discovering available instances…</span>
+<span class="go">⤵ Acquiring manifest file https://extensions.fcos.fr/extensions/erofs-utils/SHA256SUMS…</span>
+<span class="go">Pulling &#39;https://extensions.fcos.fr/extensions/erofs-utils/SHA256SUMS&#39;.</span>
+<span class="go">Downloading 1.6K for https://extensions.fcos.fr/extensions/erofs-utils/SHA256SUMS.</span>
+<span class="go">Got 81% of https://extensions.fcos.fr/extensions/erofs-utils/SHA256SUMS.</span>
+<span class="go">Acquired 1.6K.</span>
+<span class="go">Download of https://extensions.fcos.fr/extensions/erofs-utils/SHA256SUMS complete.</span>
+<span class="go">Operation completed successfully.</span>
+<span class="go">Exiting.</span>
+<span class="go">Determining installed update sets…</span>
+<span class="go">Determining available update sets…</span>
+<span class="go">Selected update &#39;1.9.2-2.fc44&#39; for install.</span>
+<span class="go">Making room for 1 updates…</span>
+<span class="go">Found nothing to remove.</span>
+<span class="go">⤵ Acquiring https://extensions.fcos.fr/extensions/erofs-utils/erofs-utils-1.9.2-2.fc44-44-x86-64.raw → /var/lib/extensions.d/erofs-utils-1.9.2-2.fc44-44-x86-64.raw...</span>
+<span class="go">Pulling &#39;https://extensions.fcos.fr/extensions/erofs-utils/erofs-utils-1.9.2-2.fc44-44-x86-64.raw&#39;, saving as &#39;/var/lib/extensions.d/.#sysupdateerofs-utils-1.9.2-2.fc44-44-x86-64.rawfaea62476ebc8520&#39;.</span>
+<span class="go">Downloading 1M for https://extensions.fcos.fr/extensions/erofs-utils/erofs-utils-1.9.2-2.fc44-44-x86-64.raw.</span>
+<span class="go">Got 1% of https://extensions.fcos.fr/extensions/erofs-utils/erofs-utils-1.9.2-2.fc44-44-x86-64.raw.</span>
+<span class="go">Acquired 1M.</span>
+<span class="go">Download of https://extensions.fcos.fr/extensions/erofs-utils/erofs-utils-1.9.2-2.fc44-44-x86-64.raw complete.</span>
+<span class="go">Operation completed successfully.</span>
+<span class="go">Exiting.</span>
+<span class="go">Successfully acquired &#39;https://extensions.fcos.fr/extensions/erofs-utils/erofs-utils-1.9.2-2.fc44-44-x86-64.raw&#39;.</span>
+<span class="go">Successfully installed &#39;https://extensions.fcos.fr/extensions/erofs-utils/erofs-utils-1.9.2-2.fc44-44-x86-64.raw&#39; (url-file) as &#39;/var/lib/extensions.d/erofs-utils-1.9.2-2.fc44-44-x86-64.raw&#39; (regular-file).</span>
+<span class="go">Updated symlink &#39;/var/lib/extensions/erofs-utils.raw&#39; → &#39;../extensions.d/erofs-utils-1.9.2-2.fc44-44-x86-64.raw&#39;.</span>
+<span class="go">✨ Successfully installed update &#39;1.9.2-2.fc44&#39;.</span>
+</pre></div>
+</div>
+<p>To activate the sysext run the unmerge (if necessary) and merge commands</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>sudo<span class="w"> </span>systemd-sysext<span class="w"> </span>unmerge
+<span class="go">Unmerged &#39;/usr&#39;</span>
+
+<span class="gp">$ </span>sudo<span class="w"> </span>systemd-sysext<span class="w"> </span>merge
+<span class="go">Using extensions &#39;erofs-utils.raw&#39;.</span>
+<span class="go">Merged extensions into &#39;/usr&#39;.</span>
+</pre></div>
+</div>
+</section>
+<section id="building-the-sysext">
+<span id="build-the-sysext"></span><h3>Building the sysext<a class="headerlink" href="#building-the-sysext" title="Link to this heading">¶</a></h3>
+<p>With the necessary tools installed, it should now be possible to build the sysext.</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">/tmp/sysext-build $ mkosi -f</span>
+<span class="gp"># </span>&lt;output<span class="w"> </span>skipped&gt;
+<span class="go">‣  Building sysext extension image</span>
+<span class="go">Pre-populating erofs filesystem of partition 10-root.conf to calculate minimal partition size</span>
+<span class="go">Preparing to populate erofs filesystem.</span>
+<span class="go">Failed to open source file &#39;/buildroot/opt&#39;, skipping: No such file or directory</span>
+<span class="go">Ready to populate erofs filesystem.</span>
+<span class="go">mkfs.erofs 1.9.2</span>
+<span class="go">Build completed.</span>
+<span class="go">------</span>
+<span class="go">Filesystem UUID: a738a716-f4c1-4914-91f7-b053b6103c19</span>
+<span class="go">Filesystem total blocks: 204508 (of 4096-byte blocks)</span>
+<span class="go">Filesystem total inodes: 18645</span>
+<span class="go">Filesystem total metadata blocks: 7608</span>
+<span class="go">Filesystem total deduplicated bytes (of source files): 0</span>
+<span class="go">/var/tmp/.#repartbe3ba45d64095527 successfully formatted as erofs (uuid a738a716-f4c1-4914-91f7-b053b6103c19, no label)</span>
+<span class="go">Minimal partition size of erofs filesystem of partition 10-root.conf is 798.8M</span>
+<span class="go">Automatically determined minimal disk image size as 799.8M.</span>
+<span class="go">Sized &#39;/work/home/alex/.cache/mkosi/mkosi-workspace-4beygy4j/staging/emacs.raw&#39; to 799.8M.</span>
+<span class="go">Applying changes to /work/home/alex/.cache/mkosi/mkosi-workspace-4beygy4j/staging/emacs.raw.</span>
+<span class="go">Copying in &#39;/var/tmp/.#repartbe3ba45d64095527&#39; (798.8M) on block level into future partition 0.</span>
+<span class="go">Copying in of &#39;/var/tmp/.#repartbe3ba45d64095527&#39; on block level completed.</span>
+<span class="go">Syncing future partition 0 contents to disk.</span>
+<span class="go">Block level copying and synchronization of partition 0 complete in 294.448ms (2.6G/s).</span>
+<span class="go">Adding new partition 0 to partition table.</span>
+<span class="go">Writing new partition table.</span>
+<span class="go">All done.</span>
+<span class="go">‣  /tmp/sysext-build/mkosi.output/emacs.raw size is 799.9M, consumes 798.9M.</span>
+</pre></div>
+</div>
+<p>Thanks to the cache dirs setup in the top-level config file, the second attempt builds <em>much</em> faster!</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This config also results in a “main image” being built…</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">‣ Building main image</span>
+<span class="go">‣  Installing Fedora Linux</span>
+<span class="gp">#   </span>&lt;dnf<span class="w"> </span>output<span class="w"> </span>omitted&gt;
+<span class="go">‣  Generating system users</span>
+<span class="go">‣  Generating volatile files</span>
+<span class="go">‣  Applying presets…</span>
+<span class="go">‣  Generating hardware database</span>
+<span class="go">No hwdb files found, skipping.</span>
+<span class="go">‣  Generating disk image</span>
+<span class="go">MountPoint= is not specified for any eligible partitions, not generating /etc/fstab</span>
+<span class="go">EncryptedVolume= is not specified for any eligible partitions, not generating /etc/crypttab</span>
+<span class="go">Pre-populating btrfs filesystem of partition 10-root.conf to calculate minimal partition size</span>
+<span class="go">Preparing to populate btrfs filesystem.</span>
+<span class="go">Ready to populate btrfs filesystem.</span>
+<span class="go">btrfs-progs v7.1</span>
+<span class="go">See https://btrfs.readthedocs.io for more information.</span>
+
+<span class="go">NOTE: default settings have changed in version 6.19 (supported since linux 6.1):</span>
+<span class="go">      - enable block-group-tree (-O bgt)</span>
+
+<span class="go">Rootdir from:       /var/tmp/.#repart2d08eeaaa49d72c5</span>
+<span class="go">  Compress:         no</span>
+<span class="go">  Shrink:           yes</span>
+<span class="go">Label:              root-x86-64</span>
+<span class="go">UUID:               a738a716-f4c1-4914-91f7-b053b6103c19</span>
+<span class="go">Node size:          16384</span>
+<span class="go">Sector size:        4096        (CPU page size: 4096)</span>
+<span class="go">Filesystem size:    101.00MiB</span>
+<span class="go">Block group profiles:</span>
+<span class="go">  Data:             single            8.00MiB</span>
+<span class="go">  Metadata:         DUP              32.00MiB</span>
+<span class="go">  System:           DUP               8.00MiB</span>
+<span class="go">SSD detected:       no</span>
+<span class="go">Zoned device:       no</span>
+<span class="go">Features:           extref, skinny-metadata, no-holes, free-space-tree, block-group-tree</span>
+<span class="go">Checksum:           crc32c</span>
+<span class="go">Number of devices:  1</span>
+<span class="go">Devices:</span>
+<span class="go">   ID        SIZE  PATH</span>
+<span class="go">    1   101.00MiB  /var/tmp/.#repart8c5b8b5a4db184b4</span>
+
+<span class="go">/var/tmp/.#repart8c5b8b5a4db184b4 successfully formatted as btrfs (label &quot;root-x86-64&quot;, uuid a738a716-f4c1-4914-91f7-b053b6103c19)</span>
+<span class="go">Minimal partition size of btrfs filesystem of partition 10-root.conf is 101M</span>
+<span class="go">Automatically determined minimal disk image size as 102M.</span>
+<span class="go">Sized &#39;/work/home/alex/.cache/mkosi/mkosi-workspace-gqb4a69k/staging/image.raw&#39; to 102M.</span>
+<span class="go">Applying changes to /work/home/alex/.cache/mkosi/mkosi-workspace-gqb4a69k/staging/image.raw.</span>
+<span class="go">Copying in &#39;/var/tmp/.#repart8c5b8b5a4db184b4&#39; (101M) on block level into future partition 0.</span>
+<span class="go">Copying in of &#39;/var/tmp/.#repart8c5b8b5a4db184b4&#39; on block level completed.</span>
+<span class="go">Syncing future partition 0 contents to disk.</span>
+<span class="go">Block level copying and synchronization of partition 0 complete in 7.890ms.</span>
+<span class="go">Adding new partition 0 to partition table.</span>
+<span class="go">Writing new partition table.</span>
+<span class="go">All done.</span>
+<span class="go">‣  Formatting ESP/XBOOTLDR partitions</span>
+<span class="go">Automatically determined minimal disk image size as 102M, current block device/image size is 102M.</span>
+<span class="go">File &#39;/work/home/alex/.cache/mkosi/mkosi-workspace-gqb4a69k/staging/image.raw&#39; already is of requested size or larger, not growing. (102M &gt;= 102M)</span>
+<span class="go">No changes.</span>
+<span class="go">‣  /tmp/sysext-build/mkosi.output/image.raw size is 102.0M, consumes 6.5M.</span>
+</pre></div>
+</div>
+<p>I don’t really understand why, or what’s in it.
+But it’s the <code class="docutils literal notranslate"><span class="pre">mkosi.output/emacs.raw</span></code> file we are interested in.</p>
+</div>
+<p>The final step is to “install it”</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>sudo<span class="w"> </span>cp<span class="w"> </span>/tmp/sysext-build/mkosi.output/emacs.raw<span class="w"> </span>/var/lib/extensions.d/
+<span class="gp">$ </span>sudo<span class="w"> </span>ln<span class="w"> </span>-s<span class="w"> </span>/var/lib/extensions.d/emacs.raw<span class="w"> </span>/var/lib/extensions/emacs.raw
+<span class="gp">$ </span>sudo<span class="w"> </span>systemd-sysext<span class="w"> </span>unmerge
+<span class="gp">$ </span>sudo<span class="w"> </span>systemd-sysext<span class="w"> </span>merge
+<span class="gp">$ </span>emacs-30.2-gtk+x11<span class="w"> </span>--version
+<span class="go">GNU Emacs 30.2</span>
+<span class="go">Copyright (C) 2025 Free Software Foundation, Inc.</span>
+<span class="go">GNU Emacs comes with ABSOLUTELY NO WARRANTY.</span>
+<span class="go">You may redistribute copies of GNU Emacs</span>
+<span class="go">under the terms of the GNU General Public License.</span>
+<span class="go">For more information about these matters, see the file named COPYING.</span>
+</pre></div>
+</div>
+<p>The slightly odd executable name is a quirk of how Fedora packages Emacs.
+The <code class="docutils literal notranslate"><span class="pre">emacs</span></code> “executable” is a symlink to <code class="docutils literal notranslate"><span class="pre">/etc/alternatives/emacs</span></code> which <em>I think</em>, in turn should be a symlink to <code class="docutils literal notranslate"><span class="pre">emacs-30.2-gtk+x11</span></code>.</p>
+<p>This setup doesn’t reproduce that, but I’m not going to fix that since my real goal with this is to…</p>
+</section>
+</section>
+<section id="build-emacs-from-source">
+<h2>Build Emacs from Source<a class="headerlink" href="#build-emacs-from-source" title="Link to this heading">¶</a></h2>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<p>Be sure to refer to the <a class="reference external" href="https://github.com/systemd/mkosi/blob/1da3299aecc56a1ba590a7fb7ae868275bb46d93/mkosi/resources/man/mkosi.1.md">upstream documentation</a> for a much more detailed explanation of the <code class="docutils literal notranslate"><span class="pre">mkosi</span></code> build process and the various config options and extension points.</p>
+</div>
+<p>Now we have a end-to-end workflow with <code class="docutils literal notranslate"><span class="pre">mkosi</span></code> setup, we “just” have to tweak the above config so that it builds Emacs v31 from source, rather than repackaging the Fedora package.</p>
+<p>After some wailing and gnashing of teeth, I eventually arrived at the following.</p>
+<p><strong>Top Level</strong></p>
+<div class="awdur-codeblock docutils container">
+<div class="awdur-codeblock-header docutils container">
+<code class="awdur-codeblock-filename docutils literal notranslate"><span class="pre">mkosi.conf</span></code></div>
+<div class="highlight-ini notranslate"><div class="highlight"><pre><span></span><span class="k">[Output]</span>
+<span class="na">OutputDirectory</span><span class="o">=</span><span class="s">mkosi.output</span>
+
+<span class="k">[Build]</span>
+<span class="na">CacheDirectory</span><span class="o">=</span><span class="s">mkosi.cache</span>
+<span class="na">BuildSources</span><span class="o">=</span><span class="s">/var/home/alex/Projects/gnu/emacs/master:emacs</span>
+<span class="na">BuildSourcesEphemeral</span><span class="o">=</span><span class="s">true</span>
+</pre></div>
+</div>
+</div>
+<p>Interestingly, <code class="docutils literal notranslate"><span class="pre">BuildSources</span></code> can only be specified at the top level - that means it’s available to the <code class="docutils literal notranslate"><span class="pre">base</span></code> image build even though it’s only needed for the <code class="docutils literal notranslate"><span class="pre">emacs</span></code> image.
+I <em>think</em> <code class="docutils literal notranslate"><span class="pre">[Match]</span></code> rules can be used to change this, but to keep things simple I didn’t look into it.</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">&lt;src&gt;:&lt;dest&gt;</span></code> syntax means when the build executes <code class="docutils literal notranslate"><span class="pre">&lt;src&gt;</span></code> on the host is mapped to <code class="docutils literal notranslate"><span class="pre">/work/src/&lt;dest&gt;</span></code> in the image.
+Before running the build, I made sure to have the <code class="docutils literal notranslate"><span class="pre">emacs-31.1</span></code> tag checked out in my copy of the Emacs git repo.</p>
+<p><code class="docutils literal notranslate"><span class="pre">BuildSourcesEphemeral</span></code> is cool, when enabled the build is done in an overlay so all the gumph generated by the build (e.g. <code class="docutils literal notranslate"><span class="pre">*.o</span></code> files ) are automatically discarded by throwing the overlay away at the end.</p>
+<p><strong>Base Image</strong></p>
+<div class="awdur-codeblock docutils container">
+<div class="awdur-codeblock-header docutils container">
+<code class="awdur-codeblock-filename docutils literal notranslate"><span class="pre">mkosi.images/base/mkosi.conf</span></code></div>
+<div class="highlight-ini notranslate"><div class="highlight"><pre><span></span><span class="k">[Output]</span>
+<span class="na">Format</span><span class="o">=</span><span class="s">directory</span>
+
+<span class="k">[Content]</span>
+<span class="na">CleanPackageMetadata</span><span class="o">=</span><span class="s">no</span>
+<span class="na">Packages</span><span class="o">=</span><span class="c1"># Build tools</span>
+<span class="w">         </span><span class="na">autoconf</span>
+<span class="w">         </span><span class="na">awk</span>
+<span class="w">         </span><span class="na">make</span>
+<span class="w">         </span><span class="na">gcc</span>
+<span class="w">         </span><span class="na">git</span>
+<span class="w">         </span><span class="na">pkgconf-pkg-config</span>
+<span class="w">         </span><span class="na">rpm</span>
+<span class="w">         </span><span class="na">tar</span>
+<span class="w">         </span><span class="na">texinfo</span>
+<span class="w">         </span><span class="c1"># Emacs build dependencies</span>
+<span class="w">         </span><span class="na">gnutls-devel</span>
+<span class="w">         </span><span class="na">gtk3-devel</span>
+<span class="w">         </span><span class="na">libjpeg-turbo-devel</span>
+<span class="w">         </span><span class="na">libpng-devel</span>
+<span class="w">         </span><span class="na">librsvg2-devel</span>
+<span class="w">         </span><span class="na">libselinux-devel</span>
+<span class="w">         </span><span class="na">libtiff-devel</span>
+<span class="w">         </span><span class="na">libwebp-devel</span>
+<span class="w">         </span><span class="na">libxml2-devel</span>
+<span class="w">         </span><span class="na">ncurses-devel</span>
+<span class="w">         </span><span class="na">sqlite-devel</span>
+<span class="w">         </span><span class="c1"># Needed for mkosi?</span>
+<span class="w">         </span><span class="na">systemd</span>
+<span class="w">         </span><span class="na">udev</span>
+</pre></div>
+</div>
+</div>
+<p>The base image config needed to be updated to include all the build tools and (most) build dependencies.
+The hardest part of this was figuring out enough of the list of build tools to bootstrap the <code class="docutils literal notranslate"><span class="pre">./configure</span></code> script.</p>
+<p><strong>Emacs Sysext</strong></p>
+<div class="awdur-codeblock docutils container">
+<div class="awdur-codeblock-header docutils container">
+<code class="awdur-codeblock-filename docutils literal notranslate"><span class="pre">mkosi.images/emacs/mkosi.conf</span></code></div>
+<div class="highlight-ini notranslate"><div class="highlight"><pre><span></span><span class="k">[Output]</span>
+<span class="na">Format</span><span class="o">=</span><span class="s">sysext</span>
+<span class="na">Overlay</span><span class="o">=</span><span class="s">yes</span>
+
+<span class="k">[Content]</span>
+<span class="na">BaseTrees</span><span class="o">=</span><span class="s">%O/base</span>
+<span class="na">Packages</span><span class="o">=</span><span class="s">libgccjit,libotf,libtree-sitter</span>
+<span class="na">BuildPackages</span><span class="o">=</span><span class="s">libgccjit-devel,libotf-devel,libtree-sitter-devel</span>
+</pre></div>
+</div>
+</div>
+<p>Before discovering <code class="docutils literal notranslate"><span class="pre">mkosi</span></code> could build systemd-sysexts I was playing around with doing the build inside a <a class="reference external" href="https://distrobox.it/">distrobox</a>.
+During that process, I discovered that my base system already provides the majority of Emacs’ runtime dependencies, so I was able to get away with listing just the couple that were missing.</p>
+<p>As you might expect <code class="docutils literal notranslate"><span class="pre">Packages</span></code> are included in the final image, while <code class="docutils literal notranslate"><span class="pre">BuildPackages</span></code> are discarded after the build step.</p>
+<div class="awdur-codeblock docutils container">
+<div class="awdur-codeblock-header docutils container">
+<code class="awdur-codeblock-filename docutils literal notranslate"><span class="pre">mkosi.images/emacs/mkosi.build.chroot</span></code></div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/bin/bash</span>
+<span class="nb">set</span><span class="w"> </span>-euo<span class="w"> </span>pipefail
+<span class="nb">pushd</span><span class="w"> </span>emacs
+
+./autogen.sh
+./configure<span class="w"> </span>--prefix<span class="o">=</span>/usr<span class="w"> </span><span class="se">\</span>
+<span class="w">            </span>--disable-gc-mark-trace<span class="w"> </span><span class="se">\</span>
+<span class="w">            </span>--with-pgtk<span class="w"> </span><span class="se">\</span>
+<span class="w">            </span>--with-native-compilation<span class="o">=</span>aot<span class="w"> </span><span class="se">\</span>
+<span class="w">            </span>--without-x
+<span class="w"> </span>make<span class="w"> </span>-j<span class="w"> </span><span class="k">$(</span>nproc<span class="k">)</span>
+<span class="w"> </span>make<span class="w"> </span>install
+</pre></div>
+</div>
+</div>
+<p>If you include an executable script named <code class="docutils literal notranslate"><span class="pre">mkosi.build</span></code> that gets called by <code class="docutils literal notranslate"><span class="pre">mkosi</span></code> during the build stage to… well build your software.
+By default, this script is executed <strong>on the host</strong>, append <code class="docutils literal notranslate"><span class="pre">.chroot</span></code> to the name if you want it to be executed from within the image you are building.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>I don’t really know which options I should/should not be passing to <code class="docutils literal notranslate"><span class="pre">./configure</span></code> so if you have any suggestions please let me know! 😀</p>
+</div>
+<p>With the config updated, repeating the steps in <a class="reference internal" href="#build-the-sysext"><span class="std std-ref">Building the sysext</span></a> was all that was needed to produce a sysext containing Emacs v31.1!</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>emacs<span class="w"> </span>--version
+<span class="go">GNU Emacs 31.1</span>
+<span class="go">Development version a360712c9d27 on HEAD branch; build date 2026-09-01.</span>
+<span class="go">Copyright (C) 2026 Free Software Foundation, Inc.</span>
+<span class="go">GNU Emacs comes with ABSOLUTELY NO WARRANTY.</span>
+<span class="go">You may redistribute copies of GNU Emacs</span>
+<span class="go">under the terms of the GNU General Public License.</span>
+<span class="go">For more information about these matters, see the file named COPYING.</span>
+</pre></div>
+</div>
+</section>
+<section id="it-s-looking-promising">
+<h2>It’s Looking Promising!<a class="headerlink" href="#it-s-looking-promising" title="Link to this heading">¶</a></h2>
+<p>Although I am writing this post from within my freshly built Emacs, it’s only been an hour a two, so too early to declare this a flawless victory but it’s certainly looking good.
+Also, thanks to the sysext approach, if the worst happens and I need to roll back, I still have the previous versions lying around</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>ls<span class="w"> </span>-lh<span class="w"> </span>/var/lib/extensions.d/
+<span class="go">total 1.1G</span>
+<span class="go">-rw-r--r--. 1 root root 404M Aug 27 08:27 emacs-1-30.2-28.fc44-44-x86-64.raw</span>
+<span class="go">-rw-r--r--. 1 root root 304M Mar 12 10:09 emacs-1-30.2-6.fc43-43-x86-64.raw</span>
+<span class="go">-rw-r--r--. 1 root root 338M Sep  1 14:53 emacs.raw</span>
+<span class="go">-rw-r--r--. 1 root root 1.1M Aug 26 02:15 erofs-utils-1.9.2-2.fc44-44-x86-64.raw</span>
+</pre></div>
+</div>
+<p>So while it’s not “one-click”, by tweaking a symlink and running a couple of commands I can easily roll back to the previous version.</p>
+<p>Or… now that I’ve figured how to do this… roll forward to a build containing the new <a class="reference external" href="https://www.monadicsheep.org/blog/an-introduction-to-canvas-in-emacs.html">Canvas</a>! 🤔</p>
+</section>
+</section>
+
+  <footer>
+    <script src="https://giscus.app/client.js"
+            data-repo="alcarney/blog"
+            data-repo-id="MDEwOlJlcG9zaXRvcnk2Njk3NzM3MQ=="
+            data-category="Comments"
+            data-category-id="DIC_kwDOA_3-W84B_XOl"
+            data-mapping="pathname"
+            data-reactions-enabled="1"
+            data-emit-metadata="0"
+            data-theme="preferred_color_scheme"
+            crossorigin="anonymous"
+            async>
+    </script>
+  </footer>
+
+</article>
+
+  </main>
+
+  <aside>
+    <div class="right-sidebar"><section class="credits">
+  <h5>Built with</h5>
+  <ul>
+    <li>
+      <a href="https://www.sphinx-doc.org/en/master/">
+        Sphinx
+      </a>
+      v8.2.3
+    </li>
+    <li>
+      <a href="https://docutils.sourceforge.io/">
+        Docutils
+      </a>
+      v0.21.2
+    </li>
+    <li>
+      <a href="https://feathericons.com/">
+        Feather Icons
+      </a>
+    </li>
+  </ul>
+</section>
+    </div>
+  </aside>
+
+  <footer class="site"></footer>
+</div>
+  </body>
+</html>

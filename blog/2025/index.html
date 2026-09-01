@@ -122,7 +122,7 @@
   <li>
     <a href="#">
         <span>2025</span>
-        <span class="count">(8)</span>
+        <span class="count">(9)</span>
     </a>
   </li>
   
@@ -228,6 +228,53 @@
 <h1 style="margin: 1em; color: var(--fg-accent);">
   Posts in 2025
 </h1>
+  <article class="summary">
+    <header>
+      <a href="../2026/building-emacs-into-a-systemd-sysext/">
+        <h2 style="max-width: 33ch" class="mb-4 text-2xl text-green-600">Building Emacs into a systemd-sysext</h2>
+      </a>
+    </header>
+    <aside>
+        
+<section class="post-metadata">
+    <h5 style="grid-column: span 2">Metadata</h5><svg xmlns="http://www.w3.org/2000/svg" width="2em" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+</svg>
+    <time style="align-self: center; text-align: right;" datetime="2026-09-01 00:00:00+00:00">Sep 01, 2026</time><svg xmlns="http://www.w3.org/2000/svg" width="2em" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z" />
+</svg>
+    <ul class="taglist">
+        <li>
+            <a class="tag" href="../../tag/emacs/">
+                #emacs
+            </a>
+        </li>
+        <li>
+            <a class="tag" href="../../tag/systemd/">
+                #systemd
+            </a>
+        </li>
+    </ul>
+</section>
+    </aside>
+
+    <div style="min-width: 0">
+      <div class="post-teaser docutils container">
+<p>Now that Emacs v31 is out I’m itching to play with all the new features.
+However, <em>I think</em> I need to wait for Fedora 45 to land before it becomes available through the repos.
+I <em>could</em> build it from source, but being on an image based OS you can’t “just” install it when you are done.</p>
+<p>However, when Emacs v30 released, I did manage to figure out how to <a class="reference internal" href="installing-emacs-with-systemd-sysext/" title="Intstalling Emacs with systemd-sysext">install Emacs when packaged as a systemd-sysext</a>.
+So I guess this time I’m figuring out how to build a systemd-sysext for myself!</p>
+</div>
+
+    </div>
+
+    <footer>
+      <p>
+        <a href="../2026/building-emacs-into-a-systemd-sysext/">Read More...</a>
+      </p>
+    </footer>
+  </article>
   <article class="summary">
     <header>
       <a href="../2026/organising-series-with-denote-sequence/">
@@ -649,7 +696,7 @@ Surely it must be possible to capture the contents of a terminal window and then
 
     <div style="min-width: 0">
       <div class="post-teaser docutils container">
-<p>One issue with building <a class="reference internal" href="../../notes/20250409T205418/" title="Building Emacs from Source">Emacs from source</a>, or more specifically my hack to ensure that the required system libraries are available on Aurora, is that in some situations the system version of Emacs “wins”.</p>
+<p>One issue with building Emacs from source, or more specifically my hack to ensure that the required system libraries are available on Aurora, is that in some situations the system version of Emacs “wins”.</p>
 <p>For example, I wanted to experiment with running the Emacs daemon through systemd:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ systemctl --user start emacs
 </pre></div>

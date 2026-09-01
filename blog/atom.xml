@@ -2,13 +2,483 @@
 <feed xmlns="http://www.w3.org/2005/Atom" xml:lang="en">
   <id>https://www.alcarney.me/</id>
   <title>Alex Carney | Blog</title>
-  <updated>2026-08-08T13:41:59.143064+00:00</updated>
+  <updated>2026-09-01T19:39:42.099507+00:00</updated>
   <link href="https://www.alcarney.me/" />
   <link href="https://www.alcarney.me/blog/atom.xml" rel="self" />
   <author>
     <name>Alex Carney</name>
   </author>
   <generator uri="https://www.sphinx-doc.org/en/master/" version="8">Sphinx</generator>
+  
+  <entry>
+    <id>https://www.alcarney.me/blog/2026/building-emacs-into-a-systemd-sysext/</id>
+    <link href="https://www.alcarney.me/blog/2026/building-emacs-into-a-systemd-sysext" rel="alternate" />
+    <published>2026-09-01T00:00:00+00:00</published>
+    <updated>2026-09-01T00:00:00+00:00</updated>
+    <title>Building Emacs into a systemd-sysext</title>
+    <content type="html">
+      &lt;section id=&#34;building-emacs-into-a-systemd-sysext&#34;&gt;
+&lt;h1&gt;Building Emacs into a systemd-sysext&lt;a class=&#34;headerlink&#34; href=&#34;#building-emacs-into-a-systemd-sysext&#34; title=&#34;Link to this heading&#34;&gt;¶&lt;/a&gt;&lt;/h1&gt;
+&lt;div class=&#34;post-teaser docutils container&#34;&gt;
+&lt;p&gt;Now that Emacs v31 is out I’m itching to play with all the new features.
+However, &lt;em&gt;I think&lt;/em&gt; I need to wait for Fedora 45 to land before it becomes available through the repos.
+I &lt;em&gt;could&lt;/em&gt; build it from source, but being on an image based OS you can’t “just” install it when you are done.&lt;/p&gt;
+&lt;p&gt;However, when Emacs v30 released, I did manage to figure out how to &lt;a class=&#34;reference internal&#34; href=&#34;../blog/2025/installing-emacs-with-systemd-sysext/&#34; title=&#34;Intstalling Emacs with systemd-sysext&#34;&gt;install Emacs when packaged as a systemd-sysext&lt;/a&gt;.
+So I guess this time I’m figuring out how to build a systemd-sysext for myself!&lt;/p&gt;
+&lt;/div&gt;
+&lt;p&gt;systemd-sysexts &lt;em&gt;can&lt;/em&gt; be as simple as:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;a folder of files in the right place (&lt;code class=&#34;docutils literal notranslate&#34;&gt;&lt;span class=&#34;pre&#34;&gt;/var/lib/extensions&lt;/span&gt;&lt;/code&gt;)&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;in the right shape (&lt;a class=&#34;reference external&#34; href=&#34;https://en.wikipedia.org/wiki/Filesystem_Hierarchy_Standard&#34;&gt;FHS&lt;/a&gt; under &lt;code class=&#34;docutils literal notranslate&#34;&gt;&lt;span class=&#34;pre&#34;&gt;/usr&lt;/span&gt;&lt;/code&gt;)&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;with a “release” file signalling compatibity:&lt;/p&gt;
+&lt;div class=&#34;highlight-none notranslate&#34;&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;/var/lib/extensions $ cat ./&amp;lt;name&amp;gt;/usr/lib/extension-release.d/extension-release.&amp;lt;name&amp;gt;
+ID=&amp;lt;distro&amp;gt;            # e.g. &amp;#39;fedora&amp;#39;
+VERSION_ID=&amp;lt;release&amp;gt;   # e.g. &amp;#39;44&amp;#39;
+&lt;/pre&gt;&lt;/div&gt;
+&lt;/div&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;If the above holds and the declared &lt;code class=&#34;docutils literal notranslate&#34;&gt;&lt;span class=&#34;pre&#34;&gt;ID&lt;/span&gt;&lt;/code&gt; and &lt;code class=&#34;docutils literal notranslate&#34;&gt;&lt;span class=&#34;pre&#34;&gt;VERSION_ID&lt;/span&gt;&lt;/code&gt; are compatible with what’s in your &lt;code class=&#34;docutils literal notranslate&#34;&gt;&lt;span class=&#34;pre&#34;&gt;/etc/os-release&lt;/span&gt;&lt;/code&gt; file then systemd will happily use the folder structure as a sysext.&lt;/p&gt;
+&lt;p&gt;Though of course, things rarely stick to the simplest case.&lt;/p&gt;
+&lt;section id=&#34;the-plan&#34;&gt;
+&lt;h2&gt;The plan&lt;a class=&#34;headerlink&#34; href=&#34;#the-plan&#34; title=&#34;Link to this heading&#34;&gt;¶&lt;/a&gt;&lt;/h2&gt;
+&lt;p&gt;To make a systemd-sysext for Emacs you would need to do the following:&lt;/p&gt;
+&lt;ol class=&#34;arabic simple&#34;&gt;
+&lt;li&gt;&lt;p&gt;Prepare an environment with the necessary tools to build Emacs.&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;Build and install Emacs into a &lt;code class=&#34;docutils literal notranslate&#34;&gt;&lt;span class=&#34;pre&#34;&gt;/usr&lt;/span&gt;&lt;/code&gt; hierarchy.&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;Figure out which files are part of Emacs itself, or its runtime dependencies.&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;Extract those files into a separate, isolated, folder structure&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;Write the “release” file indicating which underlying host distro the sysext is compatible with.&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;(Bonus points) pack the whole folder structure into a “real” format like an erofs file system.&lt;/p&gt;&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;If only there was already a tool that could automate most of this process for us!&lt;/p&gt;
+&lt;/section&gt;
+&lt;section id=&#34;building-sysexts-with-mkosi&#34;&gt;
+&lt;h2&gt;Building sysexts with mkosi&lt;a class=&#34;headerlink&#34; href=&#34;#building-sysexts-with-mkosi&#34; title=&#34;Link to this heading&#34;&gt;¶&lt;/a&gt;&lt;/h2&gt;
+&lt;p&gt;&lt;a class=&#34;reference external&#34; href=&#34;https://github.com/systemd/mkosi/&#34;&gt;mkosi&lt;/a&gt;, among many other things can build systemd-sysexts.&lt;/p&gt;
+&lt;p&gt;Before jumping straight into building Emacs from source, let’s adapt &lt;a class=&#34;reference external&#34; href=&#34;https://mkosi.systemd.io/sysext.html&#34;&gt;this guide&lt;/a&gt;, to derive a sysext from the existing Emacs Fedora package.&lt;/p&gt;
+&lt;ol class=&#34;arabic&#34;&gt;
+&lt;li&gt;&lt;p&gt;Create a folder to act as the workspace e.g. &lt;code class=&#34;docutils literal notranslate&#34;&gt;&lt;span class=&#34;pre&#34;&gt;/tmp/sysext-build&lt;/span&gt;&lt;/code&gt;&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;Create a top-level config file to store common settings:&lt;/p&gt;
+&lt;div class=&#34;highlight-ini notranslate&#34;&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;[Output]&lt;/span&gt;
+&lt;span class=&#34;na&#34;&gt;OutputDirectory&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;mkosi.output&lt;/span&gt;
+
+&lt;span class=&#34;k&#34;&gt;[Build]&lt;/span&gt;
+&lt;span class=&#34;na&#34;&gt;CacheDirectory&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;mkosi.cache&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+&lt;/div&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;Create a config under &lt;code class=&#34;docutils literal notranslate&#34;&gt;&lt;span class=&#34;pre&#34;&gt;mkosi.images/base/&lt;/span&gt;&lt;/code&gt; to define the base image:&lt;/p&gt;
+&lt;div class=&#34;highlight-ini notranslate&#34;&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;[Output]&lt;/span&gt;
+&lt;span class=&#34;na&#34;&gt;Format&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;directory&lt;/span&gt;
+
+&lt;span class=&#34;k&#34;&gt;[Content]&lt;/span&gt;
+&lt;span class=&#34;na&#34;&gt;CleanPackageMetadata&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;no&lt;/span&gt;
+&lt;span class=&#34;na&#34;&gt;Packages&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;systemd&lt;/span&gt;
+&lt;span class=&#34;w&#34;&gt;         &lt;/span&gt;&lt;span class=&#34;na&#34;&gt;udev&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+&lt;/div&gt;
+&lt;p&gt;Apparently, putting the base image in a plain &lt;code class=&#34;docutils literal notranslate&#34;&gt;&lt;span class=&#34;pre&#34;&gt;directory&lt;/span&gt;&lt;/code&gt; means the build can be executed without root.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;Create a config under &lt;code class=&#34;docutils literal notranslate&#34;&gt;&lt;span class=&#34;pre&#34;&gt;mkosi.images/emacs&lt;/span&gt;&lt;/code&gt; that produces the sysext:&lt;/p&gt;
+&lt;div class=&#34;highlight-ini notranslate&#34;&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;[Config]&lt;/span&gt;
+&lt;span class=&#34;na&#34;&gt;Dependencies&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;base&lt;/span&gt;
+
+&lt;span class=&#34;k&#34;&gt;[Output]&lt;/span&gt;
+&lt;span class=&#34;na&#34;&gt;Format&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;sysext&lt;/span&gt;
+&lt;span class=&#34;na&#34;&gt;Overlay&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;yes&lt;/span&gt;
+
+&lt;span class=&#34;k&#34;&gt;[Content]&lt;/span&gt;
+&lt;span class=&#34;na&#34;&gt;BaseTrees&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;%O/base&lt;/span&gt;
+&lt;span class=&#34;na&#34;&gt;Packages&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;emacs&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+&lt;/div&gt;
+&lt;p&gt;This takes the &lt;code class=&#34;docutils literal notranslate&#34;&gt;&lt;span class=&#34;pre&#34;&gt;base&lt;/span&gt;&lt;/code&gt; image as a dependency, so that we have a functioning system on which we can run our build.
+In this example, the build is trivial - just install the packages listed in &lt;code class=&#34;docutils literal notranslate&#34;&gt;&lt;span class=&#34;pre&#34;&gt;Packages&lt;/span&gt;&lt;/code&gt;.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;Run &lt;code class=&#34;docutils literal notranslate&#34;&gt;&lt;span class=&#34;pre&#34;&gt;mkosi&lt;/span&gt; &lt;span class=&#34;pre&#34;&gt;-f&lt;/span&gt;&lt;/code&gt; from the &lt;code class=&#34;docutils literal notranslate&#34;&gt;&lt;span class=&#34;pre&#34;&gt;/tmp/sysext-build&lt;/span&gt;&lt;/code&gt; directory:&lt;/p&gt;
+&lt;div class=&#34;highlight-console notranslate&#34;&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class=&#34;go&#34;&gt;/tmp/sysext-build $ mkosi -f&lt;/span&gt;
+&lt;span class=&#34;go&#34;&gt;‣ Validating certificates and keys&lt;/span&gt;
+&lt;span class=&#34;go&#34;&gt;‣ Syncing package manager metadata&lt;/span&gt;
+&lt;span class=&#34;go&#34;&gt;Updating and loading repositories:&lt;/span&gt;
+&lt;span class=&#34;go&#34;&gt;Repositories loaded.&lt;/span&gt;
+&lt;span class=&#34;go&#34;&gt;Metadata cache created.&lt;/span&gt;
+&lt;span class=&#34;go&#34;&gt;‣ Building base image&lt;/span&gt;
+&lt;span class=&#34;go&#34;&gt;‣  Installing Fedora Linux&lt;/span&gt;
+&lt;span class=&#34;gp&#34;&gt;#   &lt;/span&gt;&amp;lt;dnf&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;output&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;omitted&amp;gt;
+&lt;span class=&#34;go&#34;&gt;‣  Generating system users&lt;/span&gt;
+&lt;span class=&#34;go&#34;&gt;‣  Generating volatile files&lt;/span&gt;
+&lt;span class=&#34;go&#34;&gt;‣  Applying presets…&lt;/span&gt;
+&lt;span class=&#34;go&#34;&gt;Created symlink &amp;#39;/buildroot/etc/systemd/system/multi-user.target.wants/remote-integritysetup.target&amp;#39; → &amp;#39;/usr/lib/systemd/system/remote-integritysetup.target&amp;#39;.&lt;/span&gt;
+&lt;span class=&#34;go&#34;&gt;‣  Generating hardware database&lt;/span&gt;
+&lt;span class=&#34;go&#34;&gt;‣  /tmp/sysext-build/mkosi.output/base size is 136.0M.&lt;/span&gt;
+&lt;span class=&#34;go&#34;&gt;‣ Building emacs image&lt;/span&gt;
+&lt;span class=&#34;go&#34;&gt;‣  Mounting base trees…&lt;/span&gt;
+&lt;span class=&#34;go&#34;&gt;‣   Installing extra packages for Fedora Linux&lt;/span&gt;
+&lt;span class=&#34;gp&#34;&gt;#    &lt;/span&gt;&amp;lt;dnf&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;output&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;omitted&amp;gt;
+&lt;span class=&#34;go&#34;&gt;‣ Removing duplicate path /usr/lib/sysimage/rpm/rpmdb.sqlite-wal from overlay&lt;/span&gt;
+&lt;span class=&#34;go&#34;&gt;‣ Removing duplicate path /usr/lib/sysimage/rpm/rpmdb.sqlite-shm from overlay&lt;/span&gt;
+&lt;span class=&#34;go&#34;&gt;‣ Removing duplicate path /usr/lib/sysimage/rpm/.rpm.lock from overlay&lt;/span&gt;
+&lt;span class=&#34;go&#34;&gt;‣ Removing duplicate path /usr/lib/sysimage/rpm/rpmdb.sqlite from overlay&lt;/span&gt;
+&lt;span class=&#34;go&#34;&gt;‣ Removing duplicate path /usr/lib/sysimage/libdnf5/transaction_history.sqlite from overlay&lt;/span&gt;
+&lt;span class=&#34;go&#34;&gt;‣ Removing duplicate path /usr/lib/sysimage/libdnf5/transaction_history.sqlite-wal from overlay&lt;/span&gt;
+&lt;span class=&#34;go&#34;&gt;‣ Removing duplicate path /usr/lib/sysimage/libdnf5/transaction_history.sqlite-shm from overlay&lt;/span&gt;
+&lt;span class=&#34;go&#34;&gt;‣ Removing duplicate path /usr/lib/sysimage/libdnf5/packages.toml from overlay&lt;/span&gt;
+&lt;span class=&#34;go&#34;&gt;‣ Removing duplicate path /usr/lib/sysimage/libdnf5/nevras.toml from overlay&lt;/span&gt;
+&lt;span class=&#34;go&#34;&gt;‣ Removing duplicate path /usr/lib/sysimage/libdnf5/groups.toml from overlay&lt;/span&gt;
+&lt;span class=&#34;go&#34;&gt;‣ Removing duplicate path /usr/lib/sysimage/libdnf5/environments.toml from overlay&lt;/span&gt;
+&lt;span class=&#34;go&#34;&gt;‣ Removing duplicate path /usr/lib/sysimage/libdnf5/system.toml from overlay&lt;/span&gt;
+&lt;span class=&#34;go&#34;&gt;‣ Removing duplicate path /usr/lib/sysimage/libdnf5/modules.toml from overlay&lt;/span&gt;
+&lt;span class=&#34;go&#34;&gt;‣  Removing empty directories…&lt;/span&gt;
+&lt;span class=&#34;go&#34;&gt;‣  Building sysext extension image&lt;/span&gt;
+&lt;span class=&#34;go&#34;&gt;Pre-populating erofs filesystem of partition 10-root.conf to calculate minimal partition size&lt;/span&gt;
+&lt;span class=&#34;go&#34;&gt;Preparing to populate erofs filesystem.&lt;/span&gt;
+&lt;span class=&#34;go&#34;&gt;Failed to open source file &amp;#39;/buildroot/opt&amp;#39;, skipping: No such file or directory&lt;/span&gt;
+&lt;span class=&#34;go&#34;&gt;Ready to populate erofs filesystem.&lt;/span&gt;
+&lt;span class=&#34;go&#34;&gt;mkfs.erofs binary not available.&lt;/span&gt;
+&lt;span class=&#34;go&#34;&gt;‣ &amp;quot;systemd-repart --root=/buildroot --json=pretty --dry-run=no --no-pager --offline=yes --seed 1f4fb277-7943-41db-b853-c33514998b71 --empty=create --size=auto --definitions /work/tmp/tmpxw95dzaf/resources/repart/definitions/sysext-unsigned.repart.d /work/home/alex/.cache/mkosi/mkosi-workspace-7czb6oto/staging/emacs.raw&amp;quot; returned non-zero exit code 1.&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+&lt;/div&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;Ah.&lt;/p&gt;
+&lt;section id=&#34;installing-erofs-utils&#34;&gt;
+&lt;h3&gt;Installing &lt;code class=&#34;docutils literal notranslate&#34;&gt;&lt;span class=&#34;pre&#34;&gt;erofs-utils&lt;/span&gt;&lt;/code&gt;&lt;a class=&#34;headerlink&#34; href=&#34;#installing-erofs-utils&#34; title=&#34;Link to this heading&#34;&gt;¶&lt;/a&gt;&lt;/h3&gt;
+&lt;p&gt;Typically, sysexts appear to use the &lt;code class=&#34;docutils literal notranslate&#34;&gt;&lt;span class=&#34;pre&#34;&gt;erofs&lt;/span&gt;&lt;/code&gt; filesystem (no I don’t know what it is! 😅).
+So to make one you need the necessary utilities installed.&lt;/p&gt;
+&lt;p&gt;Luckily, there is already a sysext from &lt;a class=&#34;reference external&#34; href=&#34;https://fedora-sysexts.github.io/fedora/&#34;&gt;https://fedora-sysexts.github.io/fedora/&lt;/a&gt; that provides them for me, it’s just a case of installing it.&lt;/p&gt;
+&lt;div class=&#34;admonition tip&#34;&gt;
+&lt;p class=&#34;admonition-title&#34;&gt;Tip&lt;/p&gt;
+&lt;p&gt;If you’ve never used a systemd-sysext, you also need to setup the &lt;code class=&#34;docutils literal notranslate&#34;&gt;&lt;span class=&#34;pre&#34;&gt;/var/lib/extensions{.d}&lt;/span&gt;&lt;/code&gt; folders.&lt;/p&gt;
+&lt;div class=&#34;highlight-console notranslate&#34;&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class=&#34;gp&#34;&gt;$ &lt;/span&gt;sudo&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;install&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;-d&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;-m&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;m&#34;&gt;0755&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;-o&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;m&#34;&gt;0&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;-g&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;m&#34;&gt;0&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;/var/lib/extensions&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;/var/lib/extensions.d
+&lt;span class=&#34;gp&#34;&gt;$ &lt;/span&gt;sudo&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;restorecon&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;-RFv&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;/var/lib/extensions&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;/var/lib/extensions.d
+&lt;/pre&gt;&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;ol class=&#34;arabic&#34;&gt;
+&lt;li&gt;&lt;p&gt;Create a &lt;code class=&#34;docutils literal notranslate&#34;&gt;&lt;span class=&#34;pre&#34;&gt;/etc/sysupdate.erofs-utils.d/&lt;/span&gt;&lt;/code&gt; folder&lt;/p&gt;
+&lt;div class=&#34;highlight-console notranslate&#34;&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class=&#34;gp&#34;&gt;$ &lt;/span&gt;sudo&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;install&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;-d&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;-m&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;m&#34;&gt;0755&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;-o&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;m&#34;&gt;0&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;-g&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;m&#34;&gt;0&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;/etc/sysupdate.erofs-utils.d
+&lt;span class=&#34;gp&#34;&gt;$ &lt;/span&gt;sudo&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;restorecon&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;-RFv&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;/etc/sysupdate.erofs-utils.d
+&lt;/pre&gt;&lt;/div&gt;
+&lt;/div&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;Create a &lt;code class=&#34;docutils literal notranslate&#34;&gt;&lt;span class=&#34;pre&#34;&gt;/etc/sysupdate.erofs-utils.d/erofs-utils.transfer&lt;/span&gt;&lt;/code&gt; file&lt;/p&gt;
+&lt;div class=&#34;highlight-ini notranslate&#34;&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;[Transfer]&lt;/span&gt;
+&lt;span class=&#34;na&#34;&gt;Verify&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;false&lt;/span&gt;
+
+&lt;span class=&#34;k&#34;&gt;[Source]&lt;/span&gt;
+&lt;span class=&#34;na&#34;&gt;Type&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;url-file&lt;/span&gt;
+&lt;span class=&#34;na&#34;&gt;Path&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;https://extensions.fcos.fr/extensions/erofs-utils/&lt;/span&gt;
+&lt;span class=&#34;na&#34;&gt;MatchPattern&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;erofs-utils-@v-%w-%a.raw&lt;/span&gt;
+
+&lt;span class=&#34;k&#34;&gt;[Target]&lt;/span&gt;
+&lt;span class=&#34;na&#34;&gt;InstancesMax&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;2&lt;/span&gt;
+&lt;span class=&#34;na&#34;&gt;Type&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;regular-file&lt;/span&gt;
+&lt;span class=&#34;na&#34;&gt;Path&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;/var/lib/extensions.d/&lt;/span&gt;
+&lt;span class=&#34;na&#34;&gt;MatchPattern&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;erofs-utils-@v-%w-%a.raw&lt;/span&gt;
+&lt;span class=&#34;na&#34;&gt;CurrentSymlink&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;/var/lib/extensions/erofs-utils.raw&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+&lt;/div&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;This allows for the use of the &lt;code class=&#34;docutils literal notranslate&#34;&gt;&lt;span class=&#34;pre&#34;&gt;systemd-sysupdate&lt;/span&gt;&lt;/code&gt; command to automate the installation and update of the sysext.&lt;/p&gt;
+&lt;div class=&#34;highlight-console notranslate&#34;&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class=&#34;gp&#34;&gt;$ &lt;/span&gt;sudo&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;/usr/lib/systemd/systemd-sysupdate&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;update&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;--component&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;erofs-utils
+&lt;span class=&#34;go&#34;&gt;Discovering available instances…&lt;/span&gt;
+&lt;span class=&#34;go&#34;&gt;⤵ Acquiring manifest file https://extensions.fcos.fr/extensions/erofs-utils/SHA256SUMS…&lt;/span&gt;
+&lt;span class=&#34;go&#34;&gt;Pulling &amp;#39;https://extensions.fcos.fr/extensions/erofs-utils/SHA256SUMS&amp;#39;.&lt;/span&gt;
+&lt;span class=&#34;go&#34;&gt;Downloading 1.6K for https://extensions.fcos.fr/extensions/erofs-utils/SHA256SUMS.&lt;/span&gt;
+&lt;span class=&#34;go&#34;&gt;Got 81% of https://extensions.fcos.fr/extensions/erofs-utils/SHA256SUMS.&lt;/span&gt;
+&lt;span class=&#34;go&#34;&gt;Acquired 1.6K.&lt;/span&gt;
+&lt;span class=&#34;go&#34;&gt;Download of https://extensions.fcos.fr/extensions/erofs-utils/SHA256SUMS complete.&lt;/span&gt;
+&lt;span class=&#34;go&#34;&gt;Operation completed successfully.&lt;/span&gt;
+&lt;span class=&#34;go&#34;&gt;Exiting.&lt;/span&gt;
+&lt;span class=&#34;go&#34;&gt;Determining installed update sets…&lt;/span&gt;
+&lt;span class=&#34;go&#34;&gt;Determining available update sets…&lt;/span&gt;
+&lt;span class=&#34;go&#34;&gt;Selected update &amp;#39;1.9.2-2.fc44&amp;#39; for install.&lt;/span&gt;
+&lt;span class=&#34;go&#34;&gt;Making room for 1 updates…&lt;/span&gt;
+&lt;span class=&#34;go&#34;&gt;Found nothing to remove.&lt;/span&gt;
+&lt;span class=&#34;go&#34;&gt;⤵ Acquiring https://extensions.fcos.fr/extensions/erofs-utils/erofs-utils-1.9.2-2.fc44-44-x86-64.raw → /var/lib/extensions.d/erofs-utils-1.9.2-2.fc44-44-x86-64.raw...&lt;/span&gt;
+&lt;span class=&#34;go&#34;&gt;Pulling &amp;#39;https://extensions.fcos.fr/extensions/erofs-utils/erofs-utils-1.9.2-2.fc44-44-x86-64.raw&amp;#39;, saving as &amp;#39;/var/lib/extensions.d/.#sysupdateerofs-utils-1.9.2-2.fc44-44-x86-64.rawfaea62476ebc8520&amp;#39;.&lt;/span&gt;
+&lt;span class=&#34;go&#34;&gt;Downloading 1M for https://extensions.fcos.fr/extensions/erofs-utils/erofs-utils-1.9.2-2.fc44-44-x86-64.raw.&lt;/span&gt;
+&lt;span class=&#34;go&#34;&gt;Got 1% of https://extensions.fcos.fr/extensions/erofs-utils/erofs-utils-1.9.2-2.fc44-44-x86-64.raw.&lt;/span&gt;
+&lt;span class=&#34;go&#34;&gt;Acquired 1M.&lt;/span&gt;
+&lt;span class=&#34;go&#34;&gt;Download of https://extensions.fcos.fr/extensions/erofs-utils/erofs-utils-1.9.2-2.fc44-44-x86-64.raw complete.&lt;/span&gt;
+&lt;span class=&#34;go&#34;&gt;Operation completed successfully.&lt;/span&gt;
+&lt;span class=&#34;go&#34;&gt;Exiting.&lt;/span&gt;
+&lt;span class=&#34;go&#34;&gt;Successfully acquired &amp;#39;https://extensions.fcos.fr/extensions/erofs-utils/erofs-utils-1.9.2-2.fc44-44-x86-64.raw&amp;#39;.&lt;/span&gt;
+&lt;span class=&#34;go&#34;&gt;Successfully installed &amp;#39;https://extensions.fcos.fr/extensions/erofs-utils/erofs-utils-1.9.2-2.fc44-44-x86-64.raw&amp;#39; (url-file) as &amp;#39;/var/lib/extensions.d/erofs-utils-1.9.2-2.fc44-44-x86-64.raw&amp;#39; (regular-file).&lt;/span&gt;
+&lt;span class=&#34;go&#34;&gt;Updated symlink &amp;#39;/var/lib/extensions/erofs-utils.raw&amp;#39; → &amp;#39;../extensions.d/erofs-utils-1.9.2-2.fc44-44-x86-64.raw&amp;#39;.&lt;/span&gt;
+&lt;span class=&#34;go&#34;&gt;✨ Successfully installed update &amp;#39;1.9.2-2.fc44&amp;#39;.&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+&lt;/div&gt;
+&lt;p&gt;To activate the sysext run the unmerge (if necessary) and merge commands&lt;/p&gt;
+&lt;div class=&#34;highlight-console notranslate&#34;&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class=&#34;gp&#34;&gt;$ &lt;/span&gt;sudo&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;systemd-sysext&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;unmerge
+&lt;span class=&#34;go&#34;&gt;Unmerged &amp;#39;/usr&amp;#39;&lt;/span&gt;
+
+&lt;span class=&#34;gp&#34;&gt;$ &lt;/span&gt;sudo&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;systemd-sysext&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;merge
+&lt;span class=&#34;go&#34;&gt;Using extensions &amp;#39;erofs-utils.raw&amp;#39;.&lt;/span&gt;
+&lt;span class=&#34;go&#34;&gt;Merged extensions into &amp;#39;/usr&amp;#39;.&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+&lt;/div&gt;
+&lt;/section&gt;
+&lt;section id=&#34;building-the-sysext&#34;&gt;
+&lt;span id=&#34;build-the-sysext&#34;&gt;&lt;/span&gt;&lt;h3&gt;Building the sysext&lt;a class=&#34;headerlink&#34; href=&#34;#building-the-sysext&#34; title=&#34;Link to this heading&#34;&gt;¶&lt;/a&gt;&lt;/h3&gt;
+&lt;p&gt;With the necessary tools installed, it should now be possible to build the sysext.&lt;/p&gt;
+&lt;div class=&#34;highlight-console notranslate&#34;&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class=&#34;go&#34;&gt;/tmp/sysext-build $ mkosi -f&lt;/span&gt;
+&lt;span class=&#34;gp&#34;&gt;# &lt;/span&gt;&amp;lt;output&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;skipped&amp;gt;
+&lt;span class=&#34;go&#34;&gt;‣  Building sysext extension image&lt;/span&gt;
+&lt;span class=&#34;go&#34;&gt;Pre-populating erofs filesystem of partition 10-root.conf to calculate minimal partition size&lt;/span&gt;
+&lt;span class=&#34;go&#34;&gt;Preparing to populate erofs filesystem.&lt;/span&gt;
+&lt;span class=&#34;go&#34;&gt;Failed to open source file &amp;#39;/buildroot/opt&amp;#39;, skipping: No such file or directory&lt;/span&gt;
+&lt;span class=&#34;go&#34;&gt;Ready to populate erofs filesystem.&lt;/span&gt;
+&lt;span class=&#34;go&#34;&gt;mkfs.erofs 1.9.2&lt;/span&gt;
+&lt;span class=&#34;go&#34;&gt;Build completed.&lt;/span&gt;
+&lt;span class=&#34;go&#34;&gt;------&lt;/span&gt;
+&lt;span class=&#34;go&#34;&gt;Filesystem UUID: a738a716-f4c1-4914-91f7-b053b6103c19&lt;/span&gt;
+&lt;span class=&#34;go&#34;&gt;Filesystem total blocks: 204508 (of 4096-byte blocks)&lt;/span&gt;
+&lt;span class=&#34;go&#34;&gt;Filesystem total inodes: 18645&lt;/span&gt;
+&lt;span class=&#34;go&#34;&gt;Filesystem total metadata blocks: 7608&lt;/span&gt;
+&lt;span class=&#34;go&#34;&gt;Filesystem total deduplicated bytes (of source files): 0&lt;/span&gt;
+&lt;span class=&#34;go&#34;&gt;/var/tmp/.#repartbe3ba45d64095527 successfully formatted as erofs (uuid a738a716-f4c1-4914-91f7-b053b6103c19, no label)&lt;/span&gt;
+&lt;span class=&#34;go&#34;&gt;Minimal partition size of erofs filesystem of partition 10-root.conf is 798.8M&lt;/span&gt;
+&lt;span class=&#34;go&#34;&gt;Automatically determined minimal disk image size as 799.8M.&lt;/span&gt;
+&lt;span class=&#34;go&#34;&gt;Sized &amp;#39;/work/home/alex/.cache/mkosi/mkosi-workspace-4beygy4j/staging/emacs.raw&amp;#39; to 799.8M.&lt;/span&gt;
+&lt;span class=&#34;go&#34;&gt;Applying changes to /work/home/alex/.cache/mkosi/mkosi-workspace-4beygy4j/staging/emacs.raw.&lt;/span&gt;
+&lt;span class=&#34;go&#34;&gt;Copying in &amp;#39;/var/tmp/.#repartbe3ba45d64095527&amp;#39; (798.8M) on block level into future partition 0.&lt;/span&gt;
+&lt;span class=&#34;go&#34;&gt;Copying in of &amp;#39;/var/tmp/.#repartbe3ba45d64095527&amp;#39; on block level completed.&lt;/span&gt;
+&lt;span class=&#34;go&#34;&gt;Syncing future partition 0 contents to disk.&lt;/span&gt;
+&lt;span class=&#34;go&#34;&gt;Block level copying and synchronization of partition 0 complete in 294.448ms (2.6G/s).&lt;/span&gt;
+&lt;span class=&#34;go&#34;&gt;Adding new partition 0 to partition table.&lt;/span&gt;
+&lt;span class=&#34;go&#34;&gt;Writing new partition table.&lt;/span&gt;
+&lt;span class=&#34;go&#34;&gt;All done.&lt;/span&gt;
+&lt;span class=&#34;go&#34;&gt;‣  /tmp/sysext-build/mkosi.output/emacs.raw size is 799.9M, consumes 798.9M.&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+&lt;/div&gt;
+&lt;p&gt;Thanks to the cache dirs setup in the top-level config file, the second attempt builds &lt;em&gt;much&lt;/em&gt; faster!&lt;/p&gt;
+&lt;div class=&#34;admonition note&#34;&gt;
+&lt;p class=&#34;admonition-title&#34;&gt;Note&lt;/p&gt;
+&lt;p&gt;This config also results in a “main image” being built…&lt;/p&gt;
+&lt;div class=&#34;highlight-console notranslate&#34;&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class=&#34;go&#34;&gt;‣ Building main image&lt;/span&gt;
+&lt;span class=&#34;go&#34;&gt;‣  Installing Fedora Linux&lt;/span&gt;
+&lt;span class=&#34;gp&#34;&gt;#   &lt;/span&gt;&amp;lt;dnf&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;output&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;omitted&amp;gt;
+&lt;span class=&#34;go&#34;&gt;‣  Generating system users&lt;/span&gt;
+&lt;span class=&#34;go&#34;&gt;‣  Generating volatile files&lt;/span&gt;
+&lt;span class=&#34;go&#34;&gt;‣  Applying presets…&lt;/span&gt;
+&lt;span class=&#34;go&#34;&gt;‣  Generating hardware database&lt;/span&gt;
+&lt;span class=&#34;go&#34;&gt;No hwdb files found, skipping.&lt;/span&gt;
+&lt;span class=&#34;go&#34;&gt;‣  Generating disk image&lt;/span&gt;
+&lt;span class=&#34;go&#34;&gt;MountPoint= is not specified for any eligible partitions, not generating /etc/fstab&lt;/span&gt;
+&lt;span class=&#34;go&#34;&gt;EncryptedVolume= is not specified for any eligible partitions, not generating /etc/crypttab&lt;/span&gt;
+&lt;span class=&#34;go&#34;&gt;Pre-populating btrfs filesystem of partition 10-root.conf to calculate minimal partition size&lt;/span&gt;
+&lt;span class=&#34;go&#34;&gt;Preparing to populate btrfs filesystem.&lt;/span&gt;
+&lt;span class=&#34;go&#34;&gt;Ready to populate btrfs filesystem.&lt;/span&gt;
+&lt;span class=&#34;go&#34;&gt;btrfs-progs v7.1&lt;/span&gt;
+&lt;span class=&#34;go&#34;&gt;See https://btrfs.readthedocs.io for more information.&lt;/span&gt;
+
+&lt;span class=&#34;go&#34;&gt;NOTE: default settings have changed in version 6.19 (supported since linux 6.1):&lt;/span&gt;
+&lt;span class=&#34;go&#34;&gt;      - enable block-group-tree (-O bgt)&lt;/span&gt;
+
+&lt;span class=&#34;go&#34;&gt;Rootdir from:       /var/tmp/.#repart2d08eeaaa49d72c5&lt;/span&gt;
+&lt;span class=&#34;go&#34;&gt;  Compress:         no&lt;/span&gt;
+&lt;span class=&#34;go&#34;&gt;  Shrink:           yes&lt;/span&gt;
+&lt;span class=&#34;go&#34;&gt;Label:              root-x86-64&lt;/span&gt;
+&lt;span class=&#34;go&#34;&gt;UUID:               a738a716-f4c1-4914-91f7-b053b6103c19&lt;/span&gt;
+&lt;span class=&#34;go&#34;&gt;Node size:          16384&lt;/span&gt;
+&lt;span class=&#34;go&#34;&gt;Sector size:        4096        (CPU page size: 4096)&lt;/span&gt;
+&lt;span class=&#34;go&#34;&gt;Filesystem size:    101.00MiB&lt;/span&gt;
+&lt;span class=&#34;go&#34;&gt;Block group profiles:&lt;/span&gt;
+&lt;span class=&#34;go&#34;&gt;  Data:             single            8.00MiB&lt;/span&gt;
+&lt;span class=&#34;go&#34;&gt;  Metadata:         DUP              32.00MiB&lt;/span&gt;
+&lt;span class=&#34;go&#34;&gt;  System:           DUP               8.00MiB&lt;/span&gt;
+&lt;span class=&#34;go&#34;&gt;SSD detected:       no&lt;/span&gt;
+&lt;span class=&#34;go&#34;&gt;Zoned device:       no&lt;/span&gt;
+&lt;span class=&#34;go&#34;&gt;Features:           extref, skinny-metadata, no-holes, free-space-tree, block-group-tree&lt;/span&gt;
+&lt;span class=&#34;go&#34;&gt;Checksum:           crc32c&lt;/span&gt;
+&lt;span class=&#34;go&#34;&gt;Number of devices:  1&lt;/span&gt;
+&lt;span class=&#34;go&#34;&gt;Devices:&lt;/span&gt;
+&lt;span class=&#34;go&#34;&gt;   ID        SIZE  PATH&lt;/span&gt;
+&lt;span class=&#34;go&#34;&gt;    1   101.00MiB  /var/tmp/.#repart8c5b8b5a4db184b4&lt;/span&gt;
+
+&lt;span class=&#34;go&#34;&gt;/var/tmp/.#repart8c5b8b5a4db184b4 successfully formatted as btrfs (label &amp;quot;root-x86-64&amp;quot;, uuid a738a716-f4c1-4914-91f7-b053b6103c19)&lt;/span&gt;
+&lt;span class=&#34;go&#34;&gt;Minimal partition size of btrfs filesystem of partition 10-root.conf is 101M&lt;/span&gt;
+&lt;span class=&#34;go&#34;&gt;Automatically determined minimal disk image size as 102M.&lt;/span&gt;
+&lt;span class=&#34;go&#34;&gt;Sized &amp;#39;/work/home/alex/.cache/mkosi/mkosi-workspace-gqb4a69k/staging/image.raw&amp;#39; to 102M.&lt;/span&gt;
+&lt;span class=&#34;go&#34;&gt;Applying changes to /work/home/alex/.cache/mkosi/mkosi-workspace-gqb4a69k/staging/image.raw.&lt;/span&gt;
+&lt;span class=&#34;go&#34;&gt;Copying in &amp;#39;/var/tmp/.#repart8c5b8b5a4db184b4&amp;#39; (101M) on block level into future partition 0.&lt;/span&gt;
+&lt;span class=&#34;go&#34;&gt;Copying in of &amp;#39;/var/tmp/.#repart8c5b8b5a4db184b4&amp;#39; on block level completed.&lt;/span&gt;
+&lt;span class=&#34;go&#34;&gt;Syncing future partition 0 contents to disk.&lt;/span&gt;
+&lt;span class=&#34;go&#34;&gt;Block level copying and synchronization of partition 0 complete in 7.890ms.&lt;/span&gt;
+&lt;span class=&#34;go&#34;&gt;Adding new partition 0 to partition table.&lt;/span&gt;
+&lt;span class=&#34;go&#34;&gt;Writing new partition table.&lt;/span&gt;
+&lt;span class=&#34;go&#34;&gt;All done.&lt;/span&gt;
+&lt;span class=&#34;go&#34;&gt;‣  Formatting ESP/XBOOTLDR partitions&lt;/span&gt;
+&lt;span class=&#34;go&#34;&gt;Automatically determined minimal disk image size as 102M, current block device/image size is 102M.&lt;/span&gt;
+&lt;span class=&#34;go&#34;&gt;File &amp;#39;/work/home/alex/.cache/mkosi/mkosi-workspace-gqb4a69k/staging/image.raw&amp;#39; already is of requested size or larger, not growing. (102M &amp;gt;= 102M)&lt;/span&gt;
+&lt;span class=&#34;go&#34;&gt;No changes.&lt;/span&gt;
+&lt;span class=&#34;go&#34;&gt;‣  /tmp/sysext-build/mkosi.output/image.raw size is 102.0M, consumes 6.5M.&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+&lt;/div&gt;
+&lt;p&gt;I don’t really understand why, or what’s in it.
+But it’s the &lt;code class=&#34;docutils literal notranslate&#34;&gt;&lt;span class=&#34;pre&#34;&gt;mkosi.output/emacs.raw&lt;/span&gt;&lt;/code&gt; file we are interested in.&lt;/p&gt;
+&lt;/div&gt;
+&lt;p&gt;The final step is to “install it”&lt;/p&gt;
+&lt;div class=&#34;highlight-console notranslate&#34;&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class=&#34;gp&#34;&gt;$ &lt;/span&gt;sudo&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;cp&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;/tmp/sysext-build/mkosi.output/emacs.raw&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;/var/lib/extensions.d/
+&lt;span class=&#34;gp&#34;&gt;$ &lt;/span&gt;sudo&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;ln&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;-s&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;/var/lib/extensions.d/emacs.raw&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;/var/lib/extensions/emacs.raw
+&lt;span class=&#34;gp&#34;&gt;$ &lt;/span&gt;sudo&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;systemd-sysext&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;unmerge
+&lt;span class=&#34;gp&#34;&gt;$ &lt;/span&gt;sudo&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;systemd-sysext&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;merge
+&lt;span class=&#34;gp&#34;&gt;$ &lt;/span&gt;emacs-30.2-gtk+x11&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;--version
+&lt;span class=&#34;go&#34;&gt;GNU Emacs 30.2&lt;/span&gt;
+&lt;span class=&#34;go&#34;&gt;Copyright (C) 2025 Free Software Foundation, Inc.&lt;/span&gt;
+&lt;span class=&#34;go&#34;&gt;GNU Emacs comes with ABSOLUTELY NO WARRANTY.&lt;/span&gt;
+&lt;span class=&#34;go&#34;&gt;You may redistribute copies of GNU Emacs&lt;/span&gt;
+&lt;span class=&#34;go&#34;&gt;under the terms of the GNU General Public License.&lt;/span&gt;
+&lt;span class=&#34;go&#34;&gt;For more information about these matters, see the file named COPYING.&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+&lt;/div&gt;
+&lt;p&gt;The slightly odd executable name is a quirk of how Fedora packages Emacs.
+The &lt;code class=&#34;docutils literal notranslate&#34;&gt;&lt;span class=&#34;pre&#34;&gt;emacs&lt;/span&gt;&lt;/code&gt; “executable” is a symlink to &lt;code class=&#34;docutils literal notranslate&#34;&gt;&lt;span class=&#34;pre&#34;&gt;/etc/alternatives/emacs&lt;/span&gt;&lt;/code&gt; which &lt;em&gt;I think&lt;/em&gt;, in turn should be a symlink to &lt;code class=&#34;docutils literal notranslate&#34;&gt;&lt;span class=&#34;pre&#34;&gt;emacs-30.2-gtk+x11&lt;/span&gt;&lt;/code&gt;.&lt;/p&gt;
+&lt;p&gt;This setup doesn’t reproduce that, but I’m not going to fix that since my real goal with this is to…&lt;/p&gt;
+&lt;/section&gt;
+&lt;/section&gt;
+&lt;section id=&#34;build-emacs-from-source&#34;&gt;
+&lt;h2&gt;Build Emacs from Source&lt;a class=&#34;headerlink&#34; href=&#34;#build-emacs-from-source&#34; title=&#34;Link to this heading&#34;&gt;¶&lt;/a&gt;&lt;/h2&gt;
+&lt;div class=&#34;admonition seealso&#34;&gt;
+&lt;p class=&#34;admonition-title&#34;&gt;See also&lt;/p&gt;
+&lt;p&gt;Be sure to refer to the &lt;a class=&#34;reference external&#34; href=&#34;https://github.com/systemd/mkosi/blob/1da3299aecc56a1ba590a7fb7ae868275bb46d93/mkosi/resources/man/mkosi.1.md&#34;&gt;upstream documentation&lt;/a&gt; for a much more detailed explanation of the &lt;code class=&#34;docutils literal notranslate&#34;&gt;&lt;span class=&#34;pre&#34;&gt;mkosi&lt;/span&gt;&lt;/code&gt; build process and the various config options and extension points.&lt;/p&gt;
+&lt;/div&gt;
+&lt;p&gt;Now we have a end-to-end workflow with &lt;code class=&#34;docutils literal notranslate&#34;&gt;&lt;span class=&#34;pre&#34;&gt;mkosi&lt;/span&gt;&lt;/code&gt; setup, we “just” have to tweak the above config so that it builds Emacs v31 from source, rather than repackaging the Fedora package.&lt;/p&gt;
+&lt;p&gt;After some wailing and gnashing of teeth, I eventually arrived at the following.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Top Level&lt;/strong&gt;&lt;/p&gt;
+&lt;div class=&#34;awdur-codeblock docutils container&#34;&gt;
+&lt;div class=&#34;awdur-codeblock-header docutils container&#34;&gt;
+&lt;code class=&#34;awdur-codeblock-filename docutils literal notranslate&#34;&gt;&lt;span class=&#34;pre&#34;&gt;mkosi.conf&lt;/span&gt;&lt;/code&gt;&lt;/div&gt;
+&lt;div class=&#34;highlight-ini notranslate&#34;&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;[Output]&lt;/span&gt;
+&lt;span class=&#34;na&#34;&gt;OutputDirectory&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;mkosi.output&lt;/span&gt;
+
+&lt;span class=&#34;k&#34;&gt;[Build]&lt;/span&gt;
+&lt;span class=&#34;na&#34;&gt;CacheDirectory&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;mkosi.cache&lt;/span&gt;
+&lt;span class=&#34;na&#34;&gt;BuildSources&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;/var/home/alex/Projects/gnu/emacs/master:emacs&lt;/span&gt;
+&lt;span class=&#34;na&#34;&gt;BuildSourcesEphemeral&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;true&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;p&gt;Interestingly, &lt;code class=&#34;docutils literal notranslate&#34;&gt;&lt;span class=&#34;pre&#34;&gt;BuildSources&lt;/span&gt;&lt;/code&gt; can only be specified at the top level - that means it’s available to the &lt;code class=&#34;docutils literal notranslate&#34;&gt;&lt;span class=&#34;pre&#34;&gt;base&lt;/span&gt;&lt;/code&gt; image build even though it’s only needed for the &lt;code class=&#34;docutils literal notranslate&#34;&gt;&lt;span class=&#34;pre&#34;&gt;emacs&lt;/span&gt;&lt;/code&gt; image.
+I &lt;em&gt;think&lt;/em&gt; &lt;code class=&#34;docutils literal notranslate&#34;&gt;&lt;span class=&#34;pre&#34;&gt;[Match]&lt;/span&gt;&lt;/code&gt; rules can be used to change this, but to keep things simple I didn’t look into it.&lt;/p&gt;
+&lt;p&gt;The &lt;code class=&#34;docutils literal notranslate&#34;&gt;&lt;span class=&#34;pre&#34;&gt;&amp;lt;src&amp;gt;:&amp;lt;dest&amp;gt;&lt;/span&gt;&lt;/code&gt; syntax means when the build executes &lt;code class=&#34;docutils literal notranslate&#34;&gt;&lt;span class=&#34;pre&#34;&gt;&amp;lt;src&amp;gt;&lt;/span&gt;&lt;/code&gt; on the host is mapped to &lt;code class=&#34;docutils literal notranslate&#34;&gt;&lt;span class=&#34;pre&#34;&gt;/work/src/&amp;lt;dest&amp;gt;&lt;/span&gt;&lt;/code&gt; in the image.
+Before running the build, I made sure to have the &lt;code class=&#34;docutils literal notranslate&#34;&gt;&lt;span class=&#34;pre&#34;&gt;emacs-31.1&lt;/span&gt;&lt;/code&gt; tag checked out in my copy of the Emacs git repo.&lt;/p&gt;
+&lt;p&gt;&lt;code class=&#34;docutils literal notranslate&#34;&gt;&lt;span class=&#34;pre&#34;&gt;BuildSourcesEphemeral&lt;/span&gt;&lt;/code&gt; is cool, when enabled the build is done in an overlay so all the gumph generated by the build (e.g. &lt;code class=&#34;docutils literal notranslate&#34;&gt;&lt;span class=&#34;pre&#34;&gt;*.o&lt;/span&gt;&lt;/code&gt; files ) are automatically discarded by throwing the overlay away at the end.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Base Image&lt;/strong&gt;&lt;/p&gt;
+&lt;div class=&#34;awdur-codeblock docutils container&#34;&gt;
+&lt;div class=&#34;awdur-codeblock-header docutils container&#34;&gt;
+&lt;code class=&#34;awdur-codeblock-filename docutils literal notranslate&#34;&gt;&lt;span class=&#34;pre&#34;&gt;mkosi.images/base/mkosi.conf&lt;/span&gt;&lt;/code&gt;&lt;/div&gt;
+&lt;div class=&#34;highlight-ini notranslate&#34;&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;[Output]&lt;/span&gt;
+&lt;span class=&#34;na&#34;&gt;Format&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;directory&lt;/span&gt;
+
+&lt;span class=&#34;k&#34;&gt;[Content]&lt;/span&gt;
+&lt;span class=&#34;na&#34;&gt;CleanPackageMetadata&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;no&lt;/span&gt;
+&lt;span class=&#34;na&#34;&gt;Packages&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;# Build tools&lt;/span&gt;
+&lt;span class=&#34;w&#34;&gt;         &lt;/span&gt;&lt;span class=&#34;na&#34;&gt;autoconf&lt;/span&gt;
+&lt;span class=&#34;w&#34;&gt;         &lt;/span&gt;&lt;span class=&#34;na&#34;&gt;awk&lt;/span&gt;
+&lt;span class=&#34;w&#34;&gt;         &lt;/span&gt;&lt;span class=&#34;na&#34;&gt;make&lt;/span&gt;
+&lt;span class=&#34;w&#34;&gt;         &lt;/span&gt;&lt;span class=&#34;na&#34;&gt;gcc&lt;/span&gt;
+&lt;span class=&#34;w&#34;&gt;         &lt;/span&gt;&lt;span class=&#34;na&#34;&gt;git&lt;/span&gt;
+&lt;span class=&#34;w&#34;&gt;         &lt;/span&gt;&lt;span class=&#34;na&#34;&gt;pkgconf-pkg-config&lt;/span&gt;
+&lt;span class=&#34;w&#34;&gt;         &lt;/span&gt;&lt;span class=&#34;na&#34;&gt;rpm&lt;/span&gt;
+&lt;span class=&#34;w&#34;&gt;         &lt;/span&gt;&lt;span class=&#34;na&#34;&gt;tar&lt;/span&gt;
+&lt;span class=&#34;w&#34;&gt;         &lt;/span&gt;&lt;span class=&#34;na&#34;&gt;texinfo&lt;/span&gt;
+&lt;span class=&#34;w&#34;&gt;         &lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;# Emacs build dependencies&lt;/span&gt;
+&lt;span class=&#34;w&#34;&gt;         &lt;/span&gt;&lt;span class=&#34;na&#34;&gt;gnutls-devel&lt;/span&gt;
+&lt;span class=&#34;w&#34;&gt;         &lt;/span&gt;&lt;span class=&#34;na&#34;&gt;gtk3-devel&lt;/span&gt;
+&lt;span class=&#34;w&#34;&gt;         &lt;/span&gt;&lt;span class=&#34;na&#34;&gt;libjpeg-turbo-devel&lt;/span&gt;
+&lt;span class=&#34;w&#34;&gt;         &lt;/span&gt;&lt;span class=&#34;na&#34;&gt;libpng-devel&lt;/span&gt;
+&lt;span class=&#34;w&#34;&gt;         &lt;/span&gt;&lt;span class=&#34;na&#34;&gt;librsvg2-devel&lt;/span&gt;
+&lt;span class=&#34;w&#34;&gt;         &lt;/span&gt;&lt;span class=&#34;na&#34;&gt;libselinux-devel&lt;/span&gt;
+&lt;span class=&#34;w&#34;&gt;         &lt;/span&gt;&lt;span class=&#34;na&#34;&gt;libtiff-devel&lt;/span&gt;
+&lt;span class=&#34;w&#34;&gt;         &lt;/span&gt;&lt;span class=&#34;na&#34;&gt;libwebp-devel&lt;/span&gt;
+&lt;span class=&#34;w&#34;&gt;         &lt;/span&gt;&lt;span class=&#34;na&#34;&gt;libxml2-devel&lt;/span&gt;
+&lt;span class=&#34;w&#34;&gt;         &lt;/span&gt;&lt;span class=&#34;na&#34;&gt;ncurses-devel&lt;/span&gt;
+&lt;span class=&#34;w&#34;&gt;         &lt;/span&gt;&lt;span class=&#34;na&#34;&gt;sqlite-devel&lt;/span&gt;
+&lt;span class=&#34;w&#34;&gt;         &lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;# Needed for mkosi?&lt;/span&gt;
+&lt;span class=&#34;w&#34;&gt;         &lt;/span&gt;&lt;span class=&#34;na&#34;&gt;systemd&lt;/span&gt;
+&lt;span class=&#34;w&#34;&gt;         &lt;/span&gt;&lt;span class=&#34;na&#34;&gt;udev&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;p&gt;The base image config needed to be updated to include all the build tools and (most) build dependencies.
+The hardest part of this was figuring out enough of the list of build tools to bootstrap the &lt;code class=&#34;docutils literal notranslate&#34;&gt;&lt;span class=&#34;pre&#34;&gt;./configure&lt;/span&gt;&lt;/code&gt; script.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Emacs Sysext&lt;/strong&gt;&lt;/p&gt;
+&lt;div class=&#34;awdur-codeblock docutils container&#34;&gt;
+&lt;div class=&#34;awdur-codeblock-header docutils container&#34;&gt;
+&lt;code class=&#34;awdur-codeblock-filename docutils literal notranslate&#34;&gt;&lt;span class=&#34;pre&#34;&gt;mkosi.images/emacs/mkosi.conf&lt;/span&gt;&lt;/code&gt;&lt;/div&gt;
+&lt;div class=&#34;highlight-ini notranslate&#34;&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;[Output]&lt;/span&gt;
+&lt;span class=&#34;na&#34;&gt;Format&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;sysext&lt;/span&gt;
+&lt;span class=&#34;na&#34;&gt;Overlay&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;yes&lt;/span&gt;
+
+&lt;span class=&#34;k&#34;&gt;[Content]&lt;/span&gt;
+&lt;span class=&#34;na&#34;&gt;BaseTrees&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;%O/base&lt;/span&gt;
+&lt;span class=&#34;na&#34;&gt;Packages&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;libgccjit,libotf,libtree-sitter&lt;/span&gt;
+&lt;span class=&#34;na&#34;&gt;BuildPackages&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;libgccjit-devel,libotf-devel,libtree-sitter-devel&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;p&gt;Before discovering &lt;code class=&#34;docutils literal notranslate&#34;&gt;&lt;span class=&#34;pre&#34;&gt;mkosi&lt;/span&gt;&lt;/code&gt; could build systemd-sysexts I was playing around with doing the build inside a &lt;a class=&#34;reference external&#34; href=&#34;https://distrobox.it/&#34;&gt;distrobox&lt;/a&gt;.
+During that process, I discovered that my base system already provides the majority of Emacs’ runtime dependencies, so I was able to get away with listing just the couple that were missing.&lt;/p&gt;
+&lt;p&gt;As you might expect &lt;code class=&#34;docutils literal notranslate&#34;&gt;&lt;span class=&#34;pre&#34;&gt;Packages&lt;/span&gt;&lt;/code&gt; are included in the final image, while &lt;code class=&#34;docutils literal notranslate&#34;&gt;&lt;span class=&#34;pre&#34;&gt;BuildPackages&lt;/span&gt;&lt;/code&gt; are discarded after the build step.&lt;/p&gt;
+&lt;div class=&#34;awdur-codeblock docutils container&#34;&gt;
+&lt;div class=&#34;awdur-codeblock-header docutils container&#34;&gt;
+&lt;code class=&#34;awdur-codeblock-filename docutils literal notranslate&#34;&gt;&lt;span class=&#34;pre&#34;&gt;mkosi.images/emacs/mkosi.build.chroot&lt;/span&gt;&lt;/code&gt;&lt;/div&gt;
+&lt;div class=&#34;highlight-bash notranslate&#34;&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class=&#34;ch&#34;&gt;#!/bin/bash&lt;/span&gt;
+&lt;span class=&#34;nb&#34;&gt;set&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;-euo&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;pipefail
+&lt;span class=&#34;nb&#34;&gt;pushd&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;emacs
+
+./autogen.sh
+./configure&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;--prefix&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;/usr&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;se&#34;&gt;\&lt;/span&gt;
+&lt;span class=&#34;w&#34;&gt;            &lt;/span&gt;--disable-gc-mark-trace&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;se&#34;&gt;\&lt;/span&gt;
+&lt;span class=&#34;w&#34;&gt;            &lt;/span&gt;--with-pgtk&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;se&#34;&gt;\&lt;/span&gt;
+&lt;span class=&#34;w&#34;&gt;            &lt;/span&gt;--with-native-compilation&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;aot&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;se&#34;&gt;\&lt;/span&gt;
+&lt;span class=&#34;w&#34;&gt;            &lt;/span&gt;--without-x
+&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;make&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;-j&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;k&#34;&gt;$(&lt;/span&gt;nproc&lt;span class=&#34;k&#34;&gt;)&lt;/span&gt;
+&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;make&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;install
+&lt;/pre&gt;&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;p&gt;If you include an executable script named &lt;code class=&#34;docutils literal notranslate&#34;&gt;&lt;span class=&#34;pre&#34;&gt;mkosi.build&lt;/span&gt;&lt;/code&gt; that gets called by &lt;code class=&#34;docutils literal notranslate&#34;&gt;&lt;span class=&#34;pre&#34;&gt;mkosi&lt;/span&gt;&lt;/code&gt; during the build stage to… well build your software.
+By default, this script is executed &lt;strong&gt;on the host&lt;/strong&gt;, append &lt;code class=&#34;docutils literal notranslate&#34;&gt;&lt;span class=&#34;pre&#34;&gt;.chroot&lt;/span&gt;&lt;/code&gt; to the name if you want it to be executed from within the image you are building.&lt;/p&gt;
+&lt;div class=&#34;admonition note&#34;&gt;
+&lt;p class=&#34;admonition-title&#34;&gt;Note&lt;/p&gt;
+&lt;p&gt;I don’t really know which options I should/should not be passing to &lt;code class=&#34;docutils literal notranslate&#34;&gt;&lt;span class=&#34;pre&#34;&gt;./configure&lt;/span&gt;&lt;/code&gt; so if you have any suggestions please let me know! 😀&lt;/p&gt;
+&lt;/div&gt;
+&lt;p&gt;With the config updated, repeating the steps in &lt;a class=&#34;reference internal&#34; href=&#34;../blog/2026/building-emacs-into-a-systemd-sysext/#build-the-sysext&#34;&gt;&lt;span class=&#34;std std-ref&#34;&gt;Building the sysext&lt;/span&gt;&lt;/a&gt; was all that was needed to produce a sysext containing Emacs v31.1!&lt;/p&gt;
+&lt;div class=&#34;highlight-console notranslate&#34;&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class=&#34;gp&#34;&gt;$ &lt;/span&gt;emacs&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;--version
+&lt;span class=&#34;go&#34;&gt;GNU Emacs 31.1&lt;/span&gt;
+&lt;span class=&#34;go&#34;&gt;Development version a360712c9d27 on HEAD branch; build date 2026-09-01.&lt;/span&gt;
+&lt;span class=&#34;go&#34;&gt;Copyright (C) 2026 Free Software Foundation, Inc.&lt;/span&gt;
+&lt;span class=&#34;go&#34;&gt;GNU Emacs comes with ABSOLUTELY NO WARRANTY.&lt;/span&gt;
+&lt;span class=&#34;go&#34;&gt;You may redistribute copies of GNU Emacs&lt;/span&gt;
+&lt;span class=&#34;go&#34;&gt;under the terms of the GNU General Public License.&lt;/span&gt;
+&lt;span class=&#34;go&#34;&gt;For more information about these matters, see the file named COPYING.&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+&lt;/div&gt;
+&lt;/section&gt;
+&lt;section id=&#34;it-s-looking-promising&#34;&gt;
+&lt;h2&gt;It’s Looking Promising!&lt;a class=&#34;headerlink&#34; href=&#34;#it-s-looking-promising&#34; title=&#34;Link to this heading&#34;&gt;¶&lt;/a&gt;&lt;/h2&gt;
+&lt;p&gt;Although I am writing this post from within my freshly built Emacs, it’s only been an hour a two, so too early to declare this a flawless victory but it’s certainly looking good.
+Also, thanks to the sysext approach, if the worst happens and I need to roll back, I still have the previous versions lying around&lt;/p&gt;
+&lt;div class=&#34;highlight-console notranslate&#34;&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class=&#34;gp&#34;&gt;$ &lt;/span&gt;ls&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;-lh&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;/var/lib/extensions.d/
+&lt;span class=&#34;go&#34;&gt;total 1.1G&lt;/span&gt;
+&lt;span class=&#34;go&#34;&gt;-rw-r--r--. 1 root root 404M Aug 27 08:27 emacs-1-30.2-28.fc44-44-x86-64.raw&lt;/span&gt;
+&lt;span class=&#34;go&#34;&gt;-rw-r--r--. 1 root root 304M Mar 12 10:09 emacs-1-30.2-6.fc43-43-x86-64.raw&lt;/span&gt;
+&lt;span class=&#34;go&#34;&gt;-rw-r--r--. 1 root root 338M Sep  1 14:53 emacs.raw&lt;/span&gt;
+&lt;span class=&#34;go&#34;&gt;-rw-r--r--. 1 root root 1.1M Aug 26 02:15 erofs-utils-1.9.2-2.fc44-44-x86-64.raw&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+&lt;/div&gt;
+&lt;p&gt;So while it’s not “one-click”, by tweaking a symlink and running a couple of commands I can easily roll back to the previous version.&lt;/p&gt;
+&lt;p&gt;Or… now that I’ve figured how to do this… roll forward to a build containing the new &lt;a class=&#34;reference external&#34; href=&#34;https://www.monadicsheep.org/blog/an-introduction-to-canvas-in-emacs.html&#34;&gt;Canvas&lt;/a&gt;! 🤔&lt;/p&gt;
+&lt;/section&gt;
+&lt;/section&gt;
+
+    </content>
+  </entry>
   
   <entry>
     <id>https://www.alcarney.me/blog/2026/managing-changes-with-ediff/</id>
@@ -4294,7 +4764,7 @@ If nothing else it would be a fun excerise to try and build a similar view for t
       &lt;section id=&#34;intstalling-emacs-with-systemd-sysext&#34;&gt;
 &lt;h1&gt;Intstalling Emacs with systemd-sysext&lt;a class=&#34;headerlink&#34; href=&#34;#intstalling-emacs-with-systemd-sysext&#34; title=&#34;Link to this heading&#34;&gt;¶&lt;/a&gt;&lt;/h1&gt;
 &lt;div class=&#34;post-teaser docutils container&#34;&gt;
-&lt;p&gt;One issue with building &lt;a class=&#34;reference internal&#34; href=&#34;../notes/20250409T205418/&#34; title=&#34;Building Emacs from Source&#34;&gt;Emacs from source&lt;/a&gt;, or more specifically my hack to ensure that the required system libraries are available on Aurora, is that in some situations the system version of Emacs “wins”.&lt;/p&gt;
+&lt;p&gt;One issue with building Emacs from source, or more specifically my hack to ensure that the required system libraries are available on Aurora, is that in some situations the system version of Emacs “wins”.&lt;/p&gt;
 &lt;p&gt;For example, I wanted to experiment with running the Emacs daemon through systemd:&lt;/p&gt;
 &lt;div class=&#34;highlight-none notranslate&#34;&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;$ systemctl --user start emacs
 &lt;/pre&gt;&lt;/div&gt;
