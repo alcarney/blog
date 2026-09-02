@@ -4,7 +4,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Posts in 2020 &#8212; Alex Carney</title>
+    <title>Posted in: 2020 &#8212; Alex Carney</title>
 
     <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=02ca0aaa" />
     <link id="pygments_dark_css" media="(prefers-color-scheme: dark)" rel="stylesheet" type="text/css" href="../../_static/pygments_dark.css?v=d8568271" />
@@ -19,12 +19,19 @@
     <link rel="icon" href="../../_static/favicon.ico"/>
     <link rel="index" title="Index" href="../../genindex/" />
     <link rel="search" title="Search" href="../../search/" />
+
     <link rel="alternate"
           type="application/atom+xml"
           title=" | Blog Posts"
           href="/blog/atom.xml">
     <meta name="fediverse:creator" content="@alcarney@mastodon.social">
     <meta name="theme-color" content="#059669">
+
+
+    <script>
+      DOCUMENTATION_OPTIONS.COLLAPSE_INDEX = true;
+    </script>
+
 
   </head>
   <body>
@@ -224,293 +231,60 @@
 
 
   <main role="main">
+<section class="domainindex">
+  
 
-<h1 style="margin: 1em; color: var(--fg-accent);">
-  Posts in 2020
-</h1>
-  <article class="summary">
-    <header>
-      <a href="ast-simple-eval/">
-        <h2 style="max-width: 33ch" class="mb-4 text-2xl text-green-600">Evaluating a Simple Abstract Syntax Tree</h2>
-      </a>
-    </header>
-    <aside>
-        
-<section class="post-metadata">
-    <h5 style="grid-column: span 2">Metadata</h5><svg xmlns="http://www.w3.org/2000/svg" width="2em" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
-</svg>
-    <time style="align-self: center; text-align: right;" datetime="2020-12-17 00:00:00+00:00">Dec 17, 2020</time><svg xmlns="http://www.w3.org/2000/svg" width="2em" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z" />
-</svg>
-    <ul class="taglist">
-        <li>
-            <a class="tag" href="../../tag/c/">
-                #c
-            </a>
-        </li>
-        <li>
-            <a class="tag" href="../../tag/proglangs/">
-                #proglangs
-            </a>
-        </li>
-    </ul>
+   <h1>Posted in: 2020</h1>
+
+   <div class="modindex-jumpbox">
+   <a href="#cap-01-Jan"><strong>01-Jan</strong></a> | 
+   <a href="#cap-04-Apr"><strong>04-Apr</strong></a> | 
+   <a href="#cap-05-May"><strong>05-May</strong></a> | 
+   <a href="#cap-12-Dec"><strong>12-Dec</strong></a>
+   </div>
+
+   <table class="indextable modindextable">
+     <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
+     <tr class="cap" id="cap-01-Jan"><td></td><td>
+       <strong>01-Jan</strong></td><td></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="learning-vulkan-p1/#"><code class="xref">Learning Vulkan: Enumerating Physical Devices</code></a></td><td>
+       <em></em></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="learning-vulkan-p0/#"><code class="xref">Learning Vulkan: Overview</code></a></td><td>
+       <em></em></td></tr>
+     <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
+     <tr class="cap" id="cap-04-Apr"><td></td><td>
+       <strong>04-Apr</strong></td><td></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="hello-world-tinygo-wasm/#"><code class="xref">Saying ‘Hello, World!’ with TinyGo and WebAssembly</code></a></td><td>
+       <em></em></td></tr>
+     <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
+     <tr class="cap" id="cap-05-May"><td></td><td>
+       <strong>05-May</strong></td><td></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="passing-strings-between-tinygo-wasm/#"><code class="xref">Passing strings between TinyGo and JavaScript</code></a></td><td>
+       <em></em></td></tr>
+     <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
+     <tr class="cap" id="cap-12-Dec"><td></td><td>
+       <strong>12-Dec</strong></td><td></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="ast-simple-eval/#"><code class="xref">Evaluating a Simple Abstract Syntax Tree</code></a></td><td>
+       <em></em></td></tr>
+   </table>
+
+
 </section>
-    </aside>
-
-    <div style="min-width: 0">
-      <div class="post-teaser docutils container">
-<p>Programming languages and their implementation is a topic I’ve been interested
-in for a long time and I thought it would be worth trying to get a bit more
-hands on and play with some of the ideas in this space. Choosing a topic
-somewhat at random I’ve chosen to take a look at implementing an Abstract Syntax
-Tree (AST).</p>
-</div>
-
-    </div>
-
-    <footer>
-      <p>
-        <a href="ast-simple-eval/">Read More...</a>
-      </p>
-    </footer>
-  </article>
-  <article class="summary">
-    <header>
-      <a href="passing-strings-between-tinygo-wasm/">
-        <h2 style="max-width: 33ch" class="mb-4 text-2xl text-green-600">Passing strings between TinyGo and JavaScript</h2>
-      </a>
-    </header>
-    <aside>
-        
-<section class="post-metadata">
-    <h5 style="grid-column: span 2">Metadata</h5><svg xmlns="http://www.w3.org/2000/svg" width="2em" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
-</svg>
-    <time style="align-self: center; text-align: right;" datetime="2020-05-06 00:00:00+00:00">May 06, 2020</time><svg xmlns="http://www.w3.org/2000/svg" width="2em" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z" />
-</svg>
-    <ul class="taglist">
-        <li>
-            <a class="tag" href="../../tag/go/">
-                #go
-            </a>
-        </li>
-        <li>
-            <a class="tag" href="../../tag/js/">
-                #js
-            </a>
-        </li>
-        <li>
-            <a class="tag" href="../../tag/tinygo/">
-                #tinygo
-            </a>
-        </li>
-        <li>
-            <a class="tag" href="../../tag/wasm/">
-                #wasm
-            </a>
-        </li>
-    </ul>
-</section>
-    </aside>
-
-    <div style="min-width: 0">
-      <div class="post-teaser docutils container">
-<p>After getting a <a class="reference internal" href="hello-world-tinygo-wasm/" title="Saying ‘Hello, World!’ with TinyGo and WebAssembly">&quot;Hello, World!&quot;</a> WebAssembly
-application working I thought it would be fun to try and implement a toy programming
-language in the browser. However before I could even start thinking about parsers,
-abstract syntax trees and the like I had to be able to pass strings between my
-WebAssembly module and the surrounding JavaScript.</p>
-<p>Turns out that is much trickier than I expected.</p>
-</div>
-
-    </div>
-
-    <footer>
-      <p>
-        <a href="passing-strings-between-tinygo-wasm/">Read More...</a>
-      </p>
-    </footer>
-  </article>
-  <article class="summary">
-    <header>
-      <a href="hello-world-tinygo-wasm/">
-        <h2 style="max-width: 33ch" class="mb-4 text-2xl text-green-600">Saying ‘Hello, World!’ with TinyGo and WebAssembly</h2>
-      </a>
-    </header>
-    <aside>
-        
-<section class="post-metadata">
-    <h5 style="grid-column: span 2">Metadata</h5><svg xmlns="http://www.w3.org/2000/svg" width="2em" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
-</svg>
-    <time style="align-self: center; text-align: right;" datetime="2020-04-28 00:00:00+00:00">Apr 28, 2020</time><svg xmlns="http://www.w3.org/2000/svg" width="2em" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z" />
-</svg>
-    <ul class="taglist">
-        <li>
-            <a class="tag" href="../../tag/containers/">
-                #containers
-            </a>
-        </li>
-        <li>
-            <a class="tag" href="../../tag/go/">
-                #go
-            </a>
-        </li>
-        <li>
-            <a class="tag" href="../../tag/lxd/">
-                #lxd
-            </a>
-        </li>
-        <li>
-            <a class="tag" href="../../tag/tinygo/">
-                #tinygo
-            </a>
-        </li>
-        <li>
-            <a class="tag" href="../../tag/wasm/">
-                #wasm
-            </a>
-        </li>
-    </ul>
-</section>
-    </aside>
-
-    <div style="min-width: 0">
-      <div class="post-teaser docutils container">
-<p>WebAssembly is something I’ve wanted to play with for quite a while now and
-I’ve finally got around to taking a look at it. In this post I describe how I
-managed to use <a class="reference external" href="https://tinygo.org/">TinyGo</a> to compile a “Hello, World!” Go program into
-WebAssembly and execute it in the browser. So that I have something to refer
-back to I also describe setting up my development environment as a container
-using <a class="reference external" href="https://linuxcontainers.org/">LXD</a>.</p>
-</div>
-
-    </div>
-
-    <footer>
-      <p>
-        <a href="hello-world-tinygo-wasm/">Read More...</a>
-      </p>
-    </footer>
-  </article>
-  <article class="summary">
-    <header>
-      <a href="learning-vulkan-p1/">
-        <h2 style="max-width: 33ch" class="mb-4 text-2xl text-green-600">Learning Vulkan: Enumerating Physical Devices</h2>
-      </a>
-    </header>
-    <aside>
-        
-<section class="post-metadata">
-    <h5 style="grid-column: span 2">Metadata</h5><svg xmlns="http://www.w3.org/2000/svg" width="2em" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
-</svg>
-    <time style="align-self: center; text-align: right;" datetime="2020-01-08 00:00:00+00:00">Jan 08, 2020</time><svg xmlns="http://www.w3.org/2000/svg" width="2em" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z" />
-</svg>
-    <ul class="taglist">
-        <li>
-            <a class="tag" href="../../tag/c/">
-                #c
-            </a>
-        </li>
-        <li>
-            <a class="tag" href="../../tag/graphics/">
-                #graphics
-            </a>
-        </li>
-        <li>
-            <a class="tag" href="../../tag/vulkan/">
-                #vulkan
-            </a>
-        </li>
-    </ul>
-</section>
-    </aside>
-
-    <div style="min-width: 0">
-      <div class="post-teaser docutils container">
-<p>Being an API for talking to GPUs and other compute devices every Vulkan
-program starts off by looking for an appropriate <a class="reference external" href="https://www.khronos.org/registry/vulkan/specs/1.1-extensions/man/html/VkPhysicalDevice.html">physical device</a>
-to use. In this post I write a little C program that initialises the Vulkan
-API and lists out the available devices in the system.</p>
-<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>$ vkdevice
-Device Name:            Intel(R) HD Graphics 520 (Skylake GT2)
-  Type:                 Integrated GPU
-  Vendor ID:            32902
-  Device ID:            6422
-  API Version:          v1.1.102
-  Driver Version:       v19.3.1
-</pre></div>
-</div>
-</div>
-
-    </div>
-
-    <footer>
-      <p>
-        <a href="learning-vulkan-p1/">Read More...</a>
-      </p>
-    </footer>
-  </article>
-  <article class="summary">
-    <header>
-      <a href="learning-vulkan-p0/">
-        <h2 style="max-width: 33ch" class="mb-4 text-2xl text-green-600">Learning Vulkan: Overview</h2>
-      </a>
-    </header>
-    <aside>
-        
-<section class="post-metadata">
-    <h5 style="grid-column: span 2">Metadata</h5><svg xmlns="http://www.w3.org/2000/svg" width="2em" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
-</svg>
-    <time style="align-self: center; text-align: right;" datetime="2020-01-01 00:00:00+00:00">Jan 01, 2020</time><svg xmlns="http://www.w3.org/2000/svg" width="2em" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z" />
-</svg>
-    <ul class="taglist">
-        <li>
-            <a class="tag" href="../../tag/c/">
-                #c
-            </a>
-        </li>
-        <li>
-            <a class="tag" href="../../tag/graphics/">
-                #graphics
-            </a>
-        </li>
-        <li>
-            <a class="tag" href="../../tag/vulkan/">
-                #vulkan
-            </a>
-        </li>
-    </ul>
-</section>
-    </aside>
-
-    <div style="min-width: 0">
-      <div class="post-teaser docutils container">
-<p>I have always been interested in graphics and have on numerous occasions tried
-to dip my toe into the world of OpenGL and more recently Vulkan. However I have
-never been able to get past the “Hello, World” of these technologies - drawing a
-triangle on screen, I think mostly becuase I never really had a goal in mind
-once I got that far…</p>
-<p>But that’s (hopefully) about to change! What better excuse than a new decade to
-jump back into this world for the 100th time and try to get to all those
-interesting ideas I see people playing with all the time!</p>
-</div>
-
-    </div>
-
-    <footer>
-      <p>
-        <a href="learning-vulkan-p0/">Read More...</a>
-      </p>
-    </footer>
-  </article>
 
   </main>
 

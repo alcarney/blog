@@ -4,7 +4,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title> &#8212; Alex Carney</title>
+    <title>Notes &#8212; Alex Carney</title>
 
     <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=02ca0aaa" />
     <link id="pygments_dark_css" media="(prefers-color-scheme: dark)" rel="stylesheet" type="text/css" href="../_static/pygments_dark.css?v=d8568271" />
@@ -19,12 +19,19 @@
     <link rel="icon" href="../_static/favicon.ico"/>
     <link rel="index" title="Index" href="../genindex/" />
     <link rel="search" title="Search" href="../search/" />
+
     <link rel="alternate"
           type="application/atom+xml"
           title=" | Blog Posts"
           href="/blog/atom.xml">
     <meta name="fediverse:creator" content="@alcarney@mastodon.social">
     <meta name="theme-color" content="#059669">
+
+
+    <script>
+      DOCUMENTATION_OPTIONS.COLLAPSE_INDEX = true;
+    </script>
+
 
   </head>
   <body>
@@ -156,97 +163,514 @@
 
 
   <main role="main">
-<div style="height:100%" id="graph"></div>
-<script type="module">
-  import * as d3 from "https://cdn.jsdelivr.net/npm/d3@7/+esm"
+<section class="domainindex">
+  
 
-  const container = document.querySelector("#graph")
-  const bbox = container.getBoundingClientRect()
+   <h1>Notes</h1>
 
-  const width = bbox.width
-  const height = bbox.height
+   <div class="modindex-jumpbox">
+   <a href="#cap-A"><strong>A</strong></a> | 
+   <a href="#cap-B"><strong>B</strong></a> | 
+   <a href="#cap-C"><strong>C</strong></a> | 
+   <a href="#cap-D"><strong>D</strong></a> | 
+   <a href="#cap-E"><strong>E</strong></a> | 
+   <a href="#cap-F"><strong>F</strong></a> | 
+   <a href="#cap-G"><strong>G</strong></a> | 
+   <a href="#cap-H"><strong>H</strong></a> | 
+   <a href="#cap-I"><strong>I</strong></a> | 
+   <a href="#cap-J"><strong>J</strong></a> | 
+   <a href="#cap-L"><strong>L</strong></a> | 
+   <a href="#cap-M"><strong>M</strong></a> | 
+   <a href="#cap-N"><strong>N</strong></a> | 
+   <a href="#cap-O"><strong>O</strong></a> | 
+   <a href="#cap-P"><strong>P</strong></a> | 
+   <a href="#cap-R"><strong>R</strong></a> | 
+   <a href="#cap-S"><strong>S</strong></a> | 
+   <a href="#cap-T"><strong>T</strong></a> | 
+   <a href="#cap-U"><strong>U</strong></a> | 
+   <a href="#cap-V"><strong>V</strong></a> | 
+   <a href="#cap-W"><strong>W</strong></a>
+   </div>
 
-  const nodes = JSON.parse('[{"id": "blogging", "kind": "tag"}, {"id": "stylo", "kind": "tag"}, {"id": "python", "kind": "tag"}, {"id": "til", "kind": "tag"}, {"id": "cli", "kind": "tag"}, {"id": "js", "kind": "tag"}, {"id": "svg", "kind": "tag"}, {"id": "web", "kind": "tag"}, {"id": "java", "kind": "tag"}, {"id": "json", "kind": "tag"}, {"id": "vim", "kind": "tag"}, {"id": "editors", "kind": "tag"}, {"id": "javascript", "kind": "tag"}, {"id": "html", "kind": "tag"}, {"id": "c", "kind": "tag"}, {"id": "graphics", "kind": "tag"}, {"id": "vulkan", "kind": "tag"}, {"id": "git", "kind": "tag"}, {"id": "containers", "kind": "tag"}, {"id": "go", "kind": "tag"}, {"id": "lxd", "kind": "tag"}, {"id": "tinygo", "kind": "tag"}, {"id": "wasm", "kind": "tag"}, {"id": "proglangs", "kind": "tag"}, {"id": "rst", "kind": "tag"}, {"id": "sphinx", "kind": "tag"}, {"id": "esbonio", "kind": "tag"}, {"id": "lsp", "kind": "tag"}, {"id": "vscode", "kind": "tag"}, {"id": "nix", "kind": "tag"}, {"id": "pytestlsp", "kind": "tag"}, {"id": "jupyter", "kind": "tag"}, {"id": "docutils", "kind": "tag"}, {"id": "idea", "kind": "tag"}, {"id": "latex", "kind": "tag"}, {"id": "emacs", "kind": "tag"}, {"id": "kde", "kind": "tag"}, {"id": "wasi", "kind": "tag"}, {"id": "pdf", "kind": "tag"}, {"id": "pandas", "kind": "tag"}, {"id": "pygls", "kind": "tag"}, {"id": "llms", "kind": "tag"}, {"id": "lspdevtools", "kind": "tag"}, {"id": "make", "kind": "tag"}, {"id": "tar", "kind": "tag"}, {"id": "ripgrep", "kind": "tag"}, {"id": "fedora", "kind": "tag"}, {"id": "linux", "kind": "tag"}, {"id": "gdb", "kind": "tag"}, {"id": "bash", "kind": "tag"}, {"id": "nvim", "kind": "tag"}, {"id": "denote", "kind": "tag"}, {"id": "magit", "kind": "tag"}, {"id": "systemd", "kind": "tag"}, {"id": "excel", "kind": "tag"}, {"id": "powershell", "kind": "tag"}, {"id": "windows", "kind": "tag"}, {"id": "jj", "kind": "tag"}, {"id": "rich", "kind": "tag"}, {"id": "wezterm", "kind": "tag"}, {"id": "msexcel", "kind": "tag"}, {"id": "bib", "kind": "tag"}, {"id": "book", "kind": "tag"}, {"id": "msword", "kind": "tag"}, {"id": "info", "kind": "tag"}, {"id": "svn", "kind": "tag"}, {"id": "lisp", "kind": "tag"}, {"id": "treesitter", "kind": "tag"}, {"id": "eshell", "kind": "tag"}, {"id": "ediff", "kind": "tag"}, {"id": "20250615T135327", "kind": "record"}, {"id": "20241228T190506", "kind": "record"}, {"id": "20241116T120000", "kind": "record"}, {"id": "20231124T142244", "kind": "record"}, {"id": "20230727T120000", "kind": "record"}, {"id": "20231124T123050", "kind": "record"}, {"id": "20260606T000449", "kind": "record"}, {"id": "20241016T001316", "kind": "record"}, {"id": "20250703T125514", "kind": "record"}, {"id": "20251202T132134", "kind": "record"}, {"id": "20250830T203717", "kind": "record"}, {"id": "20250708T202145", "kind": "record"}, {"id": "20211025T120000", "kind": "record"}, {"id": "20200506T120000", "kind": "record"}, {"id": "20191114T235909", "kind": "record"}, {"id": "20200428T120000", "kind": "record"}, {"id": "20250917T121909", "kind": "record"}, {"id": "20200108T120000", "kind": "record"}, {"id": "20230323T232204", "kind": "record"}, {"id": "20241201T120000", "kind": "record"}, {"id": "20191116T171946", "kind": "record"}, {"id": "20211006T201316", "kind": "record"}, {"id": "20260601T172422", "kind": "record"}, {"id": "20241221T132917", "kind": "record"}, {"id": "20200106T114605", "kind": "record"}, {"id": "20231026T130006", "kind": "record"}, {"id": "20250513T064235", "kind": "record"}, {"id": "20250209T000309", "kind": "record"}, {"id": "20251206T192626", "kind": "record"}, {"id": "20211009T185754", "kind": "record"}, {"id": "20191114T235017", "kind": "record"}, {"id": "20210113T120000", "kind": "record"}, {"id": "20230918T120000", "kind": "record"}, {"id": "20250409T205419", "kind": "record"}, {"id": "20250303T122920", "kind": "record"}, {"id": "20231124T141538", "kind": "record"}, {"id": "20230402T120000", "kind": "record"}, {"id": "20241228T200358", "kind": "record"}, {"id": "20250221T185037", "kind": "record"}, {"id": "20180922T120000", "kind": "record"}, {"id": "20250103T120000", "kind": "record"}, {"id": "20241206T193425", "kind": "record"}, {"id": "20260531T182827", "kind": "record"}, {"id": "20260308T125622", "kind": "record"}, {"id": "20250216T185035", "kind": "record"}, {"id": "20250305T195742", "kind": "record"}, {"id": "20250529T131457", "kind": "record"}, {"id": "20260506T140219", "kind": "record"}, {"id": "20230323T232028", "kind": "record"}, {"id": "20250705T225630", "kind": "record"}, {"id": "20231124T140733", "kind": "record"}, {"id": "20250705T225452", "kind": "record"}, {"id": "20190105T120000", "kind": "record"}, {"id": "20260429T185129", "kind": "record"}, {"id": "20250529T201728", "kind": "record"}, {"id": "20241228T182434", "kind": "record"}, {"id": "20250221T184014", "kind": "record"}, {"id": "20240510T145518", "kind": "record"}, {"id": "20201217T120000", "kind": "record"}, {"id": "20181012T120000", "kind": "record"}, {"id": "20191114T235911", "kind": "record"}, {"id": "20250228T200007", "kind": "record"}, {"id": "20250707T194905", "kind": "record"}, {"id": "20251206T191624", "kind": "record"}, {"id": "20250430T213500", "kind": "record"}, {"id": "20250217T182726", "kind": "record"}, {"id": "20211006T202831", "kind": "record"}, {"id": "20250222T125328", "kind": "record"}, {"id": "20241103T120000", "kind": "record"}, {"id": "20251206T213925", "kind": "record"}, {"id": "20250521T231049", "kind": "record"}, {"id": "20251206T214734", "kind": "record"}, {"id": "20250216T190725", "kind": "record"}, {"id": "20241204T120000", "kind": "record"}, {"id": "20260422T183610", "kind": "record"}, {"id": "20250708T133920", "kind": "record"}, {"id": "20250216T190236", "kind": "record"}, {"id": "20250216T190621", "kind": "record"}, {"id": "20260610T183929", "kind": "record"}, {"id": "20250221T185924", "kind": "record"}, {"id": "20191116T172343", "kind": "record"}, {"id": "20251207T121535", "kind": "record"}, {"id": "20221217T120000", "kind": "record"}, {"id": "20230421T120000", "kind": "record"}, {"id": "20250924T182310", "kind": "record"}, {"id": "20250520T192340", "kind": "record"}, {"id": "20231031T125008", "kind": "record"}, {"id": "20241016T001317", "kind": "record"}, {"id": "20230323T232618", "kind": "record"}, {"id": "20231107T123439", "kind": "record"}, {"id": "20240409T133841", "kind": "record"}, {"id": "20250216T190328", "kind": "record"}, {"id": "20200101T120000", "kind": "record"}, {"id": "20230728T140826", "kind": "record"}, {"id": "20191114T235900", "kind": "record"}, {"id": "20240410T120000", "kind": "record"}, {"id": "20231018T120000", "kind": "record"}, {"id": "20250409T205418", "kind": "record"}, {"id": "20241206T193424", "kind": "record"}, {"id": "20250216T190756", "kind": "record"}, {"id": "20231107T123925", "kind": "record"}, {"id": "20241016T001318", "kind": "record"}, {"id": "20251227T122017", "kind": "record"}, {"id": "20260501T205946", "kind": "record"}, {"id": "20190707T120000", "kind": "record"}, {"id": "20250615T230801", "kind": "record"}, {"id": "20250221T190247", "kind": "record"}, {"id": "20260418T160644", "kind": "record"}, {"id": "20250101T180842", "kind": "record"}, {"id": "20251124T230046", "kind": "record"}, {"id": "20230125T120000", "kind": "record"}, {"id": "20260610T182004", "kind": "record"}, {"id": "20191116T174334", "kind": "record"}]')
-  const links = JSON.parse('[{"source": "20250520T192340", "target": "blogging"}, {"source": "20260501T205946", "target": "blogging"}, {"source": "20250830T203717", "target": "blogging"}, {"source": "20250615T230801", "target": "blogging"}, {"source": "20250521T231049", "target": "blogging"}, {"source": "20250217T182726", "target": "blogging"}, {"source": "20180922T120000", "target": "blogging"}, {"source": "20190105T120000", "target": "stylo"}, {"source": "20181012T120000", "target": "stylo"}, {"source": "20260308T125622", "target": "python"}, {"source": "20250615T135327", "target": "python"}, {"source": "20250513T064235", "target": "python"}, {"source": "20250303T122920", "target": "python"}, {"source": "20241228T190506", "target": "python"}, {"source": "20241228T200358", "target": "python"}, {"source": "20241221T132917", "target": "python"}, {"source": "20241201T120000", "target": "python"}, {"source": "20241016T001316", "target": "python"}, {"source": "20241016T001317", "target": "python"}, {"source": "20241016T001318", "target": "python"}, {"source": "20240510T145518", "target": "python"}, {"source": "20240410T120000", "target": "python"}, {"source": "20230918T120000", "target": "python"}, {"source": "20230728T140826", "target": "python"}, {"source": "20230727T120000", "target": "python"}, {"source": "20230421T120000", "target": "python"}, {"source": "20230402T120000", "target": "python"}, {"source": "20230323T232618", "target": "python"}, {"source": "20230323T232204", "target": "python"}, {"source": "20230323T232028", "target": "python"}, {"source": "20230125T120000", "target": "python"}, {"source": "20221217T120000", "target": "python"}, {"source": "20211006T201316", "target": "python"}, {"source": "20210113T120000", "target": "python"}, {"source": "20190105T120000", "target": "python"}, {"source": "20181012T120000", "target": "python"}, {"source": "20250222T125328", "target": "til"}, {"source": "20250221T190247", "target": "til"}, {"source": "20250103T120000", "target": "til"}, {"source": "20241201T120000", "target": "til"}, {"source": "20241116T120000", "target": "til"}, {"source": "20190105T120000", "target": "til"}, {"source": "20250707T194905", "target": "cli"}, {"source": "20250705T225452", "target": "cli"}, {"source": "20250216T185035", "target": "cli"}, {"source": "20241206T193425", "target": "cli"}, {"source": "20190105T120000", "target": "cli"}, {"source": "20200506T120000", "target": "js"}, {"source": "20190707T120000", "target": "js"}, {"source": "20190707T120000", "target": "svg"}, {"source": "20191116T174334", "target": "web"}, {"source": "20191116T172343", "target": "web"}, {"source": "20191116T171946", "target": "web"}, {"source": "20190707T120000", "target": "web"}, {"source": "20191114T235017", "target": "java"}, {"source": "20191114T235017", "target": "json"}, {"source": "20191114T235911", "target": "vim"}, {"source": "20191114T235900", "target": "vim"}, {"source": "20191114T235909", "target": "vim"}, {"source": "20191114T235909", "target": "editors"}, {"source": "20191116T172343", "target": "javascript"}, {"source": "20191116T171946", "target": "javascript"}, {"source": "20191116T174334", "target": "html"}, {"source": "20210113T120000", "target": "c"}, {"source": "20201217T120000", "target": "c"}, {"source": "20200108T120000", "target": "c"}, {"source": "20200101T120000", "target": "c"}, {"source": "20200108T120000", "target": "graphics"}, {"source": "20200101T120000", "target": "graphics"}, {"source": "20200108T120000", "target": "vulkan"}, {"source": "20200101T120000", "target": "vulkan"}, {"source": "20250529T201728", "target": "git"}, {"source": "20250430T213500", "target": "git"}, {"source": "20250221T184014", "target": "git"}, {"source": "20250221T185037", "target": "git"}, {"source": "20250221T185924", "target": "git"}, {"source": "20250216T190328", "target": "git"}, {"source": "20240510T145518", "target": "git"}, {"source": "20240409T133841", "target": "git"}, {"source": "20231124T142244", "target": "git"}, {"source": "20231124T141538", "target": "git"}, {"source": "20231124T140733", "target": "git"}, {"source": "20231124T123050", "target": "git"}, {"source": "20231107T123925", "target": "git"}, {"source": "20231107T123439", "target": "git"}, {"source": "20200106T114605", "target": "git"}, {"source": "20200428T120000", "target": "containers"}, {"source": "20250103T120000", "target": "go"}, {"source": "20200506T120000", "target": "go"}, {"source": "20200428T120000", "target": "go"}, {"source": "20200428T120000", "target": "lxd"}, {"source": "20200506T120000", "target": "tinygo"}, {"source": "20200428T120000", "target": "tinygo"}, {"source": "20230918T120000", "target": "wasm"}, {"source": "20200506T120000", "target": "wasm"}, {"source": "20200428T120000", "target": "wasm"}, {"source": "20210113T120000", "target": "proglangs"}, {"source": "20201217T120000", "target": "proglangs"}, {"source": "20260418T160644", "target": "rst"}, {"source": "20211009T185754", "target": "rst"}, {"source": "20211006T202831", "target": "rst"}, {"source": "20250520T192340", "target": "sphinx"}, {"source": "20251124T230046", "target": "sphinx"}, {"source": "20250830T203717", "target": "sphinx"}, {"source": "20250615T230801", "target": "sphinx"}, {"source": "20250217T182726", "target": "sphinx"}, {"source": "20211009T185754", "target": "sphinx"}, {"source": "20211006T202831", "target": "sphinx"}, {"source": "20260418T160644", "target": "esbonio"}, {"source": "20250209T000309", "target": "esbonio"}, {"source": "20241204T120000", "target": "esbonio"}, {"source": "20241103T120000", "target": "esbonio"}, {"source": "20230727T120000", "target": "esbonio"}, {"source": "20230421T120000", "target": "esbonio"}, {"source": "20230402T120000", "target": "esbonio"}, {"source": "20221217T120000", "target": "esbonio"}, {"source": "20211025T120000", "target": "esbonio"}, {"source": "20211025T120000", "target": "lsp"}, {"source": "20250216T190725", "target": "vscode"}, {"source": "20211025T120000", "target": "vscode"}, {"source": "20240410T120000", "target": "nix"}, {"source": "20231018T120000", "target": "nix"}, {"source": "20230918T120000", "target": "nix"}, {"source": "20230727T120000", "target": "nix"}, {"source": "20230421T120000", "target": "nix"}, {"source": "20230402T120000", "target": "nix"}, {"source": "20230125T120000", "target": "nix"}, {"source": "20221217T120000", "target": "nix"}, {"source": "20241204T120000", "target": "pytestlsp"}, {"source": "20230402T120000", "target": "pytestlsp"}, {"source": "20230125T120000", "target": "pytestlsp"}, {"source": "20230323T232618", "target": "jupyter"}, {"source": "20230728T140826", "target": "docutils"}, {"source": "20230728T140826", "target": "idea"}, {"source": "20231018T120000", "target": "latex"}, {"source": "20250409T205418", "target": "emacs"}, {"source": "20260429T185129", "target": "emacs"}, {"source": "20260422T183610", "target": "emacs"}, {"source": "20260418T160644", "target": "emacs"}, {"source": "20260308T125622", "target": "emacs"}, {"source": "20250924T182310", "target": "emacs"}, {"source": "20250708T133920", "target": "emacs"}, {"source": "20250705T225452", "target": "emacs"}, {"source": "20250705T225630", "target": "emacs"}, {"source": "20250615T135327", "target": "emacs"}, {"source": "20250217T182726", "target": "emacs"}, {"source": "20250513T064235", "target": "emacs"}, {"source": "20250409T205419", "target": "emacs"}, {"source": "20250430T213500", "target": "emacs"}, {"source": "20250305T195742", "target": "emacs"}, {"source": "20250303T122920", "target": "emacs"}, {"source": "20250228T200007", "target": "emacs"}, {"source": "20250708T202145", "target": "emacs"}, {"source": "20250222T125328", "target": "emacs"}, {"source": "20250221T184014", "target": "emacs"}, {"source": "20250221T190247", "target": "emacs"}, {"source": "20250216T190756", "target": "emacs"}, {"source": "20241228T182434", "target": "emacs"}, {"source": "20241116T120000", "target": "emacs"}, {"source": "20231026T130006", "target": "emacs"}, {"source": "20231031T125008", "target": "kde"}, {"source": "20240410T120000", "target": "wasi"}, {"source": "20241016T001317", "target": "pdf"}, {"source": "20241016T001318", "target": "pandas"}, {"source": "20250209T000309", "target": "pygls"}, {"source": "20241103T120000", "target": "pygls"}, {"source": "20241116T120000", "target": "llms"}, {"source": "20241204T120000", "target": "lspdevtools"}, {"source": "20241206T193424", "target": "make"}, {"source": "20241206T193425", "target": "tar"}, {"source": "20241228T190506", "target": "ripgrep"}, {"source": "20241221T132917", "target": "ripgrep"}, {"source": "20250101T180842", "target": "fedora"}, {"source": "20250101T180842", "target": "linux"}, {"source": "20250103T120000", "target": "gdb"}, {"source": "20250216T190236", "target": "bash"}, {"source": "20250216T190621", "target": "nvim"}, {"source": "20250520T192340", "target": "denote"}, {"source": "20250217T182726", "target": "denote"}, {"source": "20250222T125328", "target": "magit"}, {"source": "20250221T190247", "target": "magit"}, {"source": "20250409T205418", "target": "systemd"}, {"source": "20250409T205419", "target": "systemd"}, {"source": "20250529T131457", "target": "excel"}, {"source": "20250529T131457", "target": "powershell"}, {"source": "20250529T131457", "target": "windows"}, {"source": "20251227T122017", "target": "jj"}, {"source": "20250529T201728", "target": "jj"}, {"source": "20250615T230801", "target": "rich"}, {"source": "20250615T230801", "target": "wezterm"}, {"source": "20250703T125514", "target": "msexcel"}, {"source": "20251207T121535", "target": "bib"}, {"source": "20251206T191624", "target": "bib"}, {"source": "20251206T192626", "target": "bib"}, {"source": "20251206T213925", "target": "bib"}, {"source": "20251206T214734", "target": "bib"}, {"source": "20250917T121909", "target": "bib"}, {"source": "20251207T121535", "target": "book"}, {"source": "20251206T191624", "target": "book"}, {"source": "20251206T192626", "target": "book"}, {"source": "20251206T213925", "target": "book"}, {"source": "20251206T214734", "target": "book"}, {"source": "20250917T121909", "target": "book"}, {"source": "20251202T132134", "target": "msword"}, {"source": "20260308T125622", "target": "info"}, {"source": "20260506T140219", "target": "svn"}, {"source": "20260531T182827", "target": "lisp"}, {"source": "20260601T172422", "target": "treesitter"}, {"source": "20260606T000449", "target": "eshell"}, {"source": "20260610T183929", "target": "ediff"}, {"source": "20260610T182004", "target": "ediff"}]')
+   <table class="indextable modindextable">
+     <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
+     <tr class="cap" id="cap-A"><td></td><td>
+       <strong>A</strong></td><td></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="20251227T122017/#"><code class="xref">alc-jj</code></a></td><td>
+       <em></em></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="20251206T213925/#"><code class="xref">Air-Borne</code></a></td><td>
+       <em></em></td></tr>
+     <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
+     <tr class="cap" id="cap-B"><td></td><td>
+       <strong>B</strong></td><td></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="20250216T190236/#"><code class="xref">Bash Configuration</code></a></td><td>
+       <em></em></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="20240410T120000/#"><code class="xref">Building the WASI version of CPython using Nix</code></a></td><td>
+       <em></em></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="20231124T123050/#"><code class="xref">Branches</code></a></td><td>
+       <em></em></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="20230728T140826/#"><code class="xref">Bridging org-mode to docutils</code></a></td><td>
+       <em></em></td></tr>
+     <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
+     <tr class="cap" id="cap-C"><td></td><td>
+       <strong>C</strong></td><td></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="20260531T182827/#"><code class="xref">Common Lisp</code></a></td><td>
+       <em></em></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="20251206T192626/#"><code class="xref">Challenger</code></a></td><td>
+       <em></em></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="20250228T200007/#"><code class="xref">Cusomising the Emacs Modeline</code></a></td><td>
+       <em></em></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="20231018T120000/#"><code class="xref">Compiling LaTeX Documents with Nix</code></a></td><td>
+       <em></em></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="20230323T232618/#"><code class="xref">Custom Jupyter Kernels</code></a></td><td>
+       <em></em></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="20211006T202831/#"><code class="xref">Custom Directives</code></a></td><td>
+       <em></em></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="20191114T235909/#"><code class="xref">Custom Text Objects</code></a></td><td>
+       <em></em></td></tr>
+     <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
+     <tr class="cap" id="cap-D"><td></td><td>
+       <strong>D</strong></td><td></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="20241016T001316/#"><code class="xref">Detecting python -i</code></a></td><td>
+       <em></em></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="20241016T001318/#"><code class="xref">Display Options</code></a></td><td>
+       <em></em></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="20231107T123925/#"><code class="xref">Diffs</code></a></td><td>
+       <em></em></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="20191114T235017/#"><code class="xref">Deserialising Abstract Classes with Jackson</code></a></td><td>
+       <em></em></td></tr>
+     <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
+     <tr class="cap" id="cap-E"><td></td><td>
+       <strong>E</strong></td><td></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="20260610T182004/#"><code class="xref">ediff</code></a></td><td>
+       <em></em></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="20260429T185129/#"><code class="xref">Eshell</code></a></td><td>
+       <em></em></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="20260422T183610/#"><code class="xref">Emacs Completions</code></a></td><td>
+       <em></em></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="20250708T133920/#"><code class="xref">Emacs Themes</code></a></td><td>
+       <em></em></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="20250705T225630/#"><code class="xref">Eat: Emulate a Terminal</code></a></td><td>
+       <em></em></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="20250529T131457/#"><code class="xref">Exporting Vba Code Using Powershell</code></a></td><td>
+       <em></em></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="20250305T195742/#"><code class="xref">eglot</code></a></td><td>
+       <em></em></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="20250708T202145/#"><code class="xref">Emacs Appearance</code></a></td><td>
+       <em></em></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="20241228T182434/#"><code class="xref">Emacs Sub-processes</code></a></td><td>
+       <em></em></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="20241206T193425/#"><code class="xref">Extracting archives</code></a></td><td>
+       <em></em></td></tr>
+     <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
+     <tr class="cap" id="cap-F"><td></td><td>
+       <strong>F</strong></td><td></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="20251124T230046/#"><code class="xref">Fixing Sphinx Search</code></a></td><td>
+       <em></em></td></tr>
+     <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
+     <tr class="cap" id="cap-G"><td></td><td>
+       <strong>G</strong></td><td></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="20250830T203717/#"><code class="xref">Generating Post Summaries</code></a></td><td>
+       <em></em></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="20250430T213500/#"><code class="xref">Getting the permalink URL to a line of code</code></a></td><td>
+       <em></em></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="20250221T185037/#"><code class="xref">git rebase</code></a></td><td>
+       <em></em></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="20250221T185924/#"><code class="xref">git tag</code></a></td><td>
+       <em></em></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="20250216T190328/#"><code class="xref">Git</code></a></td><td>
+       <em></em></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="20240409T133841/#"><code class="xref">git grep</code></a></td><td>
+       <em></em></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="20231124T142244/#"><code class="xref">git show</code></a></td><td>
+       <em></em></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="20231107T123439/#"><code class="xref">git log</code></a></td><td>
+       <em></em></td></tr>
+     <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
+     <tr class="cap" id="cap-H"><td></td><td>
+       <strong>H</strong></td><td></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="20250917T121909/#"><code class="xref">How to Take Smart Notes</code></a></td><td>
+       <em></em></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="20211009T185754/#"><code class="xref">HTML Templates</code></a></td><td>
+       <em></em></td></tr>
+     <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
+     <tr class="cap" id="cap-I"><td></td><td>
+       <strong>I</strong></td><td></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="20251213T204155/#"><code class="xref">IBuffer</code></a></td><td>
+       <em></em></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="20250513T064235/#"><code class="xref">Implementing an NNTP Server</code></a></td><td>
+       <em></em></td></tr>
+     <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
+     <tr class="cap" id="cap-J"><td></td><td>
+       <strong>J</strong></td><td></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="20211006T201316/#"><code class="xref">Jinja Templates</code></a></td><td>
+       <em></em></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="20191116T171946/#"><code class="xref">JavaScript Event Listeners</code></a></td><td>
+       <em></em></td></tr>
+     <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
+     <tr class="cap" id="cap-L"><td></td><td>
+       <strong>L</strong></td><td></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="20191114T235911/#"><code class="xref">Listing Registered autocmds</code></a></td><td>
+       <em></em></td></tr>
+     <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
+     <tr class="cap" id="cap-M"><td></td><td>
+       <strong>M</strong></td><td></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="20260501T205946/#"><code class="xref">My Blog Theme</code></a></td><td>
+       <em></em></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="20251207T121535/#"><code class="xref">Metaphors We Live By</code></a></td><td>
+       <em></em></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="20250521T231049/#"><code class="xref">Month Notes</code></a></td><td>
+       <em></em></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="20250216T190756/#"><code class="xref">My Emacs Configuration</code></a></td><td>
+       <em></em></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="20231124T141538/#"><code class="xref">Merging</code></a></td><td>
+       <em></em></td></tr>
+     <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
+     <tr class="cap" id="cap-N"><td></td><td>
+       <strong>N</strong></td><td></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="20250216T190621/#"><code class="xref">Neovim</code></a></td><td>
+       <em></em></td></tr>
+     <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
+     <tr class="cap" id="cap-O"><td></td><td>
+       <strong>O</strong></td><td></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="20251206T214734/#"><code class="xref">On the Calculation of Volume</code></a></td><td>
+       <em></em></td></tr>
+     <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
+     <tr class="cap" id="cap-P"><td></td><td>
+       <strong>P</strong></td><td></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="20250303T122920/#"><code class="xref">Python in Emacs</code></a></td><td>
+       <em></em></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="20241016T001317/#"><code class="xref">PDF Documents</code></a></td><td>
+       <em></em></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="20230323T232204/#"><code class="xref">Python 3.x Gotchas</code></a></td><td>
+       <em></em></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="20230323T232028/#"><code class="xref">Python 2.x Gotchas</code></a></td><td>
+       <em></em></td></tr>
+     <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
+     <tr class="cap" id="cap-R"><td></td><td>
+       <strong>R</strong></td><td></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="20260418T160644/#"><code class="xref">reStructuredText in Emacs</code></a></td><td>
+       <em></em></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="20260103T182755/#"><code class="xref">Raytracing</code></a></td><td>
+       <em></em></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="20250705T225452/#"><code class="xref">Running shells and terminals</code></a></td><td>
+       <em></em></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="20231124T140733/#"><code class="xref">Remotes</code></a></td><td>
+       <em></em></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="20231031T125008/#"><code class="xref">Rebind the Meta Key</code></a></td><td>
+       <em></em></td></tr>
+     <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
+     <tr class="cap" id="cap-S"><td></td><td>
+       <strong>S</strong></td><td></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="20250707T194905/#"><code class="xref">Starship config</code></a></td><td>
+       <em></em></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="20241228T190506/#"><code class="xref">Searching for Code in Python Packages</code></a></td><td>
+       <em></em></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="20241221T132917/#"><code class="xref">Searching for Code in Jupyter Notebooks</code></a></td><td>
+       <em></em></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="20200106T114605/#"><code class="xref">Submodules</code></a></td><td>
+       <em></em></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="20191116T172343/#"><code class="xref">Scrolling with JavaScript</code></a></td><td>
+       <em></em></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="20191114T235900/#"><code class="xref">Synchronised Scrolling</code></a></td><td>
+       <em></em></td></tr>
+     <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
+     <tr class="cap" id="cap-T"><td></td><td>
+       <strong>T</strong></td><td></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="20260118T133600/#"><code class="xref">Treesitter</code></a></td><td>
+       <em></em></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="20251206T191624/#"><code class="xref">Twists Tilings and Tessellations</code></a></td><td>
+       <em></em></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="20250924T182310/#"><code class="xref">Tab Bar Utilities</code></a></td><td>
+       <em></em></td></tr>
+     <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
+     <tr class="cap" id="cap-U"><td></td><td>
+       <strong>U</strong></td><td></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="20260506T140219/#"><code class="xref">Using SVN</code></a></td><td>
+       <em></em></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="20251202T132134/#"><code class="xref">Using Microsoft Word</code></a></td><td>
+       <em></em></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="20250703T125514/#"><code class="xref">Using Excel</code></a></td><td>
+       <em></em></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="20250615T135327/#"><code class="xref">Using pdb from Emacs</code></a></td><td>
+       <em></em></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="20250529T201728/#"><code class="xref">Using Jujutsu</code></a></td><td>
+       <em></em></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="20250221T184014/#"><code class="xref">Using git from Emacs</code></a></td><td>
+       <em></em></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="20250101T180842/#"><code class="xref">Using dnf</code></a></td><td>
+       <em></em></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="20241228T200358/#"><code class="xref">Using mock.patch() for debugging</code></a></td><td>
+       <em></em></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="20240510T145518/#"><code class="xref">Using pygit2</code></a></td><td>
+       <em></em></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="20231026T130006/#"><code class="xref">Using Occur</code></a></td><td>
+       <em></em></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="20191116T174334/#"><code class="xref">Useful HTML Tags</code></a></td><td>
+       <em></em></td></tr>
+     <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
+     <tr class="cap" id="cap-V"><td></td><td>
+       <strong>V</strong></td><td></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="20250216T190725/#"><code class="xref">VSCode</code></a></td><td>
+       <em></em></td></tr>
+     <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
+     <tr class="cap" id="cap-W"><td></td><td>
+       <strong>W</strong></td><td></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="20250216T185035/#"><code class="xref">Wezterm</code></a></td><td>
+       <em></em></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="20241206T193424/#"><code class="xref">Writing Makefiles</code></a></td><td>
+       <em></em></td></tr>
+   </table>
 
-  const simulation = d3.forceSimulation(nodes)
-        .force("link", d3.forceLink(links).id(d => d.id))
-        .force("charge", d3.forceManyBody())
-        .force("x", d3.forceX())
-        .force("y", d3.forceY())
-        .on("tick", ticked);
 
-  const svg = d3.create("svg")
-        .attr("width", width)
-        .attr("height", height)
-        .attr("viewBox", [-width / 2, -height / 2, width, height])
-        .attr("style", "max-width: 100%; height: auto;");
+</section>
 
-  // Parent element to place the whole graph under
-  // enables pan + zoom later on
-  const g = svg.append('g');
-
-  const link = g.append("g")
-        .attr("stroke", "#999")
-        .attr("stroke-opacity", 0.6)
-        .selectAll()
-        .data(links)
-        .join("line")
-        .attr("stroke-width", 1);
-
-  const node = g.append("g")
-        .selectAll("g")
-        .data(nodes)
-        .join("g")
-
-  node.append("circle")
-        .attr("r", 5)
-        .attr("stroke", "var(--border-color)")
-        .attr("stroke-width", 0.5)
-        .attr("fill", d => {
-            if (d.kind === 'tag') {
-                return 'var(--fg-accent)'
-            } else {
-                return 'var(--border-color)'
-            }
-        });
-
-  node.append("text")
-    .attr("x", 0)
-    .attr("font-size", "0.5em")
-    .attr("text-anchor", "middle")
-    .attr("fill", "var(--fg-main)")
-    .attr("y", 12)
-    .text(d => {
-        if (d.kind === 'tag') {
-            return `#${d.id}`
-        } else {
-            return "" // d.id
-        }
-    })
-
-  function ticked() {
-   link.attr("x1", d => d.source.x)
-       .attr("y1", d => d.source.y)
-       .attr("x2", d => d.target.x)
-       .attr("y2", d => d.target.y);
-
-   node.attr("transform", d => `translate(${d.x},${d.y})`);
-  }
-
-  container.append(svg.node())
-
-  // Pan + zoom
-  svg.call(d3.zoom()
-           .extent([[-width / 2, -height / 2], [width, height]])
-           .scaleExtent([1, 8])
-           .on("zoom", zoomed));
-
-  function zoomed({transform}) {
-      g.attr("transform", transform)
-  }
-
-</script>
   </main>
 
   <aside>

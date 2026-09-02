@@ -861,6 +861,23 @@ section#search-results {
   }
 }
 
+section.domainindex {
+  padding: 2em;
+
+  h1 { color: var(--fg-accent); }
+
+  div.modindex-jumpbox {
+     display: grid;
+     grid-template-columns: repeat(auto-fit, minmax(20px, 1fr));
+     justify-items: center;
+     margin: 1em 0;
+  }
+}
+
+@media screen and (max-width: 600px) {
+  section.domainindex { padding: 0.5em; }
+}
+
 footer.site {
   color: var(--fg-sidebar);
   background: var(--bg-sidebar);

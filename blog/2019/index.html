@@ -4,7 +4,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Posts in 2019 &#8212; Alex Carney</title>
+    <title>Posted in: 2019 &#8212; Alex Carney</title>
 
     <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=02ca0aaa" />
     <link id="pygments_dark_css" media="(prefers-color-scheme: dark)" rel="stylesheet" type="text/css" href="../../_static/pygments_dark.css?v=d8568271" />
@@ -19,12 +19,19 @@
     <link rel="icon" href="../../_static/favicon.ico"/>
     <link rel="index" title="Index" href="../../genindex/" />
     <link rel="search" title="Search" href="../../search/" />
+
     <link rel="alternate"
           type="application/atom+xml"
           title=" | Blog Posts"
           href="/blog/atom.xml">
     <meta name="fediverse:creator" content="@alcarney@mastodon.social">
     <meta name="theme-color" content="#059669">
+
+
+    <script>
+      DOCUMENTATION_OPTIONS.COLLAPSE_INDEX = true;
+    </script>
+
 
   </head>
   <body>
@@ -224,143 +231,37 @@
 
 
   <main role="main">
+<section class="domainindex">
+  
 
-<h1 style="margin: 1em; color: var(--fg-accent);">
-  Posts in 2019
-</h1>
-  <article class="summary">
-    <header>
-      <a href="click-drag-vanilla-js/">
-        <h2 style="max-width: 33ch" class="mb-4 text-2xl text-green-600">Implementing Click & Drag with Vanilla JS</h2>
-      </a>
-    </header>
-    <aside>
-        
-<section class="post-metadata">
-    <h5 style="grid-column: span 2">Metadata</h5><svg xmlns="http://www.w3.org/2000/svg" width="2em" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
-</svg>
-    <time style="align-self: center; text-align: right;" datetime="2019-07-07 00:00:00+00:00">Jul 07, 2019</time><svg xmlns="http://www.w3.org/2000/svg" width="2em" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z" />
-</svg>
-    <ul class="taglist">
-        <li>
-            <a class="tag" href="../../tag/js/">
-                #js
-            </a>
-        </li>
-        <li>
-            <a class="tag" href="../../tag/svg/">
-                #svg
-            </a>
-        </li>
-        <li>
-            <a class="tag" href="../../tag/web/">
-                #web
-            </a>
-        </li>
-    </ul>
+   <h1>Posted in: 2019</h1>
+
+   <div class="modindex-jumpbox">
+   <a href="#cap-01-Jan"><strong>01-Jan</strong></a> | 
+   <a href="#cap-07-Jul"><strong>07-Jul</strong></a>
+   </div>
+
+   <table class="indextable modindextable">
+     <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
+     <tr class="cap" id="cap-01-Jan"><td></td><td>
+       <strong>01-Jan</strong></td><td></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="til-python-cmd/#"><code class="xref">TIL: Python has a cmd module</code></a></td><td>
+       <em></em></td></tr>
+     <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
+     <tr class="cap" id="cap-07-Jul"><td></td><td>
+       <strong>07-Jul</strong></td><td></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="click-drag-vanilla-js/#"><code class="xref">Implementing Click &amp; Drag with Vanilla JS</code></a></td><td>
+       <em></em></td></tr>
+   </table>
+
+
 </section>
-    </aside>
-
-    <div style="min-width: 0">
-      <div class="post-teaser docutils container">
-<figure>
-  <div id="main-el"></div>
-  <figcaption>
-    <p>Try clicking and dragging on this circle.</p>
-  </figcaption>
-</figure>
-<script type="text/javascript" src="/_static/js/click-drag.js"></script><div class="admonition-disclaimer admonition">
-<p class="admonition-title">Disclaimer</p>
-<p>This post makes use of a number of interactive elements to help illustrate a few
-concepts. Unfortunately these do not yet work on mobile devices - sorry mobile
-users!</p>
-</div>
-<p>I have for quite some time now wanted to play around with web development some
-more, particularly using web technologies to build user interfaces of some
-kind. However there is just <strong>so much</strong> out there it’s been impossible for me to
-really get anywhere past a “Hello, World!” tutorial before I find myself trying
-out the next new shiny.</p>
-<p>So I’ve decided to abandon everything and try a bottom up approach where I see
-how far I can push the core web technologies - HTML, CSS and
-JavaScript. Hopefully then by the time I start using one of the gazillion
-libraries out there I will have a better understanding of why I
-needed it in the first place.</p>
-<p>In this post I will be looking at implementing clicking and dragging
-functionality using only vanilla JavaScript. Clicking and dragging as a concept
-can apply to many kinds of interactions so in this instance I’m specifically
-referring to clicking on an SVG element moving it around on the page as
-illustrated by the demo above.</p>
-</div>
-
-    </div>
-
-    <footer>
-      <p>
-        <a href="click-drag-vanilla-js/">Read More...</a>
-      </p>
-    </footer>
-  </article>
-  <article class="summary">
-    <header>
-      <a href="til-python-cmd/">
-        <h2 style="max-width: 33ch" class="mb-4 text-2xl text-green-600">TIL: Python has a cmd module</h2>
-      </a>
-    </header>
-    <aside>
-        
-<section class="post-metadata">
-    <h5 style="grid-column: span 2">Metadata</h5><svg xmlns="http://www.w3.org/2000/svg" width="2em" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
-</svg>
-    <time style="align-self: center; text-align: right;" datetime="2019-01-05 00:00:00+00:00">Jan 05, 2019</time><svg xmlns="http://www.w3.org/2000/svg" width="2em" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z" />
-</svg>
-    <ul class="taglist">
-        <li>
-            <a class="tag" href="../../tag/stylo/">
-                #stylo
-            </a>
-        </li>
-        <li>
-            <a class="tag" href="../../tag/python/">
-                #python
-            </a>
-        </li>
-        <li>
-            <a class="tag" href="../../tag/til/">
-                #til
-            </a>
-        </li>
-        <li>
-            <a class="tag" href="../../tag/cli/">
-                #cli
-            </a>
-        </li>
-    </ul>
-</section>
-    </aside>
-
-    <div style="min-width: 0">
-      <div class="post-teaser docutils container">
-<p>Today I Learned that Python’s standard library has a <a class="reference external" href="https://docs.python.org/3/library/cmd.html">cmd</a> module and it is <em>awesome!</em></p>
-<figure class="align-center" id="id1">
-<img alt="../../_images/cmd_python.gif" src="../../_images/cmd_python.gif" />
-<figcaption>
-<p><span class="caption-text">Interactive program using the cmd module</span><a class="headerlink" href="#id1" title="Link to this image">¶</a></p>
-</figcaption>
-</figure>
-</div>
-
-    </div>
-
-    <footer>
-      <p>
-        <a href="til-python-cmd/">Read More...</a>
-      </p>
-    </footer>
-  </article>
 
   </main>
 

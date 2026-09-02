@@ -4,7 +4,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Tagged with: gdb &#8212; Alex Carney</title>
+    <title>#gdb &#8212; Alex Carney</title>
 
     <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=02ca0aaa" />
     <link id="pygments_dark_css" media="(prefers-color-scheme: dark)" rel="stylesheet" type="text/css" href="../../_static/pygments_dark.css?v=d8568271" />
@@ -19,12 +19,19 @@
     <link rel="icon" href="../../_static/favicon.ico"/>
     <link rel="index" title="Index" href="../../genindex/" />
     <link rel="search" title="Search" href="../../search/" />
+
     <link rel="alternate"
           type="application/atom+xml"
           title=" | Blog Posts"
           href="/blog/atom.xml">
     <meta name="fediverse:creator" content="@alcarney@mastodon.social">
     <meta name="theme-color" content="#059669">
+
+
+    <script>
+      DOCUMENTATION_OPTIONS.COLLAPSE_INDEX = true;
+    </script>
+
 
   </head>
   <body>
@@ -170,74 +177,28 @@
 
 
   <main role="main">
+<section class="domainindex">
+  
 
-<h1 style="margin: 1em; color: var(--fg-accent);">
-  Tagged with: gdb
-</h1>
-  <article class="summary">
-    <header>
-      <a href="../../blog/2025/debugging-go-with-gdb/">
-        <h2 style="max-width: 33ch" class="mb-4 text-2xl text-green-600">TIL: Debugging go programs with gdb</h2>
-      </a>
-    </header>
-    <aside>
-        
-<section class="post-metadata">
-    <h5 style="grid-column: span 2">Metadata</h5><svg xmlns="http://www.w3.org/2000/svg" width="2em" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
-</svg>
-    <time style="align-self: center; text-align: right;" datetime="2025-01-03 00:00:00+00:00">Jan 03, 2025</time><svg xmlns="http://www.w3.org/2000/svg" width="2em" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z" />
-</svg>
-    <ul class="taglist">
-        <li>
-            <a class="tag" href="#">
-                #gdb
-            </a>
-        </li>
-        <li>
-            <a class="tag" href="../go/">
-                #go
-            </a>
-        </li>
-        <li>
-            <a class="tag" href="../til/">
-                #til
-            </a>
-        </li>
-    </ul>
+   <h1>#gdb</h1>
+
+   <div class="modindex-jumpbox">
+   <a href="#cap-T"><strong>T</strong></a>
+   </div>
+
+   <table class="indextable modindextable">
+     <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
+     <tr class="cap" id="cap-T"><td></td><td>
+       <strong>T</strong></td><td></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="../../blog/2025/debugging-go-with-gdb/#"><code class="xref">TIL: Debugging go programs with gdb</code></a></td><td>
+       <em></em></td></tr>
+   </table>
+
+
 </section>
-    </aside>
-
-    <div style="min-width: 0">
-      <div class="post-teaser docutils container">
-<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>gdb<span class="w"> </span>--args<span class="w"> </span>podman<span class="w"> </span>info
-<span class="gp gp-VirtualEnv">(gdb)</span> <span class="go">run</span>
-<span class="go">Starting program: /usr/bin/podman info</span>
-<span class="go">[Thread debugging using libthread_db enabled]</span>
-<span class="go">...</span>
-<span class="go">WARN[0000] Found incomplete layer &quot;6748b9a4e6f2d75763acd0d8351dfb92d4281a0b3546cc68042fb8cb5e1b7c3c&quot;, deleting it</span>
-
-<span class="go">Thread 9 &quot;podman&quot; received signal SIGSEGV, Segmentation fault.</span>
-<span class="go">[Switching to Thread 0x7fbacbfff6c0 (LWP 10496)]</span>
-<span class="go">Downloading source file /usr/src/debug/podman-5.3.1-1.fc41.x86_64/vendor/github.com/containers/storage/layers.go</span>
-<span class="go">github.com/containers/storage.(*layerStore).load (r=0xc00024c140, lockedForWriting=true, ~r0=&lt;optimized out&gt;, ~r0=&lt;optimized out&gt;, ~r1=..., ~r1=...) at /usr/src/debug/podman-5.3.1-1.fc41.x86_64/vendor/github.com/containers/storage/layers.go:917</span>
-<span class="go">917                     if layer.Flags == nil {</span>
-</pre></div>
-</div>
-<p><em>&lt;Freeze frame, record scratch&gt;</em></p>
-<p><em>You might be wondering how I got here…</em></p>
-<p>And no, I wasn’t trying to work on <a class="reference external" href="https://github.com/containers/podman">podman</a>!</p>
-</div>
-
-    </div>
-
-    <footer>
-      <p>
-        <a href="../../blog/2025/debugging-go-with-gdb/">Read More...</a>
-      </p>
-    </footer>
-  </article>
 
   </main>
 
