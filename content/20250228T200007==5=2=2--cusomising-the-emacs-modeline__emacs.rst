@@ -95,6 +95,30 @@ Intended to replace the default ``mode-line-buffer-identification`` and ``mode-l
                       'face (alc-modeline-buffer-identification-face))))
    (put 'alc-modeline-buffer-identification 'risky-local-variable t)
 
+Major Mode
+----------
+
+Replaces the default ``mode-line-modes`` to display just the major mode for the current buffer.
+With ``consult-minor-mode-menu`` I don't see much point in listing all the minor modes in the modeline anymore.
+
+.. code-block:: elisp
+   :project: emacs
+   :filename: lisp/alc-modeline.el
+
+   (defun alc-modeline-major-mode-face ()
+     "Return the face(s) to apply to the major mode name in the modeline."
+     (cond (t 'mode-line-buffer-id)))
+
+   (defun alc-modeline-major-mode-name ()
+     "Return the name of the current major mode."
+     (symbol-name major-mode))
+
+   (defvar-local alc-modeline-major-mode
+       '(:eval
+          (propertize (concat "(" (alc-modeline-major-mode-name) ")")
+                      'face (alc-modeline-major-mode-face))))
+   (put 'alc-modeline-major-mode 'risky-local-variable t)
+
 Buffer Position
 ---------------
 

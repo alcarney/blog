@@ -175,6 +175,7 @@ For reference, here are the components that were in the default modeline
 - ``mode-line-position``
 - ``mode-line-misc-info``
 - ``mode-line-end-spaces``
+- ``mode-line-modes``
 
 .. code-block:: elisp
    :project: emacs
@@ -190,12 +191,12 @@ For reference, here are the components that were in the default modeline
                   alc-modeline-window-dedicated
                   alc-modeline-project-identification
                   "  "
+                  alc-modeline-major-mode
+                  "  "
                   alc-modeline-remote-indication
                   alc-modeline-buffer-identification
                   " "
                   alc-modeline-buffer-position
-                  "      "
-                  mode-line-modes
                   )))
 
 See :denote:link:`20250228T200007` for more details.
