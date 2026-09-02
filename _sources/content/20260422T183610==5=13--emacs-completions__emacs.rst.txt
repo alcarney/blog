@@ -76,9 +76,26 @@ I admit, I probably don't use this as much as I should.
      :ensure t
      :custom
      (consult-preview-key "M-.")
-     :bind (("C-x b" . consult-buffer)))
+     (consult-narrow-key "<")
+     (enable-recursive-minibuffers t)
+     :bind (("C-x b" . consult-buffer)
+            ("C-c n" . consult-minor-mode-menu)
+            ;; Search for...
+            ("M-s l" . consult-line)
+            ;; Goto ...
+            ("M-g m" . consult-mark)
+            ("M-g M" . consult-global-mark)))
 
-I don't often want the live preview feature, but it's nice to be able to opt into it by hitting :kbd:`M-.`
+**Notes:**
+
+- I don't often want the live preview feature, but it's nice to be able to opt into it by hitting :kbd:`M-.`
+
+- ``consult-narrow-key`` is cool, where a command has multiple groups e.g. ``consult-buffer`` hitting something like :kbd:`< p` filters the list down to project buffers.
+  Yes, you can do the same with :kbd:`p SPC` but since ``consult-narrow-key`` triggers a keymap you can hit :kbd:`C-h` to see all the available groups and their associated keys.
+
+  Coupled with ``embark-prefix-help-command`` below, you get an interactive, searchable list! (**Only if you set 'enable-recursive-minibuffers' to 't'**)
+
+- ``consult-minor-mode-menu`` is very nice, gives you an interactive view to manage all of your minor modes! With it, I see no need to display them all in the modeline anymore.
 
 Embark
 ------
@@ -176,7 +193,8 @@ So I have arrived at the following config.
 
      (setq vertico-multiform-commands
            '((consult-line buffer)
-             (consult-imenu buffer)))
+             (consult-imenu buffer)
+             (consult-minor-mode-menu buffer)))
 
      (setq vertico-multiform-categories
            '((embark-keybinding grid)

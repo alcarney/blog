@@ -463,6 +463,72 @@
 ;;; alc-ediff.el ends here
 </code></pre>
     </details>
+    <details class="awdur-file"><summary>alc-eglot.el</summary>
+      <pre class="code literal-block"><code>
+;;; alc-eglot.el --- TODO add description  -*- lexical-binding: t -*-
+
+;;; Code:
+(require &#39;eglot)
+(require &#39;transient)
+
+(transient-define-prefix alc-eglot-menu ()
+  &#34;Transient menu for launching eglot things.&#34;
+  [&#34;Code Actions&#34;
+   (&#34;a&#34; &#34;All&#34;              eglot-code-actions)
+   (&#34;i&#34; &#34;Organise Imports&#34; eglot-code-action-organize-imports)
+   (&#34;q&#34; &#34;Quickfix&#34;         eglot-code-action-quickfix)]
+  [&#34;Server Process&#34;
+   (&#34;c&#34; &#34;Config&#34;  eglot-show-workspace-configuration)
+   (&#34;E&#34; &#34;Stderr&#34;  eglot-stderr-buffer)
+   (&#34;r&#34; &#34;Restart&#34; alc-eglot-restart)])
+
+(defun alc-eglot-wrap-server-in-lsp-devtools (oldfun &amp;rest args)
+  &#34;Wrap the server config returned from eglot in the lsp-devtools agent.&#34;
+  (if-let ((lsp-devtools (executable-find &#34;lsp-devtools&#34;)))
+     (pcase-let ((`(,modes ,project ,class ,contact ,lang-ids) (apply oldfun args)))
+       `(,modes ,project ,class ,(append `(,lsp-devtools &#34;agent&#34; &#34;--&#34;) contact) ,lang-ids))
+    (apply oldfun args)))
+
+(require &#39;s)
+
+(defun alc-eglot-fix-workspace-configuration-scope (orig-fun server &amp;optional path)
+  &#34;Fix the scopeUri of a workspace/configuration request.
+
+When eglot handles a workspace/configuration request with an
+associated scopeUri it uses the `file-name-directory&#39; function to
+determine the directory from which to resolve the configuration
+values.
+
+This causes an issue for servers like esbonio and pyright which
+set the scopeUri to a directory. For `file-name-directory&#39; to
+treat the path as a directory it must include a trailing slash, a
+convention which these servers do not follow.
+
+Therefore `file-name-directory&#39; treats the path as a file and
+removes the final component, causing eglot to resolve the
+configuration relative to the wrong directory.
+
+This function fixes the issue by advising the
+`eglot--workspace-configuration-plist&#39; function, ensuring that
+paths referencing directories include the trailing slash.&#34;
+  (if (and path
+           (file-directory-p path)
+           (not (s-ends-with? &#34;/&#34; path)))
+      (funcall orig-fun server (concat path &#34;/&#34;))
+    (funcall orig-fun server path)))
+
+(defun alc-eglot-restart ()
+  &#34;(Re)start the server in the current buffer.&#34;
+  (interactive)
+  (if (eglot-current-server)
+      (call-interactively &#39;eglot-reconnect)
+    (call-interactively &#39;eglot)))
+
+(provide &#39;alc-eglot)
+
+;;; alc-eglot.el ends here
+</code></pre>
+    </details>
     <details class="awdur-file"><summary>alc-eshell.el</summary>
       <pre class="code literal-block"><code>
 ;;; alc-eshell.el --- TODO add description  -*- lexical-binding: t -*-
@@ -873,7 +939,7 @@ created if necessary&#34;
     (progn
       (let ((default-directory (alc-jj-get-workspace &#34;to&#34; t)))
         ;; The workspace might be stale...
-        (call-process &#34;jj&#34; nil nil nil &#34;workspace&#34; &#34;update-state&#34;)
+        (call-process &#34;jj&#34; nil nil nil &#34;workspace&#34; &#34;update-stale&#34;)
         (call-process &#34;jj&#34; nil nil nil &#34;edit&#34; change-id))
       ;; Be sure to update the log relative to the current workspace
       (alc-jj-log-view-reload))))
@@ -929,6 +995,20 @@ created if necessary&#34;
        (propertize &#34;%b&#34;
                    &#39;face (alc-modeline-buffer-identification-face))))
 (put &#39;alc-modeline-buffer-identification &#39;risky-local-variable t)
+
+(defun alc-modeline-major-mode-face ()
+  &#34;Return the face(s) to apply to the major mode name in the modeline.&#34;
+  (cond (t &#39;mode-line-buffer-id)))
+
+(defun alc-modeline-major-mode-name ()
+  &#34;Return the name of the current major mode.&#34;
+  (symbol-name major-mode))
+
+(defvar-local alc-modeline-major-mode
+    &#39;(:eval
+       (propertize (concat &#34;(&#34; (alc-modeline-major-mode-name) &#34;)&#34;)
+                   &#39;face (alc-modeline-major-mode-face))))
+(put &#39;alc-modeline-major-mode &#39;risky-local-variable t)
 
 (defun alc-modeline-buffer-position-face ()
   &#34;Return the face(s) to apply to the buffer position in the modeline.&#34;
@@ -1392,8 +1472,9 @@ elided_revisions:  $ =&gt; seq(&#39;~&#39;, optional(&#39;(elided revisions)&#39
 
 (repeat-mode 1)
 
-(setq whitespace-style &#39;(face empty trailing lines-char tab-mark))
+(setq whitespace-style &#39;(face empty trailing tab-mark))
 (add-hook &#39;prog-mode-hook &#39;whitespace-mode)
+(add-hook &#39;prog-mode-hook &#39;display-fill-column-indicator-mode)
 
 (add-hook &#39;before-save-hook #&#39;whitespace-cleanup)
 
@@ -1580,11 +1661,13 @@ See `auth-source-search&#39; for details on SPEC.&#34;
         (read-only-mode)
       (eglot-ensure))))
 
-(use-package eglot
-  :bind ((&#34;&lt;f2&gt;&#34; . eglot-rename))
+(use-package alc-eglot
+  :bind ((&#34;&lt;f2&gt;&#34; . eglot-rename)
+         (&#34;C-c e&#34; . alc-eglot-menu))
   :custom
   (eglot-autoshutdown t)
   (eglot-extend-to-xref t)
+  (eglot-events-buffer-config &#39;(:size 0)) ;; I use `lsp-devtools` to inspect traffic.
   :config
   (advice-add &#39;eglot--workspace-configuration-plist :around #&#39;alc-eglot-fix-workspace-configuration-scope)
   (add-to-list &#39;display-buffer-alist
@@ -1597,41 +1680,6 @@ See `auth-source-search&#39; for details on SPEC.&#34;
            (string-to-number (with-temp-buffer
                                (ignore-errors (insert-file &#34;/proc/sys/fs/pipe-max-size&#34;))
                                (buffer-string)))))
-
-(defun alc-eglot-wrap-server-in-lsp-devtools (oldfun &amp;rest args)
-  &#34;Wrap the server config returned from eglot in the lsp-devtools agent.&#34;
-  (if-let ((lsp-devtools (executable-find &#34;lsp-devtools&#34;)))
-     (pcase-let ((`(,modes ,project ,class ,contact ,lang-ids) (apply oldfun args)))
-       `(,modes ,project ,class ,(append `(,lsp-devtools &#34;agent&#34; &#34;--&#34;) contact) ,lang-ids))
-    (apply oldfun args)))
-
-(require &#39;s)
-
-(defun alc-eglot-fix-workspace-configuration-scope (orig-fun server &amp;optional path)
-  &#34;Fix the scopeUri of a workspace/configuration request.
-
-When eglot handles a workspace/configuration request with an
-associated scopeUri it uses the `file-name-directory&#39; function to
-determine the directory from which to resolve the configuration
-values.
-
-This causes an issue for servers like esbonio and pyright which
-set the scopeUri to a directory. For `file-name-directory&#39; to
-treat the path as a directory it must include a trailing slash, a
-convention which these servers do not follow.
-
-Therefore `file-name-directory&#39; treats the path as a file and
-removes the final component, causing eglot to resolve the
-configuration relative to the wrong directory.
-
-This function fixes the issue by advising the
-`eglot--workspace-configuration-plist&#39; function, ensuring that
-paths referencing directories include the trailing slash.&#34;
-  (if (and path
-           (file-directory-p path)
-           (not (s-ends-with? &#34;/&#34; path)))
-      (funcall orig-fun server (concat path &#34;/&#34;))
-    (funcall orig-fun server path)))
 
 (use-package denote-sequence
   :ensure t
@@ -1690,9 +1738,9 @@ paths referencing directories include the trailing slash.&#34;
   (require-theme &#39;doric-themes t)
 
   (setq alc-theme-load-light-theme-function
-        (lambda () (doric-themes-select &#39;doric-coral))
+        (lambda () (doric-themes-select &#39;doric-almond))
         alc-theme-load-dark-theme-function
-        (lambda () (doric-themes-select &#39;doric-fire)))
+        (lambda () (doric-themes-select &#39;doric-walnut)))
 
   (add-to-list &#39;after-make-frame-functions &#39;alc-theme-sync-to-system-theme))
 
@@ -1739,12 +1787,12 @@ paths referencing directories include the trailing slash.&#34;
                alc-modeline-window-dedicated
                alc-modeline-project-identification
                &#34;  &#34;
+               alc-modeline-major-mode
+               &#34;  &#34;
                alc-modeline-remote-indication
                alc-modeline-buffer-identification
                &#34; &#34;
                alc-modeline-buffer-position
-               &#34;      &#34;
-               mode-line-modes
                )))
 
 (setq-default cursor-in-non-selected-windows nil)
@@ -1803,7 +1851,15 @@ paths referencing directories include the trailing slash.&#34;
   :ensure t
   :custom
   (consult-preview-key &#34;M-.&#34;)
-  :bind ((&#34;C-x b&#34; . consult-buffer)))
+  (consult-narrow-key &#34;&lt;&#34;)
+  (enable-recursive-minibuffers t)
+  :bind ((&#34;C-x b&#34; . consult-buffer)
+         (&#34;C-c n&#34; . consult-minor-mode-menu)
+         ;; Search for...
+         (&#34;M-s l&#34; . consult-line)
+         ;; Goto ...
+         (&#34;M-g m&#34; . consult-mark)
+         (&#34;M-g M&#34; . consult-global-mark)))
 
 (use-package embark
   :ensure t
@@ -1841,7 +1897,8 @@ paths referencing directories include the trailing slash.&#34;
 
   (setq vertico-multiform-commands
         &#39;((consult-line buffer)
-          (consult-imenu buffer)))
+          (consult-imenu buffer)
+          (consult-minor-mode-menu buffer)))
 
   (setq vertico-multiform-categories
         &#39;((embark-keybinding grid)
@@ -2004,8 +2061,9 @@ Uses <code class="docutils literal notranslate"><span class="pre">whitespace-dis
 <div class="awdur-codeblock docutils container">
 <div class="awdur-codeblock-header docutils container">
 <code class="awdur-codeblock-filename docutils literal notranslate"><span class="pre">init.el</span></code></div>
-<div class="highlight-elisp notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="k">setq</span><span class="w"> </span><span class="nv">whitespace-style</span><span class="w"> </span><span class="o">&#39;</span><span class="p">(</span><span class="nv">face</span><span class="w"> </span><span class="nv">empty</span><span class="w"> </span><span class="nv">trailing</span><span class="w"> </span><span class="nv">lines-char</span><span class="w"> </span><span class="nv">tab-mark</span><span class="p">))</span>
+<div class="highlight-elisp notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="k">setq</span><span class="w"> </span><span class="nv">whitespace-style</span><span class="w"> </span><span class="o">&#39;</span><span class="p">(</span><span class="nv">face</span><span class="w"> </span><span class="nv">empty</span><span class="w"> </span><span class="nv">trailing</span><span class="w"> </span><span class="nv">tab-mark</span><span class="p">))</span>
 <span class="p">(</span><span class="nv">add-hook</span><span class="w"> </span><span class="ss">&#39;prog-mode-hook</span><span class="w"> </span><span class="ss">&#39;whitespace-mode</span><span class="p">)</span>
+<span class="p">(</span><span class="nv">add-hook</span><span class="w"> </span><span class="ss">&#39;prog-mode-hook</span><span class="w"> </span><span class="ss">&#39;display-fill-column-indicator-mode</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>

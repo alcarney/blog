@@ -128,8 +128,10 @@
   <nav id="localtoc">
     <ul>
 <li><a class="reference internal" href="#"><code class="docutils literal notranslate"><span class="pre">eglot</span></code></a><ul>
+<li><a class="reference internal" href="#transient">Transient</a></li>
 <li><a class="reference internal" href="#lsp-devtools"><code class="docutils literal notranslate"><span class="pre">lsp-devtools</span></code></a></li>
 <li><a class="reference internal" href="#workspace-configuration">Workspace Configuration</a></li>
+<li><a class="reference internal" href="#utilities">Utilities</a></li>
 </ul>
 </li>
 </ul>
@@ -423,11 +425,13 @@
 <div class="awdur-codeblock docutils container">
 <div class="awdur-codeblock-header docutils container">
 <code class="awdur-codeblock-filename docutils literal notranslate"><span class="pre">init.el</span></code></div>
-<div class="highlight-elisp notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="nb">use-package</span><span class="w"> </span><span class="nv">eglot</span>
-<span class="w">  </span><span class="nb">:bind</span><span class="w"> </span><span class="p">((</span><span class="s">&quot;&lt;f2&gt;&quot;</span><span class="w"> </span><span class="o">.</span><span class="w"> </span><span class="nv">eglot-rename</span><span class="p">))</span>
+<div class="highlight-elisp notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="nb">use-package</span><span class="w"> </span><span class="nv">alc-eglot</span>
+<span class="w">  </span><span class="nb">:bind</span><span class="w"> </span><span class="p">((</span><span class="s">&quot;&lt;f2&gt;&quot;</span><span class="w"> </span><span class="o">.</span><span class="w"> </span><span class="nv">eglot-rename</span><span class="p">)</span>
+<span class="w">         </span><span class="p">(</span><span class="s">&quot;C-c e&quot;</span><span class="w"> </span><span class="o">.</span><span class="w"> </span><span class="nv">alc-eglot-menu</span><span class="p">))</span>
 <span class="w">  </span><span class="nb">:custom</span>
 <span class="w">  </span><span class="p">(</span><span class="nv">eglot-autoshutdown</span><span class="w"> </span><span class="no">t</span><span class="p">)</span>
 <span class="w">  </span><span class="p">(</span><span class="nv">eglot-extend-to-xref</span><span class="w"> </span><span class="no">t</span><span class="p">)</span>
+<span class="w">  </span><span class="p">(</span><span class="nv">eglot-events-buffer-config</span><span class="w"> </span><span class="o">&#39;</span><span class="p">(</span><span class="nb">:size</span><span class="w"> </span><span class="mi">0</span><span class="p">))</span><span class="w"> </span><span class="c1">;; I use `lsp-devtools` to inspect traffic.</span>
 <span class="w">  </span><span class="nb">:config</span>
 <span class="w">  </span><span class="p">(</span><span class="nv">advice-add</span><span class="w"> </span><span class="ss">&#39;eglot--workspace-configuration-plist</span><span class="w"> </span><span class="nb">:around</span><span class="w"> </span><span class="nf">#&#39;</span><span class="nv">alc-eglot-fix-workspace-configuration-scope</span><span class="p">)</span>
 <span class="w">  </span><span class="p">(</span><span class="nv">add-to-list</span><span class="w"> </span><span class="ss">&#39;display-buffer-alist</span>
@@ -450,13 +454,36 @@ According to the docstring this should not exceed the value of <code class="docu
 </pre></div>
 </div>
 </div>
+<section id="transient">
+<h2>Transient<a class="headerlink" href="#transient" title="Link to this heading">¶</a></h2>
+<p>It’s nice to have a transient menu from which we can launch things.</p>
+<div class="awdur-codeblock docutils container">
+<div class="awdur-codeblock-header docutils container">
+<code class="awdur-codeblock-filename docutils literal notranslate"><span class="pre">lisp/alc-eglot.el</span></code></div>
+<div class="highlight-elisp notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="nb">require</span><span class="w"> </span><span class="ss">&#39;eglot</span><span class="p">)</span>
+<span class="p">(</span><span class="nb">require</span><span class="w"> </span><span class="ss">&#39;transient</span><span class="p">)</span>
+
+<span class="p">(</span><span class="nv">transient-define-prefix</span><span class="w"> </span><span class="nv">alc-eglot-menu</span><span class="w"> </span><span class="p">()</span>
+<span class="w">  </span><span class="s">&quot;Transient menu for launching eglot things.&quot;</span>
+<span class="w">  </span><span class="p">[</span><span class="s">&quot;Code Actions&quot;</span>
+<span class="w">   </span><span class="p">(</span><span class="s">&quot;a&quot;</span><span class="w"> </span><span class="s">&quot;All&quot;</span><span class="w">              </span><span class="nv">eglot-code-actions</span><span class="p">)</span>
+<span class="w">   </span><span class="p">(</span><span class="s">&quot;i&quot;</span><span class="w"> </span><span class="s">&quot;Organise Imports&quot;</span><span class="w"> </span><span class="nv">eglot-code-action-organize-imports</span><span class="p">)</span>
+<span class="w">   </span><span class="p">(</span><span class="s">&quot;q&quot;</span><span class="w"> </span><span class="s">&quot;Quickfix&quot;</span><span class="w">         </span><span class="nv">eglot-code-action-quickfix</span><span class="p">)]</span>
+<span class="w">  </span><span class="p">[</span><span class="s">&quot;Server Process&quot;</span>
+<span class="w">   </span><span class="p">(</span><span class="s">&quot;c&quot;</span><span class="w"> </span><span class="s">&quot;Config&quot;</span><span class="w">  </span><span class="nv">eglot-show-workspace-configuration</span><span class="p">)</span>
+<span class="w">   </span><span class="p">(</span><span class="s">&quot;E&quot;</span><span class="w"> </span><span class="s">&quot;Stderr&quot;</span><span class="w">  </span><span class="nv">eglot-stderr-buffer</span><span class="p">)</span>
+<span class="w">   </span><span class="p">(</span><span class="s">&quot;r&quot;</span><span class="w"> </span><span class="s">&quot;Restart&quot;</span><span class="w"> </span><span class="nv">alc-eglot-restart</span><span class="p">)])</span>
+</pre></div>
+</div>
+</div>
+</section>
 <section id="lsp-devtools">
 <h2><code class="docutils literal notranslate"><span class="pre">lsp-devtools</span></code><a class="headerlink" href="#lsp-devtools" title="Link to this heading">¶</a></h2>
 <p>Often I want to wrap some server with the <a class="reference external" href="https://lsp-devtools.readthedocs.io/en/latest/lsp-devtools/guide/getting-started.html">lsp-devtools</a> agent.
 What’s nice is that we can simply advise the function eglot uses to determine how to connect with the server</p>
 <div class="awdur-codeblock docutils container">
 <div class="awdur-codeblock-header docutils container">
-<code class="awdur-codeblock-filename docutils literal notranslate"><span class="pre">init.el</span></code></div>
+<code class="awdur-codeblock-filename docutils literal notranslate"><span class="pre">lisp/alc-eglot.el</span></code></div>
 <div class="highlight-elisp notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="nb">defun</span><span class="w"> </span><span class="nv">alc-eglot-wrap-server-in-lsp-devtools</span><span class="w"> </span><span class="p">(</span><span class="nv">oldfun</span><span class="w"> </span><span class="kp">&amp;rest</span><span class="w"> </span><span class="nv">args</span><span class="p">)</span>
 <span class="w">  </span><span class="s">&quot;Wrap the server config returned from eglot in the lsp-devtools agent.&quot;</span>
 <span class="w">  </span><span class="p">(</span><span class="nv">if-let</span><span class="w"> </span><span class="p">((</span><span class="nv">lsp-devtools</span><span class="w"> </span><span class="p">(</span><span class="nv">executable-find</span><span class="w"> </span><span class="s">&quot;lsp-devtools&quot;</span><span class="p">)))</span>
@@ -479,7 +506,7 @@ What’s nice is that we can simply advise the function eglot uses to determine 
 <p>One issue is making sure <code class="docutils literal notranslate"><span class="pre">eglot</span></code> evaluates settings at the right scope</p>
 <div class="awdur-codeblock docutils container">
 <div class="awdur-codeblock-header docutils container">
-<code class="awdur-codeblock-filename docutils literal notranslate"><span class="pre">init.el</span></code></div>
+<code class="awdur-codeblock-filename docutils literal notranslate"><span class="pre">lisp/alc-eglot.el</span></code></div>
 <div class="highlight-elisp notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="nb">require</span><span class="w"> </span><span class="ss">&#39;s</span><span class="p">)</span>
 
 <span class="p">(</span><span class="nb">defun</span><span class="w"> </span><span class="nv">alc-eglot-fix-workspace-configuration-scope</span><span class="w"> </span><span class="p">(</span><span class="nv">orig-fun</span><span class="w"> </span><span class="nv">server</span><span class="w"> </span><span class="kp">&amp;optional</span><span class="w"> </span><span class="nv">path</span><span class="p">)</span>
@@ -507,6 +534,22 @@ What’s nice is that we can simply advise the function eglot uses to determine 
 <span class="w">           </span><span class="p">(</span><span class="nv">not</span><span class="w"> </span><span class="p">(</span><span class="nv">s-ends-with?</span><span class="w"> </span><span class="s">&quot;/&quot;</span><span class="w"> </span><span class="nv">path</span><span class="p">)))</span>
 <span class="w">      </span><span class="p">(</span><span class="nf">funcall</span><span class="w"> </span><span class="nv">orig-fun</span><span class="w"> </span><span class="nv">server</span><span class="w"> </span><span class="p">(</span><span class="nf">concat</span><span class="w"> </span><span class="nv">path</span><span class="w"> </span><span class="s">&quot;/&quot;</span><span class="p">))</span>
 <span class="w">    </span><span class="p">(</span><span class="nf">funcall</span><span class="w"> </span><span class="nv">orig-fun</span><span class="w"> </span><span class="nv">server</span><span class="w"> </span><span class="nv">path</span><span class="p">)))</span>
+</pre></div>
+</div>
+</div>
+</section>
+<section id="utilities">
+<h2>Utilities<a class="headerlink" href="#utilities" title="Link to this heading">¶</a></h2>
+<p>Helper function to (re)start the server in the current buffer.</p>
+<div class="awdur-codeblock docutils container">
+<div class="awdur-codeblock-header docutils container">
+<code class="awdur-codeblock-filename docutils literal notranslate"><span class="pre">lisp/alc-eglot.el</span></code></div>
+<div class="highlight-elisp notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="nb">defun</span><span class="w"> </span><span class="nv">alc-eglot-restart</span><span class="w"> </span><span class="p">()</span>
+<span class="w">  </span><span class="s">&quot;(Re)start the server in the current buffer.&quot;</span>
+<span class="w">  </span><span class="p">(</span><span class="k">interactive</span><span class="p">)</span>
+<span class="w">  </span><span class="p">(</span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="nv">eglot-current-server</span><span class="p">)</span>
+<span class="w">      </span><span class="p">(</span><span class="nf">call-interactively</span><span class="w"> </span><span class="ss">&#39;eglot-reconnect</span><span class="p">)</span>
+<span class="w">    </span><span class="p">(</span><span class="nf">call-interactively</span><span class="w"> </span><span class="ss">&#39;eglot</span><span class="p">)))</span>
 </pre></div>
 </div>
 </div>

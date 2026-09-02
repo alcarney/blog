@@ -482,11 +482,27 @@ I admit, I probably don’t use this as much as I should.</p>
 <span class="w">  </span><span class="nb">:ensure</span><span class="w"> </span><span class="no">t</span>
 <span class="w">  </span><span class="nb">:custom</span>
 <span class="w">  </span><span class="p">(</span><span class="nv">consult-preview-key</span><span class="w"> </span><span class="s">&quot;M-.&quot;</span><span class="p">)</span>
-<span class="w">  </span><span class="nb">:bind</span><span class="w"> </span><span class="p">((</span><span class="s">&quot;C-x b&quot;</span><span class="w"> </span><span class="o">.</span><span class="w"> </span><span class="nv">consult-buffer</span><span class="p">)))</span>
+<span class="w">  </span><span class="p">(</span><span class="nv">consult-narrow-key</span><span class="w"> </span><span class="s">&quot;&lt;&quot;</span><span class="p">)</span>
+<span class="w">  </span><span class="p">(</span><span class="nv">enable-recursive-minibuffers</span><span class="w"> </span><span class="no">t</span><span class="p">)</span>
+<span class="w">  </span><span class="nb">:bind</span><span class="w"> </span><span class="p">((</span><span class="s">&quot;C-x b&quot;</span><span class="w"> </span><span class="o">.</span><span class="w"> </span><span class="nv">consult-buffer</span><span class="p">)</span>
+<span class="w">         </span><span class="p">(</span><span class="s">&quot;C-c n&quot;</span><span class="w"> </span><span class="o">.</span><span class="w"> </span><span class="nv">consult-minor-mode-menu</span><span class="p">)</span>
+<span class="w">         </span><span class="c1">;; Search for...</span>
+<span class="w">         </span><span class="p">(</span><span class="s">&quot;M-s l&quot;</span><span class="w"> </span><span class="o">.</span><span class="w"> </span><span class="nv">consult-line</span><span class="p">)</span>
+<span class="w">         </span><span class="c1">;; Goto ...</span>
+<span class="w">         </span><span class="p">(</span><span class="s">&quot;M-g m&quot;</span><span class="w"> </span><span class="o">.</span><span class="w"> </span><span class="nv">consult-mark</span><span class="p">)</span>
+<span class="w">         </span><span class="p">(</span><span class="s">&quot;M-g M&quot;</span><span class="w"> </span><span class="o">.</span><span class="w"> </span><span class="nv">consult-global-mark</span><span class="p">)))</span>
 </pre></div>
 </div>
 </div>
-<p>I don’t often want the live preview feature, but it’s nice to be able to opt into it by hitting <kbd class="kbd docutils literal notranslate">M</kbd>-<kbd class="kbd docutils literal notranslate">.</kbd></p>
+<p><strong>Notes:</strong></p>
+<ul>
+<li><p>I don’t often want the live preview feature, but it’s nice to be able to opt into it by hitting <kbd class="kbd docutils literal notranslate">M</kbd>-<kbd class="kbd docutils literal notranslate">.</kbd></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">consult-narrow-key</span></code> is cool, where a command has multiple groups e.g. <code class="docutils literal notranslate"><span class="pre">consult-buffer</span></code> hitting something like <kbd class="kbd docutils literal notranslate">&lt;</kbd> <kbd class="kbd docutils literal notranslate">p</kbd> filters the list down to project buffers.
+Yes, you can do the same with <kbd class="kbd docutils literal notranslate">p</kbd> <kbd class="kbd docutils literal notranslate">SPC</kbd> but since <code class="docutils literal notranslate"><span class="pre">consult-narrow-key</span></code> triggers a keymap you can hit <kbd class="kbd docutils literal notranslate">C</kbd>-<kbd class="kbd docutils literal notranslate">h</kbd> to see all the available groups and their associated keys.</p>
+<p>Coupled with <code class="docutils literal notranslate"><span class="pre">embark-prefix-help-command</span></code> below, you get an interactive, searchable list! (<strong>Only if you set ‘enable-recursive-minibuffers’ to ‘t’</strong>)</p>
+</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">consult-minor-mode-menu</span></code> is very nice, gives you an interactive view to manage all of your minor modes! With it, I see no need to display them all in the modeline anymore.</p></li>
+</ul>
 </section>
 <section id="embark">
 <h2>Embark<a class="headerlink" href="#embark" title="Link to this heading">¶</a></h2>
@@ -575,7 +591,8 @@ I find the ~95% of the time, I already know what I’m trying to select and I’
 
 <span class="w">  </span><span class="p">(</span><span class="k">setq</span><span class="w"> </span><span class="nv">vertico-multiform-commands</span>
 <span class="w">        </span><span class="o">&#39;</span><span class="p">((</span><span class="nv">consult-line</span><span class="w"> </span><span class="nv">buffer</span><span class="p">)</span>
-<span class="w">          </span><span class="p">(</span><span class="nv">consult-imenu</span><span class="w"> </span><span class="nv">buffer</span><span class="p">)))</span>
+<span class="w">          </span><span class="p">(</span><span class="nv">consult-imenu</span><span class="w"> </span><span class="nv">buffer</span><span class="p">)</span>
+<span class="w">          </span><span class="p">(</span><span class="nv">consult-minor-mode-menu</span><span class="w"> </span><span class="nv">buffer</span><span class="p">)))</span>
 
 <span class="w">  </span><span class="p">(</span><span class="k">setq</span><span class="w"> </span><span class="nv">vertico-multiform-categories</span>
 <span class="w">        </span><span class="o">&#39;</span><span class="p">((</span><span class="nv">embark-keybinding</span><span class="w"> </span><span class="nv">grid</span><span class="p">)</span>

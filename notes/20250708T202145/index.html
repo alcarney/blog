@@ -479,9 +479,9 @@ Not sure if I can notice a difference, but I don’t see any harm in keeping the
 <span class="w">  </span><span class="p">(</span><span class="nv">require-theme</span><span class="w"> </span><span class="ss">&#39;doric-themes</span><span class="w"> </span><span class="no">t</span><span class="p">)</span>
 
 <span class="w">  </span><span class="p">(</span><span class="k">setq</span><span class="w"> </span><span class="nv">alc-theme-load-light-theme-function</span>
-<span class="w">        </span><span class="p">(</span><span class="nb">lambda</span><span class="w"> </span><span class="p">()</span><span class="w"> </span><span class="p">(</span><span class="nv">doric-themes-select</span><span class="w"> </span><span class="ss">&#39;doric-coral</span><span class="p">))</span>
+<span class="w">        </span><span class="p">(</span><span class="nb">lambda</span><span class="w"> </span><span class="p">()</span><span class="w"> </span><span class="p">(</span><span class="nv">doric-themes-select</span><span class="w"> </span><span class="ss">&#39;doric-almond</span><span class="p">))</span>
 <span class="w">        </span><span class="nv">alc-theme-load-dark-theme-function</span>
-<span class="w">        </span><span class="p">(</span><span class="nb">lambda</span><span class="w"> </span><span class="p">()</span><span class="w"> </span><span class="p">(</span><span class="nv">doric-themes-select</span><span class="w"> </span><span class="ss">&#39;doric-fire</span><span class="p">)))</span>
+<span class="w">        </span><span class="p">(</span><span class="nb">lambda</span><span class="w"> </span><span class="p">()</span><span class="w"> </span><span class="p">(</span><span class="nv">doric-themes-select</span><span class="w"> </span><span class="ss">&#39;doric-walnut</span><span class="p">)))</span>
 
 <span class="w">  </span><span class="p">(</span><span class="nv">add-to-list</span><span class="w"> </span><span class="ss">&#39;after-make-frame-functions</span><span class="w"> </span><span class="ss">&#39;alc-theme-sync-to-system-theme</span><span class="p">))</span>
 </pre></div>
@@ -584,6 +584,7 @@ Not sure if I can notice a difference, but I don’t see any harm in keeping the
 <li><p><code class="docutils literal notranslate"><span class="pre">mode-line-position</span></code></p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">mode-line-misc-info</span></code></p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">mode-line-end-spaces</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">mode-line-modes</span></code></p></li>
 </ul>
 <div class="awdur-codeblock docutils container">
 <div class="awdur-codeblock-header docutils container">
@@ -598,12 +599,12 @@ Not sure if I can notice a difference, but I don’t see any harm in keeping the
 <span class="w">               </span><span class="nv">alc-modeline-window-dedicated</span>
 <span class="w">               </span><span class="nv">alc-modeline-project-identification</span>
 <span class="w">               </span><span class="s">&quot;  &quot;</span>
+<span class="w">               </span><span class="nv">alc-modeline-major-mode</span>
+<span class="w">               </span><span class="s">&quot;  &quot;</span>
 <span class="w">               </span><span class="nv">alc-modeline-remote-indication</span>
 <span class="w">               </span><span class="nv">alc-modeline-buffer-identification</span>
 <span class="w">               </span><span class="s">&quot; &quot;</span>
 <span class="w">               </span><span class="nv">alc-modeline-buffer-position</span>
-<span class="w">               </span><span class="s">&quot;      &quot;</span>
-<span class="w">               </span><span class="nv">mode-line-modes</span>
 <span class="w">               </span><span class="p">)))</span>
 </pre></div>
 </div>
