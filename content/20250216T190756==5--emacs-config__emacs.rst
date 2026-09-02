@@ -152,8 +152,9 @@ face
    :project: emacs
    :filename: init.el
 
-   (setq whitespace-style '(face empty trailing lines-char tab-mark))
+   (setq whitespace-style '(face empty trailing tab-mark))
    (add-hook 'prog-mode-hook 'whitespace-mode)
+   (add-hook 'prog-mode-hook 'display-fill-column-indicator-mode)
 
 Enable automatic whitespace cleanup on each save
 
