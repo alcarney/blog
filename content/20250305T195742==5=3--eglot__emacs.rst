@@ -13,11 +13,13 @@ I use ``eglot`` as my language client since it is available out of the box and i
    :project: emacs
    :filename: init.el
 
-   (use-package eglot
-     :bind (("<f2>" . eglot-rename))
+   (use-package alc-eglot
+     :bind (("<f2>" . eglot-rename)
+            ("C-c e" . alc-eglot-menu))
      :custom
      (eglot-autoshutdown t)
      (eglot-extend-to-xref t)
+     (eglot-events-buffer-config '(:size 0)) ;; I use `lsp-devtools` to inspect traffic.
      :config
      (advice-add 'eglot--workspace-configuration-plist :around #'alc-eglot-fix-workspace-configuration-scope)
      (add-to-list 'display-buffer-alist
@@ -38,6 +40,31 @@ According to the docstring this should not exceed the value of ``/proc/sys/fs/pi
                                   (ignore-errors (insert-file "/proc/sys/fs/pipe-max-size"))
                                   (buffer-string)))))
 
+Transient
+---------
+
+It's nice to have a transient menu from which we can launch things.
+
+.. code-block:: elisp
+   :project: emacs
+   :filename: lisp/alc-eglot.el
+
+   (require 'eglot)
+   (require 'transient)
+
+   (transient-define-prefix alc-eglot-menu ()
+     "Transient menu for launching eglot things."
+     ["Code Actions"
+      ("a" "All"              eglot-code-actions)
+      ("i" "Organise Imports" eglot-code-action-organize-imports)
+      ("q" "Quickfix"         eglot-code-action-quickfix)]
+     ["Server Process"
+      ("c" "Config"  eglot-show-workspace-configuration)
+      ("E" "Stderr"  eglot-stderr-buffer)
+      ("r" "Restart" alc-eglot-restart)])
+
+
+
 ``lsp-devtools``
 ----------------
 
@@ -46,7 +73,7 @@ What's nice is that we can simply advise the function eglot uses to determine ho
 
 .. code-block:: elisp
    :project: emacs
-   :filename: init.el
+   :filename: lisp/alc-eglot.el
 
    (defun alc-eglot-wrap-server-in-lsp-devtools (oldfun &rest args)
      "Wrap the server config returned from eglot in the lsp-devtools agent."
@@ -73,7 +100,8 @@ One issue is making sure ``eglot`` evaluates settings at the right scope
 
 .. code-block:: elisp
    :project: emacs
-   :filename: init.el
+   :template: elisp-module
+   :filename: lisp/alc-eglot.el
 
    (require 's)
 
@@ -102,3 +130,19 @@ One issue is making sure ``eglot`` evaluates settings at the right scope
               (not (s-ends-with? "/" path)))
          (funcall orig-fun server (concat path "/"))
        (funcall orig-fun server path)))
+
+Utilities
+---------
+
+Helper function to (re)start the server in the current buffer.
+
+.. code-block:: elisp
+   :project: emacs
+   :filename: lisp/alc-eglot.el
+
+   (defun alc-eglot-restart ()
+     "(Re)start the server in the current buffer."
+     (interactive)
+     (if (eglot-current-server)
+         (call-interactively 'eglot-reconnect)
+       (call-interactively 'eglot)))
