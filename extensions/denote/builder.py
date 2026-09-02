@@ -72,3 +72,20 @@ class DenoteHTMLBuilder(DirectoryHTMLBuilder):
             builder.freeze = partial(rewrite_indexed_docnames, freeze=builder.freeze)
 
         super().dump_search_index()
+
+    @typing.override
+    def write_domain_indices(self) -> None:
+        """Give indictes from denote a 'pretty' url."""
+        for index_name, index_cls, content, collapse in self.domain_indices:
+            index_context = {
+                "indextitle": index_cls.localname,
+                "content": content,
+                "collapse_index": collapse,
+            }
+
+            if index_name.startswith("denote-"):
+                index_name = index_name.removeprefix("denote-")
+                index_name = "/".join(index_name.split("-"))
+
+            logger.info("%s ", index_name, nonl=True)
+            self.handle_page(index_name, index_context, "mydomainindex.html")
