@@ -536,7 +536,7 @@ However, once the workspace is available the only thing left to do is running ``
        (progn
          (let ((default-directory (alc-jj-get-workspace "to" t)))
            ;; The workspace might be stale...
-           (call-process "jj" nil nil nil "workspace" "update-state")
+           (call-process "jj" nil nil nil "workspace" "update-stale")
            (call-process "jj" nil nil nil "edit" change-id))
          ;; Be sure to update the log relative to the current workspace
          (alc-jj-log-view-reload))))
