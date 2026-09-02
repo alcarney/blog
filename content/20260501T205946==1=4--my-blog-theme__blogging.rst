@@ -1430,6 +1430,40 @@ The search results page requires its own set of rules.
      }
    }
 
+
+Index Pages
+^^^^^^^^^^^
+
+Covers pages like :denote:link:`__emacs`
+
+.. code-block:: css
+   :project: sphinx:dirhtml
+   :filename: _static/css/styles.css
+
+   section.domainindex {
+     padding: 2em;
+
+     h1 { color: var(--fg-accent); }
+
+     div.modindex-jumpbox {
+ 	display: grid;
+	grid-template-columns: repeat(auto-fit, minmax(20px, 1fr));
+        justify-items: center;
+	margin: 1em 0;
+     }
+   }
+
+On mobile the padding should be reduced a bit to create more space
+
+.. code-block:: css
+   :project: sphinx:dirhtml
+   :filename: _static/css/styles.css
+
+   @media screen and (max-width: 600px) {
+     section.domainindex { padding: 0.5em; }
+   }
+
+
 Footer
 ------
 

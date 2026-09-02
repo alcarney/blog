@@ -18,7 +18,7 @@ from sphinx import addnodes
 from sphinx.util.osutil import relative_uri
 
 from .builder import DenoteHTMLBuilder
-from .domain import Denote
+from .domain import ArchiveIndex, Denote, TagIndex
 from .record import Record
 
 if typing.TYPE_CHECKING:
@@ -168,35 +168,6 @@ def generate_collections(app: Sphinx):
     )
     yield ("blog/atom", context, "blog/atom.xml")
 
-    # Emit a page for each year
-    by_year = domain.posts.by_year()
-    for year, collection in by_year.items():
-        context = make_collection_context(collection, f"Posts in {year}", app)
-        yield (f"blog/{year}", context, "blog/collection.html")
-
-    # Emit a page for each tag - include both notes and posts on these pages
-    by_tag = domain.records.by_tag()
-    yield ("tag", {"tags": by_tag}, "blog/tags.html")
-
-    nodes = []
-    links = []
-    all_records = set()
-    for tag, collection in by_tag.items():
-        nodes.append({"id": tag, "kind": "tag"})
-
-        for r in collection:
-            links.append({"source": r.identifier, "target": tag})
-            all_records.add(r.identifier)
-
-        context = make_collection_context(collection, f"Tagged with: {tag}", app)
-        yield (f"tag/{tag}", context, "blog/collection.html")
-
-    # Placeholder graph view
-    nodes.extend({"id": r, "kind": "record"} for r in all_records)
-    context = {"nodes": json.dumps(nodes), "links": json.dumps(links)}
-
-    yield ("notes", context, "blog/graph.html")
-
 
 def update_html_context(
     app: Sphinx,
@@ -213,6 +184,19 @@ def update_html_context(
         context["record"] = record
 
 
+def generate_indices(app: Sphinx, builder):
+    """Dynamically populate the list of indices on the ``Denote`` domain"""
+    denote: Denote = app.env.domains["denote"]
+
+    # Add an index for each tag name.
+    for tag_name in denote.records._by_tag.keys():
+        denote.indices.append(TagIndex.for_(tag_name=tag_name))
+
+    # Add an index for each year
+    for year in denote.posts._by_year.keys():
+        denote.indices.append(ArchiveIndex.for_(year=year))
+
+
 def setup(app: Sphinx):
     app.add_config_value("blog_baseurl", default="", rebuild="env")
     app.add_config_value("blog_title", default="", rebuild="env")
@@ -220,9 +204,10 @@ def setup(app: Sphinx):
     app.add_builder(DenoteHTMLBuilder, override=True)
     app.add_domain(Denote)
 
-    app.connect("source-read", discover_records)
-    app.connect("doctree-read", parse_records)
-    app.connect("html-collect-pages", generate_collections)
-    app.connect("html-page-context", update_html_context)
+    _ = app.connect("source-read", discover_records)
+    _ = app.connect("doctree-read", parse_records)
+    _ = app.connect("write-started", generate_indices)
+    _ = app.connect("html-collect-pages", generate_collections)
+    _ = app.connect("html-page-context", update_html_context)
 
     return {"version": "1.0", "parallel_read_safe": True}
