@@ -66,9 +66,9 @@ Load my theme related customisations, see :denote:link:`Emacs Themes <20250708T1
      (require-theme 'doric-themes t)
 
      (setq alc-theme-load-light-theme-function
-           (lambda () (doric-themes-select 'doric-coral))
+           (lambda () (doric-themes-select 'doric-almond))
            alc-theme-load-dark-theme-function
-           (lambda () (doric-themes-select 'doric-fire)))
+           (lambda () (doric-themes-select 'doric-walnut)))
 
      (add-to-list 'after-make-frame-functions 'alc-theme-sync-to-system-theme))
 
