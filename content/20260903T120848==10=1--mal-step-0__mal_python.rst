@@ -1,0 +1,68 @@
+:title: mal step 0
+:date: 2026-09-03
+:tags: mal, python
+:identifier: 20260903T120848
+:signature: 10=1
+
+mal: Step 0
+-----------
+
+This step is the "Hello, world!" of the process, setting up a repl.
+Going by the architecture diagram, this stage it only needs to echo the input it receives
+
+**read**
+
+.. code-block:: python
+   :project: mal-py
+   :filename: step0_repl.py
+
+   import typing
+
+   def read(ins: str):
+       return ins
+
+**eval**
+
+.. code-block:: python
+   :project: mal-py
+   :filename: step0_repl.py
+
+   def evaluate(ins: str):
+       return ins
+
+
+**print**
+
+.. code-block:: python
+   :project: mal-py
+   :filename: step0_repl.py
+
+   def printit(ins: str):
+       return ins
+
+**rep**
+
+.. code-block:: python
+   :project: mal-py
+   :filename: step0_repl.py
+
+   def rep(ins: str):
+       return printit(evaluate(read(ins)))
+
+
+**repl**
+
+.. code-block:: python
+   :project: mal-py
+   :filename: step0_repl.py
+
+   def repl(ins: io.TextIO):
+       print("user> ", end='', flush=True)
+       while (line := ins.readline()) != "":
+           print(rep(line))
+           print("user> ", end='', flush=True)
+
+
+   if __name__ == "__main__":
+       import sys
+       repl(sys.stdin)
