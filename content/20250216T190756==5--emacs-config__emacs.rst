@@ -113,6 +113,8 @@ a.k.a. the clipboard.
    :filename: init.el
 
    (setq kill-do-not-save-duplicates t           ; when would you want duplicates?...
+         select-active-regions nil               ; for some reason needed to make kills appear in the system clipboard...
+                                                 ; see: https://www.reddit.com/r/emacs/comments/1mbf0pd/killringsave_not_in_clipboard/
          save-interprogram-paste-before-kill t)  ; save system clipboard to kill-ring before killing new text.
 
 Repeat Mode
