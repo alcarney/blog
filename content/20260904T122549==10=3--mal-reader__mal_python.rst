@@ -153,8 +153,15 @@ An atom is "everything else"
        with contextlib.suppress(ValueError):
            return int(tok)
 
-       # Step 1 notes say we can assume everything else is a symbol for now.
-       return S(tok)
+       match tok:
+           case 'true':
+               return True
+           case 'false':
+               return False
+           case 'nil':
+               return None
+           case _:
+               return S(tok)
 
 read_str
 ^^^^^^^^
@@ -199,10 +206,18 @@ Like the reader, the ``mal`` printer is handled "outside" of the steps.
 .. code-block:: python
 
    def print_form(form):
+       if callable(form):
+           return r"#\<function>"
+
        match form:
           case [*fs]:
               inner = " ".join(print_form(f) for f in fs)
               return f"({inner})"
-
+          case True:
+              return 'true'
+          case False:
+              return 'false'
+          case None:
+              return 'nil'
           case _:
               return str(form)
