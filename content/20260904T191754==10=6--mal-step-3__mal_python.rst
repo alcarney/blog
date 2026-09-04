@@ -1,0 +1,99 @@
+:title: mal Step 3
+:date: 2026-09-04
+:tags: mal, python
+:identifier: 20260904T191754
+:signature: 10=6
+
+mal: Step 3
+===========
+
+:project: mal-py
+:filename: step3_env.py
+
+
+**read**
+
+.. code-block:: python
+
+   import itertools
+
+   from env import Env
+   from reader import S, read_str
+
+   def read(ins):
+       return read_str(ins)
+
+**eval**
+
+.. code-block:: python
+
+   def evaluate(form, env: Env):
+       match form:
+           case S(name):
+               return env.get(name)
+           case []:
+               return []
+           case [*fs]:
+               match fs[0]:
+                   case S('def!'):
+                       env.set(fs[1].name, v := evaluate(fs[2], env))
+                       return v
+                   case S('let*'):
+                       letenv = Env(env)
+                       for binding, expr in itertools.batched(fs[1], n=2):
+                           letenv.set(binding.name, evaluate(expr, letenv))
+                       return evaluate(fs[2], letenv)
+
+                   case _:
+                       f, *args = [evaluate(f, env) for f in fs]
+                       return f(*args)
+           case _:
+               return form
+
+**print**
+
+.. code-block:: python
+
+   from printer import print_form
+
+   def printit(form):
+       return print_form(form)
+
+**rep**
+
+.. code-block:: python
+
+   def rep(ins: str, env: Env):
+       try:
+           return printit(evaluate(read(ins), env))
+       except EOFError:
+           return f"EOF"
+       except KeyError as e:
+           return f"{e.args[0]!r} not found"
+       except Exception as e:
+           print(f"RuntimeError: {e}")
+           # import pdb; pdb.post_mortem()
+
+
+**repl**
+
+.. code-block:: python
+
+
+
+   def repl(ins: io.TextIO):
+       env = Env()
+       env.set('+', lambda a,b: a+b)
+       env.set('-', lambda a,b: a-b)
+       env.set('*', lambda a,b: a*b)
+       env.set('/', lambda a,b: int(a/b))
+
+       print("user> ", end='', flush=True)
+       while (line := ins.readline()) != "":
+           print(rep(line, env))
+           print("user> ", end='', flush=True)
+
+
+   if __name__ == "__main__":
+       import sys
+       repl(sys.stdin)
