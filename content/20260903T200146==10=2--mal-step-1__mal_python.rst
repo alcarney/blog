@@ -16,7 +16,7 @@ Not much to see here for this stage, most of the work happened in :denote:link:`
 
 .. code-block:: python
 
-   from reader import EOFError, read_str
+   from reader import read_str
 
    def read(ins):
        return read_str(ins)

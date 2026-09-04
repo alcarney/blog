@@ -67,8 +67,6 @@ To help manage the stream of tokens, the mal guide suggests creating a ``Reader`
 
 .. code-block:: python
 
-   class EOFError(Exception): ...
-
    class Reader:
 
        def __init__(self, tokens):
@@ -177,11 +175,13 @@ Data Types
 Symbols
 ^^^^^^^
 
-The  `S` class represents a symbol.
+The ``S`` class represents a symbol.
 
 .. code-block:: python
 
    class S:
+       __match_args__ = ("name",)
+
        def __init__(self, name: str):
            self.name = name
 
