@@ -1,0 +1,65 @@
+:title: mal step 1
+:date: 2026-09-03
+:tags: mal, python
+:identifier: 20260903T200146
+:signature: 10=2
+
+mal: Step 1
+-----------
+
+:project: mal-py
+:filename: step1_read_print.py
+
+Not much to see here for this stage, most of the work happened in :denote:link:`20260904T122549`
+
+**read**
+
+.. code-block:: python
+
+   from reader import EOFError, read_str
+
+   def read(ins):
+       return read_str(ins)
+
+**eval**
+
+.. code-block:: python
+
+   def evaluate(form):
+       return form
+
+
+**print**
+
+.. code-block:: python
+
+   from printer import print_form
+
+   def printit(form):
+       return print_form(form)
+
+**rep**
+
+.. code-block:: python
+
+   def rep(ins: str):
+       try:
+           return printit(evaluate(read(ins)))
+       except EOFError:
+           return f"EOF"
+
+
+**repl**
+
+.. code-block:: python
+
+   def repl(ins: io.TextIO):
+       print("user> ", end='', flush=True)
+       while (line := ins.readline()) != "":
+           print(rep(line))
+           print("user> ", end='', flush=True)
+
+
+   if __name__ == "__main__":
+       import sys
+       repl(sys.stdin)
