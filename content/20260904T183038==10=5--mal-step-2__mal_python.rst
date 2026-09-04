@@ -1,0 +1,83 @@
+:title: mal Step 2
+:date: 2026-09-04
+:tags: mal, python
+:identifier: 20260904T183038
+:signature: 10=5
+
+mal: Step 2
+==========
+
+:project: mal-py
+:filename: step2_eval.py
+
+
+**read**
+
+.. code-block:: python
+
+   from reader import S, read_str
+
+   def read(ins):
+       return read_str(ins)
+
+**eval**
+
+.. code-block:: python
+
+   def evaluate(form, env):
+       match form:
+           case S(name):
+               return env[name]
+           case []:
+               return []
+           case [*fs]:
+               f, *args = [evaluate(f, env) for f in fs]
+               return f(*args)
+           case _:
+               return form
+
+**print**
+
+.. code-block:: python
+
+   from printer import print_form
+
+   def printit(form):
+       return print_form(form)
+
+**rep**
+
+.. code-block:: python
+
+
+   env = {
+     '+': lambda a,b: a+b,
+     '-': lambda a,b: a-b,
+     '*': lambda a,b: a*b,
+     '/': lambda a,b: int(a/b)
+   }
+
+
+   def rep(ins: str):
+       try:
+           return printit(evaluate(read(ins), env))
+       except EOFError:
+           return f"EOF"
+       except KeyError as e:
+           return f"undefined symbol {e.args[0]!r}"
+
+
+**repl**
+
+.. code-block:: python
+
+   def repl(ins: io.TextIO):
+       print("user> ", end='', flush=True)
+       while (line := ins.readline()) != "":
+           print(rep(line))
+           print("user> ", end='', flush=True)
+
+
+   if __name__ == "__main__":
+       import sys
+       repl(sys.stdin)
