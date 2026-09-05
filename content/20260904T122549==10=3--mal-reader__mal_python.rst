@@ -178,6 +178,30 @@ Finally, ``read_str`` ties it all together.
 Data Types
 ----------
 
+Functions
+^^^^^^^^^
+
+.. admonition:: Tail Call Optimization
+
+   Step 5 introduced TCO which resulted in the need for this class.
+
+   It's to provide enough information to ``evaluate`` for the loop to apply TCO to fn calls.
+
+The ``Fn`` class represents a function
+
+.. code-block:: python
+
+   class Fn:
+       __match_args__ = ("params", "body", "env", "f")
+
+       def __init__(self, params, body, env, f):
+           self.params = params
+           self.body = body
+           self.env = env
+           self.f = f  # not needed until step 9?
+
+       def __repr__(self):
+           return "#<function>"
 
 Symbols
 ^^^^^^^
@@ -206,9 +230,6 @@ Like the reader, the ``mal`` printer is handled "outside" of the steps.
 .. code-block:: python
 
    def print_form(form):
-       if callable(form):
-           return r"#\<function>"
-
        match form:
           case [*fs]:
               inner = " ".join(print_form(f) for f in fs)
