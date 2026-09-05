@@ -50,6 +50,9 @@ This defines a ``defn`` decorator that makes adding functions to the namespace n
 
 .. code-block:: python
 
+   import pathlib
+   from reader import A, read_str
+
    ns = {}
 
    def defn(name):
@@ -58,29 +61,34 @@ This defines a ``defn`` decorator that makes adding functions to the namespace n
            return fn
        return wrap
 
-Math functions
-^^^^^^^^^^^^^^
 
-Plus, times, divide etc.
+Atoms
+^^^^^
 
 .. code-block:: python
 
+   @defn('atom')
+   def atom(v):
+       return A(v)
 
-   @defn('+')
-   def plus(a, b):
-       return a + b
+   @defn('atom?')
+   def isatom(a):
+       return isinstance(a, A)
 
-   @defn('-')
-   def minus(a, b):
-       return a - b
+   @defn('deref')
+   def deref(a):
+       return a.v
 
-   @defn('*')
-   def multiply(a, b):
-       return a * b
+   @defn('reset!')
+   def reset(a, v):
+       a.v = v
+       return v
 
-   @defn('/')
-   def divide(a, b):
-       return int(a/b)
+   @defn('swap!')
+   def swap(a, f, *args):
+       v = f(a.v, *args)
+       a.v = v
+       return v
 
 
 Comparisons
@@ -108,19 +116,18 @@ Comparisons
    def gte(x, y):
        return x >= y
 
-
-Printing
-^^^^^^^^
-
-We want to be able to print from within ``mal``
+Eval
+^^^^
 
 .. code-block:: python
 
-   from printer import print_form
+   @defn('read-string')
+   def read(s):
+       return read_str(s)
 
-   @defn('prn')
-   def printit(f):
-       print(print_form(f))
+   @defn('slurp')
+   def slurp(s):
+       return pathlib.Path(s).read_text()
 
 Lists
 ^^^^^
@@ -146,3 +153,52 @@ It wouldn't be a Lisp without some list operators.
        if not x:
            return 0
        return len(x)
+
+
+Math functions
+^^^^^^^^^^^^^^
+
+Plus, times, divide etc.
+
+.. code-block:: python
+
+
+   @defn('+')
+   def plus(a, b):
+       return a + b
+
+   @defn('-')
+   def minus(a, b):
+       return a - b
+
+   @defn('*')
+   def multiply(a, b):
+       return a * b
+
+   @defn('/')
+   def divide(a, b):
+       return int(a/b)
+
+
+Printing
+^^^^^^^^
+
+We want to be able to print from within ``mal``
+
+.. code-block:: python
+
+   from printer import print_form
+
+   @defn('prn')
+   def printit(f):
+       print(print_form(f))
+
+
+Strings
+^^^^^^^
+
+.. code-block:: python
+
+   @defn('str')
+   def tostr(*args):
+       return "".join(args)

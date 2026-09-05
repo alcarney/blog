@@ -26,6 +26,8 @@ Thankfully, by compiling it with ``re.VERBOSE`` we can at least annotate it.
 
 .. code-block:: python
 
+   import contextlib
+   import json
    import re
 
    TOKEN = re.compile(
@@ -143,8 +145,6 @@ An atom is "everything else"
 
 .. code-block:: python
 
-   import contextlib
-
    def read_atom(reader: Reader):
        tok = reader.next()
        if tok in {'(', ')'}:
@@ -160,8 +160,23 @@ An atom is "everything else"
                return False
            case 'nil':
                return None
+           case str(s) if s.startswith('"'):
+               return parse_string(s)
            case _:
                return S(tok)
+
+I was having huge difficulties getting string based tests to pass... until I went back and read the derferrables from step 1...
+
+.. code-block:: python
+
+   def parse_string(s: str) -> str:
+       if not s.endswith('"'):
+           raise RuntimeError(f"unterminated string literal: {s!r}")
+
+       return (s[1:-1].replace('\\\"', '"')
+                      .replace("\\n",  "\n")
+                      .replace("\\\\", "\\"))
+
 
 read_str
 ^^^^^^^^
@@ -177,6 +192,19 @@ Finally, ``read_str`` ties it all together.
 
 Data Types
 ----------
+
+Atoms
+^^^^^
+
+Step 6 calls for atoms...
+
+.. code-block:: python
+
+   class A:
+       __match_args__ = ("v",)
+       def __init__(self, v):
+           self.v = v
+
 
 Functions
 ^^^^^^^^^
@@ -198,7 +226,12 @@ The ``Fn`` class represents a function
            self.params = params
            self.body = body
            self.env = env
-           self.f = f  # not needed until step 9?
+           self.f = f  # not needed until step 6
+
+       # Let's cheat so that core functions don't have to know which flavour of
+       # function they are calling
+       def __call__(self, *args):
+           return self.f(*args)
 
        def __repr__(self):
            return "#<function>"
@@ -229,8 +262,13 @@ Like the reader, the ``mal`` printer is handled "outside" of the steps.
 
 .. code-block:: python
 
+   import json
+   from reader import A
+
    def print_form(form):
        match form:
+          case A(v):
+              return f"(atom {print_form(v)})"
           case [*fs]:
               inner = " ".join(print_form(f) for f in fs)
               return f"({inner})"
@@ -240,5 +278,7 @@ Like the reader, the ``mal`` printer is handled "outside" of the steps.
               return 'false'
           case None:
               return 'nil'
+          case str(s):
+              return json.dumps(s)
           case _:
               return str(form)
