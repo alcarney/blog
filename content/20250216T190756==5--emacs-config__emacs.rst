@@ -372,16 +372,16 @@ Making use of awdur's templates removes the need to ensure code like ``(provide 
    :project: emacs
 
    {%- extends "default" %}
-   {% block header %};;; {{ path.name }} --- TODO add description  -*- lexical-binding: t -*-
+   {% block header %};;; {{ output.path.name }} --- TODO add description  -*- lexical-binding: t -*-
 
    ;;; Code:
    {% endblock %}
 
    {% block footer %}
 
-   (provide '{{ path.stem }})
+   (provide '{{ output.path.stem }})
 
-   ;;; {{ path.name }} ends here
+   ;;; {{ output.path.name }} ends here
    {% endblock %}
 
 .. awdur:template:: treesit-grammar
