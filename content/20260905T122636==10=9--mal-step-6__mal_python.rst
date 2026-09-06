@@ -32,19 +32,6 @@ evaluate
 
 To evaluate code we "just" have to switch on the form
 
-.. admonition:: Tail Call Optimization
-
-   Step 5 brings in tail call optimization.
-
-   Apparently this means we wrap everything in a ``while True`` loop.
-
-   Then going from the guide, I think, rather than calling into ``evaluate`` again, we modify the value of ``form`` (and possibly ``env``) so that the next cycle of the loop uses the new values see:
-
-   - :ref:`10-8-do`
-   - :ref:`10-8-fn`
-   - :ref:`10-8-if`
-   - :ref:`10-8-let`
-
 .. code-block:: python
 
    def evaluate(form, env: Env):
@@ -105,7 +92,6 @@ By definition, each special form is an edge case and needs to be handled separat
        env.set(fs[1].name, v := evaluate(fs[2], env))
        return v
 
-.. _10-8-do:
 
 ``do``
 """"""
@@ -124,7 +110,6 @@ Equivalent to ``progn``, evals all terms and returns the last one.
        # next iteration
        form = fs[-1]
 
-.. _10-8-fn:
 
 ``fn*``
 """""""
@@ -152,7 +137,6 @@ A function definition:
 
 Of course, the fact Python already has closures means that it is doing all the heavy lifting!
 
-.. _10-8-if:
 
 ``if``
 """"""
@@ -178,7 +162,6 @@ The best I have come up with so far is to call ``print_form`` on the result and 
        else:
            return None
 
-.. _10-8-let:
 
 ``let*``
 """"""""
