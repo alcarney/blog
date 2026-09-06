@@ -1,5 +1,6 @@
 BUILDDIR ?=_build
 DOTFILES ?= $(HOME)/.config/dotfiles
+PROJECTS ?= $(HOME)/Projects
 
 HTMLDIR=$(BUILDDIR)/dirhtml
 PORT ?= 8000
@@ -29,6 +30,13 @@ html:
 	cp -r talks/introducing-esbonio $(HTMLDIR)/talks/introducing-esbonio
 
 
+.PHONY: pages
+pages: $(BUILDDIR)/blog.tar.gz
+
+$(BUILDDIR)/blog.tar.gz: html
+	tar --directory $(HTMLDIR)/ -cvf $@ .
+	ls -lh $@
+
 .PHONY: dotfiles
 dotfiles:
 	$(UV) run sphinx-build -Ea -b awdur . $(DOTFILES) $(SPHINX_OPTS)
@@ -37,5 +45,10 @@ dotfiles:
 preview:
 	python -m http.server -d $(HTMLDIR) $(PORT)
 
+
+mal: dotfiles
+	-rm $(PROJECTS)/kanaka/mal/master/impls/py/*
+	cp $(DOTFILES)/mal-py/* $(PROJECTS)/kanaka/mal/master/impls/py/
+	make -C $(PROJECTS)/kanaka/mal/master/ test^py^step8
 
 include .devcontainer/tools.mk
