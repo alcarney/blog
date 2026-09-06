@@ -1,4 +1,4 @@
-name: Blog
+name: Publish Blog
 
 on:
   pull_request:
@@ -8,30 +8,47 @@ on:
     branches:
     - release
 
+  workflow_dispatch:
+
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.pull_request.number }}
+  cancel-in-progress: false
+
+permissions: {}
+
+
 jobs:
-  blog:
-    name: Blog
+  build:
+    name: Build
     runs-on: ubuntu-latest
     steps:
-    - uses: 'actions/checkout@v3'
-
-    - name: Build
-      uses: devcontainers/ci@v0.3
+    - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
       with:
-        cacheFrom: ghcr.io/alcarney/blog-devenv
-        push: never
-        runCmd: make html
+        persist-credentials: false
+
+    - run: make pages
+      name: Build
 
     - name: 'Upload Aritfact'
-      uses: 'actions/upload-artifact@v4'
+      uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a  # v7.0.1
       with:
         name: 'blog'
-        path: '_build/dirhtml'
+        path: '_build/blog.tar.gz'
 
-    - name: 'Publish Site'
-      uses: JamesIves/github-pages-deploy-action@v4
+  deploy:
+    needs: build
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    permissions:
+      id-token: write
+      pages: write
+    steps:
+
+    - name: Publish
+      id: deployment
+      uses: actions/deploy-pages@368f82528645a54fb793d4d04e342629a3f51346  # v5.0.1
       with:
-        branch: gh-pages
-        folder: _build/dirhtml
-        clean: true
-      if: success() && startsWith(github.ref, 'refs/heads/release')
+        artifact_name: blog
