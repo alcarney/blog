@@ -5,7 +5,7 @@ ifeq ($(strip $(ARCH)),)
 $(error Unable to determine platform architecture)
 endif
 
-UV_VERSION := 0.11.8
+UV_VERSION := 0.12.10
 
 UV ?= $(shell command -v uv)
 UVX := $(shell command -v uvx)
