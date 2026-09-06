@@ -136,6 +136,17 @@ It wouldn't be a Lisp without some list operators.
 
 .. code-block:: python
 
+   @defn('cons')
+   def cons(v, lst):
+       return [v, *lst]
+
+   @defn('concat')
+   def concat(*lsts):
+       l = []
+       for lst in lsts:
+           l.extend(lst)
+       return l
+
    @defn('list')
    def make_list(*args):
        return list(args)
