@@ -4,9 +4,13 @@ on:
   pull_request:
     branches:
     - release
+    paths-ignore:
+    - '.devcontainer/**'
   push:
     branches:
     - release
+    paths-ignore:
+    - '.devcontainer/**'
 
   workflow_dispatch:
 
