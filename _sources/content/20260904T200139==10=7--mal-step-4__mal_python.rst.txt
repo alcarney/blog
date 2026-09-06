@@ -1,0 +1,225 @@
+:title: mal Step 4
+:date: 2026-09-04
+:tags: mal, python
+:identifier: 20260904T200139
+:signature: 10=7
+
+mal: Step 4
+===========
+
+:project: mal-py
+:filename: step4_if_fn_do.py
+
+
+read
+----
+
+.. code-block:: python
+
+   import itertools
+
+   from core import ns
+   from env import Env
+   from reader import S, read_str
+   from printer import print_form
+
+
+   def read(ins):
+       return read_str(ins)
+
+evaluate
+--------
+
+To evaluate code we "just" have to switch on the form
+
+.. code-block:: python
+
+   def evaluate(form, env: Env):
+       match form:
+   {{ insert(slots['eval'], indent=8) }}
+
+
+- Symbol values are looked up in the environment
+
+  .. code-block:: python
+     :slot: eval
+
+     case S(name):
+         return env.get(name)
+
+- Special case the empty list
+
+  .. code-block:: python
+     :slot: eval
+
+     case []:
+         return []
+
+- Unsurprisingly, a list of terms is where most of the action is
+
+  .. code-block:: python
+     :slot: eval
+
+     case [*fs]:
+         match fs[0]:
+     {{ insert(slots['special-form'], indent=8) }}
+
+  We dispatch on the first item in the list and treat it accordingly.
+
+- Finally, everything else (numbers, strings etc.) return as-is
+
+  .. code-block:: python
+     :slot: eval
+
+     case _:
+         return form
+
+Special forms
+^^^^^^^^^^^^^
+
+By definition, each special form is an edge case and needs to be handled separately.
+
+``def!``
+""""""""
+
+``def!`` is how ``mal`` spells ``setq`` and updates the current environment
+
+.. code-block:: python
+   :slot: special-form
+
+   case S('def!'):
+       env.set(fs[1].name, v := evaluate(fs[2], env))
+       return v
+
+``do``
+""""""
+
+Equivalent to ``progn``, evals all terms and returns the last one.
+
+.. code-block:: python
+   :slot: special-form
+
+   case S('do'):
+       for f in fs[1:]:
+           v = evaluate(f, env)
+       return v
+
+``fn*``
+"""""""
+
+a.k.a lambda.
+
+I'm surprised at how simple conceptually it is.
+
+A function definition:
+
+- Creates a new ``Env`` as a child of the current environment, it's parameters define names that are yet to have values associated with them.
+
+- When called, these missing values are provided from its arguments and the function then calls evaluate on its body with the new local environment.
+
+.. code-block:: python
+   :slot: special-form
+
+   case S('fn*'):
+       def fn(*args):
+           localenv = Env(outer=env, binds=fs[1], exprs=args)
+           return evaluate(fs[2], localenv)
+       return fn
+
+Of course, the fact Python already has closures means that it is doing all the heavy lifting!
+
+``if``
+""""""
+
+``mal`` considers anything that is not ``false`` or ``nil`` to be ``true``.
+Python however, considers other values like ``0`` to *also* be False!
+
+This mismatch made implementing if surprinsgly difficult, especially when it likes to coerce ``0`` to ``False`` or ``False`` to ``0``.
+
+The best I have come up with so far is to call ``print_form`` on the result and check the string values.
+
+.. code-block:: python
+   :slot: special-form
+
+   case S('if'):
+       t = print_form(evaluate(fs[1], env))
+       if t not in {'false', 'nil'}:
+           return evaluate(fs[2], env)
+       if len(fs) > 3:
+           return evaluate(fs[3], env)
+       return None
+
+``let*``
+""""""""
+
+``let*`` is used to introduce a new local ``Env`` with additional bindings.
+
+.. code-block:: python
+   :slot: special-form
+
+   case S('let*'):
+       letenv = Env(env)
+       for binding, expr in itertools.batched(fs[1], n=2):
+           letenv.set(binding.name, evaluate(expr, letenv))
+       return evaluate(fs[2], letenv)
+
+
+Non-special forms
+"""""""""""""""""
+
+If the first symbol isn't any of the above, then normal semantics apply
+i.e. all items are evaluated, the first is assumed to be a function and passed the remainder as arguments.
+
+.. code-block:: python
+   :slot: special-form
+
+   case _:
+       f, *args = [evaluate(f, env) for f in fs]
+       return f(*args)
+
+
+print
+-----
+
+.. code-block:: python
+
+   def printit(form):
+       return print_form(form)
+
+REPL
+----
+
+**rep**
+
+.. code-block:: python
+
+   def rep(ins: str, env: Env):
+       try:
+           return printit(evaluate(read(ins), env))
+       except EOFError:
+           return f"EOF"
+       except KeyError as e:
+           return f"{e.args[0]!r} not found"
+       except Exception as e:
+           print(f"RuntimeError: {e}")
+           # import pdb; pdb.post_mortem()
+
+
+**repl**
+
+.. code-block:: python
+
+   def repl(ins: io.TextIO):
+       env = Env()
+       for symb, val in ns.items():
+           env.set(symb, val)
+
+       print("user> ", end='', flush=True)
+       while (line := ins.readline()) != "":
+           print(rep(line, env))
+           print("user> ", end='', flush=True)
+
+
+   if __name__ == "__main__":
+       import sys
+       repl(sys.stdin)

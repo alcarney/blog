@@ -1,0 +1,329 @@
+:title: mal Step 8
+:date: 2026-09-06
+:tags: mal, python
+:identifier: 20260906T122503
+:signature: 10=11
+
+mal: Step 8
+===========
+
+:project: mal-py
+:filename: step8_macros.py
+
+
+read
+----
+
+.. code-block:: python
+
+   import itertools
+
+   from core import ns
+   from env import Env
+   from reader import Fn, S, read_str
+   from printer import print_form
+
+
+   def read(ins):
+       return read_str(ins)
+
+evaluate
+--------
+
+To evaluate code we "just" have to switch on the form
+
+.. code-block:: python
+
+   def evaluate(form, env: Env):
+       while True:
+           match form:
+   {{ insert(slots['eval'], indent=12) }}
+
+
+- Symbol values are looked up in the environment
+
+  .. code-block:: python
+     :slot: eval
+
+     case S(name):
+         return env.get(name)
+
+- Special case the empty list
+
+  .. code-block:: python
+     :slot: eval
+
+     case []:
+         return []
+
+- Unsurprisingly, a list of terms is where most of the action is
+
+  .. code-block:: python
+     :slot: eval
+
+     case [*fs]:
+         match fs[0]:
+     {{ insert(slots['special-form'], indent=8) }}
+
+  We dispatch on the first item in the list and treat it accordingly.
+
+- Finally, everything else (numbers, strings etc.) return as-is
+
+  .. code-block:: python
+     :slot: eval
+
+     case _:
+         return form
+
+Special forms
+^^^^^^^^^^^^^
+
+By definition, each special form is an edge case and needs to be handled separately.
+
+``def!``
+""""""""
+
+``def!`` is how ``mal`` spells ``setq`` and updates the current environment
+
+.. code-block:: python
+   :slot: special-form
+
+   case S('def!'):
+       env.set(fs[1].name, v := evaluate(fs[2], env))
+       return v
+
+``defmacro!``
+"""""""""""""
+
+Macros under the hood, are "just" functions, what makes them interesting is when they are evaluated.
+
+.. code-block:: python
+   :slot: special-form
+
+   case S('defmacro!'):
+       if not isinstance(fn := evaluate(fs[2], env), Fn):
+          raise RuntimeError("macros must be mal functions.")
+
+       fn.is_macro = True
+       env.set(fs[1].name, fn)
+       return fn
+
+
+``do``
+""""""
+
+Equivalent to ``progn``, evals all terms and returns the last one.
+
+.. code-block:: python
+   :slot: special-form
+
+   case S('do'):
+       # tco: evaluate() everything except for the final item
+       for f in fs[1:-1]:
+           evaluate(f, env)
+
+       # tco: update ``form`` to be the final element so that it's evaluated on the
+       # next iteration
+       form = fs[-1]
+
+
+``fn*``
+"""""""
+
+a.k.a lambda.
+
+I'm surprised at how simple conceptually it is.
+
+A function definition:
+
+- Creates a new ``Env`` as a child of the current environment, it's parameters define names that are yet to have values associated with them.
+
+- When called, these missing values are provided from its arguments and the function then calls evaluate on its body with the new local environment.
+
+.. code-block:: python
+   :slot: special-form
+
+   case S('fn*'):
+       def fn(*args):
+           localenv = Env(outer=env, binds=fs[1], exprs=args)
+           return evaluate(fs[2], localenv)
+
+       # tco: return Fn rather than Python function def
+       return Fn(params=fs[1], body=fs[2], env=env, f=fn)
+
+Of course, the fact Python already has closures means that it is doing all the heavy lifting!
+
+
+``if``
+""""""
+
+``mal`` considers anything that is not ``false`` or ``nil`` to be ``true``.
+Python however, considers other values like ``0`` to *also* be False!
+
+This mismatch made implementing if surprinsgly difficult, especially when it likes to coerce ``0`` to ``False`` or ``False`` to ``0``.
+
+The best I have come up with so far is to call ``print_form`` on the result and check the string values.
+
+.. code-block:: python
+   :slot: special-form
+
+   case S('if'):
+       t = print_form(evaluate(fs[1], env))
+       if t not in {'false', 'nil'}:
+           # tco: change ``form`` so that it's evaluated on the next iteration
+           form = fs[2]
+       elif len(fs) > 3:
+           # tco: change ``form`` so that it's evaluated on the next iteration
+           form = fs[3]
+       else:
+           return None
+
+
+``let*``
+""""""""
+
+``let*`` is used to introduce a new local ``Env`` with additional bindings.
+
+.. code-block:: python
+   :slot: special-form
+
+   case S('let*'):
+       letenv = Env(env)
+       for binding, expr in itertools.batched(fs[1], n=2):
+           letenv.set(binding.name, evaluate(expr, letenv))
+
+       # tco: update both ``form`` and ``env`` so that it's evaluated on the next iteration
+       form = fs[2]
+       env = letenv
+
+``quote``
+"""""""""
+
+``quote`` suspends evaluation of the form
+
+.. code-block:: python
+   :slot: special-form
+
+   case S("quote"):
+       return fs[1]
+
+
+``quasiquote``
+""""""""""""""
+
+This where things get interesting... quoting... but with the option of unquoting.
+
+.. code-block:: python
+   :slot: special-form
+
+   case S("quasiquote"):
+       # tco:
+       form = quasiquote(fs[1])
+
+Which depends on the ``quasiquote`` function
+
+.. code-block:: python
+
+   def quasiquote(form):
+       match form:
+           case [S("unquote"), f]:
+               return f
+           case [*fs]:
+               l = []
+               for f in reversed(fs):
+                   match f:
+                       case [S("splice-unquote"), uq]:
+                           l = [S("concat"), uq, l]
+                       case _:
+                           l = [S("cons"), quasiquote(f), l]
+               return l
+           case S(s):
+               return [S("quote"), form]
+           case _:
+               return form
+
+
+Non-special forms
+"""""""""""""""""
+
+If the first symbol isn't any of the above, then normal semantics apply
+i.e. all items are evaluated, the first is assumed to be a function and passed the remainder as arguments.
+
+.. code-block:: python
+   :slot: special-form
+
+   case _:
+       # the potential of macros means that we shouldn't eval arguments - yet.
+       if not (isinstance(f := evaluate(fs[0], env), Fn) or callable(f)):
+           raise RuntimeError("not a function")
+
+       match f:
+           case Fn(params, body, fenv, True):
+               # tco: handle mal macro calls
+               #      macros choose if they eval arguments
+               args = fs[1:]
+               menv = Env(outer=fenv, binds=params, exprs=args)
+               form = evaluate(body, menv) # expand macro, result is eval'd on next iteration.
+               env  = env                  # expansion is eval'd in same env as macro call.
+           case Fn(params, body, fenv, False):
+               # tco: handle mal function calls.
+               #      functions evaluate all arguments.
+               args = [evaluate(f, env) for f in fs[1:]]
+               form=body
+               env = Env(outer=fenv, binds=params, exprs=args)
+           case _:
+               #      functions evaluate all arguments.
+               args = [evaluate(f, env) for f in fs[1:]]
+               return f(*args)
+
+
+print
+-----
+
+.. code-block:: python
+
+   def printit(form):
+       return print_form(form)
+
+REPL
+----
+
+**rep**
+
+.. code-block:: python
+
+   def rep(ins: str, env: Env):
+       try:
+           return printit(evaluate(read(ins), env))
+       except EOFError:
+           return f"EOF"
+       except KeyError as e:
+           return f"{e.args[0]!r} not found"
+       except Exception as e:
+           print(f"RuntimeError: {e}")
+           # import pdb; pdb.post_mortem()
+
+
+**repl**
+
+.. code-block:: python
+
+   def repl(ins: io.TextIO):
+       env = Env()
+       for symb, val in ns.items():
+           env.set(symb, val)
+
+       env.set('eval', lambda f: evaluate(f, env))
+
+       rep("(def! not (fn* (a) (if a false true)))", env)
+       rep('(def! load-file (fn* (f) (eval (read-string (str "(do " (slurp f) "\nnil)")))))', env)
+
+       print("user> ", end='', flush=True)
+       while (line := ins.readline()) != "":
+           print(rep(line, env))
+           print("user> ", end='', flush=True)
+
+
+   if __name__ == "__main__":
+       import sys
+       repl(sys.stdin)

@@ -1468,6 +1468,8 @@ elided_revisions:  $ =&gt; seq(&#39;~&#39;, optional(&#39;(elided revisions)&#39
 (setq backup-directory-alist `((&#34;.&#34; . ,(expand-file-name &#34;backups&#34; user-emacs-directory))))
 
 (setq kill-do-not-save-duplicates t           ; when would you want duplicates?...
+      select-active-regions nil               ; for some reason needed to make kills appear in the system clipboard...
+                                              ; see: https://www.reddit.com/r/emacs/comments/1mbf0pd/killringsave_not_in_clipboard/
       save-interprogram-paste-before-kill t)  ; save system clipboard to kill-ring before killing new text.
 
 (repeat-mode 1)
@@ -2026,6 +2028,8 @@ However, this does not happen when launching Emacs via krunner and so it fails t
 <div class="awdur-codeblock-header docutils container">
 <code class="awdur-codeblock-filename docutils literal notranslate"><span class="pre">init.el</span></code></div>
 <div class="highlight-elisp notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="k">setq</span><span class="w"> </span><span class="nv">kill-do-not-save-duplicates</span><span class="w"> </span><span class="no">t</span><span class="w">           </span><span class="c1">; when would you want duplicates?...</span>
+<span class="w">      </span><span class="nv">select-active-regions</span><span class="w"> </span><span class="no">nil</span><span class="w">               </span><span class="c1">; for some reason needed to make kills appear in the system clipboard...</span>
+<span class="w">                                              </span><span class="c1">; see: https://www.reddit.com/r/emacs/comments/1mbf0pd/killringsave_not_in_clipboard/</span>
 <span class="w">      </span><span class="nv">save-interprogram-paste-before-kill</span><span class="w"> </span><span class="no">t</span><span class="p">)</span><span class="w">  </span><span class="c1">; save system clipboard to kill-ring before killing new text.</span>
 </pre></div>
 </div>
