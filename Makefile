@@ -24,7 +24,7 @@ $(HTMLDIR)/_static/js/theme.js: _static/js/theme.js
 
 .PHONY: html
 html:
-	$(UV) run sphinx-build -M dirhtml . $(BUILDDIR) $(SPHINX_OPTS)
+	$(UV) run esbonio sphinx build --build-args '-M dirhtml . $(BUILDDIR) $(SPHINX_OPTS)'
 	mkdir -p $(HTMLDIR)/talks/
 	cp -r talks/introducing-esbonio $(HTMLDIR)/talks/introducing-esbonio
 
