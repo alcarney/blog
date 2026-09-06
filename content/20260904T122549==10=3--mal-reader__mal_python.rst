@@ -114,6 +114,18 @@ The generic ``read_form`` method dispatches to specialised read methods dependin
        match reader.peek():
            case '(':
                return read_list(reader)
+           case "'":
+               tok = reader.next()
+               return [S("quote"), read_form(reader)]
+           case "~":
+               tok = reader.next()
+               return [S("unquote"), read_form(reader)]
+           case "~@":
+               tok = reader.next()
+               return [S("splice-unquote"), read_form(reader)]
+           case "`":
+               tok = reader.next()
+               return [S("quasiquote"), read_form(reader)]
            case _:
                return read_atom(reader)
 
@@ -220,13 +232,14 @@ The ``Fn`` class represents a function
 .. code-block:: python
 
    class Fn:
-       __match_args__ = ("params", "body", "env", "f")
+       __match_args__ = ("params", "body", "env", "is_macro")
 
        def __init__(self, params, body, env, f):
            self.params = params
            self.body = body
            self.env = env
            self.f = f  # not needed until step 6
+           self.is_macro = False  # set by defmacro!
 
        # Let's cheat so that core functions don't have to know which flavour of
        # function they are calling
@@ -234,7 +247,7 @@ The ``Fn`` class represents a function
            return self.f(*args)
 
        def __repr__(self):
-           return "#<function>"
+           return "#<macro>" if self.is_macro else "#<function>"
 
 Symbols
 ^^^^^^^

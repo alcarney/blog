@@ -1,14 +1,14 @@
-:title: mal Step 6
-:date: 2026-09-05
+:title: mal Step 8
+:date: 2026-09-06
 :tags: mal, python
-:identifier: 20260905T122636
-:signature: 10=9
+:identifier: 20260906T122503
+:signature: 10=11
 
-mal: Step 6
+mal: Step 8
 ===========
 
 :project: mal-py
-:filename: step6_file.py
+:filename: step8_macros.py
 
 
 read
@@ -91,6 +91,22 @@ By definition, each special form is an edge case and needs to be handled separat
    case S('def!'):
        env.set(fs[1].name, v := evaluate(fs[2], env))
        return v
+
+``defmacro!``
+"""""""""""""
+
+Macros under the hood, are "just" functions, what makes them interesting is when they are evaluated.
+
+.. code-block:: python
+   :slot: special-form
+
+   case S('defmacro!'):
+       if not isinstance(fn := evaluate(fs[2], env), Fn):
+          raise RuntimeError("macros must be mal functions.")
+
+       fn.is_macro = True
+       env.set(fs[1].name, fn)
+       return fn
 
 
 ``do``
@@ -180,6 +196,52 @@ The best I have come up with so far is to call ``print_form`` on the result and 
        form = fs[2]
        env = letenv
 
+``quote``
+"""""""""
+
+``quote`` suspends evaluation of the form
+
+.. code-block:: python
+   :slot: special-form
+
+   case S("quote"):
+       return fs[1]
+
+
+``quasiquote``
+""""""""""""""
+
+This where things get interesting... quoting... but with the option of unquoting.
+
+.. code-block:: python
+   :slot: special-form
+
+   case S("quasiquote"):
+       # tco:
+       form = quasiquote(fs[1])
+
+Which depends on the ``quasiquote`` function
+
+.. code-block:: python
+
+   def quasiquote(form):
+       match form:
+           case [S("unquote"), f]:
+               return f
+           case [*fs]:
+               l = []
+               for f in reversed(fs):
+                   match f:
+                       case [S("splice-unquote"), uq]:
+                           l = [S("concat"), uq, l]
+                       case _:
+                           l = [S("cons"), quasiquote(f), l]
+               return l
+           case S(s):
+               return [S("quote"), form]
+           case _:
+               return form
+
 
 Non-special forms
 """""""""""""""""
@@ -191,13 +253,27 @@ i.e. all items are evaluated, the first is assumed to be a function and passed t
    :slot: special-form
 
    case _:
-       f, *args = [evaluate(f, env) for f in fs]
+       # the potential of macros means that we shouldn't eval arguments - yet.
+       if not (isinstance(f := evaluate(fs[0], env), Fn) or callable(f)):
+           raise RuntimeError("not a function")
+
        match f:
-           # tco: handle mal function calls.
-           case Fn(params, body, fenv, fn):
+           case Fn(params, body, fenv, True):
+               # tco: handle mal macro calls
+               #      macros choose if they eval arguments
+               args = fs[1:]
+               menv = Env(outer=fenv, binds=params, exprs=args)
+               form = evaluate(body, menv) # expand macro, result is eval'd on next iteration.
+               env  = env                  # expansion is eval'd in same env as macro call.
+           case Fn(params, body, fenv, False):
+               # tco: handle mal function calls.
+               #      functions evaluate all arguments.
+               args = [evaluate(f, env) for f in fs[1:]]
                form=body
                env = Env(outer=fenv, binds=params, exprs=args)
            case _:
+               #      functions evaluate all arguments.
+               args = [evaluate(f, env) for f in fs[1:]]
                return f(*args)
 
 
