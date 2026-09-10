@@ -1,0 +1,39 @@
+:title: tmux
+:date: 2026-09-08
+:tags: cli, tmux
+:identifier: 20260908T134207
+
+Tmux
+====
+
+
+`tmux <https://github.com/tmux/tmux/>`__, the terminal multiplexer.
+
+Config
+------
+
+:filename: tmux/tmux.conf
+
+Use ``fish`` as the default shell.
+
+.. code-block::
+
+   set-option -g default-shell /usr/bin/fish
+
+Enable mouse support
+
+.. code-block::
+
+   set-option -g mouse on
+
+
+Panes
+"""""
+
+tmux has scrollbars!
+
+.. code-block::
+
+   set-option -g pane-scrollbars modal
+
+``modal`` means that they're only shown in copy-mode
