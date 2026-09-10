@@ -1,0 +1,17 @@
+:title: eww
+:date: 2026-09-08
+:tags: emacs
+:identifier: 20260908T200805
+:signature: 5=16
+
+``eww``
+=======
+
+.. code-block:: emacs-lisp
+   :project: emacs
+   :filename: init.el
+
+   (use-package eww
+     :ensure nil
+     :config
+     (setq eww-auto-rename-buffer 'title))
