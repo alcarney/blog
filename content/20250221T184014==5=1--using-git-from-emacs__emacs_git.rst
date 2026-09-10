@@ -19,25 +19,6 @@ Of course, no Emacs config would be complete without :gh:`magit/magit`
      :custom
      (magit-format-file-function #'magit-format-file-nerd-icons))
 
-``diff-hl``
-^^^^^^^^^^^
-
-:gh:`dgutov/diff-hl` highlights regions of the buffer that have changed relative to some reference commit (typically ``HEAD``)
-
-.. seealso::
-
-   `This article <https://karthinks.com/software/fringe-matters-finding-the-right-difference/>`__ from Karthink shows how you can change the reference commit
-
-.. code-block:: elisp
-   :project: emacs
-   :filename: init.el
-
-   (use-package diff-hl
-     :ensure t
-     :hook ((dired-mode . diff-hl-dired-mode))
-     :config
-     (global-diff-hl-mode)
-     (diff-hl-margin-mode))
 
 Forge
 ^^^^^
