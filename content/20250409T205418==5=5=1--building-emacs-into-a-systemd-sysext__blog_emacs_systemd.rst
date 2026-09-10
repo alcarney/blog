@@ -398,8 +398,6 @@ Before running the build, I made sure to have the ``emacs-31.1`` tag checked out
 **Base Image**
 
 .. code-block:: ini
-   :project: emacs-sysext
-   :filename: mkosi.images/base/mkosi.conf
 
    [Output]
    Format=directory
@@ -438,8 +436,6 @@ The hardest part of this was figuring out enough of the list of build tools to b
 **Emacs Sysext**
 
 .. code-block:: ini
-   :project: emacs-sysext
-   :filename: mkosi.images/emacs/mkosi.conf
 
    [Output]
    Format=sysext
