@@ -4,14 +4,15 @@
 :identifier: 20260610T182004
 :signature: 5=15
 
+:in-project: emacs
+
 ``ediff``
 =========
 
 Below are my customisations for ``ediff``, explanations are captured in follow on sections
 
 .. code-block:: elisp
-   :project: emacs
-   :filename: init.el
+   :in-file: init.el
 
    (use-package alc-ediff
      :load-path "lisp"
@@ -30,9 +31,7 @@ Window Management
 I'm quite happy with ``ediff-setup-windows-plain``, the only tweak I want to make is to have the window layout open in a new tab.
 
 .. code-block:: elisp
-   :project: emacs
-   :filename: lisp/alc-ediff.el
-   :template: elisp-module
+   :in-file: lisp/alc-ediff.el
 
    (require 'ediff)
 
@@ -44,8 +43,7 @@ I'm quite happy with ``ediff-setup-windows-plain``, the only tweak I want to mak
 Of course, the newly created tab should be closed on session quit/suspend.
 
 .. code-block:: elisp
-   :project: emacs
-   :filename: lisp/alc-ediff.el
+   :in-file: lisp/alc-ediff.el
 
    (defun alc-ediff-suspend-hook ()
      "Close the tab created by `alc-ediff-window-setup-function'."

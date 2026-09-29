@@ -4,6 +4,8 @@
 :identifier: 20250615T135327
 :signature: 5=4=1
 
+:in-project: emacs
+
 Using ``pdb`` from Emacs
 ========================
 
@@ -140,8 +142,7 @@ Each PID can be passed to ``process-attributes`` to get some information about i
 After a fair amount of head scratching I eventually arrived at the following elisp that will prompt me to select a process in minibuffer and return the corresponding PID:
 
 .. code-block:: elisp
-   :project: emacs
-   :filename: lisp/alc-python.el
+   :in-file: lisp/alc-python.el
 
    (defun alc-python--pid-to-candidate (pid)
      "Convert the given PID into a completion candidate for `completing-read'"
@@ -161,8 +162,7 @@ I'd love to be able to pre-filter the list of processes to only include those th
 Anyway with that helper out of the way we're only a ``defun`` away from implementing an "attach to process" command!
 
 .. code-block:: elisp
-   :project: emacs
-   :filename: lisp/alc-python.el
+   :in-file: lisp/alc-python.el
 
    (defun alc-python-pdb-attach-to-process ()
       "Attach a pdb session to a running Python process."

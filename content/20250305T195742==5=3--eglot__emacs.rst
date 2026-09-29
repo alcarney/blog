@@ -4,14 +4,15 @@
 :identifier: 20250305T195742
 :signature: 5=3
 
+:in-project: emacs
+
 ``eglot``
 =========
 
 I use ``eglot`` as my language client since it is available out of the box and integrates nicely with core packages like ``xref``
 
 .. code-block:: elisp
-   :project: emacs
-   :filename: init.el
+   :in-file: init.el
 
    (use-package alc-eglot
      :bind (("<f2>" . eglot-rename)
@@ -31,8 +32,7 @@ You see advice out there for bumping the default value of ``read-process-output-
 According to the docstring this should not exceed the value of ``/proc/sys/fs/pipe-max-size``
 
 .. code-block:: elisp
-   :project: emacs
-   :filename: init.el
+   :in-file: init.el
 
    (setq read-process-output-max
          (max 1048576 ; 1MB
@@ -46,8 +46,7 @@ Transient
 It's nice to have a transient menu from which we can launch things.
 
 .. code-block:: elisp
-   :project: emacs
-   :filename: lisp/alc-eglot.el
+   :in-file: lisp/alc-eglot.el
 
    (require 'eglot)
    (require 'transient)
@@ -72,8 +71,7 @@ Often I want to wrap some server with the `lsp-devtools <https://lsp-devtools.re
 What's nice is that we can simply advise the function eglot uses to determine how to connect with the server
 
 .. code-block:: elisp
-   :project: emacs
-   :filename: lisp/alc-eglot.el
+   :in-file: lisp/alc-eglot.el
 
    (defun alc-eglot-wrap-server-in-lsp-devtools (oldfun &rest args)
      "Wrap the server config returned from eglot in the lsp-devtools agent."
@@ -99,9 +97,7 @@ Convincing ``eglot`` to apply the correct ``workspace/configuration`` settings f
 One issue is making sure ``eglot`` evaluates settings at the right scope
 
 .. code-block:: elisp
-   :project: emacs
-   :template: elisp-module
-   :filename: lisp/alc-eglot.el
+   :in-file: lisp/alc-eglot.el
 
    (require 's)
 
@@ -137,8 +133,7 @@ Utilities
 Helper function to (re)start the server in the current buffer.
 
 .. code-block:: elisp
-   :project: emacs
-   :filename: lisp/alc-eglot.el
+   :in-file: lisp/alc-eglot.el
 
    (defun alc-eglot-restart ()
      "(Re)start the server in the current buffer."

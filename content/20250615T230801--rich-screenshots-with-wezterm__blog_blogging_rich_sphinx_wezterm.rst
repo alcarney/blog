@@ -254,7 +254,7 @@ Thankfully the asciicast format supports recording this information alongside th
 .. details:: Expand to see the complete command implementation
 
    .. code-block:: lua
-      :filename: wezterm/commands/screenshot.lua
+      :in-file: wezterm/commands/screenshot.lua
 
       local wezterm = require 'wezterm'
       local io = require 'io'

@@ -7,8 +7,8 @@
 mal: Step 6
 ===========
 
-:project: mal-py
-:filename: step6_file.py
+:in-project: mal-py
+:in-file: step6_file.py
 
 
 read
@@ -43,7 +43,7 @@ To evaluate code we "just" have to switch on the form
 - Symbol values are looked up in the environment
 
   .. code-block:: python
-     :slot: eval
+     :in-slot: eval
 
      case S(name):
          return env.get(name)
@@ -51,7 +51,7 @@ To evaluate code we "just" have to switch on the form
 - Special case the empty list
 
   .. code-block:: python
-     :slot: eval
+     :in-slot: eval
 
      case []:
          return []
@@ -59,7 +59,7 @@ To evaluate code we "just" have to switch on the form
 - Unsurprisingly, a list of terms is where most of the action is
 
   .. code-block:: python
-     :slot: eval
+     :in-slot: eval
 
      case [*fs]:
          match fs[0]:
@@ -70,7 +70,7 @@ To evaluate code we "just" have to switch on the form
 - Finally, everything else (numbers, strings etc.) return as-is
 
   .. code-block:: python
-     :slot: eval
+     :in-slot: eval
 
      case _:
          return form
@@ -86,7 +86,7 @@ By definition, each special form is an edge case and needs to be handled separat
 ``def!`` is how ``mal`` spells ``setq`` and updates the current environment
 
 .. code-block:: python
-   :slot: special-form
+   :in-slot: special-form
 
    case S('def!'):
        env.set(fs[1].name, v := evaluate(fs[2], env))
@@ -99,7 +99,7 @@ By definition, each special form is an edge case and needs to be handled separat
 Equivalent to ``progn``, evals all terms and returns the last one.
 
 .. code-block:: python
-   :slot: special-form
+   :in-slot: special-form
 
    case S('do'):
        # tco: evaluate() everything except for the final item
@@ -125,7 +125,7 @@ A function definition:
 - When called, these missing values are provided from its arguments and the function then calls evaluate on its body with the new local environment.
 
 .. code-block:: python
-   :slot: special-form
+   :in-slot: special-form
 
    case S('fn*'):
        def fn(*args):
@@ -149,7 +149,7 @@ This mismatch made implementing if surprinsgly difficult, especially when it lik
 The best I have come up with so far is to call ``print_form`` on the result and check the string values.
 
 .. code-block:: python
-   :slot: special-form
+   :in-slot: special-form
 
    case S('if'):
        t = print_form(evaluate(fs[1], env))
@@ -169,7 +169,7 @@ The best I have come up with so far is to call ``print_form`` on the result and 
 ``let*`` is used to introduce a new local ``Env`` with additional bindings.
 
 .. code-block:: python
-   :slot: special-form
+   :in-slot: special-form
 
    case S('let*'):
        letenv = Env(env)
@@ -188,7 +188,7 @@ If the first symbol isn't any of the above, then normal semantics apply
 i.e. all items are evaluated, the first is assumed to be a function and passed the remainder as arguments.
 
 .. code-block:: python
-   :slot: special-form
+   :in-slot: special-form
 
    case _:
        f, *args = [evaluate(f, env) for f in fs]

@@ -11,7 +11,7 @@ Neovim
 Neovim configuration
 
 .. code-block:: make
-   :filename: Makefile
+   :in-file: Makefile
 
    .PHONY: nvim
    nvim:
@@ -30,7 +30,7 @@ Appearance
 For the time being, use the default colorscheme with ``notermguicolors`` set so that ``nvim`` inherits the colorscheme used by the terminal. (Makes adapting to the system theme easier)
 
 .. code-block:: lua
-   :filename: nvim/init.lua
+   :in-file: nvim/init.lua
 
    vim.opt.termguicolors = false
 
@@ -38,7 +38,7 @@ For the time being, use the default colorscheme with ``notermguicolors`` set so 
 ^^^^^^^^^^^^^^^
 
 .. code-block:: lua
-   :filename: nvim/init.lua
+   :in-file: nvim/init.lua
 
    vim.opt.breakindent = true
 
@@ -63,7 +63,7 @@ To make the search case insensitive add a ``\c`` to the search pattern e.g. ``/s
 The ``inccomand = 'split'`` tells neovim to open a dedicated split to preview the result of the current ``:%s/../../`` command.
 
 .. code-block:: lua
-   :filename: nvim/init.lua
+   :in-file: nvim/init.lua
 
    vim.opt.inccommand = 'split'
    vim.opt.incsearch = true
@@ -75,14 +75,14 @@ Line Numbers
 Enable line numbers
 
 .. code-block:: lua
-   :filename: nvim/init.lua
+   :in-file: nvim/init.lua
 
    vim.opt.number = true
 
 Reuse the line number column to render 'signs'
 
 .. code-block:: lua
-   :filename: nvim/init.lua
+   :in-file: nvim/init.lua
 
    vim.opt.signcolumn = 'number'
 
@@ -93,7 +93,7 @@ Whitespace
 Render certain whitespace characters
 
 .. code-block:: lua
-   :filename: nvim/init.lua
+   :in-file: nvim/init.lua
 
    vim.opt.list = true
    vim.opt.listchars = { tab = '».', trail = '·', extends = '→', precedes= '←' }
@@ -106,7 +106,7 @@ Keybindings that are useful anywhere.
 Set the ``<leader>`` and ``<localleader>``
 
 .. code-block:: lua
-   :filename: nvim/init.lua
+   :in-file: nvim/init.lua
 
    vim.g.mapleader = ' '
    vim.g.maplocalleader = ' '
@@ -114,7 +114,7 @@ Set the ``<leader>`` and ``<localleader>``
 Mash :kbd:`Esc` to clear any search highlights
 
 .. code-block:: lua
-   :filename: nvim/init.lua
+   :in-file: nvim/init.lua
 
    vim.keymap.set('n', '<Esc>', '<cmd>nohlsearch<CR>')
 
@@ -122,7 +122,7 @@ Mash :kbd:`Esc` to clear any search highlights
 Easier movement between windows
 
 .. code-block:: lua
-   :filename: nvim/init.lua
+   :in-file: nvim/init.lua
 
    vim.keymap.set('n', '<C-h>', '<C-w><C-h>')
    vim.keymap.set('n', '<C-l>', '<C-w><C-l>')
@@ -132,7 +132,7 @@ Easier movement between windows
 Recenter the display after common movement commands
 
 .. code-block:: lua
-   :filename: nvim/init.lua
+   :in-file: nvim/init.lua
 
    vim.keymap.set('n', 'n', 'nzz')
    vim.keymap.set('n', 'N', 'Nzz')
@@ -147,7 +147,7 @@ Plugins
 The plugin manager du-jour appears to be :gh:`folke/lazy.nvim`, let's ensure that it's available.
 
 .. code-block:: lua
-   :filename: nvim/init.lua
+   :in-file: nvim/init.lua
 
    local lazypath = vim.fn.stdpath('data') .. '/lazy/lazy.nvim'
    if not vim.uv.fs_stat(lazypath) then
@@ -162,14 +162,14 @@ The plugin manager du-jour appears to be :gh:`folke/lazy.nvim`, let's ensure tha
 And add the install location to the runtime path
 
 .. code-block:: lua
-   :filename: nvim/init.lua
+   :in-file: nvim/init.lua
 
    vim.opt.rtp:prepend(lazypath)
 
 Finally, tell lazyvim what plugins to install and configure
 
 .. code-block:: lua
-   :filename: nvim/init.lua
+   :in-file: nvim/init.lua
 
    require('lazy').setup({
      'tpope/vim-sleuth',
@@ -184,7 +184,7 @@ Completion
 :gh:`hrsh7th/nvim-cmp` seems to be the completion framework of choice
 
 .. code-block:: lua
-   :filename: nvim/lua/alc/completion.lua
+   :in-file: nvim/lua/alc/completion.lua
 
    function setup()
      local cmp = require('cmp')
@@ -205,7 +205,7 @@ Completion
    end
 
 .. code-block:: lua
-   :filename: nvim/lua/alc/completion.lua
+   :in-file: nvim/lua/alc/completion.lua
 
    return {
      'hrsh7th/nvim-cmp',
@@ -222,7 +222,7 @@ Language Servers
 The following is a function that will be called each time a connection to a server is made, allowing LSP specific keybindings etc to be configured.
 
 .. code-block:: lua
-   :filename: nvim/lua/alc/lsp/init.lua
+   :in-file: nvim/lua/alc/lsp/init.lua
 
    function lsp_attach(event)
      vim.keymap.set('n', 'gd', require('telescope.builtin').lsp_definitions, { buffer = event.buf })
@@ -239,7 +239,7 @@ The following is a function that will be called each time a connection to a serv
 Finally, the block of ``lazy.nvim`` configuration that ties it all together
 
 .. code-block:: lua
-   :filename: nvim/lua/alc/lsp/init.lua
+   :in-file: nvim/lua/alc/lsp/init.lua
 
    return {
       'neovim/nvim-lspconfig',
@@ -275,7 +275,7 @@ esbonio
 Of course, I use :gh:`swyddfa/esbonio` with my documentation projects.
 
 .. code-block:: lua
-   :filename: nvim/lua/alc/lsp/esbonio.lua
+   :in-file: nvim/lua/alc/lsp/esbonio.lua
 
    function setup(opts)
       opts = opts or {}
@@ -321,7 +321,7 @@ The following function determines the command that should be used to launch ``es
    it is pointless trying to run an LSP from inside the container.
 
 .. code-block:: lua
-   :filename: nvim/lua/alc/lsp/esbonio.lua
+   :in-file: nvim/lua/alc/lsp/esbonio.lua
 
    function get_esbonio_cmd(opts)
      local cmd = {}
@@ -351,7 +351,7 @@ The following function determines the command that should be used to launch ``es
 The following command triggers a preview of the file vistied by the current buffer as well as setting up an autocommand to syncronise the scroll state with the preview.
 
 .. code-block:: lua
-   :filename: nvim/lua/alc/lsp/esbonio.lua
+   :in-file: nvim/lua/alc/lsp/esbonio.lua
 
    function preview_file()
      local params = {
@@ -378,7 +378,7 @@ The following command triggers a preview of the file vistied by the current buff
 Scrolling the view itself is handled by the following function
 
 .. code-block:: lua
-   :filename: nvim/lua/alc/lsp/esbonio.lua
+   :in-file: nvim/lua/alc/lsp/esbonio.lua
 
    function scroll_view(event)
      local esbonio = vim.lsp.get_active_clients({ bufnr = 0, name = 'esbonio' })[1]
@@ -399,7 +399,7 @@ These handlers help shed some light on the status of the underlying sphinx proce
 Emitted when a new process is created.
 
 .. code-block:: lua
-   :filename: nvim/lua/alc/lsp/esbonio.lua
+   :in-file: nvim/lua/alc/lsp/esbonio.lua
 
    function client_created(err, result, ctx, config)
      vim.notify("Sphinx client created in " .. result.scope, vim.log.levels.INFO)
@@ -418,7 +418,7 @@ Emitted when a new process is created.
    end
 
 .. code-block:: lua
-   :filename: nvim/lua/alc/lsp/esbonio.lua
+   :in-file: nvim/lua/alc/lsp/esbonio.lua
 
    return {
      setup = setup
@@ -431,7 +431,7 @@ Python
 I currently use the :gh:`microsoft/pyright` language server for Python projects.
 
 .. code-block:: lua
-   :filename: nvim/lua/alc/lsp/python.lua
+   :in-file: nvim/lua/alc/lsp/python.lua
 
    function setup(opts)
       opts = opts or {}
@@ -450,7 +450,7 @@ I currently use the :gh:`microsoft/pyright` language server for Python projects.
    end
 
 .. code-block:: lua
-   :filename: nvim/lua/alc/lsp/python.lua
+   :in-file: nvim/lua/alc/lsp/python.lua
 
    return {
      setup = setup
@@ -464,7 +464,7 @@ Telescope
 The ``vertico`` of the neovim world, telescope offers a nice "select item from list" UI
 
 .. code-block:: lua
-   :filename: nvim/lua/alc/telescope.lua
+   :in-file: nvim/lua/alc/telescope.lua
 
    return {
      'nvim-telescope/telescope.nvim',
@@ -503,7 +503,7 @@ The following function will check to see if there is a ``.devcontainer/`` for th
 workspace folder if it exists.
 
 .. code-block:: lua
-   :filename: nvim/lua/alc/devcontainer.lua
+   :in-file: nvim/lua/alc/devcontainer.lua
 
    function workspace()
      local cwd = vim.uv.cwd()
@@ -527,7 +527,7 @@ workspace folder if it exists.
 Finally, export all the public functions from this module
 
 .. code-block:: lua
-   :filename: nvim/lua/alc/devcontainer.lua
+   :in-file: nvim/lua/alc/devcontainer.lua
 
    return {
      workspace = workspace

@@ -7,8 +7,8 @@
 mal: Step 3
 ===========
 
-:project: mal-py
-:filename: step3_env.py
+:in-project: mal-py
+:in-file: step3_env.py
 
 
 **read**

@@ -4,6 +4,8 @@
 :identifier: 20260910T211222
 :signature: 5=17
 
+:in-project: emacs
+
 Emacs Tip of the Day
 ====================
 
@@ -36,9 +38,7 @@ You will also notice however, that the logic for getting the filepath to the ``N
 Or is there? :emphasis:`*cue VSauce music*...`
 
 .. code-block:: elisp
-   :project: emacs
-   :filename: lisp/alc-dashboard.el
-   :template: elisp-module
+   :in-file: lisp/alc-dashboard.el
 
    (defun alc-dashboard--get-news-buffer (&optional version)
      "Return the Emacs news buffer for the given VERSION"
@@ -80,8 +80,7 @@ Section headers are one or more ``*`` characters followed by a blank line, where
 The format is simple enough that we only need a regular expression to write a function that will return a list of buffer offests of items in the current buffer.
 
 .. code-block:: elisp
-   :project: emacs
-   :filename: lisp/alc-dashboard.el
+   :in-file: lisp/alc-dashboard.el
 
    (defun alc-dashboard--get-news-items ()
      (let ((items nil))
@@ -100,9 +99,8 @@ Well, if you open the mode help (:kbd:`C-h m`) for the ``NEWS`` file, you should
 So given an ``item-pos`` we can use ``outline-mark-subtree`` to select the item's content
 
 .. code-block:: elisp
-   :project: emacs
-   :filename: lisp/alc-dashboard.el
-   :slot: get-news-item
+   :in-file: lisp/alc-dashboard.el
+   :in-slot: get-news-item
 
    (goto-char item-pos)
    (call-interactively 'outline-mark-subtree)
@@ -111,9 +109,8 @@ So given an ``item-pos`` we can use ``outline-mark-subtree`` to select the item'
 And then use ``oultline-up-heading`` to jump to the corresponding section header
 
 .. code-block:: elisp
-   :project: emacs
-   :filename: lisp/alc-dashboard.el
-   :slot: get-news-section
+   :in-file: lisp/alc-dashboard.el
+   :in-slot: get-news-section
 
    (call-interactively 'outline-up-heading)
    (setq section (thing-at-point 'line))
@@ -121,8 +118,7 @@ And then use ``oultline-up-heading`` to jump to the corresponding section header
 From there, it's easy enough to wrap this in a function to return a random news item from a given Emacs version.
 
 .. code-block:: elisp
-   :project: emacs
-   :filename: lisp/alc-dashboard.el
+   :in-file: lisp/alc-dashboard.el
 
    (defun alc-dashboard-get-news-item (&optional version)
      "Get a random news item for the given Emacs VERSION"
@@ -165,8 +161,7 @@ You can customize the ``initial-scratch-message`` variable so why not set it to 
 Let's write one more function to format the news item as a single string
 
 .. code-block:: elisp
-   :project: emacs
-   :filename: lisp/alc-dashboard.el
+   :in-file: lisp/alc-dashboard.el
 
    (require 's)
 
@@ -182,8 +177,7 @@ Perhaps there's a nicer way to format the news item (perhaps somehow filling wit
 Anyway it seems to do the job and we can use it to set the initial scratch message each time Emacs starts up.
 
 .. code-block:: elisp
-   :project: emacs
-   :filename: init.el
+   :in-file: init.el
 
    (use-package alc-dashboard
      :ensure nil

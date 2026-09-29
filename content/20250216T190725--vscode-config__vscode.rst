@@ -11,7 +11,7 @@ Add a ``Makefile`` rule to setup the configuration on a new machine
 .. highlight:: none
 
 .. code-block:: make
-   :filename: Makefile
+   :in-file: Makefile
 
    .PHONY: vscode
    vscode:
@@ -24,7 +24,7 @@ Add a ``Makefile`` rule to setup the configuration on a new machine
         -code --install-extension tamasfe.even-better-toml
 
 .. code-block:: json
-   :filename: vscode/settings.json
+   :in-file: vscode/settings.json
 
    {
 
@@ -34,7 +34,7 @@ Appearance
 Sync color theme to system theme
 
 .. code-block:: json
-   :filename: vscode/settings.json
+   :in-file: vscode/settings.json
 
    "window.autoDetectColorScheme": true,
    "workbench.preferredLightColorTheme": "GitHub Light Default",
@@ -43,14 +43,14 @@ Sync color theme to system theme
 Change the icon theme
 
 .. code-block:: json
-   :filename: vscode/settings.json
+   :in-file: vscode/settings.json
 
    "workbench.iconTheme": "material-icon-theme",
 
 Set the font
 
 .. code-block:: json
-   :filename: vscode/settings.json
+   :in-file: vscode/settings.json
 
    "editor.fontFamily": "'UbuntuMono NF', 'monospace', monospace",
    "editor.fontSize": 12,
@@ -62,7 +62,7 @@ Set the font
 Adjust various UI elements
 
 .. code-block:: json
-   :filename: vscode/settings.json
+   :in-file: vscode/settings.json
 
    "editor.cursorStyle": "block",
    "editor.cursorBlinking": "solid",
@@ -81,7 +81,7 @@ Editing
 -------
 
 .. code-block:: json
-   :filename: vscode/settings.json
+   :in-file: vscode/settings.json
 
    "files.autoSave": "off",
    "files.enableTrash": false,
@@ -92,7 +92,7 @@ Editing
 Exclude files that aren't that useful from the explorer pane
 
 .. code-block:: json
-   :filename: vscode/settings.json
+   :in-file: vscode/settings.json
 
    "files.exclude": {
       "**/.hg": true,
@@ -110,7 +110,7 @@ Python
 ^^^^^^
 
 .. code-block:: json
-   :filename: vscode/settings.json
+   :in-file: vscode/settings.json
 
    "[python]": {
      "editor.rulers": [ 89 ]
@@ -120,7 +120,7 @@ reStructuredText
 ^^^^^^^^^^^^^^^^
 
 .. code-block:: json
-   :filename: vscode/settings.json
+   :in-file: vscode/settings.json
 
    "[restructuredtext]": {
      "editor.tabSize": 3,
@@ -129,6 +129,6 @@ reStructuredText
 
 
 .. code-block:: json
-   :filename: vscode/settings.json
+   :in-file: vscode/settings.json
 
    }

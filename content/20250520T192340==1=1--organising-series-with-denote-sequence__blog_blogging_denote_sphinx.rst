@@ -4,6 +4,8 @@
 :identifier: 20250520T192340
 :signature: 1=1
 
+:in-project: emacs
+
 Organising Series  with ``denote-sequence``
 ===========================================
 
@@ -42,8 +44,7 @@ The ``denote-sequence`` extension defines a number of schemes for use with this 
 Personally I prefer the numeric scheme
 
 .. code-block:: elisp
-   :project: emacs
-   :filename: init.el
+   :in-file: init.el
 
    (use-package denote-sequence
      :ensure t
@@ -73,8 +74,7 @@ As before I am using reStructuredText, which ``denote.el`` does not support by d
 To use ``denote-sequence`` we need to extend the ``rst`` definition from last time to include support for the signature field.
 
 .. code-block:: elisp
-   :project: emacs
-   :filename: init.el
+   :in-file: init.el
    :emphasize-lines: 12, 16-18
 
    (use-package denote

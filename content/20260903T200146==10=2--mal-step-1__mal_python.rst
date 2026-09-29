@@ -7,8 +7,8 @@
 mal: Step 1
 -----------
 
-:project: mal-py
-:filename: step1_read_print.py
+:in-project: mal-py
+:in-file: step1_read_print.py
 
 Not much to see here for this stage, most of the work happened in :denote:link:`20260904T122549`
 

@@ -4,6 +4,8 @@
 :identifier: 20260606T000449
 :signature: 5=9=2
 
+:in-project: emacs
+
 A Simple ``jj`` Integration for ``eshell``
 ==========================================
 
@@ -17,8 +19,7 @@ A Simple ``jj`` Integration for ``eshell``
 As the ``jj`` cli is composed of many sub commands it's simple enough to write a dispatcher function based on the first argument
 
 .. code-block:: elisp
-   :project: emacs
-   :filename: lisp/alc-jj.el
+   :in-file: lisp/alc-jj.el
 
    (defun eshell/jj (&rest items)
      "Eshell wrapper around jj."
@@ -47,9 +48,7 @@ Rather than dumping the output of ``jj diff`` into the eshell window, let's redi
 At some point I'd like to build a jj-enhanced diff-mode with convenience commands for sending changes to different revisions.
 
 .. code-block:: elisp
-   :project: emacs
-   :filename: lisp/alc-jj.el
-   :template: elisp-module
+   :in-file: lisp/alc-jj.el
 
    (defun alc-jj-diff (&rest args)
      "Wrapper around 'jj diff'"
@@ -79,8 +78,7 @@ Rather than dumping the output of ``jj diff`` into the eshell window, let's redi
 Then we can invoke :denote:link:`alc-jj-log-view-mode <20260601T172422>` and get all the goodies defined there.
 
 .. code-block:: elisp
-   :project: emacs
-   :filename: lisp/alc-jj.el
+   :in-file: lisp/alc-jj.el
 
    (defun alc-jj-log (&rest args)
      "Wrapper around 'jj log'"

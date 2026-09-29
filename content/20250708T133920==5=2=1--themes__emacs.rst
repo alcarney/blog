@@ -4,6 +4,8 @@
 :identifier: 20250708T133920
 :signature: 5=2=1
 
+:in-project: emacs
+
 Emacs Themes
 ============
 
@@ -16,9 +18,7 @@ Of course, with Emacs, it's possible to wire up a couple of DBus incantations to
 But first, let's create a few options to control which themes I want to load, plus a function to automatically call the right one given a preference.
 
 .. code-block:: elisp
-   :project: emacs
-   :template: elisp-module
-   :filename: lisp/alc-theme.el
+   :in-file: lisp/alc-theme.el
 
    (defvar alc-theme-load-light-theme-function nil
      "The function to call in order to load the configured light theme")
@@ -48,8 +48,7 @@ Next, a function that will call the relevant function for the given theme varian
 (Thanks to `auto-dark-emacs <https://github.com/LionyxML/auto-dark-emacs>`__ for the DBus specifics!)
 
 .. code-block:: elisp
-   :project: emacs
-   :filename: lisp/alc-theme.el
+   :in-file: lisp/alc-theme.el
 
    (require 'dbus)
    (defun alc-theme-sync-to-system-theme (_frame)
@@ -70,8 +69,7 @@ The ``alc-theme--register-dbus-listener`` function, defined below, is repsonsibl
 Again, thank you to ``auto-dark-emacs`` for the DBus specifics.
 
 .. code-block:: elisp
-   :project: emacs
-   :filename: lisp/alc-theme.el
+   :in-file: lisp/alc-theme.el
 
    (defvar alc-theme--dbus-listener nil
      "Variable in which to store the dbus listener.")

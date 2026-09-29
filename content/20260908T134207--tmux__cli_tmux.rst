@@ -12,7 +12,7 @@ Tmux
 Config
 ------
 
-:filename: tmux/tmux.conf
+:in-file: tmux/tmux.conf
 
 Use ``fish`` as the default shell.
 

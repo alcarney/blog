@@ -7,7 +7,7 @@
 The ``mal`` Reader
 ==================
 
-:project: mal-py
+:in-project: mal-py
 
 .. seealso::
 
@@ -19,7 +19,7 @@ That said many data types are optional to start with so, I'm likely to only add 
 Tokenising
 ----------
 
-:filename: reader.py
+:in-file: reader.py
 
 The first step is to chop up the input stream into a sequence of tokens, the suggested way to do this is with a fairly intimidating regular expression.
 Thankfully, by compiling it with ``re.VERBOSE`` we can at least annotate it.
@@ -82,7 +82,7 @@ Which provides the following methods:
 - A ``next`` method to return the current token and advances the position.
 
   .. code-block:: python
-     :slot: reader-methods
+     :in-slot: reader-methods
 
      def next(self):
          try:
@@ -95,7 +95,7 @@ Which provides the following methods:
 - A ``peek`` method that simply returns the current token
 
   .. code-block:: python
-     :slot: reader-methods
+     :in-slot: reader-methods
 
      def peek(self):
          try:
@@ -269,7 +269,7 @@ The ``S`` class represents a symbol.
 The ``mal`` printer
 -------------------
 
-:filename: printer.py
+:in-file: printer.py
 
 Like the reader, the ``mal`` printer is handled "outside" of the steps.
 
