@@ -4,6 +4,8 @@
 :identifier: 20260601T172422
 :signature: 5=9=1
 
+:in-project: emacs
+
 Building ``alc-jj-log-view-mode``
 =================================
 
@@ -170,6 +172,9 @@ Emacs Quick Start
 Writing The Grammar
 -------------------
 
+.. awdur:file:: tree-sitter-grammars/jjlog/grammar.js
+   :use-template: treesit-grammar
+
 With a hello world in place, it's time to write the actual grammar rules.
 Let's consider the output from ``jj log``::
 
@@ -194,9 +199,7 @@ Plus, I don't think I need that level of detail for this.
 So, for the time being I'm going to declare the line block characters as ``extras`` so that they are effectively treated as whitespace:
 
 .. code-block:: js
-   :project: emacs
-   :template: treesit-grammar
-   :filename: tree-sitter-grammars/jjlog/grammar.js
+   :in-file: tree-sitter-grammars/jjlog/grammar.js
 
    name: "jjlog",
 
@@ -217,9 +220,7 @@ Modelling the elided revisions as a separate node type means that when it comes 
 The type of each change is denoted by the symbol representing that change's node in the revision graph:
 
 .. code-block:: js
-   :project: emacs
-   :template: treesit-grammar
-   :filename: tree-sitter-grammars/jjlog/grammar.js
+   :in-file: tree-sitter-grammars/jjlog/grammar.js
 
    revision: $ => seq(
      $._node_type,
@@ -239,9 +240,7 @@ The type of each change is denoted by the symbol representing that change's node
 The definition of each of the metadata fields is straightforward enough.
 
 .. code-block::
-   :project: emacs
-   :template: treesit-grammar
-   :filename: tree-sitter-grammars/jjlog/grammar.js
+   :in-file: tree-sitter-grammars/jjlog/grammar.js
 
      _change_metadata: $ => seq(
        field("change_id", $.ref),
@@ -294,8 +293,7 @@ Initially I thought of basing mine on ``log-view-mode`` (the mode you get when r
 But since the navigation commands are all powered by regular expressions I didn't think I would gain much and so based it on ``special-mode`` instead:
 
 .. code-block:: elisp
-   :project: emacs
-   :filename: lisp/alc-jj.el
+   :in-file: lisp/alc-jj.el
 
    (define-derived-mode alc-jj-log-view-mode special-mode "jj-log"
      "Major mode for viewing and manipulating the jj log"
@@ -316,8 +314,7 @@ Essentially, syntax highlighting a tree-sitter mode boils down to:
 - assigning them to a named feature (e.g. ``:feature elided``).
 
 .. code-block:: elisp
-   :project: emacs
-   :filename: lisp/alc-jj.el
+   :in-file: lisp/alc-jj.el
 
    (defvar alc-jj-log-view-font-lock-rules
      '(:language jjlog
@@ -350,8 +347,7 @@ I adopted the ``defvar`` approach suggested in the Mastering Emacs article, thou
 Applying these rules to each time the major-mode is activated is the responsibility of the ``alc-jj-log-view-ts-setup`` function referenced in the previous section.
 
 .. code-block:: elisp
-   :project: emacs
-   :filename: lisp/alc-jj.el
+   :in-file: lisp/alc-jj.el
 
    (defun alc-jj-log-view-ts-setup ()
      "Setup treesit for alc-jj-log-view mode."
@@ -387,8 +383,7 @@ Since I use `combobulate <https://github.com/mickeynp/combobulate>`__ already fo
 While I still don't understand the internals of combobulate that well, I was able to piece together the following navigation ruleset:
 
 .. code-block:: elisp
-   :project: emacs
-   :filename: lisp/alc-jj.el
+   :in-file: lisp/alc-jj.el
 
    (defvar alc-jj-log-view-combobulate-definitions
      '((procedures-sibling
@@ -423,8 +418,7 @@ Which I derived from the following:
 All that's left is to wrap the rules in a new language definition:
 
 .. code-block:: elisp
-   :project: emacs
-   :filename: lisp/alc-jj.el
+   :in-file: lisp/alc-jj.el
 
    (define-combobulate-language
     :name jjlog
@@ -450,8 +444,7 @@ Most of these are going to require identifying the change id for the revision at
 The grammar and resulting parse tree is simple enough that we only need to search upwards until we find the containing ``revision`` node and selecting the ``change_id`` field.
 
 .. code-block:: elisp
-   :project: emacs
-   :filename: lisp/alc-jj.el
+   :in-file: lisp/alc-jj.el
 
    (defun alc-jj-log-view--change-at-point ()
      "Return the change id for the revision under point, if point is not on a revision
@@ -469,8 +462,7 @@ The grammar and resulting parse tree is simple enough that we only need to searc
 I'm sure it will also be useful to have the ability to select a revision given a change id.
 
 .. code-block:: elisp
-   :project: emacs
-   :filename: lisp/alc-jj.el
+   :in-file: lisp/alc-jj.el
 
    (defun alc-jj-log-view--select-revision-with-change-id (change-id)
      "Given a CHANGE-ID move point to the corresponding revision."
@@ -489,8 +481,7 @@ Insert a Revision Before Point
 This is just a case of selecting the change at point, and assuming we find it, invoking the appropriate jj command in background before reloading the buffer.
 
 .. code-block:: elisp
-   :project: emacs
-   :filename: lisp/alc-jj.el
+   :in-file: lisp/alc-jj.el
 
    (defun alc-jj-log-view-new-before ()
      "Insert a new revision before the revision under point"
@@ -508,8 +499,7 @@ Insert a Revision After Point
 Same as previous but with ``--insert-after``.
 
 .. code-block:: elisp
-   :project: emacs
-   :filename: lisp/alc-jj.el
+   :in-file: lisp/alc-jj.el
 
    (defun alc-jj-log-view-new-after ()
      "Insert a new revision after the revision under point"
@@ -528,8 +518,7 @@ Edit the Revision at Point
 It would be nice to trigger a revert of all the relevant buffers, but I think that's a task for another day.
 
 .. code-block:: elisp
-   :project: emacs
-   :filename: lisp/alc-jj.el
+   :in-file: lisp/alc-jj.el
 
    (defun alc-jj-log-view-edit ()
      "Edit the revision under point."
@@ -548,8 +537,7 @@ Describe the Revision at Point
 Edit the commit message for the revision under point.
 
 .. code-block:: elisp
-   :project: emacs
-   :filename: lisp/alc-jj.el
+   :in-file: lisp/alc-jj.el
 
    (defun alc-jj-log-view-describe ()
      "Edit the commit message for the revision under point"
@@ -574,8 +562,7 @@ Reloading the buffer is pretty much just a case of calling the ``alc-jj-log`` co
 However, it would be nice to preserve the position of the point - or at least keep it in the same general position.
 
 .. code-block:: elisp
-   :project: emacs
-   :filename: lisp/alc-jj.el
+   :in-file: lisp/alc-jj.el
 
    (defun alc-jj-log-view-reload ()
      "Regenerate the log view buffer's content."

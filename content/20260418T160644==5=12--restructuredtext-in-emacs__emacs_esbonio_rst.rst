@@ -4,13 +4,13 @@
 :identifier: 20260418T160644
 :signature: 5=12
 
+:in-project: emacs
+
 reStructuredText in Emacs
 =========================
 
-
 .. code-block:: elisp
-   :project: emacs
-   :filename: init.el
+   :in-file: init.el
 
    (use-package rst
      :hook ((rst-mode . visual-wrap-prefix-mode))
@@ -24,8 +24,7 @@ Esbonio
 My primary use case for using reStructuredText is for `Sphinx <https://sphinx-doc.org/>`__ projects, so of course I'll be using `esbonio <https://docs.esbon.io/>`__!
 
 .. code-block:: elisp
-   :project: emacs
-   :filename: init.el
+   :in-file: init.el
 
    (use-package esbonio
      :vc (:url "https://github.com/swyddfa/esbonio.el" :rev "main")
@@ -34,8 +33,7 @@ My primary use case for using reStructuredText is for `Sphinx <https://sphinx-do
 Which exposes some functions I want to put into the transient menu for ``rst-mode`` buffers
 
 .. code-block:: elisp
-   :project: emacs
-   :filename: init.el
+   :in-file: init.el
 
    (transient-define-prefix alc-rst-mode-tmenu ()
      "Major mode transient menu for `rst-mode'"

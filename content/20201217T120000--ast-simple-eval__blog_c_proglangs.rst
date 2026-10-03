@@ -5,6 +5,8 @@
 :author: Alex Carney
 :language: en
 
+:in-project: simple-ast
+
 Evaluating a Simple Abstract Syntax Tree
 ========================================
 
@@ -132,8 +134,7 @@ For no particular reason other than I fancied trying it, I decided to use C to r
 In order to encode the example trees above, we'll need three node types
 
 .. code-block:: c
-   :project: simple-ast
-   :filename: simple-ast.c
+   :in-file: simple-ast.c
 
    #include <stdio.h>
 
@@ -146,8 +147,7 @@ In order to encode the example trees above, we'll need three node types
 Where each node is represented by the following struct.
 
 .. code-block:: c
-   :project: simple-ast
-   :filename: simple-ast.c
+   :in-file: simple-ast.c
 
    typedef struct _ast {
        /* The type of node this represents e.g.
@@ -179,8 +179,7 @@ Keeping things simple, we can recurse over all the nodes and print a single line
 By indenting each line according to its depth in the tree, it should be possible to visually parse the structure.
 
 .. code-block:: c
-   :project: simple-ast
-   :filename: simple-ast.c
+   :in-file: simple-ast.c
 
    void
    ast_print(AstNode *ast, int level)
@@ -192,8 +191,7 @@ By indenting each line according to its depth in the tree, it should be possible
 When printing an ``AST_LITERAL`` node, it's enough to just print the contained value
 
 .. code-block:: c
-   :project: simple-ast
-   :filename: simple-ast.c
+   :in-file: simple-ast.c
 
    switch(ast->type) {
    case AST_LITERAL:
@@ -203,8 +201,7 @@ When printing an ``AST_LITERAL`` node, it's enough to just print the contained v
 For ``AST_PLUS`` nodes, we need to print a representation of the operation and then recurse down both branches of the tree.
 
 .. code-block:: c
-   :project: simple-ast
-   :filename: simple-ast.c
+   :in-file: simple-ast.c
 
    case AST_PLUS:
        printf("+\n");
@@ -215,8 +212,7 @@ For ``AST_PLUS`` nodes, we need to print a representation of the operation and t
 Similarly for ``AST_MULTIPLY`` nodes.
 
 .. code-block:: c
-   :project: simple-ast
-   :filename: simple-ast.c
+   :in-file: simple-ast.c
 
        case AST_MULTIPLY:
            printf("*\n");
@@ -234,8 +230,7 @@ To evaluate an instance of the AST we have defined we can take a similiar approa
 If the node we are evaluating is an ``AST_LITERAL`` then all we have to do is return the value stored in that node
 
 .. code-block:: c
-   :project: simple-ast
-   :filename: simple-ast.c
+   :in-file: simple-ast.c
 
    float
    ast_evaluate(AstNode *ast)
@@ -247,8 +242,7 @@ If the node we are evaluating is an ``AST_LITERAL`` then all we have to do is re
 In the case of ``AST_PLUS``, we recursively call ``ast_evaluate`` on both the left and right branches of the tree and then add the resulting values together
 
 .. code-block:: c
-   :project: simple-ast
-   :filename: simple-ast.c
+   :in-file: simple-ast.c
 
    case AST_PLUS: {
        float a = ast_evaluate(ast->left);
@@ -260,8 +254,7 @@ In the case of ``AST_PLUS``, we recursively call ``ast_evaluate`` on both the le
 Simiarly for ``AST_MULTIPLY``, but returing ``a * b`` in this case.
 
 .. code-block:: c
-   :project: simple-ast
-   :filename: simple-ast.c
+   :in-file: simple-ast.c
 
        case AST_MULTIPLY: {
            float a = ast_evaluate(ast->left);
@@ -278,8 +271,7 @@ Bringing it together
 We have enough of a toy example together to be able to define, print and evaluate a tree for the two examples in the introduction.
 
 .. code-block:: c
-   :project: simple-ast
-   :filename: simple-ast.c
+   :in-file: simple-ast.c
 
    int
    main()

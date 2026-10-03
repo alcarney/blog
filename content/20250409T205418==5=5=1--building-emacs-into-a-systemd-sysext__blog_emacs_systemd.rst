@@ -4,6 +4,8 @@
 :identifier: 20250409T205418
 :signature: 5=5=1
 
+:in-project: emacs-sysext
+
 Building Emacs into a systemd-sysext
 ====================================
 
@@ -375,8 +377,7 @@ After some wailing and gnashing of teeth, I eventually arrived at the following.
 **Top Level**
 
 .. code-block:: ini
-   :project: emacs-sysext
-   :filename: mkosi.conf
+   :in-file: mkosi.conf
 
    [Output]
    OutputDirectory=mkosi.output
@@ -452,8 +453,7 @@ During that process, I discovered that my base system already provides the major
 As you might expect ``Packages`` are included in the final image, while ``BuildPackages`` are discarded after the build step.
 
 .. code-block:: bash
-   :project: emacs-sysext
-   :filename: mkosi.images/emacs/mkosi.build.chroot
+   :in-file: mkosi.images/emacs/mkosi.build.chroot
 
    #!/bin/bash
    set -euo pipefail

@@ -7,7 +7,7 @@ Git
 ===
 
 .. code-block:: make
-   :filename: Makefile
+   :in-file: Makefile
 
    .PHONY: git
    git:
@@ -22,7 +22,7 @@ Author
 Setting basic identity details for commits
 
 .. code-block::
-   :filename: gitconfig
+   :in-file: gitconfig
 
    [user]
    name  = Alex Carney
@@ -33,7 +33,7 @@ Aliases
 -------
 
 .. code-block::
-   :filename: gitconfig
+   :in-file: gitconfig
 
    [alias]
    co = checkout
@@ -42,7 +42,7 @@ Aliases
 A nice view of a repository's history
 
 .. code-block::
-   :filename: gitconfig
+   :in-file: gitconfig
 
    hist = log --branches --remotes --tags --graph --oneline --decorate
 
@@ -68,7 +68,7 @@ A nice view of a repository's history
 A better (for some definition of "better") git status command
 
 .. code-block::
-   :filename: gitconfig
+   :in-file: gitconfig
 
    s = !git status -sb && git --no-pager diff --shortstat
 
@@ -89,7 +89,7 @@ Credential Helper
 This tells git to use the `GitHub CLI <https://cli.github.com/>`__ to authenticate when pushing/pulling from GitHub
 
 .. code-block::
-   :filename: gitconfig
+   :in-file: gitconfig
 
    [credential "https://github.com"]
    helper =
@@ -101,7 +101,7 @@ Diffing
 Using the ``histogram`` algorithm `apparently produces nicer diffs <https://luppeng.wordpress.com/2020/10/10/when-to-use-each-of-the-git-diff-algorithms/>`__ when code is moved
 
 .. code-block::
-   :filename: gitconfig
+   :in-file: gitconfig
 
    [diff]
    algorithm = histogram
@@ -113,7 +113,7 @@ Merging
 The following option describes how git should render merge conflicts
 
 .. code-block::
-   :filename: gitconfig
+   :in-file: gitconfig
 
    [merge]
    conflictstyle = diff3
@@ -127,7 +127,7 @@ I rebase all the time most of the time to squash a bunch of ``fixup!`` commits t
 The following options remove the need to manually pass `--autosquash` and `--autostash` to the rebase command each time.
 
 .. code-block::
-   :filename: gitconfig
+   :in-file: gitconfig
 
    [rebase]
    autosquash = true
@@ -137,7 +137,7 @@ Other Options
 -------------
 
 .. code-block::
-   :filename: gitconfig
+   :in-file: gitconfig
 
    [commit]
    verbose = true

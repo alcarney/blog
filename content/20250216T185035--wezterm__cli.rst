@@ -12,14 +12,14 @@ Wezterm
 I've been using it for a while however, my config is fairly minimal.
 
 .. code-block:: make
-   :filename: Makefile
+   :in-file: Makefile
 
    .PHONY: wezterm
    wezterm:
         test -L $(HOME)/.config/wezterm || ln -s $(shell pwd)/wezterm $(HOME)/.config/wezterm
 
 .. code-block:: lua
-   :filename: wezterm/wezterm.lua
+   :in-file: wezterm/wezterm.lua
 
    local wezterm = require 'wezterm'
    local config = wezterm.config_builder()
@@ -31,14 +31,14 @@ Appearance
 Choose a font
 
 .. code-block:: lua
-   :filename: wezterm/wezterm.lua
+   :in-file: wezterm/wezterm.lua
 
    config.font = wezterm.font('UbuntuMono Nerd Font')
 
 Choose a light/dark theme based on the system.
 
 .. code-block:: lua
-   :filename: wezterm/wezterm.lua
+   :in-file: wezterm/wezterm.lua
 
    if wezterm.gui.get_appearance():find("Dark") then
      config.color_scheme = 'Modus-Vivendi'
@@ -49,7 +49,7 @@ Choose a light/dark theme based on the system.
 Use the "retro" tab bar.
 
 .. code-block:: lua
-   :filename: wezterm/wezterm.lua
+   :in-file: wezterm/wezterm.lua
 
    config.use_fancy_tab_bar = true
 
@@ -59,7 +59,7 @@ Default Program
 Rather than mess around with my user's default shell, just tell wezterm to start fish by default instead
 
 .. code-block:: lua
-   :filename: wezterm/wezterm.lua
+   :in-file: wezterm/wezterm.lua
 
    config.default_prog = { '/usr/bin/fish', '-l' }
 
@@ -70,7 +70,7 @@ Keybindings
 Disable the default :kbd:`Alt+Enter` keybinding, it conflicts with Emacs.
 
 .. code-block:: lua
-   :filename: wezterm/wezterm.lua
+   :in-file: wezterm/wezterm.lua
 
    table.insert(config.keys, {
      key = 'Enter', mods = 'ALT', action = wezterm.action.DisableDefaultAssignment,
@@ -78,7 +78,7 @@ Disable the default :kbd:`Alt+Enter` keybinding, it conflicts with Emacs.
 
 .. code-block:: lua
    :class: hidden
-   :filename: wezterm/wezterm.lua
+   :in-file: wezterm/wezterm.lua
 
    local screenshot_command = require 'commands.screenshot'
    screenshot_command.setup()

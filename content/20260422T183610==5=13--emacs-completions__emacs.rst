@@ -4,6 +4,8 @@
 :identifier: 20260422T183610
 :signature: 5=13
 
+:in-project: emacs
+
 Emacs Completions
 =================
 
@@ -26,8 +28,7 @@ My config wasn't anything particuarly exciting, as I only:
 - Tweaked some options that control how it is rendered
 
   .. code-block:: elisp
-     :project: emacs
-     :filename: init.el
+     :in-file: init.el
 
      (setq completions-detailed t
            completions-format 'one-column
@@ -39,8 +40,7 @@ My config wasn't anything particuarly exciting, as I only:
 - Tweaked some options that control its behaviour
 
   .. code-block:: elisp
-     :project: emacs
-     :filename: init.el
+     :in-file: init.el
 
      (setq completion-auto-help 'visible
            completion-auto-select 'second-tab
@@ -62,15 +62,14 @@ My config wasn't anything particuarly exciting, as I only:
 However there are occasions where you want just a little bit... :ref:`more <emacs-completions-vertico>`.
 
 
-Consult
--------
+``consult``
+-----------
 
 `Consult <https://github.com/minad/consult>`__, the grab-bag of utility functions built on top of ``completing-read``.
 I admit, I probably don't use this as much as I should.
 
 .. code-block:: elisp
-   :project: emacs
-   :filename: init.el
+   :in-file: init.el
 
    (use-package consult
      :ensure t
@@ -97,8 +96,8 @@ I admit, I probably don't use this as much as I should.
 
 - ``consult-minor-mode-menu`` is very nice, gives you an interactive view to manage all of your minor modes! With it, I see no need to display them all in the modeline anymore.
 
-Embark
-------
+``embark``
+----------
 
 .. seealso::
 
@@ -107,8 +106,7 @@ Embark
 `Embark <https://github.com/oantolin/embark>`__, another excellent package, that I should try and use more deeply!
 
 .. code-block:: elisp
-   :project: emacs
-   :filename: init.el
+   :in-file: init.el
 
    (use-package embark
      :ensure t
@@ -126,8 +124,7 @@ Embark
 Since I have consult installed, use the recommended `emabrk-consult <https://github.com/minad/consult#embark-integration>`__ package (though I admit I'm not sure what it does!)
 
 .. code-block:: elisp
-   :project: emacs
-   :filename: init.el
+   :in-file: init.el
 
    (use-package embark-consult
      :after (embark consult)
@@ -136,8 +133,7 @@ Since I have consult installed, use the recommended `emabrk-consult <https://git
 To get the most out of Embark, you should also install marginalia as it improves the completion metadata provided by many built-in commands, allowing Embark to offer better suggestions.
 
 .. code-block:: elisp
-   :project: emacs
-   :filename: init.el
+   :in-file: init.el
 
    (use-package marginalia
      :ensure t
@@ -145,14 +141,13 @@ To get the most out of Embark, you should also install marginalia as it improves
      (marginalia-mode))
 
 
-Orderless
----------
+``orderless``
+-------------
 
 Continuing with the established theme I use the `orderless <https://github.com/oantolin/orderless>`__ completion style as even a basic config is useful, but it would be great to experiment with some `style dispatchers <https://github.com/oantolin/orderless#style-dispatchers>`__!
 
 .. code-block:: elisp
-   :project: emacs
-   :filename: init.el
+   :in-file: init.el
 
    (use-package orderless
      :ensure t
@@ -164,8 +159,8 @@ Continuing with the established theme I use the `orderless <https://github.com/o
 
 .. _emacs-completions-vertico:
 
-Vertico
--------
+``vertico``
+-----------
 
 .. seealso::
 
@@ -182,8 +177,7 @@ To cover that remaining 5%, I can use the `multiform extension <https://github.c
 So I have arrived at the following config.
 
 .. code-block:: elisp
-   :project: emacs
-   :filename: init.el
+   :in-file: init.el
 
    (use-package vertico
      :ensure t
@@ -207,8 +201,7 @@ The trick was realising I could use ``(t unobtrusive)`` as a fallback to active 
 As for ``completion-in-region``, I still don't feel the need for something like `corfu <https://github.com/minad/corfu>`__ but I was definitely excited to see the following snippet in vertico's README.
 
 .. code-block:: elisp
-   :project: emacs
-   :filename: init.el
+   :in-file: init.el
 
    (setq completion-in-region-function #'consult-completion-in-region)
 

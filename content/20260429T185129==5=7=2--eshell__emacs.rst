@@ -4,12 +4,13 @@
 :identifier: 20260429T185129
 :signature: 5=7=2
 
+:in-project: emacs
+
 Eshell
 ======
 
 .. code-block:: elisp
-   :project: emacs
-   :filename: init.el
+   :in-file: init.el
 
    (use-package alc-eshell)
 
@@ -35,9 +36,7 @@ Big thanks to `this episode <https://youtu.be/M6o1N2kfmuc>`__ of Álvaro Ramíre
 A utility command that uses `start-process <https://www.gnu.org/software/emacs/manual/html_node/elisp/Asynchronous-Processes.html#index-start_002dprocess>`__ to run Python's ``http.server`` module in the background.
 
 .. code-block:: elisp
-   :project: emacs
-   :filename: lisp/alc-eshell.el
-   :template: elisp-module
+   :in-file: lisp/alc-eshell.el
 
    (require 'alc-python)
 

@@ -15,14 +15,14 @@ Config
 Tell editors that support completions in TOML files where to find the schema.
 
 .. code-block:: toml
-   :filename: starship.toml
+   :in-file: starship.toml
 
    "$schema" = 'https://starship.rs/config-schema.json'
 
 Ensure that there's a blank link between prompts.
 
 .. code-block:: toml
-   :filename: starship.toml
+   :in-file: starship.toml
 
    add_newline = true
 
@@ -33,7 +33,7 @@ Jujutsu
 The following was pieced together using examples from the `jj wiki <https://github.com/jj-vcs/jj/wiki/Starship>`__
 
 .. code-block:: toml
-   :filename: starship.toml
+   :in-file: starship.toml
 
    [custom.jj]
    ignore_timeout = true
@@ -64,7 +64,7 @@ The following was pieced together using examples from the `jj wiki <https://gith
 Of course, if we have git and jj co-located, we only want one to show
 
 .. code-block:: toml
-   :filename: starship.toml
+   :in-file: starship.toml
 
    [git_state]
    disabled = true

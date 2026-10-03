@@ -5,6 +5,8 @@
 :author: Alex Carney
 :language: en
 
+:in-project: click-drag-vanilla-js
+
 Implementing Click & Drag with Vanilla JS
 =========================================
 
@@ -64,8 +66,7 @@ that we can draw on.
 .. <a id="code-snippet--create-canvas"></a>
 
 .. code-block:: js
-   :project: click-drag-vanilla-js
-   :filename: click-drag.js
+   :in-file: click-drag.js
 
    const svgns = "http://www.w3.org/2000/svg"
    const main = document.getElementById("main")
@@ -110,8 +111,7 @@ around the element.
 .. <a id="code-snippet--set-viewbox"></a>
 
 .. code-block:: js
-   :project: click-drag-vanilla-js
-   :filename: click-drag.js
+   :in-file: click-drag.js
 
    let bbox = canvas.getBoundingClientRect()
 
@@ -122,8 +122,7 @@ aspect ratio.
 .. <a id="code-snippet--set-viewbox"></a>
 
 .. code-block:: js
-   :project: click-drag-vanilla-js
-   :filename: click-drag.js
+   :in-file: click-drag.js
 
    const aspectRatio = bbox.width / bbox.height
 
@@ -135,8 +134,7 @@ easy enough to calculate the corresponding width from our aspect ratio.
 .. <a id="code-snippet--set-viewbox"></a>
 
 .. code-block:: js
-   :project: click-drag-vanilla-js
-   :filename: click-drag.js
+   :in-file: click-drag.js
 
    const height = 100
    const width = height * aspectRatio
@@ -148,8 +146,7 @@ element and assign the view box to our canvas.
 .. <a id="code-snippet--set-viewbox"></a>
 
 .. code-block:: js
-   :project: click-drag-vanilla-js
-   :filename: click-drag.js
+   :in-file: click-drag.js
 
    const viewBox = {minX: 0, minY: 0, width: width, height: height}
 
@@ -170,8 +167,7 @@ collection of elements under a ``<g>`` tag).
 .. <a id="code-snippet--add-circle"></a>
 
 .. code-block:: js
-   :project: click-drag-vanilla-js
-   :filename: click-drag.js
+   :in-file: click-drag.js
 
    const circle = document.createElementNS(svgns, "circle")
    circle.setAttribute("cx", viewBox.width / 2)
@@ -210,8 +206,7 @@ function.
 .. <a id="code-snippet--dragging"></a>
 
 .. code-block:: js
-   :project: click-drag-vanilla-js
-   :filename: click-drag.js
+   :in-file: click-drag.js
 
    let clicked = false
 
@@ -419,8 +414,7 @@ Bringing all that together we end up with the following implementation of our
 .. <a id="code-snippet--dragging"></a>
 
 .. code-block:: js
-   :project: click-drag-vanilla-js
-   :filename: click-drag.js
+   :in-file: click-drag.js
 
    canvas.addEventListener("mousemove", (event) => {
 
@@ -455,8 +449,7 @@ simple I will go with a fairly simple interaction model
 .. <a id="code-snippet--clicking"></a>
 
 .. code-block:: js
-   :project: click-drag-vanilla-js
-   :filename: click-drag.js
+   :in-file: click-drag.js
 
    circle.addEventListener("mousedown",  (_) => { clicked = true })
    circle.addEventListener("mouseup", (_) => { clicked = false })
@@ -468,8 +461,7 @@ Additionally I will impose one final condition
 .. <a id="code-snippet--clicking"></a>
 
 .. code-block:: js
-   :project: click-drag-vanilla-js
-   :filename: click-drag.js
+   :in-file: click-drag.js
 
    canvas.addEventListener("mouseleave", (_) => { clicked = false })
 

@@ -7,8 +7,8 @@
 The ``mal`` Environment
 =======================
 
-:project: mal-py
-:filename: env.py
+:in-project: mal-py
+:in-file: env.py
 
 As with the reader, this is held separate.
 
@@ -42,7 +42,7 @@ As with the reader, this is held separate.
 The core
 --------
 
-:filename: core.py
+:in-file: core.py
 
 From step 4, mal calls for a ``core.ns`` object that defines all the built-in functions for the language.
 

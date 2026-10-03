@@ -118,9 +118,10 @@ Now all that's left is to build a ``dir`` file indexing all the missing manuals.
 ``build-info-dir.py``
 ---------------------
 
+:in-project: build-info-dir
+:in-file: build-info-dir.py
+
 .. code-block:: python
-   :project: build-info-dir
-   :filename: build-info-dir.py
 
    """build-info-dir.py <directory> <output>
 
@@ -143,8 +144,6 @@ The `texinfo documentation <https://www.gnu.org/software/texinfo/manual/texinfo/
 Which can be extracted as follows:
 
 .. code-block:: python
-   :project: build-info-dir
-   :filename: build-info-dir.py
 
    DIR_SECTION = "INFO-DIR-SECTION "
 
@@ -177,8 +176,6 @@ Which can be extracted as follows:
 ``open_info_file`` is a separate helper function as info manuals can be gzipped.
 
 .. code-block:: python
-   :project: build-info-dir
-   :filename: build-info-dir.py
 
    def open_info_file(filename: pathlib.Path):
        if ".gz" in filename.suffix:
@@ -189,8 +186,6 @@ Which can be extracted as follows:
 All that's left is the infrastructure to find and aggregate the result of each info file.
 
 .. code-block:: python
-   :project: build-info-dir
-   :filename: build-info-dir.py
 
    def index_info_dir(info_dir: pathlib.Path) -> str:
        nodes: dict[str, list[str]] = {}
@@ -233,8 +228,6 @@ I was tempted to add a count of all the manuals found, but since the file we're 
 Finally, to make the script useful let's wrap it in a simple CLI interface.
 
 .. code-block:: python
-   :project: build-info-dir
-   :filename: build-info-dir.py
 
    def main():
        cli = argparse.ArgumentParser()
@@ -270,8 +263,8 @@ To get Emacs to use the the index, we of course have to generate it::
 And make sure Emacs is configured to search the folder
 
 .. code-block:: elisp
-   :project: emacs
-   :filename: init.el
+   :in-project: emacs
+   :in-file: init.el
 
    (add-to-list 'Info-directory-list
                 (concat (getenv "HOME") "/.local/share/info/"))

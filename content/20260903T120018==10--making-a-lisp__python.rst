@@ -4,6 +4,8 @@
 :identifier: 20260903T120018
 :signature: 10
 
+:in-project: mal-py
+
 Making a Lisp in Python
 =======================
 
@@ -36,8 +38,7 @@ To get setup I had to
 #. Add the ``run`` file:
 
    .. code-block:: bash
-      :project: mal-py
-      :filename: run
+      :in-file: run
 
       #!/usr/bin/env bash
       exec python $(dirname $0)/${STEP:-stepA_mal}.py "${@}"

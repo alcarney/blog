@@ -198,8 +198,8 @@ It did not take long to find `this issue <https://github.com/systemd/mkosi/issue
 Install ``selinux-policies`` in base image
 
 .. code-block:: ini
-   :project: emacs-sysext
-   :filename: mkosi.images/base/mkosi.conf
+   :in-project: emacs-sysext
+   :in-file: mkosi.images/base/mkosi.conf
 
    [Output]
    Format=directory
@@ -238,8 +238,8 @@ Install ``selinux-policies`` in base image
 And enable relabelling
 
 .. code-block:: ini
-   :project: emacs-sysext
-   :filename: mkosi.images/emacs/mkosi.conf
+   :in-project: emacs-sysext
+   :in-file: mkosi.images/emacs/mkosi.conf
 
    [Output]
    Format=sysext
@@ -334,3 +334,14 @@ In fact, *all* of the dirs in my image appear to be unlabelled.
 
 
 The question is... how do I fix these labels?
+
+Even worse breakage
+-------------------
+
+#. Edit the boot entry by hitting :kbd:`e`
+
+#. Edit the command line to mask the sysext service::
+
+     systemd.mask=systemd-sysext.service
+
+#. This allows the machine to boot properly and you can disable the problematic extensions!

@@ -70,7 +70,7 @@ Here lies my user config for ``jj``
 As with git, you need to set a name and email for your commits
 
 .. code-block:: toml
-   :filename: jj/config.toml
+   :in-file: jj/config.toml
 
    "$schema" = "https://jj-vcs.github.io/jj/latest/config-schema.json"
 
@@ -80,14 +80,14 @@ As with git, you need to set a name and email for your commits
 Use emacs as my editor
 
 .. code-block:: toml
-   :filename: jj/config.toml
+   :in-file: jj/config.toml
 
    ui.editor = "emacsclient"
 
 By default, running ``jj`` with no arguments shows you the log, I prefer this to be the status command
 
 .. code-block:: toml
-   :filename: jj/config.toml
+   :in-file: jj/config.toml
 
    ui.default-command = "status"
 
@@ -95,7 +95,7 @@ By default, running ``jj`` with no arguments shows you the log, I prefer this to
 For compatibilty with other tools, it's best to render diffs and conflicts as git would
 
 .. code-block:: toml
-   :filename: jj/config.toml
+   :in-file: jj/config.toml
 
    ui.conflict-marker-style = "git"
    ui.diff-formatter = ":git"
@@ -103,7 +103,7 @@ For compatibilty with other tools, it's best to render diffs and conflicts as gi
 **Aliases**
 
 .. code-block:: toml
-   :filename: jj/config.toml
+   :in-file: jj/config.toml
 
    [aliases]
    push-down = ["new", "-B", "@", "--no-edit"]

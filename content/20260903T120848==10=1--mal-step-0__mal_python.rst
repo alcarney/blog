@@ -4,6 +4,8 @@
 :identifier: 20260903T120848
 :signature: 10=1
 
+:in-project: mal-py
+
 mal: Step 0
 -----------
 
@@ -13,8 +15,7 @@ Going by the architecture diagram, this stage it only needs to echo the input it
 **read**
 
 .. code-block:: python
-   :project: mal-py
-   :filename: step0_repl.py
+   :in-file: step0_repl.py
 
    import typing
 
@@ -24,8 +25,7 @@ Going by the architecture diagram, this stage it only needs to echo the input it
 **eval**
 
 .. code-block:: python
-   :project: mal-py
-   :filename: step0_repl.py
+   :in-file: step0_repl.py
 
    def evaluate(ins: str):
        return ins
@@ -34,8 +34,7 @@ Going by the architecture diagram, this stage it only needs to echo the input it
 **print**
 
 .. code-block:: python
-   :project: mal-py
-   :filename: step0_repl.py
+   :in-file: step0_repl.py
 
    def printit(ins: str):
        return ins
@@ -43,8 +42,7 @@ Going by the architecture diagram, this stage it only needs to echo the input it
 **rep**
 
 .. code-block:: python
-   :project: mal-py
-   :filename: step0_repl.py
+   :in-file: step0_repl.py
 
    def rep(ins: str):
        return printit(evaluate(read(ins)))
@@ -53,8 +51,7 @@ Going by the architecture diagram, this stage it only needs to echo the input it
 **repl**
 
 .. code-block:: python
-   :project: mal-py
-   :filename: step0_repl.py
+   :in-file: step0_repl.py
 
    def repl(ins: io.TextIO):
        print("user> ", end='', flush=True)

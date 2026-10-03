@@ -4,6 +4,8 @@
 :identifier: 20260610T183929
 :signature: 5=9=3
 
+:in-project: emacs
+
 Managing Changes with ``ediff``
 ===============================
 
@@ -182,8 +184,7 @@ So, given the output of ``jj diff --summary``::
 I've opted to set ``obj1`` to the path that has changed and ``obj3`` to be the change type (``M``, ``A``, ``R`` etc.) as implemented by the following function
 
 .. code-block:: elisp
-   :project: emacs
-   :filename: lisp/alc-jj.el
+   :in-file: lisp/alc-jj.el
 
    (defun alc-jj-ediff--prepare-squash-changelist ()
      "Process the output of jj diff and return a list of changes for ediff."
@@ -224,8 +225,7 @@ However, I haven't yet managed to figure out how ``merge-save-buffer`` and ``com
 Currently I've opted to set ``metaobj1`` and ``metaobj2`` to the ``<change-id> <commit-id> <description>`` corresponding with the source and desintation revisions:
 
 .. code-block:: elisp
-   :project: emacs
-   :filename: lisp/alc-jj.el
+   :in-file: lisp/alc-jj.el
 
    (defun alc-jj-ediff--prepare-squash-header ()
      "Process the output of 'jj show' and return the header information for ediff."
@@ -257,8 +257,7 @@ But since the required information is stored in overlays, we still have a surpri
 Copying the overall structure of ``ediff-redraw-directory-group-buffer`` I eventually arrived at the following redraw function.
 
 .. code-block:: elisp
-   :project: emacs
-   :filename: lisp/alc-jj.el
+   :in-file: lisp/alc-jj.el
 
    (defun alc-jj-ediff-redraw-session-buffer (meta-list)
      "Given the META-LIST of changes render the corresponding MetaEdiff buffer."
@@ -304,8 +303,7 @@ There's a few details worth calling out:
 - So that ``ediff-mult.el`` can perform the necessary book keeping, ``alc-jj-ediff-insert-session-info-in-meta-buffer`` must ensure that the list describing the change (as returned by ``alc-jj-ediff--prepare-squash-changelist``) is added to an overlay corresponding to the change's position in the buffer
 
   .. code-block:: elisp
-     :project: emacs
-     :filename: lisp/alc-jj.el
+     :in-file: lisp/alc-jj.el
 
      (defun alc-jj-ediff-insert-session-info-in-meta-buffer (session-info session-num)
        (let ((file-a (ediff-get-session-objA session-info))
@@ -330,7 +328,6 @@ This is done through an action function and it is responsible for actually launc
 Below is my first attempt at writing such a function, essentially it's a heavily stripped down version of ``ediff-filegroup-action``
 
 .. code-block:: elisp
-   :project: emacs
 
    (defun alc-jj-ediff-filegroup-action ()
      (interactive)
@@ -365,8 +362,7 @@ Bring it all together
 With all the main components in place, all that's left is to define a command that wires it all up to provide an ``ediff-mult.el`` entry point!
 
 .. code-block:: elisp
-   :project: emacs
-   :filename: lisp/alc-jj.el
+   :in-file: lisp/alc-jj.el
 
    (defun alc-jj-log-view-squash-changes ()
      "Start an ediff session to selectively move changes from the current workspace
@@ -416,8 +412,7 @@ Once again using ``ediff-filegroup-action`` as a reference we can see that this 
 However, I think I prefer using a named function for this:
 
 .. code-block:: elisp
-   :project: emacs
-   :filename: lisp/alc-jj.el
+   :in-file: lisp/alc-jj.el
 
    (defun alc-jj-ediff--store-control-buffer (session)
      "Store the `ediff-control-buffer' in the given SESSION info list.
@@ -437,8 +432,7 @@ Thankfully, ``ediff`` provides more than just startup hooks, (see ``(info "(edif
 Shamelessly stealing a pattern from ``ediff-mult.el`` we can use a startup hook to configure a quit hook local to the current session:
 
 .. code-block:: elisp
-   :project: emacs
-   :filename: lisp/alc-jj.el
+   :in-file: lisp/alc-jj.el
 
    (defun alc-jj-ediff--snapshot-on-exit (workspace)
      "Run 'jj status' in the given WORKSPACE when ediff quits."
@@ -459,8 +453,7 @@ See :ref:`jj-ediff-filegroup-action` for how this function is used.
 For completeness, here is the updated version of the ``alc-jj-ediff-filegroup-action`` function incorporating the changes outlined above.
 
 .. code-block:: elisp
-   :project: emacs
-   :filename: lisp/alc-jj.el
+   :in-file: lisp/alc-jj.el
 
    (defun alc-jj-ediff-filegroup-action ()
      (interactive)
@@ -501,8 +494,7 @@ What's nice is that as soon as you have multiple workspaces ``jj`` automatically
 The hardest part about this is making sure the ``to/`` workspace is there in the first place:
 
 .. code-block:: elisp
-   :project: emacs
-   :filename: lisp/alc-jj.el
+   :in-file: lisp/alc-jj.el
 
    (defun alc-jj--get-workspace-root (&optional name)
      (with-temp-buffer
@@ -526,8 +518,7 @@ The hardest part about this is making sure the ``to/`` workspace is there in the
 However, once the workspace is available the only thing left to do is running ``jj edit`` from the right workspace folder
 
 .. code-block:: elisp
-   :project: emacs
-   :filename: lisp/alc-jj.el
+   :in-file: lisp/alc-jj.el
 
    (defun alc-jj-log-view-set-target-revision ()
      "Move the to@ workspace to point at the revision under point."

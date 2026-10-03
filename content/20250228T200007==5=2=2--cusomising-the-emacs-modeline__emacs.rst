@@ -7,14 +7,14 @@
 Cusomising the Emacs Modeline
 =============================
 
+:in-project: emacs
+
 Heavily inspired by Protesilaos' excellent `tutorial <https://protesilaos.com/codelog/2023-07-29-emacs-custom-modeline-tutorial>`__ on writing custom modelines.
 
 And now for the definition of my custom components
 
 .. code-block:: elisp
-   :project: emacs
-   :template: elisp-module
-   :filename: lisp/alc-modeline.el
+   :in-file: lisp/alc-modeline.el
 
    (defgroup alc-modeline nil
      "My custom modeline"
@@ -40,8 +40,7 @@ If the current buffer is associated with a project, show the name of the project
 
 
 .. code-block:: elisp
-   :project: emacs
-   :filename: lisp/alc-modeline.el
+   :in-file: lisp/alc-modeline.el
 
    (defface alc-modeline-project-id-face
      '((default :inherit (bold)))
@@ -62,8 +61,7 @@ Remote Indication
 Replaces the default ``mode-line-remote`` and indicates if the current buffer is visiting a remote file
 
 .. code-block:: elisp
-   :project: emacs
-   :filename: lisp/alc-modeline.el
+   :in-file: lisp/alc-modeline.el
 
    (defvar-local alc-modeline-remote-indication
        '(:eval
@@ -78,8 +76,7 @@ Buffer Identification
 Intended to replace the default ``mode-line-buffer-identification`` and ``mode-line-modified`` components this displays the name of the buffer and a face depending on if the buffer is unsaved, read only etc.
 
 .. code-block:: elisp
-   :project: emacs
-   :filename: lisp/alc-modeline.el
+   :in-file: lisp/alc-modeline.el
 
    (defun alc-modeline-buffer-identification-face ()
      "Return the face(s) to apply to the buffer name in the modeline."
@@ -102,8 +99,7 @@ Replaces the default ``mode-line-modes`` to display just the major mode for the 
 With ``consult-minor-mode-menu`` I don't see much point in listing all the minor modes in the modeline anymore.
 
 .. code-block:: elisp
-   :project: emacs
-   :filename: lisp/alc-modeline.el
+   :in-file: lisp/alc-modeline.el
 
    (defun alc-modeline-major-mode-face ()
      "Return the face(s) to apply to the major mode name in the modeline."
@@ -125,8 +121,7 @@ Buffer Position
 Shows line and column number for the position in the current buffer
 
 .. code-block:: elisp
-   :project: emacs
-   :filename: lisp/alc-modeline.el
+   :in-file: lisp/alc-modeline.el
 
    (defun alc-modeline-buffer-position-face ()
      "Return the face(s) to apply to the buffer position in the modeline."
@@ -146,8 +141,7 @@ Dedidcated Windows
 Indicates if the current window is dedicated.
 
 .. code-block:: elisp
-   :project: emacs
-   :filename: lisp/alc-modeline.el
+   :in-file: lisp/alc-modeline.el
 
    (defface alc-modeline-window-dedicated-face
      '((default :inherit (bold)))
@@ -169,8 +163,7 @@ The following code will only run if one of the ``modus-themes`` is active.
 If they are active, then it will use colors from the theme to style elements of the modeline
 
 .. code-block:: elisp
-   :project: emacs
-   :filename: lisp/alc-modeline.el
+   :in-file: lisp/alc-modeline.el
 
    (with-eval-after-load 'modus-themes
      (defun alc-modeline-apply-modus-colors ()

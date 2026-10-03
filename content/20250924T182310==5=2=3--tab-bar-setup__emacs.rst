@@ -4,6 +4,8 @@
 :identifier: 20250924T182310
 :signature: 5=2=3
 
+:in-project: emacs
+
 Tab Bar Utilities
 =================
 
@@ -17,9 +19,7 @@ Formatting Tabs
 `This article <https://www.rahuljuliato.com/posts/emacs-tab-bar-groups>`__
 
 .. code-block:: elisp
-   :project: emacs
-   :template: elisp-module
-   :filename: lisp/alc-tab-bar.el
+   :in-file: lisp/alc-tab-bar.el
 
    (defun alc-tab-bar-tab-name-format-hints (name _tab i)
      (if tab-bar-tab-hints (concat (format "-%d-" i) "") name))
@@ -39,8 +39,7 @@ The ``emacs-solo/tab-group-from-project`` function from `this article <https://w
 After some experimentation I was able to come up with the following function which I bind to :kbd:`C-x t p`, overriding the default ``project-other-tab-command``.
 
 .. code-block:: elisp
-   :project: emacs
-   :filename: lisp/alc-tab-bar.el
+   :in-file: lisp/alc-tab-bar.el
 
    (defun alc-tab-bar-project-other-tab-command ()
      "Run a project command, displaying resultant buffer in a new tab.
@@ -75,8 +74,7 @@ After some experimentation I was able to come up with the following function whi
 Here is the implementation of ``alc-tab-bar-buffer-to-project-name``, it uses the ``project-name`` function to return the name of the project associated with the target buffer.
 
 .. code-block:: elisp
-   :project: emacs
-   :filename: lisp/alc-tab-bar.el
+   :in-file: lisp/alc-tab-bar.el
 
    (defun alc-tab-bar-buffer-to-project-name (buffer alist)
      "Given BUFFER, return the corresponding project name, if any"
@@ -110,16 +108,14 @@ As well as using the tab bar to show... well tabs, the ``tab-bar-format-global``
 **Battery Info**
 
 .. code-block:: elisp
-   :project: emacs
-   :filename: lisp/alc-tab-bar.el
+   :in-file: lisp/alc-tab-bar.el
 
    (display-battery-mode)
 
 **Time**
 
 .. code-block:: elisp
-   :project: emacs
-   :filename: lisp/alc-tab-bar.el
+   :in-file: lisp/alc-tab-bar.el
 
    (setq display-time-format "%H:%M %d/%m/%y"
          display-time-default-load-average nil)

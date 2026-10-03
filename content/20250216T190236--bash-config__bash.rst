@@ -10,7 +10,7 @@ At some point I need to come back and figure out why things are set up this way.
 But for now, this is how Fedora had setup the configuration for bash and if I don't follow this things break.
 
 .. code-block:: make
-   :filename: Makefile
+   :in-file: Makefile
 
    .PHONY: bash
    bash:
@@ -24,7 +24,7 @@ But for now, this is how Fedora had setup the configuration for bash and if I do
 The profile doesn't do anything except source the ``bashrc`` file
 
 .. code-block:: bash
-   :filename: bash_profile
+   :in-file: bash_profile
 
    # Get the aliases and functions
    if [ -f ~/.bashrc ]; then
@@ -37,7 +37,7 @@ The profile doesn't do anything except source the ``bashrc`` file
 The ``bashrc`` then sources the system config
 
 .. code-block:: bash
-   :filename: bashrc
+   :in-file: bashrc
 
    if [ -f /etc/bashrc ]; then
            . /etc/bashrc
@@ -46,7 +46,7 @@ The ``bashrc`` then sources the system config
 Adds user specific dirs to the ``PATH``
 
 .. code-block:: bash
-   :filename: bashrc
+   :in-file: bashrc
 
    if ! [[ "$PATH" =~ "$HOME/.local/bin:$HOME/bin:" ]]
    then
@@ -57,7 +57,7 @@ Adds user specific dirs to the ``PATH``
 Then sources additional config from the ``~/.bashrc.d`` dir
 
 .. code-block:: bash
-   :filename: bashrc
+   :in-file: bashrc
 
    if [ -d ~/.bashrc.d ]; then
            for rc in ~/.bashrc.d/*; do
@@ -74,7 +74,7 @@ Aliases
 -------
 
 .. code-block:: bash
-   :filename: bash/10-aliases
+   :in-file: bash/10-aliases
 
    alias ls='ls -CFhX --color=auto --group-directories-first'
    alias pypath='echo $PYTHONPATH | tr '\'':'\'' '\''\n'\'''
@@ -86,7 +86,7 @@ Options
 I set the following options
 
 .. code-block:: bash
-   :filename: bash/00-options
+   :in-file: bash/00-options
 
    shopt -s autocd         # If no command found, but matches a directory, cd into it
    shopt -s checkjobs      # Warn about background jobs before exiting
@@ -102,7 +102,7 @@ Environment Variables
 ^^^^^^^^^^
 
 .. code-block:: bash
-   :filename: bash/00-options
+   :in-file: bash/00-options
 
    [ -d "$HOME/Projects" ] && export CDPATH=".:~/Projects"
 
@@ -119,7 +119,7 @@ This means I can ``cd`` into a project folder from anywhere on my system!
 Update the ``PATH`` based on whatever folders are available.
 
 .. code-block:: bash
-   :filename: bash/00-options
+   :in-file: bash/00-options
 
    paths=(
        "$HOME/go/bin"
@@ -137,7 +137,7 @@ History
 -------
 
 .. code-block:: bash
-   :filename: bash/00-options
+   :in-file: bash/00-options
 
    shopt -s histappend
 
@@ -151,7 +151,7 @@ Prompt
 ------
 
 .. code-block:: bash
-   :filename: bash/20-prompt
+   :in-file: bash/20-prompt
 
    __venv_py_version()
    {
