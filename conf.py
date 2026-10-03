@@ -69,6 +69,8 @@ suppress_warnings = ["misc.highlighting_failure"]
 blog_baseurl = "https://www.alcarney.me"
 blog_title = "Alex Carney | Blog"
 
+bib_manpage_url = "https://man.archlinux.org/man/{page}.{section}"
+
 # -- Options for ExtLinks extension ---------------------------------------------
 extlinks = {
     "gh": ("https://github.com/%s", "%s"),

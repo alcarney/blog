@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import functools
+import re
 import typing
 
 from docutils import nodes
@@ -9,6 +10,7 @@ from sphinx import addnodes
 from sphinx.directives import ObjectDescription
 from sphinx.domains import Domain, ObjType
 from sphinx.roles import XRefRole
+from sphinx.util.docutils import ReferenceRole
 from sphinx.util.nodes import make_refnode
 
 if typing.TYPE_CHECKING:
@@ -16,6 +18,44 @@ if typing.TYPE_CHECKING:
     from sphinx.builders import Builder
     from sphinx.directives import ObjDescT
     from sphinx.environment import BuildEnvironment
+
+
+@typing.final
+class ManPageRefRole(ReferenceRole):
+    """A role for referencing ``man`` pages."""
+
+    pattern = re.compile(
+        r"""
+        (?P<page>[\w-]+)              # of course, there's the page title
+        (?:
+           \(
+              (?P<section>[\d\w]+)    # and optionally, a section number
+           \)
+        )?
+    """,
+        re.VERBOSE,
+    )
+
+    @typing.override
+    def run(self) -> tuple[list[nodes.Node], list[nodes.system_message]]:
+        if (match := self.pattern.fullmatch(self.target)) is None:
+            return [], [
+                nodes.system_message(f"Unable to parse target: {self.target!r}")
+            ]
+
+        page = match.group("page")
+        section = match.group("section") or "1"
+
+        # Set a default title
+        if (title := self.title) == self.target:
+            title = f"man {section} {page}"
+
+        url_pattern = self.env.config.bib_manpage_url
+        full_url = url_pattern.format(page=page, section=section)
+        refnode = nodes.reference(self.rawtext, title, internal=False, refuri=full_url)
+        refnode["classes"].extend(["bib", f"bib-manpage"])
+
+        return [refnode], []
 
 
 class BibDirective(ObjectDescription[str]):
@@ -142,6 +182,7 @@ class BibDomain(Domain):
 
     roles = {
         "book": XRefRole(),
+        "man": ManPageRefRole(),
     }
 
     directives = {
@@ -181,4 +222,7 @@ class BibDomain(Domain):
 
 def setup(app: Sphinx):
     app.add_domain(BibDomain)
+
+    app.add_config_value("bib_manpage_url", "", "env", str, "url for man pages")
+
     return {"version": "1.0", "parallel_read_safe": True}
