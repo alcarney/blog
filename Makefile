@@ -16,15 +16,10 @@ default: html
 
 .PHONY: clean
 clean:
-	-test -d _build/doctrees && rm -r _build/doctrees
-	-test -d _build/dirhtml && rm -r _build/dirhtml
-
-# Rebuild everything if any JavaScript is modified
-$(HTMLDIR)/_static/js/theme.js: _static/js/theme.js
-	$(eval SPHINX_OPTS=-Ea)
+	-test -d $(BUILDDIR) && rm -r $(BUILDDIR)
 
 .PHONY: html
-html:
+html: | $(UV)
 	$(UV) run esbonio sphinx build --build-args '-M dirhtml . $(BUILDDIR) $(SPHINX_OPTS)'
 	mkdir -p $(HTMLDIR)/talks/
 	cp -r talks/introducing-esbonio $(HTMLDIR)/talks/introducing-esbonio
@@ -38,7 +33,7 @@ $(BUILDDIR)/blog.tar.gz: html
 	ls -lh $@
 
 .PHONY: dotfiles
-dotfiles:
+dotfiles: | $(UV)
 	$(UV) run sphinx-build -Ea -b awdur . $(DOTFILES) $(SPHINX_OPTS)
 
 
