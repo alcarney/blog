@@ -6,6 +6,8 @@
 
 :in-project: emacs-sysext
 
+.. _5-5-1-building-emacs-into-a-systemd-sysext:
+
 Building Emacs into a systemd-sysext
 ====================================
 

@@ -1,22 +1,38 @@
-:title: Emacs sysext Follow-Up
-:date: 2026-09-09
-:tags: emacs, systemd
+:title: Why I've Abanoned My sysext for Emacs
+:date: 2026-10-11
+:tags: blog, emacs, systemd
 :identifier: 20260909T195948
 :signature: 5=5=2
 
-Emacs sysext Follow-Up
-======================
+Why I've Abanoned My Emacs systemd-sysext Build
+===============================================
 
-It was not a flawless victory.
+.. highlight:: console
 
-Reboot into Black Screen!
--------------------------
+.. container:: post-teaser
 
-Luckily I was able to :kbd:`Ctrl+Alt+F1` and look at ``jounrnalctl``
+   :ref:`Recently <5-5-1-building-emacs-into-a-systemd-sysext>`, I figured out how to build a systemd-sysext containing Emacs 31 and to quote my conclusion:
 
-.. code-block::
+   .. pull-quote::
+
+      Although I am writing this post from within my freshly built Emacs, it's only been an hour a two, so too early to declare this a flawless victory but it's certainly looking good.
+
+   Well, it was not a flawless victory.
+
+The Reboot
+----------
+
+Everything was working fine, until I had to reboot the machine.
+My laptop turned on ok and I saw grub briefly, but then... nothing, just a black screen.
+
+It had been a few days so I didn't immediately think of the sysext, and instead thought it was a bad update so I rebooted again and picked the previous deployment (I'm using `Aurora <https://getaurora.dev/en/>`__).
+
+Same result.
+
+Luckily, enough of the system had come up so I was able to hit :kbd:`Ctrl+Alt+F1`, login and look at ``jounrnalctl``::
 
    $ journalctl -b
+   ...
    Sep 09 11:41:42 aurora (sd-merge)[1626]: Using extensions 'emacs.raw', 'erofs-utils.raw'.
    Sep 09 11:41:42 aurora kernel: erofs (device loop1p1): mounted with root inode @ nid 41.
    Sep 09 11:41:42 aurora (sd-merge)[1626]: Merged extensions into '/usr'.
@@ -44,20 +60,32 @@ Luckily I was able to :kbd:`Ctrl+Alt+F1` and look at ``jounrnalctl``
 
 And it continued like this... ad-infinitum.
 
-On a hunch I removed my symlink to ``/var/lib/extensions.d/emacs.raw`` and rebooted.
+Seeing a bunch of sysext related logs, I removed my symlink to ``/var/lib/extensions.d/emacs.raw`` and rebooted.
+Surprise, surprise, the laptop came back up flawlessly.
 
-Surprise, surprise, it came back up.
+Interestingly however, once I logged in I could re-add the symlink, unmerge, merge and systemd would accept the sysext.
+(Though Emacs itself would launch, but it clearly wasn't working well).
 
-Interestingly, once I logged in I could re-add the symlink, unmerge, merge and systemd would accept the sysext.
-(Though Emacs itself was busted, more on that later).
+.. tip::
 
-So what gives?
+   I forget the details now, but at one stage debugging this I managed to break things so badly that I wasn't even able to get to a tty!
+   Luckily, it turns out you can edit your kernel cmdline to disable systemd-sysexts entirely
 
-I've been bitten by SE Linux issues enough now to at least choose that as my first culprit to investigate.
+   #. Edit the boot entry in grub by hitting :kbd:`e` before it auto-selects an option
 
-Turns out ``ls -Z`` lists the labels on a file! So let's see...
+   #. Edit the command line to instruct systemd to 'mask' the systemd-sysext service::
 
-.. code-block::
+        systemd.mask=systemd-sysext.service
+
+   #. This allowed my machine to boot properly and I was able to go in and disable the problematic extensions!
+
+SE Linux
+--------
+
+So what's going on?
+
+Seeing the denials in the logs, I've been bitten by SE Linux issues enough times now to suspect it was involved somehow.
+Apparently, ``ls -Z`` shows the SE labels applied to your filesystem, so I took a look::
 
    $ ls -lZ /var/lib.extensions.d/
    -rw-r--r--. 1 root root unconfined_u:object_r:var_lib_t:s0    422731776 Aug 27 08:27 emacs-1-30.2-28.fc44-44-x86-64.raw
@@ -65,59 +93,53 @@ Turns out ``ls -Z`` lists the labels on a file! So let's see...
    -rw-r--r--. 1 alex alex unconfined_u:object_r:cache_home_t:s0 354377728 Sep  9 11:01 emacs.raw
    -rw-r--r--. 1 root root unconfined_u:object_r:var_lib_t:s0      1052672 Aug 26 02:15 erofs-utils-1.9.2-2.fc44-44-x86-64.raw
 
-I can see at least two issues there. ``root`` doesn't own the file and the file is tagged ``cache_home_t``, rather than ``var_lib_t`` like the others...
+I saw at least two issues there.
 
-Fixing the ownership is easy enough..
+#. ``root`` doesn't own the file
+#. The file is tagged ``cache_home_t``, rather than ``var_lib_t`` like the others
 
-.. code-block::
+Fixing the ownership was easy enough::
 
    /var/lib/extensions.d $ sudo chown root:root emacs.raw
 
-Actually... let's see if that's sufficient... *reboots* ... *sigh*, it was not.
-
-Ok, then let's try to fix the file's labels
-
-.. code-block::
+Hoping for a simple fix, I rebooted the machine to see if that was enough (it wasn't).
+So I set about trying to fix the file's labels::
 
    /var/lib/extensions.d $ sudo restorecon -RFv emacs.raw
    Relabeled /var/lib/extensions.d/emacs.raw from unconfined_u:object_r:cache_home_t:s0 to system_u:object_r:var_lib_t:s0
 
-I don't understand SE Linux in the slightest, but I've run this command enough to **think** I know what it does.
-I believe it applies the default labels for the file's current location, which judging from the output above seems to correlate.
+I don't understand SE Linux in the slightest, but I've run this command enough to think I understand what it does.
+I believe it applies the default labels for the file's current location.
+It applied ``system_u`` rather than ``unconfined_u`` but I hoped it wasn't that important.
 
-It has also changed ``unconfined_u`` to ``system_u``, but let's hope that's not important!
+I rebooted again, only to find the system still broken.
 
-*reboots*
+I tried to think it through again.
+Why is this an issue in the first place... *especially* when Emacs shouldn't be trying to run this early in the boot process?
 
-Still broken.
+Then it dawned on me ``emacs.raw`` the file, isn't the issue at boot.
+Instead it contains a filesystem, one that is going to be overlaid on top of the root filesystem.
+``emacs.raw`` is going to contain a bunch of files each with their own SE Linux label.
 
-Let's think on this for a minute. Why is this an issue in the first place... *especially* when Emacs shouldn't be trying to run this early in the boot process!
-It's only configured to launch as a user-level service when I log in, unless....
-
-``emacs.raw`` is a filesystem... the .raw file itself is going to contain a bunch of files each with their own label!
-
-.. code-block::
+So I checked the labels on the Emacs executable::
 
    $ ls -lZ $(command -v emacs)
    lrwxrwxrwx. 1 root root unconfined_u:object_r:cache_home_t:s0 10 Sep  9 11:01 /usr/bin/emacs -> emacs-31.1
 
-Yep. Emacs itself has the same label... so what else is this sysext clobbering when it gets overlaid on ``/usr``?
+Yep. the executablehas the same label... so what else is this sysext clobbering when it gets overlaid on ``/usr``?
 
 ``systemd-dissect``
-"""""""""""""""""""
+-------------------
 
 This is cool!
 
-``systemd-dissect`` allows you to inspect these image files, just calling the command on the ``*.raw`` file gives you a nice overview
-
-.. code-block::
+``systemd-dissect`` allows you to inspect image files like ``emacs.raw``.
+Just calling the command on the ``*.raw`` file gives you a nice overview::
 
    /var/lib/extensions.d $ systemd-dissect emacs.raw
    Failed to allocate user namespace with 64K users: Connection refused
 
-*ah-hem!* I said, calling this command gives you a nice overview of the image
-
-.. code-block::
+*ah-hem!* I said, calling this command gives you a nice overview of the image::
 
    /var/lib/extensions.d $ sudo systemd-dissect emacs.raw
     File Name: emacs.raw
@@ -146,11 +168,9 @@ This is cool!
    RW DESIGNATOR PARTITION UUID                       PARTITION LABEL FSTYPE ARCHITECTURE VERITY GROWFS PARTNO
    ro root       9055093f-3ca2-4252-85eb-b380c607c04c root-x86-64     erofs  x86-64       no     no          1
 
-Thank you.
+Nice!
 
-But I want to see *inside* the image, luckily, there's a flag for that
-
-.. code-block::
+But to be able to see *inside* the image, we need to use the ``--list`` flag::
 
    /var/lib/extensions.d $ sudo systemd-dissect emacs.raw --list | grep '\.so'
    usr/lib64/libICE.so.6
@@ -175,12 +195,10 @@ But I want to see *inside* the image, luckily, there's a flag for that
    usr/lib64/libtree-sitter.so.0
    usr/lib64/libtree-sitter.so.0.26
 
-I briefly looked up these libraries, unlike I'm mistake they are all X11 related... I guess my display manager needs to pull them in?
-Which explains how I'm able to still use a tty?
+I briefly looked up these libraries, unlike I'm mistaken the majority are X11 related... perhaps the display manager needs to pull them in?
+I'm assuming this explains why the system doesn't get as far as the login screen.
 
-But the important thing to note is that they *are* being clobbered
-
-.. code-block::
+But the main thing to note is that they *are* being clobbered::
 
    $ ls -lZ /usr/lib64/libICE.so.6.3.0
    -rwxr-xr-x. 1 root root unconfined_u:object_r:unlabeled_t:s0 111936 Jan 16  2026 /usr/lib64/libICE.so.6.3.0*
@@ -195,7 +213,7 @@ So how do I fix it?
 
 It did not take long to find `this issue <https://github.com/systemd/mkosi/issues/130>`__ which seems to suggest that ``mkosi`` will automatically relabel files if it finds the relevant policies installed.
 
-Install ``selinux-policies`` in base image
+So I tried installing ``selinux-policies`` in the base image
 
 .. code-block:: ini
    :in-project: emacs-sysext
@@ -235,7 +253,7 @@ Install ``selinux-policies`` in base image
             systemd
             udev
 
-And enable relabelling
+And I explicitly enabled relabelling
 
 .. code-block:: ini
    :in-project: emacs-sysext
@@ -251,7 +269,7 @@ And enable relabelling
    BuildPackages=libgccjit-devel,libotf-devel,libtree-sitter-devel
    SELinuxRelabel=enabled
 
-And after rebuild it appears to have worked.
+And after the rebuild it appeared to have worked.
 
 .. code-block::
 
@@ -260,13 +278,11 @@ And after rebuild it appears to have worked.
    $ ls /run/media/img/usr/lib64/libICE.so.6.3.0  -lZ
    -rwxr-xr-x. 1 root root system_u:object_r:lib_t:s0 111936 Jan 16  2026 /run/media/img/usr/lib64/libICE.so.6.3.0*
 
-Moment of truth... *reboots*
+So I moved the newly built ``emacs.raw`` file into position and tried rebooting again.
 
-It was not enough.
+It did not work.
 
-Now stumped, I go back and re-read some of the error messages in the ``journalctl`` logs.
-
-.. code-block::
+Now thoroughly stumped, I went back and re-read some of the error messages in the ``journalctl`` logs::
 
    avc:  denied  { search } for  pid=7389 comm="(sd-worker)" name="systemd" dev="overlay" ino=14
                                  scontext=system_u:system_r:systemd_userdbd_t:s0
@@ -274,13 +290,11 @@ Now stumped, I go back and re-read some of the error messages in the ``journalct
                                  tclass=dir
                                  permissive=0
 
-Which, if I squint at it, I think the ``scontext`` is saying who was denied, the ``tcontext`` tells me the labels of the thing they were trying to access and the ``tclass`` tells me it's a directory.
+If I squint at it, I think the ``scontext`` is saying who was denied, the ``tcontext`` tells me the labels of the thing they were trying to access and the ``tclass`` tells me it's a directory.
 
-So I'm looking for some unlabelled directory coming from my image...
+So I started looking for some unlabelled directories coming from my sysext.
 
-Just comparing ``/usr`` with and without the sysext enabled reveals it.
-
-.. code-block::
+Just comparing ``/usr`` with and without the sysext enabled was enough::
 
    $ ls -lZ /usr/
    total 52
@@ -314,9 +328,7 @@ Just comparing ``/usr`` with and without the sysext enabled reveals it.
    drwxr-xr-x.   4 root root system_u:object_r:usr_t:s0     63 Jan  1  1970 src/
    lrwxrwxrwx.   1 root root system_u:object_r:usr_t:s0     10 Jan  1  1970 tmp -> ../var/tmp/
 
-In fact, *all* of the dirs in my image appear to be unlabelled.
-
-.. code-block::
+In fact, *all* of the dirs in my sysext appear to be unlabelled::
 
    $ sudo systemd-dissect emacs.raw --mount /run/media/img/
    $ ls -lZ /run/media/img🔒
@@ -335,13 +347,15 @@ In fact, *all* of the dirs in my image appear to be unlabelled.
 
 The question is... how do I fix these labels?
 
-Even worse breakage
--------------------
+Giving Up, For Now
+------------------
 
-#. Edit the boot entry by hitting :kbd:`e`
+And that's as far as I got, I'd already sunk a couple of days into debugging this and decided that it was no longer worth the effort.
 
-#. Edit the command line to mask the sysext service::
+I did open a `discussion <https://github.com/systemd/mkosi/discussions/4454>`__ on the mkosi GitHub, but at the time of writing have only received a "let me ask Claude for you" response.
+(I'm not complaining, people are busy and my issue is hardly urgent 😁).
 
-     systemd.mask=systemd-sysext.service
+I *could* of course, just disable SE Linux, but that doesn't feel like the right solution.
 
-#. This allows the machine to boot properly and you can disable the problematic extensions!
+So for now, I've reverted to Emacs 30 and with Fedora 45 just around the corner I'll be running Emacs 31 soon enough.
+I'm sure I'll be picking this up again (next year?) once Emacs 32 appears to be imminent! 😅
