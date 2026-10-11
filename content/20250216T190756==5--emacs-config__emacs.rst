@@ -321,26 +321,6 @@ YAML
    (use-package yaml-mode
      :ensure t)
 
-LLMs
-----
-
-.. seealso::
-
-   :denote:link:`20241116T120000`
-
-.. code-block:: elisp
-   :in-file: init.el
-
-   (use-package gptel
-     :ensure t
-     :bind (("C-c RET" . gptel-send))
-     :config
-     (setq gptel-model 'llama3.2:latest)
-     (setq gptel-backend (gptel-make-ollama "Ollama"
-                          :host "localhost:11434"
-                          :stream t
-                          :models '(llama3.2:latest))))
-
 Awdur Templates
 ---------------
 
