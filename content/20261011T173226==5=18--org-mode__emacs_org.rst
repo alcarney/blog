@@ -1,0 +1,21 @@
+:title: org-mode
+:date: 2026-10-11
+:tags: emacs, org
+:identifier: 20261011T173226
+:signature: 5=18
+
+``org-mode``
+============
+
+While I heavily use reStructuredText for this site and documentation in general, I'm starting to explore using ``org-mode`` for task tracking.
+
+.. code-block:: emacs-lisp
+   :in-project: emacs
+   :in-file: init.el
+
+   (use-package org
+     :ensure nil
+     :config
+     (setq org-enforce-todo-dependencies t
+           org-agenda-dim-blocked-tasks 'invisible)
+     (add-to-list 'org-babel-load-languages '(shell . t)))
