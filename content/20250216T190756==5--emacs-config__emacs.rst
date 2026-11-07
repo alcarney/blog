@@ -81,6 +81,11 @@ And install some utility libraries
 Basic Editing
 -------------
 
+.. seealso::
+
+   `What's in the Emacs newcomers-presets theme? <https://sachachua.com/blog/2026/04/what-s-in-the-emacs-newcomers-presets-theme/>`__
+
+
 .. code-block:: elisp
    :in-file: init.el
 
@@ -88,6 +93,12 @@ Basic Editing
    (savehist-mode t)
    (save-place-mode t)
 
+Enable `view-mode` in read only files
+
+.. code-block:: elisp
+   :in-file: init.el
+
+   (setopt view-read-only t)
 
 Backup Files
 ^^^^^^^^^^^^
@@ -166,6 +177,38 @@ Indent using spaces by default, and ensure that the TAB key is only used for ind
    (setq tab-always-indent t)
    (setq-default indent-tabs-mode nil)
 
+Spell Checking
+^^^^^^^^^^^^^^
+
+I've tried ``flyspell`` in the past for spell checking, but I find it conflicts with the normal ``completion-at-point`` binding, so let's try using :gh:`minad/jinx`.
+
+.. code-block:: elisp
+   :in-file: init.el
+
+   (use-package jinx
+     :ensure t
+     :hook (emacs-startup . global-jinx-mode)
+     :bind (("M-$" . jinx-correct)
+            ("C-M-$" . jinx-languages)))
+
+The complication being that it requires a native module... ::
+
+  Jinx: Compiling jinx-mod.so
+  Jinx: pkgconf or pkg-config not found
+  gcc -I. -O2 -Wall -Wextra -fPIC -shared -o jinx-mod.so jinx-mod.c -I/usr/include/enchant-2 -I/usr/local/include/enchant-2 -L/usr/local/lib -lenchant-2
+  jinx-mod.c:21:10: fatal error: enchant.h: No such file or directory
+     21 | #include <enchant.h>
+        |          ^~~~~~~~~~~
+  compilation terminated.
+  Jinx: Compilation of jinx-mod.so failed
+
+The easiest (for me) way around this was to build the module in a distrobox::
+
+  $ distrobox enter emacs-build   # Based on fedora:44
+  (emacs-build) $ dnf install enchant2-devel pkgconf-pkg-config
+  (emacs-build) $ cd ~/.emacs.d/elpa/jinx-2.11/
+  (emacs-build) $ gcc -I. -O2 -Wall -Wextra -fPIC -shared -o jinx-mod.so jinx-mod.c $(pkg-config --cflags --libs enchant-2)
+
 Compilation
 ^^^^^^^^^^^
 
@@ -175,7 +218,7 @@ Basic settings for Emacs' compilation framework
    :in-file: init.el
 
    (setq compilation-always-kill t
-         compilation-scroll-output t)
+         compilation-scroll-output 'first-error)
 
 Enable coloured output in compilation buffers
 
@@ -228,14 +271,15 @@ Settings for dired
     :hook ((dired-mode . dired-hide-details-mode)
            (dired-mode . hl-line-mode))
     :config
-    (setq dired-dwim-target t
-          dired-maybe-use-globstar t
-          dired-isearch-filenames 'dwim
-          ;; -A, all files - except '.' & '..'
-          ;; -G, omit owning group
-          ;; -h, human readable file sizes
-          ;; -l, long listing, required for dired.
-          dired-listing-switches "-AGhl --group-directories-first --time-style=long-iso"))
+    (setopt dired-dwim-target t
+            dired-maybe-use-globstar t
+            dired-auto-revert-buffer t
+            dired-isearch-filenames 'dwim
+            ;; -A, all files - except '.' & '..'
+            ;; -G, omit owning group
+            ;; -h, human readable file sizes
+            ;; -l, long listing, required for dired.
+            dired-listing-switches "-AGhl --group-directories-first --time-style=long-iso"))
 
 ``project.el``
 --------------
@@ -280,7 +324,7 @@ The following advice ensures that the right vc backend is selected for subprojec
 Languages
 ---------
 
-And :gh:`radian-software/apheleia` for automatic formatting of buffers
+Use :gh:`radian-software/apheleia` for automatic formatting of buffers
 
 .. code-block:: elisp
    :in-file: init.el
