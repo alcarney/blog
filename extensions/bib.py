@@ -48,7 +48,7 @@ class ManPageRefRole(ReferenceRole):
 
         # Set a default title
         if (title := self.title) == self.target:
-            title = f"man {section} {page}"
+            title = f"{page} ({section})"
 
         url_pattern = self.env.config.bib_manpage_url
         full_url = url_pattern.format(page=page, section=section)
