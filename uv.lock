@@ -1,5 +1,5 @@
 version = 1
-revision = 3
+revision = 5
 requires-python = ">=3.14"
 
 [[package]]
@@ -34,7 +34,7 @@ dependencies = [
 
 [package.metadata]
 requires-dist = [
-    { name = "awdur", specifier = ">=0.2.0" },
+    { name = "awdur", specifier = ">=0.3.0" },
     { name = "esbonio", specifier = ">=2.1.0" },
     { name = "myst-parser", specifier = "==4.*" },
     { name = "rich", git = "https://github.com/alcarney/rich?rev=fix-from-ansi" },
@@ -52,7 +52,7 @@ wheels = [
 
 [[package]]
 name = "awdur"
-version = "0.2.0"
+version = "0.3.0"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
     { name = "docutils" },
@@ -60,9 +60,9 @@ dependencies = [
     { name = "platformdirs" },
     { name = "pygments" },
 ]
-sdist = { url = "https://files.pythonhosted.org/packages/88/2b/70084d65b43aa85b1d8e589fc5c328b395565ae446b3c2a248d712252ab3/awdur-0.2.0.tar.gz", hash = "sha256:abde1ef1c8966a6e83e26a7c7620a12841fbed17276e4a6242759d713da02a9d", size = 30654, upload-time = "2026-10-03T14:33:33.33Z" }
+sdist = { url = "https://files.pythonhosted.org/packages/62/72/3e1cbe65eef5627888c939755f18545a47374873c1c351aa323a6661c376/awdur-0.3.0.tar.gz", hash = "sha256:2af31187d29e1ed70a0ddade40ebe1ed6bd2f7c606ce9b7ecdc3e365562d1376", size = 47314, upload-time = "2026-11-03T20:13:47.322Z" }
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/9d/ca/21b8d1ef1b496a0f1c1594c68b003dd0ff1f0f42871e0291bf5f9e9c1ef0/awdur-0.2.0-py3-none-any.whl", hash = "sha256:deecf80c0dfcaf26d81a1bfe1e8384261ba158b3e2fbf87574e5d9badadaa4ea", size = 35517, upload-time = "2026-10-03T14:33:32.159Z" },
+    { url = "https://files.pythonhosted.org/packages/16/03/58bbe8ede70cd321f40266899153d5da772b8772da642e7854c1730607f8/awdur-0.3.0-py3-none-any.whl", hash = "sha256:7b11febb7128e8debc971d59330d87c624f48f409dca5213141b67bac2298521", size = 41003, upload-time = "2026-11-03T20:13:45.863Z" },
 ]
 
 [[package]]
