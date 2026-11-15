@@ -270,7 +270,7 @@ to build and install the extension into my virtual environment.
 
 .. details:: (.env) $ python setup.py install
 
-   .. code-block:: none
+   ::
 
       running install
       running bdist_egg

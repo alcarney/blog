@@ -318,7 +318,6 @@ Which we can execute with the help of a compiler.
    Example 2: 7.00
 
 And there you have it, a calculator that only knows how to add and multiply floats!
-If you want to see the entire source file you can find it :ref:`here <code-simple-ast>`.
 
 .. _Abstract Syntax Tree: https://en.wikipedia.org/wiki/Abstract_syntax_tree
 .. _BODMAS: https://en.wikipedia.org/wiki/Order_of_operations#Mnemonics

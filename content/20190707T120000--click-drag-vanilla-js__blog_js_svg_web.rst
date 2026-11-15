@@ -553,8 +553,6 @@ I'm sure there are more edge cases and considerations to think of but this post
 is long enough already! - Perhaps this is why people use libraries for this kind
 of thing 🤔...
 
-If you are interested you can find the final version of the code :ref:`here <code-click-drag>`.
-
 .. _document.createElement(): https://developer.mozilla.org/en-US/docs/Web/API/Document/createElement
 .. _document.createElementNS(): https://developer.mozilla.org/en-US/docs/Web/API/Document/createElementNS
 .. _documentation: https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/viewBox
