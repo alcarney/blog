@@ -1,18 +1,3 @@
-function growShrinkProfile(profileElement, referenceElement) {
-    const bbox = referenceElement.getBoundingClientRect()
-    const className = bbox.top < 0 ? "small-profile" : "full-profile"
-    profileElement.className = className
-}
-
-function activateShadow(navElement, referenceElement) {
-    const bbox = referenceElement.getBoundingClientRect()
-    if (bbox.top < 0) {
-        navElement.classList.add("shadow-md")
-    } else {
-        navElement.classList.remove("shadow-md")
-    }
-}
-
 function buildTocTree(tocTree, navRoot, parents) {
     if (navRoot.tagName !== "UL") {
         console.error(`Expected 'ul' element, got ${navRoot.tagName.toLowerCase()}`)
@@ -38,7 +23,7 @@ function highlightCurrentSection(tocTree, navRoot, documentSections) {
 
     for (let section of Array.from(documentSections)) {
         const bbox = section.getBoundingClientRect()
-        if (bbox.top > 30) {
+        if (bbox.top > 55) {
             break
         }
 
@@ -76,15 +61,6 @@ function highlightCurrentSection(tocTree, navRoot, documentSections) {
 }
 
 const onScrollCallbacks = []
-
-// The element the page uses to decide whether to grow or shrink the profile image.
-const referenceElement = document.querySelector("#content")
-const profileElement = document.querySelector("#profile-card")
-
-if (profileElement) {
-    growShrinkProfile(profileElement, referenceElement)
-    onScrollCallbacks.push(() => growShrinkProfile(profileElement, referenceElement))
-}
 
 
 function main() {
