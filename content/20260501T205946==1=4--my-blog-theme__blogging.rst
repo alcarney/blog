@@ -379,6 +379,18 @@ e.g. :kbd:`C-x C-f`
      color: var(--fg-accent);
    }
 
+``sup``
+^^^^^^^
+
+e.g. Fun\ :sup:`TM`
+
+.. code-block:: css
+   :in-file: _static/css/styles.css
+
+   sup {
+     font-size: 0.65rem;
+   }
+
 ``table``
 ^^^^^^^^^
 
