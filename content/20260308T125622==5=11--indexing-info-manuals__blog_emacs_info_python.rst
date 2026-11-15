@@ -266,8 +266,10 @@ And make sure Emacs is configured to search the folder
    :in-project: emacs
    :in-file: init.el
 
-   (add-to-list 'Info-directory-list
-                (concat (getenv "HOME") "/.local/share/info/"))
+   (use-package info
+     :config
+     (add-to-list 'Info-directory-list
+                  (concat (getenv "HOME") "/.local/share/info/")))
 
 
 Success!
