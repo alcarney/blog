@@ -1,6 +1,6 @@
 :title: Making a Lisp
-:date: 2026-09-03
-:tags: python
+:date: 2026-11-24
+:tags: blog, mal, python
 :identifier: 20260903T120018
 :signature: 10
 
@@ -16,13 +16,13 @@ Making a Lisp in Python
    Earlier this year I stumbled across the `Make a Lisp <https://github.com/kanaka/mal>`__ repository on GitHub.
    Having had an interest in implementing a programming language for many years I finally acted on it and sat down to work my way through the steps.
 
-   I would categorise this as a "speed run", in the sense I have skipped most of the data types and I've not bothered to get all the tests to pass.
-   I wanted to get an overall feel for the main ideas and to see how macros worked so I stopped after step 8.
+   I would categorise this as a "speed run", in the sense I have skipped **many** details and my implementation does not pass the majority of tests.
+   Rather than building a comprehensive implementation of ``mal`` I wanted to get an overall feel for the main ideas behind lisps in general and what it takes to implement one.
+   If I'm honest, I just wanted to see how macros worked and so I stopped as soon as I had implemented them.
 
-   It's also why I chose Python for this, it's the language I'm fluent in and already supports all the necessary runtime features.
-   I'm writing this mostly for my benefit, so I doubt you'll find anything that insightful, but by all means read on if you're interested!
+   I chose Python for this, since it's the language I'm fluent in and already supports all the necessary runtime features.
 
-   Spoilers ahead!
+   There's not much commentary/explanation to be found here as I wrote this mostly for my benefit, but by all means take a look if you're interested!
 
 Setup
 -----
@@ -366,7 +366,7 @@ Step 7
 ------
 
 :denote:link:`Step 7 <20260906T003603>` introduces the ability to toggle off (and on), whether or not a form is evaluated.
-        Again, in-keeping with "speedrun" approach, I haven't even implemented the reader macros like ``'`` since I'm more interested in the evaluator at the moment.
+Again, in-keeping with "speedrun" approach, I haven't even implemented the reader macros like ``'`` since I'm more interested in the evaluator at the moment.
 
 ::
 
@@ -451,6 +451,6 @@ Final Thoughts
 
 I was pleasantly surprised to see how straightforward the main ideas behind a lisp are.
 
-Sure, implementing this in Python meant that it did all the heavy lifting an I didn't have to think too hard about most of the implementation details but that was kind of the point.
+Sure, implementing this in Python meant that it did all the heavy lifting and I didn't have to think too hard about most of the implementation details but that was kind of the point.
 
 I now have a handy reference for when I want to try a similar exercise in a different language!

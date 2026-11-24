@@ -88,7 +88,7 @@ To enable TCO for ``mal`` function calls, rather than return ``fn`` directly as 
        # tco: return Fn rather than Python function def
        return Fn(params=fs[1], body=fs[2], env=env, f=fn)
 
-This then allow the evaluation loop to unpack the function application in a way that aligns with the approach taken by TCO.
+This then allows the evaluation loop to unpack the function application in a way that aligns with the approach taken by TCO.
 
 .. code-block:: python
    :in-file: step6_file.py
@@ -184,7 +184,7 @@ This step adds some more core functions which are grouped by domain.
 Eval
 ^^^^
 
-.. code-block:: core.py
+.. code-block:: python
    :in-file: core.py
    :in-slot: core_eval
 
