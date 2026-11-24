@@ -298,9 +298,7 @@ We have enough of a toy example together to be able to define, print and evaluat
        return 0;
    }
 
-Which we can execute with the help of a compiler.
-
-.. code-block:: console
+Which we can execute with the help of a compiler::
 
    $ gcc simple-ast.c -o simple-ast
    $ ./simple-ast
