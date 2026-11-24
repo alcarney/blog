@@ -1,0 +1,240 @@
+:title: mal Step 5
+:date: 2026-09-05
+:tags: mal, python
+:identifier: 20260905T105802
+:signature: 10=5
+
+:in-project: mal-py
+:at-revision: 6
+
+Step 5: Tail Call Optimisation
+==============================
+
+
+Evaluation
+----------
+
+Step 5 brings in tail call optimization (TCO).
+
+Apparently this means we wrap everything in a ``while True`` loop.
+
+Then going from the guide, I think, rather than calling into ``evaluate`` again, we modify the value of ``form`` (and possibly ``env``) so that the next cycle of the loop uses the new values see:
+
+- :ref:`10-8-do`
+- :ref:`10-8-fn`
+- :ref:`10-8-if`
+- :ref:`10-8-let`
+
+.. code-block:: python
+   :in-file: step5_tco.py
+   :in-slot: eval
+
+   def evaluate(form, env: Env):
+       while True:
+           match form:
+               case S(name):
+                   return env.get(name)
+               case []:
+                   return []
+               case [*fs]:
+                   match fs[0]:
+   {{ insert(slots.def, indent=20) }}
+   {{ insert(slots.do, indent=20) }}
+   {{ insert(slots.fn, indent=20) }}
+   {{ insert(slots.if, indent=20) }}
+   {{ insert(slots.let, indent=20) }}
+   {{ insert(slots.normal_form, indent=20) }}
+               case _:
+                   return form
+
+Special forms
+^^^^^^^^^^^^^
+
+A "special form" is anything that is not evaluated using the regular rules of the language and therefore needs dedicated support from the interpreter.
+
+``def!``
+""""""""
+
+``def!`` is how ``mal`` spells ``setq`` and updates the current environment
+
+.. code-block:: python
+   :in-file: step5_tco.py
+   :in-slot: def
+
+   case S('def!'):
+       env.set(fs[1].name, v := evaluate(fs[2], env))
+       return v
+
+.. _10-8-do:
+
+``do``
+""""""
+
+Equivalent to ``progn``, evals all terms and returns the last one.
+
+Now that we're implementing TCO, the trick is not to recursively call evaluate on the final form, and instead modify the value of ``form`` so that it's evaluated on the next loop iteration.
+
+.. code-block:: python
+   :in-file: step5_tco.py
+   :in-slot: do
+
+   case S('do'):
+       for f in fs[1:-1]:
+           evaluate(f, env)
+       form = fs[-1]
+
+.. _10-8-fn:
+
+``fn*``
+"""""""
+
+To enable TCO for ``mal`` function calls, rather than return ``fn`` directly as we did in the previous step we return a ``Fn`` object.
+
+.. code-block:: python
+   :in-file: step5_tco.py
+   :in-slot: fn
+
+   case S('fn*'):
+       def fn(*args):
+           localenv = Env(outer=env, binds=fs[1], exprs=args)
+           return evaluate(fs[2], localenv)
+
+       # tco: return Fn rather than Python function def
+       return Fn(params=fs[1], body=fs[2], env=env, f=fn)
+
+This then allow the evaluation loop to unpack the function application in a way that aligns with the approach taken by TCO.
+
+.. code-block:: python
+   :in-file: step5_tco.py
+   :in-slot: normal_form
+
+   case _:
+       f, *args = [evaluate(f, env) for f in fs]
+       match f:
+           case Fn(params, body, fenv, fn):
+               form=body
+               env = Env(outer=fenv, binds=params, exprs=args)
+           case _:
+               return f(*args)
+
+
+Where the ``Fn`` object is defined as follows
+
+.. code-block:: python
+   :in-file: step5_tco.py
+   :in-slot: fn_class
+
+   class Fn:
+       __match_args__ = ("params", "body", "env", "f")
+
+       def __init__(self, params, body, env, f):
+           self.params = params
+           self.body = body
+           self.env = env
+           self.f = f  # not needed until step 9?
+
+       def __repr__(self):
+           return "#<function>"
+
+.. _10-8-if:
+
+``if``
+""""""
+
+``mal`` considers anything that is not ``false`` or ``nil`` to be ``true``.
+Python however, considers other values like ``0`` to *also* be False!
+
+This mismatch made implementing if surprisingly difficult, especially when it likes to coerce ``0`` to ``False`` or ``False`` to ``0``.
+
+The best I have come up with so far is to call ``print_form`` on the result and check the string values.
+
+.. code-block:: python
+   :in-file: step5_tco.py
+   :in-slot: if
+
+   case S('if'):
+       t = print_form(evaluate(fs[1], env))
+       if t not in {'false', 'nil'}:
+           # tco: change ``form`` so that it's evaluated on the next iteration
+           form = fs[2]
+       elif len(fs) > 3:
+           # tco: change ``form`` so that it's evaluated on the next iteration
+           form = fs[3]
+       else:
+           return None
+
+.. _10-8-let:
+
+``let*``
+""""""""
+
+``let*`` is used to introduce a new local ``Env`` with additional bindings.
+
+.. code-block:: python
+   :in-file: step5_tco.py
+   :in-slot: if
+
+   case S('let*'):
+       letenv = Env(env)
+       for binding, expr in itertools.batched(fs[1], n=2):
+           letenv.set(binding.name, evaluate(expr, letenv))
+
+       # tco: update both ``form`` and ``env`` so that it's evaluated on the next iteration
+       form = fs[2]
+       env = letenv
+
+
+Interpreter
+-----------
+
+**repl**
+
+.. code-block:: python
+   :in-file: step5_tco.py
+   :in-slot: repl
+
+   def repl(input_: io.TextIO):
+       env = Env()
+       for symb, val in ns.items():
+           env.set(symb, val)
+
+       print("user> ", end='', flush=True)
+       while (line := input_.readline()) != "":
+           try:
+               print(print_(evaluate(read(line), env)))
+           except EOFError:
+               print(f"EOF")
+           except KeyError as e:
+               print(f"{e.args[0]!r} not found")
+
+           print("user> ", end='', flush=True)
+
+**main**
+
+.. code-block:: python
+   :in-file: step5_tco.py
+
+   import itertools
+   import typing
+
+   from core import ns
+   from env import Env
+   from reader import S, read_str
+   from printer import print_form
+
+   if typing.TYPE_CHECKING:
+       import io
+
+   def read(input_):
+       return read_str(input_)
+
+   def print_(form):
+       return print_form(form)
+
+   {{ insert(slots.fn_class) }}
+   {{ insert(slots.eval) }}
+   {{ insert(slots.repl) }}
+
+   if __name__ == "__main__":
+       import sys
+       repl(sys.stdin)

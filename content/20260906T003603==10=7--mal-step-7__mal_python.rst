@@ -1,0 +1,324 @@
+:title: mal Step 7
+:date: 2026-09-06
+:tags: mal, python
+:identifier: 20260906T003603
+:signature: 10=7
+
+:in-project: mal-py
+:at-revision: 8
+
+Step 7: Quoting
+===============
+
+Here is where things get interesting!
+
+Quoting and quasi-quoting allow you to control when forms should be evaluated, an essential tool when it comes to writing macros.
+
+Evaluation
+----------
+
+This sees the addition of two new special forms ``quote`` and ``quasiquote``
+
+.. code-block:: python
+   :in-file: step7_quote.py
+   :in-slot: eval
+
+   def evaluate(form, env: Env):
+       while True:
+           match form:
+               case S(name):
+                   return env.get(name)
+               case []:
+                   return []
+               case [*fs]:
+                   match fs[0]:
+   {{ insert(slots.def, indent=20) }}
+   {{ insert(slots.do, indent=20) }}
+   {{ insert(slots.fn, indent=20) }}
+   {{ insert(slots.if, indent=20) }}
+   {{ insert(slots.let, indent=20) }}
+   {{ insert(slots.quote, indent=20) }}
+   {{ insert(slots.quasiquote, indent=20) }}
+   {{ insert(slots.normal_form, indent=20) }}
+               case _:
+                   return form
+
+Special forms
+^^^^^^^^^^^^^
+
+By definition, each special form is an edge case and needs to be handled separately.
+
+``def!``
+""""""""
+
+``def!`` is how ``mal`` spells ``setq`` and updates the current environment
+
+.. code-block:: python
+   :in-file: step7_quote.py
+   :in-slot: def
+
+   case S('def!'):
+       env.set(fs[1].name, v := evaluate(fs[2], env))
+       return v
+
+``do``
+""""""
+
+Equivalent to ``progn``, evals all terms and returns the last one.
+
+.. code-block:: python
+   :in-file: step7_quote.py
+   :in-slot: do
+
+   case S('do'):
+       # tco: evaluate() everything except for the final item
+       for f in fs[1:-1]:
+           evaluate(f, env)
+
+       # tco: update ``form`` to be the final element so that it's evaluated on the
+       # next iteration
+       form = fs[-1]
+
+``fn*``
+"""""""
+
+To enable TCO for ``mal`` function calls, rather than return ``fn`` directly as we did in the previous step we return a ``Fn`` object.
+
+.. code-block:: python
+   :in-file: step7_quote.py
+   :in-slot: fn
+
+   case S('fn*'):
+       def fn(*args):
+           localenv = Env(outer=env, binds=fs[1], exprs=args)
+           return evaluate(fs[2], localenv)
+
+       # tco: return Fn rather than Python function def
+       return Fn(params=fs[1], body=fs[2], env=env, f=fn)
+
+This then allow the evaluation loop to unpack the function application in a way that aligns with the approach taken by TCO.
+
+.. code-block:: python
+   :in-file: step7_quote.py
+   :in-slot: normal_form
+
+   case _:
+       f, *args = [evaluate(f, env) for f in fs]
+       match f:
+           case Fn(params, body, fenv, fn):
+               form=body
+               env = Env(outer=fenv, binds=params, exprs=args)
+           case _:
+               return f(*args)
+
+
+Where the ``Fn`` object is defined as follows
+
+.. code-block:: python
+   :in-file: step7_quote.py
+   :in-slot: fn_class
+
+   class Fn:
+       __match_args__ = ("params", "body", "env", "f")
+
+       def __init__(self, params, body, env, f):
+           self.params = params
+           self.body = body
+           self.env = env
+           self.f = f  # not needed until step 9?
+
+       def __repr__(self):
+           return "#<function>"
+
+
+``if``
+""""""
+
+``mal`` considers anything that is not ``false`` or ``nil`` to be ``true``.
+Python however, considers other values like ``0`` to *also* be False!
+
+This mismatch made implementing if surprisingly difficult, especially when it likes to coerce ``0`` to ``False`` or ``False`` to ``0``.
+
+The best I have come up with so far is to call ``print_form`` on the result and check the string values.
+
+.. code-block:: python
+   :in-file: step7_quote.py
+   :in-slot: if
+
+   case S('if'):
+       t = print_form(evaluate(fs[1], env))
+       if t not in {'false', 'nil'}:
+           # tco: change ``form`` so that it's evaluated on the next iteration
+           form = fs[2]
+       elif len(fs) > 3:
+           # tco: change ``form`` so that it's evaluated on the next iteration
+           form = fs[3]
+       else:
+           return None
+
+``let*``
+""""""""
+
+``let*`` is used to introduce a new local ``Env`` with additional bindings.
+
+.. code-block:: python
+   :in-file: step7_quote.py
+   :in-slot: let
+
+   case S('let*'):
+       letenv = Env(env)
+       for binding, expr in itertools.batched(fs[1], n=2):
+           letenv.set(binding.name, evaluate(expr, letenv))
+
+       # tco: update both ``form`` and ``env`` so that it's evaluated on the next iteration
+       form = fs[2]
+       env = letenv
+
+``quote``
+"""""""""
+
+``quote`` is easy enough, since it suspends evaluation of the form we just return the form unchanged
+
+.. code-block:: python
+   :in-file: step7_quote.py
+   :in-slot: quote
+
+   case S("quote"):
+       return fs[1]
+
+
+``quasiquote``
+""""""""""""""
+
+``quasiquote`` is where things get interesting... it's quoting... but with the option of unquoting select forms.
+
+.. code-block:: python
+   :in-file: step7_quote.py
+   :in-slot: quasiquote
+
+   case S("quasiquote"):
+       # tco:
+       form = quasiquote(fs[1])
+
+The actual implementation in in the ``quasiquote`` function
+
+.. code-block:: python
+   :in-file: step7_quote.py
+   :in-slot: qquote_fn
+
+   def quasiquote(form):
+       match form:
+           case [S("unquote"), f]:
+               return f
+           case [*fs]:
+               l = []
+               for f in reversed(fs):
+                   match f:
+                       case [S("splice-unquote"), uq]:
+                           l = [S("concat"), uq, l]
+                       case _:
+                           l = [S("cons"), quasiquote(f), l]
+               return l
+           case S(s):
+               return [S("quote"), form]
+           case _:
+               return form
+
+Which also requires us to extend the set of builtin functions
+
+.. code-block:: python
+   :in-file: core.py
+   :in-slot: core_cons
+
+   @defn('cons')
+   def cons(v, lst):
+       return [v, *lst]
+
+   @defn('concat')
+   def concat(*lsts):
+       l = []
+       for lst in lsts:
+           l.extend(lst)
+       return l
+
+.. code-block:: python
+   :in-file: core.py
+   :in-slot: core_funcs
+
+   {{ insert(slots.core_math) }}
+   {{ insert(slots.core_comp) }}
+   {{ insert(slots.core_print) }}
+   {{ insert(slots.core_cons) }}
+   {{ insert(slots.core_list) }}
+   {{ insert(slots.core_eval) }}
+   {{ insert(slots.core_str) }}
+
+
+Interpreter
+-----------
+
+The main interpreter is essentially unchanged.
+
+**repl**
+
+.. code-block:: python
+   :in-file: step7_quote.py
+   :in-slot: repl
+
+   def repl(input_: io.TextIO):
+       env = Env()
+       for symb, val in ns.items():
+           env.set(symb, val)
+
+       env.set('eval', lambda f: evaluate(f, env))
+
+       lines = [
+           "(def! not (fn* (a) (if a false true)))",
+           '(def! load-file (fn* (f) (eval (read-string (str "(do " (slurp f) "\nnil)")))))',
+       ]
+
+       for line in lines:
+           evaluate(read(line), env)
+
+       print("user> ", end='', flush=True)
+       while (line := input_.readline()) != "":
+           try:
+               print(print_(evaluate(read(line), env)))
+           except EOFError:
+               print(f"EOF")
+           except KeyError as e:
+               print(f"{e.args[0]!r} not found")
+
+           print("user> ", end='', flush=True)
+
+
+**main**
+
+.. code-block:: python
+   :in-file: step7_quote.py
+
+   import itertools
+   import typing
+
+   from core import ns
+   from env import Env
+   from reader import S, read_str
+   from printer import print_form
+
+   if typing.TYPE_CHECKING:
+       import io
+
+   def read(input_):
+       return read_str(input_)
+
+   def print_(form):
+       return print_form(form)
+
+   {{ insert(slots.fn_class) }}
+   {{ insert(slots.qquote_fn) }}
+   {{ insert(slots.eval) }}
+   {{ insert(slots.repl) }}
+
+   if __name__ == "__main__":
+       import sys
+       repl(sys.stdin)

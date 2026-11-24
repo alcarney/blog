@@ -41,9 +41,11 @@ preview:
 	python -m http.server -d $(HTMLDIR) $(PORT)
 
 
+MAL_STEP ?= step8
 mal: dotfiles
 	-rm $(PROJECTS)/kanaka/mal/master/impls/py/*
 	cp $(DOTFILES)/mal-py/* $(PROJECTS)/kanaka/mal/master/impls/py/
-	make -C $(PROJECTS)/kanaka/mal/master/ test^py^step8
+	chmod +x $(PROJECTS)/kanaka/mal/master/impls/py/run
+	make -C $(PROJECTS)/kanaka/mal/master/ test^py^$(MAL_STEP)
 
 include .devcontainer/tools.mk

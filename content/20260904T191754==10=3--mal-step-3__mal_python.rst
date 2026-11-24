@@ -1,0 +1,149 @@
+:title: mal Step 3
+:date: 2026-09-04
+:tags: mal, python
+:identifier: 20260904T191754
+:signature: 10=3
+
+:in-project: mal-py
+:at-revision: 4
+
+Step 3: Environments
+====================
+
+This step is all about making the environment mutable from within the language.
+So we upgrade our environment representation from a simple dictionary to a class with a few extra features.
+
+.. code-block:: python
+   :in-file: env.py
+
+   from reader import S
+
+   class Env:
+       def __init__(self, outer: Env | None = None):
+           self.data = {}
+           self.outer = outer
+
+       def set(self, key: str, value):
+           self.data[key] = value
+
+       def get(self, key: str):
+           if (value := self.data.get(key)) is None:
+               if self.outer is not None:
+                   return self.outer.get(key)
+               raise KeyError(key)
+           return value
+
+The main feature of note is that environments can refer to parent, or ``outer`` environments.
+If a value cannot be found locally, the ``outer`` environment(s) will be checked before declaring a value to be undefined.
+
+Evaluation
+----------
+
+Of course, our ``evaluate`` function needs to be updated to take into account the new ``Env`` object.
+
+.. code-block:: python
+   :in-file: step3_env.py
+   :in-slot: eval
+
+   def evaluate(form, env: Env):
+       match form:
+           case S(name):
+               return env.get(name)
+           case []:
+               return []
+           case [*fs]:
+               match fs[0]:
+   {{ insert(slots.def, indent=16) }}
+   {{ insert(slots.let, indent=16) }}
+                   case _:
+                       f, *args = [evaluate(f, env) for f in fs]
+                       return f(*args)
+           case _:
+               return form
+
+``det!`` and ``let*``
+"""""""""""""""""""""
+
+This step also sees the addition of our first special forms.
+
+A "special form" is anything that is not evaluated using the regular rules of the language and therefore needs dedicated support from the interpreter.
+
+``(def! sym val)`` modifies the current environment to associate ``sym`` with the value of ``val``.
+
+.. code-block:: python
+   :in-file: step3_env.py
+   :in-slot: def
+
+   case S('def!'):
+       env.set(fs[1].name, v := evaluate(fs[2], env))
+       return v
+
+While ``(let* ((x 2)) (f x))`` creates a temporary environment with the additional entries, which is then used when evaluating the let form's body.
+
+.. code-block:: python
+   :in-file: step3_env.py
+   :in-slot: let
+
+   case S('let*'):
+       letenv = Env(env)
+       for binding, expr in itertools.batched(fs[1], n=2):
+           letenv.set(binding.name, evaluate(expr, letenv))
+       return evaluate(fs[2], letenv)
+
+
+Interpreter
+-----------
+
+**repl**
+
+The repl now gains the responsibility of setting up the initial environment.
+
+.. code-block:: python
+   :in-file: step3_env.py
+   :in-slot: repl
+
+   def repl(input_: io.TextIO):
+       env = Env()
+       env.set('+', lambda a,b: a+b)
+       env.set('-', lambda a,b: a-b)
+       env.set('*', lambda a,b: a*b)
+       env.set('/', lambda a,b: int(a/b))
+
+       print("user> ", end='', flush=True)
+       while (line := input_.readline()) != "":
+           try:
+               print(print_(evaluate(read(line), env)))
+           except EOFError:
+               print(f"EOF")
+           except KeyError as e:
+               print(f"{e.args[0]!r} not found")
+
+           print("user> ", end='', flush=True)
+
+**main**
+
+.. code-block:: python
+   :in-file: step3_env.py
+
+   import itertools
+   import typing
+
+   from env import Env
+   from reader import S, read_str
+   from printer import print_form
+
+   if typing.TYPE_CHECKING:
+       import io
+
+   def read(input_):
+       return read_str(input_)
+
+   def print_(form):
+       return print_form(form)
+
+   {{ insert(slots.eval) }}
+   {{ insert(slots.repl) }}
+
+   if __name__ == "__main__":
+       import sys
+       repl(sys.stdin)

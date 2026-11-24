@@ -1,0 +1,369 @@
+:title: mal Step 8
+:date: 2026-09-06
+:tags: mal, python
+:identifier: 20260906T122503
+:signature: 10=8
+
+:in-project: mal-py
+:at-revision: 9
+
+Step 8: Macros
+==============
+
+
+Evaluation
+----------
+
+This sees the addition of ``defmacro!``
+
+.. code-block:: python
+   :in-file: step8_macros.py
+   :in-slot: eval
+
+   def evaluate(form, env: Env):
+       while True:
+           match form:
+               case S(name):
+                   return env.get(name)
+               case []:
+                   return []
+               case [*fs]:
+                   match fs[0]:
+   {{ insert(slots.def, indent=20) }}
+   {{ insert(slots.defmacro, indent=20) }}
+   {{ insert(slots.do, indent=20) }}
+   {{ insert(slots.fn, indent=20) }}
+   {{ insert(slots.if, indent=20) }}
+   {{ insert(slots.let, indent=20) }}
+   {{ insert(slots.quote, indent=20) }}
+   {{ insert(slots.quasiquote, indent=20) }}
+   {{ insert(slots.normal_form, indent=20) }}
+               case _:
+                   return form
+
+
+Special forms
+^^^^^^^^^^^^^
+
+By definition, each special form is an edge case and needs to be handled separately.
+
+``def!``
+""""""""
+
+``def!`` is how ``mal`` spells ``setq`` and updates the current environment
+
+.. code-block:: python
+   :in-file: step8_macros.py
+   :in-slot: def
+
+   case S('def!'):
+       env.set(fs[1].name, v := evaluate(fs[2], env))
+       return v
+
+``defmacro!``
+"""""""""""""
+
+Macros under the hood, are "just" functions which get added to the environment the same way.
+
+.. code-block:: python
+   :in-file: step8_macros.py
+   :in-slot: defmacro
+
+   case S('defmacro!'):
+       if not isinstance(fn := evaluate(fs[2], env), Fn):
+          raise RuntimeError("macros must be mal functions.")
+
+       fn.is_macro = True
+       env.set(fs[1].name, fn)
+       return fn
+
+What makes them interesting is how they are evaluated.
+
+.. code-block:: python
+   :in-file: step8_macros.py
+   :in-slot: normal_form
+
+   case _:
+       # the potential of macros means that we shouldn't eval arguments - yet.
+       if not (isinstance(f := evaluate(fs[0], env), Fn) or callable(f)):
+           raise RuntimeError("not a function")
+
+       match f:
+           case Fn(params, body, fenv, True):
+               # tco: handle mal macro calls
+               #      macros choose if they eval arguments
+               args = fs[1:]
+               menv = Env(outer=fenv, binds=params, exprs=args)
+               form = evaluate(body, menv) # expand macro, result is eval'd on next iteration.
+               env  = env                  # expansion is eval'd in same env as macro call.
+           case Fn(params, body, fenv, False):
+               # tco: handle mal function calls.
+               #      functions evaluate all arguments.
+               args = [evaluate(f, env) for f in fs[1:]]
+               form=body
+               env = Env(outer=fenv, binds=params, exprs=args)
+           case _:
+               #      functions evaluate all arguments.
+               args = [evaluate(f, env) for f in fs[1:]]
+               return f(*args)
+
+I had the same thought when functions were added, they are surprisingly straightforward just a slight twist on concepts already introduced.
+
+- Unlike a normal function, the arguments to a macro are not automatically evaluated by the, interpreter.
+  Instead the macro can decide when, or even if, they are evaluated.
+
+- Evaluation takes place in two stages, first the macro returns a form, that form is then subsequently evaluated in the original environment in which the macro was invoked.
+
+To support this I had to tweak the definition of ``Fn`` to keep track of if it was a macro or not.
+
+.. code-block:: python
+   :in-file: step8_macros.py
+   :in-slot: fn_class
+
+   class Fn:
+       __match_args__ = ("params", "body", "env", "is_macro")
+
+       def __init__(self, params, body, env, f):
+           self.params = params
+           self.body = body
+           self.env = env
+           self.f = f  # not needed until step 6
+           self.is_macro = False  # set by defmacro!
+
+       # Let's cheat so that core functions don't have to know which flavour of
+       # function they are calling
+       def __call__(self, *args):
+           return self.f(*args)
+
+       def __repr__(self):
+           return "#<macro>" if self.is_macro else "#<function>"
+
+``do``
+""""""
+
+Equivalent to ``progn``, evals all terms and returns the last one.
+
+.. code-block:: python
+   :in-file: step8_macros.py
+   :in-slot: do
+
+   case S('do'):
+       # tco: evaluate() everything except for the final item
+       for f in fs[1:-1]:
+           evaluate(f, env)
+
+       # tco: update ``form`` to be the final element so that it's evaluated on the
+       # next iteration
+       form = fs[-1]
+
+``fn*``
+"""""""
+
+a.k.a lambda.
+
+.. code-block:: python
+   :in-file: step8_macros.py
+   :in-slot: fn
+
+   case S('fn*'):
+       def fn(*args):
+           localenv = Env(outer=env, binds=fs[1], exprs=args)
+           return evaluate(fs[2], localenv)
+
+       # tco: return Fn rather than Python function def
+       return Fn(params=fs[1], body=fs[2], env=env, f=fn)
+
+Of course, the fact Python already has closures means that it is doing all the heavy lifting!
+
+``if``
+""""""
+
+``mal`` considers anything that is not ``false`` or ``nil`` to be ``true``.
+Python however, considers other values like ``0`` to *also* be False!
+
+This mismatch made implementing if surprisingly difficult, especially when it likes to coerce ``0`` to ``False`` or ``False`` to ``0``.
+
+The best I have come up with so far is to call ``print_form`` on the result and check the string values.
+
+.. code-block:: python
+   :in-file: step8_macros.py
+   :in-slot: if
+
+   case S('if'):
+       t = print_form(evaluate(fs[1], env))
+       if t not in {'false', 'nil'}:
+           # tco: change ``form`` so that it's evaluated on the next iteration
+           form = fs[2]
+       elif len(fs) > 3:
+           # tco: change ``form`` so that it's evaluated on the next iteration
+           form = fs[3]
+       else:
+           return None
+
+``let*``
+""""""""
+
+``let*`` is used to introduce a new local ``Env`` with additional bindings.
+
+.. code-block:: python
+   :in-file: step8_macros.py
+   :in-slot: let
+
+   case S('let*'):
+       letenv = Env(env)
+       for binding, expr in itertools.batched(fs[1], n=2):
+           letenv.set(binding.name, evaluate(expr, letenv))
+
+       # tco: update both ``form`` and ``env`` so that it's evaluated on the next iteration
+       form = fs[2]
+       env = letenv
+
+``quote``
+"""""""""
+
+``quote`` is easy enough, since it suspends evaluation of the form we just return the form unchanged
+
+.. code-block:: python
+   :in-file: step8_macros.py
+   :in-slot: quote
+
+   case S("quote"):
+       return fs[1]
+
+
+``quasiquote``
+""""""""""""""
+
+``quasiquote`` is where things get interesting... it's quoting... but with the option of unquoting select forms.
+
+.. code-block:: python
+   :in-file: step8_macros.py
+   :in-slot: quasiquote
+
+   case S("quasiquote"):
+       # tco:
+       form = quasiquote(fs[1])
+
+The actual implementation in in the ``quasiquote`` function
+
+.. code-block:: python
+   :in-file: step8_macros.py
+   :in-slot: qquote_fn
+
+   def quasiquote(form):
+       match form:
+           case [S("unquote"), f]:
+               return f
+           case [*fs]:
+               l = []
+               for f in reversed(fs):
+                   match f:
+                       case [S("splice-unquote"), uq]:
+                           l = [S("concat"), uq, l]
+                       case _:
+                           l = [S("cons"), quasiquote(f), l]
+               return l
+           case S(s):
+               return [S("quote"), form]
+           case _:
+               return form
+
+Reader
+------
+
+I thought I could get away with it, but the test suite for step 8 kind of forces you to implement the reader macros for ``quote``, ``unquote``, ``splice-unquote`` and ``quasiquote``
+
+.. code-block:: python
+   :in-file: reader.py
+   :in-slot: read_form
+
+   def read_form(reader: Reader):
+       match reader.peek():
+           case '(':
+               return read_list(reader)
+           case "'":
+               tok = reader.next()
+               return [S("quote"), read_form(reader)]
+           case "~":
+               tok = reader.next()
+               return [S("unquote"), read_form(reader)]
+           case "~@":
+               tok = reader.next()
+               return [S("splice-unquote"), read_form(reader)]
+           case "`":
+               tok = reader.next()
+               return [S("quasiquote"), read_form(reader)]
+           case _:
+               return read_atom(reader)
+
+Thankfully, they are quite straightforward!
+
+Interpreter
+-----------
+
+Again, the main interpreter is essentially unchanged.
+
+**repl**
+
+.. code-block:: python
+   :in-file: step8_macros.py
+   :in-slot: repl
+
+   def repl(input_: io.TextIO):
+       env = Env()
+       for symb, val in ns.items():
+           env.set(symb, val)
+
+       env.set('eval', lambda f: evaluate(f, env))
+
+       lines = [
+           "(def! not (fn* (a) (if a false true)))",
+           '(def! load-file (fn* (f) (eval (read-string (str "(do " (slurp f) "\nnil)")))))',
+       ]
+
+       for line in lines:
+           evaluate(read(line), env)
+
+       print("user> ", end='', flush=True)
+       while (line := input_.readline()) != "":
+           try:
+               print(print_(evaluate(read(line), env)))
+           except EOFError:
+               print(f"EOF")
+           except KeyError as e:
+               print(f"{e.args[0]!r} not found")
+
+           print("user> ", end='', flush=True)
+
+
+**main**
+
+.. code-block:: python
+   :in-file: step8_macros.py
+
+
+   import itertools
+   import typing
+
+   from core import ns
+   from env import Env
+   from reader import S, read_str
+   from printer import print_form
+
+   if typing.TYPE_CHECKING:
+       import io
+
+   def read(input_):
+       return read_str(input_)
+
+   def print_(form):
+       return print_form(form)
+
+   {{ insert(slots.fn_class) }}
+   {{ insert(slots.qquote_fn) }}
+   {{ insert(slots.eval) }}
+   {{ insert(slots.repl) }}
+
+   if __name__ == "__main__":
+       import sys
+       repl(sys.stdin)

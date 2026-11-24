@@ -1,0 +1,348 @@
+:title: mal Step 6
+:date: 2026-09-05
+:tags: mal, python
+:identifier: 20260905T122636
+:signature: 10=6
+
+:in-project: mal-py
+:at-revision: 7
+
+Step 6: Files & Eval
+====================
+
+Evaluation
+----------
+
+I think this is the first step without any changes to the evaluator.
+
+.. code-block:: python
+   :in-file: step6_file.py
+   :in-slot: eval
+
+   def evaluate(form, env: Env):
+       while True:
+           match form:
+               case S(name):
+                   return env.get(name)
+               case []:
+                   return []
+               case [*fs]:
+                   match fs[0]:
+   {{ insert(slots.def, indent=20) }}
+   {{ insert(slots.do, indent=20) }}
+   {{ insert(slots.fn, indent=20) }}
+   {{ insert(slots.if, indent=20) }}
+   {{ insert(slots.let, indent=20) }}
+   {{ insert(slots.normal_form, indent=20) }}
+               case _:
+                   return form
+
+Special forms
+^^^^^^^^^^^^^
+
+A "special form" is anything that is not evaluated using the regular rules of the language and therefore needs dedicated support from the interpreter.
+
+``def!``
+""""""""
+
+``def!`` is how ``mal`` spells ``setq`` and updates the current environment
+
+.. code-block:: python
+   :in-file: step6_file.py
+   :in-slot: def
+
+   case S('def!'):
+       env.set(fs[1].name, v := evaluate(fs[2], env))
+       return v
+
+``do``
+""""""
+
+Equivalent to ``progn``, evals all terms and returns the last one.
+
+Now that we're implementing TCO, the trick is not to recursively call evaluate on the final form, and instead modify the value of ``form`` so that it's evaluated on the next loop iteration.
+
+.. code-block:: python
+   :in-file: step6_file.py
+   :in-slot: do
+
+   case S('do'):
+       for f in fs[1:-1]:
+           evaluate(f, env)
+       form = fs[-1]
+
+``fn*``
+"""""""
+
+To enable TCO for ``mal`` function calls, rather than return ``fn`` directly as we did in the previous step we return a ``Fn`` object.
+
+.. code-block:: python
+   :in-file: step6_file.py
+   :in-slot: fn
+
+   case S('fn*'):
+       def fn(*args):
+           localenv = Env(outer=env, binds=fs[1], exprs=args)
+           return evaluate(fs[2], localenv)
+
+       # tco: return Fn rather than Python function def
+       return Fn(params=fs[1], body=fs[2], env=env, f=fn)
+
+This then allow the evaluation loop to unpack the function application in a way that aligns with the approach taken by TCO.
+
+.. code-block:: python
+   :in-file: step6_file.py
+   :in-slot: normal_form
+
+   case _:
+       f, *args = [evaluate(f, env) for f in fs]
+       match f:
+           case Fn(params, body, fenv, fn):
+               form=body
+               env = Env(outer=fenv, binds=params, exprs=args)
+           case _:
+               return f(*args)
+
+
+Where the ``Fn`` object is defined as follows
+
+.. code-block:: python
+   :in-file: step6_file.py
+   :in-slot: fn_class
+
+   class Fn:
+       __match_args__ = ("params", "body", "env", "f")
+
+       def __init__(self, params, body, env, f):
+           self.params = params
+           self.body = body
+           self.env = env
+           self.f = f  # not needed until step 9?
+
+       def __repr__(self):
+           return "#<function>"
+
+``if``
+""""""
+
+``mal`` considers anything that is not ``false`` or ``nil`` to be ``true``.
+Python however, considers other values like ``0`` to *also* be False!
+
+This mismatch made implementing if surprisingly difficult, especially when it likes to coerce ``0`` to ``False`` or ``False`` to ``0``.
+
+The best I have come up with so far is to call ``print_form`` on the result and check the string values.
+
+.. code-block:: python
+   :in-file: step6_file.py
+   :in-slot: if
+
+   case S('if'):
+       t = print_form(evaluate(fs[1], env))
+       if t not in {'false', 'nil'}:
+           # tco: change ``form`` so that it's evaluated on the next iteration
+           form = fs[2]
+       elif len(fs) > 3:
+           # tco: change ``form`` so that it's evaluated on the next iteration
+           form = fs[3]
+       else:
+           return None
+
+``let*``
+""""""""
+
+``let*`` is used to introduce a new local ``Env`` with additional bindings.
+
+.. code-block:: python
+   :in-file: step6_file.py
+   :in-slot: let
+
+   case S('let*'):
+       letenv = Env(env)
+       for binding, expr in itertools.batched(fs[1], n=2):
+           letenv.set(binding.name, evaluate(expr, letenv))
+
+       # tco: update both ``form`` and ``env`` so that it's evaluated on the next iteration
+       form = fs[2]
+       env = letenv
+
+Core Functions
+--------------
+
+This step adds some more core functions which are grouped by domain.
+
+.. code-block:: python
+   :in-file: core.py
+   :in-slot: core_funcs
+
+   {{ insert(slots.core_math) }}
+   {{ insert(slots.core_comp) }}
+   {{ insert(slots.core_print) }}
+   {{ insert(slots.core_list) }}
+   {{ insert(slots.core_eval) }}
+   {{ insert(slots.core_str) }}
+
+Eval
+^^^^
+
+.. code-block:: core.py
+   :in-file: core.py
+   :in-slot: core_eval
+
+   import pathlib
+   from reader import read_str
+
+   @defn('read-string')
+   def read(s):
+       return read_str(s)
+
+   @defn('slurp')
+   def slurp(s):
+       return pathlib.Path(s).read_text()
+
+
+Strings
+^^^^^^^
+
+.. code-block:: python
+   :in-file: core.py
+   :in-slot: core_str
+
+   @defn('str')
+   def tostr(*args):
+       return "".join(args)
+
+Reader
+------
+
+For the ``read-string`` function added in the previous section to work, the reader needs to be updated to support reading strings!
+
+.. code-block:: python
+   :in-file: reader.py
+   :in-slot: read_atom
+
+   def read_atom(reader: Reader):
+       tok = reader.next()
+       if tok in {'(', ')'}:
+           raise RuntimeError(f"Expected atom, got {tok!r}")
+
+       with contextlib.suppress(ValueError):
+           return int(tok)
+
+       match tok:
+           case 'true':
+               return True
+           case 'false':
+               return False
+           case 'nil':
+               return None
+           case str(s) if s.startswith('"'):
+               return parse_string(s)
+           case _:
+               return S(tok)
+
+Where ``parse_string`` is defined as follows:
+
+.. code-block:: python
+   :in-file: reader.py
+   :in-slot: read_atom
+
+   def parse_string(s: str) -> str:
+       if not s.endswith('"'):
+           raise RuntimeError(f"unterminated string literal: {s!r}")
+
+       return (s[1:-1].replace('\\\"', '"')
+                      .replace("\\n",  "\n")
+                      .replace("\\\\", "\\"))
+
+Printer
+-------
+
+And if we change the reader, then we also need to update the printer
+
+.. code-block:: python
+   :in-file: printer.py
+
+   import json
+
+   def print_form(form):
+       match form:
+          case [*fs]:
+              inner = " ".join(print_form(f) for f in fs)
+              return f"({inner})"
+          case True:
+              return 'true'
+          case False:
+              return 'false'
+          case None:
+              return 'nil'
+          case str(s):
+              return json.dumps(s)
+          case _:
+              return str(form)
+
+Interpreter
+-----------
+
+Most of the changes in this step are in the repl, adding the first builtin mal functions.
+
+**repl**
+
+.. code-block:: python
+   :in-file: step6_file.py
+   :in-slot: repl
+
+   def repl(input_: io.TextIO):
+       env = Env()
+       for symb, val in ns.items():
+           env.set(symb, val)
+
+       env.set('eval', lambda f: evaluate(f, env))
+
+       lines = [
+           "(def! not (fn* (a) (if a false true)))",
+           '(def! load-file (fn* (f) (eval (read-string (str "(do " (slurp f) "\nnil)")))))',
+       ]
+
+       for line in lines:
+           evaluate(read(line), env)
+
+       print("user> ", end='', flush=True)
+       while (line := input_.readline()) != "":
+           try:
+               print(print_(evaluate(read(line), env)))
+           except EOFError:
+               print(f"EOF")
+           except KeyError as e:
+               print(f"{e.args[0]!r} not found")
+
+           print("user> ", end='', flush=True)
+
+**main**
+
+.. code-block:: python
+   :in-file: step6_file.py
+
+   import itertools
+   import typing
+
+   from core import ns
+   from env import Env
+   from reader import S, read_str
+   from printer import print_form
+
+   if typing.TYPE_CHECKING:
+       import io
+
+   def read(input_):
+       return read_str(input_)
+
+   def print_(form):
+       return print_form(form)
+
+   {{ insert(slots.fn_class) }}
+   {{ insert(slots.eval) }}
+   {{ insert(slots.repl) }}
+
+   if __name__ == "__main__":
+       import sys
+       repl(sys.stdin)

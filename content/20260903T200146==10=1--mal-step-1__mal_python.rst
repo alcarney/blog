@@ -1,0 +1,281 @@
+:title: mal step 1
+:date: 2026-09-03
+:tags: mal, python
+:identifier: 20260903T200146
+:signature: 10=1
+
+:in-project: mal-py
+:at-revision: 2
+
+Step 1: Reading and Printing
+============================
+
+With the basic framework setup, step one is about converting the raw input string into out implementation's internal representation and back again.
+
+The Reader
+----------
+
+:in-file: reader.py
+
+
+In lisps, the component responsible for converting raw input text into the data structure representing the program is called the *reader*.
+
+.. code-block:: python
+
+   import contextlib
+   import json
+   import re
+
+   {{ insert(slots.tokeniser) }}
+   {{ insert(slots.reader) }}
+   {{ insert(slots.read_form) }}
+   {{ insert(slots.read_list) }}
+   {{ insert(slots.read_atom) }}
+   {{ insert(slots.read_str) }}
+   {{ insert(slots.symbol) }}
+
+Tokenising
+""""""""""
+
+The first step is to break up the input stream into a sequence of tokens, the suggested way to do this is with a fairly intimidating regular expression.
+Thankfully, by compiling it with ``re.VERBOSE`` we can at least annotate it.
+
+.. code-block:: python
+   :in-slot: tokeniser
+
+   TOKEN = re.compile(
+       r"""
+           [\s,]*                            # tokens are separated by whitespace or commas
+           (                                 # a token is ...
+             ~@                              #   a literal '~@'
+           | [\[\]{}()'`~^@]                 #   or a literal  "[", "]", "{", "}", "(", ")", "'", "`", "~", "^", "@"
+           | "(?:                            #   or a string i.e. '"' followed by
+                 \\.                         #      an escaped character e.g. '\n'
+               | [^\\"]                      #      anything except '\' or '"'
+              )*                             #      (repeated zero or more times)
+             "?                              #      closed by a '"' (made optional to also handle invalid strings)
+           | ;.*                             #   or a comment i.e. ';' followed by anything (except newlines) zero or more times
+           | [^\s\[\]{}()'"`,;]*             #   or a symbol i.e. a sequence of zero or more non-special characters
+           )
+       """,
+       re.VERBOSE,
+   )
+
+The ``(?:`` syntax was new to me, apparently this defines a "non-capturing group". It allows you to express ``A or B`` without the group showing up in ``Match.groups()`` - nice!.
+
+Using this pattern, we can now define a function that takes a string and return a list of tokens.
+
+.. code-block:: python
+   :in-slot: tokeniser
+
+   def tokenise(text: str) -> list[str]:
+       return TOKEN.findall(text)
+
+Reader
+""""""
+
+To help manage the stream of tokens, the mal guide suggests creating a ``Reader`` object
+
+.. code-block:: python
+   :in-slot: reader
+
+   class Reader:
+
+       def __init__(self, tokens):
+           self.tokens = tokens
+           self.pos = 0
+
+   {{ insert(slots['reader-methods'], indent=4) }}
+
+Which provides the following methods:
+
+- A ``next`` method to return the current token and advances the position.
+
+  .. code-block:: python
+     :in-slot: reader-methods
+
+     def next(self):
+         try:
+             tok = self.tokens[self.pos]
+         except IndexError:
+             raise EOFError()
+         self.pos += 1
+         return tok
+
+- A ``peek`` method that simply returns the current token
+
+  .. code-block:: python
+     :in-slot: reader-methods
+
+     def peek(self):
+         try:
+             return self.tokens[self.pos]
+         except IndexError:
+             raise EOFError()
+
+read_form
+"""""""""
+
+The generic ``read_form`` method dispatches to specialised read methods depending on what the current token is.
+
+.. code-block:: python
+   :in-slot: read_form
+
+   def read_form(reader: Reader):
+       match reader.peek():
+           case '(':
+               return read_list(reader)
+           case _:
+               return read_atom(reader)
+
+read_list
+"""""""""
+
+As you would expect ``read_list`` is responsible for constructing lists
+
+.. code-block:: python
+   :in-slot: read_list
+
+   def read_list(reader: Reader):
+       if (tok := reader.next()) != '(':
+           raise RuntimeError(f"Expected '(', got {tok!r}")
+
+       items = []
+       while reader.peek() != ')':
+           items.append(read_form(reader))
+
+       if (tok := reader.next()) != ')':
+           raise RuntimeError(f"Expected ')', got {tok!r}")
+
+       return items
+
+read_atom
+"""""""""
+
+An atom is "everything else"
+
+.. code-block:: python
+   :in-slot: read_atom
+
+   def read_atom(reader: Reader):
+       tok = reader.next()
+       if tok in {'(', ')'}:
+           raise RuntimeError(f"Expected atom, got {tok!r}")
+
+       with contextlib.suppress(ValueError):
+           return int(tok)
+
+       # Step 1 notes say we can assume everything else is a symbol for now.
+       return S(tok)
+
+read_str
+""""""""
+
+Finally, ``read_str`` ties it all together.
+
+.. code-block:: python
+   :in-slot: read_str
+
+   def read_str(ins: str):
+       reader = Reader(tokenise(ins))
+       return read_form(reader)
+
+Printer
+-------
+
+The printer is the opposite of the reader, it takes lisp objects and converts them to a string
+
+.. code-block:: python
+   :in-file: printer.py
+
+   def print_form(form):
+       match form:
+          case [*fs]:
+              inner = " ".join(print_form(f) for f in fs)
+              return f"({inner})"
+
+          case _:
+              return str(form)
+
+Symbols
+-------
+
+The ``S`` class I've been using to represent symbols is a simple wrapper around a string.
+
+.. code-block:: python
+   :in-slot: symbol
+
+   class S:
+       def __init__(self, name: str):
+           self.name = name
+
+       def __repr__(self):
+           return self.name
+
+Interpreter
+-----------
+
+With all the work done elsewhere, the core interpreter does not change that much.
+
+**read**
+
+.. code-block:: python
+   :in-file: step1_read_print.py
+   :in-slot: read
+
+   def read(input_: str):
+       return read_str(input_)
+
+**eval**
+
+.. code-block:: python
+   :in-file: step1_read_print.py
+   :in-slot: eval
+
+   def evaluate(form):
+       return form
+
+**print**
+
+.. code-block:: python
+   :in-file: step1_read_print.py
+   :in-slot: print
+
+   def print_(form):
+       return print_form(form)
+
+**repl**
+
+.. code-block:: python
+   :in-file: step1_read_print.py
+   :in-slot: repl
+
+   def repl(input_: io.TextIO):
+       print("user> ", end="", flush=True)
+       while (line := input_.readline()) != "":
+           try:
+               print(print_(evaluate(read(line))))
+           except EOFError:
+               print("EOF")
+           print("user> ", end="", flush=True)
+
+**main**
+
+.. code-block:: python
+   :in-file: step1_read_print.py
+
+   import typing
+   from reader import read_str
+   from printer import print_form
+
+   if typing.TYPE_CHECKING:
+       import io
+
+   {{ insert(slots.read) }}
+   {{ insert(slots.eval) }}
+   {{ insert(slots.print) }}
+   {{ insert(slots.repl) }}
+
+   if __name__ == "__main__":
+       import sys
+       repl(sys.stdin)

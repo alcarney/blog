@@ -1,0 +1,159 @@
+:title: mal Step 2
+:date: 2026-09-04
+:tags: mal, python
+:identifier: 20260904T183038
+:signature: 10=2
+
+:in-project: mal-py
+:at-revision: 3
+
+Step 2: Evaluation
+==================
+
+
+Environment
+-----------
+
+This step introduces the environment.
+The environment is where symbols are associated with values - which can include functions
+
+.. code-block:: python
+   :in-file: step2_eval.py
+   :in-slot: env
+
+   env = {
+     '+': lambda a,b: a+b,
+     '-': lambda a,b: a-b,
+     '*': lambda a,b: a*b,
+     '/': lambda a,b: int(a/b)
+   }
+
+
+Evaluation
+----------
+
+This step also introduces the basics of evaluation.
+
+.. code-block:: python
+   :in-file: step2_eval.py
+   :in-slot: eval
+
+   def evaluate(form, env):
+       match form:
+   {{ insert(slots.eval_symbol, indent=8) }}
+   {{ insert(slots.eval_list, indent=8) }}
+           case _:
+               return form
+
+Symbols
+"""""""
+
+Symbols are converted to their associated value within the environment.
+
+.. code-block:: python
+   :in-file: step2_eval.py
+   :in-slot: eval_symbol
+
+   case S(name):
+       return env[name]
+
+which requires us to tweak the definition of the ``S`` class to make it "match-able"
+
+.. code-block:: python
+   :in-file: reader.py
+   :in-slot: symbol
+
+   class S:
+       __match_args__ = ("name",)
+
+       def __init__(self, name: str):
+           self.name = name
+
+       def __repr__(self):
+           return self.name
+
+Lists
+"""""
+
+An empty list evaluates to itself.
+
+.. code-block:: python
+   :in-file: step2_eval.py
+   :in-slot: eval_list
+
+   case []:
+       return []
+
+Otherwise the first element is treated as a function with the remaining elements as its arguments.
+
+.. code-block:: python
+   :in-file: step2_eval.py
+   :in-slot: eval_list
+
+   case [*fs]:
+    f, *args = [evaluate(f, env) for f in fs]
+    return f(*args)
+
+
+Interpreter
+-----------
+
+In this step the rest of the interpreter is mostly unchanged.
+
+**read**
+
+.. code-block:: python
+   :in-file: step2_eval.py
+   :in-slot: read
+
+   def read(input_: str):
+       return read_str(input_)
+
+**print**
+
+.. code-block:: python
+   :in-file: step2_eval.py
+   :in-slot: print
+
+   def print_(form):
+       return print_form(form)
+
+**repl**
+
+.. code-block:: python
+   :in-file: step2_eval.py
+   :in-slot: repl
+
+   def repl(input_: io.TextIO):
+       print("user> ", end='', flush=True)
+       while (line := input_.readline()) != "":
+           try:
+               print(print_(evaluate(read(line), env)))
+           except EOFError:
+               print(f"EOF")
+           except KeyError as e:
+               print(f"undefined symbol {e.args[0]!r}")
+           print("user> ", end='', flush=True)
+
+
+**main**
+
+.. code-block:: python
+   :in-file: step2_eval.py
+
+   import typing
+   from reader import S, read_str
+   from printer import print_form
+
+   if typing.TYPE_CHECKING:
+       import io
+
+   {{ insert(slots.env) }}
+   {{ insert(slots.read) }}
+   {{ insert(slots.eval) }}
+   {{ insert(slots.print) }}
+   {{ insert(slots.repl) }}
+
+   if __name__ == "__main__":
+       import sys
+       repl(sys.stdin)
